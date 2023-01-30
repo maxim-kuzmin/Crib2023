@@ -3,15 +3,36 @@ version: '3.8'
 services:
 
   backend-gateway-webapi:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "8080:80"
 
-  backend-service-catalog:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development    
+  backend-service-catalog: {}
 
-  backend-service-filestorage:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development    
+  backend-service-filestorage: {}
+      
+  external-minio:
+    ports:
+      - "9000:9000"
+      - "9001:9001"    
+
+  external-postgres:
+    ports:
+      - "5432:5432"
+
+  external-pgadmin:
+    ports:
+      - "5050:80"
+
+  external-rabbitmq:
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  frontend-react-typescript:
+    build:
+      context: .
+      dockerfile: Crib2023.Frontend.React.TypeScript.App/debug/Dockerfile
+    volumes:
+      - ./Crib2023.Frontend.React.TypeScript.App:/app
+    ports:
+      - "8081:3000"

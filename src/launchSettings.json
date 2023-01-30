@@ -2,7 +2,10 @@
   "profiles": {
     "Backend": {
       "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
       "composeLaunchServiceName": "backend-gateway-webapi",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger/",
       "serviceActions": {
         "backend-gateway-webapi": "StartDebugging",
         "backend-service-catalog": "StartDebugging",
@@ -10,14 +13,13 @@
         "external-minio": "DoNotStart",
         "external-postgres": "DoNotStart",
         "external-pgadmin": "DoNotStart",
-        "external-rabbitmq": "DoNotStart"
-      },
-      "composeLaunchAction": "LaunchBrowser",
-      "commandVersion": "1.0",
-      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger/"
+        "external-rabbitmq": "DoNotStart",
+        "frontend-react-typescript": "DoNotStart"
+      }
     },
     "External": {
       "commandName": "DockerCompose",
+      "commandVersion": "1.0",
       "serviceActions": {
         "backend-gateway-webapi": "DoNotStart",
         "backend-service-catalog": "DoNotStart",
@@ -25,9 +27,23 @@
         "external-minio": "StartWithoutDebugging",
         "external-postgres": "StartWithoutDebugging",
         "external-pgadmin": "StartWithoutDebugging",
-        "external-rabbitmq": "StartWithoutDebugging"
-      },
-      "commandVersion": "1.0"
+        "external-rabbitmq": "StartWithoutDebugging",
+        "frontend-react-typescript": "DoNotStart"
+      }
+    },
+    "Frontend": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "backend-gateway-webapi": "DoNotStart",
+        "backend-service-catalog": "DoNotStart",
+        "backend-service-filestorage": "DoNotStart",
+        "external-minio": "DoNotStart",
+        "external-postgres": "DoNotStart",
+        "external-pgadmin": "DoNotStart",
+        "external-rabbitmq": "DoNotStart",
+        "frontend-react-typescript": "StartWithoutDebugging"
+      }
     }
   }
 }

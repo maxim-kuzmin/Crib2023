@@ -6,9 +6,12 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-gateway-webapi
     build:
       context: .
-      dockerfile: Crib2023.Gateways.WebAPI.App/Dockerfile
+      dockerfile: Crib2023.Backend.Gateways.WebAPI.App/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     networks:
       - network-backend
+      - network-frontend
     depends_on:
       - backend-service-catalog
       - backend-service-filestorage
@@ -21,7 +24,9 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-catalog
     build:
       context: .
-      dockerfile: Crib2023.Services.Catalog.App/Dockerfile
+      dockerfile: Crib2023.Backend.Services.Catalog.App/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     networks:
       - network-backend
 
@@ -29,22 +34,23 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-filestorage
     build:
       context: .
-      dockerfile: Crib2023.Services.FileStorage.App/Dockerfile
+      dockerfile: Crib2023.Backend.Services.FileStorage.App/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     networks:
       - network-backend
     
   external-minio:
     container_name: ${MY_CONTAINER_NAME_PEFIX}external-minio
     image: quay.io/minio/minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
     environment:
       - MINIO_ROOT_USER=${MY_DEFAULT_LOGIN}
       - MINIO_ROOT_PASSWORD=${MY_DEFAULT_PASSWORD}
     command: server /data --console-address ":9001"
     volumes:
       - ${MY_DOCKER_FOLDER}minio/data:/data
+    networks:
+      - network-backend
 
   external-postgres:
     container_name: ${MY_CONTAINER_NAME_PEFIX}external-postgres
@@ -56,8 +62,8 @@ services:
       - PGDATA=/var/lib/postgres/data
     volumes:
       - ${MY_DOCKER_FOLDER}postgres/data:/var/lib/postgres/data
-    ports:
-      - "5432:5432"
+    networks:
+      - network-backend
 
   external-pgadmin:
     container_name: ${MY_CONTAINER_NAME_PEFIX}external-pgadmin
@@ -68,8 +74,8 @@ services:
       - PGADMIN_CONFIG_SERVER_MODE=False
     volumes:
       - ${MY_DOCKER_FOLDER}pgadmin:/var/lib/pgadmin
-    ports:
-      - "5050:80"
+    networks:
+      - network-backend
 
   external-rabbitmq:
     container_name: ${MY_CONTAINER_NAME_PEFIX}external-rabbitmq
@@ -80,10 +86,21 @@ services:
       - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
     volumes:
       - ${MY_DOCKER_FOLDER}rabbitmq/data:/var/lib/rabbitmq
-    ports:
-      - 15672:15672
-      - 5672:5672
+    networks:
+      - network-backend
+
+  frontend-react-typescript:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}frontend-react-typescript
+    build:
+      context: .
+      dockerfile: Crib2023.Frontend.React.TypeScript.App/Dockerfile
+    #depends_on:
+    #  - backend-gateway-webapi
+    networks:
+      - network-frontend
 
 networks:
   network-backend:
+    attachable: true
+  network-frontend:
     attachable: true
