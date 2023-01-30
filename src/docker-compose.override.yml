@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+
+  backend-gateway-webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8080:80"
+
+  backend-service-catalog:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development    
+
+  backend-service-filestorage:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development    

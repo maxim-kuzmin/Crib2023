@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+
+  backend-gateway-webapi:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-gateway-webapi
+    build:
+      context: .
+      dockerfile: Crib2023.Gateways.WebAPI.App/Dockerfile
+    networks:
+      - network-backend
+    depends_on:
+      - backend-service-catalog
+      - backend-service-filestorage
+      - external-minio
+      - external-pgadmin
+      - external-postgres
+      - external-rabbitmq
+
+  backend-service-catalog:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-catalog
+    build:
+      context: .
+      dockerfile: Crib2023.Services.Catalog.App/Dockerfile
+    networks:
+      - network-backend
+
+  backend-service-filestorage:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-filestorage
+    build:
+      context: .
+      dockerfile: Crib2023.Services.FileStorage.App/Dockerfile
+    networks:
+      - network-backend
+    
+  external-minio:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-minio
+    image: quay.io/minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MY_DEFAULT_LOGIN}
+      - MINIO_ROOT_PASSWORD=${MY_DEFAULT_PASSWORD}
+    command: server /data --console-address ":9001"
+    volumes:
+      - ${MY_DOCKER_FOLDER}minio/data:/data
+
+  external-postgres:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-postgres
+    image: postgres:15.1
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${MY_DEFAULT_LOGIN}
+      - POSTGRES_PASSWORD=${MY_DEFAULT_PASSWORD}
+      - PGDATA=/var/lib/postgres/data
+    volumes:
+      - ${MY_DOCKER_FOLDER}postgres/data:/var/lib/postgres/data
+    ports:
+      - "5432:5432"
+
+  external-pgadmin:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-pgadmin
+    image: dpage/pgadmin4:6.19
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${MY_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${MY_DEFAULT_PASSWORD}
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    volumes:
+      - ${MY_DOCKER_FOLDER}pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+
+  external-rabbitmq:
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-rabbitmq
+    image: rabbitmq:3.11.7-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=${MY_DEFAULT_LOGIN}
+      - RABBITMQ_DEFAULT_PASS=${MY_DEFAULT_PASSWORD}
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    volumes:
+      - ${MY_DOCKER_FOLDER}rabbitmq/data:/var/lib/rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+
+networks:
+  network-backend:
+    attachable: true
