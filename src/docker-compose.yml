@@ -9,6 +9,7 @@ services:
       dockerfile: Crib2023.Backend.Gateways.WebAPI.App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://*:5000/
     networks:
       - network-backend
       - network-frontend
@@ -16,6 +17,7 @@ services:
       - backend-service-catalog
       - backend-service-filestorage
       - external-minio
+      - external-nginx
       - external-pgadmin
       - external-postgres
       - external-rabbitmq
@@ -51,6 +53,15 @@ services:
       - ${MY_DOCKER_FOLDER}minio/data:/data
     networks:
       - network-backend
+
+  external-nginx:
+    image: nginx:alpine
+    container_name: ${MY_CONTAINER_NAME_PEFIX}external-nginx
+    volumes:
+      - ${MY_CONFIGS_FOLDER}nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - network-backend
+      - network-frontend
 
   external-postgres:
     container_name: ${MY_CONTAINER_NAME_PEFIX}external-postgres
