@@ -55,7 +55,7 @@ public class TopicTypeOptions : TypeOptions
     public string? DbColumnForTreeSort { get; set; }
 
     /// <summary>
-    /// Внешний ключ в базе данных к родительскому типу "Фиктивное дерево".
+    /// Внешний ключ в базе данных к родительскому типу "Тема".
     /// </summary>
     public string? DbForeignKeyToTopicParent { get; set; }
 
