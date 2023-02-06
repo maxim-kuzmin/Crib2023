@@ -104,7 +104,7 @@ public class MapperSetupService : ISetupService
         return new Random(Guid.NewGuid().GetHashCode()).Next(0, items.Count());
     }
 
-    private async Task SaveTestDummyTreeList(
+    private async Task SaveTestTopicList(
         MapperDbContext dbContext,
         List<MapperTopicTypeEntity> topicList,
         List<int> parentIndexes,
@@ -134,7 +134,7 @@ public class MapperSetupService : ISetupService
 
             await dbContext.SaveChangesAsync();
 
-            await SaveTestDummyTreeList(dbContext, topicList, indexes, topic.Id);
+            await SaveTestTopicList(dbContext, topicList, indexes, topic.Id);
 
             indexes.RemoveAt(indexes.Count - 1);
         }
@@ -160,7 +160,7 @@ public class MapperSetupService : ISetupService
     {
         var result = new List<MapperTopicTypeEntity>();
 
-        await SaveTestDummyTreeList(dbContext, result, new List<int>(), null);
+        await SaveTestTopicList(dbContext, result, new List<int>(), null);
 
         return result;
     }
