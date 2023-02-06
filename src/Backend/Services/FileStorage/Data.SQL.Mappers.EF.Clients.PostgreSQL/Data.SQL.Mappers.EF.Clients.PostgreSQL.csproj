@@ -16,4 +16,9 @@
 	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Data.SQL.Clients.PostgreSQL\Data.SQL.Clients.PostgreSQL.csproj" />
+	  <ProjectReference Include="..\Data.SQL.Mappers.EF\Data.SQL.Mappers.EF.csproj" />
+	</ItemGroup>
+
 </Project>
