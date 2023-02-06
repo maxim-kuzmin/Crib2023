@@ -20,9 +20,9 @@ public class ArticleListGetOperationInput : ListGetOperationInput
     public string? IdsString { get; set; }
 
     /// <summary>
-    /// Имя.
+    /// Заголовок.
     /// </summary>
-    public string? Name { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
     /// Идентификатор экземпляра сущности "Фиктивное отношение один ко многим".
