@@ -78,16 +78,12 @@ public class ArticleTypeOptions : TypeOptions
     /// </summary>
     /// <param name="topicTypeOptions">Параметры типа "Тема".</param>
     /// <param name="defaults">Значения по умолчанию.</param>
-    /// <param name="dbColumnForHash">Колонка в базе данных для поля "Hash".</param>
-    /// <param name="dbColumnForPath">Колонка в базе данных для поля "Path".</param>
     /// <param name="dbColumnForTitle">Колонка в базе данных для поля "Title".</param>
     /// <param name="dbTable">Таблица в базе данных.</param>
     /// <param name="dbSchema">Схема в базе данных.</param>
     public ArticleTypeOptions(
         TopicTypeOptions topicTypeOptions,
         IDefaults defaults,
-        string dbColumnForHash,
-        string dbColumnForPath,
         string dbColumnForTitle,
         string dbTable,
         string? dbSchema = null
@@ -103,8 +99,6 @@ public class ArticleTypeOptions : TypeOptions
                 nameof(defaults.DbColumnForName));
         }
 
-        DbColumnForHash = dbColumnForHash;
-        DbColumnForPath = dbColumnForPath;
         DbColumnForTitle = dbColumnForTitle;
 
         if (string.IsNullOrWhiteSpace(topicTypeOptions.DbColumnForId))

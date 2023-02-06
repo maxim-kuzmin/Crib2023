@@ -30,7 +30,11 @@ public class ClientTypesOptions : TypesOptions
 
         Topic = new TopicTypeOptions(defaults, "topic");
 
-        Article = new ArticleTypeOptions(Topic, defaults, "hash", "path", "title", "article");
+        Article = new ArticleTypeOptions(Topic, defaults, "title", "article")
+        {
+            DbColumnForHash = "hash",
+            DbColumnForPath = "path"
+        };
     }
 
     #endregion Constructors     
