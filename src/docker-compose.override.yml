@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+
+  backend-gateway-webapi:
+    ports:
+      - "8080:5000"
+
+  backend-service-catalog: {}
+
+  backend-service-filestorage: {}
+      
+  external-minio:
+    ports:
+      - "9000:9000"
+      - "9001:9001"    
+
+  external-nginx:
+    ports:
+      - "80:80"
+
+  external-postgres:
+    ports:
+      - "5432:5432"
+
+  external-pgadmin:
+    ports:
+      - "5050:80"
+
+  external-rabbitmq:
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  frontend-react-typescript:
+    build:
+      context: .
+      dockerfile: Frontend/React/TypeScript/App/debug/Dockerfile
+    volumes:
+      - ./Frontend/React/TypeScript/App:/app
+    ports:
+      - "8081:3000"
