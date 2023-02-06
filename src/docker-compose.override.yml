@@ -35,8 +35,8 @@ services:
   frontend-react-typescript:
     build:
       context: .
-      dockerfile: Crib2023.Frontend.React.TypeScript.App/debug/Dockerfile
+      dockerfile: Frontend/React/TypeScript/App/debug/Dockerfile
     volumes:
-      - ./Crib2023.Frontend.React.TypeScript.App:/app
+      - ./Frontend/React/TypeScript/App:/app
     ports:
       - "8081:3000"

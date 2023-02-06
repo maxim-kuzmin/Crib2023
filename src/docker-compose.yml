@@ -6,7 +6,7 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-gateway-webapi
     build:
       context: .
-      dockerfile: Crib2023.Backend.Gateways.WebAPI.App/Dockerfile
+      dockerfile: Backend/Gateways/WebAPI/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:5000/
@@ -25,7 +25,7 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-catalog
     build:
       context: .
-      dockerfile: Crib2023.Backend.Services.Catalog.App/Dockerfile
+      dockerfile: Backend/Services/Catalog/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     networks:
@@ -35,7 +35,7 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-filestorage
     build:
       context: .
-      dockerfile: Crib2023.Backend.Services.FileStorage.App/Dockerfile
+      dockerfile: Backend/Services/FileStorage/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     networks:
@@ -106,7 +106,7 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}frontend-react-typescript
     build:
       context: .
-      dockerfile: Crib2023.Frontend.React.TypeScript.App/Dockerfile
+      dockerfile: Frontend/React/TypeScript/App/Dockerfile
     networks:
       - network-frontend
 
