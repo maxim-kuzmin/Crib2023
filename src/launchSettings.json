@@ -26,7 +26,7 @@
         "backend-service-catalog": "DoNotStart",
         "backend-service-filestorage": "DoNotStart",
         "external-minio": "StartWithoutDebugging",
-        "external-nginx": "StartWithoutDebugging",
+        "external-nginx": "DoNotStart",
         "external-postgres": "StartWithoutDebugging",
         "external-pgadmin": "StartWithoutDebugging",
         "external-rabbitmq": "StartWithoutDebugging",
@@ -41,11 +41,11 @@
         "backend-service-catalog": "DoNotStart",
         "backend-service-filestorage": "DoNotStart",
         "external-minio": "DoNotStart",
-        "external-nginx": "DoNotStart",
+        "external-nginx": "StartWithoutDebugging",
         "external-postgres": "DoNotStart",
         "external-pgadmin": "DoNotStart",
         "external-rabbitmq": "DoNotStart",
-        "frontend-react-typescript": "StartWithoutDebugging"
+        "frontend-react-typescript": "DoNotStart"
       }
     }
   }

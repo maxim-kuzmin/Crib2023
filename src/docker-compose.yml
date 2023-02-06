@@ -16,8 +16,7 @@ services:
     depends_on:
       - backend-service-catalog
       - backend-service-filestorage
-      - external-minio
-      - external-nginx
+      - external-minio      
       - external-pgadmin
       - external-postgres
       - external-rabbitmq
@@ -59,6 +58,9 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}external-nginx
     volumes:
       - ${MY_CONFIGS_FOLDER}nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend-gateway-webapi
+      - frontend-react-typescript
     networks:
       - network-backend
       - network-frontend
@@ -105,8 +107,6 @@ services:
     build:
       context: .
       dockerfile: Crib2023.Frontend.React.TypeScript.App/Dockerfile
-    #depends_on:
-    #  - backend-gateway-webapi
     networks:
       - network-frontend
 
