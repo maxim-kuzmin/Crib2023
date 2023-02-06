@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{3598
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "Backend\Services\Catalog\App\App.csproj", "{6144C0A8-A3BB-4C6C-A09F-45195952C60B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.SQL", "Backend\Services\Catalog\Data.Sql\Data.SQL.csproj", "{AEBB94EE-5805-446F-A4DE-B2C5F7133A17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.SQL", "Backend\Services\Catalog\Data.SQL\Data.SQL.csproj", "{AEBB94EE-5805-446F-A4DE-B2C5F7133A17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.SQL.Clients.PostgreSQL", "Backend\Services\Catalog\Data.SQL.Clients.PostgreSQL\Data.SQL.Clients.PostgreSQL.csproj", "{B106B4D0-FC6B-49B0-9578-B7FAC01FDB10}"
 EndProject
@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileStorage", "FileStorage"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "Backend\Services\FileStorage\App\App.csproj", "{84A509CE-E58F-498E-90C5-8ECB0284D3B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.SQL", "Backend\Services\FileStorage\Data.Sql\Data.SQL.csproj", "{DB6CA1A4-D57C-441E-B051-B0C7FA460105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.SQL", "Backend\Services\FileStorage\Data.SQL\Data.SQL.csproj", "{DB6CA1A4-D57C-441E-B051-B0C7FA460105}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.SQL.Clients.PostgreSQL", "Backend\Services\FileStorage\Data.SQL.Clients.PostgreSQL\Data.SQL.Clients.PostgreSQL.csproj", "{57AED7A7-3026-4589-A9EB-4A460FEEE0E5}"
 EndProject
