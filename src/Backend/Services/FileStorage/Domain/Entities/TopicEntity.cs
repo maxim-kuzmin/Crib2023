@@ -9,7 +9,7 @@ public class TopicEntity : Entity<long>, IAggregateRoot
 {
     #region Fields
 
-    private readonly List<TopicEntity> _topicChildList = new();
+    private readonly List<TopicTypeEntity> _children = new();
 
     #endregion Fields
 
@@ -21,14 +21,14 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     public TopicTypeEntity Data { get; init; }
 
     /// <summary>
-    /// Список дочерних экземпляров сущности "Тема".
+    /// Дети.
     /// </summary>
-    public IReadOnlyCollection<TopicEntity> TopicChildList => _topicChildList;
+    public IReadOnlyCollection<TopicTypeEntity> Children => _children;
 
     /// <summary>
-    /// Родительский экземпляр сущности "Тема".
+    /// Родитель.
     /// </summary>
-    public TopicEntity? TopicParent { get; set; }
+    public TopicTypeEntity? Parent { get; set; }
 
     #endregion Properties    
 
@@ -48,24 +48,22 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     #region Public methods
 
     /// <summary>
-    /// Добавить дочерний экземпляр сущности "Фиктивное дерево".
+    /// Добавить ребёнка.
     /// </summary>
     /// <param name="data">Данные.</param>
-    /// <returns>Добавленный экземпляр.</returns>
-    public TopicEntity AddDummyChildTree(TopicTypeEntity data)
+    /// <returns>Добавленный добавленный.</returns>
+    public TopicTypeEntity AddChild(TopicTypeEntity data)
     {
-        var result = _topicChildList.Where(x => x.Data.Name == data.Name).SingleOrDefault();
+        var result = _children.Where(x => x.Name == data.Name).SingleOrDefault();
 
         if (result is null)
         {
             data.ParentId = GetId();
 
-            result = new TopicEntity(data);
-
-            _topicChildList.Add(result);
+            _children.Add(data);
         }
 
-        return result;
+        return result ?? data;
     }
 
     #endregion Public methods

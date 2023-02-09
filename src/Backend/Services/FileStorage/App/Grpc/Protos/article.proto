@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option csharp_namespace = "Crib2023.Backend.Services.FileStorage.App.Grpc.Protos";
+
+package FileStorage;
+
+service Article {
+  rpc GetItem (ArticleItemGetRequest) returns (ArticleItemGetReply);
+}
+
+// GetItem Request
+
+message ArticleItemGetRequest {
+  ArticleItemGetRequestInput input = 1;
+  string operationCode = 2;
+}
+
+message ArticleItemGetRequestInput {
+  int64 id = 1;
+  string title = 2;
+}
+
+// GetItem Reply
+
+message ArticleItemGetReply {
+  ArticleItemGetReplyEntity entity = 1;
+}
+
+message ArticleItemGetReplyEntity {
+  ArticleItemGetReplyEntityData data = 1;
+  repeated ArticleItemGetReplyEntityPathItem path = 2;
+}
+
+message ArticleItemGetReplyEntityData {
+  int64 id = 1;
+  string title = 2;
+}
+
+message ArticleItemGetReplyEntityPathItem {
+  int64 id = 1;
+  string name = 2;
+}

@@ -7,6 +7,12 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.Entities;
 /// </summary>
 public class ArticleEntity : Entity<long>, IAggregateRoot
 {
+    #region Fields
+
+    private readonly List<TopicTypeEntity> _path = new();
+
+    #endregion Fields
+
     #region Properties
 
     /// <summary>
@@ -15,9 +21,9 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     public ArticleTypeEntity Data { get; init; }
 
     /// <summary>
-    /// Экземпляр сущности "Тема".
+    /// Путь.
     /// </summary>
-    public TopicEntity? Topic { get; set; }
+    public IReadOnlyCollection<TopicTypeEntity> Path => _path;
 
     #endregion Properties    
 
@@ -33,6 +39,27 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     }
 
     #endregion Constructors
+
+    #region Public methods
+
+    /// <summary>
+    /// Добавить тему в путь.
+    /// </summary>
+    /// <param name="data">Данные.</param>
+    /// <returns>Добавленная тема.</returns>
+    public TopicTypeEntity AddTopicToPath(TopicTypeEntity data)
+    {
+        var result = _path.Where(x => x.Id == data.Id).SingleOrDefault();
+
+        if (result is null)
+        {
+            _path.Add(data);
+        }
+
+        return result ?? data;
+    }
+
+    #endregion Public methods
 
     #region Protected methods
 

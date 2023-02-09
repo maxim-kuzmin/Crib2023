@@ -105,7 +105,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
         if (mapperTopic != null)
         {
-            entity.Topic = new TopicEntity(mapperTopic);
+            //makc//!!!// entity.Topic = new TopicEntity(mapperTopic);
         }
     }
 

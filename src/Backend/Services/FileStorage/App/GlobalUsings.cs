@@ -1,9 +1,13 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-global using Crib2023.Backend.Services.FileStorage.App.Services;
+global using Crib2023.Backend.Services.FileStorage.App.Grpc.Protos;
 global using Crib2023.Backend.Services.FileStorage.App.Setup;
+global using Crib2023.Backend.Services.FileStorage.Domain.Operations.Article.Item.Get;
+global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get;
+global using Grpc.Core;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Apps.WebApp;
+global using Makc2023.Backend.Common.Core.Apps.WebApp.Setup;
 global using MediatR;
 global using Microsoft.Extensions.Localization;
 global using ModuleOfServiceDataSQLClientsPostgreSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Clients.PostgreSQL.Setup.ClientSetupAppModule;
