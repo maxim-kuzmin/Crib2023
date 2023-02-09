@@ -1,4 +1,4 @@
-using Crib2023.Services.Catalog.App.Services;
+using Crib2023.Backend.Services.Catalog.App.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

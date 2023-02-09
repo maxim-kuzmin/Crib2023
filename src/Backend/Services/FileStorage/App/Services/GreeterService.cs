@@ -1,7 +1,7 @@
 using Crib2023.Services.FileStorage.App;
 using Grpc.Core;
 
-namespace Crib2023.Services.FileStorage.App.Services
+namespace Crib2023.Backend.Services.FileStorage.App.Services
 {
     public class GreeterService : Greeter.GreeterBase
     {

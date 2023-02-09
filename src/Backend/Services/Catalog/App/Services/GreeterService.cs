@@ -1,7 +1,7 @@
 using Crib2023.Services.Catalog.App;
 using Grpc.Core;
 
-namespace Crib2023.Services.Catalog.App.Services
+namespace Crib2023.Backend.Services.Catalog.App.Services
 {
     public class GreeterService : Greeter.GreeterBase
     {

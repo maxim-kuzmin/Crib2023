@@ -127,24 +127,3 @@ public class ClientMapperDbContextFactory : IMapperDbContextFactory, IDesignTime
 
     #endregion Public methods
 }
-
-///// <summary>
-///// Фабрика контекста базы данных сопоставителя клиента.
-///// </summary>
-//public class ClientMapperDbContextFactory : IDesignTimeDbContextFactory<ClientMapperDbContext>
-//{
-
-//    /// <inheritdoc/>
-//    public ClientMapperDbContext CreateDbContext(string[] args)
-//    {
-//        var config = AppHelper.CreateConfiguration();
-
-//        var optionsBuilder = new DbContextOptionsBuilder<ClientMapperDbContext>();
-
-//        optionsBuilder.UseSqlServer(
-//            config["ConnectionString"],
-//            sqlServerOptionsAction: o => o.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name));
-
-//        return new ClientMapperDbContext(optionsBuilder.Options);
-//    }
-//}

@@ -99,9 +99,9 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
     #region Private methods
 
-    private static void LoadTopic(ArticleEntity entity, MapperArticleTypeEntity mapperDummyMain)
+    private static void LoadTopic(ArticleEntity entity, MapperArticleTypeEntity mapperArticle)
     {
-        var mapperTopic = mapperDummyMain.Topic;
+        var mapperTopic = mapperArticle.Topic;
 
         if (mapperTopic != null)
         {

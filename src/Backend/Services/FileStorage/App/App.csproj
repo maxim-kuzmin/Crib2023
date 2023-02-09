@@ -16,8 +16,15 @@
 
 	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.51.0" />
+		<PackageReference Include="Makc2023.Backend.Common.Core.Apps.WebApp" Version="1.0.3" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Data.SQL.Clients.PostgreSQL\Data.SQL.Clients.PostgreSQL.csproj" />
+	  <ProjectReference Include="..\Data.SQL.Mappers.EF.Clients.PostgreSQL\Data.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
+	  <ProjectReference Include="..\Domains.Article\Domains.Article.csproj" />
 	</ItemGroup>
 
 </Project>
