@@ -13,7 +13,7 @@ public class ClientMapperDbContextFactory : IMapperDbContextFactory, IDesignTime
 
     private IDbContextFactory<ClientMapperDbContext>? DbContextFactory { get; }
 
-    private IOptionsMonitor<SetupOptionsOfCommonDataSQL>? DbSetupOptions { get; }
+    private IOptionsMonitor<OptionsOfCommonDataSQL>? DbSetupOptions { get; }
 
     #endregion Properties
 
@@ -33,7 +33,7 @@ public class ClientMapperDbContextFactory : IMapperDbContextFactory, IDesignTime
     /// <param name="dbSetupOptions">Параметры настройки базы данных.</param>
     public ClientMapperDbContextFactory(
         IDbContextFactory<ClientMapperDbContext> dbContextFactory,
-        IOptionsMonitor<SetupOptionsOfCommonDataSQL> dbSetupOptions)
+        IOptionsMonitor<OptionsOfCommonDataSQL> dbSetupOptions)
     {
         DbContextFactory = dbContextFactory;
         DbSetupOptions = dbSetupOptions;
@@ -55,7 +55,7 @@ public class ClientMapperDbContextFactory : IMapperDbContextFactory, IDesignTime
         DbContextOptionsBuilder builder,
         string? connectionString,
         ILogger<ClientMapperDbContextFactory>? logger,
-        IOptionsMonitor<SetupOptionsOfCommonDataSQL>? dbSetupOptions)
+        IOptionsMonitor<OptionsOfCommonDataSQL>? dbSetupOptions)
     {
         if (builder.IsConfigured)
         {

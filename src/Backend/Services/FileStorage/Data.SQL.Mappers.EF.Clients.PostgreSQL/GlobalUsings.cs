@@ -16,6 +16,6 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
-global using SetupOptionsOfCommonDataSQL = Makc2023.Backend.Common.Data.SQL.Setup.SetupOptions;
-global using SetupOptionsOfServiceDataSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Setup.SetupOptions;
+global using OptionsOfCommonDataSQL = Makc2023.Backend.Common.Data.SQL.Setup.SetupOptions;
+global using OptionsOfServiceDataSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Setup.SetupOptions;
 

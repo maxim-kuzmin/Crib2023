@@ -18,7 +18,7 @@ public class ClientMapperSetupAppModule : AppModule
             options,
             x.GetRequiredService<IConfiguration>().GetConnectionString(GetConnectionStringName(x)),
             x.GetRequiredService<ILogger<ClientMapperDbContextFactory>>(),
-            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonDataSQL>>()));
+            x.GetRequiredService<IOptionsMonitor<OptionsOfCommonDataSQL>>()));
 
         services.AddScoped<MapperDbContext, ClientMapperDbContext>();
 
@@ -31,7 +31,7 @@ public class ClientMapperSetupAppModule : AppModule
 
         services.AddScoped<IMapperDbContextFactory>(x => new ClientMapperDbContextFactory(
             x.GetRequiredService<IDbContextFactory<ClientMapperDbContext>>(),
-            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonDataSQL>>()));
+            x.GetRequiredService<IOptionsMonitor<OptionsOfCommonDataSQL>>()));
     }
 
     /// <inheritdoc/>
@@ -60,8 +60,8 @@ public class ClientMapperSetupAppModule : AppModule
                 typeof(ILogger),
                 typeof(IMapperDbManager),
                 typeof(IMapperResource),
-                typeof(SetupOptionsOfCommonDataSQL),
-                typeof(SetupOptionsOfServiceDataSQL),
+                typeof(OptionsOfCommonDataSQL),
+                typeof(OptionsOfServiceDataSQL),
             };
     }
 
@@ -71,14 +71,14 @@ public class ClientMapperSetupAppModule : AppModule
 
     private static string GetConnectionStringName(IServiceProvider serviceProvider)
     {
-        string? result = serviceProvider.GetRequiredService<IOptions<SetupOptionsOfServiceDataSQL>>()
+        string? result = serviceProvider.GetRequiredService<IOptions<OptionsOfServiceDataSQL>>()
             .Value
             .ConnectionStringName;
 
         if (string.IsNullOrWhiteSpace(result))
         {
-            throw new NullOrWhiteSpaceStringVariableException<SetupOptionsOfServiceDataSQL>
-                (nameof(SetupOptionsOfServiceDataSQL.ConnectionStringName));
+            throw new NullOrWhiteSpaceStringVariableException<OptionsOfServiceDataSQL>
+                (nameof(OptionsOfServiceDataSQL.ConnectionStringName));
         }
 
         return result;
