@@ -18,7 +18,7 @@ public class ClientMapperSetupAppModule : AppModule
             options,
             x.GetRequiredService<IConfiguration>().GetConnectionString(GetConnectionStringName(x)),
             x.GetRequiredService<ILogger<ClientMapperDbContextFactory>>(),
-            x.GetRequiredService<IOptionsMonitor<DbSetupOptions>>()));
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonDataSQL>>()));
 
         services.AddScoped<MapperDbContext, ClientMapperDbContext>();
 
@@ -31,7 +31,7 @@ public class ClientMapperSetupAppModule : AppModule
 
         services.AddScoped<IMapperDbContextFactory>(x => new ClientMapperDbContextFactory(
             x.GetRequiredService<IDbContextFactory<ClientMapperDbContext>>(),
-            x.GetRequiredService<IOptionsMonitor<DbSetupOptions>>()));
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonDataSQL>>()));
     }
 
     /// <inheritdoc/>
@@ -56,12 +56,12 @@ public class ClientMapperSetupAppModule : AppModule
     {
         return new[]
             {
-                typeof(DbSetupOptions),
-                typeof(DbSetupOptionsForFileStorage),
                 typeof(IConfiguration),
                 typeof(ILogger),
                 typeof(IMapperDbManager),
                 typeof(IMapperResource),
+                typeof(SetupOptionsOfCommonDataSQL),
+                typeof(SetupOptionsOfServiceDataSQL),
             };
     }
 
@@ -71,14 +71,14 @@ public class ClientMapperSetupAppModule : AppModule
 
     private static string GetConnectionStringName(IServiceProvider serviceProvider)
     {
-        string? result = serviceProvider.GetRequiredService<IOptions<DbSetupOptionsForFileStorage>>()
+        string? result = serviceProvider.GetRequiredService<IOptions<SetupOptionsOfServiceDataSQL>>()
             .Value
             .ConnectionStringName;
 
         if (string.IsNullOrWhiteSpace(result))
         {
-            throw new NullOrWhiteSpaceStringVariableException<DbSetupOptionsForFileStorage>
-                (nameof(DbSetupOptionsForFileStorage.ConnectionStringName));
+            throw new NullOrWhiteSpaceStringVariableException<SetupOptionsOfServiceDataSQL>
+                (nameof(SetupOptionsOfServiceDataSQL.ConnectionStringName));
         }
 
         return result;

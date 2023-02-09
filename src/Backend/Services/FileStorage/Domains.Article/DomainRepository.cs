@@ -81,16 +81,16 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         var taskForItems = queryForItems.ToArrayAsync();
         var taskForTotalCount = queryForTotalCount.CountAsync();
 
-        await Task.WhenAll(taskForItems, taskForTotalCount);
-
-        var mapperArticleList = taskForItems.Result;
+        var mapperArticleList = await taskForItems;
 
         var itemLookup = mapperArticleList
             .Select(x => new ArticleEntity(x))
             .ToDictionary(x => x.Data.Id);
 
+        LoadTopic(itemLookup, mapperArticleList);
+
         result.Items = itemLookup.Values.ToArray();
-        result.TotalCount = taskForTotalCount.Result;
+        result.TotalCount = await taskForTotalCount;
 
         return result;
     }
@@ -99,15 +99,26 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
     #region Private methods
 
-    private static void LoadTopic(
-        ArticleEntity entity,
-        MapperArticleTypeEntity mapperArticle)
+    private static void LoadTopic(ArticleEntity entity, MapperArticleTypeEntity mapperDummyMain)
     {
-        var mapperTopic = mapperArticle.Topic;
+        var mapperTopic = mapperDummyMain.Topic;
 
         if (mapperTopic != null)
         {
             entity.Topic = new TopicEntity(mapperTopic);
+        }
+    }
+
+    private static void LoadTopic(
+        Dictionary<long, ArticleEntity> itemLookup,
+        MapperArticleTypeEntity[] mapperArticleList)
+    {
+        foreach (var mapperArticle in mapperArticleList)
+        {
+            if (itemLookup.TryGetValue(mapperArticle.Id, out ArticleEntity? item))
+            {
+                LoadTopic(item, mapperArticle);
+            }
         }
     }
 
