@@ -5,14 +5,6 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.Operations.Article.Item.G
 /// <summary>
 /// Выходные данные операции получения элемента "Статья".
 /// </summary>
-public class ArticleItemGetOperationOutput
+public class ArticleItemGetOperationOutput : ItemGetOperationOutput<ArticleEntity>
 {
-    #region Properties
-
-    /// <summary>
-    /// Сущность.
-    /// </summary>
-    public ArticleEntity? Entity { get; set; }
-
-    #endregion Properties
 }

@@ -45,7 +45,7 @@ public class MapperSetupService : ISetupService
     {
         using var dbContext = MapperDbFactory.CreateDbContext();
 
-        await dbContext.Database.MigrateAsync();
+        await dbContext.Database.MigrateAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
@@ -53,18 +53,18 @@ public class MapperSetupService : ISetupService
     {
         using var dbContext = MapperDbFactory.CreateDbContext();
 
-        using var transaction = await dbContext.Database.BeginTransactionAsync();
+        using var transaction = await dbContext.Database.BeginTransactionAsync().ConfigureAwait(false);
 
-        bool isOk = await dbContext.Topic.AnyAsync();
+        bool isOk = await dbContext.Topic.AnyAsync().ConfigureAwait(false);
 
         if (!isOk)
         {
-            var topicList = await SeedTestTopicList(dbContext);
+            var topicList = await SeedTestTopicList(dbContext).ConfigureAwait(false);
 
-            var articleList = await SeedTestArticleList(dbContext, topicList);
+            var articleList = await SeedTestArticleList(dbContext, topicList).ConfigureAwait(false);
         }
 
-        await transaction.CommitAsync();
+        await transaction.CommitAsync().ConfigureAwait(false);
     }
 
     #endregion Public methods
@@ -132,9 +132,9 @@ public class MapperSetupService : ISetupService
 
             dbContext.Topic.Add(topic);
 
-            await dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync().ConfigureAwait(false);
 
-            await SaveTestTopicList(dbContext, topicList, indexes, topic.Id);
+            await SaveTestTopicList(dbContext, topicList, indexes, topic.Id).ConfigureAwait(false);
 
             indexes.RemoveAt(indexes.Count - 1);
         }
@@ -150,7 +150,7 @@ public class MapperSetupService : ISetupService
 
         dbContext.Article.AddRange(result);
 
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync().ConfigureAwait(false);
 
         return result;
     }
@@ -160,7 +160,7 @@ public class MapperSetupService : ISetupService
     {
         var result = new List<MapperTopicTypeEntity>();
 
-        await SaveTestTopicList(dbContext, result, new List<int>(), null);
+        await SaveTestTopicList(dbContext, result, new List<int>(), null).ConfigureAwait(false);
 
         return result;
     }

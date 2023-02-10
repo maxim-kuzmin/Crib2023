@@ -9,6 +9,12 @@ public class DomainItemGetOperationHandler :
     OperationWithInputAndOutputHandler<ArticleItemGetOperationInput, ArticleItemGetOperationOutput>,
     IArticleItemGetOperationHandler
 {
+    #region Fields
+
+    private readonly IDomainResource _domainResource;
+
+    #endregion Fields
+
     #region Constructors
 
     /// <inheritdoc/>
@@ -23,6 +29,7 @@ public class DomainItemGetOperationHandler :
             logger,
             setupOptions)
     {
+        _domainResource = domainResource;
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
     }
@@ -47,9 +54,16 @@ public class DomainItemGetOperationHandler :
         return input;
     }
 
-    private ArticleItemGetOperationOutput? TransformOperationOutput(ArticleItemGetOperationOutput output)
+    private ArticleItemGetOperationOutput TransformOperationOutput(ArticleItemGetOperationOutput output)
     {
-        return output.Entity is not null ? output : null;
+        if (output.IsEntityNotFound)
+        {
+            output.Entity = new ArticleEntity(new ArticleTypeEntity());
+
+            throw new LocalizedException(_domainResource.GetErrorMessageForEntityNotFound());
+        }
+
+        return output;
     }
 
     #endregion Private methods

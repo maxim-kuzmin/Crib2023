@@ -12,17 +12,17 @@ public class ArticleListGetOperationInput : ListGetOperationInput
     /// <summary>
     /// Идентификаторы.
     /// </summary>
-    public long[]? Ids { get; set; }
+    public long[] Ids { get; set; } = Array.Empty<long>();
 
     /// <summary>
     /// Строка идентификаторов.
     /// </summary>
-    public string? IdsString { get; set; }
+    public string IdsString { get; set; } = "";
 
     /// <summary>
     /// Заголовок.
     /// </summary>
-    public string? Title { get; set; }
+    public string Title { get; set; } = "";
 
     /// <summary>
     /// Идентификатор экземпляра сущности "Фиктивное отношение один ко многим".
@@ -32,17 +32,17 @@ public class ArticleListGetOperationInput : ListGetOperationInput
     /// <summary>
     /// Идентификаторы экземпляров сущности "Фиктивное отношение один ко многим".
     /// </summary>
-    public long[]? TopicIds { get; set; }
+    public long[] TopicIds { get; set; } = Array.Empty<long>();
 
     /// <summary>
     /// Строка идентификаторов экземпляров сущности "Фиктивное отношение один ко многим".
     /// </summary>
-    public string? TopicIdsString { get; set; }
+    public string TopicIdsString { get; set; } = "";
 
     /// <summary>
     /// Имя экземпляра сущности "Фиктивное отношение один ко многим".
     /// </summary>
-    public string? TopicName { get; set; }
+    public string TopicName { get; set; } = "";
 
     #endregion Properties
 
@@ -63,18 +63,12 @@ public class ArticleListGetOperationInput : ListGetOperationInput
             SortDirection = OperationOptions.SORT_DIRECTION_DESC;
         }
 
-        if (!string.IsNullOrWhiteSpace(IdsString) && (Ids == null || !Ids.Any()))
+        if (!string.IsNullOrWhiteSpace(IdsString) && !Ids.Any())
         {
             Ids = IdsString.FromStringToNumericInt64Array();
         }
 
-        if (!string.IsNullOrWhiteSpace(TopicIdsString)
-            &&
-            (
-                TopicIds == null
-                ||
-                !TopicIds.Any()
-            ))
+        if (!string.IsNullOrWhiteSpace(TopicIdsString) && !TopicIds.Any())
         {
             TopicIds = TopicIdsString.FromStringToNumericInt64Array();
         }

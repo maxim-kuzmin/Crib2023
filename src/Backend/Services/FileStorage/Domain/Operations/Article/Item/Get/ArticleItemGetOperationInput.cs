@@ -12,7 +12,7 @@ public class ArticleItemGetOperationInput : ItemGetOperationInput
     /// <summary>
     /// Заголовок.
     /// </summary>
-    public string? Title { get; set; }
+    public string Title { get; set; } = "";
 
     #endregion Properties
 
@@ -25,7 +25,7 @@ public class ArticleItemGetOperationInput : ItemGetOperationInput
 
         if (Id > 0)
         {
-            Title = null;
+            Title = "";
         }
     }
 
@@ -36,13 +36,13 @@ public class ArticleItemGetOperationInput : ItemGetOperationInput
 
         if (result.Any())
         {
-            if (Title != null)
+            if (string.IsNullOrWhiteSpace(Title))
             {
-                result.Clear();
+                result.Add(nameof(Title));                
             }
             else
             {
-                result.Add(nameof(Title));
+                result.Clear();
             }
         }
 

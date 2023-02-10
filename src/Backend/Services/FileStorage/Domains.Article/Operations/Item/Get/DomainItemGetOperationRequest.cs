@@ -17,7 +17,7 @@ public class DomainItemGetOperationRequest : IRequest<DomainItemGetOperationResp
     /// <summary>
     /// Код операции.
     /// </summary>
-    public string? OperationCode { get; init; }
+    public string OperationCode { get; init; }
 
     #endregion Properties
 
@@ -28,7 +28,7 @@ public class DomainItemGetOperationRequest : IRequest<DomainItemGetOperationResp
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public DomainItemGetOperationRequest(ArticleItemGetOperationInput input, string? operationCode = null)
+    public DomainItemGetOperationRequest(ArticleItemGetOperationInput input, string operationCode = "")
     {
         Input = input;
         OperationCode = operationCode;

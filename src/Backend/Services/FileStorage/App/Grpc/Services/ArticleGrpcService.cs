@@ -2,19 +2,41 @@
 
 namespace Crib2023.Backend.Services.FileStorage.App.Grpc.Services;
 
+/// <summary>
+/// GRPC сервис "Статья".
+/// </summary>
 public class ArticleGrpcService : Article.ArticleBase
 {
-    private readonly ILogger _logger;
+    #region Fields
 
     private readonly IMediator _mediator;
 
-    public ArticleGrpcService(ILogger<ArticleGrpcService> logger, IMediator mediator)
+    #endregion Fields
+
+    #region Constructors
+
+    /// <summary>
+    /// Конструктор.
+    /// </summary>
+    /// <param name="mediator">Посредник.</param>
+    public ArticleGrpcService(IMediator mediator)
     {
-        _logger = logger;
         _mediator = mediator;
     }
 
-    public override async Task<ArticleItemGetReply?> GetItem(ArticleItemGetRequest request, ServerCallContext context)
+    #endregion Constructors
+
+    #region Public methods
+
+    /// <summary>
+    /// Получить элемент.
+    /// </summary>
+    /// <param name="request">Запрос.</param>
+    /// <param name="context">Контекст.</param>
+    /// <returns>Задача на получение элемента.</returns>
+    public override async Task<ArticleItemGetReply?> GetItem(
+        ArticleItemGetRequest request,
+        ServerCallContext context)
     {
         var input = new ArticleItemGetOperationInput
         {
@@ -22,74 +44,66 @@ public class ArticleGrpcService : Article.ArticleBase
             Title = request.Input.Title,
         };
 
-        var response = await _mediator.Send(new DomainItemGetOperationRequest(input));
+        var taskForItem = _mediator.Send(new DomainItemGetOperationRequest(input, request.OperationCode));
+
+        var response = await taskForItem.ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 
-        if (operationResult is null)
+        var entity = operationResult.Output.Entity;
+
+        var result = new ArticleItemGetReply
         {
-            context.Status = new Status(StatusCode.Unknown, "Operation result does not exist");
-
-            return null;
-        }
-
-        if (operationResult.IsOk)
-        {
-            var output = operationResult.Output;
-
-            if (output is null)
+            IsOk = operationResult.IsOk,
+            OperationCode = operationResult.OperationCode,
+            Output = new ArticleItemGetReplyOutput
             {
-                context.Status = new Status(StatusCode.Unknown, "Output does not exist");
-
-                return null;
-            }
-
-            var entity = output.Entity;
-
-            if (entity is null)
-            {
-                context.Status = new Status(StatusCode.NotFound, "Entity does not exist");
-
-                return null;
-            }
-
-            var result = new ArticleItemGetReply
-            {
-                Entity = new ArticleItemGetReplyEntity
+                Entity = new ArticleItemGetReplyOutputEntity
                 {
-                    Data = new ArticleItemGetReplyEntityData
+                    Data = new ArticleItemGetReplyOutputEntityData
                     {
                         Id = entity.Data.Id,
-                        Title = entity.Data.Title,                        
+                        Title = entity.Data.Title,
                     }
-                }                
-            };
-
-            foreach (var pathItem in entity.Path)
-            {
-                result.Entity.Path.Add(new ArticleItemGetReplyEntityPathItem
-                {
-                    Id = pathItem.Id,
-                    Name = pathItem.Name,
-                });
+                }
             }
+        };
 
-            return result;
-        }
-        else
+        foreach (string message in operationResult.ErrorMessages)
         {
-            var errorMessages = operationResult.ErrorMessages;
-
-            if (errorMessages is null || !errorMessages.Any())
-            {
-                context.Status = new Status(StatusCode.NotFound, "Error messages do not exist");
-
-                return null;
-            }
-
-            context.Status = new Status(StatusCode.Internal, string.Join(". ", errorMessages));
-
-            return null;
+            result.ErrorMessages.Add(message);
         }
+
+        foreach (string message in operationResult.SuccessMessages)
+        {
+            result.SuccessMessages.Add(message);
+        }
+
+        foreach (string message in operationResult.WarningMessages)
+        {
+            result.WarningMessages.Add(message);
+        }
+
+        foreach (var pathItem in entity.Path)
+        {
+            result.Output.Entity.Path.Add(new ArticleItemGetReplyOutputEntityPathItem
+            {
+                Id = pathItem.Id,
+                Name = pathItem.Name,
+            });
+        }
+
+        if (!result.IsOk)
+        {
+            var statusCode = operationResult.Output.IsEntityNotFound
+                ? StatusCode.NotFound
+                : StatusCode.Internal;
+
+            context.Status = new Status(statusCode, operationResult.CreateErrorMessage());
+        }
+
+        return result;
     }
+
+    #endregion Public methods
 }

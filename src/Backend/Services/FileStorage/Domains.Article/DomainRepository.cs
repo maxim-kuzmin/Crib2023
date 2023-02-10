@@ -44,10 +44,12 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
         using var dbContext = DbContextFactory.CreateDbContext();
 
-        var mapperArticle = await dbContext.Article
+        var taskForEntity = dbContext.Article
             .Include(x => x.Topic)
             .ApplyFiltering(input)
             .SingleOrDefaultAsync();
+
+        var mapperArticle = await taskForEntity.ConfigureAwait(false);
 
         if (mapperArticle != null)
         {
@@ -56,6 +58,10 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
             LoadTopic(entity, mapperArticle);
 
             result.Entity = entity;
+        }
+        else
+        {
+            result.IsEntityNotFound = true;
         }
 
         return result;
@@ -81,7 +87,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         var taskForItems = queryForItems.ToArrayAsync();
         var taskForTotalCount = queryForTotalCount.CountAsync();
 
-        var mapperArticleList = await taskForItems;
+        var mapperArticleList = await taskForItems.ConfigureAwait(false);
 
         var itemLookup = mapperArticleList
             .Select(x => new ArticleEntity(x))
@@ -90,7 +96,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         LoadTopic(itemLookup, mapperArticleList);
 
         result.Items = itemLookup.Values.ToArray();
-        result.TotalCount = await taskForTotalCount;
+        result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
 
         return result;
     }
