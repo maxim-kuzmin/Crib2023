@@ -12,7 +12,7 @@ public class ArticleTypeEntity
     /// <summary>
     /// Хэш.
     /// </summary>
-    public string? Hash { get; set; }
+    public string Hash { get; set; } = "";
 
     /// <summary>
     /// Идентификатор.
@@ -22,12 +22,12 @@ public class ArticleTypeEntity
     /// <summary>
     /// Путь.
     /// </summary>
-    public string? Path { get; set; }
+    public string Path { get; set; } = "";
 
     /// <summary>
     /// Заголовок.
     /// </summary>
-    public string? Title { get; set; }
+    public string Title { get; set; } = "";
 
     /// <summary>
     /// Идентификатор экземпляра сущности "Тема".
