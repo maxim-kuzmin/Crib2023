@@ -44,24 +44,24 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
         using var dbContext = DbContextFactory.CreateDbContext();
 
-        var taskForEntity = dbContext.Article
+        var taskForItem = dbContext.Article
             .Include(x => x.Topic)
             .ApplyFiltering(input)
             .SingleOrDefaultAsync();
 
-        var mapperArticle = await taskForEntity.ConfigureAwait(false);
+        var mapperArticle = await taskForItem.ConfigureAwait(false);
 
         if (mapperArticle != null)
         {
-            var entity = new ArticleEntity(mapperArticle);
+            var item = new ArticleEntity(mapperArticle);
 
-            LoadTopic(entity, mapperArticle);
+            LoadTopic(item, mapperArticle);
 
-            result.Entity = entity;
+            result.Item = item;
         }
         else
         {
-            result.IsEntityNotFound = true;
+            result.IsItemNotFound = true;
         }
 
         return result;
@@ -105,13 +105,13 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
     #region Private methods
 
-    private static void LoadTopic(ArticleEntity entity, MapperArticleTypeEntity mapperArticle)
+    private static void LoadTopic(ArticleEntity item, MapperArticleTypeEntity mapperArticle)
     {
         var mapperTopic = mapperArticle.Topic;
 
         if (mapperTopic != null)
         {
-            //makc//!!!// entity.Topic = new TopicEntity(mapperTopic);
+            //makc//!!!// item.Topic = new TopicEntity(mapperTopic);
         }
     }
 

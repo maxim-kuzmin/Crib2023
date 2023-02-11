@@ -48,9 +48,10 @@ public class ArticleGrpcService : Article.ArticleBase
 
         var response = await taskForItem.ConfigureAwait(false);
 
-        var operationResult = response.OperationResult;
+        var operationResult = response.OperationResult;        
 
-        var entity = operationResult.Output.Entity;
+        var data = operationResult.Output.Item.Data;
+        var path = operationResult.Output.Item.Path;
 
         var result = new ArticleItemGetReply
         {
@@ -58,35 +59,25 @@ public class ArticleGrpcService : Article.ArticleBase
             OperationCode = operationResult.OperationCode,
             Output = new ArticleItemGetReplyOutput
             {
-                Entity = new ArticleItemGetReplyOutputEntity
+                Item = new ArticleItemGetReplyOutputItem
                 {
-                    Data = new ArticleItemGetReplyOutputEntityData
+                    Data = new ArticleItemGetReplyOutputItemData
                     {
-                        Id = entity.Data.Id,
-                        Title = entity.Data.Title,
+                        Id = data.Id,
+                        Title = data.Title,
                     }
                 }
             }
         };
 
-        foreach (string message in operationResult.ErrorMessages)
+        foreach (string errorMessage in operationResult.ErrorMessages)
         {
-            result.ErrorMessages.Add(message);
+            result.ErrorMessages.Add(errorMessage);
         }
 
-        foreach (string message in operationResult.SuccessMessages)
+        foreach (var pathItem in path)
         {
-            result.SuccessMessages.Add(message);
-        }
-
-        foreach (string message in operationResult.WarningMessages)
-        {
-            result.WarningMessages.Add(message);
-        }
-
-        foreach (var pathItem in entity.Path)
-        {
-            result.Output.Entity.Path.Add(new ArticleItemGetReplyOutputEntityPathItem
+            result.Output.Item.Path.Add(new ArticleItemGetReplyOutputItemPathItem
             {
                 Id = pathItem.Id,
                 Name = pathItem.Name,
@@ -95,7 +86,7 @@ public class ArticleGrpcService : Article.ArticleBase
 
         if (!result.IsOk)
         {
-            var statusCode = operationResult.Output.IsEntityNotFound
+            var statusCode = operationResult.Output.IsItemNotFound
                 ? StatusCode.NotFound
                 : StatusCode.Internal;
 

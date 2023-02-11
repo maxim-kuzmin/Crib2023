@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Makc2023.Backend.Common.Data.SQL.Clients.PostgreSQL" Version="1.0.6" />
+	  <PackageReference Include="Makc2023.Backend.Common.Data.SQL.Clients.PostgreSQL" Version="1.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>

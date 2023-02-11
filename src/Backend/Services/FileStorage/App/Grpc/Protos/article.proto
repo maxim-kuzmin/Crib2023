@@ -26,27 +26,25 @@ message ArticleItemGetReply {
   bool is_ok = 1;
   string operation_code = 2;
   repeated string error_messages = 3;
-  repeated string success_messages = 4;
-  repeated string warning_messages = 5;  
-  ArticleItemGetReplyOutput output = 6;
+  ArticleItemGetReplyOutput output = 4;
 }
 
 message ArticleItemGetReplyOutput {
-  ArticleItemGetReplyOutputEntity entity = 1;
+  ArticleItemGetReplyOutputItem item = 1;
   bool is_not_found = 2;
 }
 
-message ArticleItemGetReplyOutputEntity {
-  ArticleItemGetReplyOutputEntityData data = 1;
-  repeated ArticleItemGetReplyOutputEntityPathItem path = 2;
+message ArticleItemGetReplyOutputItem {
+  ArticleItemGetReplyOutputItemData data = 1;
+  repeated ArticleItemGetReplyOutputItemPathItem path = 2;
 }
 
-message ArticleItemGetReplyOutputEntityData {
+message ArticleItemGetReplyOutputItemData {
   int64 id = 1;
   string title = 2;
 }
 
-message ArticleItemGetReplyOutputEntityPathItem {
+message ArticleItemGetReplyOutputItemPathItem {
   int64 id = 1;
   string name = 2;
 }

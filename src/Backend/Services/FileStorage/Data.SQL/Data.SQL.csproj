@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Makc2023.Backend.Common.Data.SQL" Version="1.0.6" />
+	  <PackageReference Include="Makc2023.Backend.Common.Data.SQL" Version="1.0.7" />
 	</ItemGroup>
 
 </Project>

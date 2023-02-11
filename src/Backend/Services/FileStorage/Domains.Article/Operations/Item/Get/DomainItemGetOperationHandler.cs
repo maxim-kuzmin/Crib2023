@@ -56,9 +56,9 @@ public class DomainItemGetOperationHandler :
 
     private ArticleItemGetOperationOutput TransformOperationOutput(ArticleItemGetOperationOutput output)
     {
-        if (output.IsEntityNotFound)
+        if (output.IsItemNotFound)
         {
-            output.Entity = new ArticleEntity(new ArticleTypeEntity());
+            output.Item = new ArticleEntity(new ArticleTypeEntity());
 
             throw new LocalizedException(_domainResource.GetErrorMessageForEntityNotFound());
         }
