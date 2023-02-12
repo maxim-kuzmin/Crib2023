@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 
 /// <summary>
-/// Сервис настройки сопоставителя.
+/// Сервис настройки сопоставителя клиента.
 /// </summary>
 public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext>
 {
@@ -15,9 +15,6 @@ public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext
 
     #region Properties
 
-    /// <summary>
-    /// Список статей.
-    /// </summary>
     private IEnumerable<ClientMapperArticleTypeEntity> ArticleList { get; set; } = null!;
 
     private IEnumerable<ClientMapperTopicTypeEntity> TopicList { get; set; } = null!;

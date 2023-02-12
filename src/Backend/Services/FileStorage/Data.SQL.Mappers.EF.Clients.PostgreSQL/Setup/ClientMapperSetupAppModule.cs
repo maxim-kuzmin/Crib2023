@@ -63,10 +63,8 @@ public class ClientMapperSetupAppModule : AppModule
                 typeof(ILogger),
                 typeof(IMapperDbManager),
                 typeof(IMapperResource),
-                typeof(IProvider),
                 typeof(OptionsOfCommonDataSQL),
                 typeof(OptionsOfServiceDataSQL),
-                typeof(TypesOptions),
             };
     }
 

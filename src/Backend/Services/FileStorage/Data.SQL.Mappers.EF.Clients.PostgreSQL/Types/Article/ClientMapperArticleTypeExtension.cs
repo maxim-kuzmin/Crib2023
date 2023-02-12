@@ -3,17 +3,17 @@
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article;
 
 /// <summary>
-/// Расширение типа "Статья" сопоставителя.
+/// Расширение типа "Статья" сопоставителя клиента.
 /// </summary>
 public static class ClientMapperArticleTypeExtension
 {
     #region Public methods
 
     /// <summary>
-    /// Преобразовать в сущность сопоставителя.
+    /// Преобразовать в сущность сопоставителя клиента.
     /// </summary>
     /// <param name="entity">Сущность.</param>
-    /// <returns>Сущность сопоставителя.</returns>
+    /// <returns>Сущность сопоставителя клиента.</returns>
     public static ClientMapperArticleTypeEntity ToMapperEntity(this ArticleTypeEntity entity)
     {
         ClientMapperArticleTypeEntity result = new();
@@ -26,7 +26,7 @@ public static class ClientMapperArticleTypeExtension
     /// <summary>
     /// Преобразовать в сущность.
     /// </summary>
-    /// <param name="mapperEntity">Сущность сопоставителя.</param>
+    /// <param name="mapperEntity">Сущность сопоставителя клиента.</param>
     /// <returns>Сущность.</returns>
     public static ArticleTypeEntity ToEntity(this ClientMapperArticleTypeEntity mapperEntity)
     {

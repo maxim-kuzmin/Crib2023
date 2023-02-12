@@ -5,10 +5,9 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Types.Articl
 /// <summary>
 /// Конфигурация типа "Статья" сопоставителя.
 /// </summary>
-/// <typeparam name="TArticleTypeEntity">Тип сущности типа "Статья".</typeparam>
-public class MapperArticleTypeConfiguration<TArticleTypeEntity> :
-    MapperTypeConfiguration<TArticleTypeEntity>
-    where TArticleTypeEntity : ArticleTypeEntity
+/// <typeparam name="TEntity">Тип сущности.</typeparam>
+public class MapperArticleTypeConfiguration<TEntity> : MapperTypeConfiguration<TEntity>
+    where TEntity : ArticleTypeEntity
 {
     #region Constructors
 
@@ -23,13 +22,13 @@ public class MapperArticleTypeConfiguration<TArticleTypeEntity> :
     #region Public methods
 
     /// <inheritdoc/>
-    public override void Configure(EntityTypeBuilder<TArticleTypeEntity> builder)
+    public override void Configure(EntityTypeBuilder<TEntity> builder)
     {
         var options = TypesOptions.Article;
 
         if (options is null)
         {
-            throw new NullVariableException<MapperArticleTypeConfiguration<TArticleTypeEntity>>(nameof(options));
+            throw new NullVariableException<MapperArticleTypeConfiguration<TEntity>>(nameof(options));
         }
 
         builder.ToTable(options.DbTable, options.DbSchema);

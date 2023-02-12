@@ -2,6 +2,9 @@
 
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db;
 
+/// <summary>
+/// Менеджер базы данных сопоставителя клиента.
+/// </summary>
 public class ClientMapperDbManager : MapperDbManager<ClientMapperDbContext>
 {
     #region Constructors

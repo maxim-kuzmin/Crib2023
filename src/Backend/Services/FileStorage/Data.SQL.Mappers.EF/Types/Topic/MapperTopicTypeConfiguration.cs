@@ -5,10 +5,9 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Types.Topic;
 /// <summary>
 /// Конфигурация типа "Тема" сопоставителя.
 /// </summary>
-/// <typeparam name="TTopicTypeEntity">Тип сущности типа "Тема".</typeparam>
-public class MapperTopicTypeConfiguration<TTopicTypeEntity> :
-    MapperTypeConfiguration<TTopicTypeEntity>
-    where TTopicTypeEntity : TopicTypeEntity
+/// <typeparam name="TEntity">Тип сущности.</typeparam>
+public class MapperTopicTypeConfiguration<TEntity> : MapperTypeConfiguration<TEntity>
+    where TEntity : TopicTypeEntity
 {
     #region Constructors
 
@@ -23,13 +22,13 @@ public class MapperTopicTypeConfiguration<TTopicTypeEntity> :
     #region Public methods
 
     /// <inheritdoc/>
-    public override void Configure(EntityTypeBuilder<TTopicTypeEntity> builder)
+    public override void Configure(EntityTypeBuilder<TEntity> builder)
     {
         var options = TypesOptions.Topic;
 
         if (options is null)
         {
-            throw new NullVariableException<MapperTopicTypeConfiguration<TTopicTypeEntity>>(nameof(options));
+            throw new NullVariableException<MapperTopicTypeConfiguration<TEntity>>(nameof(options));
         }
 
         builder.ToTable(options.DbTable, options.DbSchema);

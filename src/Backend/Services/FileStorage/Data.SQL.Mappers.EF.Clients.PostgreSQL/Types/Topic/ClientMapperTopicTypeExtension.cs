@@ -10,10 +10,10 @@ public static class ClientMapperTopicTypeExtension
     #region Public methods
 
     /// <summary>
-    /// Преобразовать в сущность сопоставителя.
+    /// Преобразовать в сущность сопоставителя клиента.
     /// </summary>
     /// <param name="entity">Сущность.</param>
-    /// <returns>Сущность сопоставителя.</returns>
+    /// <returns>Сущность сопоставителя клиента.</returns>
     public static ClientMapperTopicTypeEntity ToMapperEntity(this TopicTypeEntity entity)
     {
         ClientMapperTopicTypeEntity result = new();
@@ -26,7 +26,7 @@ public static class ClientMapperTopicTypeExtension
     /// <summary>
     /// Преобразовать в сущность.
     /// </summary>
-    /// <param name="mapperEntity">Сущность сопоставителя.</param>
+    /// <param name="mapperEntity">Сущность сопоставителя клиента.</param>
     /// <returns>Сущность.</returns>
     public static TopicTypeEntity ToEntity(this ClientMapperTopicTypeEntity mapperEntity)
     {

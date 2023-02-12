@@ -45,7 +45,7 @@ public abstract class MapperSetupService<TDbContext> : ISetupService
     #region Protected methods
 
     /// <summary>
-    /// Проверить, найдена ли хоть одна тема.
+    /// Проверить, найден ли хоть один экземпляр сущности "Тема".
     /// </summary>
     /// <param name="dbContext">Контекст базы данных.</param>
     /// <returns>Задача на проверку.</returns>
@@ -69,20 +69,20 @@ public abstract class MapperSetupService<TDbContext> : ISetupService
     }
 
     /// <summary>
-    /// Получить идентификаторы тестовых тем.
+    /// Получить идентификаторы экземпляров сущности "Тема".
     /// </summary>
     /// <returns>Идентификаторы.</returns>
     protected abstract IEnumerable<long> GetTestTopicIds();
 
     /// <summary>
-    /// Засеять список тестовых статей.
+    /// Засеять список экземпляров сущности "Статья".
     /// </summary>
     /// <param name="dbContext">Контекст базы данных.</param>
     /// <returns>Задача на засеивание.</returns>
     protected abstract Task SeedTestArticleList(TDbContext dbContext, IEnumerable<long> topicIds);
 
     /// <summary>
-    /// Засеять список тестовых тем.
+    /// Засеять список экземпляров сущности "Тема".
     /// </summary>
     /// <param name="dbContext">Контекст базы данных.</param>
     /// <returns>Задача на засеивание.</returns>

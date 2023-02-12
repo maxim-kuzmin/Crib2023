@@ -55,9 +55,9 @@ public class DomainSetupAppModule : AppModule
     {
         return new[]
         {
-            typeof(ClientMapperDbManager),
-            typeof(ILogger),
+            typeof(ClientMapperDbManager),            
             typeof(IClientMapperDbContextFactory),
+            typeof(ILogger),
             typeof(IMediator),
             typeof(IStringLocalizer),
             typeof(SetupOptions),
