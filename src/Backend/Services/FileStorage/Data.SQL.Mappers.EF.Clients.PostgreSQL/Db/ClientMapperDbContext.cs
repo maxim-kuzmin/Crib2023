@@ -5,8 +5,22 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
 /// <summary>
 /// Контекст базы данных сопоставителя клиента.
 /// </summary>
-public class ClientMapperDbContext : MapperDbContext
+public class ClientMapperDbContext : DbContext
 {
+    #region Properties
+
+    /// <summary>
+    /// Тип "Статья".
+    /// </summary>
+    public DbSet<ClientMapperArticleTypeEntity> Article { get; set; }
+
+    /// <summary>
+    /// Тип "Тема".
+    /// </summary>
+    public DbSet<ClientMapperTopicTypeEntity> Topic { get; set; }
+
+    #endregion Properties
+
     #region Constructors
 
     /// <inheritdoc/>
@@ -26,8 +40,8 @@ public class ClientMapperDbContext : MapperDbContext
 
         var typesOptions = ClientTypesOptions.Instance;
 
-        modelBuilder.ApplyConfiguration(new MapperArticleTypeConfiguration(typesOptions));
-        modelBuilder.ApplyConfiguration(new MapperTopicTypeConfiguration(typesOptions));
+        modelBuilder.ApplyConfiguration(new ClientMapperArticleTypeConfiguration(typesOptions));
+        modelBuilder.ApplyConfiguration(new ClientMapperTopicTypeConfiguration(typesOptions));
     }
 
     #endregion Protected methods

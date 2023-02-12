@@ -5,7 +5,10 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Types.Articl
 /// <summary>
 /// Конфигурация типа "Статья" сопоставителя.
 /// </summary>
-public class MapperArticleTypeConfiguration : MapperTypeConfiguration<MapperArticleTypeEntity>
+/// <typeparam name="TArticleTypeEntity">Тип сущности типа "Статья".</typeparam>
+public class MapperArticleTypeConfiguration<TArticleTypeEntity> :
+    MapperTypeConfiguration<TArticleTypeEntity>
+    where TArticleTypeEntity : ArticleTypeEntity
 {
     #region Constructors
 
@@ -20,13 +23,13 @@ public class MapperArticleTypeConfiguration : MapperTypeConfiguration<MapperArti
     #region Public methods
 
     /// <inheritdoc/>
-    public sealed override void Configure(EntityTypeBuilder<MapperArticleTypeEntity> builder)
+    public override void Configure(EntityTypeBuilder<TArticleTypeEntity> builder)
     {
         var options = TypesOptions.Article;
 
         if (options is null)
         {
-            throw new NullVariableException<MapperArticleTypeConfiguration>(nameof(options));
+            throw new NullVariableException<MapperArticleTypeConfiguration<TArticleTypeEntity>>(nameof(options));
         }
 
         builder.ToTable(options.DbTable, options.DbSchema);
@@ -59,11 +62,6 @@ public class MapperArticleTypeConfiguration : MapperTypeConfiguration<MapperArti
         
         builder.HasIndex(x => x.Title).IsUnique().HasDatabaseName(options.DbUniqueIndexForTitle);
         builder.HasIndex(x => x.TopicId).HasDatabaseName(options.DbIndexForTopicId);
-
-        builder.HasOne(x => x.Topic)
-            .WithMany(x => x.ArticleList)
-            .HasForeignKey(x => x.TopicId)
-            .HasConstraintName(options.DbForeignKeyToTopic);
     }
 
     #endregion Public methods

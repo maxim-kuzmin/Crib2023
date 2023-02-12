@@ -5,45 +5,16 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Setup;
 /// <summary>
 /// Сервис настройки сопоставителя.
 /// </summary>
-public class MapperSetupService : ISetupService
+/// <typeparam name="TDbContext">Тип контекста базы данных.</typeparam>
+public abstract class MapperSetupService<TDbContext> : ISetupService
+    where TDbContext : DbContext
 {
-    #region Properties
-
-    private IProvider ClientProvider { get; }
-
-    private TypesOptions EntitiesOptions { get; }
-
-    private IMapperDbContextFactory MapperDbFactory { get; }
-
-    #endregion Properties
-
-    #region Constructors
-
-    /// <summary>
-    /// Конструктор.
-    /// </summary>        
-    /// <param name="сlientProvider">Поставщик клиента.</param>
-    /// <param name="typesOptions">Параметры сущностей.</param>        
-    /// <param name="mapperDbFactory">Фабрика базы данных сопоставителя.</param>
-    public MapperSetupService(
-        IProvider сlientProvider,
-        TypesOptions typesOptions,
-        IMapperDbContextFactory mapperDbFactory
-        )
-    {
-        ClientProvider = сlientProvider;
-        EntitiesOptions = typesOptions;
-        MapperDbFactory = mapperDbFactory;
-    }
-
-    #endregion Constructors
-
     #region Public methods
 
     /// <inheritdoc/>
     public async Task MigrateDatabase()
     {
-        using var dbContext = MapperDbFactory.CreateDbContext();
+        using var dbContext = CreateDbContext();
 
         await dbContext.Database.MigrateAsync().ConfigureAwait(false);
     }
@@ -51,17 +22,19 @@ public class MapperSetupService : ISetupService
     /// <inheritdoc/>
     public async Task SeedTestData()
     {
-        using var dbContext = MapperDbFactory.CreateDbContext();
+        using var dbContext = CreateDbContext();
 
         using var transaction = await dbContext.Database.BeginTransactionAsync().ConfigureAwait(false);
 
-        bool isOk = await dbContext.Topic.AnyAsync().ConfigureAwait(false);
+        bool isAnyTopicNotFound = await CheckIfAnyTopicNotFound(dbContext).ConfigureAwait(false);
 
-        if (!isOk)
+        if (isAnyTopicNotFound)
         {
-            var topicList = await SeedTestTopicList(dbContext).ConfigureAwait(false);
+            await SeedTestTopicList(dbContext).ConfigureAwait(false);
 
-            var articleList = await SeedTestArticleList(dbContext, topicList).ConfigureAwait(false);
+            var topicIds = GetTestTopicIds();
+
+            await SeedTestArticleList(dbContext, topicIds).ConfigureAwait(false);
         }
 
         await transaction.CommitAsync().ConfigureAwait(false);
@@ -69,101 +42,51 @@ public class MapperSetupService : ISetupService
 
     #endregion Public methods
 
-    #region Private methods
+    #region Protected methods
 
-    private static MapperArticleTypeEntity CreateTestArticle(
-        long index,
-        IEnumerable<MapperTopicTypeEntity> topicList)
-    {
-        int topicIndex = GetRandomIndex(topicList);
+    /// <summary>
+    /// Проверить, найдена ли хоть одна тема.
+    /// </summary>
+    /// <param name="dbContext">Контекст базы данных.</param>
+    /// <returns>Задача на проверку.</returns>
+    protected abstract Task<bool> CheckIfAnyTopicNotFound(TDbContext dbContext);
 
-        return new MapperArticleTypeEntity
-        {
-            Hash = $"Hash-{index}",
-            Path = $"Path-{index}",
-            Title = $"Title-{index}",
-            TopicId = topicList.ElementAt(topicIndex).Id
-        };
-    }
+    /// <summary>
+    /// Создать контекст базы данных.
+    /// </summary>
+    /// <returns>Контекст базы данных.</returns>
+    protected abstract TDbContext CreateDbContext();
 
-    private static MapperTopicTypeEntity CreateTestTopic(
-        IEnumerable<int> indexes,
-        long? parentId)
-    {
-        string suffix = indexes.Any() ? "-" + string.Join("-", indexes) : string.Empty;
-
-        return new MapperTopicTypeEntity
-        {
-            Name = $"Name{suffix}",
-            ParentId = parentId
-        };
-    }
-
-    private static int GetRandomIndex<T>(IEnumerable<T> items)
+    /// <summary>
+    /// Получить случайный индекс.
+    /// </summary>
+    /// <typeparam name="T">Тип элемента.</typeparam>
+    /// <param name="items">Элементы.</param>
+    /// <returns>Индекс.</returns>
+    protected static int GetRandomIndex<T>(IEnumerable<T> items)
     {
         return new Random(Guid.NewGuid().GetHashCode()).Next(0, items.Count());
     }
 
-    private async Task SaveTestTopicList(
-        MapperDbContext dbContext,
-        List<MapperTopicTypeEntity> topicList,
-        List<int> parentIndexes,
-        long? parentId)
-    {
-        if (parentIndexes.Count == 5)
-        {
-            return;
-        }
+    /// <summary>
+    /// Получить идентификаторы тестовых тем.
+    /// </summary>
+    /// <returns>Идентификаторы.</returns>
+    protected abstract IEnumerable<long> GetTestTopicIds();
 
-        var indexes = new List<int>();
+    /// <summary>
+    /// Засеять список тестовых статей.
+    /// </summary>
+    /// <param name="dbContext">Контекст базы данных.</param>
+    /// <returns>Задача на засеивание.</returns>
+    protected abstract Task SeedTestArticleList(TDbContext dbContext, IEnumerable<long> topicIds);
 
-        if (parentIndexes.Any())
-        {
-            indexes.AddRange(parentIndexes);
-        }
+    /// <summary>
+    /// Засеять список тестовых тем.
+    /// </summary>
+    /// <param name="dbContext">Контекст базы данных.</param>
+    /// <returns>Задача на засеивание.</returns>
+    protected abstract Task SeedTestTopicList(TDbContext dbContext);
 
-        for (int index = 1; index < 4; index++)
-        {
-            indexes.Add(index);
-
-            var topic = CreateTestTopic(indexes, parentId);
-
-            topicList.Add(topic);
-
-            dbContext.Topic.Add(topic);
-
-            await dbContext.SaveChangesAsync().ConfigureAwait(false);
-
-            await SaveTestTopicList(dbContext, topicList, indexes, topic.Id).ConfigureAwait(false);
-
-            indexes.RemoveAt(indexes.Count - 1);
-        }
-    }
-
-    private static async Task<IEnumerable<MapperArticleTypeEntity>> SeedTestArticleList(
-        MapperDbContext dbContext,
-        IEnumerable<MapperTopicTypeEntity> topicList)
-    {
-        var result = Enumerable.Range(1, 100)
-            .Select(index => CreateTestArticle(index, topicList))
-            .ToArray();
-
-        dbContext.Article.AddRange(result);
-
-        await dbContext.SaveChangesAsync().ConfigureAwait(false);
-
-        return result;
-    }
-
-    private async Task<IEnumerable<MapperTopicTypeEntity>> SeedTestTopicList(
-        MapperDbContext dbContext)
-    {
-        var result = new List<MapperTopicTypeEntity>();
-
-        await SaveTestTopicList(dbContext, result, new List<int>(), null).ConfigureAwait(false);
-
-        return result;
-    }
-
-    #endregion Private methods
+    #endregion Protected methods
 }

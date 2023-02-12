@@ -20,18 +20,20 @@ public class ClientMapperSetupAppModule : AppModule
             x.GetRequiredService<ILogger<ClientMapperDbContextFactory>>(),
             x.GetRequiredService<IOptionsMonitor<OptionsOfCommonDataSQL>>()));
 
-        services.AddScoped<MapperDbContext, ClientMapperDbContext>();
+        services.AddScoped<IClientMapperDbContextFactory>(x => new ClientMapperDbContextFactory(
+            x.GetRequiredService<IDbContextFactory<ClientMapperDbContext>>(),
+            x.GetRequiredService<IOptionsMonitor<OptionsOfCommonDataSQL>>()));
 
-        services.AddScoped(x => new MapperDbManager(
-            x.GetRequiredService<MapperDbContext>(),
+        services.AddScoped(x => new ClientMapperDbManager(
+            x.GetRequiredService<ClientMapperDbContext>(),
             x.GetRequiredService<IMapperResource>()
             ));
 
-        services.AddScoped<IMapperDbManager, MapperDbManager>();
+        services.AddScoped<IMapperDbManager, ClientMapperDbManager>();
 
-        services.AddScoped<IMapperDbContextFactory>(x => new ClientMapperDbContextFactory(
-            x.GetRequiredService<IDbContextFactory<ClientMapperDbContext>>(),
-            x.GetRequiredService<IOptionsMonitor<OptionsOfCommonDataSQL>>()));
+        services.AddTransient<ISetupService>(x => new ClientMapperSetupService(
+            x.GetRequiredService<IClientMapperDbContextFactory>()
+            ));
     }
 
     /// <inheritdoc/>
@@ -39,11 +41,12 @@ public class ClientMapperSetupAppModule : AppModule
     {
         return new[]
             {
-                typeof(ClientMapperDbContext),
+                typeof(ClientMapperDbContext),                
+                typeof(ClientMapperDbManager),
+                typeof(IClientMapperDbContextFactory),
                 typeof(IDbContextFactory<ClientMapperDbContext>),
-                typeof(IMapperDbContextFactory),
-                typeof(MapperDbContext),
-                typeof(MapperDbManager),
+                typeof(IMapperDbManager),
+                typeof(ISetupService)
             };
     }
 
@@ -60,8 +63,10 @@ public class ClientMapperSetupAppModule : AppModule
                 typeof(ILogger),
                 typeof(IMapperDbManager),
                 typeof(IMapperResource),
+                typeof(IProvider),
                 typeof(OptionsOfCommonDataSQL),
                 typeof(OptionsOfServiceDataSQL),
+                typeof(TypesOptions),
             };
     }
 

@@ -5,7 +5,8 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Db;
 /// <summary>
 /// Фабрика контекста базы данных сопоставителя.
 /// </summary>
-public interface IMapperDbContextFactory
+/// <typeparam name="TDbContext">Тип контекста базы данных.</typeparam>
+public interface IMapperDbContextFactory<TDbContext>
 {
     #region Methods
 
@@ -13,7 +14,7 @@ public interface IMapperDbContextFactory
     /// Создать контекст базы данных.
     /// </summary>
     /// <returns>Контекст базы данных.</returns>
-    MapperDbContext CreateDbContext();
+    TDbContext CreateDbContext();
 
     #endregion Methods
 }

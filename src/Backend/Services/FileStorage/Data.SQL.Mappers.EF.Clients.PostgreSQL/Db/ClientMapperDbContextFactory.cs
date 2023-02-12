@@ -7,7 +7,9 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
 /// dotnet ef migrations add InitialCreate --configuration Debug -- "строка подключения к базе данных"
 /// dotnet ef database update --configuration Debug -- "строка подключения к базе данных"
 /// </summary>
-public class ClientMapperDbContextFactory : IMapperDbContextFactory, IDesignTimeDbContextFactory<ClientMapperDbContext>
+public class ClientMapperDbContextFactory :
+    IClientMapperDbContextFactory,
+    IDesignTimeDbContextFactory<ClientMapperDbContext>
 {
     #region Properties
 
@@ -102,7 +104,7 @@ public class ClientMapperDbContextFactory : IMapperDbContextFactory, IDesignTime
     }
 
     /// <inheritdoc/>
-    MapperDbContext IMapperDbContextFactory.CreateDbContext()
+    public ClientMapperDbContext CreateDbContext()
     {
         if (DbContextFactory is null)
         {

@@ -35,7 +35,7 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-filestorage
     build:
       context: .
-      dockerfile: Backend/Services/FileStorage/App/Dockerfile
+      dockerfile: Backend/Services/FileStorage/App.SQL.Mappers.EF.Clients.PostgreSQL/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     networks:
