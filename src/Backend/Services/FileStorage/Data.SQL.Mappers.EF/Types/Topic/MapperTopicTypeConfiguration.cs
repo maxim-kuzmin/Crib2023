@@ -35,9 +35,7 @@ public class MapperTopicTypeConfiguration<TEntity> : MapperTypeConfiguration<TEn
 
         builder.HasKey(x => x.Id).HasName(options.DbPrimaryKey);
 
-        builder.Property(x => x.Id)
-            .ValueGeneratedOnAdd()
-            .HasColumnName(options.DbColumnForId);
+        builder.Property(x => x.Id).HasColumnName(options.DbColumnForId);
 
         builder.Property(x => x.Name)
             .IsRequired()
@@ -45,8 +43,7 @@ public class MapperTopicTypeConfiguration<TEntity> : MapperTypeConfiguration<TEn
             .HasMaxLength(options.DbMaxLengthForName)
             .HasColumnName(options.DbColumnForName);
 
-        builder.Property(x => x.ParentId)
-            .HasColumnName(options.DbColumnForParentId);
+        builder.Property(x => x.ParentId).HasColumnName(options.DbColumnForParentId);
 
         builder.Ignore(x => x.TreeChildCount);
         builder.Ignore(x => x.TreeDescendantCount);

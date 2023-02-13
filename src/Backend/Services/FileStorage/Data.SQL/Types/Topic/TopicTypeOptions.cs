@@ -95,6 +95,11 @@ public class TopicTypeOptions : TypeOptions
     public string? DbPrimaryKey { get; set; }
 
     /// <summary>
+    /// Последовательность в базеданных для поля "Id".
+    /// </summary>
+    public string DbSequenceForId { get; set; }
+
+    /// <summary>
     /// Индекс в базе данных для полей "Name" и "ParentId".
     /// </summary>
     public string? DbUniqueIndexForNameAndParentId { get; set; }
@@ -170,6 +175,8 @@ public class TopicTypeOptions : TypeOptions
         DbMaxLengthForTreeSort = 900;
 
         DbPrimaryKey = CreateDbPrimaryKeyName(DbTable);
+
+        DbSequenceForId = CreateDbSequenceName(DbTable, DbColumnForId);
 
         DbUniqueIndexForNameAndParentId = CreateDbUniqueIndexName(DbTable, DbColumnForName, DbColumnForParentId);
     }

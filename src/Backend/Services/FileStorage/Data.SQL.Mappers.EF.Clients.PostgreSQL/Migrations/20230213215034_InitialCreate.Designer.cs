@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Migrations
 {
     [DbContext(typeof(ClientMapperDbContext))]
-    [Migration("20230213163859_InitialCreate")]
+    [Migration("20230213215034_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,6 +25,8 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
 
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "ltree");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.HasSequence("topic_id_seq", "public");
 
             modelBuilder.Entity("Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity", b =>
                 {
@@ -78,7 +80,7 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
                         .HasColumnType("bigint")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<long>("Id"), "topic_id_seq", "public");
 
                     b.Property<string>("DbColumnForTreePath")
                         .IsRequired()

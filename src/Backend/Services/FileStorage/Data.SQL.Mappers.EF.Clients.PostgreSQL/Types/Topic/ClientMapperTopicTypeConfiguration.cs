@@ -26,6 +26,8 @@ public class ClientMapperTopicTypeConfiguration : MapperTopicTypeConfiguration<C
 
         var options = TypesOptions.Topic;
 
+        builder.Property(x => x.Id).UseHiLo(options.DbSequenceForId, options.DbSchema);
+
         builder.Property(x => x.DbColumnForTreePath)
             .HasColumnName(options.DbColumnForTreePath);
 

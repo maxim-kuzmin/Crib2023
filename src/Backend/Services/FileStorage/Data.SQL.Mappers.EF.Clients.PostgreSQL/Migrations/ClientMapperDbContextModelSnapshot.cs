@@ -23,6 +23,8 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
             NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "ltree");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.HasSequence("topic_id_seq", "public");
+
             modelBuilder.Entity("Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity", b =>
                 {
                     b.Property<long>("Id")
@@ -75,7 +77,7 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
                         .HasColumnType("bigint")
                         .HasColumnName("id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<long>("Id"), "topic_id_seq", "public");
 
                     b.Property<string>("DbColumnForTreePath")
                         .IsRequired()

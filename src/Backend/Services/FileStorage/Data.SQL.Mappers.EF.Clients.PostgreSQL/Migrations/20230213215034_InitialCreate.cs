@@ -17,13 +17,16 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
             migrationBuilder.AlterDatabase()
                 .Annotation("Npgsql:PostgresExtension:ltree", ",,");
 
+            migrationBuilder.CreateSequence(
+                name: "topic_id_seq",
+                schema: "public");
+
             migrationBuilder.CreateTable(
                 name: "topic",
                 schema: "public",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<long>(type: "bigint", nullable: false),
                     treepath = table.Column<string>(name: "tree_path", type: "ltree", nullable: false),
                     name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     parentid = table.Column<long>(name: "parent_id", type: "bigint", nullable: true)
@@ -106,6 +109,10 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
 
             migrationBuilder.DropTable(
                 name: "topic",
+                schema: "public");
+
+            migrationBuilder.DropSequence(
+                name: "topic_id_seq",
                 schema: "public");
         }
     }

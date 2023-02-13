@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db;
 
 /// <summary>
@@ -41,6 +43,9 @@ public class ClientMapperDbContext : DbContext
         modelBuilder.HasPostgresExtension("ltree");
 
         var typesOptions = ClientTypesOptions.Instance;
+
+        modelBuilder.HasSequence<long>(typesOptions.Topic.DbSequenceForId, typesOptions.Topic.DbSchema)
+            .IncrementsBy(1);
 
         modelBuilder.ApplyConfiguration(new ClientMapperArticleTypeConfiguration(typesOptions));
         modelBuilder.ApplyConfiguration(new ClientMapperTopicTypeConfiguration(typesOptions));
