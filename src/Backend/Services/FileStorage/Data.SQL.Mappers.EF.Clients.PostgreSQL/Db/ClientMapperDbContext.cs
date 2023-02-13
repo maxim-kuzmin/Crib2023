@@ -38,6 +38,8 @@ public class ClientMapperDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.HasPostgresExtension("ltree");
+
         var typesOptions = ClientTypesOptions.Instance;
 
         modelBuilder.ApplyConfiguration(new ClientMapperArticleTypeConfiguration(typesOptions));

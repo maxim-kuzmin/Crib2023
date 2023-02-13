@@ -60,14 +60,14 @@ public class TopicTypeOptions : TypeOptions
     public string? DbForeignKeyToTopicParent { get; set; }
 
     /// <summary>
-    /// Индекс в базе данных для поля "Name".
-    /// </summary>
-    public string? DbIndexForName { get; set; }
-
-    /// <summary>
     /// Индекс в базе данных для поля "ParentId".
     /// </summary>
     public string? DbIndexForParentId { get; set; }
+
+    /// <summary>
+    /// Индекс в базе данных для поля "TreePath".
+    /// </summary>
+    public string? DbIndexForTreePath { get; set; }
 
     /// <summary>
     /// Индекс в базе данных для поля "TreeSort".
@@ -95,9 +95,9 @@ public class TopicTypeOptions : TypeOptions
     public string? DbPrimaryKey { get; set; }
 
     /// <summary>
-    /// Индекс в базе данных для полей "ParentId" и "Name".
+    /// Индекс в базе данных для полей "Name" и "ParentId".
     /// </summary>
-    public string? DbUniqueIndexForParentIdAndName { get; set; }
+    public string? DbUniqueIndexForNameAndParentId { get; set; }
 
     #endregion Properties
 
@@ -157,9 +157,9 @@ public class TopicTypeOptions : TypeOptions
 
         DbForeignKeyToTopicParent = CreateDbForeignKeyName(DbTable, DbTable, DbColumnForParentId);
 
-        DbIndexForName = CreateDbIndexName(DbTable, DbColumnForName);
-
         DbIndexForParentId = CreateDbIndexName(DbTable, DbColumnForParentId);
+
+        DbIndexForTreePath = CreateDbIndexName(DbTable, DbColumnForTreePath);
 
         DbIndexForTreeSort = CreateDbIndexName(DbTable, DbColumnForTreeSort);
 
@@ -171,10 +171,7 @@ public class TopicTypeOptions : TypeOptions
 
         DbPrimaryKey = CreateDbPrimaryKeyName(DbTable);
 
-        DbUniqueIndexForParentIdAndName = CreateDbUniqueIndexName(
-            DbTable,
-            DbColumnForParentId,
-            DbColumnForName);
+        DbUniqueIndexForNameAndParentId = CreateDbUniqueIndexName(DbTable, DbColumnForName, DbColumnForParentId);
     }
 
     #endregion Constructors

@@ -65,9 +65,9 @@ public class ArticleTypeOptions : TypeOptions
     public string? DbPrimaryKey { get; set; }
 
     /// <summary>
-    /// Уникальный индекс в базе данных для поля "Title".
+    /// Уникальный индекс в базе данных для полей "Title" и "TopicId".
     /// </summary>
-    public string? DbUniqueIndexForTitle { get; set; }
+    public string? DbUniqueIndexForTitleAndTopicId { get; set; }
 
     #endregion Properties
 
@@ -122,7 +122,7 @@ public class ArticleTypeOptions : TypeOptions
 
         DbPrimaryKey = CreateDbPrimaryKeyName(DbTable);
 
-        DbUniqueIndexForTitle = CreateDbUniqueIndexName(DbTable, DbColumnForTitle);
+        DbUniqueIndexForTitleAndTopicId = CreateDbUniqueIndexName(DbTable, DbColumnForTitle, DbColumnForTopicId);
     }
 
     #endregion Constructors

@@ -26,9 +26,12 @@ public class ClientMapperTopicTypeConfiguration : MapperTopicTypeConfiguration<C
 
         var options = TypesOptions.Topic;
 
-        builder.Property(x => x.ClientTreePath)
+        builder.Property(x => x.DbColumnForTreePath)
             .HasColumnName(options.DbColumnForTreePath);
 
+        builder.HasIndex(x => x.DbColumnForTreePath)
+            .HasMethod("gist")
+            .HasDatabaseName(options.DbIndexForTreePath);
 
         builder.HasOne(x => x.TopicParent)
             .WithMany(x => x.TopicChildList)

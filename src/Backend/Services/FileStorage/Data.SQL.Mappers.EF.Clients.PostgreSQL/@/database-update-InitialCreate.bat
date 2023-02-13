@@ -4,7 +4,7 @@ echo Database update InitialCreate start
 
 cd ..
 
-dotnet ef database update InitialCreate --configuration Debug
+dotnet ef database update InitialCreate -- "Server=localhost;Port=5432;Database=crib2023_filestorage;User Id=crib;Password=Crib2023;"
 
 cd @
 

@@ -10,9 +10,9 @@ public class ClientMapperTopicTypeEntity : TopicTypeEntity
     #region Properties
 
     /// <summary>
-    /// Источник пути в дереве клиента.
+    /// Колонка в базе данных для поля "TreePath".
     /// </summary>
-    public LTree ClientTreePath { get; set; }
+    public LTree DbColumnForTreePath { get; set; }
 
     #endregion Properties
 

@@ -12,12 +12,12 @@ public abstract class TypesOptions
     /// <summary>
     /// Сущность "Статья".
     /// </summary>
-    public ArticleTypeOptions Article { get; protected set; } = null!;
+    public ArticleTypeOptions Article { get; init; } = null!;
 
     /// <summary>
     /// Сущность "Тема".
     /// </summary>
-    public TopicTypeOptions Topic { get; protected set; } = null!;
+    public TopicTypeOptions Topic { get; init; } = null!;
 
     #endregion Properties
 }

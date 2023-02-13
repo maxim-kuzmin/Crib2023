@@ -59,7 +59,10 @@ public class MapperArticleTypeConfiguration<TEntity> : MapperTypeConfiguration<T
             .IsRequired()
             .HasColumnName(options.DbColumnForTopicId);
         
-        builder.HasIndex(x => x.Title).IsUnique().HasDatabaseName(options.DbUniqueIndexForTitle);
+        builder.HasIndex(x => new { x.Title, x.TopicId })
+            .IsUnique()
+            .HasDatabaseName(options.DbUniqueIndexForTitleAndTopicId);
+
         builder.HasIndex(x => x.TopicId).HasDatabaseName(options.DbIndexForTopicId);
     }
 
