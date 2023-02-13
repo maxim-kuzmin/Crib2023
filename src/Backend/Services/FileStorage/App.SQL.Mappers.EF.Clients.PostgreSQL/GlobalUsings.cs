@@ -2,6 +2,7 @@
 
 global using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos;
 global using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
+global using Crib2023.Backend.Services.FileStorage.Data.SQL.Setup;
 global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get;
 global using Grpc.Core;

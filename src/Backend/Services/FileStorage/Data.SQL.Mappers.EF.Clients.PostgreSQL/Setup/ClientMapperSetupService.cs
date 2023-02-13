@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2022 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Makc2023.Backend.Common.Data.SQL.Commands.Tree;
+
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 
 /// <summary>
@@ -114,7 +116,7 @@ public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext
         ClientMapperDbContext dbContext,
         List<ClientMapperTopicTypeEntity> topicList,
         List<int> parentIndexes,
-        long? parentId)
+        ClientMapperTopicTypeEntity parent)
     {
         if (parentIndexes.Count == 5)
         {
@@ -132,15 +134,17 @@ public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext
         {
             indexes.Add(index);
 
-            var topic = CreateTestTopic(indexes, parentId);
+            var topic = CreateTestTopic(indexes, parent?.Id);
 
             topicList.Add(topic);
 
             dbContext.Topic.Add(topic);
 
+            topic.DbColumnForTreePath = new LTree(topic.Id.FromInt64ToTreePath(parent?.TreePath));
+
             await dbContext.SaveChangesAsync().ConfigureAwait(false);
 
-            await SaveTestTopicList(dbContext, topicList, indexes, topic.Id).ConfigureAwait(false);
+            await SaveTestTopicList(dbContext, topicList, indexes, topic).ConfigureAwait(false);
 
             indexes.RemoveAt(indexes.Count - 1);
         }

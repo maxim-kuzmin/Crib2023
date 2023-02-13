@@ -29,5 +29,19 @@ public static class SetupExtension
         });
     }
 
+    /// <summary>
+    /// Использовать модули приложения.
+    /// </summary>
+    /// <param name="services">Сервисы.</param>
+    /// <returns>Задача на использование.</returns>
+    public static async Task UseAppModules(this IServiceProvider services)
+    {
+        var setupService = services.GetRequiredService<ISetupService>();
+
+        await setupService.MigrateDatabase().ConfigureAwait(false);
+
+        await setupService.SeedTestData().ConfigureAwait(false);
+    }
+
     #endregion Public methods
 }
