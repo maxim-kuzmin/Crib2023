@@ -10,6 +10,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:5000/
+      - App__Language=${MY_DEFAULT_LANGUAGE}
     networks:
       - network-backend
       - network-frontend
@@ -28,6 +29,7 @@ services:
       dockerfile: Backend/Services/Catalog/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - App__Language=${MY_DEFAULT_LANGUAGE}
     networks:
       - network-backend
 
@@ -38,6 +40,7 @@ services:
       dockerfile: Backend/Services/FileStorage/App.SQL.Mappers.EF.Clients.PostgreSQL/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - App__Language=${MY_DEFAULT_LANGUAGE}
     networks:
       - network-backend
     

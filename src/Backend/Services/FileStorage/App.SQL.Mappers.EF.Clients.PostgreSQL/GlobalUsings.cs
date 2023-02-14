@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
 global using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos;
+global using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services;
 global using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 global using Crib2023.Backend.Services.FileStorage.Data.SQL.Setup;
 global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get;

@@ -12,11 +12,12 @@ public static class SetupExtension
     /// <summary>
     /// Добавить модули приложения.
     /// </summary>
-    /// <param name="services">Сервисы.</param>
-    /// <param name="configuration">Конфигурация.</param>
-    public static void AddAppModules(this IServiceCollection services, IConfiguration configuration)
+    /// <param name="appBuilder">Построитель приложения.</param>
+    public static void AddAppModules(this WebApplicationBuilder appBuilder)
     {
-        services.AddAppModules(new AppModule[]
+        var configuration = appBuilder.Configuration;
+
+        appBuilder.Services.AddAppModules(new AppModule[]
         {
             new ModuleOfCommonCore(configuration.GetRequiredSection("App:Common:Core")),
             new ModuleOfCommonDataSQL(configuration.GetRequiredSection("App:Common:Data:SQL")),
@@ -32,11 +33,16 @@ public static class SetupExtension
     /// <summary>
     /// Использовать модули приложения.
     /// </summary>
-    /// <param name="services">Сервисы.</param>
+    /// <param name="app">Приложение.</param>
+    /// <param name="appHandler">Обработчик приложения.</param>
     /// <returns>Задача на использование.</returns>
-    public static async Task UseAppModules(this IServiceProvider services)
+    public static async Task UseAppModules(this WebApplication app, AppHandler appHandler)
     {
-        var setupService = services.GetRequiredService<ISetupService>();
+        app.UseRequestLocalization(x => x.SetDefaultCulture(appHandler.CurrentLanguage)
+            .AddSupportedCultures(appHandler.AvailableLanguages)
+            .AddSupportedUICultures(appHandler.AvailableLanguages));
+
+        var setupService = app.Services.GetRequiredService<ISetupService>();
 
         await setupService.MigrateDatabase().ConfigureAwait(false);
 

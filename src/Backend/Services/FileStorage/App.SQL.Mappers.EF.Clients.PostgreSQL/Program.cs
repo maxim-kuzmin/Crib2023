@@ -1,27 +1,25 @@
 // Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services;
-
 using var appHandler = new WebAppHandler();
 
 appHandler.OnStart();
 
 try
 {
-    var builder = WebApplication.CreateBuilder(args);
+    var appBuilder = WebApplication.CreateBuilder(args);
 
-    builder.Configure();
+    appBuilder.Configure();
 
-    builder.Services.AddAppModules(builder.Configuration);
+    appBuilder.AddAppModules();
 
     // Additional configuration is required to successfully run gRPC on macOS.
     // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
-    builder.Services.AddGrpc();
+    appBuilder.Services.AddGrpc();
 
-    var app = builder.Build();
+    var app = appBuilder.Build();
 
-    await app.Services.UseAppModules().ConfigureAwait(false);
+    await app.UseAppModules(appHandler).ConfigureAwait(false);
 
     app.MapGrpcService<ArticleGrpcService>();
 

@@ -116,7 +116,7 @@ public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext
         ClientMapperDbContext dbContext,
         List<ClientMapperTopicTypeEntity> topicList,
         List<int> parentIndexes,
-        ClientMapperTopicTypeEntity parent)
+        ClientMapperTopicTypeEntity? parent)
     {
         if (parentIndexes.Count == 5)
         {
