@@ -12,6 +12,7 @@ global using Makc2023.Backend.Common.Core.Apps.WebApp;
 global using Makc2023.Backend.Common.Core.Apps.WebApp.Setup;
 global using MediatR;
 global using Microsoft.Extensions.Localization;
+global using ModuleOfServiceApp = Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupAppModule;
 global using ModuleOfServiceDataSQLClientsPostgreSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Clients.PostgreSQL.Setup.ClientSetupAppModule;
 global using ModuleOfServiceDataSQLMappersEFClientsPostgreSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup.ClientMapperSetupAppModule;
 global using ModuleOfServiceDataSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Setup.SetupAppModule;

@@ -7,11 +7,32 @@ namespace Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.Postg
 /// </summary>
 public class SetupAppModule : AppModule
 {
+    #region Fields
+
+    private readonly IAppEnvironment _appEnvironment;
+
+    #endregion Fields
+
+    #region Constructors
+
+    /// <summary>
+    /// Конструктор.
+    /// </summary>
+    /// <param name="appEnvironment">Окружение приложения.</param>
+    public SetupAppModule(IAppEnvironment appEnvironment)
+    {
+        _appEnvironment = appEnvironment;
+    }
+
+    #endregion Constructors
+
     #region Public methods
 
     /// <inheritdoc/>
     public sealed override void ConfigureServices(IServiceCollection services)
     {
+        services.AddSingleton(x => _appEnvironment);
+
         services.AddLocalization(x => x.ConfigureLocalization());
 
         services.AddMediatR(
@@ -24,7 +45,8 @@ public class SetupAppModule : AppModule
     public sealed override IEnumerable<Type> GetExports()
     {
         return new[]
-        {            
+        {
+            typeof(IAppEnvironment),
             typeof(IConfiguration),
             typeof(ILogger),
             typeof(IMediator),

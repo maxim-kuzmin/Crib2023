@@ -2,15 +2,17 @@
 
 using var appHandler = new WebAppHandler();
 
-appHandler.OnStart();
-
 try
 {
+    var appEnvironment = new AppEnvironment();
+
+    appHandler.OnStart(appEnvironment);
+
     var appBuilder = WebApplication.CreateBuilder(args);
 
     appBuilder.Configure();
 
-    appBuilder.AddAppModules();
+    appBuilder.AddAppModules(appEnvironment);
 
     // Additional configuration is required to successfully run gRPC on macOS.
     // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
@@ -19,7 +21,7 @@ try
 
     var app = appBuilder.Build();
 
-    await app.UseAppModules(appHandler).ConfigureAwait(false);
+    await app.UseAppModules(appEnvironment).ConfigureAwait(false);
 
     app.MapGrpcService<ArticleGrpcService>();
 
