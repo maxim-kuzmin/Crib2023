@@ -26,7 +26,7 @@ public static class SetupExtension
             new ModuleOfCommonDataSQLMappersEF(),
             new ModuleOfServiceApp(appEnvironment),
             new ModuleOfServiceDataSQLClientsPostgreSQL(),
-            new ModuleOfServiceDataSQL(configuration.GetRequiredSection($"App:Service:Data:SQL")),
+            new ModuleOfServiceDataSQL(configuration.GetRequiredSection("App:Service:Data:SQL")),
             new ModuleOfServiceDataSQLMappersEFClientsPostgreSQL(),
             new ModuleOfServiceDomainsArticle()
         });

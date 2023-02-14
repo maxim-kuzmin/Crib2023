@@ -23,6 +23,7 @@
 		<PackageReference Include="Makc2023.Backend.Common.Core.Apps.WebApp" Version="1.0.12" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+		<PackageReference Include="Polly" Version="7.2.3" />
 	</ItemGroup>
 
 	<ItemGroup>

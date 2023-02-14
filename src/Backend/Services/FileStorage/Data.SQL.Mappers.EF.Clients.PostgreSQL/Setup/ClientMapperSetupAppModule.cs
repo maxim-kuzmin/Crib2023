@@ -12,17 +12,17 @@ public class ClientMapperSetupAppModule : AppModule
     /// <inheritdoc/>
     public sealed override void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbContext<ClientMapperDbContext>();
-
-        services.AddDbContextFactory<ClientMapperDbContext>((x, options) => ClientMapperDbContextFactory.Configure(
+        services.AddPooledDbContextFactory<ClientMapperDbContext>((x, options) => ClientMapperDbContextFactory.Configure(
             options,
             x.GetRequiredService<IConfiguration>().GetConnectionString(GetConnectionStringName(x)),
             x.GetRequiredService<ILogger<ClientMapperDbContextFactory>>(),
             x.GetRequiredService<IOptionsMonitor<OptionsOfCommonDataSQL>>()));
 
-        services.AddScoped<IClientMapperDbContextFactory>(x => new ClientMapperDbContextFactory(
+        services.AddSingleton<IClientMapperDbContextFactory>(x => new ClientMapperDbContextFactory(
             x.GetRequiredService<IDbContextFactory<ClientMapperDbContext>>(),
             x.GetRequiredService<IOptionsMonitor<OptionsOfCommonDataSQL>>()));
+
+        services.AddScoped(x => x.GetRequiredService<IClientMapperDbContextFactory>().CreateDbContext());
 
         services.AddScoped(x => new ClientMapperDbManager(
             x.GetRequiredService<ClientMapperDbContext>(),

@@ -7,12 +7,30 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
 /// </summary>
 public class ClientMapperTopicTypeEntity : TopicTypeEntity
 {
+    #region Fields
+
+    private LTree _dbColumnForTreePath;
+
+    #endregion Fields
+
     #region Properties
 
     /// <summary>
     /// Колонка в базе данных для поля "TreePath".
     /// </summary>
-    public LTree DbColumnForTreePath { get; set; }
+    public LTree DbColumnForTreePath
+    {
+        get
+        {
+            return _dbColumnForTreePath;
+        }
+        set
+        {
+            _dbColumnForTreePath = value;
+
+            TreePath = _dbColumnForTreePath;
+        }
+    }
 
     #endregion Properties
 
