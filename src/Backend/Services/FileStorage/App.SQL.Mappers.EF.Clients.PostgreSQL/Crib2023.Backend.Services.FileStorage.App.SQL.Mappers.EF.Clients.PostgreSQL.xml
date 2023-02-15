@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL</name>
+    </assembly>
+    <members>
+        <member name="T:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.ArticleGrpcService">
+            <summary>
+            GRPC сервис "Статья".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.ArticleGrpcService.#ctor(MediatR.IMediator)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="mediator">Посредник.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.ArticleGrpcService.GetItem(Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetRequest,Grpc.Core.ServerCallContext)">
+            <summary>
+            Получить элемент.
+            </summary>
+            <param name="request">Запрос.</param>
+            <param name="context">Контекст.</param>
+            <returns>Задача на получение элемента.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleReflection">
+            <summary>Holder for reflection information generated from Grpc/Protos/article.proto</summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleReflection.Descriptor">
+            <summary>File descriptor for Grpc/Protos/article.proto</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetRequest.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetRequest.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetRequestInput.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetRequestInput.TitleFieldNumber">
+            <summary>Field number for the "title" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReply.IsOkFieldNumber">
+            <summary>Field number for the "is_ok" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReply.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReply.ErrorMessagesFieldNumber">
+            <summary>Field number for the "error_messages" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReply.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutput.ItemFieldNumber">
+            <summary>Field number for the "item" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutput.IsNotFoundFieldNumber">
+            <summary>Field number for the "is_not_found" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItem.DataFieldNumber">
+            <summary>Field number for the "data" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItem.PathFieldNumber">
+            <summary>Field number for the "path" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemData.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemData.TitleFieldNumber">
+            <summary>Field number for the "title" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemPathItem.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemPathItem.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.Article.Descriptor">
+            <summary>Service descriptor</summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.Article.ArticleBase">
+            <summary>Base class for server-side implementations of Article</summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.Article.BindService(Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.Article.ArticleBase)">
+            <summary>Creates service definition that can be registered with a server</summary>
+            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.Article.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.Article.ArticleBase)">
+            <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
+            Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
+            <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
+            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupAppModule">
+            <summary>
+            Модуль настройки приложения.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupAppModule.#ctor(Makc2023.Backend.Common.Core.App.IAppEnvironment)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="appEnvironment">Окружение приложения.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupAppModule.GetExports">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupAppModule.GetImports">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupExtension">
+            <summary>
+            Расширение настройки.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupExtension.AddAppModules(Microsoft.AspNetCore.Builder.WebApplicationBuilder,Makc2023.Backend.Common.Core.App.IAppEnvironment)">
+            <summary>
+            Добавить модули приложения.
+            </summary>
+            <param name="appBuilder">Построитель приложения.</param>
+            <param name="appEnvironment">Окружение приложения.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupExtension.UseAppModules(Microsoft.AspNetCore.Builder.WebApplication,Makc2023.Backend.Common.Core.App.IAppEnvironment)">
+            <summary>
+            Использовать модули приложения.
+            </summary>
+            <param name="app">Приложение.</param>
+            <param name="appEnvironment">Окружение приложения.</param>
+            <returns>Задача на использование.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupService">
+            <summary>
+            Сервис настройки.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupService.#ctor(Makc2023.Backend.Common.Core.App.IAppEnvironment,Makc2023.Backend.Common.Core.IRepeater,Crib2023.Backend.Services.FileStorage.Data.SQL.Setup.ISetupService)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="appEnvironment">Окружение приложения.</param>
+            <param name="repeater">Повторитель.</param>
+            <param name="dbSetupService">Сервис настройки базы данных.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupService.Execute">
+            <summary>
+            Выполнить.
+            </summary>
+            <returns>Задача на выполнение.</returns>
+        </member>
+    </members>
+</doc>

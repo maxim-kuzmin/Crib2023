@@ -9,6 +9,7 @@
 		<AssemblyName>Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

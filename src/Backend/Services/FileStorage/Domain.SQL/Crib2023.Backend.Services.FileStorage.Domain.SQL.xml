@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Crib2023.Backend.Services.FileStorage.Domain.SQL</name>
+    </assembly>
+    <members>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity">
+            <summary>
+            Сущность "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.Data">
+            <summary>
+            Данные.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.Path">
+            <summary>
+            Путь.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="data">Данные.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.AddTopicToPath(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
+            <summary>
+            Добавить тему в путь.
+            </summary>
+            <param name="data">Данные.</param>
+            <returns>Добавленная тема.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.GetId">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity">
+            <summary>
+            Сущность "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.Data">
+            <summary>
+            Данные.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.Children">
+            <summary>
+            Дети.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.Parent">
+            <summary>
+            Родитель.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="data">Данные.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.AddChild(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
+            <summary>
+            Добавить ребёнка.
+            </summary>
+            <param name="data">Данные.</param>
+            <returns>Добавленный добавленный.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.GetId">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput">
+            <summary>
+            Входные данные операции получения элемента "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.Title">
+            <summary>
+            Заголовок.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.Normalize">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.GetInvalidProperties">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationOutput">
+            <summary>
+            Выходные данные операции получения элемента "Статья".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.IArticleItemGetOperationHandler">
+            <summary>
+            Интерфейс обработчика операции получения элемента "Статья".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput">
+            <summary>
+            Входные данные операции получения списка "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput.Ids">
+            <summary>
+            Идентификаторы.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput.IdsString">
+            <summary>
+            Строка идентификаторов.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput.Title">
+            <summary>
+            Заголовок.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput.TopicId">
+            <summary>
+            Идентификатор экземпляра сущности "Фиктивное отношение один ко многим".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput.TopicIds">
+            <summary>
+            Идентификаторы экземпляров сущности "Фиктивное отношение один ко многим".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput.TopicIdsString">
+            <summary>
+            Строка идентификаторов экземпляров сущности "Фиктивное отношение один ко многим".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput.TopicName">
+            <summary>
+            Имя экземпляра сущности "Фиктивное отношение один ко многим".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput.Normalize">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationOutput">
+            <summary>
+            Выходные данные операции получения списка "Статья".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.IArticleListGetOperationHandler">
+            <summary>
+            Интерфейс обработчика операции получения списка "Статья".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleRepository">
+            <summary>
+            Интерфейс репозитория "Статья".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleRepository.GetItem(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput)">
+            <summary>
+            Получить элемент.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <returns>Задача на получение элемента.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleRepository.GetList(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput)">
+            <summary>
+            Получить список.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <returns>Задача на получение списка.</returns>
+        </member>
+    </members>
+</doc>
