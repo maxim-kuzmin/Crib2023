@@ -6,10 +6,11 @@
 		<Nullable>enable</Nullable>
 		<AssemblyName>Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Makc2023.Backend.Common.Domain.SQL.Mappers.EF" Version="1.0.12" />
+	  <PackageReference Include="Makc2023.Backend.Common.Domain.SQL.Mappers.EF" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

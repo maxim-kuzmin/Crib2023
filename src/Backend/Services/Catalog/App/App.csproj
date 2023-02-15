@@ -8,6 +8,7 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<AssemblyName>Crib2023.Backend.Services.Catalog.App</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

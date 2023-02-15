@@ -8,10 +8,11 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<AssemblyName>Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Grpc\Protos\article.proto" />
+		<None Remove="Grpc\Protos\article.proto" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,14 +21,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Grpc.AspNetCore" Version="2.51.0" />
-		<PackageReference Include="Makc2023.Backend.Common.Core.Apps.WebApp" Version="1.0.12" />
+		<PackageReference Include="Makc2023.Backend.Common.Core.Apps.WebApp" Version="1.0.1" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
-		<PackageReference Include="Polly" Version="7.2.3" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
+		<ProjectReference Include="..\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
 	</ItemGroup>
 
 </Project>

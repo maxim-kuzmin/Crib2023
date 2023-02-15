@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Makc2023.Backend.Common.Core;
+
 namespace Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 
 /// <summary>
@@ -33,6 +35,12 @@ public class SetupAppModule : AppModule
     {
         services.AddSingleton(x => _appEnvironment);
 
+        services.AddSingleton(x => new SetupService(
+            x.GetRequiredService<IAppEnvironment>(),
+            x.GetRequiredService<IRepeater>(),
+            x.GetRequiredService<ISetupServiceOfServiceDataSQL>()
+            ));
+
         services.AddLocalization(x => x.ConfigureLocalization());
 
         services.AddMediatR(
@@ -45,14 +53,30 @@ public class SetupAppModule : AppModule
     public sealed override IEnumerable<Type> GetExports()
     {
         return new[]
-        {
-            typeof(IAppEnvironment),
-            typeof(IConfiguration),
-            typeof(ILogger),
-            typeof(IMediator),
-            typeof(IStringLocalizer),
-        };
+            {
+                typeof(IAppEnvironment),
+                typeof(IConfiguration),
+                typeof(ILogger),
+                typeof(IMediator),
+                typeof(IRepeater),
+                typeof(ISetupServiceOfServiceDataSQL),
+                typeof(IStringLocalizer),
+            };
     }
 
     #endregion Public methods
+
+    #region Protected methods
+
+    /// <inheritdoc/>
+    protected sealed override IEnumerable<Type> GetImports()
+    {
+        return new[]
+            {
+                typeof(IRepeater),
+                typeof(ISetupServiceOfServiceDataSQL),
+            };
+    }
+
+    #endregion Protected methods
 }

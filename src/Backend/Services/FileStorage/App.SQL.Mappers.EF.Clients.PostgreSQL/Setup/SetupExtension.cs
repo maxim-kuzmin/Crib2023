@@ -1,5 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db;
+using Crib2023.Backend.Services.FileStorage.Data.SQL.Setup;
+using Makc2023.Backend.Common.Core;
+using Npgsql;
+using Polly;
+
 namespace Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 
 /// <summary>
@@ -44,11 +50,9 @@ public static class SetupExtension
             .AddSupportedCultures(appEnvironment.SupportedCultures)
             .AddSupportedUICultures(appEnvironment.SupportedCultures));
 
-        var setupService = app.Services.GetRequiredService<ISetupService>();
+        var setupService = app.Services.GetRequiredService<SetupService>();
 
-        await setupService.MigrateDatabase().ConfigureAwait(false);
-
-        await setupService.SeedTestData().ConfigureAwait(false);
+        await setupService.Execute().ConfigureAwait(false);
     }
 
     #endregion Public methods

@@ -6,10 +6,11 @@
 		<Nullable>enable</Nullable>
 		<AssemblyName>Crib2023.Backend.Services.FileStorage.Data.SQL.Clients.PostgreSQL</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Makc2023.Backend.Common.Data.SQL.Clients.PostgreSQL" Version="1.0.12" />
+	  <PackageReference Include="Makc2023.Backend.Common.Data.SQL.Clients.PostgreSQL" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
