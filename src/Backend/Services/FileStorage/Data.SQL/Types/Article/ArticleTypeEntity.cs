@@ -10,6 +10,11 @@ public class ArticleTypeEntity
     #region Properties
 
     /// <summary>
+    /// Внешний идентификатор.
+    /// </summary>
+    public string ExternalId { get; set; } = IntegrationHelper.CreateStringGlobalUniqueValue();
+
+    /// <summary>
     /// Хэш.
     /// </summary>
     public string Hash { get; set; } = "";

@@ -10,6 +10,11 @@ public class TopicTypeOptions : TypeOptions
     #region Properties
 
     /// <summary>
+    /// Колонка в базе данных для поля "ExternalId".
+    /// </summary>
+    public string? DbColumnForExternalId { get; set; }
+
+    /// <summary>
     /// Колонка в базе данных для поля "Id".
     /// </summary>
     public string? DbColumnForId { get; set; }
@@ -75,6 +80,11 @@ public class TopicTypeOptions : TypeOptions
     public string? DbIndexForTreeSort { get; set; }
 
     /// <summary>
+    /// Максимальная длина в базе данных для поля "ExternalId".
+    /// </summary>
+    public int DbMaxLengthForExternalId { get; set; }
+
+    /// <summary>
     /// Максимальная длина в базе данных для поля "Name".
     /// </summary>
     public int DbMaxLengthForName { get; set; }
@@ -100,7 +110,12 @@ public class TopicTypeOptions : TypeOptions
     public string DbSequenceForId { get; set; }
 
     /// <summary>
-    /// Индекс в базе данных для полей "Name" и "ParentId".
+    /// Уникальный индекс в базе данных для поля "ExternalId".
+    /// </summary>
+    public string? DbUniqueIndexForExternalId { get; set; }
+
+    /// <summary>
+    /// Уникальный индекс в базе данных для полей "Name" и "ParentId".
     /// </summary>
     public string? DbUniqueIndexForNameAndParentId { get; set; }
 
@@ -112,72 +127,44 @@ public class TopicTypeOptions : TypeOptions
     /// Конструктор.
     /// </summary>
     /// <param name="defaults">Значения по умолчанию.</param>
+    /// <param name="dbColumnForExternalId">Колонка в базе данных для поля "ExternalId".</param>
     /// <param name="dbTable">Таблица в базе данных.</param>
     /// <param name="dbSchema">Схема в базе данных.</param>
     public TopicTypeOptions(
         IDefaults defaults,
+        string dbColumnForExternalId,
         string dbTable,
         string? dbSchema = null
         )
         : base(defaults, dbTable, dbSchema)
     {
+        DbColumnForExternalId = dbColumnForExternalId;
         DbColumnForId = defaults.DbColumnForId;
-
-        if (string.IsNullOrWhiteSpace(defaults.DbColumnForName))
-        {
-            throw new NullOrWhiteSpaceStringVariableException<TopicTypeOptions>(
-                nameof(defaults),
-                nameof(defaults.DbColumnForName));
-        }
-
         DbColumnForName = defaults.DbColumnForName;
-
-        if (string.IsNullOrWhiteSpace(defaults.DbColumnForParentId))
-        {
-            throw new NullOrWhiteSpaceStringVariableException<TopicTypeOptions>(
-                nameof(defaults),
-                nameof(defaults.DbColumnForParentId));
-        }
-
         DbColumnForParentId = defaults.DbColumnForParentId;
-
         DbColumnForTreeChildCount = defaults.DbColumnForTreeChildCount;
-
         DbColumnForTreeDescendantCount = defaults.DbColumnForTreeDescendantCount;
-
         DbColumnForTreeLevel = defaults.DbColumnForTreeLevel;
-
         DbColumnForTreePath = defaults.DbColumnForTreePath;
-
         DbColumnForTreePosition = defaults.DbColumnForTreePosition;
-
-        if (string.IsNullOrWhiteSpace(defaults.DbColumnForTreeSort))
-        {
-            throw new NullOrWhiteSpaceStringVariableException<TopicTypeOptions>(
-                nameof(defaults),
-                nameof(defaults.DbColumnForTreeSort));
-        }
-
         DbColumnForTreeSort = defaults.DbColumnForTreeSort;
 
         DbForeignKeyToTopicParent = CreateDbForeignKeyName(DbTable, DbTable, DbColumnForParentId);
-
+        
         DbIndexForParentId = CreateDbIndexName(DbTable, DbColumnForParentId);
-
         DbIndexForTreePath = CreateDbIndexName(DbTable, DbColumnForTreePath);
-
         DbIndexForTreeSort = CreateDbIndexName(DbTable, DbColumnForTreeSort);
 
+        DbMaxLengthForExternalId = 36;
         DbMaxLengthForName = 256;
-
         DbMaxLengthForTreePath = 900;
-
         DbMaxLengthForTreeSort = 900;
 
         DbPrimaryKey = CreateDbPrimaryKeyName(DbTable);
 
         DbSequenceForId = CreateDbSequenceName(DbTable, DbColumnForId);
 
+        DbUniqueIndexForExternalId = CreateDbUniqueIndexName(DbTable, DbColumnForExternalId);
         DbUniqueIndexForNameAndParentId = CreateDbUniqueIndexName(DbTable, DbColumnForName, DbColumnForParentId);
     }
 

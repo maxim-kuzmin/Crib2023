@@ -35,9 +35,16 @@ public class MapperArticleTypeConfiguration<TEntity> : MapperTypeConfiguration<T
 
         builder.HasKey(x => x.Id).HasName(options.DbPrimaryKey);
 
+        builder.Property(x => x.ExternalId)
+            .IsRequired()
+            .IsUnicode()
+            .HasMaxLength(options.DbMaxLengthForExternalId)
+            .HasColumnName(options.DbColumnForExternalId);
+
         builder.Property(x => x.Hash)
             .IsRequired()
             .IsUnicode()
+            .HasMaxLength(options.DbMaxLengthForHash)
             .HasColumnName(options.DbColumnForHash);
 
         builder.Property(x => x.Id)
@@ -47,6 +54,7 @@ public class MapperArticleTypeConfiguration<TEntity> : MapperTypeConfiguration<T
         builder.Property(x => x.Path)
             .IsRequired()
             .IsUnicode()
+            .HasMaxLength(options.DbMaxLengthForPath)
             .HasColumnName(options.DbColumnForPath);
 
         builder.Property(x => x.Title)
@@ -58,7 +66,11 @@ public class MapperArticleTypeConfiguration<TEntity> : MapperTypeConfiguration<T
         builder.Property(x => x.TopicId)
             .IsRequired()
             .HasColumnName(options.DbColumnForTopicId);
-        
+
+        builder.HasIndex(x => x.ExternalId)
+            .IsUnique()
+            .HasDatabaseName(options.DbUniqueIndexForExternalId);
+
         builder.HasIndex(x => new { x.Title, x.TopicId })
             .IsUnique()
             .HasDatabaseName(options.DbUniqueIndexForTitleAndTopicId);

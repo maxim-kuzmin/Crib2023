@@ -10,6 +10,11 @@ public class TopicTypeEntity
     #region Properties
 
     /// <summary>
+    /// Внешний идентификатор.
+    /// </summary>
+    public string ExternalId { get; set; } = IntegrationHelper.CreateStringGlobalUniqueValue();
+
+    /// <summary>
     /// Идентификатор.
     /// </summary>
     public long Id { get; set; }

@@ -26,6 +26,8 @@ public class ClientMapperArticleTypeConfiguration : MapperArticleTypeConfigurati
 
         var options = TypesOptions.Article;
 
+        builder.Property(x => x.ExternalId).HasDefaultValueSql("UPPER(gen_random_uuid()::varchar(36))");
+
         builder.HasOne(x => x.Topic)
             .WithMany(x => x.ArticleList)
             .HasForeignKey(x => x.TopicId)

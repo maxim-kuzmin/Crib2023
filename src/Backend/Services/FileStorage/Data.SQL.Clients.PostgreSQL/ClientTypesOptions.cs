@@ -28,9 +28,19 @@ public class ClientTypesOptions : TypesOptions
     {
         var defaults = new ClientDefaults();
 
-        Topic = new TopicTypeOptions(defaults, "topic");
+        string dbColumnForExternalId = "external_id";
 
-        Article = new ArticleTypeOptions(Topic, defaults, "title", "article")
+        Topic = new TopicTypeOptions(
+            defaults: defaults,
+            dbColumnForExternalId: dbColumnForExternalId,
+            dbTable: "topic");
+
+        Article = new ArticleTypeOptions(
+            topicTypeOptions: Topic,
+            defaults: defaults,
+            dbColumnForExternalId: dbColumnForExternalId,
+            dbColumnForTitle: "title",
+            dbTable: "article")
         {
             DbColumnForHash = "hash",
             DbColumnForPath = "path"

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Migrations
 {
     [DbContext(typeof(ClientMapperDbContext))]
-    [Migration("20230213215034_InitialCreate")]
+    [Migration("20230215134410_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -37,16 +37,27 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .IsUnicode(true)
+                        .HasColumnType("character varying(36)")
+                        .HasColumnName("external_id")
+                        .HasDefaultValueSql("UPPER(gen_random_uuid()::varchar(36))");
+
                     b.Property<string>("Hash")
                         .IsRequired()
+                        .HasMaxLength(256)
                         .IsUnicode(true)
-                        .HasColumnType("text")
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("hash");
 
                     b.Property<string>("Path")
                         .IsRequired()
+                        .HasMaxLength(256)
                         .IsUnicode(true)
-                        .HasColumnType("text")
+                        .HasColumnType("character varying(256)")
                         .HasColumnName("path");
 
                     b.Property<string>("Title")
@@ -62,6 +73,10 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
 
                     b.HasKey("Id")
                         .HasName("pk_article");
+
+                    b.HasIndex("ExternalId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_article_external_id");
 
                     b.HasIndex("TopicId")
                         .HasDatabaseName("ix_article_topic_id");
@@ -87,6 +102,15 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
                         .HasColumnType("ltree")
                         .HasColumnName("tree_path");
 
+                    b.Property<string>("ExternalId")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .IsUnicode(true)
+                        .HasColumnType("character varying(36)")
+                        .HasColumnName("external_id")
+                        .HasDefaultValueSql("UPPER(gen_random_uuid()::varchar(36))");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -105,6 +129,10 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
                         .HasDatabaseName("ix_topic_tree_path");
 
                     NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("DbColumnForTreePath"), "gist");
+
+                    b.HasIndex("ExternalId")
+                        .IsUnique()
+                        .HasDatabaseName("ux_topic_external_id");
 
                     b.HasIndex("ParentId")
                         .HasDatabaseName("ix_topic_parent_id");
