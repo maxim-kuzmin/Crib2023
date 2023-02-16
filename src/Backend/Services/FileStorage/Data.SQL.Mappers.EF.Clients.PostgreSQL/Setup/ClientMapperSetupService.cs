@@ -37,7 +37,7 @@ public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext
     #region Public methods
 
     /// <inheritdoc/>
-    public override Task MigrateDatabase()
+    public sealed override Task MigrateDatabase()
     {
         var dbContext = CreateDbContext();
 
