@@ -10,9 +10,9 @@ public class ArticleTypeEntity
     #region Properties
 
     /// <summary>
-    /// Внешний идентификатор.
+    /// Глобальный идентификатор строки.
     /// </summary>
-    public string ExternalId { get; set; } = IntegrationHelper.CreateStringGlobalUniqueValue();
+    public Guid RowGuid { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// Хэш.

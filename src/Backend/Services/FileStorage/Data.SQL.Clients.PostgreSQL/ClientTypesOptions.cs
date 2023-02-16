@@ -28,17 +28,17 @@ public class ClientTypesOptions : TypesOptions
     {
         var defaults = new ClientDefaults();
 
-        string dbColumnForExternalId = "external_id";
+        string dbColumnForRowGuid = "row_guid";
 
         Topic = new TopicTypeOptions(
             defaults: defaults,
-            dbColumnForExternalId: dbColumnForExternalId,
+            dbColumnForRowGuid: dbColumnForRowGuid,
             dbTable: "topic");
 
         Article = new ArticleTypeOptions(
             topicTypeOptions: Topic,
             defaults: defaults,
-            dbColumnForExternalId: dbColumnForExternalId,
+            dbColumnForRowGuid: dbColumnForRowGuid,
             dbColumnForTitle: "title",
             dbTable: "article")
         {

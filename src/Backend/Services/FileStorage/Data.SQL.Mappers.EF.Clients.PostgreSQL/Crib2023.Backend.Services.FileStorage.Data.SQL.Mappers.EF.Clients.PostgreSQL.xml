@@ -22,6 +22,12 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.ClientMapperDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.ClientMapperDbContext})">
             <inheritdoc/>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.ClientMapperDbContext.MigrateAsync">
+            <summary>
+            Мигрировать асинхронно.
+            </summary>
+            <returns>Задача на миграцию.</returns>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.ClientMapperDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc/>
         </member>
@@ -112,6 +118,9 @@
             Конструктор.
             </summary>        
             <param name="dbContextFactory">Фабрика контекста базы данных.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup.ClientMapperSetupService.MigrateDatabase">
+            <inheritdoc/>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup.ClientMapperSetupService.CheckIfAnyTopicNotFound(Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.ClientMapperDbContext)">
             <inheritdoc/>

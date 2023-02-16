@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -28,7 +29,7 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
                 {
                     id = table.Column<long>(type: "bigint", nullable: false),
                     treepath = table.Column<string>(name: "tree_path", type: "ltree", nullable: false),
-                    externalid = table.Column<string>(name: "external_id", type: "character varying(36)", maxLength: 36, nullable: false, defaultValueSql: "UPPER(gen_random_uuid()::varchar(36))"),
+                    rowguid = table.Column<Guid>(name: "row_guid", type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     parentid = table.Column<long>(name: "parent_id", type: "bigint", nullable: true)
                 },
@@ -50,7 +51,7 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    externalid = table.Column<string>(name: "external_id", type: "character varying(36)", maxLength: 36, nullable: false, defaultValueSql: "UPPER(gen_random_uuid()::varchar(36))"),
+                    rowguid = table.Column<Guid>(name: "row_guid", type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     hash = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     path = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     title = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
@@ -75,10 +76,10 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
                 column: "topic_id");
 
             migrationBuilder.CreateIndex(
-                name: "ux_article_external_id",
+                name: "ux_article_row_guid",
                 schema: "public",
                 table: "article",
-                column: "external_id",
+                column: "row_guid",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -102,17 +103,17 @@ namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.Post
                 .Annotation("Npgsql:IndexMethod", "gist");
 
             migrationBuilder.CreateIndex(
-                name: "ux_topic_external_id",
-                schema: "public",
-                table: "topic",
-                column: "external_id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "ux_topic_name_parent_id",
                 schema: "public",
                 table: "topic",
                 columns: new[] { "name", "parent_id" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ux_topic_row_guid",
+                schema: "public",
+                table: "topic",
+                column: "row_guid",
                 unique: true);
         }
 

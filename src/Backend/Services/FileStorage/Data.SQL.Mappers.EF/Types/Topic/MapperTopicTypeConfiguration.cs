@@ -35,11 +35,9 @@ public class MapperTopicTypeConfiguration<TEntity> : MapperTypeConfiguration<TEn
 
         builder.HasKey(x => x.Id).HasName(options.DbPrimaryKey);
 
-        builder.Property(x => x.ExternalId)
+        builder.Property(x => x.RowGuid)
             .IsRequired()
-            .IsUnicode()
-            .HasMaxLength(options.DbMaxLengthForExternalId)
-            .HasColumnName(options.DbColumnForExternalId);
+            .HasColumnName(options.DbColumnForRowGuid);
 
         builder.Property(x => x.Id).HasColumnName(options.DbColumnForId);
 
@@ -92,9 +90,9 @@ public class MapperTopicTypeConfiguration<TEntity> : MapperTypeConfiguration<TEn
         //    .HasDefaultValue(string.Empty)
         //    .HasColumnName(options.DbColumnForTreeSort);
 
-        builder.HasIndex(x => x.ExternalId)
+        builder.HasIndex(x => x.RowGuid)
             .IsUnique()
-            .HasDatabaseName(options.DbUniqueIndexForExternalId);
+            .HasDatabaseName(options.DbUniqueIndexForRowGuid);
 
         builder.HasIndex(x => new { x.Name, x.ParentId })
             .IsUnique()

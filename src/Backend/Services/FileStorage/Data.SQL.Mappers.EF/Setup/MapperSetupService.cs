@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2022 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Setup;
 
 /// <summary>
@@ -12,12 +14,7 @@ public abstract class MapperSetupService<TDbContext> : ISetupService
     #region Public methods
 
     /// <inheritdoc/>
-    public async Task MigrateDatabase()
-    {
-        using var dbContext = CreateDbContext();
-
-        await dbContext.Database.MigrateAsync().ConfigureAwait(false);
-    }
+    public abstract Task MigrateDatabase();
 
     /// <inheritdoc/>
     public async Task SeedTestData()
@@ -78,6 +75,7 @@ public abstract class MapperSetupService<TDbContext> : ISetupService
     /// Засеять список экземпляров сущности "Статья".
     /// </summary>
     /// <param name="dbContext">Контекст базы данных.</param>
+    /// <param name="topicIds">Идентификаторы экземпляров сущности "Тема".</param>
     /// <returns>Задача на засеивание.</returns>
     protected abstract Task SeedTestArticleList(TDbContext dbContext, IEnumerable<long> topicIds);
 

@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2022 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Makc2023.Backend.Common.Data.SQL.Commands.Tree;
-
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 
 /// <summary>
@@ -35,6 +33,18 @@ public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext
     }
 
     #endregion Constructors
+
+    #region Public methods
+
+    /// <inheritdoc/>
+    public override Task MigrateDatabase()
+    {
+        var dbContext = CreateDbContext();
+
+        return dbContext.MigrateAsync();
+    }
+
+    #endregion Public methods
 
     #region Protected methods
 

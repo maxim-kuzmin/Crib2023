@@ -138,12 +138,12 @@
             Сервис настройки.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupService.#ctor(Makc2023.Backend.Common.Core.App.IAppEnvironment,Makc2023.Backend.Common.Core.IRepeater,Crib2023.Backend.Services.FileStorage.Data.SQL.Setup.ISetupService)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupService.#ctor(Makc2023.Backend.Common.Core.App.IAppEnvironment,Makc2023.Backend.Common.Core.Repeat.IRepeatService,Crib2023.Backend.Services.FileStorage.Data.SQL.Setup.ISetupService)">
             <summary>
             Конструктор.
             </summary>
             <param name="appEnvironment">Окружение приложения.</param>
-            <param name="repeater">Повторитель.</param>
+            <param name="repeatService">Сервис повторения.</param>
             <param name="dbSetupService">Сервис настройки базы данных.</param>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupService.Execute">

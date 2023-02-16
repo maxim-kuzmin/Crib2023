@@ -10,9 +10,9 @@ public class ArticleTypeOptions : TypeOptions
     #region Properties
 
     /// <summary>
-    /// Колонка в базе данных для поля "ExternalId".
+    /// Колонка в базе данных для поля "RowGuid".
     /// </summary>
-    public string? DbColumnForExternalId { get; set; }
+    public string? DbColumnForRowGuid { get; set; }
 
     /// <summary>
     /// Колонка в базе данных для поля "Hash".
@@ -50,11 +50,6 @@ public class ArticleTypeOptions : TypeOptions
     public string? DbIndexForTopicId { get; set; }
 
     /// <summary>
-    /// Максимальная длина в базе данных для поля "ExternalId".
-    /// </summary>
-    public int DbMaxLengthForExternalId { get; set; }
-
-    /// <summary>
     /// Максимальная длина в базе данных для поля "Hash".
     /// </summary>
     public int DbMaxLengthForHash { get; set; }
@@ -75,9 +70,9 @@ public class ArticleTypeOptions : TypeOptions
     public string? DbPrimaryKey { get; set; }
 
     /// <summary>
-    /// Уникальный индекс в базе данных для поля "ExternalId".
+    /// Уникальный индекс в базе данных для поля "RowGuid".
     /// </summary>
-    public string? DbUniqueIndexForExternalId { get; set; }
+    public string? DbUniqueIndexForRowGuid { get; set; }
 
     /// <summary>
     /// Уникальный индекс в базе данных для полей "Title" и "TopicId".
@@ -93,21 +88,21 @@ public class ArticleTypeOptions : TypeOptions
     /// </summary>
     /// <param name="topicTypeOptions">Параметры типа "Тема".</param>
     /// <param name="defaults">Значения по умолчанию.</param>
-    /// <param name="dbColumnForExternalId">Колонка в базе данных для поля "ExternalId".</param>
+    /// <param name="dbColumnForRowGuid">Колонка в базе данных для поля "RowGuid".</param>
     /// <param name="dbColumnForTitle">Колонка в базе данных для поля "Title".</param>    
     /// <param name="dbTable">Таблица в базе данных.</param>
     /// <param name="dbSchema">Схема в базе данных.</param>
     public ArticleTypeOptions(
         TopicTypeOptions topicTypeOptions,
         IDefaults defaults,
-        string dbColumnForExternalId,
+        string dbColumnForRowGuid,
         string dbColumnForTitle,
         string dbTable,
         string? dbSchema = null
         )
         : base(defaults, dbTable, dbSchema)
     {
-        DbColumnForExternalId = dbColumnForExternalId;
+        DbColumnForRowGuid = dbColumnForRowGuid;
         DbColumnForId = defaults.DbColumnForId;
         DbColumnForTitle = dbColumnForTitle;
 
@@ -124,15 +119,14 @@ public class ArticleTypeOptions : TypeOptions
         
         DbIndexForTopicId = CreateDbIndexName(DbTable, DbColumnForTopicId);
 
-        DbMaxLengthForExternalId = 36;
         DbMaxLengthForHash = 256;
         DbMaxLengthForPath = 256;
         DbMaxLengthForTitle = 256;
 
         DbPrimaryKey = CreateDbPrimaryKeyName(DbTable);
-
-        DbUniqueIndexForExternalId = CreateDbUniqueIndexName(DbTable, DbColumnForExternalId);
+        
         DbUniqueIndexForTitleAndTopicId = CreateDbUniqueIndexName(DbTable, DbColumnForTitle, DbColumnForTopicId);
+        DbUniqueIndexForRowGuid = CreateDbUniqueIndexName(DbTable, DbColumnForRowGuid);
     }
 
     #endregion Constructors

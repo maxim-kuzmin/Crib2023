@@ -37,7 +37,7 @@ public class SetupAppModule : AppModule
 
         services.AddSingleton(x => new SetupService(
             x.GetRequiredService<IAppEnvironment>(),
-            x.GetRequiredService<IRepeater>(),
+            x.GetRequiredService<IRepeatService>(),
             x.GetRequiredService<ISetupServiceOfServiceDataSQL>()
             ));
 
@@ -58,8 +58,6 @@ public class SetupAppModule : AppModule
                 typeof(IConfiguration),
                 typeof(ILogger),
                 typeof(IMediator),
-                typeof(IRepeater),
-                typeof(ISetupServiceOfServiceDataSQL),
                 typeof(IStringLocalizer),
             };
     }
@@ -73,7 +71,7 @@ public class SetupAppModule : AppModule
     {
         return new[]
             {
-                typeof(IRepeater),
+                typeof(IRepeatService),
                 typeof(ISetupServiceOfServiceDataSQL),
             };
     }

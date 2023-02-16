@@ -10,9 +10,9 @@ public class TopicTypeOptions : TypeOptions
     #region Properties
 
     /// <summary>
-    /// Колонка в базе данных для поля "ExternalId".
+    /// Колонка в базе данных для поля "RowGuid".
     /// </summary>
-    public string? DbColumnForExternalId { get; set; }
+    public string? DbColumnForRowGuid { get; set; }
 
     /// <summary>
     /// Колонка в базе данных для поля "Id".
@@ -80,11 +80,6 @@ public class TopicTypeOptions : TypeOptions
     public string? DbIndexForTreeSort { get; set; }
 
     /// <summary>
-    /// Максимальная длина в базе данных для поля "ExternalId".
-    /// </summary>
-    public int DbMaxLengthForExternalId { get; set; }
-
-    /// <summary>
     /// Максимальная длина в базе данных для поля "Name".
     /// </summary>
     public int DbMaxLengthForName { get; set; }
@@ -110,14 +105,14 @@ public class TopicTypeOptions : TypeOptions
     public string DbSequenceForId { get; set; }
 
     /// <summary>
-    /// Уникальный индекс в базе данных для поля "ExternalId".
-    /// </summary>
-    public string? DbUniqueIndexForExternalId { get; set; }
-
-    /// <summary>
     /// Уникальный индекс в базе данных для полей "Name" и "ParentId".
     /// </summary>
     public string? DbUniqueIndexForNameAndParentId { get; set; }
+
+    /// <summary>
+    /// Уникальный индекс в базе данных для поля "RowGuid".
+    /// </summary>
+    public string? DbUniqueIndexForRowGuid { get; set; }
 
     #endregion Properties
 
@@ -127,18 +122,18 @@ public class TopicTypeOptions : TypeOptions
     /// Конструктор.
     /// </summary>
     /// <param name="defaults">Значения по умолчанию.</param>
-    /// <param name="dbColumnForExternalId">Колонка в базе данных для поля "ExternalId".</param>
+    /// <param name="dbColumnForRowGuid">Колонка в базе данных для поля "RowGuid".</param>
     /// <param name="dbTable">Таблица в базе данных.</param>
     /// <param name="dbSchema">Схема в базе данных.</param>
     public TopicTypeOptions(
         IDefaults defaults,
-        string dbColumnForExternalId,
+        string dbColumnForRowGuid,
         string dbTable,
         string? dbSchema = null
         )
         : base(defaults, dbTable, dbSchema)
     {
-        DbColumnForExternalId = dbColumnForExternalId;
+        DbColumnForRowGuid = dbColumnForRowGuid;
         DbColumnForId = defaults.DbColumnForId;
         DbColumnForName = defaults.DbColumnForName;
         DbColumnForParentId = defaults.DbColumnForParentId;
@@ -155,7 +150,6 @@ public class TopicTypeOptions : TypeOptions
         DbIndexForTreePath = CreateDbIndexName(DbTable, DbColumnForTreePath);
         DbIndexForTreeSort = CreateDbIndexName(DbTable, DbColumnForTreeSort);
 
-        DbMaxLengthForExternalId = 36;
         DbMaxLengthForName = 256;
         DbMaxLengthForTreePath = 900;
         DbMaxLengthForTreeSort = 900;
@@ -163,9 +157,9 @@ public class TopicTypeOptions : TypeOptions
         DbPrimaryKey = CreateDbPrimaryKeyName(DbTable);
 
         DbSequenceForId = CreateDbSequenceName(DbTable, DbColumnForId);
-
-        DbUniqueIndexForExternalId = CreateDbUniqueIndexName(DbTable, DbColumnForExternalId);
+        
         DbUniqueIndexForNameAndParentId = CreateDbUniqueIndexName(DbTable, DbColumnForName, DbColumnForParentId);
+        DbUniqueIndexForRowGuid = CreateDbUniqueIndexName(DbTable, DbColumnForRowGuid);
     }
 
     #endregion Constructors

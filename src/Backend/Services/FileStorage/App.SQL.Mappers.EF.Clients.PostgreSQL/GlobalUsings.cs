@@ -6,11 +6,12 @@ global using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.Po
 global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get;
 global using Grpc.Core;
-global using Makc2023.Backend.Common.Core;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Apps.WebApp;
 global using Makc2023.Backend.Common.Core.Apps.WebApp.Setup;
+global using Makc2023.Backend.Common.Core.Repeat;
 global using MediatR;
+global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Localization;
 global using Npgsql;
 global using ModuleOfServiceApp = Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupAppModule;

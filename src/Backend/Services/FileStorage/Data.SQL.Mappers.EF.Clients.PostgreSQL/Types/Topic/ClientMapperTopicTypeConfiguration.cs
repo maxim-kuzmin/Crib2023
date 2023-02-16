@@ -26,7 +26,7 @@ public class ClientMapperTopicTypeConfiguration : MapperTopicTypeConfiguration<C
 
         var options = TypesOptions.Topic;
 
-        builder.Property(x => x.ExternalId).HasDefaultValueSql("UPPER(gen_random_uuid()::varchar(36))");
+        builder.Property(x => x.RowGuid).HasDefaultValueSql("gen_random_uuid()");
 
         builder.Property(x => x.Id).UseHiLo(options.DbSequenceForId, options.DbSchema);
 

@@ -35,11 +35,9 @@ public class MapperArticleTypeConfiguration<TEntity> : MapperTypeConfiguration<T
 
         builder.HasKey(x => x.Id).HasName(options.DbPrimaryKey);
 
-        builder.Property(x => x.ExternalId)
+        builder.Property(x => x.RowGuid)
             .IsRequired()
-            .IsUnicode()
-            .HasMaxLength(options.DbMaxLengthForExternalId)
-            .HasColumnName(options.DbColumnForExternalId);
+            .HasColumnName(options.DbColumnForRowGuid);
 
         builder.Property(x => x.Hash)
             .IsRequired()
@@ -67,9 +65,9 @@ public class MapperArticleTypeConfiguration<TEntity> : MapperTypeConfiguration<T
             .IsRequired()
             .HasColumnName(options.DbColumnForTopicId);
 
-        builder.HasIndex(x => x.ExternalId)
+        builder.HasIndex(x => x.RowGuid)
             .IsUnique()
-            .HasDatabaseName(options.DbUniqueIndexForExternalId);
+            .HasDatabaseName(options.DbUniqueIndexForRowGuid);
 
         builder.HasIndex(x => new { x.Title, x.TopicId })
             .IsUnique()

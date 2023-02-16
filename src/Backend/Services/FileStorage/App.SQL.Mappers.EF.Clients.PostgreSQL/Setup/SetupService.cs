@@ -11,7 +11,7 @@ public class SetupService
 
     private readonly IAppEnvironment _appEnvironment;
 
-    private readonly IRepeater _repeater;
+    private readonly IRepeatService _repeatService;
 
     private readonly ISetupServiceOfServiceDataSQL _dbSetupService;
 
@@ -23,15 +23,15 @@ public class SetupService
     /// Конструктор.
     /// </summary>
     /// <param name="appEnvironment">Окружение приложения.</param>
-    /// <param name="repeater">Повторитель.</param>
+    /// <param name="repeatService">Сервис повторения.</param>
     /// <param name="dbSetupService">Сервис настройки базы данных.</param>
     public SetupService(
         IAppEnvironment appEnvironment,
-        IRepeater repeater,
+        IRepeatService repeatService,
         ISetupServiceOfServiceDataSQL dbSetupService)
     {
         _appEnvironment = appEnvironment;
-        _repeater = repeater;
+        _repeatService = repeatService;
         _dbSetupService = dbSetupService;
     }
 
@@ -43,23 +43,29 @@ public class SetupService
     /// Выполнить.
     /// </summary>
     /// <returns>Задача на выполнение.</returns>
-    public Task Execute()
+    public async Task Execute()
     {
-        return _appEnvironment.IsRetryEnabledByOrchestrator
-            ? UpdateDatabase()
-            : _repeater.ExecuteAsync<NpgsqlException>(10, UpdateDatabase);
+        if (_appEnvironment.IsRetryEnabledByOrchestrator)
+        {
+            await _dbSetupService.MigrateDatabase().ConfigureAwait(false);
+
+            await _dbSetupService.SeedTestData().ConfigureAwait(false);
+        }
+        else
+        {
+            const int retryCount = 10;
+
+            static bool filterException(Exception ex) => ex is DbUpdateException || ex is NpgsqlException;
+
+            var task = _repeatService.ExecuteAsync(retryCount, _dbSetupService.MigrateDatabase, filterException);
+
+            await task.ConfigureAwait(false);
+
+            task = _repeatService.ExecuteAsync(retryCount, _dbSetupService.SeedTestData, filterException);
+
+            await task.ConfigureAwait(false);
+        }
     }
 
     #endregion Public methods
-
-    #region Private methods
-
-    private async Task UpdateDatabase()
-    {
-        await _dbSetupService.MigrateDatabase().ConfigureAwait(false);
-
-        await _dbSetupService.SeedTestData().ConfigureAwait(false);
-    }
-
-    #endregion Private methods
 }

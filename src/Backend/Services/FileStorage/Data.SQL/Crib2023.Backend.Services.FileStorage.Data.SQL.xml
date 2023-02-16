@@ -66,9 +66,9 @@
             Сущность типа "Статья".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity.ExternalId">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity.RowGuid">
             <summary>
-            Внешний идентификатор.
+            Глобальный идентификатор строки.
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity.Hash">
@@ -115,9 +115,9 @@
             Параметры типа "Статья".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForExternalId">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForRowGuid">
             <summary>
-            Колонка в базе данных для поля "ExternalId".
+            Колонка в базе данных для поля "RowGuid".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForHash">
@@ -155,11 +155,6 @@
             Индекс в базе данных для поля "TopicId".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbMaxLengthForExternalId">
-            <summary>
-            Максимальная длина в базе данных для поля "ExternalId".
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbMaxLengthForHash">
             <summary>
             Максимальная длина в базе данных для поля "Hash".
@@ -180,9 +175,9 @@
             Первичный ключ в базе данных.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbUniqueIndexForExternalId">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbUniqueIndexForRowGuid">
             <summary>
-            Уникальный индекс в базе данных для поля "ExternalId".
+            Уникальный индекс в базе данных для поля "RowGuid".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbUniqueIndexForTitleAndTopicId">
@@ -196,7 +191,7 @@
             </summary>
             <param name="topicTypeOptions">Параметры типа "Тема".</param>
             <param name="defaults">Значения по умолчанию.</param>
-            <param name="dbColumnForExternalId">Колонка в базе данных для поля "ExternalId".</param>
+            <param name="dbColumnForRowGuid">Колонка в базе данных для поля "RowGuid".</param>
             <param name="dbColumnForTitle">Колонка в базе данных для поля "Title".</param>    
             <param name="dbTable">Таблица в базе данных.</param>
             <param name="dbSchema">Схема в базе данных.</param>
@@ -206,9 +201,9 @@
             Сущность типа "Тема".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.ExternalId">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.RowGuid">
             <summary>
-            Внешний идентификатор.
+            Глобальный идентификатор строки.
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.Id">
@@ -275,9 +270,9 @@
             Параметры типа "Тема".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForExternalId">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForRowGuid">
             <summary>
-            Колонка в базе данных для поля "ExternalId".
+            Колонка в базе данных для поля "RowGuid".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForId">
@@ -345,11 +340,6 @@
             Индекс в базе данных для поля "TreeSort".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.DbMaxLengthForExternalId">
-            <summary>
-            Максимальная длина в базе данных для поля "ExternalId".
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.DbMaxLengthForName">
             <summary>
             Максимальная длина в базе данных для поля "Name".
@@ -375,14 +365,14 @@
             Последовательность в базеданных для поля "Id".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.DbUniqueIndexForExternalId">
-            <summary>
-            Уникальный индекс в базе данных для поля "ExternalId".
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.DbUniqueIndexForNameAndParentId">
             <summary>
             Уникальный индекс в базе данных для полей "Name" и "ParentId".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.DbUniqueIndexForRowGuid">
+            <summary>
+            Уникальный индекс в базе данных для поля "RowGuid".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeOptions.#ctor(Makc2023.Backend.Common.Data.SQL.IDefaults,System.String,System.String,System.String)">
@@ -390,7 +380,7 @@
             Конструктор.
             </summary>
             <param name="defaults">Значения по умолчанию.</param>
-            <param name="dbColumnForExternalId">Колонка в базе данных для поля "ExternalId".</param>
+            <param name="dbColumnForRowGuid">Колонка в базе данных для поля "RowGuid".</param>
             <param name="dbTable">Таблица в базе данных.</param>
             <param name="dbSchema">Схема в базе данных.</param>
         </member>

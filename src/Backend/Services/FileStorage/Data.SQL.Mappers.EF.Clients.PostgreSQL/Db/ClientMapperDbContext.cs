@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Microsoft.EntityFrameworkCore;
-
 namespace Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db;
 
 /// <summary>
@@ -32,6 +30,25 @@ public class ClientMapperDbContext : DbContext
     }
 
     #endregion Constructors
+
+    #region Public methods
+
+    /// <summary>
+    /// Мигрировать асинхронно.
+    /// </summary>
+    /// <returns>Задача на миграцию.</returns>
+    public async Task MigrateAsync()
+    {
+        await Database.MigrateAsync().ConfigureAwait(false);
+
+        using var connection = (NpgsqlConnection)Database.GetDbConnection();
+
+        connection.Open();
+
+        await connection.ReloadTypesAsync().ConfigureAwait(false);
+    }
+
+    #endregion Public methods
 
     #region Protected methods
 
