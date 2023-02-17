@@ -12,7 +12,7 @@ public class DomainListGetOperationResponse
     /// <summary>
     /// Результат операции.
     /// </summary>
-    public OperationResultWithOutput<ArticleItemGetOperationOutput> OperationResult { get; init; }
+    public OperationResultWithOutput<ArticleListGetOperationOutput> OperationResult { get; init; }
 
     #endregion Properties
 
@@ -23,7 +23,7 @@ public class DomainListGetOperationResponse
     /// </summary>
     /// <param name="operationResult">Результат операции.</param>
     public DomainListGetOperationResponse(
-        OperationResultWithOutput<ArticleItemGetOperationOutput> operationResult)
+        OperationResultWithOutput<ArticleListGetOperationOutput> operationResult)
     {
         OperationResult = operationResult;
     }

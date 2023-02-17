@@ -179,7 +179,7 @@
             Код операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequest.#ctor(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput,System.String)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequest.#ctor(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput,System.String)">
             <summary>
             Конструктор.
             </summary>
@@ -191,7 +191,7 @@
             Обработчик запроса операции получения списка в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.IArticleItemGetOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleRepository)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.IArticleListGetOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleRepository)">
             <summary>
             Конструктор.
             </summary>
@@ -211,7 +211,7 @@
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationResponse.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationOutput})">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationResponse.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationOutput})">
             <summary>
             Конструктор.
             </summary>

@@ -12,7 +12,7 @@ public class DomainListGetOperationRequest : IRequest<DomainListGetOperationResp
     /// <summary>
     /// Входные данные.
     /// </summary>
-    public ArticleItemGetOperationInput Input { get; init; }
+    public ArticleListGetOperationInput Input { get; init; }
 
     /// <summary>
     /// Код операции.
@@ -28,7 +28,7 @@ public class DomainListGetOperationRequest : IRequest<DomainListGetOperationResp
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public DomainListGetOperationRequest(ArticleItemGetOperationInput input, string operationCode = "")
+    public DomainListGetOperationRequest(ArticleListGetOperationInput input, string operationCode = "")
     {
         Input = input;
         OperationCode = operationCode;

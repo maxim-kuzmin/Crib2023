@@ -10,7 +10,7 @@ public class DomainListGetOperationRequestHandler :
 {
     #region Fields
 
-    private readonly IArticleItemGetOperationHandler _operationHandler;
+    private readonly IArticleListGetOperationHandler _operationHandler;
 
     private readonly IArticleRepository _repository;
 
@@ -24,7 +24,7 @@ public class DomainListGetOperationRequestHandler :
     /// <param name="operationHandler">Обработчик операции.</param>
     /// <param name="repository">Репозиторий.</param>
     public DomainListGetOperationRequestHandler(
-        IArticleItemGetOperationHandler operationHandler,
+        IArticleListGetOperationHandler operationHandler,
         IArticleRepository repository)
     {
         _operationHandler = operationHandler;
@@ -44,7 +44,7 @@ public class DomainListGetOperationRequestHandler :
         {
             _operationHandler.OnStart(request.Input, request.OperationCode);
 
-            var operationOutput = await _repository.GetItem(request.Input).ConfigureAwait(false);
+            var operationOutput = await _repository.GetList(request.Input).ConfigureAwait(false);
 
             _operationHandler.OnSuccess(operationOutput);
         }
