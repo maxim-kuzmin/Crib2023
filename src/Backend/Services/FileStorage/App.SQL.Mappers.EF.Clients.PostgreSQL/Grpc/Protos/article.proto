@@ -36,7 +36,7 @@ message ArticleItemGetReplyOutput {
 
 message ArticleItemGetReplyOutputItem {
   ArticleItemGetReplyOutputItemData data = 1;
-  repeated ArticleItemGetReplyOutputItemPathItem path = 2;
+  repeated ArticleItemGetReplyOutputItemTopicPathItem path = 2;
 }
 
 message ArticleItemGetReplyOutputItemData {
@@ -44,7 +44,7 @@ message ArticleItemGetReplyOutputItemData {
   string title = 2;
 }
 
-message ArticleItemGetReplyOutputItemPathItem {
+message ArticleItemGetReplyOutputItemTopicPathItem {
   int64 id = 1;
   string name = 2;
 }

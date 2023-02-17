@@ -12,7 +12,7 @@ public class ClientMapperArticleTypeEntity : ArticleTypeEntity
     /// <summary>
     /// Экземпляр сущности "Тема".
     /// </summary>
-    public ClientMapperTopicTypeEntity? Topic { get; set; }
+    public ClientMapperTopicTypeEntity Topic { get; set; } = null!;
 
     #endregion Navigation properties
 }

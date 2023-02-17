@@ -51,7 +51,7 @@ public class ArticleGrpcService : Article.ArticleBase
         var operationResult = response.OperationResult;        
 
         var data = operationResult.Output.Item.Data;
-        var path = operationResult.Output.Item.Path;
+        var topicPathItems = operationResult.Output.Item.TopicPathItems;
 
         var result = new ArticleItemGetReply
         {
@@ -75,12 +75,12 @@ public class ArticleGrpcService : Article.ArticleBase
             result.ErrorMessages.Add(errorMessage);
         }
 
-        foreach (var pathItem in path)
+        foreach (var topicPathItem in topicPathItems)
         {
-            result.Output.Item.Path.Add(new ArticleItemGetReplyOutputItemPathItem
+            result.Output.Item.Path.Add(new ArticleItemGetReplyOutputItemTopicPathItem
             {
-                Id = pathItem.Id,
-                Name = pathItem.Name,
+                Id = topicPathItem.Id,
+                Name = topicPathItem.Name,
             });
         }
 

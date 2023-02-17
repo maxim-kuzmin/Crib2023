@@ -52,7 +52,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         {
             var item = new ArticleEntity(mapperArticle);
 
-            LoadTopic(item, mapperArticle);
+            await LoadTopicPathItems(dbContext, item, mapperArticle).ConfigureAwait(false);
 
             result.Item = item;
         }
@@ -90,7 +90,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
             .Select(x => new ArticleEntity(x))
             .ToDictionary(x => x.Data.Id);
 
-        LoadTopic(itemLookup, mapperArticleList);
+        await LoadTopicPathItems(dbContext, itemLookup, mapperArticleList).ConfigureAwait(false);
 
         result.Items = itemLookup.Values.ToArray();
         result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
@@ -102,25 +102,76 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
     #region Private methods
 
-    private static void LoadTopic(ArticleEntity item, ClientMapperArticleTypeEntity mapperArticle)
+    private static async Task LoadTopicPathItems(
+        ClientMapperDbContext dbContext,
+        ArticleEntity item,
+        ClientMapperArticleTypeEntity mapperArticle)
     {
         var mapperTopic = mapperArticle.Topic;
 
-        if (mapperTopic != null)
+        long[] ancestorIds = mapperTopic.TreePath.FromTreePathToInt64ArrayOfAncestors();
+
+        if (ancestorIds.Any())
         {
-            //makc//!!!// item.Topic = new TopicEntity(mapperTopic);
+            var taskForLookup = dbContext.Topic
+                .Where(x => ancestorIds.Contains(x.Id))
+                .Select(x => new OptionValueObject(x.Id, x.Name))
+                .ToDictionaryAsync(x => x.Id);
+
+            var topicPathItemLookup = await taskForLookup.ConfigureAwait(false);
+
+            foreach (long ancestorId in ancestorIds)
+            {
+                if (topicPathItemLookup.TryGetValue(ancestorId, out var option))
+                {
+                    item.AddTopicPathItem(option);
+                }
+            }
         }
+
+        item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
     }
 
-    private static void LoadTopic(
+    private static async Task LoadTopicPathItems(
+        ClientMapperDbContext dbContext,
         Dictionary<long, ArticleEntity> itemLookup,
         ClientMapperArticleTypeEntity[] mapperArticleList)
     {
-        foreach (var mapperArticle in mapperArticleList)
+        long[] ancestorIdsForLookup = mapperArticleList
+            .SelectMany(x => x.Topic.TreePath.FromTreePathToInt64ArrayOfAncestors())
+            .Distinct()
+            .ToArray();
+
+        if (ancestorIdsForLookup.Any())
         {
-            if (itemLookup.TryGetValue(mapperArticle.Id, out ArticleEntity? item))
+            var taskForLookup = dbContext.Topic
+                .Where(x => ancestorIdsForLookup.Contains(x.Id))
+                .Select(x => new OptionValueObject(x.Id, x.Name))
+                .ToDictionaryAsync(x => x.Id);
+
+            var ancestorLookup = await taskForLookup.ConfigureAwait(false);
+
+            foreach (var mapperArticle in mapperArticleList)
             {
-                LoadTopic(item, mapperArticle);
+                if (itemLookup.TryGetValue(mapperArticle.Id, out var item))
+                {
+                    var mapperTopic = mapperArticle.Topic;
+
+                    if (ancestorLookup.Any())
+                    {
+                        long[] ancestorIds = mapperTopic.TreePath.FromTreePathToInt64ArrayOfAncestors();
+
+                        foreach (long ancestorId in ancestorIds)
+                        {
+                            if (ancestorLookup.TryGetValue(ancestorId, out var ancestor))
+                            {
+                                item.AddTopicPathItem(ancestor);
+                            }
+                        }
+                    }
+
+                    item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
+                }
             }
         }
     }

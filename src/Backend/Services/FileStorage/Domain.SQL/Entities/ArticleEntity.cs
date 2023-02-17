@@ -9,7 +9,7 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
 {
     #region Fields
 
-    private readonly List<TopicTypeEntity> _path = new();
+    private readonly List<OptionValueObject> _topicPathItems = new();
 
     #endregion Fields
 
@@ -21,9 +21,9 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     public ArticleTypeEntity Data { get; init; }
 
     /// <summary>
-    /// Путь.
+    /// Элементы пути темы.
     /// </summary>
-    public IReadOnlyCollection<TopicTypeEntity> Path => _path;
+    public IReadOnlyCollection<OptionValueObject> TopicPathItems => _topicPathItems;
 
     #endregion Properties    
 
@@ -43,17 +43,17 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     #region Public methods
 
     /// <summary>
-    /// Добавить тему в путь.
+    /// Добавить элемент пути темы.
     /// </summary>
     /// <param name="data">Данные.</param>
-    /// <returns>Добавленная тема.</returns>
-    public TopicTypeEntity AddTopicToPath(TopicTypeEntity data)
+    /// <returns>Добавленный элемент пути.</returns>
+    public OptionValueObject AddTopicPathItem(OptionValueObject data)
     {
-        var result = _path.Where(x => x.Id == data.Id).SingleOrDefault();
+        var result = _topicPathItems.Where(x => x.Id == data.Id).SingleOrDefault();
 
         if (result is null)
         {
-            _path.Add(data);
+            _topicPathItems.Add(data);
         }
 
         return result ?? data;

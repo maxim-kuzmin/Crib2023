@@ -14,9 +14,9 @@
             Данные.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.Path">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.TopicPathItems">
             <summary>
-            Путь.
+            Элементы пути темы.
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity)">
@@ -25,12 +25,12 @@
             </summary>
             <param name="data">Данные.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.AddTopicToPath(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.AddTopicPathItem(Crib2023.Backend.Services.FileStorage.Domain.SQL.ValueObjects.OptionValueObject)">
             <summary>
-            Добавить тему в путь.
+            Добавить элемент пути темы.
             </summary>
             <param name="data">Данные.</param>
-            <returns>Добавленная тема.</returns>
+            <returns>Добавленный элемент пути.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.ArticleEntity.GetId">
             <inheritdoc/>
@@ -168,6 +168,14 @@
             </summary>
             <param name="input">Входные данные.</param>
             <returns>Задача на получение списка.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.ValueObjects.OptionValueObject">
+            <summary>
+            Объект-значение параметра.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.ValueObjects.OptionValueObject.#ctor(System.Int64,System.String)">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

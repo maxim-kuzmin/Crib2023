@@ -71,10 +71,10 @@
         <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemData.TitleFieldNumber">
             <summary>Field number for the "title" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemPathItem.IdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemTopicPathItem.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemPathItem.NameFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetReplyOutputItemTopicPathItem.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.Article.Descriptor">
