@@ -13,3 +13,4 @@ global using Makc2023.Backend.Common.Data.SQL.Operations.Item.Get;
 global using Makc2023.Backend.Common.Data.SQL.Operations.List.Get;
 global using Makc2023.Backend.Common.Domain;
 global using Makc2023.Backend.Common.Domain.ValueObjects.Options;
+global using Makc2023.Backend.Common.Data.SQL.Operations.Tree.Path.Get;

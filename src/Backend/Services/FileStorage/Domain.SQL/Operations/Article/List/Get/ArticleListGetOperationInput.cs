@@ -25,22 +25,22 @@ public class ArticleListGetOperationInput : ListGetOperationInput
     public string Title { get; set; } = "";
 
     /// <summary>
-    /// Идентификатор экземпляра сущности "Фиктивное отношение один ко многим".
+    /// Идентификатор экземпляра сущности "Тема".
     /// </summary>
     public long TopicId { get; set; }
 
     /// <summary>
-    /// Идентификаторы экземпляров сущности "Фиктивное отношение один ко многим".
+    /// Идентификаторы экземпляров сущности "Тема".
     /// </summary>
     public long[] TopicIds { get; set; } = Array.Empty<long>();
 
     /// <summary>
-    /// Строка идентификаторов экземпляров сущности "Фиктивное отношение один ко многим".
+    /// Строка идентификаторов экземпляров сущности "Тема".
     /// </summary>
     public string TopicIdsString { get; set; } = "";
 
     /// <summary>
-    /// Имя экземпляра сущности "Фиктивное отношение один ко многим".
+    /// Имя экземпляра сущности "Тема".
     /// </summary>
     public string TopicName { get; set; } = "";
 

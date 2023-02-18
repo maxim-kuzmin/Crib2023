@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services;
 
 /// <summary>
-/// gRPC сервис сущности "Статья".
+/// gRPC сервис "Статья".
 /// </summary>
 public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
 {

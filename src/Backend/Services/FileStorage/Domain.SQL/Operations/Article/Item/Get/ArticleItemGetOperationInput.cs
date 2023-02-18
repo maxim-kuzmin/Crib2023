@@ -42,17 +42,17 @@ public class ArticleItemGetOperationInput : ItemWithInt64IdGetOperationInput
 
         if (result.Any())
         {
-            bool isInvalidTitle = string.IsNullOrWhiteSpace(Title);
-            bool isInvalidTopicId = TopicId < 1;
+            bool isTitleInvalid = string.IsNullOrWhiteSpace(Title);
+            bool isTopicIdInvalid = TopicId < 1;
 
-            if (isInvalidTitle || isInvalidTopicId)
+            if (isTitleInvalid || isTopicIdInvalid)
             {
-                if (isInvalidTitle)
+                if (isTitleInvalid)
                 {
                     result.Add(nameof(Title));
                 }
 
-                if (isInvalidTopicId)
+                if (isTopicIdInvalid)
                 {
                     result.Add(nameof(TopicId));
                 }
