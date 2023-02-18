@@ -81,6 +81,11 @@
             Заголовок.
             </summary>
         </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.TopicId">
+            <summary>
+            Идентификатор темы.
+            </summary>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.Normalize">
             <inheritdoc/>
         </member>

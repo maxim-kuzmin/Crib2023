@@ -5,16 +5,14 @@ services:
   backend-gateway-webapi:
     ports:
       - "8080:5000"
-    volumes:
-      - ./Backend/Gateways/WebAPI/bin/debug/net7.0/logs:/app/bin/debug/net7.0/logs
 
   backend-service-catalog:
-    volumes:
-      - ./Backend/Services/Catalog/bin/debug/net7.0/logs:/app/bin/debug/net7.0/logs
+    ports:
+      - "8081:5001"
 
   backend-service-filestorage:
-    volumes:
-      - ./Backend/Services/FileStorage/bin/debug/net7.0/logs:/app/bin/debug/net7.0/logs
+    ports:
+      - "8082:5002"
       
   external-minio:
     ports:

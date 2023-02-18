@@ -19,6 +19,7 @@ message ArticleItemGetOperationRequestGrpcProto {
 message ArticleItemGetOperationInputGrpcProto {
   int64 id = 1;
   string title = 2;
+  int64 topic_id = 3;
 }
 
 // GetItem Reply

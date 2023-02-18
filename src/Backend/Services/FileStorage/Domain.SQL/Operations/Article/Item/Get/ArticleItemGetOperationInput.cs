@@ -14,6 +14,11 @@ public class ArticleItemGetOperationInput : ItemWithInt64IdGetOperationInput
     /// </summary>
     public string Title { get; set; } = "";
 
+    /// <summary>
+    /// Идентификатор темы.
+    /// </summary>
+    public long TopicId { get; set; }
+
     #endregion Properties
 
     #region Public methods
@@ -26,6 +31,7 @@ public class ArticleItemGetOperationInput : ItemWithInt64IdGetOperationInput
         if (Id > 0)
         {
             Title = "";
+            TopicId = 0;
         }
     }
 
@@ -36,9 +42,20 @@ public class ArticleItemGetOperationInput : ItemWithInt64IdGetOperationInput
 
         if (result.Any())
         {
-            if (string.IsNullOrWhiteSpace(Title))
+            bool isInvalidTitle = string.IsNullOrWhiteSpace(Title);
+            bool isInvalidTopicId = TopicId < 1;
+
+            if (isInvalidTitle || isInvalidTopicId)
             {
-                result.Add(nameof(Title));                
+                if (isInvalidTitle)
+                {
+                    result.Add(nameof(Title));
+                }
+
+                if (isInvalidTopicId)
+                {
+                    result.Add(nameof(TopicId));
+                }
             }
             else
             {

@@ -24,10 +24,15 @@ public static class DomainExtension
         {
             query = query.Where(x => x.Id == input.Id);
         }
-
-        if (input.Title != null)
+        
+        if (!string.IsNullOrWhiteSpace(input.Title))
         {
             query = query.Where(x => x.Title == input.Title);
+        }
+
+        if (input.TopicId > 0)
+        {
+            query = query.Where(x => x.TopicId == input.TopicId);
         }
 
         return query;
@@ -46,7 +51,7 @@ public static class DomainExtension
     {
         if (!string.IsNullOrWhiteSpace(input.Title))
         {
-            query = query.Where(x => x.Title!.Contains(input.Title));
+            query = query.Where(x => x.Title.Contains(input.Title));
         }
 
         if (input.Ids != null && input.Ids.Any())

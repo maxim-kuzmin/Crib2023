@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services;
 
 /// <summary>
-/// gRPC сервис "Статья".
+/// gRPC сервис сущности "Статья".
 /// </summary>
 public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
 {
@@ -38,12 +38,13 @@ public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
         ArticleItemGetOperationRequestGrpcProto request,
         ServerCallContext context)
     {
-        var input = request.Input;
+        var protoInput = request.Input ?? new ArticleItemGetOperationInputGrpcProto();
 
         var operationInput = new ArticleItemGetOperationInput
         {
-            Id = input.Id,
-            Title = input.Title,
+            Id = protoInput.Id,
+            Title = protoInput.Title,
+            TopicId = protoInput.TopicId,
         };
 
         var operationRequest = new DomainItemGetOperationRequest(operationInput, request.OperationCode);
@@ -72,15 +73,6 @@ public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
             result.ErrorMessages.Add(errorMessage);
         }
 
-        if (!result.IsOk)
-        {
-            var statusCode = operationOutput.IsItemNotFound
-                ? StatusCode.NotFound
-                : StatusCode.Internal;
-
-            context.Status = new Status(statusCode, operationResult.CreateErrorMessage());
-        }
-
         return result;
     }
 
@@ -94,7 +86,7 @@ public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
         ArticleListGetOperationRequestGrpcProto request,
         ServerCallContext context)
     {
-        var protoInput = request.Input;
+        var protoInput = request.Input ?? new ArticleListGetOperationInputGrpcProto();
 
         var operationInput = new ArticleListGetOperationInput
         {
@@ -105,8 +97,8 @@ public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
             Ids = protoInput.Ids.ToArray(),
             TopicId = protoInput.TopicId,
             TopicIds = protoInput.TopicIds.ToArray(),
-            TopicName = protoInput.TopicName,             
-            Title = request.Input.Title,
+            TopicName = protoInput.TopicName,
+            Title = protoInput.Title,
         };
 
         var taskForItem = _mediator.Send(new DomainListGetOperationRequest(operationInput, request.OperationCode));
@@ -139,11 +131,6 @@ public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
             result.Output.Items.Add(protoItem);
         }
 
-        if (!result.IsOk)
-        {
-            context.Status = new Status(StatusCode.Internal, operationResult.CreateErrorMessage());
-        }
-
         return result;
     }
 
@@ -153,11 +140,13 @@ public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
 
     private static ArticleEntityGrpcProto CreateProtoItem(ArticleEntity item)
     {
+        ArticleEntityGrpcProto result;
+
         var data = item.Data;
 
         var topicPathItems = item.TopicPathItems;
 
-        var result = new ArticleEntityGrpcProto
+        result = new ArticleEntityGrpcProto
         {
             Data = new ArticleTypeEntityGrpcProto
             {

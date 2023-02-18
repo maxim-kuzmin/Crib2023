@@ -24,6 +24,7 @@ public class DomainListGetOperationHandler :
             setupOptions)
     {
         FunctionToTransformOperationInput = TransformOperationInput;
+        FunctionToTransformOperationOutput = TransformOperationOutput;
     }
 
     #endregion Constructors
@@ -44,6 +45,13 @@ public class DomainListGetOperationHandler :
         }
 
         return input;
+    }
+
+    private ArticleListGetOperationOutput TransformOperationOutput(ArticleListGetOperationOutput output)
+    {
+        output.Items ??= Array.Empty<ArticleEntity>();
+
+        return output;
     }
 
     #endregion Private methods
