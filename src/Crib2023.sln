@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.SQL", "Backend\Servi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\FileStorage\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{8467484B-DC2B-4FEC-8AB6-10F0C418D1F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\FileStorage\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{7AFAD84C-ED4B-43D7-AC32-92859DBC576A}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{5AD77F9E-DC92-409E-BA3D-C351BCC200D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "React", "React", "{79F79D9D-4FD2-408B-9A3A-0F96B5736F71}"
@@ -101,6 +103,10 @@ Global
 		{31BE72FC-2B1A-49D7-90C5-FA1918A0915C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31BE72FC-2B1A-49D7-90C5-FA1918A0915C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31BE72FC-2B1A-49D7-90C5-FA1918A0915C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AFAD84C-ED4B-43D7-AC32-92859DBC576A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AFAD84C-ED4B-43D7-AC32-92859DBC576A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AFAD84C-ED4B-43D7-AC32-92859DBC576A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AFAD84C-ED4B-43D7-AC32-92859DBC576A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +129,7 @@ Global
 		{79F79D9D-4FD2-408B-9A3A-0F96B5736F71} = {5AD77F9E-DC92-409E-BA3D-C351BCC200D1}
 		{18160FCB-8DC6-4BE5-8513-6580FDEC58B7} = {79F79D9D-4FD2-408B-9A3A-0F96B5736F71}
 		{0F49B386-DBC9-41F4-AEF7-1E312A3F4CFD} = {18160FCB-8DC6-4BE5-8513-6580FDEC58B7}
+		{7AFAD84C-ED4B-43D7-AC32-92859DBC576A} = {842C80FA-0E8D-4134-97B9-F3EB0630BAED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A4F79BA-1D89-4330-8078-EE5A5ED67BE1}

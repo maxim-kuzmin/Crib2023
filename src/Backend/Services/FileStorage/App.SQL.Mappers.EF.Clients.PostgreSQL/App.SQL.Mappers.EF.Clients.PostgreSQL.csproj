@@ -29,6 +29,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
+		<ProjectReference Include="..\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
 	</ItemGroup>
 
 </Project>
