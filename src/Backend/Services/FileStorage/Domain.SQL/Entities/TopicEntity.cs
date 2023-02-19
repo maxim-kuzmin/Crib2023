@@ -22,7 +22,7 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     /// <summary>
     /// Уровень в дереве.
     /// </summary>
-    public long TreeLevel { get; private set; }
+    public int TreeLevel { get; private set; }
 
     /// <summary>
     /// Путь в дереве.
@@ -52,7 +52,7 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     /// <param name="treeHasChildren">Признак наличия детей в дереве.</param>
     /// <param name="treeLevel">Уровень в дереве.</param>
     /// <param name="treePath">Путь в дереве.</param>
-    public void LoadTree(bool treeHasChildren, long treeLevel, string treePath)
+    public void LoadTree(bool treeHasChildren, int treeLevel, string treePath)
     {
         TreeHasChildren = treeHasChildren;
         TreeLevel = treeLevel;

@@ -66,7 +66,7 @@
             </summary>
             <param name="data">Данные.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.LoadTree(System.Boolean,System.Int64,System.String)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.LoadTree(System.Boolean,System.Int32,System.String)">
             <summary>
             Загрузить дерево.
             </summary>

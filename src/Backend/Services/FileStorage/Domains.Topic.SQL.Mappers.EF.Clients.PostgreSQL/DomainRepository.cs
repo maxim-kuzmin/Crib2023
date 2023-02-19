@@ -5,176 +5,142 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Cli
 /// <summary>
 /// Репозиторий домена.
 /// </summary>
-//public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepository
-//{
-//    #region Properties
+public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepository
+{
+    #region Properties
 
-//    private IClientMapperDbContextFactory DbContextFactory { get; init; }
+    private IClientMapperDbContextFactory DbContextFactory { get; init; }
 
-//    #endregion Properties
+    #endregion Properties
 
-//    #region Constructors
+    #region Constructors
 
-//    /// <summary>
-//    /// Конструктор.
-//    /// </summary>
-//    /// <param name="dbContextFactory">Фабрика контекста базы данных.</param>
-//    /// <param name="dbManager">Менеджер базы данных.</param>
-//    /// <param name="mediator">Посредник.</param>
-//    public DomainRepository(
-//        IClientMapperDbContextFactory dbContextFactory,
-//        ClientMapperDbManager dbManager,
-//        IMediator mediator)
-//        : base(dbManager.DbContext, mediator)
-//    {
-//        DbContextFactory = dbContextFactory;
-//    }
+    /// <summary>
+    /// Конструктор.
+    /// </summary>
+    /// <param name="dbContextFactory">Фабрика контекста базы данных.</param>
+    /// <param name="dbManager">Менеджер базы данных.</param>
+    /// <param name="mediator">Посредник.</param>
+    public DomainRepository(
+        IClientMapperDbContextFactory dbContextFactory,
+        ClientMapperDbManager dbManager,
+        IMediator mediator)
+        : base(dbManager.DbContext, mediator)
+    {
+        DbContextFactory = dbContextFactory;
+    }
 
-//    #endregion Constructors
+    #endregion Constructors
 
-//    #region Public methods
+    #region Public methods
 
-//    /// <inheritdoc/>
-//    public async Task<TopicItemGetOperationOutput> GetItem(TopicItemGetOperationInput input)
-//    {
-//        TopicItemGetOperationOutput result = new();
+    /// <inheritdoc/>
+    public async Task<TopicItemGetOperationOutput> GetItem(TopicItemGetOperationInput input)
+    {
+        TopicItemGetOperationOutput result = new();
 
-//        using var dbContext = DbContextFactory.CreateDbContext();
+        using var dbContext = DbContextFactory.CreateDbContext();
 
-//        var taskForItem = dbContext.Topic
-//            .Include(x => x.Parent)
-//            .ApplyFiltering(input)
-//            .SingleOrDefaultAsync();
+        var taskForItem = dbContext.Topic
+            .Include(x => x.Parent)
+            .ApplyFiltering(input)
+            .SingleOrDefaultAsync();
 
-//        var mapperForItem = await taskForItem.ConfigureAwait(false);
+        var mapperForItem = await taskForItem.ConfigureAwait(false);
 
-//        if (mapperForItem != null)
-//        {
-//            var item = new TopicEntity(mapperForItem);
+        if (mapperForItem != null)
+        {
+            var item = new TopicEntity(mapperForItem);
 
-//            await LoadTopicPathItems(dbContext, item, mapperForItem).ConfigureAwait(false);
+            await LoadTree(dbContext, item, mapperForItem).ConfigureAwait(false);
 
-//            result.Item = item;
-//        }
-//        else
-//        {
-//            result.IsItemNotFound = true;
-//        }
+            result.Item = item;
+        }
+        else
+        {
+            result.IsItemNotFound = true;
+        }
 
-//        return result;
-//    }
+        return result;
+    }
 
-//    /// <inheritdoc/>
-//    public async Task<TopicListGetOperationOutput> GetList(TopicListGetOperationInput input)
-//    {
-//        TopicListGetOperationOutput result = new();
+    /// <inheritdoc/>
+    public async Task<TopicListGetOperationOutput> GetList(TopicListGetOperationInput input)
+    {
+        TopicListGetOperationOutput result = new();
 
-//        using var dbContext = DbContextFactory.CreateDbContext();
-//        using var dbContextForTotalCount = DbContextFactory.CreateDbContext();
+        using var dbContext = DbContextFactory.CreateDbContext();
+        using var dbContextForTotalCount = DbContextFactory.CreateDbContext();
 
-//        var queryForItems = dbContext.Topic
-//            .Include(x => x.Parent)
-//            .ApplyFiltering(input)
-//            .ApplySorting(input)
-//            .ApplyPagination(input);
+        var queryForItems = dbContext.Topic
+            .Include(x => x.Parent)
+            .ApplyFiltering(input)
+            .ApplySorting(input)
+            .ApplyPagination(input);
 
-//        var queryForTotalCount = dbContextForTotalCount.Topic
-//            .ApplyFiltering(input);
+        var queryForTotalCount = dbContextForTotalCount.Topic
+            .ApplyFiltering(input);
 
-//        var taskForItems = queryForItems.ToArrayAsync();
-//        var taskForTotalCount = queryForTotalCount.CountAsync();
+        var taskForItems = queryForItems.ToArrayAsync();
+        var taskForTotalCount = queryForTotalCount.CountAsync();
 
-//        var mapperForItems = await taskForItems.ConfigureAwait(false);
+        var mapperForItems = await taskForItems.ConfigureAwait(false);
 
-//        var itemLookup = mapperForItems
-//            .Select(x => new TopicEntity(x))
-//            .ToDictionary(x => x.Data.Id);
+        var itemLookup = mapperForItems
+            .Select(x => new TopicEntity(x))
+            .ToDictionary(x => x.Data.Id);
 
-//        await LoadTopicPathItems(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
+        await LoadTree(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
 
-//        result.Items = itemLookup.Values.ToArray();
-//        result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
+        result.Items = itemLookup.Values.ToArray();
+        result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
 
-//        return result;
-//    }
+        return result;
+    }
 
-//    #endregion Public methods
+    #endregion Public methods
 
-//    #region Private methods
+    #region Private methods
 
-//    private static async Task LoadTopicPathItems(
-//        ClientMapperDbContext dbContext,
-//        TopicEntity item,
-//        ClientMapperTopicTypeEntity mapperForItem)
-//    {
-//        var mapperTopic = mapperForItem.Topic.Build();
+    private static async Task LoadTree(
+        ClientMapperDbContext dbContext,
+        TopicEntity item,
+        ClientMapperTopicTypeEntity mapperForItem)
+    {
+        var taskForTreeHasChildten = dbContext.Topic.Where(x => x.ParentId == mapperForItem.Id).AnyAsync();
 
-//        long[] ancestorIds = mapperTopic.TreePath.FromTreePathToInt64ArrayOfAncestors();
+        bool treeHasChildten = await taskForTreeHasChildten.ConfigureAwait(false);
 
-//        if (ancestorIds.Any())
-//        {
-//            var taskForLookup = dbContext.Topic
-//                .Where(x => ancestorIds.Contains(x.Id))
-//                .Select(x => new OptionValueObject(x.Id, x.Name))
-//                .ToDictionaryAsync(x => x.Id);
+        item.LoadTree(treeHasChildten, mapperForItem.TreePath.NLevel, mapperForItem.TreePath);
+    }
 
-//            var topicPathItemLookup = await taskForLookup.ConfigureAwait(false);
+    private static async Task LoadTree(
+        ClientMapperDbContext dbContext,
+        Dictionary<long, TopicEntity> itemLookup,
+        ClientMapperTopicTypeEntity[] mapperForItems)
+    {
+        long[] idsForLookup = mapperForItems.Select(x => x.Id).Distinct().ToArray();
 
-//            foreach (long ancestorId in ancestorIds)
-//            {
-//                if (topicPathItemLookup.TryGetValue(ancestorId, out var option))
-//                {
-//                    item.AddTopicPathItem(option);
-//                }
-//            }
-//        }
+        if (idsForLookup.Any())
+        {
+            var taskForLookup = dbContext.Topic
+                .Where(x => x.ParentId > 0 && idsForLookup.Contains(x.ParentId.Value))
+                .GroupBy(x => x.Id)
+                .ToDictionaryAsync(x => x.Key, x => x.Any());
 
-//        item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
-//    }
+            var childrenExistenceLookup = await taskForLookup.ConfigureAwait(false);
 
-//    private static async Task LoadTopicPathItems(
-//        ClientMapperDbContext dbContext,
-//        Dictionary<long, ArticleEntity> itemLookup,
-//        ClientMapperTopicTypeEntity[] mapperForItems)
-//    {
-//        long[] ancestorIdsForLookup = mapperForItems
-//            .SelectMany(x => x.Topic.TreePath.FromTreePathToInt64ArrayOfAncestors())
-//            .Distinct()
-//            .ToArray();
+            foreach (var mapperForItem in mapperForItems)
+            {
+                if (itemLookup.TryGetValue(mapperForItem.Id, out var item))
+                {
+                    childrenExistenceLookup.TryGetValue(mapperForItem.Id, out bool treeHasChildten);
 
-//        if (ancestorIdsForLookup.Any())
-//        {
-//            var taskForLookup = dbContext.Topic
-//                .Where(x => ancestorIdsForLookup.Contains(x.Id))
-//                .Select(x => new OptionValueObject(x.Id, x.Name))
-//                .ToDictionaryAsync(x => x.Id);
+                    item.LoadTree(treeHasChildten, mapperForItem.TreePath.NLevel, mapperForItem.TreePath);
+                }
+            }
+        }
+    }
 
-//            var ancestorLookup = await taskForLookup.ConfigureAwait(false);
-
-//            foreach (var mapperForItem in mapperForItems)
-//            {
-//                if (itemLookup.TryGetValue(mapperForItem.Id, out var item))
-//                {
-//                    var mapperTopic = mapperForItem.Topic;
-
-//                    if (ancestorLookup.Any())
-//                    {
-//                        long[] ancestorIds = mapperTopic.TreePath.FromTreePathToInt64ArrayOfAncestors();
-
-//                        foreach (long ancestorId in ancestorIds)
-//                        {
-//                            if (ancestorLookup.TryGetValue(ancestorId, out var ancestor))
-//                            {
-//                                item.AddTopicPathItem(ancestor);
-//                            }
-//                        }
-//                    }
-
-//                    item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
-//                }
-//            }
-//        }
-//    }
-
-//    #endregion Private methods
-//}
+    #endregion Private methods
+}

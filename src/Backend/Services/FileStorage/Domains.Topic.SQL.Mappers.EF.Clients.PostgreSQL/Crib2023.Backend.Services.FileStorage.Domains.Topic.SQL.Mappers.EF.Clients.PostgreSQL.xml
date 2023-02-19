@@ -33,6 +33,25 @@
             <param name="input">Входные данные.</param>
             <returns>Запрос с учётом сортировки.</returns>
         </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.DomainRepository">
+            <summary>
+            Репозиторий домена.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.DomainRepository.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.IClientMapperDbContextFactory,Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.ClientMapperDbManager,MediatR.IMediator)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="dbContextFactory">Фабрика контекста базы данных.</param>
+            <param name="dbManager">Менеджер базы данных.</param>
+            <param name="mediator">Посредник.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.DomainRepository.GetItem(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.DomainRepository.GetList(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationInput)">
+            <inheritdoc/>
+        </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.DomainResource">
             <summary>
             Ресурс домена.
