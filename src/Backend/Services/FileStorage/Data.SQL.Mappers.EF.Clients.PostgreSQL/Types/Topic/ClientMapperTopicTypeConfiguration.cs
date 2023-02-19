@@ -37,8 +37,8 @@ public class ClientMapperTopicTypeConfiguration : MapperTopicTypeConfiguration<C
             .HasMethod("gist")
             .HasDatabaseName(options.DbIndexForTreePath);
 
-        builder.HasOne(x => x.TopicParent)
-            .WithMany(x => x.TopicChildList)
+        builder.HasOne(x => x.Parent)
+            .WithMany(x => x.Children)
             .HasForeignKey(x => x.ParentId)
             .HasConstraintName(options.DbForeignKeyToTopicParent);
     }

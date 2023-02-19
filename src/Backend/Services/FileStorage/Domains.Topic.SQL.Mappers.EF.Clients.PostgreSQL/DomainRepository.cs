@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL;
+namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL;
 
 /// <summary>
 /// Репозиторий домена.
 /// </summary>
-public class DomainRepository : MapperRepository<ArticleEntity>, IArticleRepository
+public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepository
 {
     #region Properties
 
@@ -35,14 +35,14 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
     #region Public methods
 
     /// <inheritdoc/>
-    public async Task<ArticleItemGetOperationOutput> GetItem(ArticleItemGetOperationInput input)
+    public async Task<TopicItemGetOperationOutput> GetItem(TopicItemGetOperationInput input)
     {
-        ArticleItemGetOperationOutput result = new();
+        TopicItemGetOperationOutput result = new();
 
         using var dbContext = DbContextFactory.CreateDbContext();
 
-        var taskForItem = dbContext.Article
-            .Include(x => x.Topic)
+        var taskForItem = dbContext.Topic
+            .Include(x => x.Parent)
             .ApplyFiltering(input)
             .SingleOrDefaultAsync();
 
@@ -50,7 +50,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
         if (mapperForItem != null)
         {
-            var item = new ArticleEntity(mapperForItem);
+            var item = new TopicEntity(mapperForItem);
 
             await LoadTopicPathItems(dbContext, item, mapperForItem).ConfigureAwait(false);
 
@@ -65,20 +65,20 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
     }
 
     /// <inheritdoc/>
-    public async Task<ArticleListGetOperationOutput> GetList(ArticleListGetOperationInput input)
+    public async Task<TopicListGetOperationOutput> GetList(TopicListGetOperationInput input)
     {
-        ArticleListGetOperationOutput result = new();
+        TopicListGetOperationOutput result = new();
 
         using var dbContext = DbContextFactory.CreateDbContext();
         using var dbContextForTotalCount = DbContextFactory.CreateDbContext();
 
-        var queryForItems = dbContext.Article
-            .Include(x => x.Topic)
+        var queryForItems = dbContext.Topic
+            .Include(x => x.Parent)
             .ApplyFiltering(input)
             .ApplySorting(input)
             .ApplyPagination(input);
 
-        var queryForTotalCount = dbContextForTotalCount.Article
+        var queryForTotalCount = dbContextForTotalCount.Topic
             .ApplyFiltering(input);
 
         var taskForItems = queryForItems.ToArrayAsync();
@@ -87,7 +87,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
         var itemLookup = mapperForItems
-            .Select(x => new ArticleEntity(x))
+            .Select(x => new TopicEntity(x))
             .ToDictionary(x => x.Data.Id);
 
         await LoadTopicPathItems(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
@@ -104,8 +104,8 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
     private static async Task LoadTopicPathItems(
         ClientMapperDbContext dbContext,
-        ArticleEntity item,
-        ClientMapperArticleTypeEntity mapperForItem)
+        TopicEntity item,
+        ClientMapperTopicTypeEntity mapperForItem)
     {
         var mapperTopic = mapperForItem.Topic.Build();
 
@@ -135,7 +135,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
     private static async Task LoadTopicPathItems(
         ClientMapperDbContext dbContext,
         Dictionary<long, ArticleEntity> itemLookup,
-        ClientMapperArticleTypeEntity[] mapperForItems)
+        ClientMapperTopicTypeEntity[] mapperForItems)
     {
         long[] ancestorIdsForLookup = mapperForItems
             .SelectMany(x => x.Topic.Build().TreePath.FromTreePathToInt64ArrayOfAncestors())

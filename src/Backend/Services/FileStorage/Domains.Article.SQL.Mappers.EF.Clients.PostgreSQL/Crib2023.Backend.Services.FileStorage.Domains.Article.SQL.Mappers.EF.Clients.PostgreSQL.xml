@@ -11,7 +11,7 @@
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.DomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity},Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput)">
             <summary>
-            Применить. Фильтрацию.
+            Применить фильтрацию.
             </summary>
             <param name="query">Запрос.</param>
             <param name="input">Входные данные.</param>
@@ -19,7 +19,7 @@
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.DomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity},Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput)">
             <summary>
-            Применить. Фильтрацию.
+            Применить фильтрацию.
             </summary>
             <param name="query">Запрос.</param>
             <param name="input">Входные данные.</param>
@@ -27,7 +27,7 @@
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.DomainExtension.ApplySorting(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity},Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput)">
             <summary>
-            Применить. Сортировку.
+            Применить сортировку.
             </summary>
             <param name="query">Запрос.</param>
             <param name="input">Входные данные.</param>

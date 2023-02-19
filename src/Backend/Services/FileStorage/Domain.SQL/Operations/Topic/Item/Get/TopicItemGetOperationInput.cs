@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Makc2023.Backend.Common.Data.SQL.Operations.Tree.Node.Get;
-
 namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get;
 
 /// <summary>
@@ -35,6 +33,12 @@ public class TopicItemGetOperationInput : ItemWithInt64IdGetOperationInput
     {
         base.Normalize();
 
+        if (Axis == TreeNodeGetOperationAxis.Parent && ParentId > 0)
+        {
+            Axis = TreeNodeGetOperationAxis.Self;
+            Id = ParentId;
+        }
+
         if (Id > 0)
         {
             Name = "";
@@ -48,7 +52,7 @@ public class TopicItemGetOperationInput : ItemWithInt64IdGetOperationInput
         var result = base.GetInvalidProperties();
 
         if (result.Any())
-        {
+        {            
             bool isNameInvalid = string.IsNullOrWhiteSpace(Name);
             bool isParentIdInvalid = ParentId < 1;
 

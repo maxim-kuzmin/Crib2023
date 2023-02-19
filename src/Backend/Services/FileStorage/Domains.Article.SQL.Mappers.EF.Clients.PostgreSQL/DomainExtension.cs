@@ -10,7 +10,7 @@ public static class DomainExtension
     #region Public methods
 
     /// <summary>
-    /// Применить. Фильтрацию.
+    /// Применить фильтрацию.
     /// </summary>
     /// <param name="query">Запрос.</param>
     /// <param name="input">Входные данные.</param>
@@ -39,7 +39,7 @@ public static class DomainExtension
     }
 
     /// <summary>
-    /// Применить. Фильтрацию.
+    /// Применить фильтрацию.
     /// </summary>
     /// <param name="query">Запрос.</param>
     /// <param name="input">Входные данные.</param>
@@ -96,7 +96,7 @@ public static class DomainExtension
     }
 
     /// <summary>
-    /// Применить. Сортировку.
+    /// Применить сортировку.
     /// </summary>
     /// <param name="query">Запрос.</param>
     /// <param name="input">Входные данные.</param>
@@ -106,62 +106,42 @@ public static class DomainExtension
         ArticleListGetOperationInput input
         )
     {
-        if (string.IsNullOrWhiteSpace(input.SortField))
+        if (input.SortField.Equals(nameof(ArticleTypeEntity.Id), StringComparison.OrdinalIgnoreCase))
         {
-            throw new NullOrWhiteSpaceStringVariableException(typeof(DomainExtension), nameof(input), nameof(input.SortField));
-        }
-
-        string sortField = input.SortField.ToLower();
-
-        if (string.IsNullOrWhiteSpace(input.SortDirection))
-        {
-            throw new NullOrWhiteSpaceStringVariableException(typeof(DomainExtension), nameof(input), nameof(input.SortDirection));
-        }
-
-        string sortDirection = input.SortDirection.ToLower();
-
-        string sortFieldForId = nameof(ArticleTypeEntity.Id).ToLower();
-        string sortFieldForTitle = nameof(ArticleTypeEntity.Title).ToLower();
-        string sortFieldForObjectTopic = $"{typeof(TopicTypeEntity).Name}.{nameof(TopicTypeEntity.Name)}".ToLower();
-
-        if (sortField == sortFieldForId)
-        {
-            switch (sortDirection)
+            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
             {
-                case OperationOptions.SORT_DIRECTION_ASC:
-                    query = query.OrderBy(x => x.Id);
-                    break;
-                case OperationOptions.SORT_DIRECTION_DESC:
-                    query = query.OrderByDescending(x => x.Id);
-                    break;
+                query = query.OrderBy(x => x.Id);
+            }
+            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            {
+                query = query.OrderByDescending(x => x.Id);
             }
         }
-        else if (sortField == sortFieldForTitle)
+        else if (input.SortField.Equals(nameof(ArticleTypeEntity.Title), StringComparison.OrdinalIgnoreCase))
         {
-            switch (sortDirection)
+            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
             {
-                case OperationOptions.SORT_DIRECTION_ASC:
-                    query = query.OrderBy(x => x.Title);
-                    break;
-                case OperationOptions.SORT_DIRECTION_DESC:
-                    query = query.OrderByDescending(x => x.Title);
-                    break;
+                query = query.OrderBy(x => x.Title);
+            }
+            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            {
+                query = query.OrderByDescending(x => x.Title);
             }
         }
-        else if (sortField == sortFieldForObjectTopic)
+        else if (input.SortField.Equals($"{typeof(TopicTypeEntity).Name}.{nameof(TopicTypeEntity.Name)}", StringComparison.OrdinalIgnoreCase))
         {
-            switch (sortDirection)
+            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
             {
-                case OperationOptions.SORT_DIRECTION_ASC:
-                    query = query.OrderBy(x => x.Topic!.Name);
-                    break;
-                case OperationOptions.SORT_DIRECTION_DESC:
-                    query = query.OrderByDescending(x => x.Topic!.Name);
-                    break;
+                query = query.OrderBy(x => x.Topic.Name);
+            }
+            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            {
+                query = query.OrderByDescending(x => x.Topic.Name);
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(sortField) && sortField != sortFieldForId)
+        if (!string.IsNullOrWhiteSpace(input.SortField)
+            && !input.SortField.Equals(nameof(ArticleTypeEntity.Id), StringComparison.OrdinalIgnoreCase))
         {
             query = ((IOrderedQueryable<ClientMapperArticleTypeEntity>)query).ThenBy(x => x.Id);
         }

@@ -29,6 +29,11 @@ public class TopicListGetOperationInput : ListGetOperationInput
     /// </summary>
     public string Name { get; set; } = "";
 
+    /// <summary>
+    /// Путь в дереве.
+    /// </summary>
+    public string TreePath { get; set; } = "";
+
     #endregion Properties
 
     #region Public methods
@@ -38,19 +43,54 @@ public class TopicListGetOperationInput : ListGetOperationInput
     {
         base.Normalize();
 
-        if (string.IsNullOrWhiteSpace(SortField))
-        {
-            SortField = nameof(TopicTypeEntity.Id);
-        }
-
-        if (string.IsNullOrWhiteSpace(SortDirection))
-        {
-            SortDirection = OperationOptions.SORT_DIRECTION_DESC;
-        }
-
         if (!string.IsNullOrWhiteSpace(IdsString) && !Ids.Any())
         {
             Ids = IdsString.FromStringToNumericInt64Array();
+        }
+
+        if (string.IsNullOrWhiteSpace(TreePath))
+        {
+            if (Ids.Any())
+            {
+                Axis = TreePathGetOperationAxis.None;
+            }
+            else if (Axis == TreePathGetOperationAxis.ChildOrSelf)
+            {
+                Axis = TreePathGetOperationAxis.Child;
+            }
+            else
+            {
+                Axis = TreePathGetOperationAxis.All;
+            }            
+        }
+        else if (Axis == TreePathGetOperationAxis.None)
+        {
+            Axis = TreePathGetOperationAxis.All;
+        }
+
+        if (Axis == TreePathGetOperationAxis.None || Axis == TreePathGetOperationAxis.Child)
+        {
+            if (string.IsNullOrWhiteSpace(SortField))
+            {
+                SortField = nameof(TopicTypeEntity.Id);
+            }
+
+            if (string.IsNullOrWhiteSpace(SortDirection))
+            {
+                SortDirection = OperationOptions.SORT_DIRECTION_DESC;
+            }
+        }
+        else
+        {
+            if (string.IsNullOrWhiteSpace(SortField))
+            {
+                SortField = nameof(TopicTypeEntity.TreeSort);
+            }
+
+            if (string.IsNullOrWhiteSpace(SortDirection))
+            {
+                SortDirection = OperationOptions.SORT_DIRECTION_ASC;
+            }
         }
     }
 

@@ -221,6 +221,11 @@
             Имя.
             </summary>
         </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationInput.TreePath">
+            <summary>
+            Путь в дереве.
+            </summary>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
@@ -242,6 +247,25 @@
             <returns>Задача на получение элемента.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleRepository.GetList(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationInput)">
+            <summary>
+            Получить список.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <returns>Задача на получение списка.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicRepository">
+            <summary>
+            Интерфейс репозитория "Тема".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicRepository.GetItem(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput)">
+            <summary>
+            Получить элемент.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <returns>Задача на получение элемента.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicRepository.GetList(Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationInput)">
             <summary>
             Получить список.
             </summary>

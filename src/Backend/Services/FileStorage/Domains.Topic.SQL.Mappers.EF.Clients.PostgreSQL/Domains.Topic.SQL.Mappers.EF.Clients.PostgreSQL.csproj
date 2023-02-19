@@ -18,5 +18,11 @@
 		<ProjectReference Include="..\Data.SQL.Mappers.EF.Clients.PostgreSQL\Data.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
 		<ProjectReference Include="..\Domain.SQL\Domain.SQL.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="ResourceFiles\DomainResource.en.resx">
+	    <SubType>Designer</SubType>
+	  </EmbeddedResource>
+	</ItemGroup>
 	
 </Project>

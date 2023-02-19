@@ -203,14 +203,14 @@
             Список экземпляров сущности "Статья".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.TopicChildList">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.Children">
             <summary>
-            Список дочерних экземпляров сущности "Тема".
+            Дети.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.TopicParent">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.Parent">
             <summary>
-            Родительский экземпляр сущности "Тема".
+            Родитель.
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.Build">

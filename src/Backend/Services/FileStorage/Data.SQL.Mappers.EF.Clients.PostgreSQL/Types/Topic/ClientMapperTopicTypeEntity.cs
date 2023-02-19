@@ -24,14 +24,14 @@ public class ClientMapperTopicTypeEntity : TopicTypeEntity
     public List<ClientMapperArticleTypeEntity> ArticleList { get; } = new();
 
     /// <summary>
-    /// Список дочерних экземпляров сущности "Тема".
+    /// Дети.
     /// </summary>
-    public List<ClientMapperTopicTypeEntity> TopicChildList { get; } = new();
+    public List<ClientMapperTopicTypeEntity> Children { get; } = new();
 
     /// <summary>
-    /// Родительский экземпляр сущности "Тема".
+    /// Родитель.
     /// </summary>
-    public ClientMapperTopicTypeEntity? TopicParent { get; set; }
+    public ClientMapperTopicTypeEntity? Parent { get; set; }
 
     #endregion Navigation properties
 
