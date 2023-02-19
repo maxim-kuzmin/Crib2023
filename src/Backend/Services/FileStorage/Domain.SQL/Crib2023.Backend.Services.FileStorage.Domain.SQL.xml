@@ -45,14 +45,19 @@
             Данные.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.Children">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.TreeHasChildren">
             <summary>
-            Дети.
+            Признак наличия детей в дереве.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.Parent">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.TreeLevel">
             <summary>
-            Родитель.
+            Уровень в дереве.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.TreePath">
+            <summary>
+            Путь в дереве.
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
@@ -61,12 +66,13 @@
             </summary>
             <param name="data">Данные.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.AddChild(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.LoadTree(System.Boolean,System.Int64,System.String)">
             <summary>
-            Добавить ребёнка.
+            Загрузить дерево.
             </summary>
-            <param name="data">Данные.</param>
-            <returns>Добавленный добавленный.</returns>
+            <param name="treeHasChildren">Признак наличия детей в дереве.</param>
+            <param name="treeLevel">Уровень в дереве.</param>
+            <param name="treePath">Путь в дереве.</param>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.GetId">
             <inheritdoc/>

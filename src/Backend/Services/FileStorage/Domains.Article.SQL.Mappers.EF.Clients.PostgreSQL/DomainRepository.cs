@@ -107,9 +107,9 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         ArticleEntity item,
         ClientMapperArticleTypeEntity mapperForItem)
     {
-        var mapperTopic = mapperForItem.Topic.Build();
+        var mapperTopic = mapperForItem.Topic;
 
-        long[] ancestorIds = mapperTopic.TreePath.FromTreePathToInt64ArrayOfAncestors();
+        long[] ancestorIds = mapperTopic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
 
         if (ancestorIds.Any())
         {
@@ -138,7 +138,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         ClientMapperArticleTypeEntity[] mapperForItems)
     {
         long[] ancestorIdsForLookup = mapperForItems
-            .SelectMany(x => x.Topic.Build().TreePath.FromTreePathToInt64ArrayOfAncestors())
+            .SelectMany(x => x.Topic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors())
             .Distinct()
             .ToArray();
 
@@ -159,7 +159,8 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
                     if (ancestorLookup.Any())
                     {
-                        long[] ancestorIds = mapperTopic.TreePath.FromTreePathToInt64ArrayOfAncestors();
+                        long[] ancestorIds = mapperTopic.TreePath.ToString()
+                            .FromTreePathToInt64ArrayOfAncestors();
 
                         foreach (long ancestorId in ancestorIds)
                         {

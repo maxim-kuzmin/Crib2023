@@ -201,11 +201,6 @@
             Сущность типа "Тема".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.RowGuid">
-            <summary>
-            Глобальный идентификатор строки.
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.Id">
             <summary>
             Идентификатор.
@@ -221,34 +216,9 @@
             Идентификатор родителя.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.TreeChildCount">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.RowGuid">
             <summary>
-            Число детей в дереве.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.TreeDescendantCount">
-            <summary>
-            Число потомков в дереве.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.TreeLevel">
-            <summary>
-            Уровень в дереве.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.TreePath">
-            <summary>
-            Путь в дереве.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.TreePosition">
-            <summary>
-            Позиция в дереве.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity.TreeSort">
-            <summary>
-            Сортировка в дереве.
+            Глобальный идентификатор строки.
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeLoader">

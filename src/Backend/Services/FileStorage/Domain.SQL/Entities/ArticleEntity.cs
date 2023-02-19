@@ -33,9 +33,9 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     /// Конструктор.
     /// </summary>
     /// <param name="data">Данные.</param>
-    public ArticleEntity(ArticleTypeEntity data)
+    public ArticleEntity(ArticleTypeEntity? data = null)
     {
-        Data = data;
+        Data = data ?? new ArticleTypeEntity();
     }
 
     #endregion Constructors

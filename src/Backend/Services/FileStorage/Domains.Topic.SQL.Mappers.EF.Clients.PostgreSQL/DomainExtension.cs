@@ -97,16 +97,16 @@ public static class DomainExtension
             switch (input.Axis)
             {
                 case TreePathGetOperationAxis.Ancestor:
-                    query = query.Where(x => x.DbColumnForTreePath.IsAncestorOf(treePath));
+                    query = query.Where(x => x.TreePath.IsAncestorOf(treePath));
                     break;
                 case TreePathGetOperationAxis.AncestorOrSelf:
-                    query = query.Where(x => x.DbColumnForTreePath.IsAncestorOf(treePath) || x.DbColumnForTreePath == treePath);
+                    query = query.Where(x => x.TreePath.IsAncestorOf(treePath) || x.TreePath == treePath);
                     break;
                 case TreePathGetOperationAxis.Descendant:
-                    query = query.Where(x => x.DbColumnForTreePath.IsDescendantOf(treePath));
+                    query = query.Where(x => x.TreePath.IsDescendantOf(treePath));
                     break;
                 case TreePathGetOperationAxis.DescendantOrSelf:
-                    query = query.Where(x => x.DbColumnForTreePath.IsDescendantOf(treePath) || x.DbColumnForTreePath == treePath);
+                    query = query.Where(x => x.TreePath.IsDescendantOf(treePath) || x.TreePath == treePath);
                     break;
                 case TreePathGetOperationAxis.ParentOrSelf:
                     {
@@ -121,19 +121,19 @@ public static class DomainExtension
 
                         if (parentTreePath != null)
                         {
-                            query = query.Where(x => x.DbColumnForTreePath == parentTreePath || x.DbColumnForTreePath == treePath);
+                            query = query.Where(x => x.TreePath == parentTreePath || x.TreePath == treePath);
                         }
                         else
                         {
-                            query = query.Where(x => x.DbColumnForTreePath == treePath);
+                            query = query.Where(x => x.TreePath == treePath);
                         }
                     }
                     break;
                 case TreePathGetOperationAxis.Child:
-                    query = query.Where(x => x.Parent != null && x.Parent.DbColumnForTreePath == treePath);
+                    query = query.Where(x => x.Parent != null && x.Parent.TreePath == treePath);
                     break;
                 case TreePathGetOperationAxis.ChildOrSelf:
-                    query = query.Where(x => x.Parent != null && x.Parent.DbColumnForTreePath == treePath || x.DbColumnForTreePath == treePath);
+                    query = query.Where(x => x.Parent != null && x.Parent.TreePath == treePath || x.TreePath == treePath);
                     break;
             }
         }
@@ -178,21 +178,21 @@ public static class DomainExtension
                 query = query.OrderByDescending(x => x.Name);
             }
         }
-        else if (input.SortField.Equals(nameof(TopicTypeEntity.TreePath), StringComparison.OrdinalIgnoreCase))
+        else if (input.SortField.Equals(nameof(TopicEntity.TreePath), StringComparison.OrdinalIgnoreCase))
         {
             if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
             {
-                query = query.OrderBy(x => x.DbColumnForTreePath);
+                query = query.OrderBy(x => x.TreePath);
             }
             else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
             {
-                query = query.OrderByDescending(x => x.DbColumnForTreePath);
+                query = query.OrderByDescending(x => x.TreePath);
             }
         }
 
         if (!string.IsNullOrWhiteSpace(input.SortField)
             && !input.SortField.Equals(nameof(TopicTypeEntity.Id), StringComparison.OrdinalIgnoreCase)
-            && !input.SortField.Equals(nameof(TopicTypeEntity.TreePath), StringComparison.OrdinalIgnoreCase))
+            && !input.SortField.Equals(nameof(TopicEntity.TreePath), StringComparison.OrdinalIgnoreCase))
         {
             query = ((IOrderedQueryable<ClientMapperTopicTypeEntity>)query).ThenBy(x => x.Id);
         }

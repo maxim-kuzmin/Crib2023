@@ -10,11 +10,6 @@ public class TopicTypeEntity
     #region Properties
 
     /// <summary>
-    /// Глобальный идентификатор строки.
-    /// </summary>
-    public Guid RowGuid { get; set; } = Guid.NewGuid();
-
-    /// <summary>
     /// Идентификатор.
     /// </summary>
     public long Id { get; set; }
@@ -30,34 +25,9 @@ public class TopicTypeEntity
     public long? ParentId { get; set; }
 
     /// <summary>
-    /// Число детей в дереве.
+    /// Глобальный идентификатор строки.
     /// </summary>
-    public long TreeChildCount { get; set; }
-
-    /// <summary>
-    /// Число потомков в дереве.
-    /// </summary>
-    public long TreeDescendantCount { get; set; }
-
-    /// <summary>
-    /// Уровень в дереве.
-    /// </summary>
-    public long TreeLevel { get; set; }
-
-    /// <summary>
-    /// Путь в дереве.
-    /// </summary>
-    public string TreePath { get; set; } = "";
-
-    /// <summary>
-    /// Позиция в дереве.
-    /// </summary>
-    public int TreePosition { get; set; }
-
-    /// <summary>
-    /// Сортировка в дереве.
-    /// </summary>
-    public string TreeSort { get; set; } = "";
+    public Guid RowGuid { get; set; } = Guid.NewGuid();
 
     #endregion Properties
 }

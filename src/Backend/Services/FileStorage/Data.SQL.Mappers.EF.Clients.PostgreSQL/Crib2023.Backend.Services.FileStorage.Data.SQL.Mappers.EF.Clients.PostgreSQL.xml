@@ -193,9 +193,9 @@
             Сущность типа "Тема" сопоставителя клиента.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.DbColumnForTreePath">
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.TreePath">
             <summary>
-            Колонка в базе данных для поля "TreePath".
+            Путь в дереве.
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.ArticleList">
@@ -212,12 +212,6 @@
             <summary>
             Родитель.
             </summary>
-        </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity.Build">
-            <summary>
-            Построить.
-            </summary>
-            <returns>Результат построения.</returns>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeExtension">
             <summary>

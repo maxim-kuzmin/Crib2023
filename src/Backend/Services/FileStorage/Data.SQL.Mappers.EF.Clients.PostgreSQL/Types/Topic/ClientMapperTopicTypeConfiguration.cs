@@ -30,10 +30,10 @@ public class ClientMapperTopicTypeConfiguration : MapperTopicTypeConfiguration<C
 
         builder.Property(x => x.Id).UseHiLo(options.DbSequenceForId, options.DbSchema);
 
-        builder.Property(x => x.DbColumnForTreePath)
+        builder.Property(x => x.TreePath)
             .HasColumnName(options.DbColumnForTreePath);
 
-        builder.HasIndex(x => x.DbColumnForTreePath)
+        builder.HasIndex(x => x.TreePath)
             .HasMethod("gist")
             .HasDatabaseName(options.DbIndexForTreePath);
 

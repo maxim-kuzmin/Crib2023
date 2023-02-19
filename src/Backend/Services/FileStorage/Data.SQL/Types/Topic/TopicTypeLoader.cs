@@ -41,34 +41,9 @@ public class TopicTypeLoader : Loader<TopicTypeEntity>
             Target.ParentId = source.ParentId;
         }
 
-        if (result.Contains(nameof(Target.TreeChildCount)))
+        if (result.Contains(nameof(Target.RowGuid)))
         {
-            Target.TreeChildCount = source.TreeChildCount;
-        }
-
-        if (result.Contains(nameof(Target.TreeDescendantCount)))
-        {
-            Target.TreeDescendantCount = source.TreeDescendantCount;
-        }
-
-        if (result.Contains(nameof(Target.TreeLevel)))
-        {
-            Target.TreeLevel = source.TreeLevel;
-        }
-
-        if (result.Contains(nameof(Target.TreePath)))
-        {
-            Target.TreePath = source.TreePath;
-        }
-
-        if (result.Contains(nameof(Target.TreePosition)))
-        {
-            Target.TreePosition = source.TreePosition;
-        }
-
-        if (result.Contains(nameof(Target.TreeSort)))
-        {
-            Target.TreeSort = source.TreeSort;
+            Target.RowGuid = source.RowGuid;
         }
 
         return result;
@@ -86,11 +61,7 @@ public class TopicTypeLoader : Loader<TopicTypeEntity>
             nameof(Target.Id),
             nameof(Target.Name),
             nameof(Target.ParentId),
-            nameof(Target.TreeChildCount),
-            nameof(Target.TreeDescendantCount),
-            nameof(Target.TreeLevel),
-            nameof(Target.TreePath),
-            nameof(Target.TreeSort)
+            nameof(Target.RowGuid),
         };
     }
 

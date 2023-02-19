@@ -56,7 +56,7 @@ public class DomainItemGetOperationHandler :
 
     private ArticleItemGetOperationOutput TransformOperationOutput(ArticleItemGetOperationOutput output)
     {
-        output.Item ??= new ArticleEntity(new ArticleTypeEntity());
+        output.Item ??= new ArticleEntity();
 
         if (output.IsItemNotFound)
         {

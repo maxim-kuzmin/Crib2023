@@ -56,7 +56,7 @@ public class DomainItemGetOperationHandler :
 
     private TopicItemGetOperationOutput TransformOperationOutput(TopicItemGetOperationOutput output)
     {
-        output.Item ??= new TopicEntity(new TopicTypeEntity());
+        output.Item ??= new TopicEntity();
 
         if (output.IsItemNotFound)
         {

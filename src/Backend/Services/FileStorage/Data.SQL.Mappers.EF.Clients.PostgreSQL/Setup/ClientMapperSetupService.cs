@@ -152,11 +152,9 @@ public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext
 
             string treePath = topic.Id.FromInt64ToTreePath(parent?.TreePath);
 
-            topic.DbColumnForTreePath = new LTree(treePath);
+            topic.TreePath = new LTree(treePath);
 
             await dbContext.SaveChangesAsync().ConfigureAwait(false);
-
-            topic.Build();
 
             await SaveTestTopicList(dbContext, topicList, indexes, topic).ConfigureAwait(false);
 

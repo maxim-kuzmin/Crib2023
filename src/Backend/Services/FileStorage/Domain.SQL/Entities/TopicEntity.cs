@@ -7,28 +7,27 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities;
 /// </summary>
 public class TopicEntity : Entity<long>, IAggregateRoot
 {
-    #region Fields
-
-    private readonly List<TopicTypeEntity> _children = new();
-
-    #endregion Fields
-
     #region Properties
 
     /// <summary>
     /// Данные.
     /// </summary>
-    public TopicTypeEntity Data { get; init; }
+    public TopicTypeEntity Data { get; }
 
     /// <summary>
-    /// Дети.
+    /// Признак наличия детей в дереве.
     /// </summary>
-    public IReadOnlyCollection<TopicTypeEntity> Children => _children;
+    public bool TreeHasChildren { get; private set; }
 
     /// <summary>
-    /// Родитель.
+    /// Уровень в дереве.
     /// </summary>
-    public TopicTypeEntity? Parent { get; set; }
+    public long TreeLevel { get; private set; }
+
+    /// <summary>
+    /// Путь в дереве.
+    /// </summary>
+    public string TreePath { get; private set; } = "";
 
     #endregion Properties    
 
@@ -38,9 +37,9 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     /// Конструктор.
     /// </summary>
     /// <param name="data">Данные.</param>
-    public TopicEntity(TopicTypeEntity data)
+    public TopicEntity(TopicTypeEntity? data = null)
     {
-        Data = data;
+        Data = data ?? new TopicTypeEntity();
     }
 
     #endregion Constructors
@@ -48,22 +47,16 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     #region Public methods
 
     /// <summary>
-    /// Добавить ребёнка.
+    /// Загрузить дерево.
     /// </summary>
-    /// <param name="data">Данные.</param>
-    /// <returns>Добавленный добавленный.</returns>
-    public TopicTypeEntity AddChild(TopicTypeEntity data)
+    /// <param name="treeHasChildren">Признак наличия детей в дереве.</param>
+    /// <param name="treeLevel">Уровень в дереве.</param>
+    /// <param name="treePath">Путь в дереве.</param>
+    public void LoadTree(bool treeHasChildren, long treeLevel, string treePath)
     {
-        var result = _children.Where(x => x.Name == data.Name).SingleOrDefault();
-
-        if (result is null)
-        {
-            data.ParentId = GetId();
-
-            _children.Add(data);
-        }
-
-        return result ?? data;
+        TreeHasChildren = treeHasChildren;
+        TreeLevel = treeLevel;
+        TreePath = treePath;
     }
 
     #endregion Public methods

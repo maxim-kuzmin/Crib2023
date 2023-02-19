@@ -10,9 +10,9 @@ public class ClientMapperTopicTypeEntity : TopicTypeEntity
     #region Properties
 
     /// <summary>
-    /// Колонка в базе данных для поля "TreePath".
+    /// Путь в дереве.
     /// </summary>
-    public LTree DbColumnForTreePath { get; set; }
+    public LTree TreePath { get; set; }
 
     #endregion Properties
 
@@ -34,19 +34,4 @@ public class ClientMapperTopicTypeEntity : TopicTypeEntity
     public ClientMapperTopicTypeEntity? Parent { get; set; }
 
     #endregion Navigation properties
-
-    #region Public methods
-
-    /// <summary>
-    /// Построить.
-    /// </summary>
-    /// <returns>Результат построения.</returns>
-    public ClientMapperTopicTypeEntity Build()
-    {
-        TreePath = DbColumnForTreePath;
-
-        return this;
-    }
-
-    #endregion Public methods
 }
