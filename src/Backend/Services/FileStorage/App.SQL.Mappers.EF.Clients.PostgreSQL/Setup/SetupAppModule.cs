@@ -45,8 +45,9 @@ public class SetupAppModule : AppModule
 
         services.AddMediatR(
             typeof(ModuleOfCommonDomain),
-            typeof(ModuleOfCommonDomainSqlMappersEF),
-            typeof(ModuleOfServiceDomainsArticle));
+            typeof(ModuleOfCommonDomainSQLMappersEF),
+            typeof(ModuleOfServiceDomainsArticle),
+            typeof(ModuleOfServiceDomainsTopic));
     }
 
     /// <inheritdoc/>

@@ -60,16 +60,11 @@
             Путь в дереве.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Int32,System.String)">
             <summary>
             Конструктор.
             </summary>
             <param name="data">Данные.</param>
-        </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.LoadTree(System.Boolean,System.Int32,System.String)">
-            <summary>
-            Загрузить дерево.
-            </summary>
             <param name="treeHasChildren">Признак наличия детей в дереве.</param>
             <param name="treeLevel">Уровень в дереве.</param>
             <param name="treePath">Путь в дереве.</param>

@@ -135,7 +135,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
     private static async Task LoadTopicPathItems(
         ClientMapperDbContext dbContext,
         Dictionary<long, ArticleEntity> itemLookup,
-        ClientMapperArticleTypeEntity[] mapperForItems)
+        IEnumerable<ClientMapperArticleTypeEntity> mapperForItems)
     {
         long[] ancestorIdsForLookup = mapperForItems
             .SelectMany(x => x.Topic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors())

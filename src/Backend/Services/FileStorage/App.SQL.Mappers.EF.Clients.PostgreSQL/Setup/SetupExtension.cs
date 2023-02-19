@@ -34,7 +34,8 @@ public static class SetupExtension
             new ModuleOfServiceDataSQLClientsPostgreSQL(),
             new ModuleOfServiceDataSQL(configuration.GetRequiredSection("App:Service:Data:SQL")),
             new ModuleOfServiceDataSQLMappersEFClientsPostgreSQL(),
-            new ModuleOfServiceDomainsArticle()
+            new ModuleOfServiceDomainsArticle(),
+            new ModuleOfServiceDomainsTopic(),
         });
     }
 

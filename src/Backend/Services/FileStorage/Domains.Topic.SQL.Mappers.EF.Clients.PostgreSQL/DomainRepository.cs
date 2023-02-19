@@ -44,17 +44,23 @@ public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepositor
         var taskForItem = dbContext.Topic
             .Include(x => x.Parent)
             .ApplyFiltering(input)
+            .Select(x => new
+            {
+                Data = x,
+                TreeHasChildren = x.Children.Any(),
+                TreeLevel = x.TreePath.NLevel
+            })
             .SingleOrDefaultAsync();
 
         var mapperForItem = await taskForItem.ConfigureAwait(false);
 
         if (mapperForItem != null)
         {
-            var item = new TopicEntity(mapperForItem);
-
-            await LoadTree(dbContext, item, mapperForItem).ConfigureAwait(false);
-
-            result.Item = item;
+            result.Item = new TopicEntity(
+                mapperForItem.Data,
+                mapperForItem.TreeHasChildren,
+                mapperForItem.TreeLevel,
+                mapperForItem.Data.TreePath);
         }
         else
         {
@@ -76,7 +82,13 @@ public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepositor
             .Include(x => x.Parent)
             .ApplyFiltering(input)
             .ApplySorting(input)
-            .ApplyPagination(input);
+            .ApplyPagination(input)
+            .Select(x => new
+            {
+                Data = x,
+                TreeHasChildren = x.Children.Any(),
+                TreeLevel = x.TreePath.NLevel
+            });
 
         var queryForTotalCount = dbContextForTotalCount.Topic
             .ApplyFiltering(input);
@@ -86,61 +98,14 @@ public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepositor
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
-        var itemLookup = mapperForItems
-            .Select(x => new TopicEntity(x))
-            .ToDictionary(x => x.Data.Id);
+        result.Items = mapperForItems.Select(x =>
+            new TopicEntity(x.Data, x.TreeHasChildren, x.TreeLevel, x.Data.TreePath))
+            .ToArray();
 
-        await LoadTree(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
-
-        result.Items = itemLookup.Values.ToArray();
         result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
 
         return result;
     }
 
     #endregion Public methods
-
-    #region Private methods
-
-    private static async Task LoadTree(
-        ClientMapperDbContext dbContext,
-        TopicEntity item,
-        ClientMapperTopicTypeEntity mapperForItem)
-    {
-        var taskForTreeHasChildten = dbContext.Topic.Where(x => x.ParentId == mapperForItem.Id).AnyAsync();
-
-        bool treeHasChildten = await taskForTreeHasChildten.ConfigureAwait(false);
-
-        item.LoadTree(treeHasChildten, mapperForItem.TreePath.NLevel, mapperForItem.TreePath);
-    }
-
-    private static async Task LoadTree(
-        ClientMapperDbContext dbContext,
-        Dictionary<long, TopicEntity> itemLookup,
-        ClientMapperTopicTypeEntity[] mapperForItems)
-    {
-        long[] idsForLookup = mapperForItems.Select(x => x.Id).Distinct().ToArray();
-
-        if (idsForLookup.Any())
-        {
-            var taskForLookup = dbContext.Topic
-                .Where(x => x.ParentId > 0 && idsForLookup.Contains(x.ParentId.Value))
-                .GroupBy(x => x.Id)
-                .ToDictionaryAsync(x => x.Key, x => x.Any());
-
-            var childrenExistenceLookup = await taskForLookup.ConfigureAwait(false);
-
-            foreach (var mapperForItem in mapperForItems)
-            {
-                if (itemLookup.TryGetValue(mapperForItem.Id, out var item))
-                {
-                    childrenExistenceLookup.TryGetValue(mapperForItem.Id, out bool treeHasChildten);
-
-                    item.LoadTree(treeHasChildten, mapperForItem.TreePath.NLevel, mapperForItem.TreePath);
-                }
-            }
-        }
-    }
-
-    #endregion Private methods
 }

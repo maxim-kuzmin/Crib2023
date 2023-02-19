@@ -217,5 +217,19 @@
             </summary>
             <param name="operationResult">Результат операции.</param>
         </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Setup.DomainSetupAppModule">
+            <summary>
+            Модуль настройки приложения домена.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Setup.DomainSetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Setup.DomainSetupAppModule.GetExports">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Setup.DomainSetupAppModule.GetImports">
+            <inheritdoc/>
+        </member>
     </members>
 </doc>

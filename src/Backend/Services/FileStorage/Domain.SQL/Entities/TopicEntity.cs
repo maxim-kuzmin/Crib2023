@@ -17,17 +17,17 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     /// <summary>
     /// Признак наличия детей в дереве.
     /// </summary>
-    public bool TreeHasChildren { get; private set; }
+    public bool TreeHasChildren { get; }
 
     /// <summary>
     /// Уровень в дереве.
     /// </summary>
-    public int TreeLevel { get; private set; }
+    public int TreeLevel { get; }
 
     /// <summary>
     /// Путь в дереве.
     /// </summary>
-    public string TreePath { get; private set; } = "";
+    public string TreePath { get; }
 
     #endregion Properties    
 
@@ -37,29 +37,22 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     /// Конструктор.
     /// </summary>
     /// <param name="data">Данные.</param>
-    public TopicEntity(TopicTypeEntity? data = null)
-    {
-        Data = data ?? new TopicTypeEntity();
-    }
-
-    #endregion Constructors
-
-    #region Public methods
-
-    /// <summary>
-    /// Загрузить дерево.
-    /// </summary>
     /// <param name="treeHasChildren">Признак наличия детей в дереве.</param>
     /// <param name="treeLevel">Уровень в дереве.</param>
     /// <param name="treePath">Путь в дереве.</param>
-    public void LoadTree(bool treeHasChildren, int treeLevel, string treePath)
+    public TopicEntity(
+        TopicTypeEntity? data = null,
+        bool treeHasChildren = false,
+        int treeLevel = 0,
+        string treePath = "")
     {
+        Data = data ?? new TopicTypeEntity();
         TreeHasChildren = treeHasChildren;
         TreeLevel = treeLevel;
         TreePath = treePath;
     }
 
-    #endregion Public methods
+    #endregion Constructors
 
     #region Protected methods
 
