@@ -41,18 +41,30 @@ public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepositor
 
         using var dbContext = DbContextFactory.CreateDbContext();
 
-        var taskForItem = dbContext.Topic
-            .Include(x => x.Parent)
-            .ApplyFiltering(input)
-            .Select(x => new
-            {
-                Data = x,
-                TreeHasChildren = x.Children.Any(),
-                TreeLevel = x.TreePath.NLevel
-            })
-            .SingleOrDefaultAsync();
+        var query = dbContext.Topic.AsQueryable();
 
-        var mapperForItem = await taskForItem.ConfigureAwait(false);
+        if (input.Axis == TreeNodeGetOperationAxis.Parent)
+        {
+            query = query.Include(x => x.Parent).Where(x => x.Parent != null);
+        }
+
+        query = query.ApplyFiltering(input);
+
+        IQueryable<Item> queryForItem;
+
+        if (input.Axis == TreeNodeGetOperationAxis.Parent)
+        {
+            queryForItem = query.Select(x => new Item(
+                x.Parent!,
+                x.Parent!.Children.Any(),
+                x.Parent!.TreePath.NLevel));
+        }
+        else
+        {
+            queryForItem = query.Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
+        }
+
+        var mapperForItem = await queryForItem.SingleOrDefaultAsync().ConfigureAwait(false);
 
         if (mapperForItem != null)
         {
@@ -108,4 +120,32 @@ public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepositor
     }
 
     #endregion Public methods
+
+    #region Classes
+
+    private class Item
+    {
+        #region Properties
+
+        public ClientMapperTopicTypeEntity Data { get; }
+
+        public bool TreeHasChildren { get; }
+
+        public int TreeLevel { get; }
+
+        #endregion Properties
+
+        #region Constructors
+
+        public Item(ClientMapperTopicTypeEntity data, bool treeHasChildren, int treeLevel)
+        {
+            Data = data;
+            TreeLevel = treeLevel;
+            TreeHasChildren = treeHasChildren;
+        }
+
+        #endregion Constructors
+    }
+
+    #endregion Classes
 }

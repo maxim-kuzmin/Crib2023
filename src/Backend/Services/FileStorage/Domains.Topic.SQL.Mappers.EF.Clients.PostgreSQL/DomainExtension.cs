@@ -22,39 +22,19 @@ public static class DomainExtension
         TopicItemGetOperationInput input
         )
     {
-        if (input.Axis == TreeNodeGetOperationAxis.Self)
+        if (input.Id > 0)
         {
-            if (input.Id > 0)
-            {
-                query = query.Where(x => x.Id == input.Id);
-            }
-
-            if (!string.IsNullOrWhiteSpace(input.Name))
-            {
-                query = query.Where(x => x.Name == input.Name);
-            }
-
-            if (input.ParentId > 0)
-            {
-                query = query.Where(x => x.ParentId == input.ParentId);
-            }
+            query = query.Where(x => x.Id == input.Id);
         }
-        else
+
+        if (!string.IsNullOrWhiteSpace(input.Name))
         {
-            if (input.Id > 0)
-            {
-                query = query.Where(x => x.Parent != null && x.Parent.Id == input.Id);
-            }
+            query = query.Where(x => x.Name == input.Name);
+        }
 
-            if (!string.IsNullOrWhiteSpace(input.Name))
-            {
-                query = query.Where(x => x.Parent != null && x.Parent.Name == input.Name);
-            }
-
-            if (input.ParentId > 0)
-            {
-                query = query.Where(x => x.Parent != null && x.Parent.ParentId == input.ParentId);
-            }
+        if (input.ParentId > 0)
+        {
+            query = query.Where(x => x.ParentId == input.ParentId);
         }
 
         return query;
