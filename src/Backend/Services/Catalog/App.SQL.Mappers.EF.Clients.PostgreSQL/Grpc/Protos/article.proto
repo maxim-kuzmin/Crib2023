@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+option csharp_namespace = "Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos";
+
+package Catalog;
+
+service ArticleGrpcProto {
+  rpc GetItem (ArticleItemGetOperationRequestGrpcProto) returns (ArticleItemGetOperationReplyGrpcProto);
+  rpc GetList (ArticleListGetOperationRequestGrpcProto) returns (ArticleListGetOperationReplyGrpcProto);
+}
+
+// GetItem Request
+
+message ArticleItemGetOperationRequestGrpcProto {
+  ArticleItemGetOperationInputGrpcProto input = 1;
+  string operation_code = 2;
+}
+
+message ArticleItemGetOperationInputGrpcProto {
+  int64 id = 1;
+  string title = 2;
+  int64 topic_id = 3;
+}
+
+// GetItem Reply
+
+message ArticleItemGetOperationReplyGrpcProto {
+  bool is_ok = 1;
+  string operation_code = 2;
+  repeated string error_messages = 3;
+  ArticleItemGetOperationOutputGrpcProto output = 4;
+}
+
+message ArticleItemGetOperationOutputGrpcProto {
+  ArticleEntityGrpcProto item = 1;
+  bool is_item_not_found = 2;
+}
+
+message ArticleEntityGrpcProto {
+  ArticleTypeEntityGrpcProto data = 1;
+  repeated OptionValueObjectGrpcProto topic_path_items = 2;
+}
+
+message ArticleTypeEntityGrpcProto {
+  int64 id = 1;
+  string hash = 2;
+  string path = 3;
+  string title = 4;
+  int64 topic_id = 5;
+  string row_guid = 6;  
+}
+
+message OptionValueObjectGrpcProto {
+  int64 id = 1;
+  string name = 2;
+}
+
+// GetList Request
+
+message ArticleListGetOperationRequestGrpcProto {
+  ArticleListGetOperationInputGrpcProto input = 1;
+  string operation_code = 2;
+}
+
+message ArticleListGetOperationInputGrpcProto {
+  int32 page_number = 1;
+  int32 page_size = 2;
+  string sort_field = 3;
+  string sort_direction = 4;
+  repeated int64 ids = 5;
+  string title = 6;
+  int64 topic_id = 7;
+  repeated int64 topic_ids = 8;
+  string topic_name = 9;  
+}
+
+// GetList Reply
+
+message ArticleListGetOperationReplyGrpcProto {
+  bool is_ok = 1;
+  string operation_code = 2;
+  repeated string error_messages = 3;
+  ArticleListGetOperationOutputGrpcProto output = 4;
+}
+
+message ArticleListGetOperationOutputGrpcProto {
+  repeated ArticleEntityGrpcProto items = 1;
+  int64 total_count = 2;
+}

@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+option csharp_namespace = "Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos";
+
+package Catalog;
+
+service TopicGrpcProto {
+  rpc GetItem (TopicItemGetOperationRequestGrpcProto) returns (TopicItemGetOperationReplyGrpcProto);
+  rpc GetList (TopicListGetOperationRequestGrpcProto) returns (TopicListGetOperationReplyGrpcProto);
+}
+
+// GetItem Request
+
+message TopicItemGetOperationRequestGrpcProto {
+  TopicItemGetOperationInputGrpcProto input = 1;
+  string operation_code = 2;
+}
+
+message TopicItemGetOperationInputGrpcProto {
+  string axis = 1;
+  int64 id = 2;
+  string name = 3;
+  int64 parent_id = 4;  
+}
+
+// GetItem Reply
+
+message TopicItemGetOperationReplyGrpcProto {
+  bool is_ok = 1;
+  string operation_code = 2;
+  repeated string error_messages = 3;
+  TopicItemGetOperationOutputGrpcProto output = 4;
+}
+
+message TopicItemGetOperationOutputGrpcProto {
+  TopicEntityGrpcProto item = 1;
+  bool is_item_not_found = 2;
+}
+
+message TopicEntityGrpcProto {
+  TopicTypeEntityGrpcProto data = 1;
+  bool tree_has_children = 2;
+  int32 treeLevel = 3;
+  string treePath = 4;
+}
+
+message TopicTypeEntityGrpcProto {
+  int64 id = 1;
+  string name = 2;
+  int64 parent_id = 3;
+  string row_guid = 4;
+}
+
+// GetList Request
+
+message TopicListGetOperationRequestGrpcProto {
+  TopicListGetOperationInputGrpcProto input = 1;
+  string operation_code = 2;
+}
+
+message TopicListGetOperationInputGrpcProto {
+  int32 page_number = 1;
+  int32 page_size = 2;
+  string sort_field = 3;
+  string sort_direction = 4;
+  string axis = 5;
+  repeated int64 ids = 6;
+  string name = 7;
+  string tree_path = 8;
+}
+
+// GetList Reply
+
+message TopicListGetOperationReplyGrpcProto {
+  bool is_ok = 1;
+  string operation_code = 2;
+  repeated string error_messages = 3;
+  TopicListGetOperationOutputGrpcProto output = 4;
+}
+
+message TopicListGetOperationOutputGrpcProto {
+  repeated TopicEntityGrpcProto items = 1;
+  int64 total_count = 2;
+}

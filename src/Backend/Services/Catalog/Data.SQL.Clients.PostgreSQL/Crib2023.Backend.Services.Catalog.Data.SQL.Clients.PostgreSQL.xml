@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Crib2023.Backend.Services.Catalog.Data.SQL.Clients.PostgreSQL</name>
+    </assembly>
+    <members>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Clients.PostgreSQL.ClientTypesOptions">
+            <summary>
+            Параметры типов клиента.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Clients.PostgreSQL.ClientTypesOptions.Instance">
+            <summary>
+            Экземпляр.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Clients.PostgreSQL.Setup.ClientSetupAppModule">
+            <summary>
+            Модуль настройки приложения клиента.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Clients.PostgreSQL.Setup.ClientSetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Clients.PostgreSQL.Setup.ClientSetupAppModule.GetExports">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

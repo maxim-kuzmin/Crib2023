@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Crib2023.Backend.Services.Catalog.Data.SQL</name>
+    </assembly>
+    <members>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.ISetupService">
+            <summary>
+            Интерфейс сервиса настройки.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.ISetupService.MigrateDatabase">
+            <summary>
+            Мигрировать базу данных.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.ISetupService.SeedTestData">
+            <summary>
+            Засеять тестовые данные.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.SetupAppModule">
+            <summary>
+            Модуль настройки приложения.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.SetupAppModule.#ctor(Microsoft.Extensions.Configuration.IConfigurationSection)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="configurationSection">Раздел конфигурации.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.SetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.SetupAppModule.GetExports">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.SetupOptions">
+            <summary>
+            Параметры настройки.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Setup.SetupOptions.ConnectionStringName">
+            <summary>
+            Имя строки подключения.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.TypesOptions">
+            <summary>
+            Параметры типов.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.TypesOptions.Article">
+            <summary>
+            Сущность "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.TypesOptions.Topic">
+            <summary>
+            Сущность "Тема".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity">
+            <summary>
+            Сущность типа "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.RowGuid">
+            <summary>
+            Глобальный идентификатор строки.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Hash">
+            <summary>
+            Хэш.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Id">
+            <summary>
+            Идентификатор.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Path">
+            <summary>
+            Путь.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Title">
+            <summary>
+            Заголовок.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.TopicId">
+            <summary>
+            Идентификатор экземпляра сущности "Тема".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeLoader">
+            <summary>
+            Загрузчик типа "Статья".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeLoader.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeLoader.Load(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity,System.Collections.Generic.HashSet{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeLoader.CreateAllPropertiesToLoad">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions">
+            <summary>
+            Параметры типа "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForRowGuid">
+            <summary>
+            Колонка в базе данных для поля "RowGuid".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForHash">
+            <summary>
+            Колонка в базе данных для поля "Hash".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForId">
+            <summary>
+            Колонка в базе данных для поля "Id".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForPath">
+            <summary>
+            Колонка в базе данных для поля "Path".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForTitle">
+            <summary>
+            Колонка в базе данных для поля "Title".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForTopicId">
+            <summary>
+            Колонка в базе данных для поля "TopicId".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbForeignKeyToTopic">
+            <summary>
+            Внешний ключ в базе данных к типу "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbIndexForTopicId">
+            <summary>
+            Индекс в базе данных для поля "TopicId".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbMaxLengthForHash">
+            <summary>
+            Максимальная длина в базе данных для поля "Hash".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbMaxLengthForPath">
+            <summary>
+            Максимальная длина в базе данных для поля "Path".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbMaxLengthForTitle">
+            <summary>
+            Максимальная длина в базе данных для поля "Title".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbPrimaryKey">
+            <summary>
+            Первичный ключ в базе данных.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbUniqueIndexForRowGuid">
+            <summary>
+            Уникальный индекс в базе данных для поля "RowGuid".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbUniqueIndexForTitleAndTopicId">
+            <summary>
+            Уникальный индекс в базе данных для полей "Title" и "TopicId".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions,Makc2023.Backend.Common.Data.SQL.IDefaults,System.String,System.String,System.String,System.String)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="topicTypeOptions">Параметры типа "Тема".</param>
+            <param name="defaults">Значения по умолчанию.</param>
+            <param name="dbColumnForRowGuid">Колонка в базе данных для поля "RowGuid".</param>
+            <param name="dbColumnForTitle">Колонка в базе данных для поля "Title".</param>    
+            <param name="dbTable">Таблица в базе данных.</param>
+            <param name="dbSchema">Схема в базе данных.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity">
+            <summary>
+            Сущность типа "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity.Id">
+            <summary>
+            Идентификатор.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity.Name">
+            <summary>
+            Название.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity.ParentId">
+            <summary>
+            Идентификатор родителя.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity.RowGuid">
+            <summary>
+            Глобальный идентификатор строки.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeLoader">
+            <summary>
+            Загрузчик типа "Тема".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeLoader.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeLoader.Load(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity,System.Collections.Generic.HashSet{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeLoader.CreateAllPropertiesToLoad">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions">
+            <summary>
+            Параметры типа "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForRowGuid">
+            <summary>
+            Колонка в базе данных для поля "RowGuid".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForId">
+            <summary>
+            Колонка в базе данных для поля "Id".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForName">
+            <summary>
+            Колонка в базе данных для поля "Name".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForParentId">
+            <summary>
+            Колонка в базе данных для поля "ParentId".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForTreeChildCount">
+            <summary>
+            Колонка в базе данных для поля "TreeChildCount".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForTreeDescendantCount">
+            <summary>
+            Колонка в базе данных для поля "TreeDescendantCount".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForTreeLevel">
+            <summary>
+            Колонка в базе данных для поля "TreeLevel".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForTreePath">
+            <summary>
+            Колонка в базе данных для поля "TreePath".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForTreePosition">
+            <summary>
+            Колонка в базе данных для поля "TreePosition".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbColumnForTreeSort">
+            <summary>
+            Колонка в базе данных для поля "TreeSort".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbForeignKeyToTopicParent">
+            <summary>
+            Внешний ключ в базе данных к родительскому типу "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbIndexForParentId">
+            <summary>
+            Индекс в базе данных для поля "ParentId".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbIndexForTreePath">
+            <summary>
+            Индекс в базе данных для поля "TreePath".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbIndexForTreeSort">
+            <summary>
+            Индекс в базе данных для поля "TreeSort".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbMaxLengthForName">
+            <summary>
+            Максимальная длина в базе данных для поля "Name".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbMaxLengthForTreePath">
+            <summary>
+            Максимальная длина в базе данных для поля "TreePath".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbMaxLengthForTreeSort">
+            <summary>
+            Максимальная длина в базе данных для поля "TreeSort".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbPrimaryKey">
+            <summary>
+            Первичный ключ в базе данных.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbSequenceForId">
+            <summary>
+            Последовательность в базеданных для поля "Id".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbUniqueIndexForNameAndParentId">
+            <summary>
+            Уникальный индекс в базе данных для полей "Name" и "ParentId".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.DbUniqueIndexForRowGuid">
+            <summary>
+            Уникальный индекс в базе данных для поля "RowGuid".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeOptions.#ctor(Makc2023.Backend.Common.Data.SQL.IDefaults,System.String,System.String,System.String)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="defaults">Значения по умолчанию.</param>
+            <param name="dbColumnForRowGuid">Колонка в базе данных для поля "RowGuid".</param>
+            <param name="dbTable">Таблица в базе данных.</param>
+            <param name="dbSchema">Схема в базе данных.</param>
+        </member>
+    </members>
+</doc>

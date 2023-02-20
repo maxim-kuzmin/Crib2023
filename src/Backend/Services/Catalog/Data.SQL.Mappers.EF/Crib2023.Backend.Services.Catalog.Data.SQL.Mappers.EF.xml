@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF</name>
+    </assembly>
+    <members>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Db.IMapperDbContextFactory`1">
+            <summary>
+            Фабрика контекста базы данных сопоставителя.
+            </summary>
+            <typeparam name="TDbContext">Тип контекста базы данных.</typeparam>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Db.IMapperDbContextFactory`1.CreateDbContext">
+            <summary>
+            Создать контекст базы данных.
+            </summary>
+            <returns>Контекст базы данных.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.MapperTypeConfiguration`1">
+            <summary>
+            Конфигурация типа сопоставителя.
+            </summary>
+            <typeparam name="TEntity">Тип сущности.</typeparam>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.MapperTypeConfiguration`1.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.TypesOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1">
+            <summary>
+            Сервис настройки сопоставителя.
+            </summary>
+            <typeparam name="TDbContext">Тип контекста базы данных.</typeparam>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.MigrateDatabase">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.SeedTestData">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.CheckIfAnyTopicNotFound(`0)">
+            <summary>
+            Проверить, найден ли хоть один экземпляр сущности "Тема".
+            </summary>
+            <param name="dbContext">Контекст базы данных.</param>
+            <returns>Задача на проверку.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.CreateDbContext">
+            <summary>
+            Создать контекст базы данных.
+            </summary>
+            <returns>Контекст базы данных.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.GetRandomIndex``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Получить случайный индекс.
+            </summary>
+            <typeparam name="T">Тип элемента.</typeparam>
+            <param name="items">Элементы.</param>
+            <returns>Индекс.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.GetTestTopicIds">
+            <summary>
+            Получить идентификаторы экземпляров сущности "Тема".
+            </summary>
+            <returns>Идентификаторы.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.SeedTestArticleList(`0,System.Collections.Generic.IEnumerable{System.Int64})">
+            <summary>
+            Засеять список экземпляров сущности "Статья".
+            </summary>
+            <param name="dbContext">Контекст базы данных.</param>
+            <param name="topicIds">Идентификаторы экземпляров сущности "Тема".</param>
+            <returns>Задача на засеивание.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.SeedTestTopicList(`0)">
+            <summary>
+            Засеять список экземпляров сущности "Тема".
+            </summary>
+            <param name="dbContext">Контекст базы данных.</param>
+            <returns>Задача на засеивание.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Types.Article.MapperArticleTypeConfiguration`1">
+            <summary>
+            Конфигурация типа "Статья" сопоставителя.
+            </summary>
+            <typeparam name="TEntity">Тип сущности.</typeparam>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Types.Article.MapperArticleTypeConfiguration`1.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.TypesOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Types.Article.MapperArticleTypeConfiguration`1.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Types.Topic.MapperTopicTypeConfiguration`1">
+            <summary>
+            Конфигурация типа "Тема" сопоставителя.
+            </summary>
+            <typeparam name="TEntity">Тип сущности.</typeparam>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Types.Topic.MapperTopicTypeConfiguration`1.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.TypesOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Types.Topic.MapperTopicTypeConfiguration`1.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{`0})">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
