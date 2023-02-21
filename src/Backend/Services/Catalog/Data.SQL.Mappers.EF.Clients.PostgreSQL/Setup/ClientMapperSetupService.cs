@@ -1,5 +1,8 @@
 ﻿// Copyright (c) 2022 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using System.Net.WebSockets;
+using System.Text;
+
 namespace Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 
 /// <summary>
@@ -102,8 +105,7 @@ public class ClientMapperSetupService : MapperSetupService<ClientMapperDbContext
 
         return new ClientMapperArticleTypeEntity
         {
-            Hash = $"Hash-{index}",
-            Path = $"Path-{index}",
+            Body = CreateArticleBody(index),
             Title = $"Title-{index}",
             TopicId = topicIds.ElementAt(topicIndex)
         };

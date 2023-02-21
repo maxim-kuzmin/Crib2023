@@ -66,14 +66,9 @@
             Сущность типа "Статья".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.RowGuid">
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Body">
             <summary>
-            Глобальный идентификатор строки.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Hash">
-            <summary>
-            Хэш.
+            Тело.
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Id">
@@ -81,9 +76,9 @@
             Идентификатор.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Path">
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.RowGuid">
             <summary>
-            Путь.
+            Глобальный идентификатор строки.
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Title">
@@ -115,14 +110,9 @@
             Параметры типа "Статья".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForRowGuid">
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForBody">
             <summary>
-            Колонка в базе данных для поля "RowGuid".
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForHash">
-            <summary>
-            Колонка в базе данных для поля "Hash".
+            Колонка в базе данных для поля "Body".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForId">
@@ -130,9 +120,9 @@
             Колонка в базе данных для поля "Id".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForPath">
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForRowGuid">
             <summary>
-            Колонка в базе данных для поля "Path".
+            Колонка в базе данных для поля "RowGuid".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForTitle">
@@ -153,11 +143,6 @@
         <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbIndexForTopicId">
             <summary>
             Индекс в базе данных для поля "TopicId".
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbMaxLengthForHash">
-            <summary>
-            Максимальная длина в базе данных для поля "Hash".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeOptions.DbMaxLengthForPath">

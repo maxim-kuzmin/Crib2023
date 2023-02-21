@@ -10,14 +10,9 @@ public class ArticleTypeEntity
     #region Properties
 
     /// <summary>
-    /// Глобальный идентификатор строки.
+    /// Тело.
     /// </summary>
-    public Guid RowGuid { get; set; } = Guid.NewGuid();
-
-    /// <summary>
-    /// Хэш.
-    /// </summary>
-    public string Hash { get; set; } = "";
+    public string Body { get; set; } = "";
 
     /// <summary>
     /// Идентификатор.
@@ -25,9 +20,9 @@ public class ArticleTypeEntity
     public long Id { get; set; }
 
     /// <summary>
-    /// Путь.
+    /// Глобальный идентификатор строки.
     /// </summary>
-    public string Path { get; set; } = "";
+    public Guid RowGuid { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// Заголовок.

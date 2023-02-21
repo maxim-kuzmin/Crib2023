@@ -10,11 +10,6 @@ public class ArticleTypeEntity
     #region Properties
 
     /// <summary>
-    /// Глобальный идентификатор строки.
-    /// </summary>
-    public Guid RowGuid { get; set; } = Guid.NewGuid();
-
-    /// <summary>
     /// Хэш.
     /// </summary>
     public string Hash { get; set; } = "";
@@ -28,6 +23,11 @@ public class ArticleTypeEntity
     /// Путь.
     /// </summary>
     public string Path { get; set; } = "";
+
+    /// <summary>
+    /// Глобальный идентификатор строки.
+    /// </summary>
+    public Guid RowGuid { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// Заголовок.

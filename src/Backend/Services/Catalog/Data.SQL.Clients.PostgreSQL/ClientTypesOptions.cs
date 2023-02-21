@@ -42,8 +42,7 @@ public class ClientTypesOptions : TypesOptions
             dbColumnForTitle: "title",
             dbTable: "article")
         {
-            DbColumnForHash = "hash",
-            DbColumnForPath = "path"
+            DbColumnForBody = "body",
         };
     }
 

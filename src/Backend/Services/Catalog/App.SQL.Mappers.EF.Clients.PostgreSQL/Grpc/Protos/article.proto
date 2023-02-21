@@ -42,12 +42,11 @@ message ArticleEntityGrpcProto {
 }
 
 message ArticleTypeEntityGrpcProto {
-  int64 id = 1;
-  string hash = 2;
-  string path = 3;
-  string title = 4;
-  int64 topic_id = 5;
-  string row_guid = 6;  
+  string body = 1;
+  int64 id = 2;  
+  string title = 3;
+  int64 topic_id = 4;
+  string row_guid = 5;  
 }
 
 message OptionValueObjectGrpcProto {

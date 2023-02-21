@@ -44,6 +44,13 @@
             <param name="dbContext">Контекст базы данных.</param>
             <returns>Задача на проверку.</returns>
         </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.CreateArticleBody(System.Int64)">
+            <summary>
+            Создать тело статьи.
+            </summary>
+            <param name="index">Индекс статьи.</param>
+            <returns>Тело статьи.</returns>
+        </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Setup.MapperSetupService`1.CreateDbContext">
             <summary>
             Создать контекст базы данных.

@@ -10,11 +10,6 @@ public class ArticleTypeOptions : TypeOptions
     #region Properties
 
     /// <summary>
-    /// Колонка в базе данных для поля "RowGuid".
-    /// </summary>
-    public string? DbColumnForRowGuid { get; set; }
-
-    /// <summary>
     /// Колонка в базе данных для поля "Hash".
     /// </summary>
     public string? DbColumnForHash { get; set; }
@@ -28,6 +23,11 @@ public class ArticleTypeOptions : TypeOptions
     /// Колонка в базе данных для поля "Path".
     /// </summary>
     public string? DbColumnForPath { get; set; }
+
+    /// <summary>
+    /// Колонка в базе данных для поля "RowGuid".
+    /// </summary>
+    public string? DbColumnForRowGuid { get; set; }
 
     /// <summary>
     /// Колонка в базе данных для поля "Title".

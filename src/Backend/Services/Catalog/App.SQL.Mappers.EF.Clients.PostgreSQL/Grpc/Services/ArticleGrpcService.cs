@@ -153,12 +153,11 @@ public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
         {
             Data = new ArticleTypeEntityGrpcProto
             {
+                Body = data.Body,
                 Id = data.Id,
-                Hash = data.Hash,
-                Path = data.Path,
+                RowGuid = data.RowGuid.ToString(),
                 Title = data.Title,
-                TopicId = data.TopicId,
-                RowGuid = data.RowGuid.ToString()
+                TopicId = data.TopicId,                
             }
         };
 

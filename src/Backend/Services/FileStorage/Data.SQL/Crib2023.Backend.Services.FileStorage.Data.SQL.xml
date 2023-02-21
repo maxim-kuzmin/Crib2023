@@ -66,11 +66,6 @@
             Сущность типа "Статья".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity.RowGuid">
-            <summary>
-            Глобальный идентификатор строки.
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity.Hash">
             <summary>
             Хэш.
@@ -84,6 +79,11 @@
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity.Path">
             <summary>
             Путь.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity.RowGuid">
+            <summary>
+            Глобальный идентификатор строки.
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity.Title">
@@ -115,11 +115,6 @@
             Параметры типа "Статья".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForRowGuid">
-            <summary>
-            Колонка в базе данных для поля "RowGuid".
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForHash">
             <summary>
             Колонка в базе данных для поля "Hash".
@@ -133,6 +128,11 @@
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForPath">
             <summary>
             Колонка в базе данных для поля "Path".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForRowGuid">
+            <summary>
+            Колонка в базе данных для поля "RowGuid".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeOptions.DbColumnForTitle">

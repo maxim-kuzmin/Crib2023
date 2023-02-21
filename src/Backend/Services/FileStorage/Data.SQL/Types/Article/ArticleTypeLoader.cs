@@ -41,6 +41,11 @@ public class ArticleTypeLoader : Loader<ArticleTypeEntity>
             Target.Path = source.Path;
         }
 
+        if (result.Contains(nameof(Target.RowGuid)))
+        {
+            Target.RowGuid = source.RowGuid;
+        }
+
         if (result.Contains(nameof(Target.Title)))
         {
             Target.Title = source.Title;
@@ -66,6 +71,7 @@ public class ArticleTypeLoader : Loader<ArticleTypeEntity>
             nameof(Target.Hash),
             nameof(Target.Id),
             nameof(Target.Path),
+            nameof(Target.RowGuid),
             nameof(Target.Title),
             nameof(Target.TopicId)            
         };

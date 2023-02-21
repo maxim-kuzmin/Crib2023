@@ -26,9 +26,9 @@ public class ArticleTypeLoader : Loader<ArticleTypeEntity>
     {
         var result = base.Load(source, loadableProperties);
 
-        if (result.Contains(nameof(Target.Hash)))
+        if (result.Contains(nameof(Target.Body)))
         {
-            Target.Hash = source.Hash;
+            Target.Body = source.Body;
         }
 
         if (result.Contains(nameof(Target.Id)))
@@ -36,9 +36,9 @@ public class ArticleTypeLoader : Loader<ArticleTypeEntity>
             Target.Id = source.Id;
         }
 
-        if (result.Contains(nameof(Target.Path)))
+        if (result.Contains(nameof(Target.RowGuid)))
         {
-            Target.Path = source.Path;
+            Target.RowGuid = source.RowGuid;
         }
 
         if (result.Contains(nameof(Target.Title)))
@@ -63,9 +63,9 @@ public class ArticleTypeLoader : Loader<ArticleTypeEntity>
     {
         return new HashSet<string>
         {
-            nameof(Target.Hash),
+            nameof(Target.Body),
             nameof(Target.Id),
-            nameof(Target.Path),
+            nameof(Target.RowGuid),
             nameof(Target.Title),
             nameof(Target.TopicId)            
         };

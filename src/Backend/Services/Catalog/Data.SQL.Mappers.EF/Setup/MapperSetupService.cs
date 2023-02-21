@@ -49,6 +49,40 @@ public abstract class MapperSetupService<TDbContext> : ISetupService
     protected abstract Task<bool> CheckIfAnyTopicNotFound(TDbContext dbContext);
 
     /// <summary>
+    /// Создать тело статьи.
+    /// </summary>
+    /// <param name="index">Индекс статьи.</param>
+    /// <returns>Тело статьи.</returns>
+    protected static string CreateArticleBody(long index)
+    {
+        int wordCount = new Random(Guid.NewGuid().GetHashCode()).Next(100, 200);
+
+        int lineCount = new Random(Guid.NewGuid().GetHashCode()).Next(10, 20);
+
+        int lineSize = wordCount / lineCount;
+
+        var wordIndexes = Enumerable.Range(0, wordCount);
+
+        var words = new List<string>(wordIndexes.Count());
+
+        int lineIndex = lineSize;
+
+        foreach (int wordIndex in wordIndexes)
+        {
+            words.Add($"Body-{index}-{wordIndex} ");
+
+            if (wordIndex == lineIndex)
+            {
+                words.Add("\n");
+
+                lineIndex += lineSize;
+            }
+        }
+
+        return string.Join(null, words).TrimEnd();
+    }
+
+    /// <summary>
     /// Создать контекст базы данных.
     /// </summary>
     /// <returns>Контекст базы данных.</returns>

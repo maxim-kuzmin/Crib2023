@@ -39,21 +39,14 @@ public class MapperArticleTypeConfiguration<TEntity> : MapperTypeConfiguration<T
             .IsRequired()
             .HasColumnName(options.DbColumnForRowGuid);
 
-        builder.Property(x => x.Hash)
+        builder.Property(x => x.Body)
             .IsRequired()
             .IsUnicode()
-            .HasMaxLength(options.DbMaxLengthForHash)
-            .HasColumnName(options.DbColumnForHash);
+            .HasColumnName(options.DbColumnForBody);
 
         builder.Property(x => x.Id)
             .ValueGeneratedOnAdd()
             .HasColumnName(options.DbColumnForId);
-
-        builder.Property(x => x.Path)
-            .IsRequired()
-            .IsUnicode()
-            .HasMaxLength(options.DbMaxLengthForPath)
-            .HasColumnName(options.DbColumnForPath);
 
         builder.Property(x => x.Title)
             .IsRequired()

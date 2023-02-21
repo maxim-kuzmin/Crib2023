@@ -10,14 +10,9 @@ public class ArticleTypeOptions : TypeOptions
     #region Properties
 
     /// <summary>
-    /// Колонка в базе данных для поля "RowGuid".
+    /// Колонка в базе данных для поля "Body".
     /// </summary>
-    public string? DbColumnForRowGuid { get; set; }
-
-    /// <summary>
-    /// Колонка в базе данных для поля "Hash".
-    /// </summary>
-    public string? DbColumnForHash { get; set; }
+    public string? DbColumnForBody { get; set; }
 
     /// <summary>
     /// Колонка в базе данных для поля "Id".
@@ -25,9 +20,9 @@ public class ArticleTypeOptions : TypeOptions
     public string? DbColumnForId { get; set; }
 
     /// <summary>
-    /// Колонка в базе данных для поля "Path".
+    /// Колонка в базе данных для поля "RowGuid".
     /// </summary>
-    public string? DbColumnForPath { get; set; }
+    public string? DbColumnForRowGuid { get; set; }
 
     /// <summary>
     /// Колонка в базе данных для поля "Title".
@@ -48,11 +43,6 @@ public class ArticleTypeOptions : TypeOptions
     /// Индекс в базе данных для поля "TopicId".
     /// </summary>
     public string? DbIndexForTopicId { get; set; }
-
-    /// <summary>
-    /// Максимальная длина в базе данных для поля "Hash".
-    /// </summary>
-    public int DbMaxLengthForHash { get; set; }
 
     /// <summary>
     /// Максимальная длина в базе данных для поля "Path".
@@ -119,7 +109,6 @@ public class ArticleTypeOptions : TypeOptions
         
         DbIndexForTopicId = CreateDbIndexName(DbTable, DbColumnForTopicId);
 
-        DbMaxLengthForHash = 256;
         DbMaxLengthForPath = 256;
         DbMaxLengthForTitle = 256;
 
