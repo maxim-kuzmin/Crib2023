@@ -12,7 +12,7 @@ public class SetupOptions
     /// <summary>
     /// Имя строки подключения.
     /// </summary>
-    public string? ConnectionStringName { get; set; }
+    public string ConnectionStringName { get; set; } = "";
 
     #endregion Properties
 }

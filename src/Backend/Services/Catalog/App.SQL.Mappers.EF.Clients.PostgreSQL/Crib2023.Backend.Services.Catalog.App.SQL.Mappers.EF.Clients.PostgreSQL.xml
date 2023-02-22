@@ -4,18 +4,18 @@
         <name>Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL</name>
     </assembly>
     <members>
-        <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.ArticleGrpcService">
+        <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.ArticleGrpcService">
             <summary>
             gRPC сервис "Статья".
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.ArticleGrpcService.#ctor(MediatR.IMediator)">
+        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.ArticleGrpcService.#ctor(MediatR.IMediator)">
             <summary>
             Конструктор.
             </summary>
             <param name="mediator">Посредник.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.ArticleGrpcService.GetItem(Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
+        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.ArticleGrpcService.GetItem(Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
             <summary>
             Получить элемент.
             </summary>
@@ -23,7 +23,7 @@
             <param name="context">Контекст.</param>
             <returns>Задача на получение элемента.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.ArticleGrpcService.GetList(Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
+        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.ArticleGrpcService.GetList(Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
             <summary>
             Получить список.
             </summary>
@@ -31,18 +31,18 @@
             <param name="context">Контекст.</param>
             <returns>Задача на получение списка.</returns>
         </member>
-        <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.TopicGrpcService">
+        <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.TopicGrpcService">
             <summary>
             gRPC сервис "Тема".
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.TopicGrpcService.#ctor(MediatR.IMediator)">
+        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.TopicGrpcService.#ctor(MediatR.IMediator)">
             <summary>
             Конструктор.
             </summary>
             <param name="mediator">Посредник.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.TopicGrpcService.GetItem(Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
+        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.TopicGrpcService.GetItem(Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
             <summary>
             Получить элемент.
             </summary>
@@ -50,276 +50,13 @@
             <param name="context">Контекст.</param>
             <returns>Задача на получение элемента.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Services.TopicGrpcService.GetList(Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
+        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.TopicGrpcService.GetList(Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
             <summary>
             Получить список.
             </summary>
             <param name="request">Запрос.</param>
             <param name="context">Контекст.</param>
             <returns>Задача на получение списка.</returns>
-        </member>
-        <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicReflection">
-            <summary>Holder for reflection information generated from Grpc/Protos/topic.proto</summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicReflection.Descriptor">
-            <summary>File descriptor for Grpc/Protos/topic.proto</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationRequestGrpcProto.InputFieldNumber">
-            <summary>Field number for the "input" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationRequestGrpcProto.OperationCodeFieldNumber">
-            <summary>Field number for the "operation_code" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationInputGrpcProto.AxisFieldNumber">
-            <summary>Field number for the "axis" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationInputGrpcProto.IdFieldNumber">
-            <summary>Field number for the "id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationInputGrpcProto.NameFieldNumber">
-            <summary>Field number for the "name" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationInputGrpcProto.ParentIdFieldNumber">
-            <summary>Field number for the "parent_id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationReplyGrpcProto.IsOkFieldNumber">
-            <summary>Field number for the "is_ok" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationReplyGrpcProto.OperationCodeFieldNumber">
-            <summary>Field number for the "operation_code" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
-            <summary>Field number for the "error_messages" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationReplyGrpcProto.OutputFieldNumber">
-            <summary>Field number for the "output" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationOutputGrpcProto.ItemFieldNumber">
-            <summary>Field number for the "item" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicItemGetOperationOutputGrpcProto.IsItemNotFoundFieldNumber">
-            <summary>Field number for the "is_item_not_found" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicEntityGrpcProto.DataFieldNumber">
-            <summary>Field number for the "data" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicEntityGrpcProto.TreeHasChildrenFieldNumber">
-            <summary>Field number for the "tree_has_children" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicEntityGrpcProto.TreeLevelFieldNumber">
-            <summary>Field number for the "treeLevel" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicEntityGrpcProto.TreePathFieldNumber">
-            <summary>Field number for the "treePath" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicTypeEntityGrpcProto.IdFieldNumber">
-            <summary>Field number for the "id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicTypeEntityGrpcProto.NameFieldNumber">
-            <summary>Field number for the "name" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicTypeEntityGrpcProto.ParentIdFieldNumber">
-            <summary>Field number for the "parent_id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicTypeEntityGrpcProto.RowGuidFieldNumber">
-            <summary>Field number for the "row_guid" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationRequestGrpcProto.InputFieldNumber">
-            <summary>Field number for the "input" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationRequestGrpcProto.OperationCodeFieldNumber">
-            <summary>Field number for the "operation_code" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationInputGrpcProto.PageNumberFieldNumber">
-            <summary>Field number for the "page_number" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationInputGrpcProto.PageSizeFieldNumber">
-            <summary>Field number for the "page_size" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationInputGrpcProto.SortFieldFieldNumber">
-            <summary>Field number for the "sort_field" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationInputGrpcProto.SortDirectionFieldNumber">
-            <summary>Field number for the "sort_direction" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationInputGrpcProto.AxisFieldNumber">
-            <summary>Field number for the "axis" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationInputGrpcProto.IdsFieldNumber">
-            <summary>Field number for the "ids" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationInputGrpcProto.NameFieldNumber">
-            <summary>Field number for the "name" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationInputGrpcProto.TreePathFieldNumber">
-            <summary>Field number for the "tree_path" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationReplyGrpcProto.IsOkFieldNumber">
-            <summary>Field number for the "is_ok" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationReplyGrpcProto.OperationCodeFieldNumber">
-            <summary>Field number for the "operation_code" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
-            <summary>Field number for the "error_messages" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationReplyGrpcProto.OutputFieldNumber">
-            <summary>Field number for the "output" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationOutputGrpcProto.ItemsFieldNumber">
-            <summary>Field number for the "items" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicListGetOperationOutputGrpcProto.TotalCountFieldNumber">
-            <summary>Field number for the "total_count" field.</summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicGrpcProto.Descriptor">
-            <summary>Service descriptor</summary>
-        </member>
-        <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicGrpcProto.TopicGrpcProtoBase">
-            <summary>Base class for server-side implementations of TopicGrpcProto</summary>
-        </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicGrpcProto.BindService(Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicGrpcProto.TopicGrpcProtoBase)">
-            <summary>Creates service definition that can be registered with a server</summary>
-            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-        </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicGrpcProto.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.TopicGrpcProto.TopicGrpcProtoBase)">
-            <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
-            Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
-            <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
-            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-        </member>
-        <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleReflection">
-            <summary>Holder for reflection information generated from Grpc/Protos/article.proto</summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleReflection.Descriptor">
-            <summary>File descriptor for Grpc/Protos/article.proto</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationRequestGrpcProto.InputFieldNumber">
-            <summary>Field number for the "input" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationRequestGrpcProto.OperationCodeFieldNumber">
-            <summary>Field number for the "operation_code" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationInputGrpcProto.IdFieldNumber">
-            <summary>Field number for the "id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationInputGrpcProto.TitleFieldNumber">
-            <summary>Field number for the "title" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationInputGrpcProto.TopicIdFieldNumber">
-            <summary>Field number for the "topic_id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationReplyGrpcProto.IsOkFieldNumber">
-            <summary>Field number for the "is_ok" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationReplyGrpcProto.OperationCodeFieldNumber">
-            <summary>Field number for the "operation_code" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
-            <summary>Field number for the "error_messages" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationReplyGrpcProto.OutputFieldNumber">
-            <summary>Field number for the "output" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationOutputGrpcProto.ItemFieldNumber">
-            <summary>Field number for the "item" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleItemGetOperationOutputGrpcProto.IsItemNotFoundFieldNumber">
-            <summary>Field number for the "is_item_not_found" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleEntityGrpcProto.DataFieldNumber">
-            <summary>Field number for the "data" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleEntityGrpcProto.TopicPathItemsFieldNumber">
-            <summary>Field number for the "topic_path_items" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleTypeEntityGrpcProto.BodyFieldNumber">
-            <summary>Field number for the "body" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleTypeEntityGrpcProto.IdFieldNumber">
-            <summary>Field number for the "id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleTypeEntityGrpcProto.TitleFieldNumber">
-            <summary>Field number for the "title" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleTypeEntityGrpcProto.TopicIdFieldNumber">
-            <summary>Field number for the "topic_id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleTypeEntityGrpcProto.RowGuidFieldNumber">
-            <summary>Field number for the "row_guid" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.OptionValueObjectGrpcProto.IdFieldNumber">
-            <summary>Field number for the "id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.OptionValueObjectGrpcProto.NameFieldNumber">
-            <summary>Field number for the "name" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationRequestGrpcProto.InputFieldNumber">
-            <summary>Field number for the "input" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationRequestGrpcProto.OperationCodeFieldNumber">
-            <summary>Field number for the "operation_code" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.PageNumberFieldNumber">
-            <summary>Field number for the "page_number" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.PageSizeFieldNumber">
-            <summary>Field number for the "page_size" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.SortFieldFieldNumber">
-            <summary>Field number for the "sort_field" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.SortDirectionFieldNumber">
-            <summary>Field number for the "sort_direction" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.IdsFieldNumber">
-            <summary>Field number for the "ids" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.TitleFieldNumber">
-            <summary>Field number for the "title" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.TopicIdFieldNumber">
-            <summary>Field number for the "topic_id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.TopicIdsFieldNumber">
-            <summary>Field number for the "topic_ids" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationInputGrpcProto.TopicNameFieldNumber">
-            <summary>Field number for the "topic_name" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationReplyGrpcProto.IsOkFieldNumber">
-            <summary>Field number for the "is_ok" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationReplyGrpcProto.OperationCodeFieldNumber">
-            <summary>Field number for the "operation_code" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
-            <summary>Field number for the "error_messages" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationReplyGrpcProto.OutputFieldNumber">
-            <summary>Field number for the "output" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationOutputGrpcProto.ItemsFieldNumber">
-            <summary>Field number for the "items" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleListGetOperationOutputGrpcProto.TotalCountFieldNumber">
-            <summary>Field number for the "total_count" field.</summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleGrpcProto.Descriptor">
-            <summary>Service descriptor</summary>
-        </member>
-        <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleGrpcProto.ArticleGrpcProtoBase">
-            <summary>Base class for server-side implementations of ArticleGrpcProto</summary>
-        </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleGrpcProto.BindService(Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleGrpcProto.ArticleGrpcProtoBase)">
-            <summary>Creates service definition that can be registered with a server</summary>
-            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-        </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleGrpcProto.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos.ArticleGrpcProto.ArticleGrpcProtoBase)">
-            <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
-            Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
-            <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
-            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup.SetupAppModule">
             <summary>
@@ -379,6 +116,269 @@
             Выполнить.
             </summary>
             <returns>Задача на выполнение.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicReflection">
+            <summary>Holder for reflection information generated from topic.proto</summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicReflection.Descriptor">
+            <summary>File descriptor for topic.proto</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationRequestGrpcProto.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationRequestGrpcProto.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationInputGrpcProto.AxisFieldNumber">
+            <summary>Field number for the "axis" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationInputGrpcProto.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationInputGrpcProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationInputGrpcProto.ParentIdFieldNumber">
+            <summary>Field number for the "parent_id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationReplyGrpcProto.IsOkFieldNumber">
+            <summary>Field number for the "is_ok" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationReplyGrpcProto.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
+            <summary>Field number for the "error_messages" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationReplyGrpcProto.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationOutputGrpcProto.ItemFieldNumber">
+            <summary>Field number for the "item" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicItemGetOperationOutputGrpcProto.IsItemNotFoundFieldNumber">
+            <summary>Field number for the "is_item_not_found" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicEntityGrpcProto.DataFieldNumber">
+            <summary>Field number for the "data" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicEntityGrpcProto.TreeHasChildrenFieldNumber">
+            <summary>Field number for the "tree_has_children" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicEntityGrpcProto.TreeLevelFieldNumber">
+            <summary>Field number for the "treeLevel" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicEntityGrpcProto.TreePathFieldNumber">
+            <summary>Field number for the "treePath" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicTypeEntityGrpcProto.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicTypeEntityGrpcProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicTypeEntityGrpcProto.ParentIdFieldNumber">
+            <summary>Field number for the "parent_id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicTypeEntityGrpcProto.RowGuidFieldNumber">
+            <summary>Field number for the "row_guid" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationRequestGrpcProto.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationRequestGrpcProto.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationInputGrpcProto.PageNumberFieldNumber">
+            <summary>Field number for the "page_number" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationInputGrpcProto.PageSizeFieldNumber">
+            <summary>Field number for the "page_size" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationInputGrpcProto.SortFieldFieldNumber">
+            <summary>Field number for the "sort_field" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationInputGrpcProto.SortDirectionFieldNumber">
+            <summary>Field number for the "sort_direction" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationInputGrpcProto.AxisFieldNumber">
+            <summary>Field number for the "axis" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationInputGrpcProto.IdsFieldNumber">
+            <summary>Field number for the "ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationInputGrpcProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationInputGrpcProto.TreePathFieldNumber">
+            <summary>Field number for the "tree_path" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationReplyGrpcProto.IsOkFieldNumber">
+            <summary>Field number for the "is_ok" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationReplyGrpcProto.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
+            <summary>Field number for the "error_messages" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationReplyGrpcProto.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationOutputGrpcProto.ItemsFieldNumber">
+            <summary>Field number for the "items" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicListGetOperationOutputGrpcProto.TotalCountFieldNumber">
+            <summary>Field number for the "total_count" field.</summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicGrpcProto.Descriptor">
+            <summary>Service descriptor</summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicGrpcProto.TopicGrpcProtoBase">
+            <summary>Base class for server-side implementations of TopicGrpcProto</summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicGrpcProto.BindService(Crib2023.Backend.Services.Catalog.GrpcProtos.TopicGrpcProto.TopicGrpcProtoBase)">
+            <summary>Creates service definition that can be registered with a server</summary>
+            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.GrpcProtos.TopicGrpcProto.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.Catalog.GrpcProtos.TopicGrpcProto.TopicGrpcProtoBase)">
+            <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
+            Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
+            <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
+            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleReflection">
+            <summary>Holder for reflection information generated from article.proto</summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleReflection.Descriptor">
+            <summary>File descriptor for article.proto</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationRequestGrpcProto.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationRequestGrpcProto.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationInputGrpcProto.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationInputGrpcProto.TitleFieldNumber">
+            <summary>Field number for the "title" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationInputGrpcProto.TopicIdFieldNumber">
+            <summary>Field number for the "topic_id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationReplyGrpcProto.IsOkFieldNumber">
+            <summary>Field number for the "is_ok" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationReplyGrpcProto.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
+            <summary>Field number for the "error_messages" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationReplyGrpcProto.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationOutputGrpcProto.ItemFieldNumber">
+            <summary>Field number for the "item" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleItemGetOperationOutputGrpcProto.IsItemNotFoundFieldNumber">
+            <summary>Field number for the "is_item_not_found" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleEntityGrpcProto.DataFieldNumber">
+            <summary>Field number for the "data" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleEntityGrpcProto.TopicPathItemsFieldNumber">
+            <summary>Field number for the "topic_path_items" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleTypeEntityGrpcProto.BodyFieldNumber">
+            <summary>Field number for the "body" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleTypeEntityGrpcProto.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleTypeEntityGrpcProto.TitleFieldNumber">
+            <summary>Field number for the "title" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleTypeEntityGrpcProto.TopicIdFieldNumber">
+            <summary>Field number for the "topic_id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleTypeEntityGrpcProto.RowGuidFieldNumber">
+            <summary>Field number for the "row_guid" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.OptionValueObjectGrpcProto.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.OptionValueObjectGrpcProto.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationRequestGrpcProto.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationRequestGrpcProto.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.PageNumberFieldNumber">
+            <summary>Field number for the "page_number" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.PageSizeFieldNumber">
+            <summary>Field number for the "page_size" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.SortFieldFieldNumber">
+            <summary>Field number for the "sort_field" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.SortDirectionFieldNumber">
+            <summary>Field number for the "sort_direction" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.IdsFieldNumber">
+            <summary>Field number for the "ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.TitleFieldNumber">
+            <summary>Field number for the "title" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.TopicIdFieldNumber">
+            <summary>Field number for the "topic_id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.TopicIdsFieldNumber">
+            <summary>Field number for the "topic_ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationInputGrpcProto.TopicNameFieldNumber">
+            <summary>Field number for the "topic_name" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationReplyGrpcProto.IsOkFieldNumber">
+            <summary>Field number for the "is_ok" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationReplyGrpcProto.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
+            <summary>Field number for the "error_messages" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationReplyGrpcProto.OutputFieldNumber">
+            <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationOutputGrpcProto.ItemsFieldNumber">
+            <summary>Field number for the "items" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleListGetOperationOutputGrpcProto.TotalCountFieldNumber">
+            <summary>Field number for the "total_count" field.</summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleGrpcProto.Descriptor">
+            <summary>Service descriptor</summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleGrpcProto.ArticleGrpcProtoBase">
+            <summary>Base class for server-side implementations of ArticleGrpcProto</summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleGrpcProto.BindService(Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleGrpcProto.ArticleGrpcProtoBase)">
+            <summary>Creates service definition that can be registered with a server</summary>
+            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleGrpcProto.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.Catalog.GrpcProtos.ArticleGrpcProto.ArticleGrpcProtoBase)">
+            <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
+            Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
+            <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
+            <param name="serviceImpl">An object implementing the server-side handling logic.</param>
         </member>
     </members>
 </doc>

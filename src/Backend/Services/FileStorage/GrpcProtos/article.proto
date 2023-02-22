@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Grpc.Protos";
+option csharp_namespace = "Crib2023.Backend.Services.FileStorage.GrpcProtos";
 
 package FileStorage;
 

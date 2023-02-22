@@ -74,7 +74,7 @@ public class ClientMapperSetupAppModule : AppModule
 
     private static string GetConnectionStringName(IServiceProvider serviceProvider)
     {
-        string? result = serviceProvider.GetRequiredService<IOptions<OptionsOfServiceDataSQL>>()
+        string result = serviceProvider.GetRequiredService<IOptions<OptionsOfServiceDataSQL>>()
             .Value
             .ConnectionStringName;
 
