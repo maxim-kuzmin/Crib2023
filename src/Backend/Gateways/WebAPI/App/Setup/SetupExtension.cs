@@ -1,6 +1,9 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
+using Makc2023.Backend.Common.Core.Apps.WebApp.Setup;
+using Microsoft.Extensions.Configuration;
+
+namespace Crib2023.Backend.Gateways.WebAPI.App.Setup;
 
 /// <summary>
 /// Расширение настройки.
@@ -23,21 +26,15 @@ public static class SetupExtension
         appBuilder.Services.AddAppModules(new AppModule[]
         {
             new ModuleOfCommonCore(configuration.GetRequiredSection("App:Common:Core")),
-            new ModuleOfCommonDataSQL(configuration.GetRequiredSection("App:Common:Data:SQL")),
-            new ModuleOfCommonDataSQLClientsPostgreSQL(),
-            new ModuleOfCommonDataSQLMappersEF(),
-            new ModuleOfServiceApp(appEnvironment),
-            new ModuleOfServiceDataSQLClientsPostgreSQL(),
-            new ModuleOfServiceDataSQL(configuration.GetRequiredSection("App:Service:Data:SQL")),
-            new ModuleOfServiceDataSQLMappersEFClientsPostgreSQL(),
-            new ModuleOfServiceDomainsArticle(),
-            new ModuleOfServiceDomainsTopic(),
+            new ModuleOfGatewayApp(appEnvironment, configuration.GetRequiredSection("App:Gateway")),
         });
 
-        // Additional configuration is required to successfully run gRPC on macOS.
-        // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
+        // Add services to the container.
 
-        appBuilder.Services.AddGrpc();
+        appBuilder.Services.AddControllers();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        appBuilder.Services.AddEndpointsApiExplorer();
+        appBuilder.Services.AddSwaggerGen();
     }
 
     /// <summary>
@@ -52,14 +49,26 @@ public static class SetupExtension
             .AddSupportedCultures(appEnvironment.SupportedCultures)
             .AddSupportedUICultures(appEnvironment.SupportedCultures));
 
-        app.MapGrpcService<ArticleGrpcService>();
-        app.MapGrpcService<TopicGrpcService>();
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger(options =>
+            {
+                options.RouteTemplate = "api/swagger/{documentName}/swagger.json";
+            });
 
-        app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+            app.UseSwaggerUI(c =>
+            {
+                c.RoutePrefix = "api/swagger";
+                c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "My API V1");
+            });
+        }
 
-        var setupService = app.Services.GetRequiredService<SetupService>();
+        app.UseAuthorization();
 
-        return setupService.Execute();
+        app.MapControllers();
+
+        return Task.CompletedTask;
     }
 
     #endregion Public methods

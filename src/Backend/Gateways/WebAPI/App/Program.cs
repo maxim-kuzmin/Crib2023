@@ -1,33 +1,26 @@
 // Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-var builder = WebApplication.CreateBuilder(args);
+using var appHandler = new WebAppHandler();
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.UseSwagger(options =>
-    {
-        options.RouteTemplate = "api/swagger/{documentName}/swagger.json";
-    });
+    var appEnvironment = new AppEnvironment();
 
-    app.UseSwaggerUI(c =>
-    {
-        c.RoutePrefix = "api/swagger";
-        c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "My API V1");        
-    });
+    appHandler.OnStart(appEnvironment);
+
+    var appBuilder = WebApplication.CreateBuilder(args);
+
+    appBuilder.AddAppModules(appEnvironment);
+
+    var app = appBuilder.Build();
+
+    await app.UseAppModules(appEnvironment).ConfigureAwait(false);
+
+    app.Run();
 }
+catch (Exception exception)
+{
+    appHandler.OnError(exception);
 
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+    throw;
+}

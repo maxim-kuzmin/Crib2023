@@ -16,6 +16,8 @@ public static class SetupExtension
     /// <param name="appEnvironment">Окружение приложения.</param>
     public static void AddAppModules(this WebApplicationBuilder appBuilder, IAppEnvironment appEnvironment)
     {
+        appBuilder.Configure();
+
         var configuration = appBuilder.Configuration;
 
         appBuilder.Services.AddAppModules(new AppModule[]
@@ -31,6 +33,11 @@ public static class SetupExtension
             new ModuleOfServiceDomainsArticle(),
             new ModuleOfServiceDomainsTopic(),
         });
+
+        // Additional configuration is required to successfully run gRPC on macOS.
+        // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
+
+        appBuilder.Services.AddGrpc();
     }
 
     /// <summary>
@@ -39,15 +46,20 @@ public static class SetupExtension
     /// <param name="app">Приложение.</param>
     /// <param name="appEnvironment">Окружение приложения.</param>
     /// <returns>Задача на использование.</returns>
-    public static async Task UseAppModules(this WebApplication app, IAppEnvironment appEnvironment)
+    public static Task UseAppModules(this WebApplication app, IAppEnvironment appEnvironment)
     {
         app.UseRequestLocalization(x => x.SetDefaultCulture(appEnvironment.DefaultCulture)
             .AddSupportedCultures(appEnvironment.SupportedCultures)
             .AddSupportedUICultures(appEnvironment.SupportedCultures));
 
+        app.MapGrpcService<ArticleGrpcService>();
+        app.MapGrpcService<TopicGrpcService>();
+
+        app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+
         var setupService = app.Services.GetRequiredService<SetupService>();
 
-        await setupService.Execute().ConfigureAwait(false);
+        return setupService.Execute();
     }
 
     #endregion Public methods

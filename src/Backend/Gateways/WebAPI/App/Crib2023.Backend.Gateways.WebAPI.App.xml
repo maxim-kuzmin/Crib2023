@@ -4,14 +4,57 @@
         <name>Crib2023.Backend.Gateways.WebAPI.App</name>
     </assembly>
     <members>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule">
+            <summary>
+            Модуль настройки приложения.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule.#ctor(Makc2023.Backend.Common.Core.App.IAppEnvironment,Microsoft.Extensions.Configuration.IConfigurationSection)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="appEnvironment">Окружение приложения.</param>
+            <param name="configurationSection">Раздел конфигурации.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule.GetExports">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupExtension">
+            <summary>
+            Расширение настройки.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupExtension.AddAppModules(Microsoft.AspNetCore.Builder.WebApplicationBuilder,Makc2023.Backend.Common.Core.App.IAppEnvironment)">
+            <summary>
+            Добавить модули приложения.
+            </summary>
+            <param name="appBuilder">Построитель приложения.</param>
+            <param name="appEnvironment">Окружение приложения.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupExtension.UseAppModules(Microsoft.AspNetCore.Builder.WebApplication,Makc2023.Backend.Common.Core.App.IAppEnvironment)">
+            <summary>
+            Использовать модули приложения.
+            </summary>
+            <param name="app">Приложение.</param>
+            <param name="appEnvironment">Окружение приложения.</param>
+            <returns>Задача на использование.</returns>
+        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions">
             <summary>
             Параметры настройки.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions.ConnectionStringName">
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions.CatalogUrl">
             <summary>
-            Имя строки подключения.
+            URL каталога.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions.FileStorageUrl">
+            <summary>
+            URL файлового хранилища.
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleReflection">

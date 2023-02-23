@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+global using Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices;
 global using Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 global using Crib2023.Backend.Services.Catalog.Domain.SQL.Entities;
 global using Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.Item.Get;
