@@ -7,11 +7,11 @@ namespace Crib2023.Backend.Services.Catalog.Data.SQL.Setup;
 /// </summary>
 public class SetupAppModule : AppModule
 {
-    #region Properties
+    #region Fields
 
-    private IConfigurationSection ConfigurationSection { get; set; }
+    private readonly IConfigurationSection _configurationSection;
 
-    #endregion Properties
+    #endregion Fields
 
     #region Constructors
 
@@ -21,7 +21,7 @@ public class SetupAppModule : AppModule
     /// <param name="configurationSection">Раздел конфигурации.</param>
     public SetupAppModule(IConfigurationSection configurationSection)
     {
-        ConfigurationSection = configurationSection;
+        _configurationSection = configurationSection;
     }
 
     #endregion Constructors
@@ -31,7 +31,7 @@ public class SetupAppModule : AppModule
     /// <inheritdoc/>
     public sealed override void ConfigureServices(IServiceCollection services)
     {
-        services.Configure<SetupOptions>(ConfigurationSection);
+        services.Configure<SetupOptions>(_configurationSection);
     }
 
     /// <inheritdoc/>

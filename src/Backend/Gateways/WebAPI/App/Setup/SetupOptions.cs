@@ -10,9 +10,14 @@ public class SetupOptions
     #region Properties
 
     /// <summary>
-    /// Имя строки подключения.
+    /// URL каталога.
     /// </summary>
-    public string ConnectionStringName { get; set; } = "";
+    public string CatalogUrl { get; set; } = "";
+
+    /// <summary>
+    /// URL файлового хранилища.
+    /// </summary>
+    public string FileStorageUrl { get; set; } = "";
 
     #endregion Properties
 }
