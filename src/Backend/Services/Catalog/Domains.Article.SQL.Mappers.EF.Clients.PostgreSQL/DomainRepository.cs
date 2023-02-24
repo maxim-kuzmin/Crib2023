@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic;
+
 namespace Crib2023.Backend.Services.Catalog.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL;
 
 /// <summary>
@@ -81,16 +83,32 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         var queryForTotalCount = dbContextForTotalCount.Article
             .ApplyFiltering(input);
 
-        var taskForItems = queryForItems.ToArrayAsync();
+        var taskForItems = queryForItems.Select(x => new ItemForList(
+            x.Id,
+            x.RowGuid,
+            x.Title,
+            x.Topic,
+            x.TopicId
+        )).ToArrayAsync();
+
         var taskForTotalCount = queryForTotalCount.CountAsync();
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
         var itemLookup = mapperForItems
-            .Select(x => new ArticleEntity(x))
+            .Select(x => new ArticleEntityForList(new ArticleTypeEntityForList
+            {
+                Id = x.Id,
+                RowGuid = x.RowGuid,
+                Title = x.Title,
+                TopicId = x.TopicId
+            }))
             .ToDictionary(x => x.Data.Id);
 
-        await LoadTopicPathItems(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
+        await LoadTopicPathItemsForList(
+            dbContext,
+            itemLookup,
+            mapperForItems).ConfigureAwait(false);
 
         result.Items = itemLookup.Values.ToArray();
         result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
@@ -101,6 +119,18 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
     #endregion Public methods
 
     #region Private methods
+
+    private static ClientMapperArticleTypeEntity CreateItemForList(ClientMapperArticleTypeEntity mapperForItem)
+    {
+        return new ClientMapperArticleTypeEntity
+        {
+            Id = mapperForItem.Id,
+            RowGuid = mapperForItem.RowGuid,
+            Title = mapperForItem.Title,
+            Topic = mapperForItem.Topic,
+            TopicId = mapperForItem.TopicId,
+        };
+    }
 
     private static async Task LoadTopicPathItems(
         ClientMapperDbContext dbContext,
@@ -132,10 +162,10 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
         item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
     }
 
-    private static async Task LoadTopicPathItems(
+    private static async Task LoadTopicPathItemsForList(
         ClientMapperDbContext dbContext,
-        Dictionary<long, ArticleEntity> itemLookup,
-        IEnumerable<ClientMapperArticleTypeEntity> mapperForItems)
+        Dictionary<long, ArticleEntityForList> itemLookup,
+        IEnumerable<ItemForList> mapperForItems)
     {
         long[] ancestorIdsForLookup = mapperForItems
             .SelectMany(x => x.Topic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors())
@@ -178,4 +208,26 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
     }
 
     #endregion Private methods
+
+    private class ItemForList
+    {
+        public long Id { get; }
+
+        public Guid RowGuid { get; }
+
+        public string Title { get; }
+
+        public ClientMapperTopicTypeEntity Topic { get; }
+
+        public long TopicId { get; }
+
+        public ItemForList(long id, Guid rowGuid, string title, ClientMapperTopicTypeEntity topic, long topicId)
+        {
+            Id = id;
+            RowGuid = rowGuid;
+            Title = title;
+            Topic = topic;
+            TopicId = topicId;
+        }
+    }
 }

@@ -71,22 +71,27 @@
             Тело.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Id">
+        <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntityForList">
+            <summary>
+            Сущность типа "Статья для списка".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntityForList.Id">
             <summary>
             Идентификатор.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.RowGuid">
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntityForList.RowGuid">
             <summary>
             Глобальный идентификатор строки.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.Title">
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntityForList.Title">
             <summary>
             Заголовок.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity.TopicId">
+        <member name="P:Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntityForList.TopicId">
             <summary>
             Идентификатор экземпляра сущности "Тема".
             </summary>

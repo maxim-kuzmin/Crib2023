@@ -131,7 +131,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         foreach (var operationOutputItem in operationOutput.Items)
         {
-            var item = CreateItem(operationOutputItem);
+            var item = CreateItemForList(operationOutputItem);
 
             result.Output.Items.Add(item);
         }
@@ -156,6 +156,39 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             Data = new()
             {
                 Body = data.Body,
+                Id = data.Id,
+                RowGuid = data.RowGuid.ToString(),
+                Title = data.Title,
+                TopicId = data.TopicId,
+            }
+        };
+
+        foreach (var topicPathItem in topicPathItems)
+        {
+            CatalogOptionValueObject option = new()
+            {
+                Id = topicPathItem.Id,
+                Name = topicPathItem.Name,
+            };
+
+            result.TopicPathItems.Add(option);
+        }
+
+        return result;
+    }
+
+    private static CatalogArticleEntityForList CreateItemForList(ArticleEntityForList source)
+    {
+        CatalogArticleEntityForList result;
+
+        var data = source.Data;
+
+        var topicPathItems = source.TopicPathItems;
+
+        result = new()
+        {
+            Data = new()
+            {
                 Id = data.Id,
                 RowGuid = data.RowGuid.ToString(),
                 Title = data.Title,

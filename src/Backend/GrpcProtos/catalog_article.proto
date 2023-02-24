@@ -41,12 +41,12 @@ message CatalogArticleEntity {
   repeated CatalogOptionValueObject topic_path_items = 2;
 }
 
-message CatalogArticleTypeEntity {
-  string body = 1;
-  int64 id = 2;  
-  string title = 3;
-  int64 topic_id = 4;
-  string row_guid = 5;  
+message CatalogArticleTypeEntity {  
+  int64 id = 1;
+  string title = 2;
+  int64 topic_id = 3;
+  string row_guid = 4;  
+  string body = 5;
 }
 
 message CatalogOptionValueObject {
@@ -75,6 +75,18 @@ message CatalogArticleListGetOperationInput {
 
 // GetList Reply
 
+message CatalogArticleEntityForList {
+  CatalogArticleTypeEntityForList data = 1;
+  repeated CatalogOptionValueObject topic_path_items = 2;
+}
+
+message CatalogArticleTypeEntityForList {
+  int64 id = 1;  
+  string title = 2;
+  int64 topic_id = 3;
+  string row_guid = 4;  
+}
+
 message CatalogArticleListGetOperationReply {
   bool is_ok = 1;
   string operation_code = 2;
@@ -83,6 +95,6 @@ message CatalogArticleListGetOperationReply {
 }
 
 message CatalogArticleListGetOperationOutput {
-  repeated CatalogArticleEntity items = 1;
+  repeated CatalogArticleEntityForList items = 1;
   int64 total_count = 2;
 }

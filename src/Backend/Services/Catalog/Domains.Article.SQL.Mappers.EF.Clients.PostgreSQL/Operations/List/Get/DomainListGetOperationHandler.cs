@@ -49,7 +49,7 @@ public class DomainListGetOperationHandler :
 
     private ArticleListGetOperationOutput TransformOperationOutput(ArticleListGetOperationOutput output)
     {
-        output.Items ??= Array.Empty<ArticleEntity>();
+        output.Items ??= Array.Empty<ArticleEntityForList>();
 
         return output;
     }

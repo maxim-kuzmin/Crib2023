@@ -5,6 +5,6 @@ namespace Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.List.G
 /// <summary>
 /// Выходные данные операции получения списка "Статья".
 /// </summary>
-public class ArticleListGetOperationOutput : ListGetOperationOutput<ArticleEntity>
+public class ArticleListGetOperationOutput : ListGetOperationOutput<ArticleEntityForList>
 {
 }

@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article;
 /// <summary>
 /// Сущность типа "Статья".
 /// </summary>
-public class ArticleTypeEntity
+public class ArticleTypeEntity : ArticleTypeEntityForList
 {
     #region Properties
 
@@ -13,6 +13,16 @@ public class ArticleTypeEntity
     /// Тело.
     /// </summary>
     public string Body { get; set; } = "";
+
+    #endregion Properties
+}
+
+/// <summary>
+/// Сущность типа "Статья для списка".
+/// </summary>
+public class ArticleTypeEntityForList
+{
+    #region Properties
 
     /// <summary>
     /// Идентификатор.

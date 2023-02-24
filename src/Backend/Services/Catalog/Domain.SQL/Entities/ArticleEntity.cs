@@ -5,7 +5,9 @@ namespace Crib2023.Backend.Services.Catalog.Domain.SQL.Entities;
 /// <summary>
 /// Сущность "Статья".
 /// </summary>
-public class ArticleEntity : Entity<long>, IAggregateRoot
+/// <typeparam name="TData">Тип данных.</typeparam>
+public class ArticleEntity<TData> : Entity<long>, IAggregateRoot
+    where TData : ArticleTypeEntityForList, new()
 {
     #region Fields
 
@@ -18,7 +20,7 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     /// <summary>
     /// Данные.
     /// </summary>
-    public ArticleTypeEntity Data { get; init; }
+    public TData Data { get; init; }
 
     /// <summary>
     /// Элементы пути темы.
@@ -33,9 +35,9 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     /// Конструктор.
     /// </summary>
     /// <param name="data">Данные.</param>
-    public ArticleEntity(ArticleTypeEntity? data = null)
+    public ArticleEntity(TData? data = null)
     {
-        Data = data ?? new ArticleTypeEntity();
+        Data = data ?? new TData();
     }
 
     #endregion Constructors
@@ -67,5 +69,35 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     protected override long GetId() => Data.Id;
 
     #endregion Protected methods
+}
+
+/// <summary>
+/// Сущность "Статья".
+/// </summary>
+public class ArticleEntity : ArticleEntity<ArticleTypeEntity>
+{
+    #region Constructors
+
+    /// <inheritdoc/>
+    public ArticleEntity(ArticleTypeEntity? data = null) : base(data)
+    {
+    }
+
+    #endregion Constructors
+}
+
+/// <summary>
+/// Сущность "Статья для списка".
+/// </summary>
+public class ArticleEntityForList : ArticleEntity<ArticleTypeEntityForList>
+{
+    #region Constructors
+
+    /// <inheritdoc/>
+    public ArticleEntityForList(ArticleTypeEntityForList? data = null) : base(data)
+    {
+    }
+
+    #endregion Constructors
 }
 

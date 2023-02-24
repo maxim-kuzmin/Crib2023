@@ -162,9 +162,6 @@
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleEntity.TopicPathItemsFieldNumber">
             <summary>Field number for the "topic_path_items" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleTypeEntity.BodyFieldNumber">
-            <summary>Field number for the "body" field.</summary>
-        </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleTypeEntity.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>
         </member>
@@ -176,6 +173,9 @@
         </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleTypeEntity.RowGuidFieldNumber">
             <summary>Field number for the "row_guid" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleTypeEntity.BodyFieldNumber">
+            <summary>Field number for the "body" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogOptionValueObject.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>
@@ -215,6 +215,24 @@
         </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationInput.TopicNameFieldNumber">
             <summary>Field number for the "topic_name" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleEntityForList.DataFieldNumber">
+            <summary>Field number for the "data" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleEntityForList.TopicPathItemsFieldNumber">
+            <summary>Field number for the "topic_path_items" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleTypeEntityForList.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleTypeEntityForList.TitleFieldNumber">
+            <summary>Field number for the "title" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleTypeEntityForList.TopicIdFieldNumber">
+            <summary>Field number for the "topic_id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleTypeEntityForList.RowGuidFieldNumber">
+            <summary>Field number for the "row_guid" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationReply.IsOkFieldNumber">
             <summary>Field number for the "is_ok" field.</summary>
