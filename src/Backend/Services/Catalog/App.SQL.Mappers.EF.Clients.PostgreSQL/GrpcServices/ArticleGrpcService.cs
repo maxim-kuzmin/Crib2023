@@ -41,16 +41,16 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
         CatalogArticleItemGetOperationRequest request,
         ServerCallContext context)
     {
-        var input = request.Input ?? new CatalogArticleItemGetOperationInput();
+        CatalogArticleItemGetOperationInput input = request.Input ?? new();
 
-        var operationInput = new ArticleItemGetOperationInput
-        {
-            Id = input.Id,
-            Title = input.Title,
-            TopicId = input.TopicId,
-        };
-
-        var operationRequest = new DomainItemGetOperationRequest(operationInput, request.OperationCode);
+        var operationRequest = new DomainItemGetOperationRequest(
+            new()
+            {
+                Id = input.Id,
+                Title = input.Title,
+                TopicId = input.TopicId,
+            },
+            request.OperationCode);
 
         var taskForItem = _mediator.Send(operationRequest);
 
@@ -60,11 +60,11 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         var operationOutput = operationResult.Output;
 
-        var result = new CatalogArticleItemGetOperationReply
+        CatalogArticleItemGetOperationReply result = new()
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new CatalogArticleItemGetOperationOutput
+            Output = new()
             {
                 Item = CreateItem(operationOutput.Item),
                 IsItemNotFound = operationOutput.IsItemNotFound
@@ -89,22 +89,24 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
         CatalogArticleListGetOperationRequest request,
         ServerCallContext context)
     {
-        var input = request.Input ?? new CatalogArticleListGetOperationInput();
+        CatalogArticleListGetOperationInput input = request.Input ?? new();
 
-        var operationInput = new ArticleListGetOperationInput
-        {
-            PageNumber = input.PageNumber,
-            PageSize = input.PageSize,
-            SortDirection = input.SortDirection,
-            SortField = input.SortField,
-            Ids = input.Ids.ToArray(),
-            TopicId = input.TopicId,
-            TopicIds = input.TopicIds.ToArray(),
-            TopicName = input.TopicName,
-            Title = input.Title,
-        };
+        DomainListGetOperationRequest operationRequest = new(
+            new()
+            {
+                PageNumber = input.PageNumber,
+                PageSize = input.PageSize,
+                SortDirection = input.SortDirection,
+                SortField = input.SortField,
+                Ids = input.Ids.ToArray(),
+                TopicId = input.TopicId,
+                TopicIds = input.TopicIds.ToArray(),
+                TopicName = input.TopicName,
+                Title = input.Title,
+            },
+            request.OperationCode);
 
-        var taskForItem = _mediator.Send(new DomainListGetOperationRequest(operationInput, request.OperationCode));
+        var taskForItem = _mediator.Send(operationRequest);
 
         var response = await taskForItem.ConfigureAwait(false);
 
@@ -112,11 +114,11 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         var operationOutput = operationResult.Output;
 
-        var result = new CatalogArticleListGetOperationReply
+        CatalogArticleListGetOperationReply result = new()
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new CatalogArticleListGetOperationOutput
+            Output = new()
             {
                 TotalCount = operationOutput.TotalCount
             }
@@ -149,9 +151,9 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         var topicPathItems = source.TopicPathItems;
 
-        result = new CatalogArticleEntity
+        result = new()
         {
-            Data = new CatalogArticleTypeEntity
+            Data = new()
             {
                 Body = data.Body,
                 Id = data.Id,
@@ -163,7 +165,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         foreach (var topicPathItem in topicPathItems)
         {
-            var option = new CatalogOptionValueObject
+            CatalogOptionValueObject option = new()
             {
                 Id = topicPathItem.Id,
                 Name = topicPathItem.Name,

@@ -41,17 +41,17 @@ public class TopicGrpcService : GrpcServerOfTopic
         CatalogTopicItemGetOperationRequest request,
         ServerCallContext context)
     {
-        var input = request.Input ?? new CatalogTopicItemGetOperationInput();
+        CatalogTopicItemGetOperationInput input = request.Input ?? new();
 
-        var operationInput = new TopicItemGetOperationInput
-        {
-            Axis = input.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
-            Id = input.Id,
-            Name = input.Name,
-            ParentId = input.ParentId,
-        };
-
-        var operationRequest = new DomainItemGetOperationRequest(operationInput, request.OperationCode);
+        var operationRequest = new DomainItemGetOperationRequest(
+            new()
+            {
+                Axis = input.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
+                Id = input.Id,
+                Name = input.Name,
+                ParentId = input.ParentId,
+            },
+            request.OperationCode);
 
         var taskForItem = _mediator.Send(operationRequest);
 
@@ -61,11 +61,11 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var operationOutput = operationResult.Output;
 
-        var result = new CatalogTopicItemGetOperationReply
+        CatalogTopicItemGetOperationReply result = new()
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new CatalogTopicItemGetOperationOutput
+            Output = new()
             {
                 Item = CreateItem(operationOutput.Item),
                 IsItemNotFound = operationOutput.IsItemNotFound
@@ -90,21 +90,21 @@ public class TopicGrpcService : GrpcServerOfTopic
         CatalogTopicListGetOperationRequest request,
         ServerCallContext context)
     {
-        var protoInput = request.Input ?? new CatalogTopicListGetOperationInput();
+        CatalogTopicListGetOperationInput input = request.Input ?? new();
 
-        var operationInput = new TopicListGetOperationInput
-        {
-            PageNumber = protoInput.PageNumber,
-            PageSize = protoInput.PageSize,
-            SortDirection = protoInput.SortDirection,
-            SortField = protoInput.SortField,
-            Axis = protoInput.Axis.FromStringToEnum(TreePathGetOperationAxis.None),
-            Ids = protoInput.Ids.ToArray(),
-            Name = protoInput.Name,
-            TreePath = protoInput.TreePath,
-        };
-
-        var taskForItem = _mediator.Send(new DomainListGetOperationRequest(operationInput, request.OperationCode));
+        var taskForItem = _mediator.Send(new DomainListGetOperationRequest(
+            new()
+            {
+                PageNumber = input.PageNumber,
+                PageSize = input.PageSize,
+                SortDirection = input.SortDirection,
+                SortField = input.SortField,
+                Axis = input.Axis.FromStringToEnum(TreePathGetOperationAxis.None),
+                Ids = input.Ids.ToArray(),
+                Name = input.Name,
+                TreePath = input.TreePath,
+            },
+            request.OperationCode));
 
         var response = await taskForItem.ConfigureAwait(false);
 
@@ -112,11 +112,11 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var operationOutput = operationResult.Output;
 
-        var result = new CatalogTopicListGetOperationReply
+        CatalogTopicListGetOperationReply result = new()
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new CatalogTopicListGetOperationOutput
+            Output = new()
             {
                 TotalCount = operationOutput.TotalCount
             }
@@ -147,9 +147,9 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var data = source.Data;
 
-        result = new CatalogTopicEntity
+        result = new()
         {
-            Data = new CatalogTopicTypeEntity
+            Data = new()
             {
                 Id = data.Id,
                 Name = data.Name,

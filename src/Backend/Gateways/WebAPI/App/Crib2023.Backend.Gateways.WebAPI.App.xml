@@ -4,6 +4,33 @@
         <name>Crib2023.Backend.Gateways.WebAPI.App</name>
     </assembly>
     <members>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Controllers.CatalogArticleController">
+            <summary>
+            Контроллер статьи в каталоге.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.CatalogArticleController.#ctor(Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleService.CatalogArticleServiceClient)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="client">Клиент.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.CatalogArticleController.GetList(Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationInput,System.String)">
+            <summary>
+            Получить список.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <param name="operationCode">Код операции.</param>
+            <returns>Задача на получение списка.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.CatalogArticleController.GetItem(System.Int64,System.String)">
+            <summary>
+            Получить элемент.
+            </summary>
+            <param name="id">Идентификатор.</param>
+            <param name="operationCode">Код операции.</param>
+            <returns>Задача на получение элемента.</returns>
+        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule">
             <summary>
             Модуль настройки приложения.

@@ -41,16 +41,18 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
         FileStorageArticleItemGetOperationRequest request,
         ServerCallContext context)
     {
-        var input = request.Input ?? new FileStorageArticleItemGetOperationInput();
+        FileStorageArticleItemGetOperationReply result;
 
-        var operationInput = new ArticleItemGetOperationInput
-        {
-            Id = input.Id,
-            Title = input.Title,
-            TopicId = input.TopicId,
-        };
+        FileStorageArticleItemGetOperationInput input = request.Input ?? new();
 
-        var operationRequest = new DomainItemGetOperationRequest(operationInput, request.OperationCode);
+        DomainItemGetOperationRequest operationRequest = new(
+            new()
+            {
+                Id = input.Id,
+                Title = input.Title,
+                TopicId = input.TopicId,
+            },
+            request.OperationCode);
 
         var taskForItem = _mediator.Send(operationRequest);
 
@@ -60,7 +62,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         var operationOutput = operationResult.Output;
 
-        var result = new FileStorageArticleItemGetOperationReply
+        result = new()
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
@@ -89,22 +91,26 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
         FileStorageArticleListGetOperationRequest request,
         ServerCallContext context)
     {
+        FileStorageArticleListGetOperationReply result;
+
         var input = request.Input ?? new FileStorageArticleListGetOperationInput();
 
-        var operationInput = new ArticleListGetOperationInput
-        {
-            PageNumber = input.PageNumber,
-            PageSize = input.PageSize,
-            SortDirection = input.SortDirection,
-            SortField = input.SortField,
-            Ids = input.Ids.ToArray(),
-            TopicId = input.TopicId,
-            TopicIds = input.TopicIds.ToArray(),
-            TopicName = input.TopicName,
-            Title = input.Title,
-        };
+        DomainListGetOperationRequest operationRequest = new(
+            new()
+            {
+                PageNumber = input.PageNumber,
+                PageSize = input.PageSize,
+                SortDirection = input.SortDirection,
+                SortField = input.SortField,
+                Ids = input.Ids.ToArray(),
+                TopicId = input.TopicId,
+                TopicIds = input.TopicIds.ToArray(),
+                TopicName = input.TopicName,
+                Title = input.Title,
+            },
+            request.OperationCode);
 
-        var taskForItem = _mediator.Send(new DomainListGetOperationRequest(operationInput, request.OperationCode));
+        var taskForItem = _mediator.Send(operationRequest);
 
         var response = await taskForItem.ConfigureAwait(false);
 
@@ -112,11 +118,11 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         var operationOutput = operationResult.Output;
 
-        var result = new FileStorageArticleListGetOperationReply
+        result = new()
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new FileStorageArticleListGetOperationOutput
+            Output = new()
             {
                 TotalCount = operationOutput.TotalCount
             }
@@ -149,9 +155,9 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         var topicPathItems = item.TopicPathItems;
 
-        result = new FileStorageArticleEntity
+        result = new()
         {
-            Data = new FileStorageArticleTypeEntity
+            Data = new()
             {
                 Id = data.Id,
                 Hash = data.Hash,
@@ -164,7 +170,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         foreach (var topicPathItem in topicPathItems)
         {
-            var option = new FileStorageOptionValueObject
+            FileStorageOptionValueObject option = new()
             {
                 Id = topicPathItem.Id,
                 Name = topicPathItem.Name,

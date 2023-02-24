@@ -1,8 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Makc2023.Backend.Common.Core.Apps.WebApp.Setup;
-using Microsoft.Extensions.Configuration;
-
 namespace Crib2023.Backend.Gateways.WebAPI.App.Setup;
 
 /// <summary>

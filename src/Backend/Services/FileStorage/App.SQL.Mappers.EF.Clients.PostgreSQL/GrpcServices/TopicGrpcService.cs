@@ -41,17 +41,19 @@ public class TopicGrpcService : GrpcServerOfTopic
         FileStorageTopicItemGetOperationRequest request,
         ServerCallContext context)
     {
-        var input = request.Input ?? new FileStorageTopicItemGetOperationInput();
+        FileStorageTopicItemGetOperationReply result;
 
-        var operationInput = new TopicItemGetOperationInput
-        {
-            Axis = input.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
-            Id = input.Id,
-            Name = input.Name,
-            ParentId = input.ParentId,
-        };
+        FileStorageTopicItemGetOperationInput input = request.Input ?? new();
 
-        var operationRequest = new DomainItemGetOperationRequest(operationInput, request.OperationCode);
+        DomainItemGetOperationRequest operationRequest = new(
+            new()
+            {
+                Axis = input.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
+                Id = input.Id,
+                Name = input.Name,
+                ParentId = input.ParentId,
+            },
+            request.OperationCode);
 
         var taskForItem = _mediator.Send(operationRequest);
 
@@ -61,11 +63,11 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var operationOutput = operationResult.Output;
 
-        var result = new FileStorageTopicItemGetOperationReply
+        result = new()
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new FileStorageTopicItemGetOperationOutput
+            Output = new()
             {
                 Item = CreateItem(operationOutput.Item),
                 IsItemNotFound = operationOutput.IsItemNotFound
@@ -90,21 +92,25 @@ public class TopicGrpcService : GrpcServerOfTopic
         FileStorageTopicListGetOperationRequest request,
         ServerCallContext context)
     {
-        var input = request.Input ?? new FileStorageTopicListGetOperationInput();
+        FileStorageTopicListGetOperationReply result;
 
-        var operationInput = new TopicListGetOperationInput
-        {
-            PageNumber = input.PageNumber,
-            PageSize = input.PageSize,
-            SortDirection = input.SortDirection,
-            SortField = input.SortField,
-            Axis = input.Axis.FromStringToEnum(TreePathGetOperationAxis.None),
-            Ids = input.Ids.ToArray(),
-            Name = input.Name,
-            TreePath = input.TreePath,
-        };
+        FileStorageTopicListGetOperationInput input = request.Input ?? new();
 
-        var taskForItem = _mediator.Send(new DomainListGetOperationRequest(operationInput, request.OperationCode));
+        DomainListGetOperationRequest operationRequest = new(
+            new()
+            {
+                PageNumber = input.PageNumber,
+                PageSize = input.PageSize,
+                SortDirection = input.SortDirection,
+                SortField = input.SortField,
+                Axis = input.Axis.FromStringToEnum(TreePathGetOperationAxis.None),
+                Ids = input.Ids.ToArray(),
+                Name = input.Name,
+                TreePath = input.TreePath,
+            },
+            request.OperationCode);
+
+        var taskForItem = _mediator.Send(operationRequest);
 
         var response = await taskForItem.ConfigureAwait(false);
 
@@ -112,11 +118,11 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var operationOutput = operationResult.Output;
 
-        var result = new FileStorageTopicListGetOperationReply
+        result = new()
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new FileStorageTopicListGetOperationOutput
+            Output = new()
             {
                 TotalCount = operationOutput.TotalCount
             }
@@ -149,7 +155,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         result = new FileStorageTopicEntity
         {
-            Data = new FileStorageTopicTypeEntity
+            Data = new()
             {
                 Id = data.Id,
                 Name = data.Name,
