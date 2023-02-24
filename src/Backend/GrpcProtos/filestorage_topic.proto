@@ -4,19 +4,19 @@ option csharp_namespace = "Crib2023.Backend.Services.FileStorage.GrpcProtos";
 
 package FileStorage;
 
-service TopicGrpcProto {
-  rpc GetItem (TopicItemGetOperationRequestGrpcProto) returns (TopicItemGetOperationReplyGrpcProto);
-  rpc GetList (TopicListGetOperationRequestGrpcProto) returns (TopicListGetOperationReplyGrpcProto);
+service FileStorageTopicService {
+  rpc GetItem (FileStorageTopicItemGetOperationRequest) returns (FileStorageTopicItemGetOperationReply);
+  rpc GetList (FileStorageTopicListGetOperationRequest) returns (FileStorageTopicListGetOperationReply);
 }
 
 // GetItem Request
 
-message TopicItemGetOperationRequestGrpcProto {
-  TopicItemGetOperationInputGrpcProto input = 1;
+message FileStorageTopicItemGetOperationRequest {
+  FileStorageTopicItemGetOperationInput input = 1;
   string operation_code = 2;
 }
 
-message TopicItemGetOperationInputGrpcProto {
+message FileStorageTopicItemGetOperationInput {
   string axis = 1;
   int64 id = 2;
   string name = 3;
@@ -25,26 +25,26 @@ message TopicItemGetOperationInputGrpcProto {
 
 // GetItem Reply
 
-message TopicItemGetOperationReplyGrpcProto {
+message FileStorageTopicItemGetOperationReply {
   bool is_ok = 1;
   string operation_code = 2;
   repeated string error_messages = 3;
-  TopicItemGetOperationOutputGrpcProto output = 4;
+  FileStorageTopicItemGetOperationOutput output = 4;
 }
 
-message TopicItemGetOperationOutputGrpcProto {
-  TopicEntityGrpcProto item = 1;
+message FileStorageTopicItemGetOperationOutput {
+  FileStorageTopicEntity item = 1;
   bool is_item_not_found = 2;
 }
 
-message TopicEntityGrpcProto {
-  TopicTypeEntityGrpcProto data = 1;
+message FileStorageTopicEntity {
+  FileStorageTopicTypeEntity data = 1;
   bool tree_has_children = 2;
   int32 treeLevel = 3;
   string treePath = 4;
 }
 
-message TopicTypeEntityGrpcProto {
+message FileStorageTopicTypeEntity {
   int64 id = 1;
   string name = 2;
   int64 parent_id = 3;
@@ -53,12 +53,12 @@ message TopicTypeEntityGrpcProto {
 
 // GetList Request
 
-message TopicListGetOperationRequestGrpcProto {
-  TopicListGetOperationInputGrpcProto input = 1;
+message FileStorageTopicListGetOperationRequest {
+  FileStorageTopicListGetOperationInput input = 1;
   string operation_code = 2;
 }
 
-message TopicListGetOperationInputGrpcProto {
+message FileStorageTopicListGetOperationInput {
   int32 page_number = 1;
   int32 page_size = 2;
   string sort_field = 3;
@@ -71,14 +71,14 @@ message TopicListGetOperationInputGrpcProto {
 
 // GetList Reply
 
-message TopicListGetOperationReplyGrpcProto {
+message FileStorageTopicListGetOperationReply {
   bool is_ok = 1;
   string operation_code = 2;
   repeated string error_messages = 3;
-  TopicListGetOperationOutputGrpcProto output = 4;
+  FileStorageTopicListGetOperationOutput output = 4;
 }
 
-message TopicListGetOperationOutputGrpcProto {
-  repeated TopicEntityGrpcProto items = 1;
+message FileStorageTopicListGetOperationOutput {
+  repeated FileStorageTopicEntity items = 1;
   int64 total_count = 2;
 }

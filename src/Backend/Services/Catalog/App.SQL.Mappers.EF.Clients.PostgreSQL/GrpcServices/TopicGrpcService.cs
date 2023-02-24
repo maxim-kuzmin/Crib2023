@@ -37,18 +37,18 @@ public class TopicGrpcService : GrpcServerOfTopic
     /// <param name="request">Запрос.</param>
     /// <param name="context">Контекст.</param>
     /// <returns>Задача на получение элемента.</returns>
-    public override async Task<TopicItemGetOperationReplyGrpcProto> GetItem(
-        TopicItemGetOperationRequestGrpcProto request,
+    public override async Task<CatalogTopicItemGetOperationReply> GetItem(
+        CatalogTopicItemGetOperationRequest request,
         ServerCallContext context)
     {
-        var protoInput = request.Input ?? new TopicItemGetOperationInputGrpcProto();
+        var input = request.Input ?? new CatalogTopicItemGetOperationInput();
 
         var operationInput = new TopicItemGetOperationInput
         {
-            Axis = protoInput.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
-            Id = protoInput.Id,
-            Name = protoInput.Name,
-            ParentId = protoInput.ParentId,
+            Axis = input.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
+            Id = input.Id,
+            Name = input.Name,
+            ParentId = input.ParentId,
         };
 
         var operationRequest = new DomainItemGetOperationRequest(operationInput, request.OperationCode);
@@ -61,13 +61,13 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var operationOutput = operationResult.Output;
 
-        var result = new TopicItemGetOperationReplyGrpcProto
+        var result = new CatalogTopicItemGetOperationReply
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new TopicItemGetOperationOutputGrpcProto
+            Output = new CatalogTopicItemGetOperationOutput
             {
-                Item = CreateProtoItem(operationOutput.Item),
+                Item = CreateItem(operationOutput.Item),
                 IsItemNotFound = operationOutput.IsItemNotFound
             }
         };
@@ -86,11 +86,11 @@ public class TopicGrpcService : GrpcServerOfTopic
     /// <param name="request">Запрос.</param>
     /// <param name="context">Контекст.</param>
     /// <returns>Задача на получение списка.</returns>
-    public override async Task<TopicListGetOperationReplyGrpcProto> GetList(
-        TopicListGetOperationRequestGrpcProto request,
+    public override async Task<CatalogTopicListGetOperationReply> GetList(
+        CatalogTopicListGetOperationRequest request,
         ServerCallContext context)
     {
-        var protoInput = request.Input ?? new TopicListGetOperationInputGrpcProto();
+        var protoInput = request.Input ?? new CatalogTopicListGetOperationInput();
 
         var operationInput = new TopicListGetOperationInput
         {
@@ -112,11 +112,11 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var operationOutput = operationResult.Output;
 
-        var result = new TopicListGetOperationReplyGrpcProto
+        var result = new CatalogTopicListGetOperationReply
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new TopicListGetOperationOutputGrpcProto
+            Output = new CatalogTopicListGetOperationOutput
             {
                 TotalCount = operationOutput.TotalCount
             }
@@ -127,11 +127,11 @@ public class TopicGrpcService : GrpcServerOfTopic
             result.ErrorMessages.Add(errorMessage);
         }
 
-        foreach (var item in operationOutput.Items)
+        foreach (var operationOutputItem in operationOutput.Items)
         {
-            var protoItem = CreateProtoItem(item);
+            var item = CreateItem(operationOutputItem);
 
-            result.Output.Items.Add(protoItem);
+            result.Output.Items.Add(item);
         }
 
         return result;
@@ -141,24 +141,24 @@ public class TopicGrpcService : GrpcServerOfTopic
 
     #region Private methods
 
-    private static TopicEntityGrpcProto CreateProtoItem(TopicEntity item)
+    private static CatalogTopicEntity CreateItem(TopicEntity source)
     {
-        TopicEntityGrpcProto result;
+        CatalogTopicEntity result;
 
-        var data = item.Data;
+        var data = source.Data;
 
-        result = new TopicEntityGrpcProto
+        result = new CatalogTopicEntity
         {
-            Data = new TopicTypeEntityGrpcProto
+            Data = new CatalogTopicTypeEntity
             {
                 Id = data.Id,
                 Name = data.Name,
                 ParentId = data.ParentId ?? 0,
                 RowGuid = data.RowGuid.ToString()
             },
-            TreeHasChildren = item.TreeHasChildren,
-            TreeLevel = item.TreeLevel,
-            TreePath = item.TreePath,
+            TreeHasChildren = source.TreeHasChildren,
+            TreeLevel = source.TreeLevel,
+            TreePath = source.TreePath,
         };
 
         return result;

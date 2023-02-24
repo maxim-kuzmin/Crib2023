@@ -4,19 +4,19 @@ option csharp_namespace = "Crib2023.Backend.Services.Catalog.GrpcProtos";
 
 package Catalog;
 
-service TopicGrpcProto {
-  rpc GetItem (TopicItemGetOperationRequestGrpcProto) returns (TopicItemGetOperationReplyGrpcProto);
-  rpc GetList (TopicListGetOperationRequestGrpcProto) returns (TopicListGetOperationReplyGrpcProto);
+service CatalogTopicService {
+  rpc GetItem (CatalogTopicItemGetOperationRequest) returns (CatalogTopicItemGetOperationReply);
+  rpc GetList (CatalogTopicListGetOperationRequest) returns (CatalogTopicListGetOperationReply);
 }
 
 // GetItem Request
 
-message TopicItemGetOperationRequestGrpcProto {
-  TopicItemGetOperationInputGrpcProto input = 1;
+message CatalogTopicItemGetOperationRequest {
+  CatalogTopicItemGetOperationInput input = 1;
   string operation_code = 2;
 }
 
-message TopicItemGetOperationInputGrpcProto {
+message CatalogTopicItemGetOperationInput {
   string axis = 1;
   int64 id = 2;
   string name = 3;
@@ -25,26 +25,26 @@ message TopicItemGetOperationInputGrpcProto {
 
 // GetItem Reply
 
-message TopicItemGetOperationReplyGrpcProto {
+message CatalogTopicItemGetOperationReply {
   bool is_ok = 1;
   string operation_code = 2;
   repeated string error_messages = 3;
-  TopicItemGetOperationOutputGrpcProto output = 4;
+  CatalogTopicItemGetOperationOutput output = 4;
 }
 
-message TopicItemGetOperationOutputGrpcProto {
-  TopicEntityGrpcProto item = 1;
+message CatalogTopicItemGetOperationOutput {
+  CatalogTopicEntity item = 1;
   bool is_item_not_found = 2;
 }
 
-message TopicEntityGrpcProto {
-  TopicTypeEntityGrpcProto data = 1;
+message CatalogTopicEntity {
+  CatalogTopicTypeEntity data = 1;
   bool tree_has_children = 2;
   int32 treeLevel = 3;
   string treePath = 4;
 }
 
-message TopicTypeEntityGrpcProto {
+message CatalogTopicTypeEntity {
   int64 id = 1;
   string name = 2;
   int64 parent_id = 3;
@@ -53,12 +53,12 @@ message TopicTypeEntityGrpcProto {
 
 // GetList Request
 
-message TopicListGetOperationRequestGrpcProto {
-  TopicListGetOperationInputGrpcProto input = 1;
+message CatalogTopicListGetOperationRequest {
+  CatalogTopicListGetOperationInput input = 1;
   string operation_code = 2;
 }
 
-message TopicListGetOperationInputGrpcProto {
+message CatalogTopicListGetOperationInput {
   int32 page_number = 1;
   int32 page_size = 2;
   string sort_field = 3;
@@ -71,14 +71,14 @@ message TopicListGetOperationInputGrpcProto {
 
 // GetList Reply
 
-message TopicListGetOperationReplyGrpcProto {
+message CatalogTopicListGetOperationReply {
   bool is_ok = 1;
   string operation_code = 2;
   repeated string error_messages = 3;
-  TopicListGetOperationOutputGrpcProto output = 4;
+  CatalogTopicListGetOperationOutput output = 4;
 }
 
-message TopicListGetOperationOutputGrpcProto {
-  repeated TopicEntityGrpcProto items = 1;
+message CatalogTopicListGetOperationOutput {
+  repeated CatalogTopicEntity items = 1;
   int64 total_count = 2;
 }

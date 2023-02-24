@@ -37,17 +37,17 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
     /// <param name="request">Запрос.</param>
     /// <param name="context">Контекст.</param>
     /// <returns>Задача на получение элемента.</returns>
-    public override async Task<ArticleItemGetOperationReplyGrpcProto> GetItem(
-        ArticleItemGetOperationRequestGrpcProto request,
+    public override async Task<CatalogArticleItemGetOperationReply> GetItem(
+        CatalogArticleItemGetOperationRequest request,
         ServerCallContext context)
     {
-        var protoInput = request.Input ?? new ArticleItemGetOperationInputGrpcProto();
+        var input = request.Input ?? new CatalogArticleItemGetOperationInput();
 
         var operationInput = new ArticleItemGetOperationInput
         {
-            Id = protoInput.Id,
-            Title = protoInput.Title,
-            TopicId = protoInput.TopicId,
+            Id = input.Id,
+            Title = input.Title,
+            TopicId = input.TopicId,
         };
 
         var operationRequest = new DomainItemGetOperationRequest(operationInput, request.OperationCode);
@@ -60,13 +60,13 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         var operationOutput = operationResult.Output;
 
-        var result = new ArticleItemGetOperationReplyGrpcProto
+        var result = new CatalogArticleItemGetOperationReply
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new ArticleItemGetOperationOutputGrpcProto
+            Output = new CatalogArticleItemGetOperationOutput
             {
-                Item = CreateProtoItem(operationOutput.Item),
+                Item = CreateItem(operationOutput.Item),
                 IsItemNotFound = operationOutput.IsItemNotFound
             }
         };
@@ -85,23 +85,23 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
     /// <param name="request">Запрос.</param>
     /// <param name="context">Контекст.</param>
     /// <returns>Задача на получение списка.</returns>
-    public override async Task<ArticleListGetOperationReplyGrpcProto> GetList(
-        ArticleListGetOperationRequestGrpcProto request,
+    public override async Task<CatalogArticleListGetOperationReply> GetList(
+        CatalogArticleListGetOperationRequest request,
         ServerCallContext context)
     {
-        var protoInput = request.Input ?? new ArticleListGetOperationInputGrpcProto();
+        var input = request.Input ?? new CatalogArticleListGetOperationInput();
 
         var operationInput = new ArticleListGetOperationInput
         {
-            PageNumber = protoInput.PageNumber,
-            PageSize = protoInput.PageSize,
-            SortDirection = protoInput.SortDirection,
-            SortField = protoInput.SortField,
-            Ids = protoInput.Ids.ToArray(),
-            TopicId = protoInput.TopicId,
-            TopicIds = protoInput.TopicIds.ToArray(),
-            TopicName = protoInput.TopicName,
-            Title = protoInput.Title,
+            PageNumber = input.PageNumber,
+            PageSize = input.PageSize,
+            SortDirection = input.SortDirection,
+            SortField = input.SortField,
+            Ids = input.Ids.ToArray(),
+            TopicId = input.TopicId,
+            TopicIds = input.TopicIds.ToArray(),
+            TopicName = input.TopicName,
+            Title = input.Title,
         };
 
         var taskForItem = _mediator.Send(new DomainListGetOperationRequest(operationInput, request.OperationCode));
@@ -112,11 +112,11 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         var operationOutput = operationResult.Output;
 
-        var result = new ArticleListGetOperationReplyGrpcProto
+        var result = new CatalogArticleListGetOperationReply
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new ArticleListGetOperationOutputGrpcProto
+            Output = new CatalogArticleListGetOperationOutput
             {
                 TotalCount = operationOutput.TotalCount
             }
@@ -127,11 +127,11 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             result.ErrorMessages.Add(errorMessage);
         }
 
-        foreach (var item in operationOutput.Items)
+        foreach (var operationOutputItem in operationOutput.Items)
         {
-            var protoItem = CreateProtoItem(item);
+            var item = CreateItem(operationOutputItem);
 
-            result.Output.Items.Add(protoItem);
+            result.Output.Items.Add(item);
         }
 
         return result;
@@ -141,17 +141,17 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
     #region Private methods
 
-    private static ArticleEntityGrpcProto CreateProtoItem(ArticleEntity item)
+    private static CatalogArticleEntity CreateItem(ArticleEntity source)
     {
-        ArticleEntityGrpcProto result;
+        CatalogArticleEntity result;
 
-        var data = item.Data;
+        var data = source.Data;
 
-        var topicPathItems = item.TopicPathItems;
+        var topicPathItems = source.TopicPathItems;
 
-        result = new ArticleEntityGrpcProto
+        result = new CatalogArticleEntity
         {
-            Data = new ArticleTypeEntityGrpcProto
+            Data = new CatalogArticleTypeEntity
             {
                 Body = data.Body,
                 Id = data.Id,
@@ -163,11 +163,13 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
         foreach (var topicPathItem in topicPathItems)
         {
-            result.TopicPathItems.Add(new OptionValueObjectGrpcProto
+            var option = new CatalogOptionValueObject
             {
                 Id = topicPathItem.Id,
                 Name = topicPathItem.Name,
-            });
+            };
+
+            result.TopicPathItems.Add(option);
         }
 
         return result;

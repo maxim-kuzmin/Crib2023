@@ -4,19 +4,19 @@ option csharp_namespace = "Crib2023.Backend.Services.FileStorage.GrpcProtos";
 
 package FileStorage;
 
-service ArticleGrpcProto {
-  rpc GetItem (ArticleItemGetOperationRequestGrpcProto) returns (ArticleItemGetOperationReplyGrpcProto);
-  rpc GetList (ArticleListGetOperationRequestGrpcProto) returns (ArticleListGetOperationReplyGrpcProto);
+service FileStorageArticleService {
+  rpc GetItem (FileStorageArticleItemGetOperationRequest) returns (FileStorageArticleItemGetOperationReply);
+  rpc GetList (FileStorageArticleListGetOperationRequest) returns (FileStorageArticleListGetOperationReply);
 }
 
 // GetItem Request
 
-message ArticleItemGetOperationRequestGrpcProto {
-  ArticleItemGetOperationInputGrpcProto input = 1;
+message FileStorageArticleItemGetOperationRequest {
+  FileStorageArticleItemGetOperationInput input = 1;
   string operation_code = 2;
 }
 
-message ArticleItemGetOperationInputGrpcProto {
+message FileStorageArticleItemGetOperationInput {
   int64 id = 1;
   string title = 2;
   int64 topic_id = 3;
@@ -24,24 +24,24 @@ message ArticleItemGetOperationInputGrpcProto {
 
 // GetItem Reply
 
-message ArticleItemGetOperationReplyGrpcProto {
+message FileStorageArticleItemGetOperationReply {
   bool is_ok = 1;
   string operation_code = 2;
   repeated string error_messages = 3;
-  ArticleItemGetOperationOutputGrpcProto output = 4;
+  FileStorageArticleItemGetOperationOutput output = 4;
 }
 
-message ArticleItemGetOperationOutputGrpcProto {
-  ArticleEntityGrpcProto item = 1;
+message FileStorageArticleItemGetOperationOutput {
+  FileStorageArticleEntity item = 1;
   bool is_item_not_found = 2;
 }
 
-message ArticleEntityGrpcProto {
-  ArticleTypeEntityGrpcProto data = 1;
-  repeated OptionValueObjectGrpcProto topic_path_items = 2;
+message FileStorageArticleEntity {
+  FileStorageArticleTypeEntity data = 1;
+  repeated FileStorageOptionValueObject topic_path_items = 2;
 }
 
-message ArticleTypeEntityGrpcProto {
+message FileStorageArticleTypeEntity {
   int64 id = 1;
   string hash = 2;
   string path = 3;
@@ -50,19 +50,19 @@ message ArticleTypeEntityGrpcProto {
   string row_guid = 6;  
 }
 
-message OptionValueObjectGrpcProto {
+message FileStorageOptionValueObject {
   int64 id = 1;
   string name = 2;
 }
 
 // GetList Request
 
-message ArticleListGetOperationRequestGrpcProto {
-  ArticleListGetOperationInputGrpcProto input = 1;
+message FileStorageArticleListGetOperationRequest {
+  FileStorageArticleListGetOperationInput input = 1;
   string operation_code = 2;
 }
 
-message ArticleListGetOperationInputGrpcProto {
+message FileStorageArticleListGetOperationInput {
   int32 page_number = 1;
   int32 page_size = 2;
   string sort_field = 3;
@@ -76,14 +76,14 @@ message ArticleListGetOperationInputGrpcProto {
 
 // GetList Reply
 
-message ArticleListGetOperationReplyGrpcProto {
+message FileStorageArticleListGetOperationReply {
   bool is_ok = 1;
   string operation_code = 2;
   repeated string error_messages = 3;
-  ArticleListGetOperationOutputGrpcProto output = 4;
+  FileStorageArticleListGetOperationOutput output = 4;
 }
 
-message ArticleListGetOperationOutputGrpcProto {
-  repeated ArticleEntityGrpcProto items = 1;
+message FileStorageArticleListGetOperationOutput {
+  repeated FileStorageArticleEntity items = 1;
   int64 total_count = 2;
 }

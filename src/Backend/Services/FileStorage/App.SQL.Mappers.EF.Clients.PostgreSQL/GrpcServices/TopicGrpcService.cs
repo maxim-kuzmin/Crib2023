@@ -37,18 +37,18 @@ public class TopicGrpcService : GrpcServerOfTopic
     /// <param name="request">Запрос.</param>
     /// <param name="context">Контекст.</param>
     /// <returns>Задача на получение элемента.</returns>
-    public override async Task<TopicItemGetOperationReplyGrpcProto> GetItem(
-        TopicItemGetOperationRequestGrpcProto request,
+    public override async Task<FileStorageTopicItemGetOperationReply> GetItem(
+        FileStorageTopicItemGetOperationRequest request,
         ServerCallContext context)
     {
-        var protoInput = request.Input ?? new TopicItemGetOperationInputGrpcProto();
+        var input = request.Input ?? new FileStorageTopicItemGetOperationInput();
 
         var operationInput = new TopicItemGetOperationInput
         {
-            Axis = protoInput.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
-            Id = protoInput.Id,
-            Name = protoInput.Name,
-            ParentId = protoInput.ParentId,
+            Axis = input.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
+            Id = input.Id,
+            Name = input.Name,
+            ParentId = input.ParentId,
         };
 
         var operationRequest = new DomainItemGetOperationRequest(operationInput, request.OperationCode);
@@ -61,13 +61,13 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var operationOutput = operationResult.Output;
 
-        var result = new TopicItemGetOperationReplyGrpcProto
+        var result = new FileStorageTopicItemGetOperationReply
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new TopicItemGetOperationOutputGrpcProto
+            Output = new FileStorageTopicItemGetOperationOutput
             {
-                Item = CreateProtoItem(operationOutput.Item),
+                Item = CreateItem(operationOutput.Item),
                 IsItemNotFound = operationOutput.IsItemNotFound
             }
         };
@@ -86,22 +86,22 @@ public class TopicGrpcService : GrpcServerOfTopic
     /// <param name="request">Запрос.</param>
     /// <param name="context">Контекст.</param>
     /// <returns>Задача на получение списка.</returns>
-    public override async Task<TopicListGetOperationReplyGrpcProto> GetList(
-        TopicListGetOperationRequestGrpcProto request,
+    public override async Task<FileStorageTopicListGetOperationReply> GetList(
+        FileStorageTopicListGetOperationRequest request,
         ServerCallContext context)
     {
-        var protoInput = request.Input ?? new TopicListGetOperationInputGrpcProto();
+        var input = request.Input ?? new FileStorageTopicListGetOperationInput();
 
         var operationInput = new TopicListGetOperationInput
         {
-            PageNumber = protoInput.PageNumber,
-            PageSize = protoInput.PageSize,
-            SortDirection = protoInput.SortDirection,
-            SortField = protoInput.SortField,
-            Axis = protoInput.Axis.FromStringToEnum(TreePathGetOperationAxis.None),
-            Ids = protoInput.Ids.ToArray(),
-            Name = protoInput.Name,
-            TreePath = protoInput.TreePath,
+            PageNumber = input.PageNumber,
+            PageSize = input.PageSize,
+            SortDirection = input.SortDirection,
+            SortField = input.SortField,
+            Axis = input.Axis.FromStringToEnum(TreePathGetOperationAxis.None),
+            Ids = input.Ids.ToArray(),
+            Name = input.Name,
+            TreePath = input.TreePath,
         };
 
         var taskForItem = _mediator.Send(new DomainListGetOperationRequest(operationInput, request.OperationCode));
@@ -112,11 +112,11 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var operationOutput = operationResult.Output;
 
-        var result = new TopicListGetOperationReplyGrpcProto
+        var result = new FileStorageTopicListGetOperationReply
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new TopicListGetOperationOutputGrpcProto
+            Output = new FileStorageTopicListGetOperationOutput
             {
                 TotalCount = operationOutput.TotalCount
             }
@@ -127,11 +127,11 @@ public class TopicGrpcService : GrpcServerOfTopic
             result.ErrorMessages.Add(errorMessage);
         }
 
-        foreach (var item in operationOutput.Items)
+        foreach (var operationOutputItem in operationOutput.Items)
         {
-            var protoItem = CreateProtoItem(item);
+            var item = CreateItem(operationOutputItem);
 
-            result.Output.Items.Add(protoItem);
+            result.Output.Items.Add(item);
         }
 
         return result;
@@ -141,15 +141,15 @@ public class TopicGrpcService : GrpcServerOfTopic
 
     #region Private methods
 
-    private static TopicEntityGrpcProto CreateProtoItem(TopicEntity item)
+    private static FileStorageTopicEntity CreateItem(TopicEntity item)
     {
-        TopicEntityGrpcProto result;
+        FileStorageTopicEntity result;
 
         var data = item.Data;
 
-        result = new TopicEntityGrpcProto
+        result = new FileStorageTopicEntity
         {
-            Data = new TopicTypeEntityGrpcProto
+            Data = new FileStorageTopicTypeEntity
             {
                 Id = data.Id,
                 Name = data.Name,

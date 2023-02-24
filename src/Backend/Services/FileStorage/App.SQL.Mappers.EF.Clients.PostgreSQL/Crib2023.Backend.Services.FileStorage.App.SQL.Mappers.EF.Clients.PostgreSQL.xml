@@ -15,7 +15,7 @@
             </summary>
             <param name="mediator">Посредник.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.ArticleGrpcService.GetItem(Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.ArticleGrpcService.GetItem(Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationRequest,Grpc.Core.ServerCallContext)">
             <summary>
             Получить элемент.
             </summary>
@@ -23,7 +23,7 @@
             <param name="context">Контекст.</param>
             <returns>Задача на получение элемента.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.ArticleGrpcService.GetList(Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.ArticleGrpcService.GetList(Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationRequest,Grpc.Core.ServerCallContext)">
             <summary>
             Получить список.
             </summary>
@@ -42,7 +42,7 @@
             </summary>
             <param name="mediator">Посредник.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.TopicGrpcService.GetItem(Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.TopicGrpcService.GetItem(Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationRequest,Grpc.Core.ServerCallContext)">
             <summary>
             Получить элемент.
             </summary>
@@ -50,7 +50,7 @@
             <param name="context">Контекст.</param>
             <returns>Задача на получение элемента.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.TopicGrpcService.GetList(Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationRequestGrpcProto,Grpc.Core.ServerCallContext)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices.TopicGrpcService.GetList(Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationRequest,Grpc.Core.ServerCallContext)">
             <summary>
             Получить список.
             </summary>
@@ -123,125 +123,125 @@
         <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageTopicReflection.Descriptor">
             <summary>File descriptor for filestorage_topic.proto</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationRequestGrpcProto.InputFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationRequest.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationRequestGrpcProto.OperationCodeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationRequest.OperationCodeFieldNumber">
             <summary>Field number for the "operation_code" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationInputGrpcProto.AxisFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationInput.AxisFieldNumber">
             <summary>Field number for the "axis" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationInputGrpcProto.IdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationInput.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationInputGrpcProto.NameFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationInput.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationInputGrpcProto.ParentIdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationInput.ParentIdFieldNumber">
             <summary>Field number for the "parent_id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationReplyGrpcProto.IsOkFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationReply.IsOkFieldNumber">
             <summary>Field number for the "is_ok" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationReplyGrpcProto.OperationCodeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationReply.OperationCodeFieldNumber">
             <summary>Field number for the "operation_code" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationReply.ErrorMessagesFieldNumber">
             <summary>Field number for the "error_messages" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationReplyGrpcProto.OutputFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationOutputGrpcProto.ItemFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationOutput.ItemFieldNumber">
             <summary>Field number for the "item" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationOutputGrpcProto.IsItemNotFoundFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationOutput.IsItemNotFoundFieldNumber">
             <summary>Field number for the "is_item_not_found" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicEntityGrpcProto.DataFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicEntity.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicEntityGrpcProto.TreeHasChildrenFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicEntity.TreeHasChildrenFieldNumber">
             <summary>Field number for the "tree_has_children" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicEntityGrpcProto.TreeLevelFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicEntity.TreeLevelFieldNumber">
             <summary>Field number for the "treeLevel" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicEntityGrpcProto.TreePathFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicEntity.TreePathFieldNumber">
             <summary>Field number for the "treePath" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicTypeEntityGrpcProto.IdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicTypeEntity.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicTypeEntityGrpcProto.NameFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicTypeEntity.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicTypeEntityGrpcProto.ParentIdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicTypeEntity.ParentIdFieldNumber">
             <summary>Field number for the "parent_id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicTypeEntityGrpcProto.RowGuidFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicTypeEntity.RowGuidFieldNumber">
             <summary>Field number for the "row_guid" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationRequestGrpcProto.InputFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationRequest.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationRequestGrpcProto.OperationCodeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationRequest.OperationCodeFieldNumber">
             <summary>Field number for the "operation_code" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationInputGrpcProto.PageNumberFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationInput.PageNumberFieldNumber">
             <summary>Field number for the "page_number" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationInputGrpcProto.PageSizeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationInput.PageSizeFieldNumber">
             <summary>Field number for the "page_size" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationInputGrpcProto.SortFieldFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationInput.SortFieldFieldNumber">
             <summary>Field number for the "sort_field" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationInputGrpcProto.SortDirectionFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationInput.SortDirectionFieldNumber">
             <summary>Field number for the "sort_direction" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationInputGrpcProto.AxisFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationInput.AxisFieldNumber">
             <summary>Field number for the "axis" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationInputGrpcProto.IdsFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationInput.IdsFieldNumber">
             <summary>Field number for the "ids" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationInputGrpcProto.NameFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationInput.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationInputGrpcProto.TreePathFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationInput.TreePathFieldNumber">
             <summary>Field number for the "tree_path" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationReplyGrpcProto.IsOkFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationReply.IsOkFieldNumber">
             <summary>Field number for the "is_ok" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationReplyGrpcProto.OperationCodeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationReply.OperationCodeFieldNumber">
             <summary>Field number for the "operation_code" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationReply.ErrorMessagesFieldNumber">
             <summary>Field number for the "error_messages" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationReplyGrpcProto.OutputFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationOutputGrpcProto.ItemsFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationOutput.ItemsFieldNumber">
             <summary>Field number for the "items" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicListGetOperationOutputGrpcProto.TotalCountFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationOutput.TotalCountFieldNumber">
             <summary>Field number for the "total_count" field.</summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicGrpcProto.Descriptor">
+        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicService.Descriptor">
             <summary>Service descriptor</summary>
         </member>
-        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicGrpcProto.TopicGrpcProtoBase">
-            <summary>Base class for server-side implementations of TopicGrpcProto</summary>
+        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicService.FileStorageTopicServiceBase">
+            <summary>Base class for server-side implementations of FileStorageTopicService</summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicGrpcProto.BindService(Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicGrpcProto.TopicGrpcProtoBase)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicService.BindService(Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicService.FileStorageTopicServiceBase)">
             <summary>Creates service definition that can be registered with a server</summary>
             <param name="serviceImpl">An object implementing the server-side handling logic.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicGrpcProto.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicGrpcProto.TopicGrpcProtoBase)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicService.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicService.FileStorageTopicServiceBase)">
             <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
             Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
             <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
@@ -253,131 +253,131 @@
         <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageArticleReflection.Descriptor">
             <summary>File descriptor for filestorage_article.proto</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationRequestGrpcProto.InputFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationRequest.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationRequestGrpcProto.OperationCodeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationRequest.OperationCodeFieldNumber">
             <summary>Field number for the "operation_code" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationInputGrpcProto.IdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationInput.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationInputGrpcProto.TitleFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationInput.TitleFieldNumber">
             <summary>Field number for the "title" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationInputGrpcProto.TopicIdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationInput.TopicIdFieldNumber">
             <summary>Field number for the "topic_id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationReplyGrpcProto.IsOkFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationReply.IsOkFieldNumber">
             <summary>Field number for the "is_ok" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationReplyGrpcProto.OperationCodeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationReply.OperationCodeFieldNumber">
             <summary>Field number for the "operation_code" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationReply.ErrorMessagesFieldNumber">
             <summary>Field number for the "error_messages" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationReplyGrpcProto.OutputFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationOutputGrpcProto.ItemFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationOutput.ItemFieldNumber">
             <summary>Field number for the "item" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationOutputGrpcProto.IsItemNotFoundFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationOutput.IsItemNotFoundFieldNumber">
             <summary>Field number for the "is_item_not_found" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleEntityGrpcProto.DataFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleEntity.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleEntityGrpcProto.TopicPathItemsFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleEntity.TopicPathItemsFieldNumber">
             <summary>Field number for the "topic_path_items" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleTypeEntityGrpcProto.IdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleTypeEntity.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleTypeEntityGrpcProto.HashFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleTypeEntity.HashFieldNumber">
             <summary>Field number for the "hash" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleTypeEntityGrpcProto.PathFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleTypeEntity.PathFieldNumber">
             <summary>Field number for the "path" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleTypeEntityGrpcProto.TitleFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleTypeEntity.TitleFieldNumber">
             <summary>Field number for the "title" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleTypeEntityGrpcProto.TopicIdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleTypeEntity.TopicIdFieldNumber">
             <summary>Field number for the "topic_id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleTypeEntityGrpcProto.RowGuidFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleTypeEntity.RowGuidFieldNumber">
             <summary>Field number for the "row_guid" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.OptionValueObjectGrpcProto.IdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageOptionValueObject.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.OptionValueObjectGrpcProto.NameFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageOptionValueObject.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationRequestGrpcProto.InputFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationRequest.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationRequestGrpcProto.OperationCodeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationRequest.OperationCodeFieldNumber">
             <summary>Field number for the "operation_code" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.PageNumberFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.PageNumberFieldNumber">
             <summary>Field number for the "page_number" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.PageSizeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.PageSizeFieldNumber">
             <summary>Field number for the "page_size" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.SortFieldFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.SortFieldFieldNumber">
             <summary>Field number for the "sort_field" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.SortDirectionFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.SortDirectionFieldNumber">
             <summary>Field number for the "sort_direction" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.IdsFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.IdsFieldNumber">
             <summary>Field number for the "ids" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.TitleFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.TitleFieldNumber">
             <summary>Field number for the "title" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.TopicIdFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.TopicIdFieldNumber">
             <summary>Field number for the "topic_id" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.TopicIdsFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.TopicIdsFieldNumber">
             <summary>Field number for the "topic_ids" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationInputGrpcProto.TopicNameFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationInput.TopicNameFieldNumber">
             <summary>Field number for the "topic_name" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationReplyGrpcProto.IsOkFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationReply.IsOkFieldNumber">
             <summary>Field number for the "is_ok" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationReplyGrpcProto.OperationCodeFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationReply.OperationCodeFieldNumber">
             <summary>Field number for the "operation_code" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationReplyGrpcProto.ErrorMessagesFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationReply.ErrorMessagesFieldNumber">
             <summary>Field number for the "error_messages" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationReplyGrpcProto.OutputFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationOutputGrpcProto.ItemsFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationOutput.ItemsFieldNumber">
             <summary>Field number for the "items" field.</summary>
         </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleListGetOperationOutputGrpcProto.TotalCountFieldNumber">
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationOutput.TotalCountFieldNumber">
             <summary>Field number for the "total_count" field.</summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleGrpcProto.Descriptor">
+        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleService.Descriptor">
             <summary>Service descriptor</summary>
         </member>
-        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleGrpcProto.ArticleGrpcProtoBase">
-            <summary>Base class for server-side implementations of ArticleGrpcProto</summary>
+        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleService.FileStorageArticleServiceBase">
+            <summary>Base class for server-side implementations of FileStorageArticleService</summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleGrpcProto.BindService(Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleGrpcProto.ArticleGrpcProtoBase)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleService.BindService(Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleService.FileStorageArticleServiceBase)">
             <summary>Creates service definition that can be registered with a server</summary>
             <param name="serviceImpl">An object implementing the server-side handling logic.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleGrpcProto.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleGrpcProto.ArticleGrpcProtoBase)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleService.BindService(Grpc.Core.ServiceBinderBase,Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleService.FileStorageArticleServiceBase)">
             <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
             Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
             <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
