@@ -117,11 +117,11 @@
             </summary>
             <returns>Задача на выполнение.</returns>
         </member>
-        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicReflection">
-            <summary>Holder for reflection information generated from topic.proto</summary>
+        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageTopicReflection">
+            <summary>Holder for reflection information generated from filestorage_topic.proto</summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicReflection.Descriptor">
-            <summary>File descriptor for topic.proto</summary>
+        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageTopicReflection.Descriptor">
+            <summary>File descriptor for filestorage_topic.proto</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.TopicItemGetOperationRequestGrpcProto.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>
@@ -247,11 +247,11 @@
             <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
             <param name="serviceImpl">An object implementing the server-side handling logic.</param>
         </member>
-        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleReflection">
-            <summary>Holder for reflection information generated from article.proto</summary>
+        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageArticleReflection">
+            <summary>Holder for reflection information generated from filestorage_article.proto</summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleReflection.Descriptor">
-            <summary>File descriptor for article.proto</summary>
+        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageArticleReflection.Descriptor">
+            <summary>File descriptor for filestorage_article.proto</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.ArticleItemGetOperationRequestGrpcProto.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>

@@ -8,7 +8,7 @@ namespace Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQ
 /// <summary>
 /// gRPC сервис "Тема".
 /// </summary>
-public class TopicGrpcService : TopicGrpcProto.TopicGrpcProtoBase
+public class TopicGrpcService : GrpcServerOfTopic
 {
     #region Fields
 

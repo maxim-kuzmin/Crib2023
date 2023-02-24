@@ -14,8 +14,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Protobuf Include="..\GrpcProtos\topic.proto" GrpcServices="Server" />
-		<Protobuf Include="..\GrpcProtos\article.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\GrpcProtos\catalog_article.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\GrpcProtos\catalog_topic.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 	<ItemGroup>

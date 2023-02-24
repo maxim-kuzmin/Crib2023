@@ -31,12 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domains.Article.SQL.Mappers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\Catalog\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{4163700B-37BE-4639-A32D-609B3069BE82}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcProtos", "GrpcProtos", "{5491C408-37C1-4FC1-8B20-F63AB02130D6}"
-	ProjectSection(SolutionItems) = preProject
-		Backend\Services\Catalog\GrpcProtos\article.proto = Backend\Services\Catalog\GrpcProtos\article.proto
-		Backend\Services\Catalog\GrpcProtos\topic.proto = Backend\Services\Catalog\GrpcProtos\topic.proto
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileStorage", "FileStorage", "{842C80FA-0E8D-4134-97B9-F3EB0630BAED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\FileStorage\App.SQL.Mappers.EF.Clients.PostgreSQL\App.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{84A509CE-E58F-498E-90C5-8ECB0284D3B0}"
@@ -55,12 +49,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domains.Article.SQL.Mappers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\FileStorage\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{7AFAD84C-ED4B-43D7-AC32-92859DBC576A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcProtos", "GrpcProtos", "{65329C00-D891-43A3-AE63-1EC39132AC3F}"
-	ProjectSection(SolutionItems) = preProject
-		Backend\Services\FileStorage\GrpcProtos\article.proto = Backend\Services\FileStorage\GrpcProtos\article.proto
-		Backend\Services\FileStorage\GrpcProtos\topic.proto = Backend\Services\FileStorage\GrpcProtos\topic.proto
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{5AD77F9E-DC92-409E-BA3D-C351BCC200D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "React", "React", "{79F79D9D-4FD2-408B-9A3A-0F96B5736F71}"
@@ -75,6 +63,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcProtos", "GrpcProtos", "{AFB1EC5C-DE91-4722-AB63-764C134D5A5F}"
+	ProjectSection(SolutionItems) = preProject
+		Backend\GrpcProtos\catalog_article.proto = Backend\GrpcProtos\catalog_article.proto
+		Backend\GrpcProtos\catalog_topic.proto = Backend\GrpcProtos\catalog_topic.proto
+		Backend\GrpcProtos\filestorage_article.proto = Backend\GrpcProtos\filestorage_article.proto
+		Backend\GrpcProtos\filestorage_topic.proto = Backend\GrpcProtos\filestorage_topic.proto
 	EndProjectSection
 EndProject
 Global
@@ -191,8 +187,7 @@ Global
 		{79F79D9D-4FD2-408B-9A3A-0F96B5736F71} = {5AD77F9E-DC92-409E-BA3D-C351BCC200D1}
 		{18160FCB-8DC6-4BE5-8513-6580FDEC58B7} = {79F79D9D-4FD2-408B-9A3A-0F96B5736F71}
 		{0F49B386-DBC9-41F4-AEF7-1E312A3F4CFD} = {18160FCB-8DC6-4BE5-8513-6580FDEC58B7}
-		{5491C408-37C1-4FC1-8B20-F63AB02130D6} = {35986EA4-0855-4631-9D85-C393F84DFF97}
-		{65329C00-D891-43A3-AE63-1EC39132AC3F} = {842C80FA-0E8D-4134-97B9-F3EB0630BAED}
+		{AFB1EC5C-DE91-4722-AB63-764C134D5A5F} = {B5BDB38E-BEFD-4637-AE22-F72365DF0BAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A4F79BA-1D89-4330-8078-EE5A5ED67BE1}

@@ -8,7 +8,7 @@ namespace Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQ
 /// <summary>
 /// gRPC сервис "Статья".
 /// </summary>
-public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
+public class ArticleGrpcService : GrpcServerOfAtrticle
 {
     #region Fields
 

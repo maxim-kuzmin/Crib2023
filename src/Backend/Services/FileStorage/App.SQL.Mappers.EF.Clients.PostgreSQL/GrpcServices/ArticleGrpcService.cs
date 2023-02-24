@@ -8,7 +8,7 @@ namespace Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.Postg
 /// <summary>
 /// gRPC сервис "Статья".
 /// </summary>
-public class ArticleGrpcService : ArticleGrpcProto.ArticleGrpcProtoBase
+public class ArticleGrpcService : GrpcServerOfAtrticle
 {
     #region Fields
 

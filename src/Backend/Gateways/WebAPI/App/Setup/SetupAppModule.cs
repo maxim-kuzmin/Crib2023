@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Microsoft.Extensions.Options;
-
 namespace Crib2023.Backend.Gateways.WebAPI.App.Setup;
 
 /// <summary>
@@ -43,12 +41,33 @@ public class SetupAppModule : AppModule
 
         services.Configure<SetupOptions>(_configurationSection);
 
-       services.AddGrpcClient<ArticleGrpcProto.ArticleGrpcProtoClient>((services, options) =>
-       {
-           string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.FileStorageUrl;
+        services.AddGrpcClient<GrpcClientOfCatalogArticle>((services, options) =>
+        {
+            string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.CatalogUrl;
 
-           options.Address = new Uri(url);
-       });
+            options.Address = new Uri(url);
+        });
+
+        services.AddGrpcClient<GrpcClientOfCatalogTopic>((services, options) =>
+        {
+            string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.CatalogUrl;
+
+            options.Address = new Uri(url);
+        });
+
+        services.AddGrpcClient<GrpcClientOfFileStorageArticle>((services, options) =>
+        {
+            string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.FileStorageUrl;
+
+            options.Address = new Uri(url);
+        });
+
+        services.AddGrpcClient<GrpcClientOfFileStorageTopic>((services, options) =>
+        {
+            string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.FileStorageUrl;
+
+            options.Address = new Uri(url);
+        });
     }
 
     /// <inheritdoc/>
