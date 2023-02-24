@@ -3,15 +3,15 @@
 namespace Crib2023.Backend.Gateways.WebAPI.App.Controllers;
 
 /// <summary>
-/// Контроллер "Статья в каталоге".
+/// Контроллер "Тема в каталоге".
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-public class CatalogArticleController : ControllerBase
+public class CatalogTopicController : ControllerBase
 {
     #region Fields
 
-    private readonly GrpcClientOfCatalogArticle _client;
+    private readonly GrpcClientOfCatalogTopic _client;
 
     #endregion Fields
 
@@ -21,7 +21,7 @@ public class CatalogArticleController : ControllerBase
     /// Конструктор.
     /// </summary>
     /// <param name="client">Клиент.</param>
-    public CatalogArticleController(GrpcClientOfCatalogArticle client)
+    public CatalogTopicController(GrpcClientOfCatalogTopic client)
     {
         _client = client;
     }
@@ -30,7 +30,6 @@ public class CatalogArticleController : ControllerBase
 
     #region Public methods
 
-    // GET api/<CatalogArticleItemController>/5
     /// <summary>
     /// Получить элемент.
     /// </summary>
@@ -38,11 +37,11 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение элемента.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<CatalogArticleItemGetOperationReply>> GetItem(
+    public async Task<ActionResult<CatalogTopicItemGetOperationReply>> GetItem(
         [FromRoute] long id,
-        [FromHeader(Name = nameof(CatalogArticleItemGetOperationRequest.OperationCode))] string operationCode = "")
+        [FromHeader(Name = nameof(CatalogTopicItemGetOperationRequest.OperationCode))] string operationCode = "")
     {
-        CatalogArticleItemGetOperationRequest request = new()
+        CatalogTopicItemGetOperationRequest request = new()
         {
             Input = new()
             {
@@ -74,11 +73,11 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение списка.</returns>
     [HttpGet]
-    public async Task<ActionResult<CatalogArticleListGetOperationReply>> GetList(
-        [FromQuery] CatalogArticleListGetOperationInput input,
-        [FromHeader(Name = nameof(CatalogArticleListGetOperationRequest.OperationCode))] string operationCode = "")
+    public async Task<ActionResult<CatalogTopicListGetOperationReply>> GetList(
+        [FromQuery] CatalogTopicListGetOperationInput input,
+        [FromHeader(Name = nameof(CatalogTopicListGetOperationRequest.OperationCode))] string operationCode = "")
     {
-        CatalogArticleListGetOperationRequest request = new()
+        CatalogTopicListGetOperationRequest request = new()
         {
             Input = input,
             OperationCode = operationCode,
