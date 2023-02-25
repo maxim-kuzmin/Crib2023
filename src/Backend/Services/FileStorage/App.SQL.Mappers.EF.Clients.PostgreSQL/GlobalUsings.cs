@@ -31,3 +31,7 @@ global using ModuleOfCommonDataSQLMappersEF = Makc2023.Backend.Common.Data.SQL.M
 global using ModuleOfCommonDataSQL = Makc2023.Backend.Common.Data.SQL.Setup.SetupAppModule;
 global using ModuleOfCommonDomain = Makc2023.Backend.Common.Domain.Setup.SetupAppModule;
 global using ModuleOfCommonDomainSQLMappersEF = Makc2023.Backend.Common.Domain.SQL.Mappers.EF.Setup.MapperSetupAppModule;
+global using RequestHandlerOfServiceDomainsArticleOperationsItemGet = Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get.DomainItemGetOperationRequestHandler;
+global using RequestHandlerOfServiceDomainsArticleOperationsListGet = Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequestHandler;
+global using RequestHandlerOfServiceDomainsTopicOperationsItemGet = Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get.DomainItemGetOperationRequestHandler;
+global using RequestHandlerOfServiceDomainsTopicOperationsListGet = Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequestHandler;

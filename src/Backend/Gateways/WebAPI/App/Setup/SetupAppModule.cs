@@ -65,10 +65,10 @@ public class SetupAppModule : AppModule
     {
         return new[]
             {
-                typeof(RequestHandlerOfGatewayCatalogArticleOperationsItemGet),
-                typeof(RequestHandlerOfGatewayCatalogArticleOperationsListGet),
-                typeof(RequestHandlerOfGatewayCatalogTopicOperationsItemGet),
-                typeof(RequestHandlerOfGatewayCatalogTopicOperationsListGet),
+                typeof(RequestHandlerOfGatewayDomainsCatalogArticleOperationsItemGet),
+                typeof(RequestHandlerOfGatewayDomainsCatalogArticleOperationsListGet),
+                typeof(RequestHandlerOfGatewayDomainsCatalogTopicOperationsItemGet),
+                typeof(RequestHandlerOfGatewayDomainsCatalogTopicOperationsListGet),
             };
     }
 
