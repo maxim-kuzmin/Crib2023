@@ -12,7 +12,7 @@ public class TopicListGetOperationResult : OperationResultWithOutput<TopicListGe
     /// <summary>
     /// Конструктор.
     /// </summary>
-    /// <param name="operationResult">Репзультат операции.</param>
+    /// <param name="operationResult">Результат операции.</param>
     public TopicListGetOperationResult(OperationResultWithOutput<TopicListGetOperationOutput> operationResult)
     {
         IsOk = operationResult.IsOk;

@@ -12,7 +12,7 @@ public class CatalogTopicItemGetOperationResult : OperationResultWithOutput<Cata
     /// <summary>
     /// Конструктор.
     /// </summary>
-    /// <param name="operationResult">Репзультат операции.</param>
+    /// <param name="operationResult">Результат операции.</param>
     public CatalogTopicItemGetOperationResult(
         OperationResultWithOutput<CatalogTopicItemGetOperationOutput> operationResult)
     {

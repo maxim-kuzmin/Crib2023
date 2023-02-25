@@ -13,7 +13,7 @@
             <summary>
             Конструктор.
             </summary>
-            <param name="operationResult">Репзультат операции.</param>
+            <param name="operationResult">Результат операции.</param>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleItemGetOperationHandler">
             <summary>
@@ -29,7 +29,7 @@
             <summary>
             Конструктор.
             </summary>
-            <param name="operationResult">Репзультат операции.</param>
+            <param name="operationResult">Результат операции.</param>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleListGetOperationHandler">
             <summary>
@@ -45,7 +45,7 @@
             <summary>
             Конструктор.
             </summary>
-            <param name="operationResult">Репзультат операции.</param>
+            <param name="operationResult">Результат операции.</param>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.ICatalogTopicItemGetOperationHandler">
             <summary>
@@ -61,7 +61,7 @@
             <summary>
             Конструктор.
             </summary>
-            <param name="operationResult">Репзультат операции.</param>
+            <param name="operationResult">Результат операции.</param>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.ICatalogTopicListGetOperationHandler">
             <summary>

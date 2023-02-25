@@ -12,7 +12,7 @@ public class ArticleItemGetOperationResult : OperationResultWithOutput<ArticleIt
     /// <summary>
     /// Конструктор.
     /// </summary>
-    /// <param name="operationResult">Репзультат операции.</param>
+    /// <param name="operationResult">Результат операции.</param>
     public ArticleItemGetOperationResult(OperationResultWithOutput<ArticleItemGetOperationOutput> operationResult)
     {
         IsOk = operationResult.IsOk;
