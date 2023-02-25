@@ -12,7 +12,7 @@ public class DomainListGetOperationResponse
     /// <summary>
     /// Результат операции.
     /// </summary>
-    public CatalogTopicListGetOperationResult OperationResult { get; init; }
+    public CatalogTopicListGetOperationResult OperationResult { get; }
 
     #endregion Properties
 

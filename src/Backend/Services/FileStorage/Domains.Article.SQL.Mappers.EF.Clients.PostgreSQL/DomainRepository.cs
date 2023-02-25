@@ -9,7 +9,7 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 {
     #region Properties
 
-    private IClientMapperDbContextFactory DbContextFactory { get; init; }
+    private IClientMapperDbContextFactory DbContextFactory { get; }
 
     #endregion Properties
 

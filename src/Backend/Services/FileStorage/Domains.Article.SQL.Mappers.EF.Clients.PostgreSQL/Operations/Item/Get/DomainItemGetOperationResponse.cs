@@ -12,7 +12,7 @@ public class DomainItemGetOperationResponse
     /// <summary>
     /// Результат операции.
     /// </summary>
-    public ArticleItemGetOperationResult OperationResult { get; init; }
+    public ArticleItemGetOperationResult OperationResult { get; }
 
     #endregion Properties
 

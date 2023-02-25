@@ -20,7 +20,7 @@ public class ArticleEntity<TData> : Entity<long>, IAggregateRoot
     /// <summary>
     /// Данные.
     /// </summary>
-    public TData Data { get; init; }
+    public TData Data { get; }
 
     /// <summary>
     /// Элементы пути темы.

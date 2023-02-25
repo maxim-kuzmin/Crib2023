@@ -18,7 +18,7 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     /// <summary>
     /// Данные.
     /// </summary>
-    public ArticleTypeEntity Data { get; init; }
+    public ArticleTypeEntity Data { get; }
 
     /// <summary>
     /// Элементы пути темы.
