@@ -14,3 +14,7 @@ global using ModuleOfGatewayDomainsCatalogArticle = Crib2023.Backend.Gateways.We
 global using ModuleOfGatewayDomainsCatalogTopic = Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.DomainSetupAppModule;
 global using ModuleOfCommonCore = Makc2023.Backend.Common.Core.Setup.SetupAppModule;
 global using ModuleOfCommonDomain = Makc2023.Backend.Common.Domain.Setup.SetupAppModule;
+global using RequestHandlerOfGatewayCatalogArticleOperationsItemGet = Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.DomainItemGetOperationRequestHandler;
+global using RequestHandlerOfGatewayCatalogArticleOperationsListGet = Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.DomainListGetOperationRequestHandler;
+global using RequestHandlerOfGatewayCatalogTopicOperationsItemGet = Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequestHandler;
+global using RequestHandlerOfGatewayCatalogTopicOperationsListGet = Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequestHandler;

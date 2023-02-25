@@ -20,6 +20,8 @@ public class CatalogArticleListGetOperationResult : OperationResultWithOutput<Ca
 
         OperationCode = operationResult.OperationCode;
 
+        Output = operationResult.Output;
+
         foreach (string errorMessage in operationResult.ErrorMessages)
         {
             ErrorMessages.Add(errorMessage);

@@ -19,6 +19,8 @@ public class TopicListGetOperationResult : OperationResultWithOutput<TopicListGe
 
         OperationCode = operationResult.OperationCode;
 
+        Output = operationResult.Output;
+
         foreach (string errorMessage in operationResult.ErrorMessages)
         {
             ErrorMessages.Add(errorMessage);

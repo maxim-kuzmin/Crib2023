@@ -24,7 +24,9 @@ public static class SetupExtension
         {
             new ModuleOfCommonCore(configuration.GetRequiredSection("App:Common:Core")),
             new ModuleOfGatewayApp(appEnvironment),
-            new ModuleOfGatewayDomain(configuration.GetRequiredSection("App:Gateway:Domain"))
+            new ModuleOfGatewayDomain(configuration.GetRequiredSection("App:Gateway:Domain")),
+            new ModuleOfGatewayDomainsCatalogArticle(),
+            new ModuleOfGatewayDomainsCatalogTopic(),
         });
 
         // Add services to the container.

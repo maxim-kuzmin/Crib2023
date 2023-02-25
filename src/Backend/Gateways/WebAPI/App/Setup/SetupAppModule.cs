@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Makc2023.Backend.Common.Core.Operation;
+
 namespace Crib2023.Backend.Gateways.WebAPI.App.Setup;
 
 /// <summary>
@@ -49,9 +51,26 @@ public class SetupAppModule : AppModule
                 typeof(IAppEnvironment),
                 typeof(IConfiguration),
                 typeof(ILogger),
+                typeof(IMediator),
                 typeof(IStringLocalizer),
             };
     }
 
     #endregion Public methods
+
+    #region Protected methods
+
+    /// <inheritdoc/>
+    protected sealed override IEnumerable<Type> GetImports()
+    {
+        return new[]
+            {
+                typeof(RequestHandlerOfGatewayCatalogArticleOperationsItemGet),
+                typeof(RequestHandlerOfGatewayCatalogArticleOperationsListGet),
+                typeof(RequestHandlerOfGatewayCatalogTopicOperationsItemGet),
+                typeof(RequestHandlerOfGatewayCatalogTopicOperationsListGet),
+            };
+    }
+
+    #endregion Protected methods
 }

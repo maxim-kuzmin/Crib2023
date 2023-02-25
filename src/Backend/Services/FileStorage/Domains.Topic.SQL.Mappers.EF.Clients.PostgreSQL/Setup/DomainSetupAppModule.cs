@@ -39,6 +39,8 @@ public class DomainSetupAppModule : AppModule
     {
         return new[]
         {
+            typeof(DomainItemGetOperationRequestHandler),
+            typeof(DomainListGetOperationRequestHandler),
             typeof(IDomainResource),
             typeof(ITopicItemGetOperationHandler),
             typeof(ITopicListGetOperationHandler),

@@ -75,6 +75,9 @@
         <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule.GetExports">
             <inheritdoc/>
         </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule.GetImports">
+            <inheritdoc/>
+        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupExtension">
             <summary>
             Расширение настройки.
