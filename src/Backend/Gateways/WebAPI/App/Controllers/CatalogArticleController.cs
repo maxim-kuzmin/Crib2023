@@ -1,5 +1,10 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get;
+using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get;
+using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
+using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get;
+
 namespace Crib2023.Backend.Gateways.WebAPI.App.Controllers;
 
 /// <summary>
@@ -11,7 +16,7 @@ public class CatalogArticleController : ControllerBase
 {
     #region Fields
 
-    private readonly GrpcClientOfCatalogArticle _client;
+    private readonly IMediator _mediator;
 
     #endregion Fields
 
@@ -20,17 +25,16 @@ public class CatalogArticleController : ControllerBase
     /// <summary>
     /// Конструктор.
     /// </summary>
-    /// <param name="client">Клиент.</param>
-    public CatalogArticleController(GrpcClientOfCatalogArticle client)
+    /// <param name="mediator">Посредник.</param>
+    public CatalogArticleController(IMediator mediator)
     {
-        _client = client;
+        _mediator = mediator;
     }
 
     #endregion Constructors
 
     #region Public methods
 
-    // GET api/<CatalogArticleItemController>/5
     /// <summary>
     /// Получить элемент.
     /// </summary>
@@ -38,32 +42,32 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение элемента.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<CatalogArticleItemGetOperationReply>> GetItem(
+    public async Task<ActionResult<CatalogArticleItemGetOperationResult>> GetItem(
         [FromRoute] long id,
-        [FromHeader(Name = nameof(CatalogArticleItemGetOperationRequest.OperationCode))] string operationCode = "")
+        [FromHeader(Name = nameof(DomainItemGetOperationRequest.OperationCode))] string operationCode = "")
     {
-        CatalogArticleItemGetOperationRequest request = new()
-        {
-            Input = new()
+        DomainItemGetOperationRequest operationRequest = new(
+            new()
             {
-                Id = id
+                Id = id,
             },
-            OperationCode = operationCode,
-        };
+            operationCode);
 
-        var response = await _client.GetItemAsync(request).ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
-        if (response.IsOk)
+        var operationResult = response.OperationResult;
+
+        if (operationResult.IsOk)
         {
-            return Ok(response);
+            return Ok(operationResult);
         }
-        else if (response.Output.IsItemNotFound)
+        else if (operationResult.Output.IsItemNotFound)
         {
-            return NotFound(response);
+            return NotFound(operationResult);
         }
         else
         {
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            return StatusCode(StatusCodes.Status500InternalServerError, operationResult);
         }
     }
 
@@ -74,25 +78,23 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение списка.</returns>
     [HttpGet]
-    public async Task<ActionResult<CatalogArticleListGetOperationReply>> GetList(
+    public async Task<ActionResult<CatalogArticleListGetOperationResult>> GetList(
         [FromQuery] CatalogArticleListGetOperationInput input,
-        [FromHeader(Name = nameof(CatalogArticleListGetOperationRequest.OperationCode))] string operationCode = "")
+        [FromHeader(Name = nameof(DomainListGetOperationRequest.OperationCode))] string operationCode = "")
     {
-        CatalogArticleListGetOperationRequest request = new()
-        {
-            Input = input,
-            OperationCode = operationCode,
-        };
+        DomainListGetOperationRequest operationRequest = new(input, operationCode);
 
-        var response = await _client.GetListAsync(request).ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
-        if (response.IsOk)
+        var operationResult = response.OperationResult;
+
+        if (operationResult.IsOk)
         {
-            return Ok(response);
+            return Ok(operationResult);
         }
         else
         {
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            return StatusCode(StatusCodes.Status500InternalServerError, operationResult);
         }
     }
 

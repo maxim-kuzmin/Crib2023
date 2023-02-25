@@ -3,10 +3,6 @@
 global using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices;
 global using Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities;
-global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get;
-global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.List.Get;
-global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get;
-global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.List.Get;
 global using Crib2023.Backend.Services.FileStorage.GrpcProtos;
 global using Grpc.Core;
 global using Makc2023.Backend.Common.Core.App;

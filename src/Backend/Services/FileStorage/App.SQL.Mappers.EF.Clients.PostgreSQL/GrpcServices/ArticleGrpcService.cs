@@ -54,9 +54,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             },
             request.OperationCode);
 
-        var taskForItem = _mediator.Send(operationRequest);
-
-        var response = await taskForItem.ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 
@@ -66,7 +64,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
         {
             IsOk = operationResult.IsOk,
             OperationCode = operationResult.OperationCode,
-            Output = new FileStorageArticleItemGetOperationOutput
+            Output = new()
             {
                 Item = CreateItem(operationOutput.Item),
                 IsItemNotFound = operationOutput.IsItemNotFound
@@ -110,9 +108,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             },
             request.OperationCode);
 
-        var taskForItem = _mediator.Send(operationRequest);
-
-        var response = await taskForItem.ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 

@@ -11,8 +11,6 @@ public class SetupAppModule : AppModule
 
     private readonly IAppEnvironment _appEnvironment;
 
-    private readonly IConfigurationSection _configurationSection;
-
     #endregion Fields
 
     #region Constructors
@@ -21,11 +19,9 @@ public class SetupAppModule : AppModule
     /// Конструктор.
     /// </summary>
     /// <param name="appEnvironment">Окружение приложения.</param>
-    /// <param name="configurationSection">Раздел конфигурации.</param>
-    public SetupAppModule(IAppEnvironment appEnvironment, IConfigurationSection configurationSection)
+    public SetupAppModule(IAppEnvironment appEnvironment)
     {
         _appEnvironment = appEnvironment;
-        _configurationSection = configurationSection;
     }
 
     #endregion Constructors
@@ -39,35 +35,10 @@ public class SetupAppModule : AppModule
 
         services.AddLocalization(x => x.ConfigureLocalization());
 
-        services.Configure<SetupOptions>(_configurationSection);
-
-        services.AddGrpcClient<GrpcClientOfCatalogArticle>((services, options) =>
-        {
-            string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.CatalogUrl;
-
-            options.Address = new Uri(url);
-        });
-
-        services.AddGrpcClient<GrpcClientOfCatalogTopic>((services, options) =>
-        {
-            string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.CatalogUrl;
-
-            options.Address = new Uri(url);
-        });
-
-        services.AddGrpcClient<GrpcClientOfFileStorageArticle>((services, options) =>
-        {
-            string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.FileStorageUrl;
-
-            options.Address = new Uri(url);
-        });
-
-        services.AddGrpcClient<GrpcClientOfFileStorageTopic>((services, options) =>
-        {
-            string url = services.GetRequiredService<IOptions<SetupOptions>>().Value.FileStorageUrl;
-
-            options.Address = new Uri(url);
-        });
+        services.AddMediatR(
+            typeof(ModuleOfCommonDomain),
+            typeof(ModuleOfGatewayDomainsCatalogArticle),
+            typeof(ModuleOfGatewayDomainsCatalogTopic));
     }
 
     /// <inheritdoc/>
@@ -79,7 +50,6 @@ public class SetupAppModule : AppModule
                 typeof(IConfiguration),
                 typeof(ILogger),
                 typeof(IStringLocalizer),
-                typeof(SetupOptions),
             };
     }
 

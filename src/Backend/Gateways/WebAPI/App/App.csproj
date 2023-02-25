@@ -13,24 +13,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Google.Protobuf" Version="3.22.0" />
-		<PackageReference Include="Grpc.Net.Client" Version="2.51.0" />
-		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.51.0" />
-		<PackageReference Include="Grpc.Tools" Version="2.51.0">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<PackageReference Include="Makc2023.Backend.Common.Core.Apps.WebApp" Version="1.0.1" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.3" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Protobuf Include="..\..\..\GrpcProtos\catalog_article.proto" GrpcServices="Client" />
-		<Protobuf Include="..\..\..\GrpcProtos\catalog_topic.proto" GrpcServices="Client" />
-		<Protobuf Include="..\..\..\GrpcProtos\filestorage_article.proto" GrpcServices="Client" />
-		<Protobuf Include="..\..\..\GrpcProtos\filestorage_topic.proto" GrpcServices="Client" />
+		<ProjectReference Include="..\Domains.CatalogArticle\Domains.CatalogArticle.csproj" />
+		<ProjectReference Include="..\Domains.CatalogTopic\Domains.CatalogTopic.csproj" />
 	</ItemGroup>
-	
+
 </Project>

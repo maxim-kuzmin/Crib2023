@@ -23,7 +23,8 @@ public static class SetupExtension
         appBuilder.Services.AddAppModules(new AppModule[]
         {
             new ModuleOfCommonCore(configuration.GetRequiredSection("App:Common:Core")),
-            new ModuleOfGatewayApp(appEnvironment, configuration.GetRequiredSection("App:Gateway")),
+            new ModuleOfGatewayApp(appEnvironment),
+            new ModuleOfGatewayDomain(configuration.GetRequiredSection("App:Gateway:Domain"))
         });
 
         // Add services to the container.

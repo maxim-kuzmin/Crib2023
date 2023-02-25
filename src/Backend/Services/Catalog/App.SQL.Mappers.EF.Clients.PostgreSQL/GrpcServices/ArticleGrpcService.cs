@@ -43,7 +43,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
     {
         CatalogArticleItemGetOperationInput input = request.Input ?? new();
 
-        var operationRequest = new DomainItemGetOperationRequest(
+        DomainItemGetOperationRequest operationRequest = new(
             new()
             {
                 Id = input.Id,
@@ -52,9 +52,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             },
             request.OperationCode);
 
-        var taskForItem = _mediator.Send(operationRequest);
-
-        var response = await taskForItem.ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 
@@ -106,9 +104,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             },
             request.OperationCode);
 
-        var taskForItem = _mediator.Send(operationRequest);
-
-        var response = await taskForItem.ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 

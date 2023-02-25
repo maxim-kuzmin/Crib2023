@@ -43,7 +43,7 @@ public class TopicGrpcService : GrpcServerOfTopic
     {
         CatalogTopicItemGetOperationInput input = request.Input ?? new();
 
-        var operationRequest = new DomainItemGetOperationRequest(
+        DomainItemGetOperationRequest operationRequest = new(
             new()
             {
                 Axis = input.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
@@ -53,9 +53,7 @@ public class TopicGrpcService : GrpcServerOfTopic
             },
             request.OperationCode);
 
-        var taskForItem = _mediator.Send(operationRequest);
-
-        var response = await taskForItem.ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 
@@ -92,7 +90,7 @@ public class TopicGrpcService : GrpcServerOfTopic
     {
         CatalogTopicListGetOperationInput input = request.Input ?? new();
 
-        var taskForItem = _mediator.Send(new DomainListGetOperationRequest(
+        DomainListGetOperationRequest operationRequest = new(
             new()
             {
                 PageNumber = input.PageNumber,
@@ -104,9 +102,9 @@ public class TopicGrpcService : GrpcServerOfTopic
                 Name = input.Name,
                 TreePath = input.TreePath,
             },
-            request.OperationCode));
+            request.OperationCode);
 
-        var response = await taskForItem.ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 

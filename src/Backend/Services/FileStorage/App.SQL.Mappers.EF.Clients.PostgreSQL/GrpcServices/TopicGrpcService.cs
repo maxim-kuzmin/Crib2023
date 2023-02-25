@@ -55,9 +55,7 @@ public class TopicGrpcService : GrpcServerOfTopic
             },
             request.OperationCode);
 
-        var taskForItem = _mediator.Send(operationRequest);
-
-        var response = await taskForItem.ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 
@@ -110,9 +108,7 @@ public class TopicGrpcService : GrpcServerOfTopic
             },
             request.OperationCode);
 
-        var taskForItem = _mediator.Send(operationRequest);
-
-        var response = await taskForItem.ConfigureAwait(false);
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
         var operationResult = response.OperationResult;
 
@@ -153,7 +149,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var data = item.Data;
 
-        result = new FileStorageTopicEntity
+        result = new()
         {
             Data = new()
             {

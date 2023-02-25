@@ -40,7 +40,7 @@ public class DomainItemGetOperationHandler :
 
     private ArticleItemGetOperationInput TransformOperationInput(ArticleItemGetOperationInput input)
     {
-        input ??= new ArticleItemGetOperationInput();
+        input ??= new();
 
         input.Normalize();
 
@@ -56,7 +56,7 @@ public class DomainItemGetOperationHandler :
 
     private ArticleItemGetOperationOutput TransformOperationOutput(ArticleItemGetOperationOutput output)
     {
-        output.Item ??= new ArticleEntity();
+        output.Item ??= new();
 
         if (output.IsItemNotFound)
         {

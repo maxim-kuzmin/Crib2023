@@ -33,7 +33,7 @@ public class DomainListGetOperationHandler :
 
     private TopicListGetOperationInput TransformOperationInput(TopicListGetOperationInput input)
     {
-        input ??= new TopicListGetOperationInput();
+        input ??= new();
 
         input.Normalize();
 

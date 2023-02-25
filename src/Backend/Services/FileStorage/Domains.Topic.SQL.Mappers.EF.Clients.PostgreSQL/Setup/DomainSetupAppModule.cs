@@ -59,6 +59,7 @@ public class DomainSetupAppModule : AppModule
             typeof(IClientMapperDbContextFactory),
             typeof(ILogger),
             typeof(IMediator),
+            typeof(IOperationResource),
             typeof(IStringLocalizer),
             typeof(SetupOptions),
         };

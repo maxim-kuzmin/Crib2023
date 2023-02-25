@@ -12,7 +12,7 @@ public class DomainItemGetOperationResponse
     /// <summary>
     /// Результат операции.
     /// </summary>
-    public OperationResultWithOutput<ArticleItemGetOperationOutput> OperationResult { get; init; }
+    public ArticleItemGetOperationResult OperationResult { get; init; }
 
     #endregion Properties
 
@@ -22,10 +22,9 @@ public class DomainItemGetOperationResponse
     /// Конструктор.
     /// </summary>
     /// <param name="operationResult">Результат операции.</param>
-    public DomainItemGetOperationResponse(
-        OperationResultWithOutput<ArticleItemGetOperationOutput> operationResult)
+    public DomainItemGetOperationResponse(OperationResultWithOutput<ArticleItemGetOperationOutput> operationResult)
     {
-        OperationResult = operationResult;
+        OperationResult = new(operationResult);
     }
 
     #endregion Constructors

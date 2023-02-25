@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>Crib2023.Backend.Gateways.WebAPI.Domain</AssemblyName>
+		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Protobuf" Version="3.22.0" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.51.0" />
+		<PackageReference Include="Grpc.Net.ClientFactory" Version="2.51.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.51.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Makc2023.Backend.Common.Domain" Version="1.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\..\..\GrpcProtos\catalog_article.proto" GrpcServices="Client" />
+		<Protobuf Include="..\..\..\GrpcProtos\catalog_topic.proto" GrpcServices="Client" />
+		<Protobuf Include="..\..\..\GrpcProtos\filestorage_article.proto" GrpcServices="Client" />
+		<Protobuf Include="..\..\..\GrpcProtos\filestorage_topic.proto" GrpcServices="Client" />
+	</ItemGroup>
+
+</Project>

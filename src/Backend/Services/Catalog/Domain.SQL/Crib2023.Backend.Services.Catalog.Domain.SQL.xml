@@ -115,6 +115,17 @@
             Выходные данные операции получения элемента "Статья".
             </summary>
         </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationResult">
+            <summary>
+            Результат операции получения элемента "Статья".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationResult.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationOutput})">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationResult">Репзультат операции.</param>
+        </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.Item.Get.IArticleItemGetOperationHandler">
             <summary>
             Интерфейс обработчика операции получения элемента "Статья".
@@ -168,6 +179,17 @@
             Выходные данные операции получения списка "Статья".
             </summary>
         </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationResult">
+            <summary>
+            Результат операции получения списка "Статья".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationResult.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationOutput})">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationResult">Репзультат операции.</param>
+        </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.List.Get.IArticleListGetOperationHandler">
             <summary>
             Интерфейс обработчика операции получения списка "Статья".
@@ -208,6 +230,17 @@
             <summary>
             Выходные данные операции получения элемента "Тема".
             </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationResult">
+            <summary>
+            Результат операции получения элемента "Тема".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationResult.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationOutput})">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationResult">Репзультат операции.</param>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.ITopicListGetOperationHandler">
             <summary>
@@ -251,6 +284,17 @@
             <summary>
             Выходные данные операции получения списка "Тема".
             </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationResult">
+            <summary>
+            Результат операции получения списка "Тема".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationResult.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationOutput})">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationResult">Репзультат операции.</param>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Repositories.IArticleRepository">
             <summary>

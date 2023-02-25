@@ -54,11 +54,12 @@ public class DomainSetupAppModule : AppModule
     protected sealed override IEnumerable<Type> GetImports()
     {
         return new[]
-        {
+        {            
             typeof(ClientMapperDbManager),            
             typeof(IClientMapperDbContextFactory),
             typeof(ILogger),
             typeof(IMediator),
+            typeof(IOperationResource),
             typeof(IStringLocalizer),
             typeof(SetupOptions),
         };
