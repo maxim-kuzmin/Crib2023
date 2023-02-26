@@ -12,6 +12,15 @@ public class DomainListGetOperationHandler :
         ArticleListGetOperationResult>,
     IArticleListGetOperationHandler
 {
+    #region Properties
+
+    /// <summary>
+    /// Список свойств с недействительными значениями во входных данных.
+    /// </summary>
+    private List<string> InvalidInputProperties { get; set; } = null!;
+
+    #endregion Properties
+
     #region Constructors
 
     /// <inheritdoc/>
@@ -28,33 +37,39 @@ public class DomainListGetOperationHandler :
     {
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
+        FunctionToTransformOperationResult = TransformOperationResult;
     }
 
     #endregion Constructors
 
     #region Private methods
 
-    private ArticleListGetOperationInput TransformOperationInput(ArticleListGetOperationInput input)
+    private ArticleListGetOperationInput TransformOperationInput(ArticleListGetOperationInput source)
     {
-        input ??= new();
+        source.Normalize();
 
-        input.Normalize();
+        InvalidInputProperties = source.GetInvalidProperties();
 
-        var invalidProperties = input.GetInvalidProperties();
-
-        if (invalidProperties.Any())
+        if (InvalidInputProperties.Any())
         {
-            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(invalidProperties));
+            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(InvalidInputProperties));
         }
 
-        return input;
+        return source;
     }
 
-    private ArticleListGetOperationOutput TransformOperationOutput(ArticleListGetOperationOutput output)
+    private ArticleListGetOperationOutput TransformOperationOutput(ArticleListGetOperationOutput source)
     {
-        output.Items ??= Array.Empty<ArticleEntityForList>();
+        source.Items ??= Array.Empty<ArticleEntityForList>();
 
-        return output;
+        return source;
+    }
+
+    private ArticleListGetOperationResult TransformOperationResult(ArticleListGetOperationResult source)
+    {
+        source.InvalidInputProperties = InvalidInputProperties;
+
+        return source;
     }
 
     #endregion Private methods

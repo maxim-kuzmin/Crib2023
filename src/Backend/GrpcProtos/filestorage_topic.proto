@@ -30,11 +30,11 @@ message FileStorageTopicItemGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   FileStorageTopicItemGetOperationOutput output = 4;
+  repeated string invalid_input_properties = 5;
 }
 
 message FileStorageTopicItemGetOperationOutput {
   FileStorageTopicEntity item = 1;
-  bool is_item_not_found = 2;
 }
 
 message FileStorageTopicEntity {
@@ -76,6 +76,7 @@ message FileStorageTopicListGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   FileStorageTopicListGetOperationOutput output = 4;
+  repeated string invalid_input_properties = 5;
 }
 
 message FileStorageTopicListGetOperationOutput {

@@ -29,11 +29,11 @@ message FileStorageArticleItemGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   FileStorageArticleItemGetOperationOutput output = 4;
+  repeated string invalid_input_properties = 5;
 }
 
 message FileStorageArticleItemGetOperationOutput {
   FileStorageArticleEntity item = 1;
-  bool is_item_not_found = 2;
 }
 
 message FileStorageArticleEntity {
@@ -81,6 +81,7 @@ message FileStorageArticleListGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   FileStorageArticleListGetOperationOutput output = 4;
+  repeated string invalid_input_properties = 5;
 }
 
 message FileStorageArticleListGetOperationOutput {

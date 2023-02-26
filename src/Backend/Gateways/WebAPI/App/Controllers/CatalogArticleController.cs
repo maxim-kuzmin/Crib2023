@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get;
-using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get;
 using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
 using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get;
 
@@ -42,7 +40,11 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение элемента.</returns>
     [HttpGet("{id}")]
-    public async Task<ActionResult<CatalogArticleItemGetOperationResult>> GetItem(
+    [ProducesResponseType(typeof(CatalogArticleItemGetDataResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(WebAppInputValidationErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(WebAppErrorResponse), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetItem(
         [FromRoute] long id,
         [FromHeader(Name = nameof(DomainItemGetOperationRequest.OperationCode))] string operationCode = "")
     {
@@ -53,21 +55,43 @@ public class CatalogArticleController : ControllerBase
             },
             operationCode);
 
-        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
+        var operationResponse = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
-        var operationResult = response.OperationResult;
+        var operationResult = operationResponse.OperationResult;
 
         if (operationResult.IsOk)
         {
-            return Ok(operationResult);
+            if (operationResult.Output.Item.Data.Id > 0)
+            {
+                CatalogArticleItemGetDataResponse response = new(
+                    operationResult.OperationCode,
+                    operationResult.Output);
+
+                return Ok(response);
+            }
+            else
+            {
+                WebAppResponse response = new(operationResult.OperationCode);
+
+                return NotFound(response);
+            }
         }
-        else if (operationResult.Output.IsItemNotFound)
+        else if (operationResult.InvalidInputProperties.Any())
         {
-            return NotFound(operationResult);
+            WebAppInputValidationErrorResponse response = new(
+                operationResult.OperationCode,
+                operationResult.ErrorMessages,
+                operationResult.InvalidInputProperties);
+
+            return BadRequest(response);
         }
         else
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, operationResult);
+            WebAppErrorResponse response = new(
+                operationResult.OperationCode,
+                operationResult.ErrorMessages);
+
+            return StatusCode(StatusCodes.Status500InternalServerError, response);
         }
     }
 
@@ -78,23 +102,53 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение списка.</returns>
     [HttpGet]
-    public async Task<ActionResult<CatalogArticleListGetOperationResult>> GetList(
+    [ProducesResponseType(typeof(CatalogArticleListGetDataResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(WebAppInputValidationErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(WebAppErrorResponse), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetList(
         [FromQuery] CatalogArticleListGetOperationInput input,
         [FromHeader(Name = nameof(DomainListGetOperationRequest.OperationCode))] string operationCode = "")
     {
         DomainListGetOperationRequest operationRequest = new(input, operationCode);
 
-        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
+        var operationResponse = await _mediator.Send(operationRequest).ConfigureAwait(false);
 
-        var operationResult = response.OperationResult;
+        var operationResult = operationResponse.OperationResult;
 
         if (operationResult.IsOk)
         {
-            return Ok(operationResult);
+            if (operationResult.Output.Items.Any())
+            {
+                CatalogArticleListGetDataResponse response = new(
+                    operationResult.OperationCode,
+                    operationResult.Output);
+
+                return Ok(response);
+            }
+            else
+            {
+                WebAppResponse response = new(operationResult.OperationCode);
+
+                return NotFound(response);
+            }
+        }
+        else if (operationResult.InvalidInputProperties.Any())
+        {
+            WebAppInputValidationErrorResponse response = new(
+                operationResult.OperationCode,
+                operationResult.ErrorMessages,
+                operationResult.InvalidInputProperties);
+
+            return BadRequest(response);
         }
         else
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, operationResult);
+            WebAppErrorResponse response = new(
+                operationResult.OperationCode,
+                operationResult.ErrorMessages);
+
+            return StatusCode(StatusCodes.Status500InternalServerError, response);
         }
     }
 

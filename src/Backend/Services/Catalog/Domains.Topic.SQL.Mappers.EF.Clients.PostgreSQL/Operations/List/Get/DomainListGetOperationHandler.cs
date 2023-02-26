@@ -12,6 +12,15 @@ public class DomainListGetOperationHandler :
         TopicListGetOperationResult>,
     ITopicListGetOperationHandler
 {
+    #region Properties
+
+    /// <summary>
+    /// Список свойств с недействительными значениями во входных данных.
+    /// </summary>
+    private List<string> InvalidInputProperties { get; set; } = null!;
+
+    #endregion Properties
+
     #region Constructors
 
     /// <inheritdoc/>
@@ -28,33 +37,39 @@ public class DomainListGetOperationHandler :
     {
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
+        FunctionToTransformOperationResult = TransformOperationResult;
     }
 
     #endregion Constructors
 
     #region Private methods
 
-    private TopicListGetOperationInput TransformOperationInput(TopicListGetOperationInput input)
+    private TopicListGetOperationInput TransformOperationInput(TopicListGetOperationInput source)
     {
-        input ??= new();
+        source.Normalize();
 
-        input.Normalize();
+        InvalidInputProperties = source.GetInvalidProperties();
 
-        var invalidProperties = input.GetInvalidProperties();
-
-        if (invalidProperties.Any())
+        if (InvalidInputProperties.Any())
         {
-            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(invalidProperties));
+            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(InvalidInputProperties));
         }
 
-        return input;
+        return source;
     }
 
-    private TopicListGetOperationOutput TransformOperationOutput(TopicListGetOperationOutput output)
+    private TopicListGetOperationOutput TransformOperationOutput(TopicListGetOperationOutput source)
     {
-        output.Items ??= Array.Empty<TopicEntity>();
+        source.Items ??= Array.Empty<TopicEntity>();
 
-        return output;
+        return source;
+    }
+
+    private TopicListGetOperationResult TransformOperationResult(TopicListGetOperationResult source)
+    {
+        source.InvalidInputProperties = InvalidInputProperties;
+
+        return source;
     }
 
     #endregion Private methods

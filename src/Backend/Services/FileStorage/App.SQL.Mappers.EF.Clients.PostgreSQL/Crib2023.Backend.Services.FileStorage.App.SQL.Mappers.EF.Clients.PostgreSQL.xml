@@ -153,11 +153,11 @@
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
+        </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationOutput.ItemFieldNumber">
             <summary>Field number for the "item" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicItemGetOperationOutput.IsItemNotFoundFieldNumber">
-            <summary>Field number for the "is_item_not_found" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicEntity.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
@@ -225,6 +225,9 @@
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
+        </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageTopicListGetOperationOutput.ItemsFieldNumber">
             <summary>Field number for the "items" field.</summary>
         </member>
@@ -280,11 +283,11 @@
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
+        </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationOutput.ItemFieldNumber">
             <summary>Field number for the "item" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleItemGetOperationOutput.IsItemNotFoundFieldNumber">
-            <summary>Field number for the "is_item_not_found" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleEntity.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
@@ -360,6 +363,9 @@
         </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationOutput.ItemsFieldNumber">
             <summary>Field number for the "items" field.</summary>

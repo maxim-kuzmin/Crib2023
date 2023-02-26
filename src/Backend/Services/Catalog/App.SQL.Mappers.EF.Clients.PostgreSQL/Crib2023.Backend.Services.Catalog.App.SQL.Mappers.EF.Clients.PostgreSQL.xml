@@ -150,11 +150,11 @@
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
+        </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationOutput.ItemFieldNumber">
             <summary>Field number for the "item" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationOutput.IsItemNotFoundFieldNumber">
-            <summary>Field number for the "is_item_not_found" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleEntity.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
@@ -246,6 +246,9 @@
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
+        </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationOutput.ItemsFieldNumber">
             <summary>Field number for the "items" field.</summary>
         </member>
@@ -304,11 +307,11 @@
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicItemGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
         </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicItemGetOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
+        </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicItemGetOperationOutput.ItemFieldNumber">
             <summary>Field number for the "item" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicItemGetOperationOutput.IsItemNotFoundFieldNumber">
-            <summary>Field number for the "is_item_not_found" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicEntity.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
@@ -375,6 +378,9 @@
         </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicListGetOperationReply.OutputFieldNumber">
             <summary>Field number for the "output" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicListGetOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicListGetOperationOutput.ItemsFieldNumber">
             <summary>Field number for the "items" field.</summary>

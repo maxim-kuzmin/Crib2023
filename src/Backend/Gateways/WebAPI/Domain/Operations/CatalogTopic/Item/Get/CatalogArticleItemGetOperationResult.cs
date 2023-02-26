@@ -7,4 +7,12 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.G
 /// </summary>
 public class CatalogTopicItemGetOperationResult : OperationResultWithOutput<CatalogTopicItemGetOperationOutput>
 {
+    #region Properties
+
+    /// <summary>
+    /// Список свойств с недействительными значениями во входных данных.
+    /// </summary>
+    public List<string> InvalidInputProperties { get; } = new();
+
+    #endregion Properties
 }

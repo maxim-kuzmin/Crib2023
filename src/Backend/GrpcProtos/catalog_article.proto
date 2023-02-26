@@ -29,11 +29,11 @@ message CatalogArticleItemGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   CatalogArticleItemGetOperationOutput output = 4;
+  repeated string invalid_input_properties = 5;
 }
 
 message CatalogArticleItemGetOperationOutput {
   CatalogArticleEntity item = 1;
-  bool is_item_not_found = 2;
 }
 
 message CatalogArticleEntity {
@@ -92,6 +92,7 @@ message CatalogArticleListGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   CatalogArticleListGetOperationOutput output = 4;
+  repeated string invalid_input_properties = 5;
 }
 
 message CatalogArticleListGetOperationOutput {

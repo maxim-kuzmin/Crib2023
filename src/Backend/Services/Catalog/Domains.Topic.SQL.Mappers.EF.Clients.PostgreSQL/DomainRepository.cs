@@ -74,10 +74,6 @@ public class DomainRepository : MapperRepository<ArticleEntity>, ITopicRepositor
                 mapperForItem.TreeLevel,
                 mapperForItem.Data.TreePath);
         }
-        else
-        {
-            result.IsItemNotFound = true;
-        }
 
         return result;
     }

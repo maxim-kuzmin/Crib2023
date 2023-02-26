@@ -26,27 +26,7 @@ public class DomainItemGetOperationHandler :
             logger,
             setupOptions)
     {
-        FunctionToTransformOperationInput = TransformOperationInput;
-        FunctionToTransformOperationOutput = TransformOperationOutput;
     }
 
     #endregion Constructors
-
-    #region Private methods
-
-    private CatalogTopicItemGetOperationInput TransformOperationInput(CatalogTopicItemGetOperationInput input)
-    {
-        input ??= new();
-
-        return input;
-    }
-
-    private CatalogTopicItemGetOperationOutput TransformOperationOutput(CatalogTopicItemGetOperationOutput output)
-    {
-        output.Item ??= new();
-
-        return output;
-    }
-
-    #endregion Private methods
 }

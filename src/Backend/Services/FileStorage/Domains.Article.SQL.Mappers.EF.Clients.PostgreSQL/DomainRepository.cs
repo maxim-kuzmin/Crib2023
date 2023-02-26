@@ -56,10 +56,6 @@ public class DomainRepository : MapperRepository<ArticleEntity>, IArticleReposit
 
             result.Item = item;
         }
-        else
-        {
-            result.IsItemNotFound = true;
-        }
 
         return result;
     }

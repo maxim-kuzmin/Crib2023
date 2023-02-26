@@ -12,11 +12,14 @@ public class DomainItemGetOperationHandler :
         ArticleItemGetOperationResult>,
     IArticleItemGetOperationHandler
 {
-    #region Fields
+    #region Properties
 
-    private readonly IDomainResource _domainResource;
+    /// <summary>
+    /// Список свойств с недействительными значениями во входных данных.
+    /// </summary>
+    private List<string> InvalidInputProperties { get; set; } = null!;
 
-    #endregion Fields
+    #endregion Properties
 
     #region Constructors
 
@@ -32,41 +35,41 @@ public class DomainItemGetOperationHandler :
             logger,
             setupOptions)
     {
-        _domainResource = domainResource;
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
+        FunctionToTransformOperationResult = TransformOperationResult;
     }
 
     #endregion Constructors
 
     #region Private methods
 
-    private ArticleItemGetOperationInput TransformOperationInput(ArticleItemGetOperationInput input)
+    private ArticleItemGetOperationInput TransformOperationInput(ArticleItemGetOperationInput source)
     {
-        input ??= new();
+        source.Normalize();
 
-        input.Normalize();
+        InvalidInputProperties = source.GetInvalidProperties();
 
-        var invalidProperties = input.GetInvalidProperties();
-
-        if (invalidProperties.Any())
+        if (InvalidInputProperties.Any())
         {
-            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(invalidProperties));
+            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(InvalidInputProperties));
         }
 
-        return input;
+        return source;
     }
 
-    private ArticleItemGetOperationOutput TransformOperationOutput(ArticleItemGetOperationOutput output)
+    private ArticleItemGetOperationOutput TransformOperationOutput(ArticleItemGetOperationOutput source)
     {
-        output.Item ??= new();
+        source.Item ??= new();
 
-        if (output.IsItemNotFound)
-        {
-            throw new LocalizedException(_domainResource.GetErrorMessageForEntityNotFound());
-        }
+        return source;
+    }
 
-        return output;
+    private ArticleItemGetOperationResult TransformOperationResult(ArticleItemGetOperationResult source)
+    {
+        source.InvalidInputProperties = InvalidInputProperties;
+
+        return source;
     }
 
     #endregion Private methods

@@ -10,12 +10,6 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Cli
         #region Methods
 
         /// <summary>
-        /// Получить сообщение об ошибке, возникающей в случае, если сущность не найдена.
-        /// </summary>
-        /// <returns>Сообщение об ошибке.</returns>
-        string GetErrorMessageForEntityNotFound();
-
-        /// <summary>
         /// Получить имя операции получения элемента.
         /// </summary>
         /// <returns>Имя операции.</returns>

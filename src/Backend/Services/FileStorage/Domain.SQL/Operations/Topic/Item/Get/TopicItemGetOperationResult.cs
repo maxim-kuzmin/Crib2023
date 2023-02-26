@@ -7,4 +7,12 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item
 /// </summary>
 public class TopicItemGetOperationResult : OperationResultWithOutput<TopicItemGetOperationOutput>
 {
+    #region Properties
+
+    /// <summary>
+    /// Список свойств с недействительными значениями во входных данных.
+    /// </summary>
+    public List<string> InvalidInputProperties { get; set; } = null!;
+
+    #endregion Properties
 }

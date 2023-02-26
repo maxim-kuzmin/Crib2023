@@ -67,7 +67,6 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             Output = new()
             {
                 Item = CreateItem(operationOutput.Item),
-                IsItemNotFound = operationOutput.IsItemNotFound
             }
         };
 

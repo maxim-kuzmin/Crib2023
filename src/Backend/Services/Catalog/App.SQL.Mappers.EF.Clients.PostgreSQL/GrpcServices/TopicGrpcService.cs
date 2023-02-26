@@ -66,13 +66,17 @@ public class TopicGrpcService : GrpcServerOfTopic
             Output = new()
             {
                 Item = CreateItem(operationOutput.Item),
-                IsItemNotFound = operationOutput.IsItemNotFound
             }
         };
 
         foreach (string errorMessage in operationResult.ErrorMessages)
         {
             result.ErrorMessages.Add(errorMessage);
+        }
+
+        foreach (string invalidInputPropertiy in operationResult.InvalidInputProperties)
+        {
+            result.InvalidInputProperties.Add(invalidInputPropertiy);
         }
 
         return result;
@@ -130,6 +134,11 @@ public class TopicGrpcService : GrpcServerOfTopic
             var item = CreateItem(operationOutputItem);
 
             result.Output.Items.Add(item);
+        }
+
+        foreach (string invalidInputPropertiy in operationResult.InvalidInputProperties)
+        {
+            result.InvalidInputProperties.Add(invalidInputPropertiy);
         }
 
         return result;

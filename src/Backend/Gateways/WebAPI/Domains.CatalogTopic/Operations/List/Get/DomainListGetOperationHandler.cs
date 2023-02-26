@@ -26,19 +26,7 @@ public class DomainListGetOperationHandler :
             logger,
             setupOptions)
     {
-        FunctionToTransformOperationInput = TransformOperationInput;
     }
 
     #endregion Constructors
-
-    #region Private methods
-
-    private CatalogTopicListGetOperationInput TransformOperationInput(CatalogTopicListGetOperationInput input)
-    {
-        input ??= new();
-
-        return input;
-    }
-
-    #endregion Private methods
 }

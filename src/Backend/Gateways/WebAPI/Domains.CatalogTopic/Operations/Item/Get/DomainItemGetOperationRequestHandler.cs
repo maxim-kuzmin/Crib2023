@@ -66,6 +66,11 @@ public class DomainItemGetOperationRequestHandler :
                 operationResult.ErrorMessages.Add(errorMessage);
             }
 
+            foreach (string invalidInputProperty in clientReply.InvalidInputProperties)
+            {
+                operationResult.InvalidInputProperties.Add(invalidInputProperty);
+            }
+
             _operationHandler.OnSuccessWithResult(operationResult);
         }
         catch (Exception ex)

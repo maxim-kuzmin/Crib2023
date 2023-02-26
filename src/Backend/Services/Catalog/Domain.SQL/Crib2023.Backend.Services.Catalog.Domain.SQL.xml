@@ -120,6 +120,11 @@
             Результат операции получения элемента "Статья".
             </summary>
         </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.Item.Get.IArticleItemGetOperationHandler">
             <summary>
             Интерфейс обработчика операции получения элемента "Статья".
@@ -178,6 +183,11 @@
             Результат операции получения списка "Статья".
             </summary>
         </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.List.Get.ArticleListGetOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.List.Get.IArticleListGetOperationHandler">
             <summary>
             Интерфейс обработчика операции получения списка "Статья".
@@ -222,6 +232,11 @@
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationResult">
             <summary>
             Результат операции получения элемента "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.ITopicListGetOperationHandler">
@@ -270,6 +285,11 @@
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationResult">
             <summary>
             Результат операции получения списка "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Repositories.IArticleRepository">

@@ -12,6 +12,15 @@ public class DomainListGetOperationHandler :
         ArticleListGetOperationResult>,
     IArticleListGetOperationHandler
 {
+    #region Properties
+
+    /// <summary>
+    /// Список свойств с недействительными значениями во входных данных.
+    /// </summary>
+    private List<string> InvalidInputProperties { get; set; } = null!;
+
+    #endregion Properties
+
     #region Constructors
 
     /// <inheritdoc/>
@@ -28,6 +37,7 @@ public class DomainListGetOperationHandler :
     {
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
+        FunctionToTransformOperationResult = TransformOperationResult;
     }
 
     #endregion Constructors
@@ -36,15 +46,13 @@ public class DomainListGetOperationHandler :
 
     private ArticleListGetOperationInput TransformOperationInput(ArticleListGetOperationInput input)
     {
-        input ??= new();
-
         input.Normalize();
 
-        var invalidProperties = input.GetInvalidProperties();
+        InvalidInputProperties = input.GetInvalidProperties();
 
-        if (invalidProperties.Any())
+        if (InvalidInputProperties.Any())
         {
-            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(invalidProperties));
+            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(InvalidInputProperties));
         }
 
         return input;
@@ -55,6 +63,13 @@ public class DomainListGetOperationHandler :
         output.Items ??= Array.Empty<ArticleEntity>();
 
         return output;
+    }
+
+    private ArticleListGetOperationResult TransformOperationResult(ArticleListGetOperationResult source)
+    {
+        source.InvalidInputProperties = InvalidInputProperties;
+
+        return source;
     }
 
     #endregion Private methods

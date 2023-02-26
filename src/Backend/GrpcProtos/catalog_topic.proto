@@ -30,11 +30,11 @@ message CatalogTopicItemGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   CatalogTopicItemGetOperationOutput output = 4;
+  repeated string invalid_input_properties = 5;
 }
 
 message CatalogTopicItemGetOperationOutput {
   CatalogTopicEntity item = 1;
-  bool is_item_not_found = 2;
 }
 
 message CatalogTopicEntity {
@@ -76,6 +76,7 @@ message CatalogTopicListGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   CatalogTopicListGetOperationOutput output = 4;
+  repeated string invalid_input_properties = 5;
 }
 
 message CatalogTopicListGetOperationOutput {

@@ -68,7 +68,6 @@ public class TopicGrpcService : GrpcServerOfTopic
             Output = new()
             {
                 Item = CreateItem(operationOutput.Item),
-                IsItemNotFound = operationOutput.IsItemNotFound
             }
         };
 
