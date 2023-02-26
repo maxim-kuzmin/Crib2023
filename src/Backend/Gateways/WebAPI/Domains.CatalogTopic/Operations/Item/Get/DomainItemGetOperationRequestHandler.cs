@@ -54,7 +54,7 @@ public class DomainItemGetOperationRequestHandler :
 
             var clientReply = await task.ConfigureAwait(false);
 
-            OperationResultWithOutput<CatalogTopicItemGetOperationOutput> operationResult = new()
+            CatalogTopicItemGetOperationResult operationResult = new()
             {
                 IsOk = clientReply.IsOk,
                 OperationCode = clientReply.OperationCode,

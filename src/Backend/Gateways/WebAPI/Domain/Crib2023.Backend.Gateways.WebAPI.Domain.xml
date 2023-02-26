@@ -9,12 +9,6 @@
             Результат операции получения элемента "Статья в каталоге".
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.CatalogArticleItemGetOperationResult.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationOutput})">
-            <summary>
-            Конструктор.
-            </summary>
-            <param name="operationResult">Результат операции.</param>
-        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleItemGetOperationHandler">
             <summary>
             Интерфейс обработчика операции получения элемента "Статья в каталоге".
@@ -24,12 +18,6 @@
             <summary>
             Результат операции получения списка "Статья в каталоге".
             </summary>
-        </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.CatalogArticleListGetOperationResult.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationOutput})">
-            <summary>
-            Конструктор.
-            </summary>
-            <param name="operationResult">Результат операции.</param>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleListGetOperationHandler">
             <summary>
@@ -41,12 +29,6 @@
             Результат операции получения элемента "Тема в каталоге".
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.CatalogTopicItemGetOperationResult.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicItemGetOperationOutput})">
-            <summary>
-            Конструктор.
-            </summary>
-            <param name="operationResult">Результат операции.</param>
-        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.ICatalogTopicItemGetOperationHandler">
             <summary>
             Интерфейс обработчика операции получения элемента "Тема в каталоге".
@@ -56,12 +38,6 @@
             <summary>
             Результат операции получения списка "Тема в каталоге".
             </summary>
-        </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.CatalogTopicListGetOperationResult.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicListGetOperationOutput})">
-            <summary>
-            Конструктор.
-            </summary>
-            <param name="operationResult">Результат операции.</param>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.ICatalogTopicListGetOperationHandler">
             <summary>

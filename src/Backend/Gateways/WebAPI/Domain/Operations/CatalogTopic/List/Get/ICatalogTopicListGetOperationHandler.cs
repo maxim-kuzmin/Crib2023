@@ -6,6 +6,9 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.G
 /// Интерфейс обработчика операции получения списка "Тема в каталоге".
 /// </summary>
 public interface ICatalogTopicListGetOperationHandler :
-    IOperationWithInputAndOutputHandler<CatalogTopicListGetOperationInput, CatalogTopicListGetOperationOutput>
+    IOperationWithInputAndOutputHandler<
+        CatalogTopicListGetOperationInput,
+        CatalogTopicListGetOperationOutput,
+        CatalogTopicListGetOperationResult>
 {
 }

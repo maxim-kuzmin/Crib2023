@@ -22,10 +22,9 @@ public class DomainListGetOperationResponse
     /// Конструктор.
     /// </summary>
     /// <param name="operationResult">Результат операции.</param>
-    public DomainListGetOperationResponse(
-        OperationResultWithOutput<CatalogArticleListGetOperationOutput> operationResult)
+    public DomainListGetOperationResponse(CatalogArticleListGetOperationResult operationResult)
     {
-        OperationResult = new(operationResult);
+        OperationResult = operationResult;
     }
 
     #endregion Constructors

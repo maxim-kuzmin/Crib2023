@@ -6,6 +6,9 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List
 /// Интерфейс обработчика операции получения списка "Статья в каталоге".
 /// </summary>
 public interface ICatalogArticleListGetOperationHandler :
-    IOperationWithInputAndOutputHandler<CatalogArticleListGetOperationInput, CatalogArticleListGetOperationOutput>
+    IOperationWithInputAndOutputHandler<
+        CatalogArticleListGetOperationInput,
+        CatalogArticleListGetOperationOutput,
+        CatalogArticleListGetOperationResult>
 {
 }

@@ -6,7 +6,10 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.
 /// Обработчик операции получения списка в домене.
 /// </summary>
 public class DomainListGetOperationHandler :
-    OperationWithInputAndOutputHandler<CatalogTopicListGetOperationInput, CatalogTopicListGetOperationOutput>,
+    OperationWithInputAndOutputHandler<
+        CatalogTopicListGetOperationInput,
+        CatalogTopicListGetOperationOutput,
+        CatalogTopicListGetOperationResult>,
     ICatalogTopicListGetOperationHandler
 {
     #region Constructors

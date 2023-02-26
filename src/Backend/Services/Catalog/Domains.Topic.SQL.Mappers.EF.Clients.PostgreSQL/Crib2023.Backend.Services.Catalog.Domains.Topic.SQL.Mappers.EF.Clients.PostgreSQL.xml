@@ -150,7 +150,7 @@
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get.DomainItemGetOperationResponse.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationOutput})">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get.DomainItemGetOperationResponse.#ctor(Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationResult)">
             <summary>
             Конструктор.
             </summary>
@@ -211,7 +211,7 @@
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationResponse.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationOutput})">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationResponse.#ctor(Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.List.Get.TopicListGetOperationResult)">
             <summary>
             Конструктор.
             </summary>

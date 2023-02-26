@@ -7,26 +7,4 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item
 /// </summary>
 public class CatalogArticleItemGetOperationResult : OperationResultWithOutput<CatalogArticleItemGetOperationOutput>
 {
-    #region Constructors
-
-    /// <summary>
-    /// Конструктор.
-    /// </summary>
-    /// <param name="operationResult">Результат операции.</param>
-    public CatalogArticleItemGetOperationResult(
-        OperationResultWithOutput<CatalogArticleItemGetOperationOutput> operationResult)
-    {
-        IsOk = operationResult.IsOk;
-
-        OperationCode = operationResult.OperationCode;
-
-        Output = operationResult.Output;
-
-        foreach (string errorMessage in operationResult.ErrorMessages)
-        {
-            ErrorMessages.Add(errorMessage);
-        }
-    }
-
-    #endregion Constructors
 }

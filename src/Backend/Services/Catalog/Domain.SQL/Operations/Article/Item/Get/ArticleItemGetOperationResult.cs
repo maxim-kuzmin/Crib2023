@@ -7,25 +7,4 @@ namespace Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.Item.G
 /// </summary>
 public class ArticleItemGetOperationResult : OperationResultWithOutput<ArticleItemGetOperationOutput>
 {
-    #region Constructors
-
-    /// <summary>
-    /// Конструктор.
-    /// </summary>
-    /// <param name="operationResult">Результат операции.</param>
-    public ArticleItemGetOperationResult(OperationResultWithOutput<ArticleItemGetOperationOutput> operationResult)
-    {
-        IsOk = operationResult.IsOk;
-
-        OperationCode = operationResult.OperationCode;
-
-        Output = operationResult.Output;
-
-        foreach (string errorMessage in operationResult.ErrorMessages)
-        {
-            ErrorMessages.Add(errorMessage);
-        }
-    }
-
-    #endregion Constructors
 }

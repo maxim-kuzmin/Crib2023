@@ -6,7 +6,10 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Ite
 /// Обработчик операции получения элемента в домене.
 /// </summary>
 public class DomainItemGetOperationHandler :
-    OperationWithInputAndOutputHandler<CatalogArticleItemGetOperationInput, CatalogArticleItemGetOperationOutput>,
+    OperationWithInputAndOutputHandler<
+        CatalogArticleItemGetOperationInput,
+        CatalogArticleItemGetOperationOutput,
+        CatalogArticleItemGetOperationResult>,
     ICatalogArticleItemGetOperationHandler
 {
     #region Constructors

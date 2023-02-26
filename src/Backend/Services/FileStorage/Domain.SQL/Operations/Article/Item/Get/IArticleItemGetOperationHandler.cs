@@ -6,6 +6,9 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.It
 /// Интерфейс обработчика операции получения элемента "Статья".
 /// </summary>
 public interface IArticleItemGetOperationHandler :
-    IOperationWithInputAndOutputHandler<ArticleItemGetOperationInput, ArticleItemGetOperationOutput>
+    IOperationWithInputAndOutputHandler<
+        ArticleItemGetOperationInput,
+        ArticleItemGetOperationOutput,
+        ArticleItemGetOperationResult>
 {
 }

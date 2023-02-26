@@ -6,6 +6,9 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.List
 /// Интерфейс обработчика операции получения списка "Тема".
 /// </summary>
 public interface ITopicListGetOperationHandler :
-    IOperationWithInputAndOutputHandler<TopicListGetOperationInput, TopicListGetOperationOutput>
+    IOperationWithInputAndOutputHandler<
+        TopicListGetOperationInput,
+        TopicListGetOperationOutput,
+        TopicListGetOperationResult>
 {
 }

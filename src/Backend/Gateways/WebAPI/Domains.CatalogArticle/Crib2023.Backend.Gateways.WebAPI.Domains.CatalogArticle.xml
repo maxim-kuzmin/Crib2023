@@ -93,7 +93,7 @@
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.DomainItemGetOperationResponse.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationOutput})">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.DomainItemGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.CatalogArticleItemGetOperationResult)">
             <summary>
             Конструктор.
             </summary>
@@ -154,7 +154,7 @@
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.DomainListGetOperationResponse.#ctor(Makc2023.Backend.Common.Core.Operation.OperationResultWithOutput{Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationOutput})">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.DomainListGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.CatalogArticleListGetOperationResult)">
             <summary>
             Конструктор.
             </summary>

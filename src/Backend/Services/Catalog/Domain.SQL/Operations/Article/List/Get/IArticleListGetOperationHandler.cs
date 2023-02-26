@@ -6,6 +6,9 @@ namespace Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Article.List.G
 /// Интерфейс обработчика операции получения списка "Статья".
 /// </summary>
 public interface IArticleListGetOperationHandler :
-    IOperationWithInputAndOutputHandler<ArticleListGetOperationInput, ArticleListGetOperationOutput>
+    IOperationWithInputAndOutputHandler<
+        ArticleListGetOperationInput,
+        ArticleListGetOperationOutput,
+        ArticleListGetOperationResult>
 {
 }

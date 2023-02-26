@@ -6,6 +6,9 @@ namespace Crib2023.Backend.Services.Catalog.Domain.SQL.Operations.Topic.Item.Get
 /// Интерфейс обработчика операции получения элемента "Тема".
 /// </summary>
 public interface ITopicItemGetOperationHandler :
-    IOperationWithInputAndOutputHandler<TopicItemGetOperationInput, TopicItemGetOperationOutput>
+    IOperationWithInputAndOutputHandler<
+        TopicItemGetOperationInput,
+        TopicItemGetOperationOutput,
+        TopicItemGetOperationResult>
 {
 }

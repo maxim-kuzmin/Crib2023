@@ -6,7 +6,10 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.C
 /// Обработчик операции получения элемента в домене.
 /// </summary>
 public class DomainItemGetOperationHandler :
-    OperationWithInputAndOutputHandler<ArticleItemGetOperationInput, ArticleItemGetOperationOutput>,
+    OperationWithInputAndOutputHandler<
+        ArticleItemGetOperationInput,
+        ArticleItemGetOperationOutput,
+        ArticleItemGetOperationResult>,
     IArticleItemGetOperationHandler
 {
     #region Fields

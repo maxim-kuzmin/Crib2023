@@ -6,7 +6,10 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients
 /// Обработчик операции получения списка в домене.
 /// </summary>
 public class DomainListGetOperationHandler :
-    OperationWithInputAndOutputHandler<TopicListGetOperationInput, TopicListGetOperationOutput>,
+    OperationWithInputAndOutputHandler<
+        TopicListGetOperationInput,
+        TopicListGetOperationOutput,
+        TopicListGetOperationResult>,
     ITopicListGetOperationHandler
 {
     #region Constructors
