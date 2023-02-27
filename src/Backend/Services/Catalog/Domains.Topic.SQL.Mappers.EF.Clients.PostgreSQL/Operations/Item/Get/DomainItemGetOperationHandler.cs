@@ -83,7 +83,7 @@ public class DomainItemGetOperationHandler :
 
     private TopicItemGetOperationResult TransformOperationResult(TopicItemGetOperationResult source)
     {
-        source.InvalidInputProperties = InvalidInputProperties;
+        InvalidInputProperties.CopyToNamedValuesList(source.InvalidInputProperties);
 
         return source;
     }

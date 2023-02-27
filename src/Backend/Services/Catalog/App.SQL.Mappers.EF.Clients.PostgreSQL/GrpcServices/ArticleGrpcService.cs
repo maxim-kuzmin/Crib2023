@@ -2,6 +2,7 @@
 
 using Crib2023.Backend.Services.Catalog.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get;
 using Crib2023.Backend.Services.Catalog.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get;
+using Makc2023.Backend.Common.Core;
 
 namespace Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices;
 
@@ -73,21 +74,19 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             result.ErrorMessages.Add(errorMessage);
         }
 
-        foreach (string propertyName in operationResult.InvalidInputProperties.GetPropertyNames())
+        foreach (var invalidInputProperty in operationResult.InvalidInputProperties)
         {
-            var propertyValues = operationResult.InvalidInputProperties[propertyName];
-
-            CatalogInvalidInputProperty invalidInputPropertiy = new()
+            CatalogInvalidInputProperty property = new()
             {
-                Name = propertyName
+                Name = invalidInputProperty.Name
             };
 
-            foreach (string propertyValue in propertyValues)
+            foreach (string propertyValue in invalidInputProperty.Values)
             {
-                invalidInputPropertiy.Values.Add(propertyValue);
+                property.Values.Add(propertyValue);
             }
 
-            result.InvalidInputProperties.Add(invalidInputPropertiy);
+            result.InvalidInputProperties.Add(property);
         }
 
         return result;
@@ -148,21 +147,19 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             result.Output.Items.Add(item);
         }
 
-        foreach (string propertyName in operationResult.InvalidInputProperties.GetPropertyNames())
+        foreach (var invalidInputProperty in operationResult.InvalidInputProperties)
         {
-            var propertyValues = operationResult.InvalidInputProperties[propertyName];
-
-            CatalogInvalidInputProperty invalidInputPropertiy = new()
+            CatalogInvalidInputProperty property = new()
             {
-                Name = propertyName
+                Name = invalidInputProperty.Name
             };
 
-            foreach (string propertyValue in propertyValues)
+            foreach (string propertyValue in invalidInputProperty.Values)
             {
-                invalidInputPropertiy.Values.Add(propertyValue);
+                property.Values.Add(propertyValue);
             }
 
-            result.InvalidInputProperties.Add(invalidInputPropertiy);
+            result.InvalidInputProperties.Add(property);
         }
 
         return result;

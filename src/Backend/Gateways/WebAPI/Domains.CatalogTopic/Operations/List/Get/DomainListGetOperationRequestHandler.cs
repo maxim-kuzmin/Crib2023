@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Makc2023.Backend.Common.Core;
+
 namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get;
 
 /// <summary>
@@ -68,12 +70,14 @@ public class DomainListGetOperationRequestHandler :
 
             foreach (var invalidInputProperty in clientReply.InvalidInputProperties)
             {
-                var propertyValues = operationResult.InvalidInputProperties.GetOrAdd(invalidInputProperty.Name);
+                NamedValues<string> property = new(invalidInputProperty.Name, new(invalidInputProperty.Values.Count));
 
                 foreach (string propertyValue in invalidInputProperty.Values)
                 {
-                    propertyValues.Add(propertyValue);
+                    property.Values.Add(propertyValue);
                 }
+
+                operationResult.InvalidInputProperties.Add(property);
             }
 
             _operationHandler.OnSuccessWithResult(operationResult);
