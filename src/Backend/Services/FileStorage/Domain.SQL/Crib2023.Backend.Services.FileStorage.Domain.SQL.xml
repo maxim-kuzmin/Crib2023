@@ -72,6 +72,35 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities.TopicEntity.GetId">
             <inheritdoc/>
         </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource">
+            <summary>
+            Инитерфейс ресурса.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource.GetValidValueForName">
+            <summary>
+            Получить корректное значение свойства "Name".
+            </summary>
+            <returns>Корректное значение.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource.GetValidValueForParentId">
+            <summary>
+            Получить корректное значение свойства "ParentId".
+            </summary>
+            <returns>Корректное значение.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource.GetValidValueForTitle">
+            <summary>
+            Получить корректное значение свойства "Title".
+            </summary>
+            <returns>Корректное значение.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource.GetValidValueForTopicId">
+            <summary>
+            Получить корректное значение свойства "TopicId".
+            </summary>
+            <returns>Корректное значение.</returns>
+        </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput">
             <summary>
             Входные данные операции получения элемента "Статья".
@@ -90,7 +119,10 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.GetInvalidProperties">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.GetInvalidProperties(Makc2023.Backend.Common.Data.SQL.IResource)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.GetInvalidProperties(Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource,Makc2023.Backend.Common.Data.SQL.IResource)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationOutput">
@@ -204,7 +236,10 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.GetInvalidProperties">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.GetInvalidProperties(Makc2023.Backend.Common.Data.SQL.IResource)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.GetInvalidProperties(Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource,Makc2023.Backend.Common.Data.SQL.IResource)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationOutput">
@@ -312,6 +347,43 @@
             </summary>
             <param name="input">Входные данные.</param>
             <returns>Задача на получение списка.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Resource">
+            <summary>
+            Ресурс.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Resource.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Crib2023.Backend.Services.FileStorage.Domain.SQL.Resource})">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="localizer">Локализатор.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Resource.GetValidValueForName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Resource.GetValidValueForParentId">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Resource.GetValidValueForTitle">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Resource.GetValidValueForTopicId">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Setup.SetupAppModule">
+            <summary>
+            Модуль настройки приложения.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Setup.SetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Setup.SetupAppModule.GetExports">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Setup.SetupAppModule.GetImports">
+            <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.ValueObjects.OptionValueObject">
             <summary>

@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "catalog.proto";
+
 option csharp_namespace = "Crib2023.Backend.Services.Catalog.GrpcProtos";
 
 package Catalog;
@@ -29,7 +31,7 @@ message CatalogArticleItemGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   CatalogArticleItemGetOperationOutput output = 4;
-  repeated string invalid_input_properties = 5;
+  repeated CatalogInvalidInputProperty invalid_input_properties = 5;
 }
 
 message CatalogArticleItemGetOperationOutput {
@@ -47,11 +49,6 @@ message CatalogArticleTypeEntity {
   int64 topic_id = 3;
   string row_guid = 4;  
   string body = 5;
-}
-
-message CatalogOptionValueObject {
-  int64 id = 1;
-  string name = 2;
 }
 
 // GetList Request
@@ -92,7 +89,7 @@ message CatalogArticleListGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   CatalogArticleListGetOperationOutput output = 4;
-  repeated string invalid_input_properties = 5;
+  repeated CatalogInvalidInputProperty invalid_input_properties = 5;
 }
 
 message CatalogArticleListGetOperationOutput {

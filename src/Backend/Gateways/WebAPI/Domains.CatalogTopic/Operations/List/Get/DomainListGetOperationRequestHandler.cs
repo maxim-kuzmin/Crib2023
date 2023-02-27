@@ -66,9 +66,14 @@ public class DomainListGetOperationRequestHandler :
                 operationResult.ErrorMessages.Add(errorMessage);
             }
 
-            foreach (string invalidInputProperty in clientReply.InvalidInputProperties)
+            foreach (var invalidInputProperty in clientReply.InvalidInputProperties)
             {
-                operationResult.InvalidInputProperties.Add(invalidInputProperty);
+                var propertyValues = operationResult.InvalidInputProperties.GetOrAdd(invalidInputProperty.Name);
+
+                foreach (string propertyValue in invalidInputProperty.Values)
+                {
+                    propertyValues.Add(propertyValue);
+                }
             }
 
             _operationHandler.OnSuccessWithResult(operationResult);

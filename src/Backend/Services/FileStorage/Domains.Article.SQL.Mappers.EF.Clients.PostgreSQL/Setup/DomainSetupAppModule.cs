@@ -22,16 +22,19 @@ public class DomainSetupAppModule : AppModule
             ));
 
         services.AddTransient<IArticleItemGetOperationHandler>(x => new DomainItemGetOperationHandler(
+            x.GetRequiredService<IResourceOfCommonDataSQL>(),
+            x.GetRequiredService<IResourceOfServiceDomainSQL>(),
             x.GetRequiredService<IDomainResource>(),
-            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<IResourceOfCommonCoreOperation>(),
             x.GetRequiredService<ILogger<DomainItemGetOperationHandler>>(),
-            x.GetRequiredService<IOptionsMonitor<SetupOptions>>()));
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
 
         services.AddTransient<IArticleListGetOperationHandler>(x => new DomainListGetOperationHandler(
+            x.GetRequiredService<IResourceOfCommonDataSQL>(),
             x.GetRequiredService<IDomainResource>(),
-            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<IResourceOfCommonCoreOperation>(),
             x.GetRequiredService<ILogger<DomainListGetOperationHandler>>(),
-            x.GetRequiredService<IOptionsMonitor<SetupOptions>>()));
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
     }
 
     /// <inheritdoc/>
@@ -56,15 +59,17 @@ public class DomainSetupAppModule : AppModule
     protected sealed override IEnumerable<Type> GetImports()
     {
         return new[]
-        {            
-            typeof(ClientMapperDbManager),            
-            typeof(IClientMapperDbContextFactory),
-            typeof(ILogger),
-            typeof(IMediator),
-            typeof(IOperationResource),
-            typeof(IStringLocalizer),
-            typeof(SetupOptions),
-        };
+            {
+                typeof(ClientMapperDbManager),
+                typeof(IClientMapperDbContextFactory),
+                typeof(ILogger),
+                typeof(IMediator),
+                typeof(IResourceOfCommonCoreOperation),
+                typeof(IResourceOfCommonDataSQL),
+                typeof(IResourceOfServiceDomainSQL),
+                typeof(IStringLocalizer),
+                typeof(SetupOptionsOfCommonCore),
+            };
     }
 
     #endregion Protected methods

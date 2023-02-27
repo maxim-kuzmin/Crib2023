@@ -25,3 +25,7 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Localization;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
+global using IResourceOfServiceDomainSQL = Crib2023.Backend.Services.Catalog.Domain.SQL.IResource;
+global using IResourceOfCommonCoreOperation = Makc2023.Backend.Common.Core.Operation.IOperationResource;
+global using SetupOptionsOfCommonCore = Makc2023.Backend.Common.Core.Setup.SetupOptions;
+global using IResourceOfCommonDataSQL = Makc2023.Backend.Common.Data.SQL.IResource;

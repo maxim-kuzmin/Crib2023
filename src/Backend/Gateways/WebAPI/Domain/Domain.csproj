@@ -22,8 +22,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Protobuf Include="..\..\..\GrpcProtos\catalog.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\..\GrpcProtos\catalog_article.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\..\GrpcProtos\catalog_topic.proto" GrpcServices="Client" />
+		<Protobuf Include="..\..\..\GrpcProtos\filestorage.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\..\GrpcProtos\filestorage_article.proto" GrpcServices="Client" />
 		<Protobuf Include="..\..\..\GrpcProtos\filestorage_topic.proto" GrpcServices="Client" />
 	</ItemGroup>

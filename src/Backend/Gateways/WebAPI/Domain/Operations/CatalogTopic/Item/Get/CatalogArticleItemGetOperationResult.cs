@@ -12,7 +12,7 @@ public class CatalogTopicItemGetOperationResult : OperationResultWithOutput<Cata
     /// <summary>
     /// Список свойств с недействительными значениями во входных данных.
     /// </summary>
-    public List<string> InvalidInputProperties { get; } = new();
+    public OperationInputInvalidProperties InvalidInputProperties { get; } = new();
 
     #endregion Properties
 }

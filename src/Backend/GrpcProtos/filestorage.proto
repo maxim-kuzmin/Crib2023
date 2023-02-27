@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Crib2023.Backend.Services.FileStorage.GrpcProtos";
+
+package FileStorage;
+
+message FileStorageInvalidInputProperty {
+  string name = 1;
+  repeated string values = 2;
+}
+
+message FileStorageOptionValueObject {
+  int64 id = 1;
+  string name = 2;
+}

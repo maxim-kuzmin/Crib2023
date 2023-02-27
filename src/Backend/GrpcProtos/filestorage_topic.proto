@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "filestorage.proto";
+
 option csharp_namespace = "Crib2023.Backend.Services.FileStorage.GrpcProtos";
 
 package FileStorage;

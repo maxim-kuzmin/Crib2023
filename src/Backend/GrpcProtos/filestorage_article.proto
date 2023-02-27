@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "filestorage.proto";
+
 option csharp_namespace = "Crib2023.Backend.Services.FileStorage.GrpcProtos";
 
 package FileStorage;
@@ -29,7 +31,7 @@ message FileStorageArticleItemGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   FileStorageArticleItemGetOperationOutput output = 4;
-  repeated string invalid_input_properties = 5;
+  repeated FileStorageInvalidInputProperty invalid_input_properties = 5;
 }
 
 message FileStorageArticleItemGetOperationOutput {
@@ -48,11 +50,6 @@ message FileStorageArticleTypeEntity {
   string title = 4;
   int64 topic_id = 5;
   string row_guid = 6;  
-}
-
-message FileStorageOptionValueObject {
-  int64 id = 1;
-  string name = 2;
 }
 
 // GetList Request
@@ -81,7 +78,7 @@ message FileStorageArticleListGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   FileStorageArticleListGetOperationOutput output = 4;
-  repeated string invalid_input_properties = 5;
+  repeated FileStorageInvalidInputProperty invalid_input_properties = 5;
 }
 
 message FileStorageArticleListGetOperationOutput {

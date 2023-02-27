@@ -74,8 +74,20 @@ public class TopicGrpcService : GrpcServerOfTopic
             result.ErrorMessages.Add(errorMessage);
         }
 
-        foreach (string invalidInputPropertiy in operationResult.InvalidInputProperties)
+        foreach (string propertyName in operationResult.InvalidInputProperties.GetPropertyNames())
         {
+            var propertyValues = operationResult.InvalidInputProperties[propertyName];
+
+            CatalogInvalidInputProperty invalidInputPropertiy = new()
+            {
+                Name = propertyName
+            };
+
+            foreach (string propertyValue in propertyValues)
+            {
+                invalidInputPropertiy.Values.Add(propertyValue);
+            }
+
             result.InvalidInputProperties.Add(invalidInputPropertiy);
         }
 
@@ -136,8 +148,20 @@ public class TopicGrpcService : GrpcServerOfTopic
             result.Output.Items.Add(item);
         }
 
-        foreach (string invalidInputPropertiy in operationResult.InvalidInputProperties)
+        foreach (string propertyName in operationResult.InvalidInputProperties.GetPropertyNames())
         {
+            var propertyValues = operationResult.InvalidInputProperties[propertyName];
+
+            CatalogInvalidInputProperty invalidInputPropertiy = new()
+            {
+                Name = propertyName
+            };
+
+            foreach (string propertyValue in propertyValues)
+            {
+                invalidInputPropertiy.Values.Add(propertyValue);
+            }
+
             result.InvalidInputProperties.Add(invalidInputPropertiy);
         }
 

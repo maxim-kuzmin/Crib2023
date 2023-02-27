@@ -35,3 +35,4 @@ global using RequestHandlerOfServiceDomainsArticleOperationsItemGet = Crib2023.B
 global using RequestHandlerOfServiceDomainsArticleOperationsListGet = Crib2023.Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequestHandler;
 global using RequestHandlerOfServiceDomainsTopicOperationsItemGet = Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get.DomainItemGetOperationRequestHandler;
 global using RequestHandlerOfServiceDomainsTopicOperationsListGet = Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequestHandler;
+global using ModuleOfServiceDomainSQL = Crib2023.Backend.Services.FileStorage.Domain.SQL.Setup.SetupAppModule;

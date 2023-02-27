@@ -47,9 +47,18 @@ public class TopicItemGetOperationInput : ItemWithInt64IdGetOperationInput
     }
 
     /// <inheritdoc/>
-    public sealed override List<string> GetInvalidProperties()
+    public sealed override OperationInputInvalidProperties GetInvalidProperties(
+        IResourceOfCommonDataSQL resourceOfCommonDataSQL)
     {
-        var result = base.GetInvalidProperties();
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc/>
+    public OperationInputInvalidProperties GetInvalidProperties(
+        IResource resource,
+        IResourceOfCommonDataSQL resourceOfCommonDataSQL)
+    {
+        var result = base.GetInvalidProperties(resourceOfCommonDataSQL);
 
         if (result.Any())
         {            
@@ -60,12 +69,20 @@ public class TopicItemGetOperationInput : ItemWithInt64IdGetOperationInput
             {
                 if (isNameInvalid)
                 {
-                    result.Add(nameof(Name));
+                    var values = result.GetOrAdd(nameof(Name));
+
+                    string value = resource.GetValidValueForName();
+
+                    values.Add(value);
                 }
 
                 if (isParentIdInvalid)
                 {
-                    result.Add(nameof(ParentId));
+                    var values = result.GetOrAdd(nameof(ParentId));
+
+                    string value = resource.GetValidValueForParentId();
+
+                    values.Add(value);
                 }
             }
             else

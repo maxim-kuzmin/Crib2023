@@ -12,12 +12,18 @@ public class DomainListGetOperationHandler :
         ArticleListGetOperationResult>,
     IArticleListGetOperationHandler
 {
+    #region Fields
+
+    private readonly IResourceOfCommonDataSQL _resourceOfCommonDataSQL;
+
+    #endregion Fields
+
     #region Properties
 
     /// <summary>
     /// Список свойств с недействительными значениями во входных данных.
     /// </summary>
-    private List<string> InvalidInputProperties { get; set; } = null!;
+    private OperationInputInvalidProperties InvalidInputProperties { get; set; } = null!;
 
     #endregion Properties
 
@@ -25,16 +31,19 @@ public class DomainListGetOperationHandler :
 
     /// <inheritdoc/>
     public DomainListGetOperationHandler(
+        IResourceOfCommonDataSQL resourceOfCommonDataSQL,
         IDomainResource domainResource,
-        IOperationResource operationResource,
+        IResourceOfCommonCoreOperation resourceOfCommonCoreOperation,
         ILogger<DomainListGetOperationHandler> logger,
-        IOptionsMonitor<SetupOptions> setupOptions)
+        IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
             domainResource.GetListGetOperationName(),
-            operationResource,
+            resourceOfCommonCoreOperation,
             logger,
-            setupOptions)
+            setupOptionsOfCommonCore)
     {
+        _resourceOfCommonDataSQL = resourceOfCommonDataSQL;
+
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
         FunctionToTransformOperationResult = TransformOperationResult;
@@ -44,25 +53,27 @@ public class DomainListGetOperationHandler :
 
     #region Private methods
 
-    private ArticleListGetOperationInput TransformOperationInput(ArticleListGetOperationInput input)
+    private ArticleListGetOperationInput TransformOperationInput(ArticleListGetOperationInput source)
     {
-        input.Normalize();
+        source.Normalize();
 
-        InvalidInputProperties = input.GetInvalidProperties();
+        InvalidInputProperties = source.GetInvalidProperties(_resourceOfCommonDataSQL);
 
         if (InvalidInputProperties.Any())
         {
-            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(InvalidInputProperties));
+            var propertyNames = InvalidInputProperties.GetPropertyNames();
+
+            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(propertyNames));
         }
 
-        return input;
+        return source;
     }
 
-    private ArticleListGetOperationOutput TransformOperationOutput(ArticleListGetOperationOutput output)
+    private ArticleListGetOperationOutput TransformOperationOutput(ArticleListGetOperationOutput source)
     {
-        output.Items ??= Array.Empty<ArticleEntity>();
+        source.Items ??= Array.Empty<ArticleEntity>();
 
-        return output;
+        return source;
     }
 
     private ArticleListGetOperationResult TransformOperationResult(ArticleListGetOperationResult source)

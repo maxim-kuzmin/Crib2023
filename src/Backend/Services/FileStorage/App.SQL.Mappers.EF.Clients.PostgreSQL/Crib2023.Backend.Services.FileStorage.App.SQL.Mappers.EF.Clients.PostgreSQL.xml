@@ -117,6 +117,24 @@
             </summary>
             <returns>Задача на выполнение.</returns>
         </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageReflection">
+            <summary>Holder for reflection information generated from filestorage.proto</summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageReflection.Descriptor">
+            <summary>File descriptor for filestorage.proto</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageInvalidInputProperty.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageInvalidInputProperty.ValuesFieldNumber">
+            <summary>Field number for the "values" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageOptionValueObject.IdFieldNumber">
+            <summary>Field number for the "id" field.</summary>
+        </member>
+        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageOptionValueObject.NameFieldNumber">
+            <summary>Field number for the "name" field.</summary>
+        </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.GrpcProtos.FilestorageTopicReflection">
             <summary>Holder for reflection information generated from filestorage_topic.proto</summary>
         </member>
@@ -312,12 +330,6 @@
         </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleTypeEntity.RowGuidFieldNumber">
             <summary>Field number for the "row_guid" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageOptionValueObject.IdFieldNumber">
-            <summary>Field number for the "id" field.</summary>
-        </member>
-        <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageOptionValueObject.NameFieldNumber">
-            <summary>Field number for the "name" field.</summary>
         </member>
         <member name="F:Crib2023.Backend.Services.FileStorage.GrpcProtos.FileStorageArticleListGetOperationRequest.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>

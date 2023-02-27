@@ -21,6 +21,7 @@ global using ModuleOfServiceDataSQLClientsPostgreSQL = Crib2023.Backend.Services
 global using ModuleOfServiceDataSQLMappersEFClientsPostgreSQL = Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup.ClientMapperSetupAppModule;
 global using ISetupServiceOfServiceDataSQL = Crib2023.Backend.Services.Catalog.Data.SQL.Setup.ISetupService;
 global using ModuleOfServiceDataSQL = Crib2023.Backend.Services.Catalog.Data.SQL.Setup.SetupAppModule;
+global using ModuleOfServiceDomainSQL = Crib2023.Backend.Services.Catalog.Domain.SQL.Setup.SetupAppModule;
 global using RequestHandlerOfServiceDomainsArticleOperationsItemGet = Crib2023.Backend.Services.Catalog.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get.DomainItemGetOperationRequestHandler;
 global using RequestHandlerOfServiceDomainsArticleOperationsListGet = Crib2023.Backend.Services.Catalog.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequestHandler;
 global using ModuleOfServiceDomainsArticle = Crib2023.Backend.Services.Catalog.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.Setup.DomainSetupAppModule;

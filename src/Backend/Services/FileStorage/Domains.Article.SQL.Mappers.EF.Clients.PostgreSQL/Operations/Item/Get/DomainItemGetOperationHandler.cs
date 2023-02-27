@@ -12,12 +12,20 @@ public class DomainItemGetOperationHandler :
         ArticleItemGetOperationResult>,
     IArticleItemGetOperationHandler
 {
+    #region Fields
+
+    private readonly IResourceOfCommonDataSQL _resourceOfCommonDataSQL;
+
+    private readonly IResourceOfServiceDomainSQL _resourceOfServiceDomainSQL;
+
+    #endregion Fields
+
     #region Properties
 
     /// <summary>
     /// Список свойств с недействительными значениями во входных данных.
     /// </summary>
-    private List<string> InvalidInputProperties { get; set; } = null!;
+    private OperationInputInvalidProperties InvalidInputProperties { get; set; } = null!;
 
     #endregion Properties
 
@@ -25,16 +33,21 @@ public class DomainItemGetOperationHandler :
 
     /// <inheritdoc/>
     public DomainItemGetOperationHandler(
+        IResourceOfCommonDataSQL resourceOfCommonDataSQL,
+        IResourceOfServiceDomainSQL resourceOfServiceDomainSQL,
         IDomainResource domainResource,
-        IOperationResource operationResource,
+        IResourceOfCommonCoreOperation resourceOfCommonCoreOperation,
         ILogger<DomainItemGetOperationHandler> logger,
-        IOptionsMonitor<SetupOptions> setupOptions)
+        IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
             domainResource.GetItemGetOperationName(),
-            operationResource,
+            resourceOfCommonCoreOperation,
             logger,
-            setupOptions)
+            setupOptionsOfCommonCore)
     {
+        _resourceOfCommonDataSQL = resourceOfCommonDataSQL;
+        _resourceOfServiceDomainSQL = resourceOfServiceDomainSQL;
+
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
         FunctionToTransformOperationResult = TransformOperationResult;
@@ -48,11 +61,13 @@ public class DomainItemGetOperationHandler :
     {
         source.Normalize();
 
-        InvalidInputProperties = source.GetInvalidProperties();
+        InvalidInputProperties = source.GetInvalidProperties(_resourceOfServiceDomainSQL, _resourceOfCommonDataSQL);
 
         if (InvalidInputProperties.Any())
         {
-            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(InvalidInputProperties));
+            var propertyNames = InvalidInputProperties.GetPropertyNames();
+
+            throw new LocalizedException(OperationResource.GetErrorMessageForInvalidInput(propertyNames));
         }
 
         return source;
