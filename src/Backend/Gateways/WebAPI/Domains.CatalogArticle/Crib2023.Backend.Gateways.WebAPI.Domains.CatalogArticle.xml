@@ -61,7 +61,7 @@
             Код операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.DomainItemGetOperationRequest.#ctor(Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationInput,System.String)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.DomainItemGetOperationRequest.#ctor(Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemGetOperationInput,System.String)">
             <summary>
             Конструктор.
             </summary>
@@ -73,7 +73,7 @@
             Обработчик запроса операции получения элемента в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.DomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleItemGetOperationHandler,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleService.CatalogArticleServiceClient)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.DomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleItemGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient)">
             <summary>
             Конструктор.
             </summary>
@@ -122,7 +122,7 @@
             Код операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.DomainListGetOperationRequest.#ctor(Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationInput,System.String)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.DomainListGetOperationRequest.#ctor(Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationInput,System.String)">
             <summary>
             Конструктор.
             </summary>
@@ -134,7 +134,7 @@
             Обработчик запроса операции получения списка в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.DomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleListGetOperationHandler,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleService.CatalogArticleServiceClient)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.DomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleListGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient)">
             <summary>
             Конструктор.
             </summary>

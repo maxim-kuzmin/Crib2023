@@ -4,7 +4,7 @@ global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.I
 global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get;
-global using Crib2023.Backend.Services.Catalog.GrpcProtos;
+global using Crib2023.Grpc.Backend.Services.Catalog;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Operation;
 global using Makc2023.Backend.Common.Core.Operation.Handlers;
@@ -14,4 +14,4 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Localization;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
-global using GrpcClientOfCatalogArticle = Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleService.CatalogArticleServiceClient;
+global using GrpcClientOfCatalogArticle = Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient;

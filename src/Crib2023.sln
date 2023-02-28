@@ -63,20 +63,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeScript", "TypeScript", 
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Frontend.React.TypeScript.App", "Frontend\React\TypeScript\App\Frontend.React.TypeScript.App.esproj", "{0F49B386-DBC9-41F4-AEF7-1E312A3F4CFD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Grpc", "Grpc", "{5B51AB97-AF36-4197-B135-F388EB5BFD3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{970FEF29-95AB-4D42-9BE5-718D6C644F5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F4554C8A-37D1-466B-B464-FC5496B5E517}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{A827BD10-956E-4C58-B175-B32ED85774CE}"
+	ProjectSection(SolutionItems) = preProject
+		Grpc\Backend\Services\Catalog\backend_service_catalog.proto = Grpc\Backend\Services\Catalog\backend_service_catalog.proto
+		Grpc\Backend\Services\Catalog\backend_service_catalog_article.proto = Grpc\Backend\Services\Catalog\backend_service_catalog_article.proto
+		Grpc\Backend\Services\Catalog\backend_service_catalog_topic.proto = Grpc\Backend\Services\Catalog\backend_service_catalog_topic.proto
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileStorage", "FileStorage", "{FE51B006-BD2D-4A10-B5D8-F5F07F42CE27}"
+	ProjectSection(SolutionItems) = preProject
+		Grpc\Backend\Services\FileStorage\backend_service_filestorage.proto = Grpc\Backend\Services\FileStorage\backend_service_filestorage.proto
+		Grpc\Backend\Services\FileStorage\backend_service_filestorage_article.proto = Grpc\Backend\Services\FileStorage\backend_service_filestorage_article.proto
+		Grpc\Backend\Services\FileStorage\backend_service_filestorage_topic.proto = Grpc\Backend\Services\FileStorage\backend_service_filestorage_topic.proto
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C92B2D8-BA26-46F7-AF3E-6627E8DB8F74}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcProtos", "GrpcProtos", "{AFB1EC5C-DE91-4722-AB63-764C134D5A5F}"
-	ProjectSection(SolutionItems) = preProject
-		Backend\GrpcProtos\catalog.proto = Backend\GrpcProtos\catalog.proto
-		Backend\GrpcProtos\catalog_article.proto = Backend\GrpcProtos\catalog_article.proto
-		Backend\GrpcProtos\catalog_topic.proto = Backend\GrpcProtos\catalog_topic.proto
-		Backend\GrpcProtos\filestorage.proto = Backend\GrpcProtos\filestorage.proto
-		Backend\GrpcProtos\filestorage_article.proto = Backend\GrpcProtos\filestorage_article.proto
-		Backend\GrpcProtos\filestorage_topic.proto = Backend\GrpcProtos\filestorage_topic.proto
 	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3D5A462E-93B3-47A3-A524-48468A0A25DE}"
@@ -210,7 +220,10 @@ Global
 		{79F79D9D-4FD2-408B-9A3A-0F96B5736F71} = {5AD77F9E-DC92-409E-BA3D-C351BCC200D1}
 		{18160FCB-8DC6-4BE5-8513-6580FDEC58B7} = {79F79D9D-4FD2-408B-9A3A-0F96B5736F71}
 		{0F49B386-DBC9-41F4-AEF7-1E312A3F4CFD} = {18160FCB-8DC6-4BE5-8513-6580FDEC58B7}
-		{AFB1EC5C-DE91-4722-AB63-764C134D5A5F} = {B5BDB38E-BEFD-4637-AE22-F72365DF0BAA}
+		{970FEF29-95AB-4D42-9BE5-718D6C644F5E} = {5B51AB97-AF36-4197-B135-F388EB5BFD3F}
+		{F4554C8A-37D1-466B-B464-FC5496B5E517} = {970FEF29-95AB-4D42-9BE5-718D6C644F5E}
+		{A827BD10-956E-4C58-B175-B32ED85774CE} = {F4554C8A-37D1-466B-B464-FC5496B5E517}
+		{FE51B006-BD2D-4A10-B5D8-F5F07F42CE27} = {F4554C8A-37D1-466B-B464-FC5496B5E517}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A4F79BA-1D89-4330-8078-EE5A5ED67BE1}

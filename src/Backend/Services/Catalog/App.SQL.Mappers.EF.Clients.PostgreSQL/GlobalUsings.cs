@@ -3,7 +3,7 @@
 global using Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.GrpcServices;
 global using Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.Setup;
 global using Crib2023.Backend.Services.Catalog.Domain.SQL.Entities;
-global using Crib2023.Backend.Services.Catalog.GrpcProtos;
+global using Crib2023.Grpc.Backend.Services.Catalog;
 global using Grpc.Core;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Apps.WebApp;
@@ -28,8 +28,8 @@ global using ModuleOfServiceDomainsArticle = Crib2023.Backend.Services.Catalog.D
 global using RequestHandlerOfServiceDomainsTopicOperationsItemGet = Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.Item.Get.DomainItemGetOperationRequestHandler;
 global using RequestHandlerOfServiceDomainsTopicOperationsListGet = Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Operations.List.Get.DomainListGetOperationRequestHandler;
 global using ModuleOfServiceDomainsTopic = Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.Setup.DomainSetupAppModule;
-global using GrpcServerOfAtrticle = Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleService.CatalogArticleServiceBase;
-global using GrpcServerOfTopic = Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicService.CatalogTopicServiceBase;
+global using GrpcServerOfAtrticle = Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceBase;
+global using GrpcServerOfTopic = Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicService.CatalogTopicServiceBase;
 global using ModuleOfCommonCore = Makc2023.Backend.Common.Core.Setup.SetupAppModule;
 global using ModuleOfCommonDataSQLClientsPostgreSQL = Makc2023.Backend.Common.Data.SQL.Clients.PostgreSQL.Setup.ClientSetupAppModule;
 global using ModuleOfCommonDataSQLMappersEF = Makc2023.Backend.Common.Data.SQL.Mappers.EF.Setup.MapperSetupAppModule;

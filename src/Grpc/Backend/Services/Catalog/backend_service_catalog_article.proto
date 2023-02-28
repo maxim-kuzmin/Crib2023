@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-import "catalog.proto";
+package backend_service_catalog;
 
-option csharp_namespace = "Crib2023.Backend.Services.Catalog.GrpcProtos";
+option csharp_namespace = "Crib2023.Grpc.Backend.Services.Catalog";
 
-package Catalog;
+import "backend_service_catalog.proto";
 
 service CatalogArticleService {
   rpc GetItem (CatalogArticleItemGetOperationRequest) returns (CatalogArticleItemGetOperationReply);

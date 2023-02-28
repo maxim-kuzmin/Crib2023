@@ -14,9 +14,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Protobuf Include="..\..\..\GrpcProtos\filestorage.proto" GrpcServices="Server" />
-		<Protobuf Include="..\..\..\GrpcProtos\filestorage_topic.proto" GrpcServices="Server" />
-		<Protobuf Include="..\..\..\GrpcProtos\filestorage_article.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\..\Grpc\Backend\Services\FileStorage\backend_service_filestorage.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\..\Grpc\Backend\Services\FileStorage\backend_service_filestorage_article.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\..\Grpc\Backend\Services\FileStorage\backend_service_filestorage_topic.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 	<ItemGroup>

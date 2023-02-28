@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-import "filestorage.proto";
+package backend_service_filestorage;
 
-option csharp_namespace = "Crib2023.Backend.Services.FileStorage.GrpcProtos";
+option csharp_namespace = "Crib2023.Grpc.Backend.Services.FileStorage";
 
-package FileStorage;
+import "backend_service_filestorage.proto";
 
 service FileStorageTopicService {
   rpc GetItem (FileStorageTopicItemGetOperationRequest) returns (FileStorageTopicItemGetOperationReply);

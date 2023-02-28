@@ -23,7 +23,7 @@
             <param name="operationCode">Код операции.</param>
             <returns>Задача на получение элемента.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.CatalogArticleController.GetList(Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationInput,System.String)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.CatalogArticleController.GetList(Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationInput,System.String)">
             <summary>
             Получить список.
             </summary>
@@ -50,7 +50,7 @@
             <param name="operationCode">Код операции.</param>
             <returns>Задача на получение элемента.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.CatalogTopicController.GetList(Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicListGetOperationInput,System.String)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.CatalogTopicController.GetList(Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput,System.String)">
             <summary>
             Получить список.
             </summary>
@@ -103,7 +103,7 @@
             Отклик веб-приложения, содержащий данные получения элемента "Статья в каталоге". 
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleItemGetData.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationOutput)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleItemGetData.#ctor(System.String,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemGetOperationOutput)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleListGetData">
@@ -111,7 +111,7 @@
             Отклик веб-приложения, содержащий данные получения списка "Статья в каталоге". 
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleListGetData.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationOutput)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleListGetData.#ctor(System.String,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationOutput)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicItemGetData">
@@ -119,7 +119,7 @@
             Отклик веб-приложения, содержащий данные получения элемента "Тема в каталоге". 
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicItemGetData.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicItemGetOperationOutput)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicItemGetData.#ctor(System.String,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicItemGetOperationOutput)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicListGetData">
@@ -127,7 +127,7 @@
             Отклик веб-приложения, содержащий данные получения списка "Тема в каталоге". 
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicListGetData.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicListGetOperationOutput)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicListGetData.#ctor(System.String,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationOutput)">
             <inheritdoc/>
         </member>
     </members>

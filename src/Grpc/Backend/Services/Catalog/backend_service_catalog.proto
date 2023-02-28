@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option csharp_namespace = "Crib2023.Backend.Services.Catalog.GrpcProtos";
+package backend_service_catalog;
 
-package Catalog;
+option csharp_namespace = "Crib2023.Grpc.Backend.Services.Catalog";
 
 message CatalogInvalidInputProperty {
   string name = 1;

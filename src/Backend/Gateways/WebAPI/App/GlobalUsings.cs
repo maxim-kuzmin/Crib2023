@@ -2,7 +2,7 @@
 
 global using Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData;
 global using Crib2023.Backend.Gateways.WebAPI.App.Setup;
-global using Crib2023.Backend.Services.Catalog.GrpcProtos;
+global using Crib2023.Grpc.Backend.Services.Catalog;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Apps.WebApp;
 global using Makc2023.Backend.Common.Core.Apps.WebApp.Responses;
