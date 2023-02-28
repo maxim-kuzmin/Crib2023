@@ -4,25 +4,25 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<AssemblyName>Crib2023.Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL</AssemblyName>
+		<AssemblyName>Crib2023.Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
-
+	
 	<ItemGroup>
 		<PackageReference Include="Makc2023.Backend.Common.Domain.SQL.Mappers.EF" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Data.SQL.Mappers.EF.Clients.PostgreSQL\Data.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
-		<ProjectReference Include="..\Domain.SQL\Domain.SQL.csproj" />
+		<ProjectReference Include="..\Data.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
+		<ProjectReference Include="..\Domain.SQL\Backend.Services.FileStorage.Domain.SQL.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="ResourceFiles\DomainResource.en.resx">
-			<SubType>Designer</SubType>
-		</EmbeddedResource>
+	  <EmbeddedResource Update="ResourceFiles\DomainResource.en.resx">
+	    <SubType>Designer</SubType>
+	  </EmbeddedResource>
 	</ItemGroup>
-
+	
 </Project>

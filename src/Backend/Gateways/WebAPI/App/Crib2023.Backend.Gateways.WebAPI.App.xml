@@ -58,38 +58,6 @@
             <param name="operationCode">Код операции.</param>
             <returns>Задача на получение списка.</returns>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.DataResponses.CatalogArticleItemGetDataResponse">
-            <summary>
-            Отклик при получении данных элемента "Статья в каталоге". 
-            </summary>
-        </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.DataResponses.CatalogArticleItemGetDataResponse.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationOutput)">
-            <inheritdoc/>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.DataResponses.CatalogArticleListGetDataResponse">
-            <summary>
-            Отклик при получении данных списка "Статья в каталоге". 
-            </summary>
-        </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.DataResponses.CatalogArticleListGetDataResponse.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationOutput)">
-            <inheritdoc/>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.DataResponses.CatalogTopicItemGetDataResponse">
-            <summary>
-            Отклик при получении данных элемента "Тема в каталоге". 
-            </summary>
-        </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.DataResponses.CatalogTopicItemGetDataResponse.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicItemGetOperationOutput)">
-            <inheritdoc/>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.DataResponses.CatalogTopicListGetDataResponse">
-            <summary>
-            Отклик при получении данных списка "Тема в каталоге". 
-            </summary>
-        </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.DataResponses.CatalogTopicListGetDataResponse.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicListGetOperationOutput)">
-            <inheritdoc/>
-        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule">
             <summary>
             Модуль настройки приложения.
@@ -129,6 +97,38 @@
             <param name="app">Приложение.</param>
             <param name="appEnvironment">Окружение приложения.</param>
             <returns>Задача на использование.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleItemGetData">
+            <summary>
+            Отклик веб-приложения, содержащий данные получения элемента "Статья в каталоге". 
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleItemGetData.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleItemGetOperationOutput)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleListGetData">
+            <summary>
+            Отклик веб-приложения, содержащий данные получения списка "Статья в каталоге". 
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogArticleListGetData.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogArticleListGetOperationOutput)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicItemGetData">
+            <summary>
+            Отклик веб-приложения, содержащий данные получения элемента "Тема в каталоге". 
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicItemGetData.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicItemGetOperationOutput)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicListGetData">
+            <summary>
+            Отклик веб-приложения, содержащий данные получения списка "Тема в каталоге". 
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData.WebAppResponseWithCatalogTopicListGetData.#ctor(System.String,Crib2023.Backend.Services.Catalog.GrpcProtos.CatalogTopicListGetOperationOutput)">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

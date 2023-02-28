@@ -19,8 +19,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Data.SQL.Clients.PostgreSQL\Data.SQL.Clients.PostgreSQL.csproj" />
-		<ProjectReference Include="..\Data.SQL.Mappers.EF\Data.SQL.Mappers.EF.csproj" />
+		<ProjectReference Include="..\Data.SQL.Clients.PostgreSQL\Backend.Services.Catalog.Data.SQL.Clients.PostgreSQL.csproj" />
+		<ProjectReference Include="..\Data.SQL.Mappers.EF\Backend.Services.Catalog.Data.SQL.Mappers.EF.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,13 +1,13 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-global using Crib2023.Backend.Gateways.WebAPI.App.DataResponses;
+global using Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData;
 global using Crib2023.Backend.Gateways.WebAPI.App.Setup;
 global using Crib2023.Backend.Services.Catalog.GrpcProtos;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Apps.WebApp;
 global using Makc2023.Backend.Common.Core.Apps.WebApp.Responses;
-global using Makc2023.Backend.Common.Core.Apps.WebApp.Responses.Error;
 global using Makc2023.Backend.Common.Core.Apps.WebApp.Setup;
+global using Makc2023.Backend.Common.Core.Converting;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.Extensions.Localization;

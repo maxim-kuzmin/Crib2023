@@ -4,18 +4,18 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<AssemblyName>Crib2023.Backend.Services.FileStorage.Data.SQL.Clients.PostgreSQL</AssemblyName>
+		<AssemblyName>Crib2023.Backend.Services.Catalog.Domain.SQL</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Makc2023.Backend.Common.Data.SQL.Clients.PostgreSQL" Version="1.0.1" />
+		<PackageReference Include="Makc2023.Backend.Common.Domain" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Data.SQL\Data.SQL.csproj" />
+		<ProjectReference Include="..\Data.SQL\Backend.Services.Catalog.Data.SQL.csproj" />
 	</ItemGroup>
 
 </Project>

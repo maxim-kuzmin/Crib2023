@@ -10,6 +10,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
 		<DockerfileContext>..\..\..\..</DockerfileContext>
+		<DockerComposeProjectPath>..\..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -21,8 +22,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Domains.CatalogArticle\Domains.CatalogArticle.csproj" />
-		<ProjectReference Include="..\Domains.CatalogTopic\Domains.CatalogTopic.csproj" />
+		<ProjectReference Include="..\Domains.CatalogArticle\Backend.Gateways.WebAPI.Domains.CatalogArticle.csproj" />
+		<ProjectReference Include="..\Domains.CatalogTopic\Backend.Gateways.WebAPI.Domains.CatalogTopic.csproj" />
 	</ItemGroup>
 
 </Project>

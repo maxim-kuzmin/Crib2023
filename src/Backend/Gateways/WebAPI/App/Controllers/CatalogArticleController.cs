@@ -40,10 +40,10 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение элемента.</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(CatalogArticleItemGetDataResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(WebAppInputValidationErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(WebAppResponseWithCatalogArticleItemGetData), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(WebAppErrorResponse), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(WebAppResponseWithErrors), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetItem(
         [FromRoute] long id,
         [FromHeader(Name = nameof(DomainItemGetOperationRequest.OperationCode))] string operationCode = "")
@@ -63,7 +63,7 @@ public class CatalogArticleController : ControllerBase
         {
             if (operationResult.Output.Item.Data.Id > 0)
             {
-                CatalogArticleItemGetDataResponse response = new(
+                WebAppResponseWithCatalogArticleItemGetData response = new(
                     operationResult.OperationCode,
                     operationResult.Output);
 
@@ -78,16 +78,16 @@ public class CatalogArticleController : ControllerBase
         }
         else if (operationResult.InvalidInputProperties.Any())
         {
-            WebAppInputValidationErrorResponse response = new(
+            WebAppResponseWithDetails response = new(
                 operationResult.OperationCode,
-                operationResult.ErrorMessages,
-                operationResult.InvalidInputProperties);
+                operationResult.InvalidInputProperties,
+                operationResult.ErrorMessages.FromSentencesToText());
 
             return BadRequest(response);
         }
         else
         {
-            WebAppErrorResponse response = new(
+            WebAppResponseWithErrors response = new(
                 operationResult.OperationCode,
                 operationResult.ErrorMessages);
 
@@ -102,10 +102,10 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение списка.</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(CatalogArticleListGetDataResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(WebAppInputValidationErrorResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(WebAppResponseWithCatalogArticleListGetData), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(WebAppErrorResponse), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(WebAppResponseWithErrors), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetList(
         [FromQuery] CatalogArticleListGetOperationInput input,
         [FromHeader(Name = nameof(DomainListGetOperationRequest.OperationCode))] string operationCode = "")
@@ -120,7 +120,7 @@ public class CatalogArticleController : ControllerBase
         {
             if (operationResult.Output.Items.Any())
             {
-                CatalogArticleListGetDataResponse response = new(
+                WebAppResponseWithCatalogArticleListGetData response = new(
                     operationResult.OperationCode,
                     operationResult.Output);
 
@@ -135,16 +135,16 @@ public class CatalogArticleController : ControllerBase
         }
         else if (operationResult.InvalidInputProperties.Any())
         {
-            WebAppInputValidationErrorResponse response = new(
+            WebAppResponseWithDetails response = new(
                 operationResult.OperationCode,
-                operationResult.ErrorMessages,
-                operationResult.InvalidInputProperties);
+                operationResult.InvalidInputProperties,
+                operationResult.ErrorMessages.FromSentencesToText());
 
             return BadRequest(response);
         }
         else
         {
-            WebAppErrorResponse response = new(
+            WebAppResponseWithErrors response = new(
                 operationResult.OperationCode,
                 operationResult.ErrorMessages);
 

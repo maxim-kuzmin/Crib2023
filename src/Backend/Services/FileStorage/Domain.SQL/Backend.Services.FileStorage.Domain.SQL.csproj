@@ -4,20 +4,18 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<AssemblyName>Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle</AssemblyName>
+		<AssemblyName>Crib2023.Backend.Services.FileStorage.Domain.SQL</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Domain\Domain.csproj" />
+	  <PackageReference Include="Makc2023.Backend.Common.Domain" Version="1.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="ResourceFiles\DomainResource.en.resx">
-	    <SubType>Designer</SubType>
-	  </EmbeddedResource>
+	  <ProjectReference Include="..\Data.SQL\Backend.Services.FileStorage.Data.SQL.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -4,9 +4,9 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<UserSecretsId>349ae771-d937-4c45-81fc-a116431e1545</UserSecretsId>
+		<UserSecretsId>e5de05f1-d7a6-4ba0-a2cf-60390ff61667</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<AssemblyName>Crib2023.Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL</AssemblyName>
+		<AssemblyName>Crib2023.Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL</AssemblyName>
 		<RootNamespace>$(AssemblyName)</RootNamespace>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
@@ -14,9 +14,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Protobuf Include="..\..\..\GrpcProtos\catalog.proto" GrpcServices="Server" />
-		<Protobuf Include="..\..\..\GrpcProtos\catalog_article.proto" GrpcServices="Server" />
-		<Protobuf Include="..\..\..\GrpcProtos\catalog_topic.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\GrpcProtos\filestorage.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\GrpcProtos\filestorage_topic.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\GrpcProtos\filestorage_article.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -27,8 +27,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
-		<ProjectReference Include="..\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
+		<ProjectReference Include="..\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
+		<ProjectReference Include="..\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
 	</ItemGroup>
 
 </Project>
