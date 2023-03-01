@@ -12,7 +12,7 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\build</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\.dockerignore">
+    <None Include="..\..\..\..\.dockerignore">
       <DependentUpon>$(DockerDefaultDockerfile)</DependentUpon>
       <Link>.dockerignore</Link>
     </None>

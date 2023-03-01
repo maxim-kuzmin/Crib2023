@@ -40,6 +40,8 @@ services:
     build:
       context: .
       dockerfile: Frontend/React/TypeScript/App/debug/Dockerfile
+    environment:
+      - WATCHPACK_POLLING=true #https://stackoverflow.com/questions/72023425/my-react-18-app-does-not-reload-automatically-i-try-to-click-on-the-create-new-p
     volumes:
       - ./Frontend/React/TypeScript/App:/app
     ports:
