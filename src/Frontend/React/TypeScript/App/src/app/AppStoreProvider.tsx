@@ -1,13 +1,13 @@
 import React from 'react';
-import ArticleViewStoreProvider from '../views/Article/ArticleViewStoreProvider';
-import TopicViewStoreProvider from '../views/Topic/TopicViewStoreProvider';
+import ArticlePageStoreProvider from '../pages/Article/ArticlePageStoreProvider';
+import TopicPageStoreProvider from '../pages/Topic/TopicPageStoreProvider';
 
 export default function AppStoreProvider ({ children }: React.PropsWithChildren) {
   return (
-  <ArticleViewStoreProvider>
-    <TopicViewStoreProvider>
+  <ArticlePageStoreProvider>
+    <TopicPageStoreProvider>
       {children}
-    </TopicViewStoreProvider>
-  </ArticleViewStoreProvider>
+    </TopicPageStoreProvider>
+  </ArticlePageStoreProvider>
   );
 }

@@ -1,9 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import AppStoreProvider from './app/AppStoreProvider';
+import ArticlePage from './pages/Article/ArticlePage';
+import NotFoundPage from './pages/NotFound/NotFoundPage';
+import TopicPage from './pages/Topic/TopicPage';
+import './index.css';
+import App from './App';
+
+const router = createBrowserRouter([{
+  path: '/',
+  element: <App />,
+  children: [
+    {
+      path: '',
+      element: <TopicPage />
+    },
+    {
+      path: 'topic/:topicId',
+      element: <TopicPage />
+    },
+    {
+      path: 'article/:articleId',
+      element: <ArticlePage />
+    },
+    {
+      path: '*',
+      element: <NotFoundPage />
+    }
+  ],
+},
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +39,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <AppStoreProvider>
-      <App />
+      <RouterProvider router={router} />
     </AppStoreProvider>
   </React.StrictMode>
 );
