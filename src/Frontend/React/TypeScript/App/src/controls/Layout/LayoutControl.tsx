@@ -1,14 +1,12 @@
 import React from 'react';
 import { Layout, theme } from 'antd';
-import logo from './logo.svg';
-import TopicPathView from './views/TopicPath/TopicPathView';
-import TopicTreeView from './views/TopicTree/TopicTreeView';
+import styles from './LayoutControl.module.css';
+import type LayoutControlProps from './LayoutControlProps';
 import { Outlet } from 'react-router-dom';
-import LogoView from './views/Logo/LogoView';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-function App () {
+export default function LayoutControl ({ contentView, logoView, topicPathView, topicTreeView }: LayoutControlProps) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -24,24 +22,20 @@ function App () {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
-        style={{ padding: '16px' }}
+        className={styles.root}
       >
-        <LogoView imageUrl={logo}/>
-        <TopicTreeView/>
+        {logoView}
+        {topicTreeView}
       </Sider>
       <Layout>
         <Header style={{ padding: '0 16px', background: colorBgContainer }}>
-          <TopicPathView/>
+          {topicPathView}
         </Header>
         <Content style={{ margin: '24px 16px 0' }}>
-          <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
-            <Outlet />
-          </div>
+          {contentView}
         </Content>
         <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
       </Layout>
     </Layout>
   );
 }
-
-export default App;

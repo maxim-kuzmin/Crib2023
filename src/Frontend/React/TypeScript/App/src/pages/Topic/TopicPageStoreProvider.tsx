@@ -20,36 +20,64 @@ export enum TopicPageActionType {
   TopicLoaded
 }
 
-export interface ArticlesViewLoadingAction {
+export interface TopicPageArticlesLoadingAction {
   type: TopicPageActionType.ArticlesLoading
   topicId: number
 }
 
-export interface ArticlesViewLoadedAction {
+export function createTopicPageArticlesLoadingAction (topicId: number): TopicPageArticlesLoadingAction {
+  return {
+    type: TopicPageActionType.ArticlesLoading,
+    topicId
+  };
+}
+
+export interface TopicPageArticlesLoadedAction {
   type: TopicPageActionType.ArticlesLoaded
   articles: string
 }
 
-export interface ClearAction {
+export function createTopicPageArticlesLoadedAction (articles: string): TopicPageArticlesLoadedAction {
+  return {
+    type: TopicPageActionType.ArticlesLoaded,
+    articles
+  };
+}
+
+export interface TopicPageClearAction {
   type: TopicPageActionType.Clear
 }
 
-export interface TopicPageLoadingAction {
+export interface TopicPageTopicLoadingAction {
   type: TopicPageActionType.TopicLoading
   topicId: number
 }
 
-export interface TopicPageLoadedAction {
+export function createTopicPageTopicLoadingAction (topicId: number): TopicPageTopicLoadingAction {
+  return {
+    type: TopicPageActionType.TopicLoading,
+    topicId
+  };
+}
+
+export interface TopicPageTopicLoadedAction {
   type: TopicPageActionType.TopicLoaded
   topic: string
 }
 
+export function createTopicPageTopicLoadedAction (topic: string): TopicPageTopicLoadedAction {
+  return {
+    type: TopicPageActionType.TopicLoaded,
+    topic
+  };
+}
+
 export type TopicPageAction =
-  | ArticlesViewLoadingAction
-  | ArticlesViewLoadedAction
-  | ClearAction
-  | TopicPageLoadingAction
-  | TopicPageLoadedAction;
+  | TopicPageArticlesLoadingAction
+  | TopicPageArticlesLoadedAction
+  | TopicPageClearAction
+  | TopicPageTopicLoadingAction
+  | TopicPageTopicLoadedAction;
 
 function reducer (state: TopicPageState, action: TopicPageAction): TopicPageState {
   switch (action.type) {
@@ -87,26 +115,26 @@ function reducer (state: TopicPageState, action: TopicPageAction): TopicPageStat
   }
 }
 
-const TopicPageStateContext = createContext<TopicPageState | null>(null);
-
-const TopicPageDispatchContext = createContext<Dispatch<TopicPageAction> | null>(null);
+const StateContext = createContext<TopicPageState | null>(null);
 
 export function useTopicPageState () {
-  return useContext(TopicPageStateContext);
+  return useContext(StateContext);
 }
 
+const DispatchContext = createContext<Dispatch<TopicPageAction> | null>(null);
+
 export function useTopicPageDispatch () {
-  return useContext(TopicPageDispatchContext);
+  return useContext(DispatchContext);
 }
 
 export default function TopicPageStoreProvider ({ children }: React.PropsWithChildren) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <TopicPageStateContext.Provider value={state}>
-      <TopicPageDispatchContext.Provider value={dispatch}>
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}>
         {children}
-      </TopicPageDispatchContext.Provider>
-    </TopicPageStateContext.Provider>
+      </DispatchContext.Provider>
+    </StateContext.Provider>
   );
 }

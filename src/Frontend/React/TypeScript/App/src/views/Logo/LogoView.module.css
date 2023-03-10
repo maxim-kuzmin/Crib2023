@@ -1,27 +1,27 @@
-.logo {
+.root {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
 }
 
-.logo-image {
+.image {
   height: 100%;
   width: 100%;
   background: no-repeat center;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-image {
+  .image {
     animation: none;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .logo-image {
-    animation: logo-spin infinite 20s linear;
+  .image {
+    animation: spin infinite 20s linear;
   }
 }
 
-@keyframes logo-spin {
+@keyframes spin {
   from {
     transform: rotate(0deg);
   }
