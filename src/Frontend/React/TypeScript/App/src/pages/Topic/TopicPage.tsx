@@ -24,7 +24,9 @@ export default function TopicPage () {
   return (
     <div className={styles.root}>
       <h1>TopicPage {topicId}</h1>
-      {requestStatus === ArticleListStoreStatus.Pending ? <SpinnerControl/> : <ArticleTableView articles={articles}/> }
+      {requestStatus === ArticleListStoreStatus.Pending
+        ? <SpinnerControl/>
+        : <ArticleTableView articles={articles}/>}
     </div>
   )
 }

@@ -24,7 +24,9 @@ export default function ArticlePage () {
   return (
     <div className={styles.root}>
       <h1>ArticlePage {articleId}</h1>
-      {requestStatus === ArticleItemStoreStatus.Pending ? <SpinnerControl/> : <ArticleView article={article}/> }
+      {requestStatus === ArticleItemStoreStatus.Pending
+        ? <SpinnerControl/>
+        : <ArticleView article={article}/>}
     </div>
   )
 }
