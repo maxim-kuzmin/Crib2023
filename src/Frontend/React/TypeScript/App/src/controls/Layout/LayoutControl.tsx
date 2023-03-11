@@ -2,11 +2,15 @@ import React from 'react';
 import { Layout, theme } from 'antd';
 import styles from './LayoutControl.module.css';
 import type LayoutControlProps from './LayoutControlProps';
-import { Outlet } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export default function LayoutControl ({ contentView, logoView, topicPathView, topicTreeView }: LayoutControlProps) {
+export default function LayoutControl ({
+  createAsideView,
+  createContentView,
+  createFooterView,
+  createHeaderView
+}: LayoutControlProps) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -24,17 +28,18 @@ export default function LayoutControl ({ contentView, logoView, topicPathView, t
         }}
         className={styles.root}
       >
-        {logoView}
-        {topicTreeView}
+        {createAsideView()}
       </Sider>
       <Layout>
         <Header style={{ padding: '0 16px', background: colorBgContainer }}>
-          {topicPathView}
+          {createHeaderView()}
         </Header>
         <Content style={{ margin: '24px 16px 0' }}>
-          {contentView}
+          {createContentView(colorBgContainer)}
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+        <Footer style={{ textAlign: 'center' }}>
+          {createFooterView()}
+        </Footer>
       </Layout>
     </Layout>
   );

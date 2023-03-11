@@ -3,20 +3,20 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-.image {
+.logo {
   height: 100%;
   width: 100%;
   background: no-repeat center;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .image {
+  .logo {
     animation: none;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .image {
+  .logo {
     animation: spin infinite 20s linear;
   }
 }
