@@ -1,16 +1,16 @@
 import React from 'react';
 import { Layout, theme } from 'antd';
-import styles from './LayoutControl.module.css';
-import type LayoutControlProps from './LayoutControlProps';
+import styles from './LayoutWrapper.module.css';
+import type LayoutWrapperProps from './LayoutWrapperProps';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export default function LayoutControl ({
+export default function LayoutWrapper ({
   createAsideView,
   createContentView,
   createFooterView,
   createHeaderView
-}: LayoutControlProps) {
+}: LayoutWrapperProps) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();

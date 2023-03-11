@@ -1,6 +1,6 @@
 import { type PropsWithChildren, type ReactElement } from 'react';
 
-export default interface LayoutControlProps extends PropsWithChildren {
+export default interface LayoutWrapperProps extends PropsWithChildren {
   createAsideView: () => ReactElement
   createContentView: (backgroundColor: string) => ReactElement
   createFooterView: () => ReactElement
