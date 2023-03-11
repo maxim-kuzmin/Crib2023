@@ -87,42 +87,72 @@ function useDispatch () {
   return useContext(TopicListStoreDispatchContext)!;
 }
 
-export function useTopicListStoreDispatchToClear () {
-  const dispatch = useDispatch();
+function runDispatchToClear (dispatch: Dispatch<TopicListStoreAction>) {
+  const actionToClear: ActionToClear = {
+    type: ActionType.Clear
+  };
 
-  useEffect(() => {
-    const actionToClear: ActionToClear = {
-      type: ActionType.Clear
-    };
-
-    return () => {
-      dispatch(actionToClear);
-    };
-  }, []);
+  dispatch(actionToClear);
 }
 
-export function useTopicListStoreDispatchToLoad (topicTreePath: string) {
+export function useTopicListStoreDispatchToClear (sholdBeRunOnUnmount: boolean) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      const actionToLoadStart: ActionToLoadStart = {
-        type: ActionType.LoadStart,
-        payload: topicTreePath
-      };
+    return () => {
+      if (sholdBeRunOnUnmount) {
+        runDispatchToClear(dispatch);
+      }
+    };
+  }, []);
 
-      dispatch(actionToLoadStart);
+  return () => {
+    runDispatchToClear(dispatch);
+  };
+}
 
-      const data = await (new Promise<string>((resolve, reject) => {
-        setTimeout(() => { resolve(`TopicList, topicTreePath=${topicTreePath}: ${(new Date()).toString()}`); }, 1000)
-      }));
+async function runDispatchToLoad (
+  dispatch: Dispatch<TopicListStoreAction>,
+  shouldBeCanceled: () => boolean,
+  topicTreePath: string
+) {
+  const actionToLoadStart: ActionToLoadStart = {
+    type: ActionType.LoadStart,
+    payload: topicTreePath
+  };
 
-      const actionToLoadEnd: ActionToLoadEnd = {
-        type: ActionType.LoadEnd,
-        payload: data
-      };
+  dispatch(actionToLoadStart);
 
-      dispatch(actionToLoadEnd);
-    })();
+  const data = await (new Promise<string>((resolve, reject) => {
+    setTimeout(() => { resolve(`TopicList, topicTreePath=${topicTreePath}: ${(new Date()).toString()}`); }, 1000)
+  }));
+
+  if (!shouldBeCanceled()) {
+    const actionToLoadEnd: ActionToLoadEnd = {
+      type: ActionType.LoadEnd,
+      payload: data
+    };
+
+    dispatch(actionToLoadEnd);
+  }
+}
+
+export function useTopicListStoreDispatchToLoad (sholdBeRunOnMountOrUpdate: boolean, topicTreePath: string) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let isCanceled = false;
+
+    if (sholdBeRunOnMountOrUpdate) {
+      runDispatchToLoad(dispatch, () => isCanceled, topicTreePath);
+    }
+
+    return () => {
+      isCanceled = true;
+    };
   }, [topicTreePath]);
+
+  return async (shouldBeCanceled: () => boolean, topicTreePath: string) => {
+    runDispatchToLoad(dispatch, shouldBeCanceled, topicTreePath)
+  };
 }

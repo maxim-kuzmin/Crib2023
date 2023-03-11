@@ -17,9 +17,9 @@ export default function TopicPage () {
 
   const topicId = Number(urlParams.topicId);
 
-  useArticleListStoreDispatchToLoad(topicId);
+  useArticleListStoreDispatchToLoad(true, topicId);
 
-  useArticleListStoreDispatchToClear();
+  useArticleListStoreDispatchToClear(true);
 
   return (
     <div className={styles.root}>

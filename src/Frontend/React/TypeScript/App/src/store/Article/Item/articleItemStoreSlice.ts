@@ -87,42 +87,72 @@ function useDispatch () {
   return useContext(ArticleItemStoreDispatchContext)!;
 }
 
-export function useArticleItemStoreDispatchToClear () {
-  const dispatch = useDispatch();
+function runDispatchToClear (dispatch: Dispatch<ArticleItemStoreAction>) {
+  const actionToClear: ActionToClear = {
+    type: ActionType.Clear
+  };
 
-  useEffect(() => {
-    const actionToClear: ActionToClear = {
-      type: ActionType.Clear
-    };
-
-    return () => {
-      dispatch(actionToClear);
-    };
-  }, []);
+  dispatch(actionToClear);
 }
 
-export function useArticleItemStoreDispatchToLoad (articleId: number) {
+export function useArticleItemStoreDispatchToClear (sholdBeRunOnUnmount: boolean) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      const actionToLoadStart: ActionToLoadStart = {
-        type: ActionType.LoadStart,
-        payload: articleId
-      };
+    return () => {
+      if (sholdBeRunOnUnmount) {
+        runDispatchToClear(dispatch);
+      }
+    };
+  }, []);
 
-      dispatch(actionToLoadStart);
+  return () => {
+    runDispatchToClear(dispatch);
+  };
+}
 
-      const data = await (new Promise<string>((resolve, reject) => {
-        setTimeout(() => { resolve(`ArticleItem, articleId=${articleId}: ${(new Date()).toString()}`); }, 1000)
-      }));
+async function runDispatchToLoad (
+  dispatch: Dispatch<ArticleItemStoreAction>,
+  shouldBeCanceled: () => boolean,
+  articleId: number
+) {
+  const actionToLoadStart: ActionToLoadStart = {
+    type: ActionType.LoadStart,
+    payload: articleId
+  };
 
-      const actionToLoadEnd: ActionToLoadEnd = {
-        type: ActionType.LoadEnd,
-        payload: data
-      };
+  dispatch(actionToLoadStart);
 
-      dispatch(actionToLoadEnd);
-    })();
+  const data = await (new Promise<string>((resolve, reject) => {
+    setTimeout(() => { resolve(`ArticleItem, articleId=${articleId}: ${(new Date()).toString()}`); }, 1000)
+  }));
+
+  if (!shouldBeCanceled()) {
+    const actionToLoadEnd: ActionToLoadEnd = {
+      type: ActionType.LoadEnd,
+      payload: data
+    };
+
+    dispatch(actionToLoadEnd);
+  }
+}
+
+export function useArticleItemStoreDispatchToLoad (sholdBeRunOnMountOrUpdate: boolean, articleId: number) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let isCanceled = false;
+
+    if (sholdBeRunOnMountOrUpdate) {
+      runDispatchToLoad(dispatch, () => isCanceled, articleId);
+    }
+
+    return () => {
+      isCanceled = true;
+    };
   }, [articleId]);
+
+  return async (shouldBeCanceled: () => boolean, articleId: number) => {
+    runDispatchToLoad(dispatch, shouldBeCanceled, articleId)
+  };
 }

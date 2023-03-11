@@ -87,42 +87,72 @@ function useDispatch () {
   return useContext(TopicItemStoreDispatchContext)!;
 }
 
-export function useTopicItemStoreDispatchToClear () {
-  const dispatch = useDispatch();
+function runDispatchToClear (dispatch: Dispatch<TopicItemStoreAction>) {
+  const actionToClear: ActionToClear = {
+    type: ActionType.Clear
+  };
 
-  useEffect(() => {
-    const actionToClear: ActionToClear = {
-      type: ActionType.Clear
-    };
-
-    return () => {
-      dispatch(actionToClear);
-    };
-  }, []);
+  dispatch(actionToClear);
 }
 
-export function useTopicItemStoreDispatchToLoad (topicId: number) {
+export function useTopicItemStoreDispatchToClear (sholdBeRunOnUnmount: boolean) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      const actionToLoadStart: ActionToLoadStart = {
-        type: ActionType.LoadStart,
-        payload: topicId
-      };
+    return () => {
+      if (sholdBeRunOnUnmount) {
+        runDispatchToClear(dispatch);
+      }
+    };
+  }, []);
 
-      dispatch(actionToLoadStart);
+  return () => {
+    runDispatchToClear(dispatch);
+  };
+}
 
-      const data = await (new Promise<string>((resolve, reject) => {
-        setTimeout(() => { resolve(`TopicItem, topicId=${topicId}: ${(new Date()).toString()}`); }, 1000)
-      }));
+async function runDispatchToLoad (
+  dispatch: Dispatch<TopicItemStoreAction>,
+  shouldBeCanceled: () => boolean,
+  topicId: number
+) {
+  const actionToLoadStart: ActionToLoadStart = {
+    type: ActionType.LoadStart,
+    payload: topicId
+  };
 
-      const actionToLoadEnd: ActionToLoadEnd = {
-        type: ActionType.LoadEnd,
-        payload: data
-      };
+  dispatch(actionToLoadStart);
 
-      dispatch(actionToLoadEnd);
-    })();
+  const data = await (new Promise<string>((resolve, reject) => {
+    setTimeout(() => { resolve(`TopicItem, topicId=${topicId}: ${(new Date()).toString()}`); }, 1000)
+  }));
+
+  if (!shouldBeCanceled()) {
+    const actionToLoadEnd: ActionToLoadEnd = {
+      type: ActionType.LoadEnd,
+      payload: data
+    };
+
+    dispatch(actionToLoadEnd);
+  }
+}
+
+export function useTopicItemStoreDispatchToLoad (sholdBeRunOnMountOrUpdate: boolean, topicId: number) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let isCanceled = false;
+
+    if (sholdBeRunOnMountOrUpdate) {
+      runDispatchToLoad(dispatch, () => isCanceled, topicId);
+    }
+
+    return () => {
+      isCanceled = true;
+    };
   }, [topicId]);
+
+  return async (shouldBeCanceled: () => boolean, topicId: number) => {
+    runDispatchToLoad(dispatch, shouldBeCanceled, topicId)
+  };
 }

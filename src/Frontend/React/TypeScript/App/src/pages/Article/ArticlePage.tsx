@@ -17,9 +17,9 @@ export default function ArticlePage () {
 
   const articleId = Number(urlParams.articleId);
 
-  useArticleItemStoreDispatchToLoad(articleId);
+  useArticleItemStoreDispatchToLoad(true, articleId);
 
-  useArticleItemStoreDispatchToClear();
+  useArticleItemStoreDispatchToClear(true);
 
   return (
     <div className={styles.root}>

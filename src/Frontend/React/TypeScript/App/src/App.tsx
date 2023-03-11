@@ -7,10 +7,11 @@ import LayoutHeaderView from './views/Layout/Header/LayoutHeaderView';
 import LayoutControl from './controls/Layout/LayoutControl';
 
 export default function App () {
-  return <LayoutControl
-    createAsideView={() => <LayoutAsideView logoUrl={logo}/>}
-    createContentView={(backgroundColor) => <LayoutContentView backgroundColor={backgroundColor}/>}
-    createFooterView={() => <LayoutFooterView/>}
-    createHeaderView={() => <LayoutHeaderView/>}
-    />;
+  return (
+    <LayoutControl
+      createAsideView={() => <LayoutAsideView logoUrl={logo}/>}
+      createContentView={(backgroundColor) => <LayoutContentView backgroundColor={backgroundColor}/>}
+      createFooterView={() => <LayoutFooterView/>}
+      createHeaderView={() => <LayoutHeaderView/>}/>
+  );
 }
