@@ -22,8 +22,8 @@ interface ActionToLoadStart {
 
 export type TopicItemStoreAction =
   | ActionToClear
-  | ActionToLoadStart
-  | ActionToLoadEnd;
+  | ActionToLoadEnd
+  | ActionToLoadStart;
 
 export enum TopicItemStoreStatus {
   Fulfilled,
