@@ -1,47 +1,30 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import SpinnerControl from '../../controls/Spinner/SpinnerControl';
+import {
+  ArticleItemStoreStatus,
+  useArticleItemStoreState,
+  useArticleItemStoreDispatchToLoad,
+  useArticleItemStoreDispatchToClear
+} from '../../store/Article/Item/articleItemStoreSlice';
 import ArticleView from '../../views/Article/ArticleView';
 import styles from './ArticlePage.module.css';
-import {
-  useArticlePageDispatch,
-  createArticlePageClearAction,
-  createArticlePageArticleLoadingAction,
-  useArticlePageState,
-  createArticlePageArticleLoadedAction
-} from './ArticlePageStoreProvider';
 
 export default function ArticlePage () {
   const urlParams = useParams();
-  const dispatch = useArticlePageDispatch();
-  const { article, articleIsLoading } = useArticlePageState();
 
-  const articleIdParam = Number(urlParams.articleId);
+  const { data: article, requestStatus } = useArticleItemStoreState();
 
-  useEffect(() => {
-    async function loadData (articleId: number) {
-      dispatch(createArticlePageArticleLoadingAction(articleIdParam));
+  const articleId = Number(urlParams.articleId);
 
-      const promise = new Promise<string>((resolve, reject) => {
-        setTimeout(() => { resolve(`Article ${articleId}: ${(new Date()).toString()}`); }, 1000)
-      });
+  useArticleItemStoreDispatchToLoad(articleId);
 
-      const article = await promise;
-
-      dispatch(createArticlePageArticleLoadedAction(article));
-    }
-
-    loadData(articleIdParam);
-
-    return () => {
-      dispatch(createArticlePageClearAction());
-    };
-  }, [articleIdParam]);
+  useArticleItemStoreDispatchToClear();
 
   return (
     <div className={styles.root}>
-      <h1>ArticlePage {articleIdParam}</h1>
-      {articleIsLoading ? <SpinnerControl/> : <ArticleView article={article}/> }
+      <h1>ArticlePage {articleId}</h1>
+      {requestStatus === ArticleItemStoreStatus.Pending ? <SpinnerControl/> : <ArticleView article={article}/> }
     </div>
   )
 }

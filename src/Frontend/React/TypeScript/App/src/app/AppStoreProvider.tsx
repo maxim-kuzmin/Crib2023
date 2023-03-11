@@ -1,13 +1,19 @@
 import React from 'react';
-import ArticlePageStoreProvider from '../pages/Article/ArticlePageStoreProvider';
-import TopicPageStoreProvider from '../pages/Topic/TopicPageStoreProvider';
+import ArticleItemStoreProvider from '../store/Article/Item/ArticleItemStoreProvider';
+import ArticleListStoreProvider from '../store/Article/List/ArticleListStoreProvider';
+import TopicItemStoreProvider from '../store/Topic/Item/TopicItemStoreProvider';
+import TopicListStoreProvider from '../store/Topic/List/TopicListStoreProvider';
 
 export default function AppStoreProvider ({ children }: React.PropsWithChildren) {
   return (
-  <ArticlePageStoreProvider>
-    <TopicPageStoreProvider>
+  <ArticleItemStoreProvider>
+    <ArticleListStoreProvider>
+    <TopicItemStoreProvider>
+      <TopicListStoreProvider>
       {children}
-    </TopicPageStoreProvider>
-  </ArticlePageStoreProvider>
+      </TopicListStoreProvider>
+    </TopicItemStoreProvider>
+    </ArticleListStoreProvider>
+  </ArticleItemStoreProvider>
   );
 }
