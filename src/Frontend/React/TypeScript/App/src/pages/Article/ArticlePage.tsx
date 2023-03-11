@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import SpinnerWrapper from '../../wrappers/Spinner/SpinnerWrapper';
+import SpinnerControl from '../../controls/Spinner/SpinnerControl';
 import ArticleView from '../../views/Article/ArticleView';
 import styles from './ArticlePage.module.css';
 import {
@@ -41,7 +41,7 @@ export default function ArticlePage () {
   return (
     <div className={styles.root}>
       <h1>ArticlePage {articleIdParam}</h1>
-      {articleIsLoading ? <SpinnerWrapper/> : <ArticleView article={article}/> }
+      {articleIsLoading ? <SpinnerControl/> : <ArticleView article={article}/> }
     </div>
   )
 }
