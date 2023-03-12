@@ -14,7 +14,7 @@ interface ActionToClear {
 
 interface ActionToLoad {
   type: ActionType.Load
-  input: number | null
+  input: string | null
 }
 
 interface ActionToSet {
@@ -22,52 +22,52 @@ interface ActionToSet {
   data: string | null
 }
 
-export type ArticleItemStoreAction =
+export type TopicTreeStoreAction =
   | ActionToClear
   | ActionToLoad
   | ActionToSet;
 
-export enum ArticleItemStoreStatus {
+export enum TopicTreeStoreStatus {
   Fulfilled,
   Pending,
   Rejected
 }
 
-export interface ArticleItemStoreState {
+export interface TopicTreeStoreState {
   data: string | null
-  input: number | null
+  input: string | null
   operationCode: string
-  requestStatus: ArticleItemStoreStatus
+  requestStatus: TopicTreeStoreStatus
   responseDetails: string
   responseErrors: string
   responseStatusCode: number
 }
 
-export const ArticleItemStoreDispatchContext = createContext<Dispatch<ArticleItemStoreAction> | null>(null);
+export const TopicTreeStoreDispatchContext = createContext<Dispatch<TopicTreeStoreAction> | null>(null);
 
-export const ArticleItemStoreStateContext = createContext<ArticleItemStoreState | null>(null);
+export const TopicTreeStoreStateContext = createContext<TopicTreeStoreState | null>(null);
 
-export const initialArticleItemStoreState: ArticleItemStoreState = {
+export const initialTopicTreeStoreState: TopicTreeStoreState = {
   data: null,
   input: null,
   operationCode: '',
-  requestStatus: ArticleItemStoreStatus.Fulfilled,
+  requestStatus: TopicTreeStoreStatus.Fulfilled,
   responseDetails: '',
   responseErrors: '',
   responseStatusCode: 200
 }
 
-export default function reducer (state: ArticleItemStoreState, action: ArticleItemStoreAction): ArticleItemStoreState {
+export default function reducer (state: TopicTreeStoreState, action: TopicTreeStoreAction): TopicTreeStoreState {
   switch (action.type) {
     case ActionType.Clear: {
-      return initialArticleItemStoreState;
+      return initialTopicTreeStoreState;
     }
     case ActionType.Load: {
       const { input } = action;
       return {
         ...state,
         input,
-        requestStatus: ArticleItemStoreStatus.Pending
+        requestStatus: TopicTreeStoreStatus.Pending
       };
     }
     case ActionType.Set: {
@@ -75,22 +75,22 @@ export default function reducer (state: ArticleItemStoreState, action: ArticleIt
       return {
         ...state,
         data,
-        requestStatus: ArticleItemStoreStatus.Fulfilled
+        requestStatus: TopicTreeStoreStatus.Fulfilled
       };
     }
   }
 }
 
-export function useArticleItemStoreState () {
-  return useContext(ArticleItemStoreStateContext)!;
+export function useTopicTreeStoreState () {
+  return useContext(TopicTreeStoreStateContext)!;
 }
 
 function useDispatch () {
-  return useContext(ArticleItemStoreDispatchContext)!;
+  return useContext(TopicTreeStoreDispatchContext)!;
 }
 
 function runDispatchToClear (
-  dispatch: Dispatch<ArticleItemStoreAction>,
+  dispatch: Dispatch<TopicTreeStoreAction>,
   callback: (() => void) | null
 ) {
   const actionToClear: ActionToClear = {
@@ -104,14 +104,14 @@ function runDispatchToClear (
   }
 }
 
-export interface ArticleItemStoreDispatchOptionsToClear extends AppStoreDispatchOptions {
+export interface TopicTreeStoreDispatchOptionsToClear extends AppStoreDispatchOptions {
   callback?: () => void
 }
 
-export function useArticleItemStoreDispatchToClear ({
+export function useTopicTreeStoreDispatchToClear ({
   runType,
   callback
-}: ArticleItemStoreDispatchOptionsToClear = {}) {
+}: TopicTreeStoreDispatchOptionsToClear = {}) {
   const dispatch = useDispatch();
 
   const callbackValue = callback ?? null;
@@ -134,7 +134,7 @@ export function useArticleItemStoreDispatchToClear ({
 }
 
 function runDispatchToSet (
-  dispatch: Dispatch<ArticleItemStoreAction>,
+  dispatch: Dispatch<TopicTreeStoreAction>,
   callback: ((data: string | null) => void) | null,
   data: string | null
 ) {
@@ -151,10 +151,10 @@ function runDispatchToSet (
 }
 
 async function runDispatchToLoad (
-  dispatch: Dispatch<ArticleItemStoreAction>,
+  dispatch: Dispatch<TopicTreeStoreAction>,
   callback: ((data: string | null) => void) | null,
   shouldBeCanceled: () => boolean,
-  input: number | null
+  input: string | null
 ) {
   const actionToLoad: ActionToLoad = {
     type: ActionType.Load,
@@ -164,7 +164,7 @@ async function runDispatchToLoad (
   dispatch(actionToLoad);
 
   const data = await (new Promise<string>((resolve, reject) => {
-    setTimeout(() => { resolve(`ArticleItem, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
+    setTimeout(() => { resolve(`TopicTree, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
   }));
 
   if (!shouldBeCanceled()) {
@@ -172,16 +172,16 @@ async function runDispatchToLoad (
   }
 }
 
-export interface ArticleItemStoreDispatchOptionsToLoad extends AppStoreDispatchOptions {
+export interface TopicTreeStoreDispatchOptionsToLoad extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
-  inputAtRun?: number
+  inputAtRun?: string
 }
 
-export function useArticleItemStoreDispatchToLoad ({
+export function useTopicTreeStoreDispatchToLoad ({
   runType,
   callback,
   inputAtRun
-}: ArticleItemStoreDispatchOptionsToLoad = {}) {
+}: TopicTreeStoreDispatchOptionsToLoad = {}) {
   const dispatch = useDispatch();
 
   const callbackValue = callback ?? null;
@@ -206,21 +206,21 @@ export function useArticleItemStoreDispatchToLoad ({
     };
   }, [dispatch, runType, callbackValue, inputAtRunValue]);
 
-  return async (shouldBeCanceled: () => boolean, input: number) => {
+  return async (shouldBeCanceled: () => boolean, input: string) => {
     runDispatchToLoad(dispatch, callbackValue, shouldBeCanceled, input)
   };
 }
 
-export interface ArticleItemStoreDispatchOptionsToSet extends AppStoreDispatchOptions {
+export interface TopicTreeStoreDispatchOptionsToSet extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
   dataAtRun?: string
 }
 
-export function useArticleItemStoreDispatchToSet ({
+export function useTopicTreeStoreDispatchToSet ({
   runType,
   callback,
   dataAtRun
-}: ArticleItemStoreDispatchOptionsToSet = {}) {
+}: TopicTreeStoreDispatchOptionsToSet = {}) {
   const dispatch = useDispatch();
 
   const callbackValue = callback ?? null;

@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from 'react';
 
 export default interface ArticleTableViewProps extends PropsWithChildren {
-  articles: string
+  articles: string | null
 }

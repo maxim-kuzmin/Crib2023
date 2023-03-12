@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import AppStoreProvider from './app/AppStoreProvider';
+import AppStoreProvider from './app/store/AppStoreProvider';
 import ArticlePage from './pages/Article/ArticlePage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import TopicPage from './pages/Topic/TopicPage';

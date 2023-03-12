@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import AppRunType from '../../app/AppRunType';
 import SpinnerControl from '../../controls/Spinner/SpinnerControl';
 import {
   ArticleListStoreStatus,
@@ -7,6 +8,10 @@ import {
   useArticleListStoreDispatchToLoad,
   useArticleListStoreDispatchToClear
 } from '../../store/Article/List/articleListStoreSlice';
+import {
+  useTopicItemStoreDispatchToClear,
+  useTopicItemStoreDispatchToLoad
+} from '../../store/Topic/Item/topicItemStoreSlice';
 import ArticleTableView from '../../views/ArticleTable/ArticleTableView';
 import styles from './TopicPage.module.css';
 
@@ -17,9 +22,23 @@ export default function TopicPage () {
 
   const topicId = Number(urlParams.topicId);
 
-  useArticleListStoreDispatchToLoad(true, topicId);
+  useArticleListStoreDispatchToLoad({
+    runType: AppRunType.MountOrUpdate,
+    inputAtRun: topicId
+  });
 
-  useArticleListStoreDispatchToClear(true);
+  useArticleListStoreDispatchToClear({
+    runType: AppRunType.Unmount
+  });
+
+  useTopicItemStoreDispatchToLoad({
+    runType: AppRunType.MountOrUpdate,
+    inputAtRun: topicId
+  });
+
+  useTopicItemStoreDispatchToClear({
+    runType: AppRunType.Unmount
+  });
 
   return (
     <div className={styles.root}>

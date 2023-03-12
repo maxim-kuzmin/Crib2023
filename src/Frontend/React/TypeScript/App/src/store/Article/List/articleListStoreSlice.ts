@@ -1,29 +1,31 @@
 import { useContext, createContext, type Dispatch, useEffect } from 'react';
+import AppRunType from '../../../app/AppRunType';
+import type AppStoreDispatchOptions from '../../../app/store/AppStoreDispatchOptions';
 
 enum ActionType {
   Clear,
-  LoadEnd,
-  LoadStart
+  Load,
+  Set
 }
 
 interface ActionToClear {
   type: ActionType.Clear
 }
 
-interface ActionToLoadEnd {
-  type: ActionType.LoadEnd
-  payload: string
+interface ActionToLoad {
+  type: ActionType.Load
+  input: number | null
 }
 
-interface ActionToLoadStart {
-  type: ActionType.LoadStart
-  payload: number
+interface ActionToSet {
+  type: ActionType.Set
+  data: string | null
 }
 
 export type ArticleListStoreAction =
   | ActionToClear
-  | ActionToLoadEnd
-  | ActionToLoadStart;
+  | ActionToLoad
+  | ActionToSet;
 
 export enum ArticleListStoreStatus {
   Fulfilled,
@@ -32,8 +34,8 @@ export enum ArticleListStoreStatus {
 }
 
 export interface ArticleListStoreState {
-  data: string
-  input: number
+  data: string | null
+  input: number | null
   operationCode: string
   requestStatus: ArticleListStoreStatus
   responseDetails: string
@@ -46,8 +48,8 @@ export const ArticleListStoreDispatchContext = createContext<Dispatch<ArticleLis
 export const ArticleListStoreStateContext = createContext<ArticleListStoreState | null>(null);
 
 export const initialArticleListStoreState: ArticleListStoreState = {
-  data: '',
-  input: 0,
+  data: null,
+  input: null,
   operationCode: '',
   requestStatus: ArticleListStoreStatus.Fulfilled,
   responseDetails: '',
@@ -57,24 +59,24 @@ export const initialArticleListStoreState: ArticleListStoreState = {
 
 export default function reducer (state: ArticleListStoreState, action: ArticleListStoreAction): ArticleListStoreState {
   switch (action.type) {
-    case ActionType.LoadStart: {
-      const { payload } = action;
+    case ActionType.Clear: {
+      return initialArticleListStoreState;
+    }
+    case ActionType.Load: {
+      const { input } = action;
       return {
         ...state,
-        input: payload,
+        input,
         requestStatus: ArticleListStoreStatus.Pending
       };
     }
-    case ActionType.LoadEnd: {
-      const { payload } = action;
+    case ActionType.Set: {
+      const { data } = action;
       return {
         ...state,
-        data: payload,
+        data,
         requestStatus: ArticleListStoreStatus.Fulfilled
       };
-    }
-    case ActionType.Clear: {
-      return initialArticleListStoreState;
     }
   }
 }
@@ -87,72 +89,157 @@ function useDispatch () {
   return useContext(ArticleListStoreDispatchContext)!;
 }
 
-function runDispatchToClear (dispatch: Dispatch<ArticleListStoreAction>) {
+function runDispatchToClear (
+  dispatch: Dispatch<ArticleListStoreAction>,
+  callback: (() => void) | null
+) {
   const actionToClear: ActionToClear = {
     type: ActionType.Clear
   };
 
   dispatch(actionToClear);
+
+  if (callback) {
+    callback();
+  }
 }
 
-export function useArticleListStoreDispatchToClear (sholdBeRunOnUnmount: boolean) {
+export interface ArticleListStoreDispatchOptionsToClear extends AppStoreDispatchOptions {
+  callback?: () => void
+}
+
+export function useArticleListStoreDispatchToClear ({
+  runType,
+  callback
+}: ArticleListStoreDispatchOptionsToClear = {}) {
   const dispatch = useDispatch();
 
+  const callbackValue = callback ?? null;
+
   useEffect(() => {
+    if (runType === AppRunType.MountOrUpdate) {
+      runDispatchToClear(dispatch, callbackValue);
+    };
+
     return () => {
-      if (sholdBeRunOnUnmount) {
-        runDispatchToClear(dispatch);
+      if (runType === AppRunType.Unmount) {
+        runDispatchToClear(dispatch, callbackValue);
       }
     };
-  }, []);
+  }, [dispatch, runType, callbackValue]);
 
   return () => {
-    runDispatchToClear(dispatch);
+    runDispatchToClear(dispatch, callbackValue);
   };
+}
+
+function runDispatchToSet (
+  dispatch: Dispatch<ArticleListStoreAction>,
+  callback: ((data: string | null) => void) | null,
+  data: string | null
+) {
+  const actionToSet: ActionToSet = {
+    type: ActionType.Set,
+    data
+  };
+
+  dispatch(actionToSet);
+
+  if (callback) {
+    callback(data);
+  }
 }
 
 async function runDispatchToLoad (
   dispatch: Dispatch<ArticleListStoreAction>,
+  callback: ((data: string | null) => void) | null,
   shouldBeCanceled: () => boolean,
-  topicId: number
+  input: number | null
 ) {
-  const actionToLoadStart: ActionToLoadStart = {
-    type: ActionType.LoadStart,
-    payload: topicId
+  const actionToLoad: ActionToLoad = {
+    type: ActionType.Load,
+    input
   };
 
-  dispatch(actionToLoadStart);
+  dispatch(actionToLoad);
 
   const data = await (new Promise<string>((resolve, reject) => {
-    setTimeout(() => { resolve(`ArticleList, topicId=${topicId}: ${(new Date()).toString()}`); }, 1000)
+    setTimeout(() => { resolve(`ArticleList, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
   }));
 
   if (!shouldBeCanceled()) {
-    const actionToLoadEnd: ActionToLoadEnd = {
-      type: ActionType.LoadEnd,
-      payload: data
-    };
-
-    dispatch(actionToLoadEnd);
+    runDispatchToSet(dispatch, callback, data);
   }
 }
 
-export function useArticleListStoreDispatchToLoad (sholdBeRunOnMountOrUpdate: boolean, topicId: number) {
+export interface ArticleListStoreDispatchOptionsToLoad extends AppStoreDispatchOptions {
+  callback?: (data: string | null) => void
+  inputAtRun?: number
+}
+
+export function useArticleListStoreDispatchToLoad ({
+  runType,
+  callback,
+  inputAtRun
+}: ArticleListStoreDispatchOptionsToLoad = {}) {
   const dispatch = useDispatch();
+
+  const callbackValue = callback ?? null;
+
+  const inputAtRunValue = inputAtRun ?? null;
 
   useEffect(() => {
     let isCanceled = false;
 
-    if (sholdBeRunOnMountOrUpdate) {
-      runDispatchToLoad(dispatch, () => isCanceled, topicId);
+    const shouldBeCanceled = () => isCanceled;
+
+    if (runType === AppRunType.MountOrUpdate) {
+      runDispatchToLoad(dispatch, callbackValue, shouldBeCanceled, inputAtRunValue);
     }
 
     return () => {
-      isCanceled = true;
+      if (runType === AppRunType.Unmount) {
+        runDispatchToLoad(dispatch, callbackValue, shouldBeCanceled, inputAtRunValue);
+      } else {
+        isCanceled = true;
+      }
     };
-  }, [topicId]);
+  }, [dispatch, runType, callbackValue, inputAtRunValue]);
 
-  return async (shouldBeCanceled: () => boolean, topicId: number) => {
-    runDispatchToLoad(dispatch, shouldBeCanceled, topicId)
+  return async (shouldBeCanceled: () => boolean, input: number) => {
+    runDispatchToLoad(dispatch, callbackValue, shouldBeCanceled, input)
+  };
+}
+
+export interface ArticleListStoreDispatchOptionsToSet extends AppStoreDispatchOptions {
+  callback?: (data: string | null) => void
+  dataAtRun?: string
+}
+
+export function useArticleListStoreDispatchToSet ({
+  runType,
+  callback,
+  dataAtRun
+}: ArticleListStoreDispatchOptionsToSet = {}) {
+  const dispatch = useDispatch();
+
+  const callbackValue = callback ?? null;
+
+  const dataAtRunValue = dataAtRun ?? null;
+
+  useEffect(() => {
+    if (runType === AppRunType.MountOrUpdate) {
+      runDispatchToSet(dispatch, callbackValue, dataAtRunValue);
+    };
+
+    return () => {
+      if (runType === AppRunType.Unmount) {
+        runDispatchToSet(dispatch, callbackValue, dataAtRunValue);
+      }
+    };
+  }, [dispatch, runType, callbackValue, dataAtRunValue]);
+
+  return (data: string | null) => {
+    runDispatchToSet(dispatch, callback ?? null, data);
   };
 }
