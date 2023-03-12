@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import AppRunType from '../../app/AppRunType';
 import SpinnerControl from '../../controls/Spinner/SpinnerControl';
@@ -12,6 +12,7 @@ import {
   useTopicItemStoreDispatchToClear,
   useTopicItemStoreDispatchToLoad
 } from '../../store/Topic/Item/topicItemStoreSlice';
+import { useTopicPathStoreDispatchToSet } from '../../store/Topic/Path/topicPathStoreSlice';
 import ArticleTableView from '../../views/ArticleTable/ArticleTableView';
 import styles from './TopicPage.module.css';
 
@@ -31,8 +32,15 @@ export default function TopicPage () {
     runType: AppRunType.Unmount
   });
 
+  const runTopicPathStoreDispatchToSet = useTopicPathStoreDispatchToSet();
+
+  const callbackOnTopicItemLoad = useCallback((data: string | null) => {
+    runTopicPathStoreDispatchToSet(`TopicPath from ${data ?? ''}`);
+  }, [runTopicPathStoreDispatchToSet]);
+
   useTopicItemStoreDispatchToLoad({
     runType: AppRunType.MountOrUpdate,
+    callback: callbackOnTopicItemLoad,
     inputAtRun: topicId
   });
 

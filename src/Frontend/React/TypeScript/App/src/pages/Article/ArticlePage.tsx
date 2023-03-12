@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AppRunType from '../../app/AppRunType';
 import SpinnerControl from '../../controls/Spinner/SpinnerControl';
@@ -8,6 +8,7 @@ import {
   useArticleItemStoreDispatchToLoad,
   useArticleItemStoreDispatchToClear
 } from '../../store/Article/Item/articleItemStoreSlice';
+import { useTopicPathStoreDispatchToSet } from '../../store/Topic/Path/topicPathStoreSlice';
 import ArticleView from '../../views/Article/ArticleView';
 import styles from './ArticlePage.module.css';
 
@@ -18,8 +19,15 @@ export default function ArticlePage () {
 
   const articleId = Number(urlParams.articleId);
 
+  const runTopicPathStoreDispatchToSet = useTopicPathStoreDispatchToSet();
+
+  const callbackOnArticleItemLoad = useCallback((data: string | null) => {
+    runTopicPathStoreDispatchToSet(`TopicPath from ${data ?? ''}`);
+  }, [runTopicPathStoreDispatchToSet]);
+
   useArticleItemStoreDispatchToLoad({
     runType: AppRunType.MountOrUpdate,
+    callback: callbackOnArticleItemLoad,
     inputAtRun: articleId
   });
 

@@ -1,4 +1,4 @@
-import { useContext, createContext, type Dispatch, useEffect } from 'react';
+import { useContext, createContext, type Dispatch, useEffect, useCallback } from 'react';
 import AppRunType from '../../../app/AppRunType';
 import type AppStoreDispatchOptions from '../../../app/store/AppStoreDispatchOptions';
 
@@ -128,9 +128,11 @@ export function useTopicTreeStoreDispatchToClear ({
     };
   }, [dispatch, runType, callbackValue]);
 
-  return () => {
+  const result = useCallback(() => {
     runDispatchToClear(dispatch, callbackValue);
-  };
+  }, [callbackValue, dispatch]);
+
+  return result;
 }
 
 function runDispatchToSet (
@@ -206,9 +208,11 @@ export function useTopicTreeStoreDispatchToLoad ({
     };
   }, [dispatch, runType, callbackValue, inputAtRunValue]);
 
-  return async (shouldBeCanceled: () => boolean, input: string) => {
+  const result = useCallback(async (shouldBeCanceled: () => boolean, input: string) => {
     runDispatchToLoad(dispatch, callbackValue, shouldBeCanceled, input)
-  };
+  }, [callbackValue, dispatch]);
+
+  return result;
 }
 
 export interface TopicTreeStoreDispatchOptionsToSet extends AppStoreDispatchOptions {
@@ -239,7 +243,9 @@ export function useTopicTreeStoreDispatchToSet ({
     };
   }, [dispatch, runType, callbackValue, dataAtRunValue]);
 
-  return (data: string | null) => {
-    runDispatchToSet(dispatch, callback ?? null, data);
-  };
+  const result = useCallback((data: string | null) => {
+    runDispatchToSet(dispatch, callbackValue, data);
+  }, [callbackValue, dispatch]);
+
+  return result;
 }
