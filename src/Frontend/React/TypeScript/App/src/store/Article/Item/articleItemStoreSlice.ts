@@ -193,15 +193,15 @@ export function useArticleItemStoreDispatchToLoad ({
   useEffect(() => {
     let isCanceled = false;
 
-    const shouldBeCanceled = () => isCanceled;
+    const shouldBeCanceledValue = () => isCanceled;
 
     if (runType === AppRunType.MountOrUpdate) {
-      runDispatchToLoad(dispatch, callbackValue, shouldBeCanceled, inputAtRunValue);
+      runDispatchToLoad(dispatch, callbackValue, shouldBeCanceledValue, inputAtRunValue);
     }
 
     return () => {
       if (runType === AppRunType.Unmount) {
-        runDispatchToLoad(dispatch, callbackValue, shouldBeCanceled, inputAtRunValue);
+        runDispatchToLoad(dispatch, callbackValue, shouldBeCanceledValue, inputAtRunValue);
       } else {
         isCanceled = true;
       }
