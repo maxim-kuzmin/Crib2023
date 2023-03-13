@@ -1,6 +1,11 @@
 import { useContext, createContext, type Dispatch, useEffect, useCallback } from 'react';
-import AppRunType from '../../../app/AppRunType';
-import type AppStoreDispatchOptions from '../../../app/store/AppStoreDispatchOptions';
+import {
+  type AppStoreDispatchOptions,
+  AppStoreDispatchType,
+  type AppStoreState,
+  AppStoreStatus,
+  createAppStoreState
+} from '../../../app/store';
 
 enum ActionType {
   Clear,
@@ -22,42 +27,23 @@ interface ActionToSet {
   data: string | null
 }
 
-export type TopicTreeStoreAction =
-  | ActionToClear
-  | ActionToLoad
-  | ActionToSet;
+export type Action = ActionToClear | ActionToLoad | ActionToSet;
 
-export enum TopicTreeStoreStatus {
-  Fulfilled,
-  Pending,
-  Rejected
-}
-
-export interface TopicTreeStoreState {
+export interface TopicTreeStoreState extends AppStoreState {
   data: string | null
   input: string | null
-  operationCode: string
-  requestStatus: TopicTreeStoreStatus
-  responseDetails: string
-  responseErrors: string
-  responseStatusCode: number
 }
 
-export const TopicTreeStoreDispatchContext = createContext<Dispatch<TopicTreeStoreAction> | null>(null);
+export const TopicTreeStoreDispatchContext = createContext<Dispatch<Action> | null>(null);
 
 export const TopicTreeStoreStateContext = createContext<TopicTreeStoreState | null>(null);
 
-export const initialTopicTreeStoreState: TopicTreeStoreState = {
+export const initialTopicTreeStoreState = createAppStoreState<TopicTreeStoreState>({
   data: null,
-  input: null,
-  operationCode: '',
-  requestStatus: TopicTreeStoreStatus.Fulfilled,
-  responseDetails: '',
-  responseErrors: '',
-  responseStatusCode: 200
-}
+  input: null
+});
 
-export default function reducer (state: TopicTreeStoreState, action: TopicTreeStoreAction): TopicTreeStoreState {
+export default function reducer (state: TopicTreeStoreState, action: Action): TopicTreeStoreState {
   switch (action.type) {
     case ActionType.Clear: {
       return initialTopicTreeStoreState;
@@ -67,7 +53,7 @@ export default function reducer (state: TopicTreeStoreState, action: TopicTreeSt
       return {
         ...state,
         input,
-        requestStatus: TopicTreeStoreStatus.Pending
+        requestStatus: AppStoreStatus.Pending
       };
     }
     case ActionType.Set: {
@@ -75,7 +61,7 @@ export default function reducer (state: TopicTreeStoreState, action: TopicTreeSt
       return {
         ...state,
         data,
-        requestStatus: TopicTreeStoreStatus.Fulfilled
+        requestStatus: AppStoreStatus.Fulfilled
       };
     }
   }
@@ -90,7 +76,7 @@ function useDispatch () {
 }
 
 function runDispatchToClear (
-  dispatch: Dispatch<TopicTreeStoreAction>,
+  dispatch: Dispatch<Action>,
   callback: (() => void) | null
 ) {
   const actionToClear: ActionToClear = {
@@ -109,34 +95,32 @@ export interface TopicTreeStoreDispatchOptionsToClear extends AppStoreDispatchOp
 }
 
 export function useTopicTreeStoreDispatchToClear ({
-  runType,
+  dispatchType,
   callback
 }: TopicTreeStoreDispatchOptionsToClear = {}) {
   const dispatch = useDispatch();
 
-  const callbackValue = callback ?? null;
+  const callbackInner = callback ?? null;
 
   useEffect(() => {
-    if (runType === AppRunType.MountOrUpdate) {
-      runDispatchToClear(dispatch, callbackValue);
+    if (dispatchType === AppStoreDispatchType.MountOrUpdate) {
+      runDispatchToClear(dispatch, callbackInner);
     };
 
     return () => {
-      if (runType === AppRunType.Unmount) {
-        runDispatchToClear(dispatch, callbackValue);
+      if (dispatchType === AppStoreDispatchType.Unmount) {
+        runDispatchToClear(dispatch, callbackInner);
       }
     };
-  }, [dispatch, runType, callbackValue]);
+  }, [dispatch, dispatchType, callbackInner]);
 
-  const result = useCallback(() => {
-    runDispatchToClear(dispatch, callbackValue);
-  }, [callbackValue, dispatch]);
-
-  return result;
+  return useCallback(() => {
+    runDispatchToClear(dispatch, callbackInner);
+  }, [callbackInner, dispatch]);
 }
 
 function runDispatchToSet (
-  dispatch: Dispatch<TopicTreeStoreAction>,
+  dispatch: Dispatch<Action>,
   callback: ((data: string | null) => void) | null,
   data: string | null
 ) {
@@ -153,7 +137,7 @@ function runDispatchToSet (
 }
 
 async function runDispatchToLoad (
-  dispatch: Dispatch<TopicTreeStoreAction>,
+  dispatch: Dispatch<Action>,
   callback: ((data: string | null) => void) | null,
   shouldBeCanceled: () => boolean,
   input: string | null
@@ -176,76 +160,72 @@ async function runDispatchToLoad (
 
 export interface TopicTreeStoreDispatchOptionsToLoad extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
-  inputAtRun?: string
+  inputAtDispatch?: string
 }
 
 export function useTopicTreeStoreDispatchToLoad ({
-  runType,
+  dispatchType,
   callback,
-  inputAtRun
+  inputAtDispatch
 }: TopicTreeStoreDispatchOptionsToLoad = {}) {
   const dispatch = useDispatch();
 
-  const callbackValue = callback ?? null;
+  const callbackInner = callback ?? null;
 
-  const inputAtRunValue = inputAtRun ?? null;
+  const inputAtDispatchInner = inputAtDispatch ?? null;
 
   useEffect(() => {
     let isCanceled = false;
 
-    const shouldBeCanceledValue = () => isCanceled;
+    const shouldBeCanceledInner = () => isCanceled;
 
-    if (runType === AppRunType.MountOrUpdate) {
-      runDispatchToLoad(dispatch, callbackValue, shouldBeCanceledValue, inputAtRunValue);
+    if (dispatchType === AppStoreDispatchType.MountOrUpdate) {
+      runDispatchToLoad(dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
     }
 
     return () => {
-      if (runType === AppRunType.Unmount) {
-        runDispatchToLoad(dispatch, callbackValue, shouldBeCanceledValue, inputAtRunValue);
+      if (dispatchType === AppStoreDispatchType.Unmount) {
+        runDispatchToLoad(dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
       } else {
         isCanceled = true;
       }
     };
-  }, [dispatch, runType, callbackValue, inputAtRunValue]);
+  }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
 
-  const result = useCallback(async (shouldBeCanceled: () => boolean, input: string) => {
-    runDispatchToLoad(dispatch, callbackValue, shouldBeCanceled, input)
-  }, [callbackValue, dispatch]);
-
-  return result;
+  return useCallback(async (shouldBeCanceled: () => boolean, input: string) => {
+    runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
+  }, [callbackInner, dispatch]);
 }
 
 export interface TopicTreeStoreDispatchOptionsToSet extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
-  dataAtRun?: string
+  dataAtDispatch?: string
 }
 
 export function useTopicTreeStoreDispatchToSet ({
-  runType,
+  dispatchType,
   callback,
-  dataAtRun
+  dataAtDispatch
 }: TopicTreeStoreDispatchOptionsToSet = {}) {
   const dispatch = useDispatch();
 
-  const callbackValue = callback ?? null;
+  const callbackInner = callback ?? null;
 
-  const dataAtRunValue = dataAtRun ?? null;
+  const dataAtDispatchInner = dataAtDispatch ?? null;
 
   useEffect(() => {
-    if (runType === AppRunType.MountOrUpdate) {
-      runDispatchToSet(dispatch, callbackValue, dataAtRunValue);
+    if (dispatchType === AppStoreDispatchType.MountOrUpdate) {
+      runDispatchToSet(dispatch, callbackInner, dataAtDispatchInner);
     };
 
     return () => {
-      if (runType === AppRunType.Unmount) {
-        runDispatchToSet(dispatch, callbackValue, dataAtRunValue);
+      if (dispatchType === AppStoreDispatchType.Unmount) {
+        runDispatchToSet(dispatch, callbackInner, dataAtDispatchInner);
       }
     };
-  }, [dispatch, runType, callbackValue, dataAtRunValue]);
+  }, [dispatch, dispatchType, callbackInner, dataAtDispatchInner]);
 
-  const result = useCallback((data: string | null) => {
-    runDispatchToSet(dispatch, callbackValue, data);
-  }, [callbackValue, dispatch]);
-
-  return result;
+  return useCallback((data: string | null) => {
+    runDispatchToSet(dispatch, callbackInner, data);
+  }, [callbackInner, dispatch]);
 }

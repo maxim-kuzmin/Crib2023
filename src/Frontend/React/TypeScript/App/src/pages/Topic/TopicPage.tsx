@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import AppRunType from '../../app/AppRunType';
+import { AppStoreDispatchType, AppStoreStatus } from '../../app/store';
 import SpinnerControl from '../../controls/Spinner/SpinnerControl';
 import {
-  ArticleListStoreStatus,
   useArticleListStoreState,
   useArticleListStoreDispatchToLoad,
   useArticleListStoreDispatchToClear
@@ -24,12 +23,12 @@ export default function TopicPage () {
   const topicId = Number(urlParams.topicId);
 
   useArticleListStoreDispatchToLoad({
-    runType: AppRunType.MountOrUpdate,
-    inputAtRun: topicId
+    dispatchType: AppStoreDispatchType.MountOrUpdate,
+    inputAtDispatch: topicId
   });
 
   useArticleListStoreDispatchToClear({
-    runType: AppRunType.Unmount
+    dispatchType: AppStoreDispatchType.Unmount
   });
 
   const runTopicPathStoreDispatchToSet = useTopicPathStoreDispatchToSet();
@@ -39,19 +38,19 @@ export default function TopicPage () {
   }, [runTopicPathStoreDispatchToSet]);
 
   useTopicItemStoreDispatchToLoad({
-    runType: AppRunType.MountOrUpdate,
+    dispatchType: AppStoreDispatchType.MountOrUpdate,
     callback: callbackOnTopicItemLoad,
-    inputAtRun: topicId
+    inputAtDispatch: topicId
   });
 
   useTopicItemStoreDispatchToClear({
-    runType: AppRunType.Unmount
+    dispatchType: AppStoreDispatchType.Unmount
   });
 
   return (
     <div className={styles.root}>
       <h1>TopicPage {topicId}</h1>
-      {requestStatus === ArticleListStoreStatus.Pending
+      {requestStatus === AppStoreStatus.Pending
         ? <SpinnerControl/>
         : <ArticleTableView articles={articles}/>}
     </div>

@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import AppRunType from '../../app/AppRunType';
+import { AppStoreDispatchType, AppStoreStatus } from '../../app/store';
 import SpinnerControl from '../../controls/Spinner/SpinnerControl';
 import {
-  ArticleItemStoreStatus,
   useArticleItemStoreState,
   useArticleItemStoreDispatchToLoad,
   useArticleItemStoreDispatchToClear
@@ -26,13 +25,13 @@ export default function ArticlePage () {
   }, [runTopicPathStoreDispatchToSet]);
 
   useArticleItemStoreDispatchToLoad({
-    runType: AppRunType.MountOrUpdate,
+    dispatchType: AppStoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleItemLoad,
-    inputAtRun: articleId
+    inputAtDispatch: articleId
   });
 
   useArticleItemStoreDispatchToClear({
-    runType: AppRunType.Unmount
+    dispatchType: AppStoreDispatchType.Unmount
   });
 
   const [val, setVal] = useState('');
@@ -43,7 +42,7 @@ export default function ArticlePage () {
       <input name='name' value={val} onChange={(e) => {
         setVal(e.target.value);
         }}/>
-      {requestStatus === ArticleItemStoreStatus.Pending
+      {requestStatus === AppStoreStatus.Pending
         ? <SpinnerControl/>
         : <ArticleView article={article}/>}
     </div>

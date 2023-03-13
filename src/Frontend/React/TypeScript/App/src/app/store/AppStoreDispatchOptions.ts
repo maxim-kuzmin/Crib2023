@@ -1,5 +1,5 @@
-import type AppRunType from '../AppRunType';
+import { type AppStoreDispatchType } from './AppStoreDispatchType';
 
-export default interface AppStoreDispatchOptions {
-    runType?: AppRunType
+export interface AppStoreDispatchOptions {
+    dispatchType?: AppStoreDispatchType
 }
