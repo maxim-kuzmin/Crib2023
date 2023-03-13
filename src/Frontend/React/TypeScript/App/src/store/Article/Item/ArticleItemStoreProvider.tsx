@@ -1,18 +1,14 @@
 import React, { useReducer } from 'react';
-import reducer, {
-  ArticleItemStoreDispatchContext,
-  ArticleItemStoreStateContext,
-  initialArticleItemStoreState,
-} from './articleItemStoreSlice';
+import articleItemStoreSlice from './articleItemStoreSlice';
 
 export default function ArticleItemStoreProvider ({ children }: React.PropsWithChildren) {
-  const [state, dispatch] = useReducer(reducer, initialArticleItemStoreState);
+  const [state, dispatch] = useReducer(articleItemStoreSlice.reducer, articleItemStoreSlice.initialState);
 
   return (
-    <ArticleItemStoreStateContext.Provider value={state}>
-      <ArticleItemStoreDispatchContext.Provider value={dispatch}>
+    <articleItemStoreSlice.StateContext.Provider value={state}>
+      <articleItemStoreSlice.DispatchContext.Provider value={dispatch}>
         {children}
-      </ArticleItemStoreDispatchContext.Provider>
-    </ArticleItemStoreStateContext.Provider>
+      </articleItemStoreSlice.DispatchContext.Provider>
+    </articleItemStoreSlice.StateContext.Provider>
   );
 }

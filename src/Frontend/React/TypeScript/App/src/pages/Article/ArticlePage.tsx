@@ -2,35 +2,31 @@ import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppStoreDispatchType, AppStoreStatus } from '../../app/store';
 import SpinnerControl from '../../controls/Spinner/SpinnerControl';
-import {
-  useArticleItemStoreState,
-  useArticleItemStoreDispatchToLoad,
-  useArticleItemStoreDispatchToClear
-} from '../../store/Article/Item/articleItemStoreSlice';
-import { useTopicPathStoreDispatchToSet } from '../../store/Topic/Path/topicPathStoreSlice';
+import articleItemStoreSlice from '../../store/Article/Item/articleItemStoreSlice';
+import topicPathStoreSlice from '../../store/Topic/Path/topicPathStoreSlice';
 import ArticleView from '../../views/Article/ArticleView';
 import styles from './ArticlePage.module.css';
 
 export default function ArticlePage () {
   const urlParams = useParams();
 
-  const { data: article, requestStatus } = useArticleItemStoreState();
+  const { data: article, requestStatus } = articleItemStoreSlice.useState();
 
   const articleId = Number(urlParams.articleId);
 
-  const runTopicPathStoreDispatchToSet = useTopicPathStoreDispatchToSet();
+  const runTopicPathStoreDispatchToSet = topicPathStoreSlice.useDispatchToSet();
 
   const callbackOnArticleItemLoad = useCallback((data: string | null) => {
     runTopicPathStoreDispatchToSet(`TopicPath from ${data ?? ''}`);
   }, [runTopicPathStoreDispatchToSet]);
 
-  useArticleItemStoreDispatchToLoad({
+  articleItemStoreSlice.useDispatchToLoad({
     dispatchType: AppStoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleItemLoad,
     inputAtDispatch: articleId
   });
 
-  useArticleItemStoreDispatchToClear({
+  articleItemStoreSlice.useDispatchToClear({
     dispatchType: AppStoreDispatchType.Unmount
   });
 

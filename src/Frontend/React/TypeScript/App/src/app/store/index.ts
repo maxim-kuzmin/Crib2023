@@ -1,7 +1,7 @@
 import { type AppStoreState } from './AppStoreState';
 import { AppStoreStatus } from './AppStoreStatus';
 
-export function createAppStoreState<T extends AppStoreState> (
+function createState<T extends AppStoreState> (
     props: any,
     operationCode = '',
     requestStatus = AppStoreStatus.Fulfilled,
@@ -18,6 +18,17 @@ export function createAppStoreState<T extends AppStoreState> (
         responseStatusCode
     };
 }
+
+function getFalse () {
+    return false;
+}
+
+const appStore = {
+    createState,
+    getFalse
+};
+
+export default appStore;
 
 export * from './AppStoreDispatchOptions';
 export * from './AppStoreDispatchType';

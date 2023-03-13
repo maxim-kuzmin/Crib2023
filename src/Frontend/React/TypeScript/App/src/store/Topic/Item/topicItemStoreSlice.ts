@@ -1,10 +1,9 @@
 import { useContext, createContext, type Dispatch, useEffect, useCallback } from 'react';
-import {
-  type AppStoreDispatchOptions,
+import appStore, {
   AppStoreDispatchType,
-  type AppStoreState,
   AppStoreStatus,
-  createAppStoreState
+  type AppStoreDispatchOptions,
+  type AppStoreState,
 } from '../../../app/store';
 
 enum ActionType {
@@ -29,24 +28,24 @@ interface ActionToSet {
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
 
-export interface TopicItemStoreState extends AppStoreState {
+interface State extends AppStoreState {
   data: string | null
   input: number | null
 }
 
-export const TopicItemStoreDispatchContext = createContext<Dispatch<Action> | null>(null);
+const DispatchContext = createContext<Dispatch<Action> | null>(null);
 
-export const TopicItemStoreStateContext = createContext<TopicItemStoreState | null>(null);
+const StateContext = createContext<State | null>(null);
 
-export const initialTopicItemStoreState = createAppStoreState<TopicItemStoreState>({
+const initialState = appStore.createState<State>({
   data: null,
   input: null
 });
 
-export default function reducer (state: TopicItemStoreState, action: Action): TopicItemStoreState {
+function reducer (state: State, action: Action): State {
   switch (action.type) {
     case ActionType.Clear: {
-      return initialTopicItemStoreState;
+      return initialState;
     }
     case ActionType.Load: {
       const { input } = action;
@@ -67,12 +66,12 @@ export default function reducer (state: TopicItemStoreState, action: Action): To
   }
 }
 
-export function useTopicItemStoreState () {
-  return useContext(TopicItemStoreStateContext)!;
+function useState () {
+  return useContext(StateContext)!;
 }
 
 function useDispatch () {
-  return useContext(TopicItemStoreDispatchContext)!;
+  return useContext(DispatchContext)!;
 }
 
 function runDispatchToClear (
@@ -90,14 +89,14 @@ function runDispatchToClear (
   }
 }
 
-export interface TopicItemStoreDispatchOptionsToClear extends AppStoreDispatchOptions {
+interface DispatchOptionsToClear extends AppStoreDispatchOptions {
   callback?: () => void
 }
 
-export function useTopicItemStoreDispatchToClear ({
+function useDispatchToClear ({
   dispatchType,
   callback
-}: TopicItemStoreDispatchOptionsToClear = {}) {
+}: DispatchOptionsToClear = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -158,16 +157,16 @@ async function runDispatchToLoad (
   }
 }
 
-export interface TopicItemStoreDispatchOptionsToLoad extends AppStoreDispatchOptions {
+interface DispatchOptionsToLoad extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
   inputAtDispatch?: number
 }
 
-export function useTopicItemStoreDispatchToLoad ({
+function useDispatchToLoad ({
   dispatchType,
   callback,
   inputAtDispatch
-}: TopicItemStoreDispatchOptionsToLoad = {}) {
+}: DispatchOptionsToLoad = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -192,21 +191,21 @@ export function useTopicItemStoreDispatchToLoad ({
     };
   }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
 
-  return useCallback(async (shouldBeCanceled: () => boolean, input: number) => {
+  return useCallback(async (input: number, shouldBeCanceled: () => boolean = appStore.getFalse) => {
     runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
   }, [callbackInner, dispatch]);
 }
 
-export interface TopicItemStoreDispatchOptionsToSet extends AppStoreDispatchOptions {
+interface DispatchOptionsToSet extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
   dataAtDispatch?: string
 }
 
-export function useTopicItemStoreDispatchToSet ({
+function useDispatchToSet ({
   dispatchType,
   callback,
   dataAtDispatch
-}: TopicItemStoreDispatchOptionsToSet = {}) {
+}: DispatchOptionsToSet = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -229,3 +228,16 @@ export function useTopicItemStoreDispatchToSet ({
     runDispatchToSet(dispatch, callbackInner, data);
   }, [callbackInner, dispatch]);
 }
+
+const topicItemStoreSlice = {
+  DispatchContext,
+  StateContext,
+  initialState,
+  reducer,
+  useDispatchToClear,
+  useDispatchToLoad,
+  useDispatchToSet,
+  useState,
+};
+
+export default topicItemStoreSlice;

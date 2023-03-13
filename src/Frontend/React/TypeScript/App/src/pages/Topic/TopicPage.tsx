@@ -2,48 +2,41 @@ import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppStoreDispatchType, AppStoreStatus } from '../../app/store';
 import SpinnerControl from '../../controls/Spinner/SpinnerControl';
-import {
-  useArticleListStoreState,
-  useArticleListStoreDispatchToLoad,
-  useArticleListStoreDispatchToClear
-} from '../../store/Article/List/articleListStoreSlice';
-import {
-  useTopicItemStoreDispatchToClear,
-  useTopicItemStoreDispatchToLoad
-} from '../../store/Topic/Item/topicItemStoreSlice';
-import { useTopicPathStoreDispatchToSet } from '../../store/Topic/Path/topicPathStoreSlice';
+import articleListStoreSlice from '../../store/Article/List/articleListStoreSlice';
+import topicItemStoreSlice from '../../store/Topic/Item/topicItemStoreSlice';
+import topicPathStoreSlice from '../../store/Topic/Path/topicPathStoreSlice';
 import ArticleTableView from '../../views/ArticleTable/ArticleTableView';
 import styles from './TopicPage.module.css';
 
 export default function TopicPage () {
   const urlParams = useParams();
 
-  const { data: articles, requestStatus } = useArticleListStoreState();
+  const { data: articles, requestStatus } = articleListStoreSlice.useState();
 
   const topicId = Number(urlParams.topicId);
 
-  useArticleListStoreDispatchToLoad({
+  articleListStoreSlice.useDispatchToLoad({
     dispatchType: AppStoreDispatchType.MountOrUpdate,
     inputAtDispatch: topicId
   });
 
-  useArticleListStoreDispatchToClear({
+  articleListStoreSlice.useDispatchToClear({
     dispatchType: AppStoreDispatchType.Unmount
   });
 
-  const runTopicPathStoreDispatchToSet = useTopicPathStoreDispatchToSet();
+  const runTopicPathStoreDispatchToSet = topicPathStoreSlice.useDispatchToSet();
 
   const callbackOnTopicItemLoad = useCallback((data: string | null) => {
     runTopicPathStoreDispatchToSet(`TopicPath from ${data ?? ''}`);
   }, [runTopicPathStoreDispatchToSet]);
 
-  useTopicItemStoreDispatchToLoad({
+  topicItemStoreSlice.useDispatchToLoad({
     dispatchType: AppStoreDispatchType.MountOrUpdate,
     callback: callbackOnTopicItemLoad,
     inputAtDispatch: topicId
   });
 
-  useTopicItemStoreDispatchToClear({
+  topicItemStoreSlice.useDispatchToClear({
     dispatchType: AppStoreDispatchType.Unmount
   });
 

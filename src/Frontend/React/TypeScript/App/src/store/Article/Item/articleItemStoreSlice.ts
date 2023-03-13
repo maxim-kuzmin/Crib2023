@@ -1,10 +1,9 @@
 import { useContext, createContext, type Dispatch, useEffect, useCallback } from 'react';
-import {
-  type AppStoreDispatchOptions,
+import appStore, {
   AppStoreDispatchType,
-  type AppStoreState,
   AppStoreStatus,
-  createAppStoreState
+  type AppStoreDispatchOptions,
+  type AppStoreState,
 } from '../../../app/store';
 
 enum ActionType {
@@ -29,24 +28,24 @@ interface ActionToSet {
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
 
-export interface ArticleItemStoreState extends AppStoreState {
+interface State extends AppStoreState {
   data: string | null
   input: number | null
 }
 
-export const ArticleItemStoreDispatchContext = createContext<Dispatch<Action> | null>(null);
+const DispatchContext = createContext<Dispatch<Action> | null>(null);
 
-export const ArticleItemStoreStateContext = createContext<ArticleItemStoreState | null>(null);
+const StateContext = createContext<State | null>(null);
 
-export const initialArticleItemStoreState = createAppStoreState<ArticleItemStoreState>({
+const initialState = appStore.createState<State>({
   data: null,
   input: null
 });
 
-export default function reducer (state: ArticleItemStoreState, action: Action): ArticleItemStoreState {
+function reducer (state: State, action: Action): State {
   switch (action.type) {
     case ActionType.Clear: {
-      return initialArticleItemStoreState;
+      return initialState;
     }
     case ActionType.Load: {
       const { input } = action;
@@ -67,12 +66,12 @@ export default function reducer (state: ArticleItemStoreState, action: Action): 
   }
 }
 
-export function useArticleItemStoreState () {
-  return useContext(ArticleItemStoreStateContext)!;
+function useState () {
+  return useContext(StateContext)!;
 }
 
 function useDispatch () {
-  return useContext(ArticleItemStoreDispatchContext)!;
+  return useContext(DispatchContext)!;
 }
 
 function runDispatchToClear (
@@ -90,14 +89,14 @@ function runDispatchToClear (
   }
 }
 
-export interface ArticleItemStoreDispatchOptionsToClear extends AppStoreDispatchOptions {
+interface DispatchOptionsToClear extends AppStoreDispatchOptions {
   callback?: () => void
 }
 
-export function useArticleItemStoreDispatchToClear ({
+function useDispatchToClear ({
   dispatchType,
   callback
-}: ArticleItemStoreDispatchOptionsToClear = {}) {
+}: DispatchOptionsToClear = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -158,16 +157,16 @@ async function runDispatchToLoad (
   }
 }
 
-export interface ArticleItemStoreDispatchOptionsToLoad extends AppStoreDispatchOptions {
+interface DispatchOptionsToLoad extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
   inputAtDispatch?: number
 }
 
-export function useArticleItemStoreDispatchToLoad ({
+function useDispatchToLoad ({
   dispatchType,
   callback,
   inputAtDispatch
-}: ArticleItemStoreDispatchOptionsToLoad = {}) {
+}: DispatchOptionsToLoad = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -192,21 +191,21 @@ export function useArticleItemStoreDispatchToLoad ({
     };
   }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
 
-  return useCallback(async (shouldBeCanceled: () => boolean, input: number) => {
+  return useCallback(async (input: number, shouldBeCanceled: () => boolean = appStore.getFalse) => {
     runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
   }, [callbackInner, dispatch]);
 }
 
-export interface ArticleItemStoreDispatchOptionsToSet extends AppStoreDispatchOptions {
+interface DispatchOptionsToSet extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
   dataAtDispatch?: string
 }
 
-export function useArticleItemStoreDispatchToSet ({
+function useDispatchToSet ({
   dispatchType,
   callback,
   dataAtDispatch
-}: ArticleItemStoreDispatchOptionsToSet = {}) {
+}: DispatchOptionsToSet = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -229,3 +228,16 @@ export function useArticleItemStoreDispatchToSet ({
     runDispatchToSet(dispatch, callbackInner, data);
   }, [callbackInner, dispatch]);
 }
+
+const articleItemStoreSlice = {
+  DispatchContext,
+  StateContext,
+  initialState,
+  reducer,
+  useDispatchToClear,
+  useDispatchToLoad,
+  useDispatchToSet,
+  useState,
+};
+
+export default articleItemStoreSlice;

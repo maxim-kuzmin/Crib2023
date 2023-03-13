@@ -1,18 +1,14 @@
 import React, { useReducer } from 'react';
-import reducer, {
-  TopicPathStoreDispatchContext,
-  TopicPathStoreStateContext,
-  initialTopicPathStoreState,
-} from './topicPathStoreSlice';
+import topicPathStoreSlice from './topicPathStoreSlice';
 
-export default function TopicPathStoreProvider ({ children }: React.PropsWithChildren) {
-  const [state, dispatch] = useReducer(reducer, initialTopicPathStoreState);
+export default function ArticlePathStoreProvider ({ children }: React.PropsWithChildren) {
+  const [state, dispatch] = useReducer(topicPathStoreSlice.reducer, topicPathStoreSlice.initialState);
 
   return (
-    <TopicPathStoreStateContext.Provider value={state}>
-      <TopicPathStoreDispatchContext.Provider value={dispatch}>
+    <topicPathStoreSlice.StateContext.Provider value={state}>
+      <topicPathStoreSlice.DispatchContext.Provider value={dispatch}>
         {children}
-      </TopicPathStoreDispatchContext.Provider>
-    </TopicPathStoreStateContext.Provider>
+      </topicPathStoreSlice.DispatchContext.Provider>
+    </topicPathStoreSlice.StateContext.Provider>
   );
 }

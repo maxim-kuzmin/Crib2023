@@ -1,10 +1,9 @@
 import { useContext, createContext, type Dispatch, useEffect, useCallback } from 'react';
-import {
-  type AppStoreDispatchOptions,
+import appStore, {
   AppStoreDispatchType,
-  type AppStoreState,
   AppStoreStatus,
-  createAppStoreState
+  type AppStoreDispatchOptions,
+  type AppStoreState,
 } from '../../../app/store';
 
 enum ActionType {
@@ -27,26 +26,26 @@ interface ActionToSet {
   data: string | null
 }
 
-export type Action = ActionToClear | ActionToLoad | ActionToSet;
+type Action = ActionToClear | ActionToLoad | ActionToSet;
 
-export interface TopicPathStoreState extends AppStoreState {
+interface State extends AppStoreState {
   data: string | null
   input: string | null
 }
 
-export const TopicPathStoreDispatchContext = createContext<Dispatch<Action> | null>(null);
+const DispatchContext = createContext<Dispatch<Action> | null>(null);
 
-export const TopicPathStoreStateContext = createContext<TopicPathStoreState | null>(null);
+const StateContext = createContext<State | null>(null);
 
-export const initialTopicPathStoreState = createAppStoreState<TopicPathStoreState>({
+const initialState = appStore.createState<State>({
   data: null,
   input: null
 });
 
-export default function reducer (state: TopicPathStoreState, action: Action): TopicPathStoreState {
+function reducer (state: State, action: Action): State {
   switch (action.type) {
     case ActionType.Clear: {
-      return initialTopicPathStoreState;
+      return initialState;
     }
     case ActionType.Load: {
       const { input } = action;
@@ -67,12 +66,12 @@ export default function reducer (state: TopicPathStoreState, action: Action): To
   }
 }
 
-export function useTopicPathStoreState () {
-  return useContext(TopicPathStoreStateContext)!;
+function useState () {
+  return useContext(StateContext)!;
 }
 
 function useDispatch () {
-  return useContext(TopicPathStoreDispatchContext)!;
+  return useContext(DispatchContext)!;
 }
 
 function runDispatchToClear (
@@ -90,14 +89,14 @@ function runDispatchToClear (
   }
 }
 
-export interface TopicPathStoreDispatchOptionsToClear extends AppStoreDispatchOptions {
+interface DispatchOptionsToClear extends AppStoreDispatchOptions {
   callback?: () => void
 }
 
-export function useTopicPathStoreDispatchToClear ({
+function useDispatchToClear ({
   dispatchType,
   callback
-}: TopicPathStoreDispatchOptionsToClear = {}) {
+}: DispatchOptionsToClear = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -158,16 +157,16 @@ async function runDispatchToLoad (
   }
 }
 
-export interface TopicPathStoreDispatchOptionsToLoad extends AppStoreDispatchOptions {
+interface DispatchOptionsToLoad extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
   inputAtDispatch?: string
 }
 
-export function useTopicPathStoreDispatchToLoad ({
+function useDispatchToLoad ({
   dispatchType,
   callback,
   inputAtDispatch
-}: TopicPathStoreDispatchOptionsToLoad = {}) {
+}: DispatchOptionsToLoad = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -192,21 +191,21 @@ export function useTopicPathStoreDispatchToLoad ({
     };
   }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
 
-  return useCallback(async (shouldBeCanceled: () => boolean, input: string) => {
+  return useCallback(async (input: string, shouldBeCanceled: () => boolean = appStore.getFalse) => {
     runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
   }, [callbackInner, dispatch]);
 }
 
-export interface TopicPathStoreDispatchOptionsToSet extends AppStoreDispatchOptions {
+interface DispatchOptionsToSet extends AppStoreDispatchOptions {
   callback?: (data: string | null) => void
   dataAtDispatch?: string
 }
 
-export function useTopicPathStoreDispatchToSet ({
+function useDispatchToSet ({
   dispatchType,
   callback,
   dataAtDispatch
-}: TopicPathStoreDispatchOptionsToSet = {}) {
+}: DispatchOptionsToSet = {}) {
   const dispatch = useDispatch();
 
   const callbackInner = callback ?? null;
@@ -229,3 +228,16 @@ export function useTopicPathStoreDispatchToSet ({
     runDispatchToSet(dispatch, callbackInner, data);
   }, [callbackInner, dispatch]);
 }
+
+const topicPathStoreSlice = {
+  DispatchContext,
+  StateContext,
+  initialState,
+  reducer,
+  useDispatchToClear,
+  useDispatchToLoad,
+  useDispatchToSet,
+  useState,
+};
+
+export default topicPathStoreSlice;
