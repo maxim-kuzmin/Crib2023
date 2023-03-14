@@ -1,6 +1,9 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-global using Crib2023.Backend.Gateways.WebAPI.App.WebAppResponsesWithData;
+global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Article.Item;
+global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Article.List;
+global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Topic.Item;
+global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Topic.List;
 global using Crib2023.Backend.Gateways.WebAPI.App.Setup;
 global using Crib2023.Grpc.Backend.Services.Catalog;
 global using Makc2023.Backend.Common.Core.App;

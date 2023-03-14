@@ -3,7 +3,7 @@
 using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
 using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get;
 
-namespace Crib2023.Backend.Gateways.WebAPI.App.Controllers;
+namespace Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog;
 
 /// <summary>
 /// Контроллер "Статья в каталоге".
@@ -40,7 +40,7 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение элемента.</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(WebAppResponseWithCatalogArticleItemGetData), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CatalogArticleItemGetResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(WebAppResponseWithErrors), StatusCodes.Status500InternalServerError)]
@@ -63,7 +63,7 @@ public class CatalogArticleController : ControllerBase
         {
             if (operationResult.Output.Item.Data.Id > 0)
             {
-                WebAppResponseWithCatalogArticleItemGetData response = new(
+                CatalogArticleItemGetResponse response = new(
                     operationResult.OperationCode,
                     operationResult.Output);
 
@@ -102,7 +102,7 @@ public class CatalogArticleController : ControllerBase
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение списка.</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(WebAppResponseWithCatalogArticleListGetData), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CatalogArticleListGetResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(WebAppResponseWithErrors), StatusCodes.Status500InternalServerError)]
@@ -120,7 +120,7 @@ public class CatalogArticleController : ControllerBase
         {
             if (operationResult.Output.Items.Any())
             {
-                WebAppResponseWithCatalogArticleListGetData response = new(
+                CatalogArticleListGetResponse response = new(
                     operationResult.OperationCode,
                     operationResult.Output);
 
