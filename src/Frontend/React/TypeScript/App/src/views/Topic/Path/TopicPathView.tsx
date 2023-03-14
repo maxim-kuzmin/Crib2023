@@ -1,5 +1,5 @@
 import React from 'react';
-import { topicPathStoreSlice } from '../../stores';
+import { topicPathStoreSlice } from '../../../stores';
 import styles from './TopicPathView.module.css';
 
 export function TopicPathView () {

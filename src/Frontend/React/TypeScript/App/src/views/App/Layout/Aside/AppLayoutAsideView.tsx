@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopicTreeView } from '../../../TopicTree/TopicTreeView';
+import { TopicTreeView } from '../../../Topic';
 import styles from './AppLayoutAsideView.module.css';
 import { type AppLayoutAsideViewProps } from './AppLayoutAsideViewProps';
 

@@ -1,2 +1,2 @@
-export * from './ArticleView';
-export * from './ArticleViewProps';
+export * from './Item';
+export * from './Table';
