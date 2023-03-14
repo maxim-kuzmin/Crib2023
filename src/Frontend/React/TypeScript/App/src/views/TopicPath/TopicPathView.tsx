@@ -1,8 +1,8 @@
 import React from 'react';
-import topicPathStoreSlice from '../../store/Topic/Path/topicPathStoreSlice';
+import { topicPathStoreSlice } from '../../stores';
 import styles from './TopicPathView.module.css';
 
-export default function TopicPathView () {
+export function TopicPathView () {
   const { data } = topicPathStoreSlice.useState();
 
   return (

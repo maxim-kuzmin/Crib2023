@@ -1,6 +1,6 @@
 import React from 'react';
-import TopicPathView from '../../TopicPath/TopicPathView';
+import { TopicPathView } from '../../TopicPath/TopicPathView';
 
-export default function LayoutHeaderView () {
+export function LayoutHeaderView () {
   return <TopicPathView/>;
 }

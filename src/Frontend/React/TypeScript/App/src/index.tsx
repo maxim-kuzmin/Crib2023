@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import AppStoreProvider from './app/store/AppStoreProvider';
-import ArticlePage from './pages/Article/ArticlePage';
-import NotFoundPage from './pages/NotFound/NotFoundPage';
-import TopicPage from './pages/Topic/TopicPage';
+import { StoreProvider } from './app/store';
+import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import './index.css';
 import App from './App';
 
@@ -38,9 +36,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AppStoreProvider>
+    <StoreProvider>
       <RouterProvider router={router} />
-    </AppStoreProvider>
+    </StoreProvider>
   </React.StrictMode>
 );
 

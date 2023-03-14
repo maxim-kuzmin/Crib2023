@@ -1,10 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
-import LayoutAsideView from './views/Layout/Aside/LayoutAsideView';
-import LayoutContentView from './views/Layout/Content/LayoutContentView';
-import LayoutFooterView from './views/Layout/Footer/LayoutFooterView';
-import LayoutHeaderView from './views/Layout/Header/LayoutHeaderView';
-import LayoutControl from './controls/Layout/LayoutControl';
+import {
+  LayoutAsideView,
+  LayoutContentView,
+  LayoutFooterView,
+  LayoutHeaderView
+} from './views';
+import { LayoutControl } from './controls';
 
 export default function App () {
   return (

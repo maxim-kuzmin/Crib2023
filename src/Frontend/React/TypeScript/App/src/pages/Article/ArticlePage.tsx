@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { AppStoreDispatchType, AppStoreStatus } from '../../app/store';
-import SpinnerControl from '../../controls/Spinner/SpinnerControl';
-import articleItemStoreSlice from '../../store/Article/Item/articleItemStoreSlice';
-import topicPathStoreSlice from '../../store/Topic/Path/topicPathStoreSlice';
-import ArticleView from '../../views/Article/ArticleView';
+import { StoreDispatchType, StoreStatus } from '../../common';
+import { SpinnerControl } from '../../controls';
+import { articleItemStoreSlice, topicPathStoreSlice } from '../../stores';
+import { ArticleView } from '../../views';
 import styles from './ArticlePage.module.css';
 
-export default function ArticlePage () {
+export function ArticlePage () {
   const urlParams = useParams();
 
   const { data: article, requestStatus } = articleItemStoreSlice.useState();
@@ -21,13 +20,13 @@ export default function ArticlePage () {
   }, [runTopicPathStoreDispatchToSet]);
 
   articleItemStoreSlice.useDispatchToLoad({
-    dispatchType: AppStoreDispatchType.MountOrUpdate,
+    dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleItemLoad,
     inputAtDispatch: articleId
   });
 
   articleItemStoreSlice.useDispatchToClear({
-    dispatchType: AppStoreDispatchType.Unmount
+    dispatchType: StoreDispatchType.Unmount
   });
 
   const [val, setVal] = useState('');
@@ -38,7 +37,7 @@ export default function ArticlePage () {
       <input name='name' value={val} onChange={(e) => {
         setVal(e.target.value);
         }}/>
-      {requestStatus === AppStoreStatus.Pending
+      {requestStatus === StoreStatus.Pending
         ? <SpinnerControl/>
         : <ArticleView article={article}/>}
     </div>
