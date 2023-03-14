@@ -1,3 +1,3 @@
-export * from './App1';
+export * from './App';
 export * from './Article';
 export * from './Topic';
