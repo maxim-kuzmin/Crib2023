@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function LayoutFooterView () {
+export function AppLayoutFooterView () {
   return (
     <>
       Ant Design ©2023 Created by Ant UED

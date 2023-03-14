@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from 'react';
 
-export interface LayoutContentViewProps extends PropsWithChildren {
+export interface AppLayoutContentViewProps extends PropsWithChildren {
   backgroundColor: string
 }

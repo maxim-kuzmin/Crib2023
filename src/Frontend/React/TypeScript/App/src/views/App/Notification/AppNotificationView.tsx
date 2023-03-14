@@ -1,8 +1,8 @@
 import React from 'react';
-import { NotificationType } from '../../common';
-import { notificationControl } from '../../controls';
+import { NotificationType } from '../../../common';
+import { notificationControl } from '../../../controls';
 
-export function NotificationView () {
+export function AppNotificationView () {
     const control = notificationControl.create()
     return (
         <>

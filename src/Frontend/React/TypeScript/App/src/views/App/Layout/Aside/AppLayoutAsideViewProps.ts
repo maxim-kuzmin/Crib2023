@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from 'react';
 
-export interface LayoutAsideViewProps extends PropsWithChildren {
+export interface AppLayoutAsideViewProps extends PropsWithChildren {
   logoUrl: string
 }

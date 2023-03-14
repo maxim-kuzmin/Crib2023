@@ -1,23 +1,23 @@
 import React from 'react';
 import logo from './logo.svg';
 import {
-  LayoutAsideView,
-  LayoutContentView,
-  LayoutFooterView,
-  LayoutHeaderView,
-  NotificationView
+  AppLayoutAsideView,
+  AppLayoutContentView,
+  AppLayoutFooterView,
+  AppLayoutHeaderView,
+  AppNotificationView,
 } from './views';
 import { LayoutControl } from './controls';
 
 export default function App () {
   return (
     <>
-    <NotificationView/>
+    <AppNotificationView/>
     <LayoutControl
-      createAsideView={() => <LayoutAsideView logoUrl={logo}/>}
-      createContentView={(backgroundColor) => <LayoutContentView backgroundColor={backgroundColor}/>}
-      createFooterView={() => <LayoutFooterView/>}
-      createHeaderView={() => <LayoutHeaderView/>}/>
+      createAsideView={() => <AppLayoutAsideView logoUrl={logo}/>}
+      createContentView={(backgroundColor) => <AppLayoutContentView backgroundColor={backgroundColor}/>}
+      createFooterView={() => <AppLayoutFooterView/>}
+      createHeaderView={() => <AppLayoutHeaderView/>}/>
     </>
   );
 }
