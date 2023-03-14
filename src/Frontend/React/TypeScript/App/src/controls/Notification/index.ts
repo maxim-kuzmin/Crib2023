@@ -1,12 +1,12 @@
 import { notification } from 'antd';
-import { type NotificationControl, type NotificationInput, NotificationType } from '../../common';
+import { type NotificationControl, type NotificationData, NotificationType } from '../../common';
 
 function create (): NotificationControl {
     const [api, contextHolder] = notification.useNotification();
 
     return {
         component: contextHolder,
-        show (input: NotificationInput) {
+        show (input: NotificationData) {
             const { type, message, description } = input;
 
             switch (type) {

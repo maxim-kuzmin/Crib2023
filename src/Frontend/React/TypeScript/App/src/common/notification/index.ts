@@ -1,3 +1,3 @@
 export * from './NotificationControl';
-export * from './NotificationInput';
+export * from './NotificationData';
 export * from './NotificationType';

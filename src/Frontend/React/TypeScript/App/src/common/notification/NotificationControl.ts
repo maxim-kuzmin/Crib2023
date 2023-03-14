@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react';
-import { type NotificationInput } from './NotificationInput';
+import { type NotificationData } from './NotificationData';
 
 export interface NotificationControl {
   component: ReactElement
-  show: (input: NotificationInput) => void
+  show: (input: NotificationData) => void
 }
