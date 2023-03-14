@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import { StoreProvider } from './app/store';
 import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import './index.css';
 import App from './App';
+import { AppStoreProvider } from './stores';
 
 const router = createBrowserRouter([{
   path: '/',
@@ -36,9 +36,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <StoreProvider>
+    <AppStoreProvider>
       <RouterProvider router={router} />
-    </StoreProvider>
+    </AppStoreProvider>
   </React.StrictMode>
 );
 
