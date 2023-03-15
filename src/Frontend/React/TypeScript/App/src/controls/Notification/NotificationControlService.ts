@@ -32,10 +32,8 @@ export interface NotificationControlService {
   readonly useComponent: () => NotificationComponent;
 };
 
-const service: NotificationControlService = {
+export function createNotificationControlService (): NotificationControlService {
+  return {
     useComponent
-};
-
-export function getNotificationControlService (): NotificationControlService {
-  return service;
+  };
 }

@@ -1,13 +1,19 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAppModule } from '../../app/Module';
 import { NotificationType, StoreDispatchType, StoreStatus } from '../../common';
 import { SpinnerControl } from '../../controls';
-import { getAppNotificationStoreService, getArticleItemStoreService, getTopicPathStoreService } from '../../stores';
 import { ArticleView } from '../../views';
 import styles from './ArticlePage.module.css';
 
 export function ArticlePage () {
   const urlParams = useParams();
+
+  const {
+    getAppNotificationStoreService,
+    getArticleItemStoreService,
+    getTopicPathStoreService
+  } = useAppModule();
 
   const articleItemStoreService = getArticleItemStoreService();
 

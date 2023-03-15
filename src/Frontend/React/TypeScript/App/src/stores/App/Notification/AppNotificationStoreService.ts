@@ -178,16 +178,14 @@ export interface AppNotificationStoreService {
   readonly useState: () => State;
 }
 
-const service: AppNotificationStoreService = {
-  DispatchContext,
-  StateContext,
-  initialState,
-  reducer,
-  useDispatchToClear,
-  useDispatchToSet,
-  useState: useStateContext,
-};
-
-export function getAppNotificationStoreService (): AppNotificationStoreService {
-  return service;
+export function creareAppNotificationStoreService (): AppNotificationStoreService {
+  return {
+    DispatchContext,
+    StateContext,
+    initialState,
+    reducer,
+    useDispatchToClear,
+    useDispatchToSet,
+    useState: useStateContext,
+  };
 }

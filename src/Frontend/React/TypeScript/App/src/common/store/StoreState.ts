@@ -1,4 +1,4 @@
-import { type StoreStatus } from './StoreStatus'
+import { StoreStatus } from './StoreStatus'
 
 export interface StoreState {
     operationCode: string;
@@ -6,4 +6,19 @@ export interface StoreState {
     responseDetails: string;
     responseErrors: string;
     responseStatusCode: number;
+}
+
+export function createStoreState<T extends StoreState> (
+  props: any,
+  state: StoreState = {
+    operationCode: '',
+    requestStatus: StoreStatus.Fulfilled,
+    responseDetails: '',
+    responseErrors: '',
+    responseStatusCode: 200
+  }): T {
+  return {
+    ...props,
+    ...state
+  };
 }

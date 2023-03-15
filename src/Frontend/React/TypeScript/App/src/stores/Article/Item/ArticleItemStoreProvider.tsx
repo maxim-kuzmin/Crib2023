@@ -1,7 +1,9 @@
-import React, { useReducer } from 'react';
-import { getArticleItemStoreService } from './ArticleItemStoreService';
+import React, { type PropsWithChildren, useReducer } from 'react';
+import { useAppModule } from '../../../app/Module';
 
-export function ArticleItemStoreProvider ({ children }: React.PropsWithChildren) {
+export function ArticleItemStoreProvider ({ children }: PropsWithChildren) {
+  const { getArticleItemStoreService } = useAppModule();
+
   const service = getArticleItemStoreService();
 
   const [state, dispatch] = useReducer(service.reducer, service.initialState);

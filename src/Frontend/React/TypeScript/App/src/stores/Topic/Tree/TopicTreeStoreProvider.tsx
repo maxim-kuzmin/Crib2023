@@ -1,7 +1,9 @@
-import React, { useReducer } from 'react';
-import { getTopicTreeStoreService } from './TopicTreeStoreService';
+import React, { type PropsWithChildren, useReducer } from 'react';
+import { useAppModule } from '../../../app/Module';
 
-export function TopicTreeStoreProvider ({ children }: React.PropsWithChildren) {
+export function TopicTreeStoreProvider ({ children }: PropsWithChildren) {
+  const { getTopicTreeStoreService } = useAppModule();
+
   const service = getTopicTreeStoreService();
 
   const [state, dispatch] = useReducer(service.reducer, service.initialState);

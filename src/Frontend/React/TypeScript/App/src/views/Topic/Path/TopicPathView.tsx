@@ -1,8 +1,10 @@
 import React from 'react';
-import { getTopicPathStoreService } from '../../../stores';
+import { useAppModule } from '../../../app/Module';
 import styles from './TopicPathView.module.css';
 
 export function TopicPathView () {
+  const { getTopicPathStoreService } = useAppModule();
+
   const service = getTopicPathStoreService();
 
   const { data } = service.useState();

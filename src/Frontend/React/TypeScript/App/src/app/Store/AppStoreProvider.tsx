@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { type PropsWithChildren } from 'react';
 import {
+  AppNotificationStoreProvider,
   ArticleItemStoreProvider,
-  ArticleListStoreProvider
-} from '../Article';
-import {
+  ArticleListStoreProvider,
   TopicItemStoreProvider,
   TopicPathStoreProvider,
   TopicTreeStoreProvider
-} from '../Topic';
-import {
-  AppNotificationStoreProvider
-} from './Notification';
+} from '../../stores';
 
-export function AppStoreProvider ({ children }: React.PropsWithChildren) {
+export function AppStoreProvider ({ children }: PropsWithChildren) {
   return (
     <AppNotificationStoreProvider>
       <ArticleItemStoreProvider>

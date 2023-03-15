@@ -1,13 +1,11 @@
 import { useContext, createContext, type Dispatch, useEffect, useRef, type Context } from 'react';
 import {
-  getStoreService,
+  createStoreState,
   StoreDispatchType,
   StoreStatus,
   type StoreDispatchOptions,
   type StoreState,
 } from '../../../common';
-
-const storeService = getStoreService();
 
 type Data = string | null;
 
@@ -44,7 +42,7 @@ const DispatchContext = createContext<Dispatch<Action> | null>(null);
 
 const StateContext = createContext<State | null>(null);
 
-const initialState = storeService.createState<State>({
+const initialState = createStoreState<State>({
   data: null,
   input: null
 });
@@ -215,7 +213,7 @@ function useDispatchToLoad ({
   }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
 
   return useRef({
-    run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = storeService.getFalse) => {
+    run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = () => false) => {
       runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
     }
   }).current;
@@ -271,17 +269,15 @@ export interface TopicPathStoreService {
   readonly useState: () => State;
 }
 
-const service: TopicPathStoreService = {
-  DispatchContext,
-  StateContext,
-  initialState,
-  reducer,
-  useDispatchToClear,
-  useDispatchToLoad,
-  useDispatchToSet,
-  useState: useStateContext,
-};
-
-export function getTopicPathStoreService (): TopicPathStoreService {
-  return service;
+export function createTopicPathStoreService (): TopicPathStoreService {
+  return {
+    DispatchContext,
+    StateContext,
+    initialState,
+    reducer,
+    useDispatchToClear,
+    useDispatchToLoad,
+    useDispatchToSet,
+    useState: useStateContext,
+  };
 }

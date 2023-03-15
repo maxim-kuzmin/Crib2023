@@ -1,17 +1,19 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAppModule } from '../../app/Module';
 import { StoreDispatchType, StoreStatus } from '../../common';
 import { SpinnerControl } from '../../controls';
-import {
-  getArticleListStoreService,
-  getTopicItemStoreService,
-  getTopicPathStoreService
-} from '../../stores';
 import { ArticleTableView } from '../../views';
 import styles from './TopicPage.module.css';
 
 export function TopicPage () {
   const urlParams = useParams();
+
+  const {
+    getArticleListStoreService,
+    getTopicItemStoreService,
+    getTopicPathStoreService
+  } = useAppModule();
 
   const articleListStoreService = getArticleListStoreService();
 
