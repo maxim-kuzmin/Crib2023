@@ -1,14 +1,14 @@
 import React, { useReducer } from 'react';
-import { topicPathStoreSlice } from './topicPathStoreSlice';
+import { topicPathStoreService } from './topicPathStoreService';
 
 export function TopicPathStoreProvider ({ children }: React.PropsWithChildren) {
-  const [state, dispatch] = useReducer(topicPathStoreSlice.reducer, topicPathStoreSlice.initialState);
+  const [state, dispatch] = useReducer(topicPathStoreService.reducer, topicPathStoreService.initialState);
 
   return (
-    <topicPathStoreSlice.StateContext.Provider value={state}>
-      <topicPathStoreSlice.DispatchContext.Provider value={dispatch}>
+    <topicPathStoreService.StateContext.Provider value={state}>
+      <topicPathStoreService.DispatchContext.Provider value={dispatch}>
         {children}
-      </topicPathStoreSlice.DispatchContext.Provider>
-    </topicPathStoreSlice.StateContext.Provider>
+      </topicPathStoreService.DispatchContext.Provider>
+    </topicPathStoreService.StateContext.Provider>
   );
 }

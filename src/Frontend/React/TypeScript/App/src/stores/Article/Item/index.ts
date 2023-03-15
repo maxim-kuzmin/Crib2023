@@ -1,2 +1,2 @@
 export * from './ArticleItemStoreProvider';
-export * from './articleItemStoreSlice';
+export * from './articleItemStoreService';

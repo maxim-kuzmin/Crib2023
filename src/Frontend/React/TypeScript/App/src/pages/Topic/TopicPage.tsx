@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { StoreDispatchType, StoreStatus } from '../../common';
 import { SpinnerControl } from '../../controls';
 import {
-  articleListStoreSlice,
-  topicItemStoreSlice,
-  topicPathStoreSlice
+  articleListStoreService,
+  topicItemStoreService,
+  topicPathStoreService
 } from '../../stores';
 import { ArticleTableView } from '../../views';
 import styles from './TopicPage.module.css';
@@ -13,32 +13,32 @@ import styles from './TopicPage.module.css';
 export function TopicPage () {
   const urlParams = useParams();
 
-  const { data: articles, requestStatus } = articleListStoreSlice.useState();
+  const { data: articles, requestStatus } = articleListStoreService.useState();
 
   const topicId = Number(urlParams.topicId);
 
-  articleListStoreSlice.useDispatchToLoad({
+  articleListStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     inputAtDispatch: topicId
   });
 
-  articleListStoreSlice.useDispatchToClear({
+  articleListStoreService.useDispatchToClear({
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const topicPathDispatchToSet = topicPathStoreSlice.useDispatchToSet();
+  const topicPathDispatchToSet = topicPathStoreService.useDispatchToSet();
 
   const callbackOnTopicItemLoad = useCallback((data: string | null) => {
     topicPathDispatchToSet.run(`TopicPath from ${data ?? ''}`);
   }, [topicPathDispatchToSet]);
 
-  topicItemStoreSlice.useDispatchToLoad({
+  topicItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnTopicItemLoad,
     inputAtDispatch: topicId
   });
 
-  topicItemStoreSlice.useDispatchToClear({
+  topicItemStoreService.useDispatchToClear({
     dispatchType: StoreDispatchType.Unmount
   });
 

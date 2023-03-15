@@ -1,6 +1,6 @@
 import { useContext, createContext, type Dispatch, useEffect, useRef } from 'react';
 import {
-  store,
+  storeService,
   StoreDispatchType,
   StoreStatus,
   type StoreDispatchOptions,
@@ -9,7 +9,7 @@ import {
 
 type Data = string | null;
 
-type Input = string | null;
+type Input = number | null;
 
 enum ActionType {
   Clear,
@@ -42,7 +42,7 @@ const DispatchContext = createContext<Dispatch<Action> | null>(null);
 
 const StateContext = createContext<State | null>(null);
 
-const initialState = store.createState<State>({
+const initialState = storeService.createState<State>({
   data: null,
   input: null
 });
@@ -166,7 +166,7 @@ async function runDispatchToLoad (
   dispatch(actionToLoad);
 
   const data = await (new Promise<Data>((resolve, reject) => {
-    setTimeout(() => { resolve(`TopicPath, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
+    setTimeout(() => { resolve(`TopicItem, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
   }));
 
   if (!shouldBeCanceled()) {
@@ -213,7 +213,7 @@ function useDispatchToLoad ({
   }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
 
   return useRef({
-    run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = store.getFalse) => {
+    run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = storeService.getFalse) => {
       runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
     }
   }).current;
@@ -258,7 +258,7 @@ function useDispatchToSet ({
   }).current;
 }
 
-export const topicPathStoreSlice = {
+export const topicItemStoreService = {
   DispatchContext,
   StateContext,
   initialState,

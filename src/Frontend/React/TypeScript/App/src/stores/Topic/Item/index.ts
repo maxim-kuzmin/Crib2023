@@ -1,2 +1,2 @@
 export * from './TopicItemStoreProvider';
-export * from './topicItemStoreSlice';
+export * from './topicItemStoreService';

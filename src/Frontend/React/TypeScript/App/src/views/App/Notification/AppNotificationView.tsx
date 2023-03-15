@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import { StoreDispatchType } from '../../../common';
-import { notificationControl } from '../../../controls';
-import { appNotificationStoreSlice } from '../../../stores';
+import { notificationControlService } from '../../../controls';
+import { appNotificationStoreService } from '../../../stores';
 
 export function AppNotificationView () {
-    const component = notificationControl.useComponent();
+    const component = notificationControlService.useComponent();
 
-    const { data } = appNotificationStoreSlice.useState();
+    const { data } = appNotificationStoreService.useState();
 
     const callback = useCallback(() => {
       if (data) {
@@ -14,7 +14,7 @@ export function AppNotificationView () {
       }
     }, [component, data]);
 
-    appNotificationStoreSlice.useDispatchToClear({
+    appNotificationStoreService.useDispatchToClear({
       dispatchType: StoreDispatchType.MountOrUpdate,
       callback
     });

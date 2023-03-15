@@ -1,14 +1,19 @@
 import { useContext, createContext, type Dispatch, useEffect, useRef } from 'react';
 import {
-  type NotificationData,
+  storeService,
   StoreDispatchType,
-  type StoreDispatchOptions
+  StoreStatus,
+  type StoreDispatchOptions,
+  type StoreState,
 } from '../../../common';
 
-type Data = NotificationData | null;
+type Data = string | null;
+
+type Input = number | null;
 
 enum ActionType {
   Clear,
+  Load,
   Set
 }
 
@@ -16,35 +21,51 @@ interface ActionToClear {
   type: ActionType.Clear
 }
 
+interface ActionToLoad {
+  type: ActionType.Load
+  input: Input
+}
+
 interface ActionToSet {
   type: ActionType.Set
   data: Data
 }
 
-type Action = ActionToClear | ActionToSet;
+type Action = ActionToClear | ActionToLoad | ActionToSet;
 
-interface State {
+interface State extends StoreState {
   data: Data
+  input: Input
 }
 
 const DispatchContext = createContext<Dispatch<Action> | null>(null);
 
 const StateContext = createContext<State | null>(null);
 
-const initialState = {
-  data: null
-};
+const initialState = storeService.createState<State>({
+  data: null,
+  input: null
+});
 
 function reducer (state: State, action: Action): State {
   switch (action.type) {
     case ActionType.Clear: {
       return initialState;
     }
+    case ActionType.Load: {
+      const { input } = action;
+      return {
+        ...state,
+        input,
+        requestStatus: StoreStatus.Pending
+      };
+    }
     case ActionType.Set: {
       const { data } = action;
       return {
         ...state,
         data,
+        requestStatus: StoreStatus.Fulfilled
       };
     }
   }
@@ -129,9 +150,78 @@ function runDispatchToSet (
   }
 }
 
+type ShouldBeCanceled = () => boolean;
+
+async function runDispatchToLoad (
+  dispatch: Dispatch<Action>,
+  callback: CallbackToSet | null,
+  shouldBeCanceled: ShouldBeCanceled,
+  input: Input
+) {
+  const actionToLoad: ActionToLoad = {
+    type: ActionType.Load,
+    input
+  };
+
+  dispatch(actionToLoad);
+
+  const data = await (new Promise<Data>((resolve, reject) => {
+    setTimeout(() => { resolve(`ArticleList, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
+  }));
+
+  if (!shouldBeCanceled()) {
+    runDispatchToSet(dispatch, callback, data);
+  }
+}
+
+interface DispatchOptionsToLoad extends StoreDispatchOptions {
+  callback?: CallbackToSet
+  inputAtDispatch?: Input
+}
+
+interface DispatchToLoad {
+  run: (input: Input, shouldBeCanceled: ShouldBeCanceled) => void
+}
+
+function useDispatchToLoad ({
+  dispatchType,
+  callback,
+  inputAtDispatch
+}: DispatchOptionsToLoad = {}): DispatchToLoad {
+  const dispatch = useDispatchContext();
+
+  const callbackInner = callback ?? null;
+
+  const inputAtDispatchInner = inputAtDispatch ?? null;
+
+  useEffect(() => {
+    let isCanceled = false;
+
+    const shouldBeCanceledInner = () => isCanceled;
+
+    if (dispatchType === StoreDispatchType.MountOrUpdate) {
+      runDispatchToLoad(dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
+    }
+
+    return () => {
+      if (dispatchType === StoreDispatchType.Unmount) {
+        runDispatchToLoad(dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
+      } else {
+        isCanceled = true;
+      }
+    };
+  }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
+
+  return useRef({
+    run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = storeService.getFalse) => {
+      runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
+    }
+  }).current;
+}
+
 interface DispatchOptionsToSet extends StoreDispatchOptions {
   callback?: CallbackToSet
-  dataAtDispatch?: NotificationData
+  dataAtDispatch?: Data
 }
 
 interface DispatchToSet {
@@ -168,12 +258,13 @@ function useDispatchToSet ({
   }).current;
 }
 
-export const appNotificationStoreSlice = {
+export const articleListStoreService = {
   DispatchContext,
   StateContext,
   initialState,
   reducer,
   useDispatchToClear,
+  useDispatchToLoad,
   useDispatchToSet,
-  useState: useStateContext
+  useState: useStateContext,
 };

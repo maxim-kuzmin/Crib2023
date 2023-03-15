@@ -1,2 +1,2 @@
 export * from './AppNotificationStoreProvider';
-export * from './appNotificationStoreSlice';
+export * from './appNotificationStoreService';
