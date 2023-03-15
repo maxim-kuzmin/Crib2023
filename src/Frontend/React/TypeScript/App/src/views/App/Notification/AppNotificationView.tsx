@@ -1,19 +1,25 @@
 import React from 'react';
-import { NotificationType } from '../../../common';
+import { StoreDispatchType } from '../../../common';
 import { notificationControl } from '../../../controls';
+import { appNotificationStoreSlice } from '../../../stores';
 
 export function AppNotificationView () {
-    const component = notificationControl.useComponent()
+    const component = notificationControl.useComponent();
+
+    const { data } = appNotificationStoreSlice.useState();
+
+    appNotificationStoreSlice.useDispatchToClear({
+      dispatchType: StoreDispatchType.MountOrUpdate,
+      callback: () => {
+        if (data) {
+          component.show(data);
+        }
+      }
+    });
+
     return (
         <>
             {component.content}
-            <button onClick={() => {
-                component.show({
-                    type: NotificationType.Error,
-                    message: '11111',
-                    // description: '11111 1111111'
-                })
-            }} >111</button>
         </>
     );
 }

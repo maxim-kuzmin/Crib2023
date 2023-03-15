@@ -67,11 +67,11 @@ function reducer (state: State, action: Action): State {
   }
 }
 
-function useState () {
+function useStateContext () {
   return useContext(StateContext)!;
 }
 
-function useDispatch () {
+function useDispatchContext () {
   return useContext(DispatchContext)!;
 }
 
@@ -98,7 +98,7 @@ function useDispatchToClear ({
   dispatchType,
   callback
 }: DispatchOptionsToClear = {}) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
 
@@ -168,7 +168,7 @@ function useDispatchToLoad ({
   callback,
   inputAtDispatch
 }: DispatchOptionsToLoad = {}) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
 
@@ -207,7 +207,7 @@ function useDispatchToSet ({
   callback,
   dataAtDispatch
 }: DispatchOptionsToSet = {}) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
 
@@ -238,5 +238,5 @@ export const topicTreeStoreSlice = {
   useDispatchToClear,
   useDispatchToLoad,
   useDispatchToSet,
-  useState,
+  useState: useStateContext,
 };

@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { StoreDispatchType, StoreStatus } from '../../common';
+import { NotificationType, StoreDispatchType, StoreStatus } from '../../common';
 import { SpinnerControl } from '../../controls';
-import { articleItemStoreSlice, topicPathStoreSlice } from '../../stores';
+import { appNotificationStoreSlice, articleItemStoreSlice, topicPathStoreSlice } from '../../stores';
 import { ArticleView } from '../../views';
 import styles from './ArticlePage.module.css';
 
@@ -12,6 +12,8 @@ export function ArticlePage () {
   const { data: article, requestStatus } = articleItemStoreSlice.useState();
 
   const articleId = Number(urlParams.articleId);
+
+  const runAppNotificationStoreDispatchToSet = appNotificationStoreSlice.useDispatchToSet();
 
   const runTopicPathStoreDispatchToSet = topicPathStoreSlice.useDispatchToSet();
 
@@ -37,6 +39,13 @@ export function ArticlePage () {
       <input name='name' value={val} onChange={(e) => {
         setVal(e.target.value);
         }}/>
+      <button onClick={() => {
+          runAppNotificationStoreDispatchToSet({
+            type: NotificationType.Error,
+            message: '11111',
+            description: '11 11111 111111111 11'
+          })
+      }}>Notify</button>
       {requestStatus === StoreStatus.Pending
         ? <SpinnerControl/>
         : <ArticleView article={article}/>}
