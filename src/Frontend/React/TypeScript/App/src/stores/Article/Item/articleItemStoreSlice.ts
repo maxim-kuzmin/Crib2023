@@ -1,4 +1,4 @@
-import { useContext, createContext, type Dispatch, useEffect, useMemo } from 'react';
+import { useContext, createContext, type Dispatch, useEffect, useRef } from 'react';
 import {
   store,
   StoreDispatchType,
@@ -124,11 +124,11 @@ function useDispatchToClear ({
     };
   }, [dispatch, dispatchType, callbackInner]);
 
-  return useMemo(() => ({
+  return useRef({
     run: () => {
       runDispatchToClear(dispatch, callbackInner);
     }
-  }), [callbackInner, dispatch]);
+  }).current;
 }
 
 type CallbackToSet = (data: Data) => void;
@@ -212,11 +212,11 @@ function useDispatchToLoad ({
     };
   }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
 
-  return useMemo(() => ({
+  return useRef({
     run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = store.getFalse) => {
       runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
     }
-  }), [callbackInner, dispatch]);
+  }).current;
 }
 
 interface DispatchOptionsToSet extends StoreDispatchOptions {
@@ -251,11 +251,11 @@ function useDispatchToSet ({
     };
   }, [dispatch, dispatchType, callbackInner, dataAtDispatchInner]);
 
-  return useMemo(() => ({
+  return useRef({
     run: (data: Data) => {
       runDispatchToSet(dispatch, callbackInner, data);
     }
-  }), [callbackInner, dispatch]);
+  }).current;
 }
 
 export const articleItemStoreSlice = {

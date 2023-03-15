@@ -1,4 +1,4 @@
-import { useContext, createContext, type Dispatch, useEffect, useMemo } from 'react';
+import { useContext, createContext, type Dispatch, useEffect, useRef } from 'react';
 import {
   type NotificationData,
   StoreDispatchType,
@@ -103,11 +103,11 @@ function useDispatchToClear ({
     };
   }, [dispatch, dispatchType, callbackInner]);
 
-  return useMemo(() => ({
+  return useRef({
     run: () => {
       runDispatchToClear(dispatch, callbackInner);
     }
-  }), [callbackInner, dispatch]);
+  }).current;
 }
 
 type CallbackToSet = (data: Data) => void;
@@ -161,11 +161,11 @@ function useDispatchToSet ({
     };
   }, [dispatch, dispatchType, callbackInner, dataAtDispatchInner]);
 
-  return useMemo(() => ({
+  return useRef({
     run: (data: Data) => {
       runDispatchToSet(dispatch, callbackInner, data);
     }
-  }), [callbackInner, dispatch]);
+  }).current;
 }
 
 export const appNotificationStoreSlice = {
