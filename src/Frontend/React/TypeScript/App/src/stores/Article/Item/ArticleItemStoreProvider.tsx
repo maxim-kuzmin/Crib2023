@@ -1,14 +1,16 @@
 import React, { useReducer } from 'react';
-import { articleItemStoreService } from './articleItemStoreService';
+import { getArticleItemStoreService } from './articleItemStoreService1';
 
 export function ArticleItemStoreProvider ({ children }: React.PropsWithChildren) {
-  const [state, dispatch] = useReducer(articleItemStoreService.reducer, articleItemStoreService.initialState);
+  const service = getArticleItemStoreService();
+
+  const [state, dispatch] = useReducer(service.reducer, service.initialState);
 
   return (
-    <articleItemStoreService.StateContext.Provider value={state}>
-      <articleItemStoreService.DispatchContext.Provider value={dispatch}>
+    <service.StateContext.Provider value={state}>
+      <service.DispatchContext.Provider value={dispatch}>
         {children}
-      </articleItemStoreService.DispatchContext.Provider>
-    </articleItemStoreService.StateContext.Provider>
+      </service.DispatchContext.Provider>
+    </service.StateContext.Provider>
   );
 }

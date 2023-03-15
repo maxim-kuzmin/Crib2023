@@ -28,6 +28,14 @@ function useComponent (): NotificationComponent {
     }), [api, contextHolder]);
 }
 
-export const notificationControlService = {
+export interface NotificationControlService {
+  readonly useComponent: () => NotificationComponent
+};
+
+const service: NotificationControlService = {
     useComponent
 };
+
+export function getNotificationControlService (): NotificationControlService {
+  return service;
+}

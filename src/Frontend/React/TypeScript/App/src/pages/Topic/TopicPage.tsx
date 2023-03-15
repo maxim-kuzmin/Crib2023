@@ -3,15 +3,17 @@ import { useParams } from 'react-router-dom';
 import { StoreDispatchType, StoreStatus } from '../../common';
 import { SpinnerControl } from '../../controls';
 import {
-  articleListStoreService,
-  topicItemStoreService,
-  topicPathStoreService
+  getArticleListStoreService,
+  getTopicItemStoreService,
+  getTopicPathStoreService
 } from '../../stores';
 import { ArticleTableView } from '../../views';
 import styles from './TopicPage.module.css';
 
 export function TopicPage () {
   const urlParams = useParams();
+
+  const articleListStoreService = getArticleListStoreService();
 
   const { data: articles, requestStatus } = articleListStoreService.useState();
 
@@ -26,11 +28,15 @@ export function TopicPage () {
     dispatchType: StoreDispatchType.Unmount
   });
 
+  const topicPathStoreService = getTopicPathStoreService();
+
   const topicPathDispatchToSet = topicPathStoreService.useDispatchToSet();
 
   const callbackOnTopicItemLoad = useCallback((data: string | null) => {
     topicPathDispatchToSet.run(`TopicPath from ${data ?? ''}`);
   }, [topicPathDispatchToSet]);
+
+  const topicItemStoreService = getTopicItemStoreService();
 
   topicItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,

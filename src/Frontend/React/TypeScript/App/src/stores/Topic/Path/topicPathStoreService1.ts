@@ -1,15 +1,17 @@
-import { useContext, createContext, type Dispatch, useEffect, useRef } from 'react';
+import { useContext, createContext, type Dispatch, useEffect, useRef, type Context } from 'react';
 import {
-  storeService,
+  getStoreService,
   StoreDispatchType,
   StoreStatus,
   type StoreDispatchOptions,
   type StoreState,
 } from '../../../common';
 
+const storeService = getStoreService();
+
 type Data = string | null;
 
-type Input = number | null;
+type Input = string | null;
 
 enum ActionType {
   Clear,
@@ -166,7 +168,7 @@ async function runDispatchToLoad (
   dispatch(actionToLoad);
 
   const data = await (new Promise<Data>((resolve, reject) => {
-    setTimeout(() => { resolve(`ArticleList, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
+    setTimeout(() => { resolve(`TopicPath, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
   }));
 
   if (!shouldBeCanceled()) {
@@ -258,7 +260,18 @@ function useDispatchToSet ({
   }).current;
 }
 
-export const articleListStoreService = {
+export interface TopicPathStoreService {
+  readonly DispatchContext: Context<Dispatch<Action> | null>
+  readonly StateContext: Context<State | null>
+  readonly initialState: State
+  readonly reducer: (state: State, action: Action) => State
+  readonly useDispatchToClear: (options?: DispatchOptionsToClear) => DispatchToClear
+  readonly useDispatchToLoad: (options?: DispatchOptionsToLoad) => DispatchToLoad
+  readonly useDispatchToSet: (options?: DispatchOptionsToSet) => DispatchToSet
+  readonly useState: () => State
+}
+
+const service: TopicPathStoreService = {
   DispatchContext,
   StateContext,
   initialState,
@@ -268,3 +281,7 @@ export const articleListStoreService = {
   useDispatchToSet,
   useState: useStateContext,
 };
+
+export function getTopicPathStoreService (): TopicPathStoreService {
+  return service;
+}

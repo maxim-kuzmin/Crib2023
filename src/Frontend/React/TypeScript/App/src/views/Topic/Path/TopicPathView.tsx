@@ -1,9 +1,11 @@
 import React from 'react';
-import { topicPathStoreService } from '../../../stores';
+import { getTopicPathStoreService } from '../../../stores';
 import styles from './TopicPathView.module.css';
 
 export function TopicPathView () {
-  const { data } = topicPathStoreService.useState();
+  const service = getTopicPathStoreService();
+
+  const { data } = service.useState();
 
   return (
     <div className={styles.root}>

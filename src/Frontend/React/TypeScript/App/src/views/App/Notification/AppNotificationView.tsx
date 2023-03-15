@@ -1,10 +1,14 @@
 import React, { useCallback } from 'react';
 import { StoreDispatchType } from '../../../common';
-import { notificationControlService } from '../../../controls';
-import { appNotificationStoreService } from '../../../stores';
+import { getNotificationControlService } from '../../../controls';
+import { getAppNotificationStoreService } from '../../../stores';
 
 export function AppNotificationView () {
+    const notificationControlService = getNotificationControlService();
+
     const component = notificationControlService.useComponent();
+
+    const appNotificationStoreService = getAppNotificationStoreService();
 
     const { data } = appNotificationStoreService.useState();
 

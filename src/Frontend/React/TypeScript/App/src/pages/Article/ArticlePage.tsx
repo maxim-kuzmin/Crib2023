@@ -2,18 +2,24 @@ import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NotificationType, StoreDispatchType, StoreStatus } from '../../common';
 import { SpinnerControl } from '../../controls';
-import { appNotificationStoreService, articleItemStoreService, topicPathStoreService } from '../../stores';
+import { getAppNotificationStoreService, getArticleItemStoreService, getTopicPathStoreService } from '../../stores';
 import { ArticleView } from '../../views';
 import styles from './ArticlePage.module.css';
 
 export function ArticlePage () {
   const urlParams = useParams();
 
+  const articleItemStoreService = getArticleItemStoreService();
+
   const { data: article, requestStatus } = articleItemStoreService.useState();
 
   const articleId = Number(urlParams.articleId);
 
+  const appNotificationStoreService = getAppNotificationStoreService();
+
   const appNotificationDispatchToSet = appNotificationStoreService.useDispatchToSet();
+
+  const topicPathStoreService = getTopicPathStoreService();
 
   const topicPathDispatchToSet = topicPathStoreService.useDispatchToSet();
 

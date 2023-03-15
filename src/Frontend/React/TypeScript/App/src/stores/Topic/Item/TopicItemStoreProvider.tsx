@@ -1,14 +1,16 @@
 import React, { useReducer } from 'react';
-import { topicItemStoreService } from './topicItemStoreService';
+import { getTopicItemStoreService } from './topicItemStoreService1';
 
 export function TopicItemStoreProvider ({ children }: React.PropsWithChildren) {
-  const [state, dispatch] = useReducer(topicItemStoreService.reducer, topicItemStoreService.initialState);
+  const service = getTopicItemStoreService();
+
+  const [state, dispatch] = useReducer(service.reducer, service.initialState);
 
   return (
-    <topicItemStoreService.StateContext.Provider value={state}>
-      <topicItemStoreService.DispatchContext.Provider value={dispatch}>
+    <service.StateContext.Provider value={state}>
+      <service.DispatchContext.Provider value={dispatch}>
         {children}
-      </topicItemStoreService.DispatchContext.Provider>
-    </topicItemStoreService.StateContext.Provider>
+      </service.DispatchContext.Provider>
+    </service.StateContext.Provider>
   );
 }

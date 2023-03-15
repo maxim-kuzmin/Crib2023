@@ -1,14 +1,16 @@
 import React, { useReducer } from 'react';
-import { appNotificationStoreService } from './appNotificationStoreService';
+import { getAppNotificationStoreService } from './appNotificationStoreService1';
 
 export function AppNotificationStoreProvider ({ children }: React.PropsWithChildren) {
-  const [state, dispatch] = useReducer(appNotificationStoreService.reducer, appNotificationStoreService.initialState);
+  const service = getAppNotificationStoreService();
+
+  const [state, dispatch] = useReducer(service.reducer, service.initialState);
 
   return (
-    <appNotificationStoreService.StateContext.Provider value={state}>
-      <appNotificationStoreService.DispatchContext.Provider value={dispatch}>
+    <service.StateContext.Provider value={state}>
+      <service.DispatchContext.Provider value={dispatch}>
         {children}
-      </appNotificationStoreService.DispatchContext.Provider>
-    </appNotificationStoreService.StateContext.Provider>
+      </service.DispatchContext.Provider>
+    </service.StateContext.Provider>
   );
 }
