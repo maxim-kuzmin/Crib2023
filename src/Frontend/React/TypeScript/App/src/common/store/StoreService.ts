@@ -24,8 +24,8 @@ export interface StoreService {
   readonly createState: <T extends StoreState>(
     props: any,
     state?: StoreState
-  ) => T
-  readonly getFalse: () => boolean
+  ) => T;
+  readonly getFalse: () => boolean;
 }
 
 const service: StoreService = {

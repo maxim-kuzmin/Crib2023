@@ -1,3 +1,3 @@
 export interface OperationHandler {
-    onError: () => any
+    onError: () => any;
 }

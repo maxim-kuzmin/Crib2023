@@ -13,18 +13,18 @@ enum ActionType {
 }
 
 interface ActionToClear {
-  type: ActionType.Clear
+  type: ActionType.Clear;
 }
 
 interface ActionToSet {
-  type: ActionType.Set
-  data: Data
+  type: ActionType.Set;
+  data: Data;
 }
 
 type Action = ActionToClear | ActionToSet;
 
 interface State {
-  data: Data
+  data: Data;
 }
 
 const DispatchContext = createContext<Dispatch<Action> | null>(null);
@@ -76,11 +76,11 @@ function runDispatchToClear (
 }
 
 interface DispatchOptionsToClear extends StoreDispatchOptions {
-  callback?: CallbackToClear
+  callback?: CallbackToClear;
 }
 
 interface DispatchToClear {
-  run: () => void
+  run: () => void;
 }
 
 function useDispatchToClear ({
@@ -130,12 +130,12 @@ function runDispatchToSet (
 }
 
 interface DispatchOptionsToSet extends StoreDispatchOptions {
-  callback?: CallbackToSet
-  dataAtDispatch?: NotificationData
+  callback?: CallbackToSet;
+  dataAtDispatch?: NotificationData;
 }
 
 interface DispatchToSet {
-  run: (data: Data) => void
+  run: (data: Data) => void;
 }
 
 function useDispatchToSet ({
@@ -169,13 +169,13 @@ function useDispatchToSet ({
 }
 
 export interface AppNotificationStoreService {
-  readonly DispatchContext: Context<Dispatch<Action> | null>
-  readonly StateContext: Context<State | null>
-  readonly initialState: State
-  readonly reducer: (state: State, action: Action) => State
-  readonly useDispatchToClear: (options?: DispatchOptionsToClear) => DispatchToClear
-  readonly useDispatchToSet: (options?: DispatchOptionsToSet) => DispatchToSet
-  readonly useState: () => State
+  readonly DispatchContext: Context<Dispatch<Action> | null>;
+  readonly StateContext: Context<State | null>;
+  readonly initialState: State;
+  readonly reducer: (state: State, action: Action) => State;
+  readonly useDispatchToClear: (options?: DispatchOptionsToClear) => DispatchToClear;
+  readonly useDispatchToSet: (options?: DispatchOptionsToSet) => DispatchToSet;
+  readonly useState: () => State;
 }
 
 const service: AppNotificationStoreService = {

@@ -20,24 +20,24 @@ enum ActionType {
 }
 
 interface ActionToClear {
-  type: ActionType.Clear
+  type: ActionType.Clear;
 }
 
 interface ActionToLoad {
-  type: ActionType.Load
-  input: Input
+  type: ActionType.Load;
+  input: Input;
 }
 
 interface ActionToSet {
-  type: ActionType.Set
-  data: Data
+  type: ActionType.Set;
+  data: Data;
 }
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
 
 interface State extends StoreState {
-  data: Data
-  input: Input
+  data: Data;
+  input: Input;
 }
 
 const DispatchContext = createContext<Dispatch<Action> | null>(null);
@@ -99,11 +99,11 @@ function runDispatchToClear (
 }
 
 interface DispatchOptionsToClear extends StoreDispatchOptions {
-  callback?: CallbackToClear
+  callback?: CallbackToClear;
 }
 
 interface DispatchToClear {
-  run: () => void
+  run: () => void;
 }
 
 function useDispatchToClear ({
@@ -177,12 +177,12 @@ async function runDispatchToLoad (
 }
 
 interface DispatchOptionsToLoad extends StoreDispatchOptions {
-  callback?: CallbackToSet
-  inputAtDispatch?: Input
+  callback?: CallbackToSet;
+  inputAtDispatch?: Input;
 }
 
 interface DispatchToLoad {
-  run: (input: Input, shouldBeCanceled: ShouldBeCanceled) => void
+  run: (input: Input, shouldBeCanceled: ShouldBeCanceled) => void;
 }
 
 function useDispatchToLoad ({
@@ -222,12 +222,12 @@ function useDispatchToLoad ({
 }
 
 interface DispatchOptionsToSet extends StoreDispatchOptions {
-  callback?: CallbackToSet
-  dataAtDispatch?: Data
+  callback?: CallbackToSet;
+  dataAtDispatch?: Data;
 }
 
 interface DispatchToSet {
-  run: (data: Data) => void
+  run: (data: Data) => void;
 }
 
 function useDispatchToSet ({
@@ -261,14 +261,14 @@ function useDispatchToSet ({
 }
 
 export interface TopicTreeStoreService {
-  readonly DispatchContext: Context<Dispatch<Action> | null>
-  readonly StateContext: Context<State | null>
-  readonly initialState: State
-  readonly reducer: (state: State, action: Action) => State
-  readonly useDispatchToClear: (options?: DispatchOptionsToClear) => DispatchToClear
-  readonly useDispatchToLoad: (options?: DispatchOptionsToLoad) => DispatchToLoad
-  readonly useDispatchToSet: (options?: DispatchOptionsToSet) => DispatchToSet
-  readonly useState: () => State
+  readonly DispatchContext: Context<Dispatch<Action> | null>;
+  readonly StateContext: Context<State | null>;
+  readonly initialState: State;
+  readonly reducer: (state: State, action: Action) => State;
+  readonly useDispatchToClear: (options?: DispatchOptionsToClear) => DispatchToClear;
+  readonly useDispatchToLoad: (options?: DispatchOptionsToLoad) => DispatchToLoad;
+  readonly useDispatchToSet: (options?: DispatchOptionsToSet) => DispatchToSet;
+  readonly useState: () => State;
 }
 
 const service: TopicTreeStoreService = {

@@ -29,7 +29,7 @@ function useComponent (): NotificationComponent {
 }
 
 export interface NotificationControlService {
-  readonly useComponent: () => NotificationComponent
+  readonly useComponent: () => NotificationComponent;
 };
 
 const service: NotificationControlService = {
