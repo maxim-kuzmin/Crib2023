@@ -21,11 +21,11 @@ function getFalse () {
 }
 
 export interface StoreService {
-  createState: <T extends StoreState>(
+  readonly createState: <T extends StoreState>(
     props: any,
     state?: StoreState
   ) => T
-  getFalse: () => boolean
+  readonly getFalse: () => boolean
 }
 
 const service: StoreService = {
