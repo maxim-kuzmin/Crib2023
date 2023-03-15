@@ -1,5 +1,5 @@
 export * from './StoreDispatchOptions';
 export * from './StoreDispatchType';
-export * from './storeService1';
+export * from './StoreService';
 export * from './StoreState';
 export * from './StoreStatus';

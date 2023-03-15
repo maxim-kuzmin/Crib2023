@@ -1,1 +1,1 @@
-export * from './notificationControlService1';
+export * from './NotificationControlService';

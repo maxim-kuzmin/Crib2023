@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { getAppNotificationStoreService } from './appNotificationStoreService1';
+import { getAppNotificationStoreService } from './AppNotificationStoreService';
 
 export function AppNotificationStoreProvider ({ children }: React.PropsWithChildren) {
   const service = getAppNotificationStoreService();

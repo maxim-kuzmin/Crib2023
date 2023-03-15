@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { getTopicPathStoreService } from './topicPathStoreService1';
+import { getTopicPathStoreService } from './TopicPathStoreService';
 
 export function TopicPathStoreProvider ({ children }: React.PropsWithChildren) {
   const service = getTopicPathStoreService();

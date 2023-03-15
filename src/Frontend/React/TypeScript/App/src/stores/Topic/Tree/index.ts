@@ -1,2 +1,2 @@
 export * from './TopicTreeStoreProvider';
-export * from './topicTreeStoreService1';
+export * from './TopicTreeStoreService';

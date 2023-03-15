@@ -1,2 +1,2 @@
 export * from './ArticleListStoreProvider';
-export * from './articleListStoreService1';
+export * from './ArticleListStoreService';

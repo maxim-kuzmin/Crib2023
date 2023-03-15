@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { getArticleItemStoreService } from './articleItemStoreService1';
+import { getArticleItemStoreService } from './ArticleItemStoreService';
 
 export function ArticleItemStoreProvider ({ children }: React.PropsWithChildren) {
   const service = getArticleItemStoreService();

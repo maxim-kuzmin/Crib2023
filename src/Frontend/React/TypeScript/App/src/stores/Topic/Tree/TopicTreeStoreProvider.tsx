@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { getTopicTreeStoreService } from './topicTreeStoreService1';
+import { getTopicTreeStoreService } from './TopicTreeStoreService';
 
 export function TopicTreeStoreProvider ({ children }: React.PropsWithChildren) {
   const service = getTopicTreeStoreService();
