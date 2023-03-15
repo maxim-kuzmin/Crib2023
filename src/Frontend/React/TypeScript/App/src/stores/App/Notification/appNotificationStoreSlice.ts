@@ -1,9 +1,11 @@
-import { useContext, createContext, type Dispatch, useEffect, useCallback } from 'react';
+import { useContext, createContext, type Dispatch, useEffect, useMemo } from 'react';
 import {
   type NotificationData,
   StoreDispatchType,
-  type StoreDispatchOptions,
+  type StoreDispatchOptions
 } from '../../../common';
+
+type Data = NotificationData | null;
 
 enum ActionType {
   Clear,
@@ -16,13 +18,13 @@ interface ActionToClear {
 
 interface ActionToSet {
   type: ActionType.Set
-  data: NotificationData | null
+  data: Data
 }
 
 type Action = ActionToClear | ActionToSet;
 
 interface State {
-  data: NotificationData | null
+  data: Data
 }
 
 const DispatchContext = createContext<Dispatch<Action> | null>(null);
@@ -56,9 +58,11 @@ function useDispatchContext () {
   return useContext(DispatchContext)!;
 }
 
+type CallbackToClear = () => void;
+
 function runDispatchToClear (
   dispatch: Dispatch<Action>,
-  callback: (() => void) | null
+  callback: CallbackToClear | null
 ) {
   const actionToClear: ActionToClear = {
     type: ActionType.Clear
@@ -72,13 +76,17 @@ function runDispatchToClear (
 }
 
 interface DispatchOptionsToClear extends StoreDispatchOptions {
-  callback?: () => void
+  callback?: CallbackToClear
+}
+
+interface DispatchToClear {
+  run: () => void
 }
 
 function useDispatchToClear ({
   dispatchType,
   callback
-}: DispatchOptionsToClear = {}) {
+}: DispatchOptionsToClear = {}): DispatchToClear {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
@@ -95,15 +103,19 @@ function useDispatchToClear ({
     };
   }, [dispatch, dispatchType, callbackInner]);
 
-  return useCallback(() => {
-    runDispatchToClear(dispatch, callbackInner);
-  }, [callbackInner, dispatch]);
+  return useMemo(() => ({
+    run: () => {
+      runDispatchToClear(dispatch, callbackInner);
+    }
+  }), [callbackInner, dispatch]);
 }
+
+type CallbackToSet = (data: Data) => void;
 
 function runDispatchToSet (
   dispatch: Dispatch<Action>,
-  callback: ((data: NotificationData | null) => void) | null,
-  data: NotificationData | null
+  callback: CallbackToSet | null,
+  data: Data
 ) {
   const actionToSet: ActionToSet = {
     type: ActionType.Set,
@@ -118,15 +130,19 @@ function runDispatchToSet (
 }
 
 interface DispatchOptionsToSet extends StoreDispatchOptions {
-  callback?: (data: NotificationData | null) => void
+  callback?: CallbackToSet
   dataAtDispatch?: NotificationData
+}
+
+interface DispatchToSet {
+  run: (data: Data) => void
 }
 
 function useDispatchToSet ({
   dispatchType,
   callback,
   dataAtDispatch
-}: DispatchOptionsToSet = {}) {
+}: DispatchOptionsToSet = {}): DispatchToSet {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
@@ -145,9 +161,11 @@ function useDispatchToSet ({
     };
   }, [dispatch, dispatchType, callbackInner, dataAtDispatchInner]);
 
-  return useCallback((data: NotificationData | null) => {
-    runDispatchToSet(dispatch, callbackInner, data);
-  }, [callbackInner, dispatch]);
+  return useMemo(() => ({
+    run: (data: Data) => {
+      runDispatchToSet(dispatch, callbackInner, data);
+    }
+  }), [callbackInner, dispatch]);
 }
 
 export const appNotificationStoreSlice = {

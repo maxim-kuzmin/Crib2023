@@ -13,13 +13,13 @@ export function ArticlePage () {
 
   const articleId = Number(urlParams.articleId);
 
-  const runAppNotificationStoreDispatchToSet = appNotificationStoreSlice.useDispatchToSet();
+  const appNotificationDispatchToSet = appNotificationStoreSlice.useDispatchToSet();
 
-  const runTopicPathStoreDispatchToSet = topicPathStoreSlice.useDispatchToSet();
+  const topicPathDispatchToSet = topicPathStoreSlice.useDispatchToSet();
 
   const callbackOnArticleItemLoad = useCallback((data: string | null) => {
-    runTopicPathStoreDispatchToSet(`TopicPath from ${data ?? ''}`);
-  }, [runTopicPathStoreDispatchToSet]);
+    topicPathDispatchToSet.run(`TopicPath from ${data ?? ''}`);
+  }, [topicPathDispatchToSet]);
 
   articleItemStoreSlice.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -31,7 +31,7 @@ export function ArticlePage () {
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const [val, setVal] = useState('');
+  const [val, setVal] = useState('1111');
 
   return (
     <div className={styles.root}>
@@ -39,11 +39,10 @@ export function ArticlePage () {
       <input name='name' value={val} onChange={(e) => {
         setVal(e.target.value);
         }}/>
-      <button onClick={() => {
-          runAppNotificationStoreDispatchToSet({
+      <button onClick={(e) => {
+          appNotificationDispatchToSet.run({
             type: NotificationType.Error,
-            message: '11111',
-            description: '11 11111 111111111 11'
+            message: val
           })
       }}>Notify</button>
       {requestStatus === StoreStatus.Pending

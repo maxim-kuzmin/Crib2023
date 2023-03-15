@@ -1,4 +1,4 @@
-import { useContext, createContext, type Dispatch, useEffect, useCallback } from 'react';
+import { useContext, createContext, type Dispatch, useEffect, useMemo } from 'react';
 import {
   store,
   StoreDispatchType,
@@ -6,6 +6,10 @@ import {
   type StoreDispatchOptions,
   type StoreState,
 } from '../../../common';
+
+type Data = string | null;
+
+type Input = string | null;
 
 enum ActionType {
   Clear,
@@ -19,19 +23,19 @@ interface ActionToClear {
 
 interface ActionToLoad {
   type: ActionType.Load
-  input: string | null
+  input: Input
 }
 
 interface ActionToSet {
   type: ActionType.Set
-  data: string | null
+  data: Data
 }
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
 
 interface State extends StoreState {
-  data: string | null
-  input: string | null
+  data: Data
+  input: Input
 }
 
 const DispatchContext = createContext<Dispatch<Action> | null>(null);
@@ -75,9 +79,11 @@ function useDispatchContext () {
   return useContext(DispatchContext)!;
 }
 
+type CallbackToClear = () => void;
+
 function runDispatchToClear (
   dispatch: Dispatch<Action>,
-  callback: (() => void) | null
+  callback: CallbackToClear | null
 ) {
   const actionToClear: ActionToClear = {
     type: ActionType.Clear
@@ -91,13 +97,17 @@ function runDispatchToClear (
 }
 
 interface DispatchOptionsToClear extends StoreDispatchOptions {
-  callback?: () => void
+  callback?: CallbackToClear
+}
+
+interface DispatchToClear {
+  run: () => void
 }
 
 function useDispatchToClear ({
   dispatchType,
   callback
-}: DispatchOptionsToClear = {}) {
+}: DispatchOptionsToClear = {}): DispatchToClear {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
@@ -114,15 +124,19 @@ function useDispatchToClear ({
     };
   }, [dispatch, dispatchType, callbackInner]);
 
-  return useCallback(() => {
-    runDispatchToClear(dispatch, callbackInner);
-  }, [callbackInner, dispatch]);
+  return useMemo(() => ({
+    run: () => {
+      runDispatchToClear(dispatch, callbackInner);
+    }
+  }), [callbackInner, dispatch]);
 }
+
+type CallbackToSet = (data: Data) => void;
 
 function runDispatchToSet (
   dispatch: Dispatch<Action>,
-  callback: ((data: string | null) => void) | null,
-  data: string | null
+  callback: CallbackToSet | null,
+  data: Data
 ) {
   const actionToSet: ActionToSet = {
     type: ActionType.Set,
@@ -136,11 +150,13 @@ function runDispatchToSet (
   }
 }
 
+type ShouldBeCanceled = () => boolean;
+
 async function runDispatchToLoad (
   dispatch: Dispatch<Action>,
-  callback: ((data: string | null) => void) | null,
-  shouldBeCanceled: () => boolean,
-  input: string | null
+  callback: CallbackToSet | null,
+  shouldBeCanceled: ShouldBeCanceled,
+  input: Input
 ) {
   const actionToLoad: ActionToLoad = {
     type: ActionType.Load,
@@ -149,7 +165,7 @@ async function runDispatchToLoad (
 
   dispatch(actionToLoad);
 
-  const data = await (new Promise<string>((resolve, reject) => {
+  const data = await (new Promise<Data>((resolve, reject) => {
     setTimeout(() => { resolve(`TopicTree, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
   }));
 
@@ -159,15 +175,19 @@ async function runDispatchToLoad (
 }
 
 interface DispatchOptionsToLoad extends StoreDispatchOptions {
-  callback?: (data: string | null) => void
-  inputAtDispatch?: string
+  callback?: CallbackToSet
+  inputAtDispatch?: Input
+}
+
+interface DispatchToLoad {
+  run: (input: Input, shouldBeCanceled: ShouldBeCanceled) => void
 }
 
 function useDispatchToLoad ({
   dispatchType,
   callback,
   inputAtDispatch
-}: DispatchOptionsToLoad = {}) {
+}: DispatchOptionsToLoad = {}): DispatchToLoad {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
@@ -192,21 +212,27 @@ function useDispatchToLoad ({
     };
   }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
 
-  return useCallback(async (input: string, shouldBeCanceled: () => boolean = store.getFalse) => {
-    runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
-  }, [callbackInner, dispatch]);
+  return useMemo(() => ({
+    run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = store.getFalse) => {
+      runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
+    }
+  }), [callbackInner, dispatch]);
 }
 
 interface DispatchOptionsToSet extends StoreDispatchOptions {
-  callback?: (data: string | null) => void
-  dataAtDispatch?: string
+  callback?: CallbackToSet
+  dataAtDispatch?: Data
+}
+
+interface DispatchToSet {
+  run: (data: Data) => void
 }
 
 function useDispatchToSet ({
   dispatchType,
   callback,
   dataAtDispatch
-}: DispatchOptionsToSet = {}) {
+}: DispatchOptionsToSet = {}): DispatchToSet {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
@@ -225,9 +251,11 @@ function useDispatchToSet ({
     };
   }, [dispatch, dispatchType, callbackInner, dataAtDispatchInner]);
 
-  return useCallback((data: string | null) => {
-    runDispatchToSet(dispatch, callbackInner, data);
-  }, [callbackInner, dispatch]);
+  return useMemo(() => ({
+    run: (data: Data) => {
+      runDispatchToSet(dispatch, callbackInner, data);
+    }
+  }), [callbackInner, dispatch]);
 }
 
 export const topicTreeStoreSlice = {

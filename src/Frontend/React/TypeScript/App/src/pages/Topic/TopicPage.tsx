@@ -26,11 +26,11 @@ export function TopicPage () {
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const runTopicPathStoreDispatchToSet = topicPathStoreSlice.useDispatchToSet();
+  const topicPathDispatchToSet = topicPathStoreSlice.useDispatchToSet();
 
   const callbackOnTopicItemLoad = useCallback((data: string | null) => {
-    runTopicPathStoreDispatchToSet(`TopicPath from ${data ?? ''}`);
-  }, [runTopicPathStoreDispatchToSet]);
+    topicPathDispatchToSet.run(`TopicPath from ${data ?? ''}`);
+  }, [topicPathDispatchToSet]);
 
   topicItemStoreSlice.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
