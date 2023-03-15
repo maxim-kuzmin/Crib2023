@@ -3,12 +3,12 @@ import { NotificationType } from '../../../common';
 import { notificationControl } from '../../../controls';
 
 export function AppNotificationView () {
-    const control = notificationControl.create()
+    const component = notificationControl.useComponent()
     return (
         <>
-            {control.component}
+            {component.content}
             <button onClick={() => {
-                control.show({
+                component.show({
                     type: NotificationType.Error,
                     message: '11111',
                     // description: '11111 1111111'
