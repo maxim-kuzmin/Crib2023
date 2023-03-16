@@ -1,3 +1,4 @@
+import { createStoreDispatchHandler, type NotificationData, type StoreDispatchHandler } from '../common';
 import { createNotificationControlService, type NotificationControlService } from '../controls';
 import {
   type ArticleItemStoreService,
@@ -22,6 +23,9 @@ interface Module {
   readonly getTopicItemStoreService: () => TopicItemStoreService;
   readonly getTopicPathStoreService: () => TopicPathStoreService;
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;
+  readonly getStoreDispatchHandler: (
+    functionToSetNotification: (data: NotificationData | null) => void
+  ) => StoreDispatchHandler;
 }
 
 const notificationControlService = createNotificationControlService();
@@ -39,7 +43,10 @@ const module: Module = {
   getArticleListStoreService: () => articleListStoreService,
   getTopicItemStoreService: () => topicItemStoreService,
   getTopicPathStoreService: () => topicPathStoreService,
-  getTopicTreeStoreService: () => topicTreeStoreService
+  getTopicTreeStoreService: () => topicTreeStoreService,
+  getStoreDispatchHandler: (
+    functionToSetNotification: (data: NotificationData | null) => void
+  ) => createStoreDispatchHandler(functionToSetNotification)
 };
 
 export function getModule (): Module {
