@@ -46,5 +46,6 @@ export function createApiClient (url?: string): ApiClient {
   if ((!url && url !== '') || url === '/') {
     url = '';
   }
+
   return new ApiClientImpl(url);
 }

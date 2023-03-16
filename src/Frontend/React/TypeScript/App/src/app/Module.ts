@@ -35,7 +35,7 @@ interface Module {
   ) => StoreDispatchHandler;
 }
 
-const apiClient = createApiClient();
+const apiClient = createApiClient(process.env.REACT_APP_API_URL ?? '/api');
 const notificationControlService = createNotificationControlService();
 const appNotificationStoreService = creareAppNotificationStoreService();
 const articleItemStoreService = createArticleItemStoreService();
