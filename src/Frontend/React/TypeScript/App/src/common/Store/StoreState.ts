@@ -1,24 +1,49 @@
+import { type ApiResponseDetailsData, type ApiResponseErrorsData } from '../Api';
 import { StoreStatus } from './StoreStatus'
 
 export interface StoreState {
-    operationCode: string;
-    requestStatus: StoreStatus;
-    responseDetails: string;
-    responseErrors: string;
-    responseStatusCode: number;
+  readonly operationCode?: string;
+  readonly requestStatus?: StoreStatus;
+  readonly responseDetailsData?: ApiResponseDetailsData | null;
+  readonly responseErrorsData?: ApiResponseErrorsData | null;
+  readonly responseStatusCode?: number;
 }
 
-export function createStoreState<T extends StoreState> (
-  props: any,
-  state: StoreState = {
-    operationCode: '',
-    requestStatus: StoreStatus.Fulfilled,
-    responseDetails: '',
-    responseErrors: '',
-    responseStatusCode: 200
-  }): T {
+export function createStoreState<T extends StoreState> (props: any, state: StoreState = {}): T {
+  let {
+    operationCode,
+    requestStatus,
+    responseDetailsData,
+    responseErrorsData,
+    responseStatusCode
+  } = state;
+
+  if (!operationCode) {
+    operationCode = ''
+  }
+
+  if (!requestStatus) {
+    requestStatus = StoreStatus.Fulfilled;
+  }
+
+  if (!responseDetailsData) {
+    responseDetailsData = null;
+  }
+
+  if (!responseErrorsData) {
+    responseErrorsData = null;
+  }
+
+  if (!responseStatusCode) {
+    responseStatusCode = 200;
+  }
+
   return {
-    ...props,
-    ...state
+    operationCode,
+    requestStatus,
+    responseDetailsData,
+    responseErrorsData,
+    responseStatusCode,
+    ...props
   };
 }

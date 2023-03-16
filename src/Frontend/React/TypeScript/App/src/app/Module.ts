@@ -1,9 +1,8 @@
 import {
   type ApiClient,
+  type ApiRequestHandler,
   createApiClient,
-  createStoreDispatchHandler,
-  type NotificationData,
-  type StoreDispatchHandler
+  ApiRequestHandlerImpl
 } from '../common';
 import { createNotificationControlService, type NotificationControlService } from '../controls';
 import {
@@ -30,33 +29,38 @@ interface Module {
   readonly getTopicItemStoreService: () => TopicItemStoreService;
   readonly getTopicPathStoreService: () => TopicPathStoreService;
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;
-  readonly getStoreDispatchHandler: (
-    functionToSetNotification: (data: NotificationData | null) => void
-  ) => StoreDispatchHandler;
+  readonly useApiRequestHandler: (operationName: string) => ApiRequestHandler;
 }
 
-const apiClient = createApiClient(process.env.REACT_APP_API_URL ?? '/api');
-const notificationControlService = createNotificationControlService();
-const appNotificationStoreService = creareAppNotificationStoreService();
-const articleItemStoreService = createArticleItemStoreService();
-const articleListStoreService = createArticleListStoreService();
-const topicItemStoreService = createTopicItemStoreService();
-const topicPathStoreService = createTopicPathStoreService();
-const topicTreeStoreService = createTopicTreeStoreService();
+class ModuleImpl implements Module {
+  private readonly apiClient = createApiClient(process.env.REACT_APP_API_URL ?? '/api');
+  private readonly notificationControlService = createNotificationControlService();
+  private readonly appNotificationStoreService = creareAppNotificationStoreService();
+  private readonly articleItemStoreService = createArticleItemStoreService();
+  private readonly articleListStoreService = createArticleListStoreService();
+  private readonly topicItemStoreService = createTopicItemStoreService();
+  private readonly topicPathStoreService = createTopicPathStoreService();
+  private readonly topicTreeStoreService = createTopicTreeStoreService();
 
-const module: Module = {
-  getApiClient: () => apiClient,
-  getNotificationControlService: () => notificationControlService,
-  getAppNotificationStoreService: () => appNotificationStoreService,
-  getArticleItemStoreService: () => articleItemStoreService,
-  getArticleListStoreService: () => articleListStoreService,
-  getTopicItemStoreService: () => topicItemStoreService,
-  getTopicPathStoreService: () => topicPathStoreService,
-  getTopicTreeStoreService: () => topicTreeStoreService,
-  getStoreDispatchHandler: (
-    functionToSetNotification: (data: NotificationData | null) => void
-  ) => createStoreDispatchHandler(functionToSetNotification)
-};
+  getApiClient = () => this.apiClient;
+  getNotificationControlService = () => this.notificationControlService;
+  getAppNotificationStoreService = () => this.appNotificationStoreService;
+  getArticleItemStoreService = () => this.articleItemStoreService;
+  getArticleListStoreService = () => this.articleListStoreService;
+  getTopicItemStoreService = () => this.topicItemStoreService;
+  getTopicPathStoreService = () => this.topicPathStoreService;
+  getTopicTreeStoreService = () => this.topicTreeStoreService;
+
+  useApiRequestHandler (operationName: string) {
+    const service = this.getAppNotificationStoreService();
+
+    const { run } = service.useDispatchToSet();
+
+    return new ApiRequestHandlerImpl(operationName, run);
+  }
+}
+
+const module: Module = new ModuleImpl();
 
 export function getModule (): Module {
   return module;
