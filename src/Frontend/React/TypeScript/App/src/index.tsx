@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import './index.css';
 import App from './App';
-import { Provider } from './app/Provider';
+import { Provider as AppProvider } from './app/Provider';
 
 const router = createBrowserRouter([{
   path: '/',
@@ -36,9 +36,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <Provider>
+      <AppProvider>
         <RouterProvider router={router} />
-      </Provider>
+      </AppProvider>
   </React.StrictMode>
 );
 
