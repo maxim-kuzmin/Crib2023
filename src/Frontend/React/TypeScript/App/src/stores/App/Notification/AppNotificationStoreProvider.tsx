@@ -1,8 +1,8 @@
 import React, { type PropsWithChildren, useReducer } from 'react';
-import { useAppModule } from '../../../app/Module';
+import { getModule } from '../../../app/Module';
 
 export function AppNotificationStoreProvider ({ children }: PropsWithChildren) {
-  const { getAppNotificationStoreService } = useAppModule();
+  const { getAppNotificationStoreService } = getModule();
 
   const service = getAppNotificationStoreService();
 

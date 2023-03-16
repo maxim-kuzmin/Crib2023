@@ -1,8 +1,8 @@
 import React, { type PropsWithChildren, useReducer } from 'react';
-import { useAppModule } from '../../../app/Module';
+import { getModule } from '../../../app/Module';
 
 export function TopicPathStoreProvider ({ children }: PropsWithChildren) {
-  const { getTopicPathStoreService } = useAppModule();
+  const { getTopicPathStoreService } = getModule();
 
   const service = getTopicPathStoreService();
 

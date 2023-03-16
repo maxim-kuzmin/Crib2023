@@ -5,8 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import './index.css';
 import App from './App';
-import { AppModuleProvider } from './app/Module';
-import { AppStoreProvider } from './app/Store';
+import { Provider } from './app/Provider';
 
 const router = createBrowserRouter([{
   path: '/',
@@ -37,11 +36,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AppModuleProvider>
-      <AppStoreProvider>
+      <Provider>
         <RouterProvider router={router} />
-      </AppStoreProvider>
-    </AppModuleProvider>
+      </Provider>
   </React.StrictMode>
 );
 

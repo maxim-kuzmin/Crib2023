@@ -1,8 +1,8 @@
 import React, { type PropsWithChildren, useReducer } from 'react';
-import { useAppModule } from '../../../app/Module';
+import { getModule } from '../../../app/Module';
 
 export function ArticleListStoreProvider ({ children }: PropsWithChildren) {
-  const { getArticleListStoreService } = useAppModule();
+  const { getArticleListStoreService } = getModule();
 
   const service = getArticleListStoreService();
 

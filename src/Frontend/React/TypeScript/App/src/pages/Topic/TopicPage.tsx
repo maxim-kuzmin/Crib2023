@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppModule } from '../../app/Module';
+import { getModule } from '../../app/Module';
 import { StoreDispatchType, StoreStatus } from '../../common';
 import { SpinnerControl } from '../../controls';
 import { ArticleTableView } from '../../views';
@@ -13,7 +13,7 @@ export function TopicPage () {
     getArticleListStoreService,
     getTopicItemStoreService,
     getTopicPathStoreService
-  } = useAppModule();
+  } = getModule();
 
   const articleListStoreService = getArticleListStoreService();
 

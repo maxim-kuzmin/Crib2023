@@ -1,9 +1,9 @@
 import React from 'react';
-import { useAppModule } from '../../../app/Module';
+import { getModule } from '../../../app/Module';
 import styles from './TopicPathView.module.css';
 
 export function TopicPathView () {
-  const { getTopicPathStoreService } = useAppModule();
+  const { getTopicPathStoreService } = getModule();
 
   const service = getTopicPathStoreService();
 

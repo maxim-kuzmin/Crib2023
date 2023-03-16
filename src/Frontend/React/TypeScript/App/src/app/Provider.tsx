@@ -6,9 +6,9 @@ import {
   TopicItemStoreProvider,
   TopicPathStoreProvider,
   TopicTreeStoreProvider
-} from '../../stores';
+} from '../stores';
 
-export function AppStoreProvider ({ children }: PropsWithChildren) {
+export function Provider ({ children }: PropsWithChildren) {
   return (
     <AppNotificationStoreProvider>
       <ArticleItemStoreProvider>
