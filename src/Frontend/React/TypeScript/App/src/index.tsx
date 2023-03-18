@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals';
-import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import './index.css';
-import App from './App';
-import { Provider as AppProvider } from './app/Provider';
+import {
+  App,
+  ArticlePage,
+  NotFoundPage,
+  Provider as AppProvider,
+  reportWebVitals,
+  TopicPage
+} from './all';
 
 const router = createBrowserRouter([{
   path: '/',

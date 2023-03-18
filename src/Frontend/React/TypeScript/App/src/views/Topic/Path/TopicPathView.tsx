@@ -1,5 +1,5 @@
 import React from 'react';
-import { getModule } from '../../../app/Module';
+import { getModule } from '../../../all';
 import styles from './TopicPathView.module.css';
 
 export function TopicPathView () {

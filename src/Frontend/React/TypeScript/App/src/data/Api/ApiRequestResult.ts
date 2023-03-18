@@ -1,7 +1,7 @@
 import {
   type ApiResponseDetailsData,
   type ApiResponseErrorsData
-} from './ResponseData';
+} from '../../all';
 
 export interface ApiRequestResult<TData> {
   readonly data?: TData | null;

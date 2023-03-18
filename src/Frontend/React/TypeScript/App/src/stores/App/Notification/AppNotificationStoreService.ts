@@ -3,7 +3,7 @@ import {
   type NotificationData,
   StoreDispatchType,
   type StoreDispatchOptions
-} from '../../../common';
+} from '../../../all';
 
 type Data = NotificationData | null;
 

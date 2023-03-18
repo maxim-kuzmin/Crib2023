@@ -1,5 +1,5 @@
 import React, { type PropsWithChildren, useReducer } from 'react';
-import { getModule } from '../../../app/Module';
+import { getModule } from '../../../all';
 
 export function ArticleListStoreProvider ({ children }: PropsWithChildren) {
   const { getArticleListStoreService } = getModule();

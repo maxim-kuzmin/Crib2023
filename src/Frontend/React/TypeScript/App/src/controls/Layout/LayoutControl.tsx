@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, theme } from 'antd';
 import styles from './LayoutControl.module.css';
-import type { LayoutControlProps } from './LayoutControlProps';
+import { type LayoutControlProps } from '../../all';
 
 const { Header, Content, Footer, Sider } = Layout;
 

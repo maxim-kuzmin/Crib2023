@@ -6,18 +6,19 @@ import {
   AppLayoutFooterView,
   AppLayoutHeaderView,
   AppNotificationView,
-} from './views';
-import { LayoutControl } from './controls';
+  LayoutControl
+} from './all';
 
-export default function App () {
+export function App () {
   return (
     <>
-    <AppNotificationView/>
-    <LayoutControl
-      createAsideView={() => <AppLayoutAsideView logoUrl={logo}/>}
-      createContentView={(backgroundColor) => <AppLayoutContentView backgroundColor={backgroundColor}/>}
-      createFooterView={() => <AppLayoutFooterView/>}
-      createHeaderView={() => <AppLayoutHeaderView/>}/>
+      <AppNotificationView/>
+      <LayoutControl
+        createAsideView={() => <AppLayoutAsideView logoUrl={logo}/>}
+        createContentView={(backgroundColor) => <AppLayoutContentView backgroundColor={backgroundColor}/>}
+        createFooterView={() => <AppLayoutFooterView/>}
+        createHeaderView={() => <AppLayoutHeaderView/>}
+      />
     </>
   );
 }

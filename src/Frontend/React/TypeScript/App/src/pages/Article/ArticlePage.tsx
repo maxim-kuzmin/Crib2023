@@ -1,9 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getModule } from '../../app/Module';
-import { NotificationType, StoreDispatchType, StoreStatus } from '../../common';
-import { SpinnerControl } from '../../controls';
-import { ArticleView } from '../../views';
+import {
+  ArticleView,
+  getModule,
+  NotificationType,
+  SpinnerControl,
+  StoreDispatchType,
+  StoreStatus
+} from '../../all';
+
 import styles from './ArticlePage.module.css';
 
 export function ArticlePage () {

@@ -4,36 +4,36 @@
         <name>Crib2023.Backend.Services.Catalog.Domain.SQL</name>
     </assembly>
     <members>
-        <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleEntity`1">
+        <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleBaseEntity`1">
             <summary>
-            Сущность "Статья".
+            Базовая сущность "Статья".
             </summary>
             <typeparam name="TData">Тип данных.</typeparam>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleEntity`1.Data">
+        <member name="P:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleBaseEntity`1.Data">
             <summary>
             Данные.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleEntity`1.TopicPathItems">
+        <member name="P:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleBaseEntity`1.TopicPathItems">
             <summary>
             Элементы пути темы.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleEntity`1.#ctor(`0)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleBaseEntity`1.#ctor(`0)">
             <summary>
             Конструктор.
             </summary>
             <param name="data">Данные.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleEntity`1.AddTopicPathItem(Crib2023.Backend.Services.Catalog.Domain.SQL.ValueObjects.OptionValueObject)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleBaseEntity`1.AddTopicPathItem(Crib2023.Backend.Services.Catalog.Domain.SQL.ValueObjects.OptionValueObject)">
             <summary>
             Добавить элемент пути темы.
             </summary>
             <param name="data">Данные.</param>
             <returns>Добавленный элемент пути.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleEntity`1.GetId">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleBaseEntity`1.GetId">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domain.SQL.Entities.ArticleEntity">

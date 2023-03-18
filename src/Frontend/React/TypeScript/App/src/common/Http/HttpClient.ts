@@ -1,6 +1,8 @@
 import queryString from 'query-string';
-import { type HttpRequestConfig } from './HttpRequestConfig';
-import { type HttpRequestResult } from './HttpRequestResult';
+import {
+  type HttpRequestConfig,
+  type HttpRequestResult
+} from '../../all';
 
 export interface HttpClient {
   readonly delete: (endpoint: string, config?: HttpRequestConfig) => Promise<HttpRequestResult>;

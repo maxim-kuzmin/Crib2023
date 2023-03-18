@@ -1,7 +1,9 @@
 import React from 'react';
-import { TopicTreeView } from '../../../Topic';
+import {
+  type AppLayoutAsideViewProps,
+  TopicTreeView
+} from '../../../../all';
 import styles from './AppLayoutAsideView.module.css';
-import { type AppLayoutAsideViewProps } from './AppLayoutAsideViewProps';
 
 export function AppLayoutAsideView ({ logoUrl }: AppLayoutAsideViewProps) {
   return (

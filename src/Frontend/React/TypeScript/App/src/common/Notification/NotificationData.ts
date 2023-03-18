@@ -1,4 +1,4 @@
-import { type NotificationType } from './NotificationType';
+import { type NotificationType } from '../../all';
 
 export interface NotificationData {
   type: NotificationType;

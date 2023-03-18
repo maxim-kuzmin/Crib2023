@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { type AppLayoutContentViewProps } from '../../../../all';
 import styles from './AppLayoutContentView.module.css';
-import { type AppLayoutContentViewProps } from './AppLayoutContentViewProps';
 
 export function AppLayoutContentView ({ backgroundColor }: AppLayoutContentViewProps) {
   return (

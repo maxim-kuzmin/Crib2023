@@ -1,5 +1,8 @@
-import { type ApiResponseDetailsData, type ApiResponseErrorsData } from '../Api';
-import { StoreStatus } from './StoreStatus'
+import {
+  StoreStatus,
+  type ApiResponseDetailsData,
+  type ApiResponseErrorsData
+} from '../../all';
 
 export interface StoreState {
   readonly operationCode?: string;

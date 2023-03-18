@@ -1,6 +1,10 @@
 import { notification } from 'antd';
 import { useMemo } from 'react';
-import { type NotificationComponent, type NotificationData, NotificationType } from '../../common';
+import {
+  type NotificationComponent,
+  type NotificationData,
+  NotificationType
+} from '../../all';
 
 function useComponent (): NotificationComponent {
     const [api, contextHolder] = notification.useNotification();

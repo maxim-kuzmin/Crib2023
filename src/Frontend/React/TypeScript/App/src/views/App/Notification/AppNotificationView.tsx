@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
-import { StoreDispatchType } from '../../../common';
-import { getModule } from '../../../app/Module';
+import { getModule, StoreDispatchType } from '../../../all';
 
 export function AppNotificationView () {
     const {

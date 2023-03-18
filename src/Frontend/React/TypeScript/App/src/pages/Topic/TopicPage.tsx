@@ -1,9 +1,12 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { getModule } from '../../app/Module';
-import { StoreDispatchType, StoreStatus } from '../../common';
-import { SpinnerControl } from '../../controls';
-import { ArticleTableView } from '../../views';
+import {
+  ArticleTableView,
+  getModule,
+  SpinnerControl,
+  StoreDispatchType,
+  StoreStatus
+} from '../../all';
 import styles from './TopicPage.module.css';
 
 export function TopicPage () {

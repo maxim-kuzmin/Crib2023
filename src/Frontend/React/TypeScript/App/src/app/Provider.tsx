@@ -6,7 +6,7 @@ import {
   TopicItemStoreProvider,
   TopicPathStoreProvider,
   TopicTreeStoreProvider
-} from '../stores';
+} from '../all';
 
 export function Provider ({ children }: PropsWithChildren) {
   return (

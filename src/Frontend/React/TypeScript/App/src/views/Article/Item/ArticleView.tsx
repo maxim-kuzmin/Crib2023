@@ -1,6 +1,6 @@
 import React from 'react';
+import { type ArticleViewProps } from '../../../all';
 import styles from './ArticleView.module.css';
-import { type ArticleViewProps } from './ArticleViewProps';
 
 export function ArticleView ({ article }: ArticleViewProps) {
   return (

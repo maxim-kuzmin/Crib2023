@@ -1,6 +1,6 @@
 import React from 'react';
+import { type ArticleTableViewProps } from '../../../all';
 import styles from './ArticleTableView.module.css';
-import { type ArticleTableViewProps } from './ArticleTableViewProps';
 
 export function ArticleTableView ({ articles }: ArticleTableViewProps) {
   return (

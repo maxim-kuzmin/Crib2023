@@ -5,7 +5,7 @@ import {
   StoreStatus,
   type StoreDispatchOptions,
   type StoreState,
-} from '../../../common';
+} from '../../../all';
 
 type Data = string | null;
 

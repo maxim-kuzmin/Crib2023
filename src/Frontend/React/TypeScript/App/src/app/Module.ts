@@ -1,9 +1,4 @@
 import {
-  type HttpClient,
-  HttpClientImpl
-} from '../common';
-import { createNotificationControlService, type NotificationControlService } from '../controls';
-import {
   type ArticleItemStoreService,
   type AppNotificationStoreService,
   type ArticleListStoreService,
@@ -15,9 +10,14 @@ import {
   createArticleListStoreService,
   createTopicItemStoreService,
   createTopicPathStoreService,
-  createTopicTreeStoreService
-} from '../stores';
-import { type ApiClient, ApiClientImpl } from './Api';
+  createTopicTreeStoreService,
+  type HttpClient,
+  type NotificationControlService,
+  HttpClientImpl,
+  createNotificationControlService,
+  type ApiClient,
+  ApiClientImpl
+} from '../all';
 
 interface Module {
   readonly getHttpClient: () => HttpClient;
