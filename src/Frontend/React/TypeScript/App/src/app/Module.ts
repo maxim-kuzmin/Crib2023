@@ -1,8 +1,6 @@
 import {
-  type ApiClient,
-  type ApiRequestHandler,
-  createApiClient,
-  ApiRequestHandlerImpl
+  type HttpClient,
+  HttpClientImpl
 } from '../common';
 import { createNotificationControlService, type NotificationControlService } from '../controls';
 import {
@@ -19,9 +17,10 @@ import {
   createTopicPathStoreService,
   createTopicTreeStoreService
 } from '../stores';
+import { type ApiClient, ApiClientImpl } from './Api';
 
 interface Module {
-  readonly getApiClient: () => ApiClient;
+  readonly getHttpClient: () => HttpClient;
   readonly getNotificationControlService: () => NotificationControlService;
   readonly getAppNotificationStoreService: () => AppNotificationStoreService;
   readonly getArticleItemStoreService: () => ArticleItemStoreService;
@@ -29,11 +28,11 @@ interface Module {
   readonly getTopicItemStoreService: () => TopicItemStoreService;
   readonly getTopicPathStoreService: () => TopicPathStoreService;
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;
-  readonly useApiRequestHandler: (operationName: string) => ApiRequestHandler;
+  readonly useApiRequestHandler: <TData extends null>(operationName: string) => ApiClient<TData>;
 }
 
 class ModuleImpl implements Module {
-  private readonly apiClient = createApiClient(process.env.REACT_APP_API_URL ?? '/api');
+  private readonly httpClient = new HttpClientImpl(process.env.REACT_APP_API_URL ?? '/api');
   private readonly notificationControlService = createNotificationControlService();
   private readonly appNotificationStoreService = creareAppNotificationStoreService();
   private readonly articleItemStoreService = createArticleItemStoreService();
@@ -42,7 +41,7 @@ class ModuleImpl implements Module {
   private readonly topicPathStoreService = createTopicPathStoreService();
   private readonly topicTreeStoreService = createTopicTreeStoreService();
 
-  getApiClient = () => this.apiClient;
+  getHttpClient = () => this.httpClient;
   getNotificationControlService = () => this.notificationControlService;
   getAppNotificationStoreService = () => this.appNotificationStoreService;
   getArticleItemStoreService = () => this.articleItemStoreService;
@@ -51,12 +50,12 @@ class ModuleImpl implements Module {
   getTopicPathStoreService = () => this.topicPathStoreService;
   getTopicTreeStoreService = () => this.topicTreeStoreService;
 
-  useApiRequestHandler (operationName: string) {
+  useApiRequestHandler<TData extends null> (operationName: string) {
     const service = this.getAppNotificationStoreService();
 
     const { run } = service.useDispatchToSet();
 
-    return new ApiRequestHandlerImpl(operationName, run);
+    return new ApiClientImpl<TData>(operationName, this.getHttpClient(), run);
   }
 }
 
