@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{89
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{35986EA4-0855-4631-9D85-C393F84DFF97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\Catalog\App.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.Catalog.App.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{6144C0A8-A3BB-4C6C-A09F-45195952C60B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.App", "Backend\Services\Catalog\App\Backend.Services.Catalog.App.csproj", "{6144C0A8-A3BB-4C6C-A09F-45195952C60B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.Data.SQL", "Backend\Services\Catalog\Data.SQL\Backend.Services.Catalog.Data.SQL.csproj", "{6E9FDDDE-25FF-48CB-B96F-9315008BC078}"
 EndProject
@@ -33,13 +33,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.Domain.SQL", "Backend\Services\Catalog\Domain.SQL\Backend.Services.Catalog.Domain.SQL.csproj", "{B064C880-A181-43C0-A822-B6860150A243}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\Catalog\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.Catalog.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{AD31E431-3EFC-45E4-90C9-36CEF440EACE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.Domains.Article", "Backend\Services\Catalog\Domains.Article\Backend.Services.Catalog.Domains.Article.csproj", "{AD31E431-3EFC-45E4-90C9-36CEF440EACE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\Catalog\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.Catalog.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{4163700B-37BE-4639-A32D-609B3069BE82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.Catalog.Domains.Topic", "Backend\Services\Catalog\Domains.Topic\Backend.Services.Catalog.Domains.Topic.csproj", "{4163700B-37BE-4639-A32D-609B3069BE82}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileStorage", "FileStorage", "{842C80FA-0E8D-4134-97B9-F3EB0630BAED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\FileStorage\App.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.FileStorage.App.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{84A509CE-E58F-498E-90C5-8ECB0284D3B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorage.App", "Backend\Services\FileStorage\App\Backend.Services.FileStorage.App.csproj", "{84A509CE-E58F-498E-90C5-8ECB0284D3B0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorage.Data.SQL", "Backend\Services\FileStorage\Data.SQL\Backend.Services.FileStorage.Data.SQL.csproj", "{DB6CA1A4-D57C-441E-B051-B0C7FA460105}"
 EndProject
@@ -51,9 +51,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorage.Domain.SQL", "Backend\Services\FileStorage\Domain.SQL\Backend.Services.FileStorage.Domain.SQL.csproj", "{7664F2CE-648B-4C32-9860-EB9825DA4804}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\FileStorage\Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.FileStorage.Domains.Article.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{8467484B-DC2B-4FEC-8AB6-10F0C418D1F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorage.Domains.Article", "Backend\Services\FileStorage\Domains.Article\Backend.Services.FileStorage.Domains.Article.csproj", "{8467484B-DC2B-4FEC-8AB6-10F0C418D1F2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL", "Backend\Services\FileStorage\Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.FileStorage.Domains.Topic.SQL.Mappers.EF.Clients.PostgreSQL.csproj", "{7AFAD84C-ED4B-43D7-AC32-92859DBC576A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Services.FileStorage.Domains.Topic", "Backend\Services\FileStorage\Domains.Topic\Backend.Services.FileStorage.Domains.Topic.csproj", "{7AFAD84C-ED4B-43D7-AC32-92859DBC576A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{5AD77F9E-DC92-409E-BA3D-C351BCC200D1}"
 EndProject

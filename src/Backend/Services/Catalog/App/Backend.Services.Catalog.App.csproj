@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>349ae771-d937-4c45-81fc-a116431e1545</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<AssemblyName>Crib2023.Backend.Services.Catalog.App</AssemblyName>
+		<RootNamespace>$(AssemblyName)</RootNamespace>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
+		<DockerfileContext>..\..\..\..</DockerfileContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\..\..\..\Grpc\Backend\Services\Catalog\backend_service_catalog.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\..\Grpc\Backend\Services\Catalog\backend_service_catalog_article.proto" GrpcServices="Server" />
+		<Protobuf Include="..\..\..\..\Grpc\Backend\Services\Catalog\backend_service_catalog_topic.proto" GrpcServices="Server" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.51.0" />
+		<PackageReference Include="Makc2023.Backend.Common.Core.Apps.WebApp" Version="1.0.1" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Domains.Article\Backend.Services.Catalog.Domains.Article.csproj" />
+		<ProjectReference Include="..\Domains.Topic\Backend.Services.Catalog.Domains.Topic.csproj" />
+	</ItemGroup>
+
+</Project>

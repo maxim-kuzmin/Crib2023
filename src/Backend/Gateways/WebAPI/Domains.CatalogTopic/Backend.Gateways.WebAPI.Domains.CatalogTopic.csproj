@@ -15,7 +15,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="ResourceFiles\DomainResource.en.resx">
+	  <EmbeddedResource Update="ResourceFiles\CatalogTopicDomainResource.en.resx">
 	    <SubType>Designer</SubType>
 	  </EmbeddedResource>
 	</ItemGroup>

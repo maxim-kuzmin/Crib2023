@@ -1,8 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
-using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get;
-
 namespace Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog;
 
 /// <summary>
@@ -46,9 +43,9 @@ public class CatalogArticleController : ControllerBase
     [ProducesResponseType(typeof(WebAppResponseWithErrorsData), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetItem(
         [FromRoute] long id,
-        [FromHeader(Name = nameof(DomainItemGetOperationRequest.OperationCode))] string operationCode = "")
+        [FromHeader(Name = nameof(CatalogArticleDomainItemGetOperationRequest.OperationCode))] string operationCode = "")
     {
-        DomainItemGetOperationRequest operationRequest = new(
+        CatalogArticleDomainItemGetOperationRequest operationRequest = new(
             new()
             {
                 Id = id,
@@ -107,9 +104,9 @@ public class CatalogArticleController : ControllerBase
     [ProducesResponseType(typeof(WebAppResponseWithErrorsData), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetList(
         [FromQuery] CatalogArticleListGetOperationInput input,
-        [FromHeader(Name = nameof(DomainListGetOperationRequest.OperationCode))] string operationCode = "")
+        [FromHeader(Name = nameof(CatalogArticleDomainListGetOperationRequest.OperationCode))] string operationCode = "")
     {
-        DomainListGetOperationRequest operationRequest = new(input, operationCode);
+        CatalogArticleDomainListGetOperationRequest operationRequest = new(input, operationCode);
 
         var operationResponse = await _mediator.Send(operationRequest).ConfigureAwait(false);
 

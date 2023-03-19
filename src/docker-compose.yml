@@ -29,7 +29,7 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-catalog
     build:
       context: .
-      dockerfile: Backend/Services/Catalog/App.SQL.Mappers.EF.Clients.PostgreSQL/Dockerfile
+      dockerfile: Backend/Services/Catalog/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:5001/
@@ -44,7 +44,7 @@ services:
     container_name: ${MY_CONTAINER_NAME_PEFIX}backend-service-filestorage
     build:
       context: .
-      dockerfile: Backend/Services/FileStorage/App.SQL.Mappers.EF.Clients.PostgreSQL/Dockerfile
+      dockerfile: Backend/Services/FileStorage/App/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_URLS=http://*:5002/

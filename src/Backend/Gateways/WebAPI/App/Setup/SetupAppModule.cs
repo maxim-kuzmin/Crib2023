@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Makc2023.Backend.Common.Core.Operation;
-
 namespace Crib2023.Backend.Gateways.WebAPI.App.Setup;
 
 /// <summary>
@@ -65,10 +63,10 @@ public class SetupAppModule : AppModule
     {
         return new[]
             {
-                typeof(RequestHandlerOfGatewayDomainsCatalogArticleOperationsItemGet),
-                typeof(RequestHandlerOfGatewayDomainsCatalogArticleOperationsListGet),
-                typeof(RequestHandlerOfGatewayDomainsCatalogTopicOperationsItemGet),
-                typeof(RequestHandlerOfGatewayDomainsCatalogTopicOperationsListGet),
+                typeof(CatalogArticleDomainItemGetOperationRequestHandler),
+                typeof(CatalogArticleDomainListGetOperationRequestHandler),
+                typeof(CatalogTopicDomainItemGetOperationRequestHandler),
+                typeof(CatalogTopicDomainListGetOperationRequestHandler),
             };
     }
 

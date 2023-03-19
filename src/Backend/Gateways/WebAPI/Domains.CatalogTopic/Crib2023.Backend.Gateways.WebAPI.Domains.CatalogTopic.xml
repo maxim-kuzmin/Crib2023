@@ -4,174 +4,174 @@
         <name>Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic</name>
     </assembly>
     <members>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.DomainResource">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.CatalogTopicDomainResource">
             <summary>
             Ресурс домена.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.DomainResource.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.DomainResource})">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.CatalogTopicDomainResource.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.CatalogTopicDomainResource})">
             <summary>
             Конструктор.
             </summary>
             <param name="localizer">Локализатор.</param>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.DomainResource.GetItemGetOperationName">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.CatalogTopicDomainResource.GetItemGetOperationName">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.DomainResource.GetListGetOperationName">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.CatalogTopicDomainResource.GetListGetOperationName">
             <inheritdoc/>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.IDomainResource">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource">
             <summary>
             Интерфейс ресурса домена.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.IDomainResource.GetItemGetOperationName">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource.GetItemGetOperationName">
             <summary>
             Получить имя операции получения элемента.
             </summary>
             <returns>Имя операции.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.IDomainResource.GetListGetOperationName">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource.GetListGetOperationName">
             <summary>
             Получить имя операции получения списка.
             </summary>
             <returns>Имя операции.</returns>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationHandler">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationHandler">
             <summary>
             Обработчик операции получения элемента в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.IDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
             <inheritdoc/>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequest">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequest">
             <summary>
             Запрос операции получения элемента в домене.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequest.Input">
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequest.Input">
             <summary>
             Входные данные.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequest.OperationCode">
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequest.OperationCode">
             <summary>
             Код операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequest.#ctor(Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicItemGetOperationInput,System.String)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequest.#ctor(Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicItemGetOperationInput,System.String)">
             <summary>
             Конструктор.
             </summary>
             <param name="input">Входные данные.</param>
             <param name="operationCode">Код операции.</param>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequestHandler">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequestHandler">
             <summary>
             Обработчик запроса операции получения элемента в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.ICatalogTopicItemGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicService.CatalogTopicServiceClient)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.ICatalogTopicItemGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicService.CatalogTopicServiceClient)">
             <summary>
             Конструктор.
             </summary>
             <param name="operationHandler">Обработчик операции.</param>
             <param name="client">Клиент.</param>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequestHandler.Handle(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationRequest,System.Threading.CancellationToken)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequestHandler.Handle(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequest,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationResponse">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationResponse">
             <summary>
             Отклик операции получения элемента в домене.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationResponse.OperationResult">
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationResponse.OperationResult">
             <summary>
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.DomainItemGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.CatalogTopicItemGetOperationResult)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.CatalogTopicItemGetOperationResult)">
             <summary>
             Конструктор.
             </summary>
             <param name="operationResult">Результат операции.</param>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationHandler">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationHandler">
             <summary>
             Обработчик операции получения списка в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.IDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
             <inheritdoc/>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequest">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequest">
             <summary>
             Запрос операции получения списка в домене.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequest.Input">
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequest.Input">
             <summary>
             Входные данные.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequest.OperationCode">
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequest.OperationCode">
             <summary>
             Код операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequest.#ctor(Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput,System.String)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequest.#ctor(Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput,System.String)">
             <summary>
             Конструктор.
             </summary>
             <param name="input">Входные данные.</param>
             <param name="operationCode">Код операции.</param>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequestHandler">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequestHandler">
             <summary>
             Обработчик запроса операции получения списка в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.ICatalogTopicListGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicService.CatalogTopicServiceClient)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.ICatalogTopicListGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicService.CatalogTopicServiceClient)">
             <summary>
             Конструктор.
             </summary>
             <param name="operationHandler">Обработчик операции.</param>
             <param name="client">Клиент.</param>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequestHandler.Handle(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationRequest,System.Threading.CancellationToken)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequestHandler.Handle(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequest,System.Threading.CancellationToken)">
             <inheritdoc/>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationResponse">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationResponse">
             <summary>
             Отклик операции получения списка в домене.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationResponse.OperationResult">
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationResponse.OperationResult">
             <summary>
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.DomainListGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.CatalogTopicListGetOperationResult)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.CatalogTopicListGetOperationResult)">
             <summary>
             Конструктор.
             </summary>
             <param name="operationResult">Результат операции.</param>
         </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.DomainSetupAppModule">
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.CatalogTopicDomainSetupAppModule">
             <summary>
             Модуль настройки приложения домена.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.DomainSetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.CatalogTopicDomainSetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.DomainSetupAppModule.GetExports">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.CatalogTopicDomainSetupAppModule.GetExports">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.DomainSetupAppModule.GetImports">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Setup.CatalogTopicDomainSetupAppModule.GetImports">
             <inheritdoc/>
         </member>
     </members>
