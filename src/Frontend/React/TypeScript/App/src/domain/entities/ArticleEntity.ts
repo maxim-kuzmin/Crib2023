@@ -1,5 +1,4 @@
-import { type ArticleTypeEntity } from '../../all';
+import { type ArticleBaseEntity, type ArticleTypeEntity } from '../../all';
 
-export interface ArticleEntity {
-  data: ArticleTypeEntity;
+export interface ArticleEntity extends ArticleBaseEntity<ArticleTypeEntity> {
 }

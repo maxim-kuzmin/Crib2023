@@ -1,6 +1,8 @@
-import { type ArticleDomainItemGetOperationOutput } from '../../../../../all';
+import {
+  type ArticleDomainItemGetOperationOutput,
+  type OperationResponse
+} from '../../../../../all';
 
-export interface ArticleDomainItemGetOperationResponse {
-  data: ArticleDomainItemGetOperationOutput;
-  operationCode: number;
+export interface ArticleDomainItemGetOperationResponse
+  extends OperationResponse<ArticleDomainItemGetOperationOutput> {
 }

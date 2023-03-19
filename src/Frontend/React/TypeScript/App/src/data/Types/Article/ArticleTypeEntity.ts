@@ -1,5 +1,5 @@
-export interface ArticleTypeEntity {
-  id: number;
-  title: string;
+import { type ArticleTypeEntityForList } from '../../../all';
+
+export interface ArticleTypeEntity extends ArticleTypeEntityForList {
   body: string;
 }
