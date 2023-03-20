@@ -1,8 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Makc2023.Backend.Common.Core.Operation;
-using Makc2023.Backend.Common.Core.Operations;
-
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get;
 
 /// <summary>
