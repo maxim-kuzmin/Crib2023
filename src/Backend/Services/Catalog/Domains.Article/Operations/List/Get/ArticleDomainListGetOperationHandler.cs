@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Makc2023.Backend.Common.Core.Operation;
+
 namespace Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get;
 
 /// <summary>
@@ -14,7 +16,7 @@ public class ArticleDomainListGetOperationHandler :
 {
     #region Fields
 
-    private readonly IResourceOfCommonDataSQL _resourceOfCommonDataSQL;
+    private readonly IOperationsResource _operationsResource;
 
     #endregion Fields
 
@@ -31,18 +33,18 @@ public class ArticleDomainListGetOperationHandler :
 
     /// <inheritdoc/>
     public ArticleDomainListGetOperationHandler(
-        IResourceOfCommonDataSQL resourceOfCommonDataSQL,
+        IOperationsResource operationsResource,
         IArticleDomainResource domainResource,
-        IResourceOfCommonCoreOperation resourceOfCommonCoreOperation,
+        IOperationResource operationResource,
         ILogger<ArticleDomainListGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
             domainResource.GetListGetOperationName(),
-            resourceOfCommonCoreOperation,
+            operationResource,
             logger,
             setupOptionsOfCommonCore)
     {
-        _resourceOfCommonDataSQL = resourceOfCommonDataSQL;
+        _operationsResource = operationsResource;
 
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
@@ -57,7 +59,7 @@ public class ArticleDomainListGetOperationHandler :
     {
         source.Normalize();
 
-        InvalidInputProperties = source.GetInvalidProperties(_resourceOfCommonDataSQL);
+        InvalidInputProperties = source.GetInvalidProperties(_operationsResource);
 
         if (InvalidInputProperties.Any())
         {

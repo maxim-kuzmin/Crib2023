@@ -96,7 +96,7 @@
             Список свойств с недействительными значениями во входных данных.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationHandler.#ctor(Makc2023.Backend.Common.Data.SQL.IResource,Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource,Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationHandler.#ctor(Makc2023.Backend.Common.Core.Operations.IOperationsResource,Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource,Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationRequest">
@@ -162,7 +162,7 @@
             Список свойств с недействительными значениями во входных данных.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationHandler.#ctor(Makc2023.Backend.Common.Data.SQL.IResource,Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationHandler.#ctor(Makc2023.Backend.Common.Core.Operations.IOperationsResource,Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationRequest">

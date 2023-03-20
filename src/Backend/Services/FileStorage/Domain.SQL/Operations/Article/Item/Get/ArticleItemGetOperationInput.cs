@@ -37,7 +37,7 @@ public class ArticleItemGetOperationInput : ItemWithInt64IdGetOperationInput
 
     /// <inheritdoc/>
     public sealed override OperationInputInvalidProperties GetInvalidProperties(
-        IResourceOfCommonDataSQL resourceOfCommonDataSQL)
+        IOperationsResource operationsResource)
     {
         throw new NotImplementedException();
     }
@@ -45,9 +45,9 @@ public class ArticleItemGetOperationInput : ItemWithInt64IdGetOperationInput
     /// <inheritdoc/>
     public OperationInputInvalidProperties GetInvalidProperties(
         IResource resource,
-        IResourceOfCommonDataSQL resourceOfCommonDataSQL)
+        IOperationsResource operationsResource)
     {
-        var result = base.GetInvalidProperties(resourceOfCommonDataSQL);
+        var result = base.GetInvalidProperties(operationsResource);
 
         if (result.Any())
         {

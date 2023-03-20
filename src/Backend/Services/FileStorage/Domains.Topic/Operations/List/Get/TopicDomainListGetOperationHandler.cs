@@ -14,7 +14,7 @@ public class TopicDomainListGetOperationHandler :
 {
     #region Fields
 
-    private readonly IResourceOfCommonDataSQL _resourceOfCommonDataSQL;
+    private readonly IOperationsResource _operationsResource;
 
     #endregion Fields
 
@@ -31,18 +31,18 @@ public class TopicDomainListGetOperationHandler :
 
     /// <inheritdoc/>
     public TopicDomainListGetOperationHandler(
-        IResourceOfCommonDataSQL resourceOfCommonDataSQL,
+        IOperationsResource operationsResource,
         ITopicDomainResource domainResource,
-        IResourceOfCommonCoreOperation resourceOfCommonCoreOperation,
+        IOperationResource operationResource,
         ILogger<TopicDomainListGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
             domainResource.GetListGetOperationName(),
-            resourceOfCommonCoreOperation,
+            operationResource,
             logger,
             setupOptionsOfCommonCore)
     {
-        _resourceOfCommonDataSQL = resourceOfCommonDataSQL;
+        _operationsResource = operationsResource;
 
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
@@ -57,7 +57,7 @@ public class TopicDomainListGetOperationHandler :
     {
         source.Normalize();
 
-        InvalidInputProperties = source.GetInvalidProperties(_resourceOfCommonDataSQL);
+        InvalidInputProperties = source.GetInvalidProperties(_operationsResource);
 
         if (InvalidInputProperties.Any())
         {

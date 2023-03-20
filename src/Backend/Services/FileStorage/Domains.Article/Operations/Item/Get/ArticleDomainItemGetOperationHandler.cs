@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Makc2023.Backend.Common.Core.Operations;
+
 namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get;
 
 /// <summary>
@@ -14,7 +16,7 @@ public class ArticleDomainItemGetOperationHandler :
 {
     #region Fields
 
-    private readonly IResourceOfCommonDataSQL _resourceOfCommonDataSQL;
+    private readonly IOperationsResource _operationsResource;
 
     private readonly IResourceOfServiceDomainSQL _resourceOfServiceDomainSQL;
 
@@ -33,19 +35,19 @@ public class ArticleDomainItemGetOperationHandler :
 
     /// <inheritdoc/>
     public ArticleDomainItemGetOperationHandler(
-        IResourceOfCommonDataSQL resourceOfCommonDataSQL,
+        IOperationsResource operationsResource,
         IResourceOfServiceDomainSQL resourceOfServiceDomainSQL,
         IArticleDomainResource domainResource,
-        IResourceOfCommonCoreOperation resourceOfCommonCoreOperation,
+        IOperationResource operationResource,
         ILogger<ArticleDomainItemGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
             domainResource.GetItemGetOperationName(),
-            resourceOfCommonCoreOperation,
+            operationResource,
             logger,
             setupOptionsOfCommonCore)
     {
-        _resourceOfCommonDataSQL = resourceOfCommonDataSQL;
+        _operationsResource = operationsResource;
         _resourceOfServiceDomainSQL = resourceOfServiceDomainSQL;
 
         FunctionToTransformOperationInput = TransformOperationInput;
@@ -61,7 +63,7 @@ public class ArticleDomainItemGetOperationHandler :
     {
         source.Normalize();
 
-        InvalidInputProperties = source.GetInvalidProperties(_resourceOfServiceDomainSQL, _resourceOfCommonDataSQL);
+        InvalidInputProperties = source.GetInvalidProperties(_resourceOfServiceDomainSQL, _operationsResource);
 
         if (InvalidInputProperties.Any())
         {

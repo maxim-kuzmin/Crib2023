@@ -22,17 +22,17 @@ public class TopicDomainSetupAppModule : AppModule
             ));
 
         services.AddTransient<ITopicItemGetOperationHandler>(x => new TopicDomainItemGetOperationHandler(
-            x.GetRequiredService<IResourceOfCommonDataSQL>(),
+            x.GetRequiredService<IOperationsResource>(),
             x.GetRequiredService<IResourceOfServiceDomainSQL>(),
             x.GetRequiredService<ITopicDomainResource>(),
-            x.GetRequiredService<IResourceOfCommonCoreOperation>(),
+            x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<TopicDomainItemGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
 
         services.AddTransient<ITopicListGetOperationHandler>(x => new TopicDomainListGetOperationHandler(
-            x.GetRequiredService<IResourceOfCommonDataSQL>(),
+            x.GetRequiredService<IOperationsResource>(),
             x.GetRequiredService<ITopicDomainResource>(),
-            x.GetRequiredService<IResourceOfCommonCoreOperation>(),
+            x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<TopicDomainListGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
     }
@@ -64,8 +64,8 @@ public class TopicDomainSetupAppModule : AppModule
                 typeof(IClientMapperDbContextFactory),
                 typeof(ILogger),
                 typeof(IMediator),
-                typeof(IResourceOfCommonCoreOperation),
-                typeof(IResourceOfCommonDataSQL),
+                typeof(IOperationResource),
+                typeof(IOperationsResource),
                 typeof(IResourceOfServiceDomainSQL),
                 typeof(IStringLocalizer),
                 typeof(SetupOptionsOfCommonCore),

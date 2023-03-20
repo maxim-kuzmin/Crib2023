@@ -119,10 +119,10 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.GetInvalidProperties(Makc2023.Backend.Common.Data.SQL.IResource)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.GetInvalidProperties(Makc2023.Backend.Common.Core.Operations.IOperationsResource)">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.GetInvalidProperties(Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource,Makc2023.Backend.Common.Data.SQL.IResource)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationInput.GetInvalidProperties(Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource,Makc2023.Backend.Common.Core.Operations.IOperationsResource)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get.ArticleItemGetOperationOutput">
@@ -236,10 +236,10 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.GetInvalidProperties(Makc2023.Backend.Common.Data.SQL.IResource)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.GetInvalidProperties(Makc2023.Backend.Common.Core.Operations.IOperationsResource)">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.GetInvalidProperties(Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource,Makc2023.Backend.Common.Data.SQL.IResource)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationInput.GetInvalidProperties(Crib2023.Backend.Services.FileStorage.Domain.SQL.IResource,Makc2023.Backend.Common.Core.Operations.IOperationsResource)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get.TopicItemGetOperationOutput">

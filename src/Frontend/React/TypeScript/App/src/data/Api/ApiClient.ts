@@ -35,7 +35,7 @@ export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
   async delete (url: string, config?: ApiRequestConfig): Promise<ApiRequestResult<TData>> {
     return await this.request(
       { url },
-      async () => await this.httpClient.delete(url, httpRequestConfig),
+      async () => await this.httpClient.delete(url, { query: config?.query, ...httpRequestConfig }),
       config?.operationCode
     );
   }
@@ -43,7 +43,7 @@ export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
   async get (url: string, config?: ApiRequestConfig): Promise<ApiRequestResult<TData>> {
     return await this.request(
       { url },
-      async () => await this.httpClient.get(url, httpRequestConfig),
+      async () => await this.httpClient.get(url, { query: config?.query, ...httpRequestConfig }),
       config?.operationCode
     );
   }
@@ -51,7 +51,7 @@ export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
   async post (url: string, body: any, config?: ApiRequestConfig): Promise<ApiRequestResult<TData>> {
     return await this.request(
       { url, body },
-      async () => await this.httpClient.post(url, body, httpRequestConfig),
+      async () => await this.httpClient.post(url, body, { query: config?.query, ...httpRequestConfig }),
       config?.operationCode
     );
   }
@@ -59,7 +59,7 @@ export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
   async put (url: string, body: any, config?: ApiRequestConfig): Promise<ApiRequestResult<TData>> {
     return await this.request(
       { url, body },
-      async () => await this.httpClient.put(url, body, httpRequestConfig),
+      async () => await this.httpClient.put(url, body, { query: config?.query, ...httpRequestConfig }),
       config?.operationCode
     );
   }

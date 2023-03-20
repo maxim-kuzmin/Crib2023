@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Makc2023.Backend.Common.Core.Operations;
+
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Item.Get;
 
 /// <summary>
@@ -14,7 +16,7 @@ public class TopicDomainItemGetOperationHandler :
 {
     #region Fields
 
-    private readonly IResourceOfCommonDataSQL _resourceOfCommonDataSQL;
+    private readonly IOperationsResource _operationsResource;
 
     private readonly IResourceOfServiceDomainSQL _resourceOfServiceDomainSQL;
 
@@ -33,19 +35,19 @@ public class TopicDomainItemGetOperationHandler :
 
     /// <inheritdoc/>
     public TopicDomainItemGetOperationHandler(
-        IResourceOfCommonDataSQL resourceOfCommonDataSQL,
+        IOperationsResource operationsResource,
         IResourceOfServiceDomainSQL resourceOfServiceDomainSQL,
         ITopicDomainResource domainResource,
-        IResourceOfCommonCoreOperation resourceOfCommonCoreOperation,
+        IOperationResource operationResource,
         ILogger<TopicDomainItemGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
             domainResource.GetItemGetOperationName(),
-            resourceOfCommonCoreOperation,
+            operationResource,
             logger,
             setupOptionsOfCommonCore)
     {
-        _resourceOfCommonDataSQL = resourceOfCommonDataSQL;
+        _operationsResource = operationsResource;
         _resourceOfServiceDomainSQL = resourceOfServiceDomainSQL;
 
         FunctionToTransformOperationInput = TransformOperationInput;
@@ -61,7 +63,7 @@ public class TopicDomainItemGetOperationHandler :
     {
         source.Normalize();
 
-        InvalidInputProperties = source.GetInvalidProperties(_resourceOfServiceDomainSQL, _resourceOfCommonDataSQL);
+        InvalidInputProperties = source.GetInvalidProperties(_resourceOfServiceDomainSQL, _operationsResource);
 
         if (InvalidInputProperties.Any())
         {
