@@ -1,3 +1,4 @@
-export interface HttpRequestConfig extends RequestInit {
+export interface HttpRequestConfig {
+  init?: RequestInit;
   query?: any;
 }

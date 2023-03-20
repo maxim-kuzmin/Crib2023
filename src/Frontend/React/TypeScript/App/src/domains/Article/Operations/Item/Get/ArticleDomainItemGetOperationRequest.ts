@@ -1,8 +1,8 @@
 import {
-  type ArticleDomainItemGetOperationInput,
-  type OperationRequest
+  type ApiRequestWithInput,
+  type ArticleDomainItemGetOperationInput
 } from '../../../../../all';
 
 export interface ArticleDomainItemGetOperationRequest
-  extends OperationRequest<ArticleDomainItemGetOperationInput> {
+  extends ApiRequestWithInput<ArticleDomainItemGetOperationInput> {
 }

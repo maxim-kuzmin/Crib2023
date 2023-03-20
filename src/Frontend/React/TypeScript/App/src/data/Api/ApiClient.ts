@@ -1,145 +1,115 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import {
+  type ApiResult,
+  type ApiResponseWithData,
+  type ApiResponseWithDetailsData,
+  type ApiResponseWithErrorsData,
   type HttpClient,
   type HttpRequestConfig,
   type HttpRequestResult,
-  type NotificationData,
-  NotificationType,
-  type ApiRequestConfig,
-  type ApiRequestResult,
-  type ApiRequest,
-  type ApiResponseWithData,
-  type ApiResponseWithDetailsData,
-  type ApiResponseWithErrorsData
+  type ApiConfig,
 } from '../../all';
 
-const httpRequestConfig: HttpRequestConfig = {
-  headers: { 'Content-Type': 'application/json' }
+function createRequestConfig (operaionCode: string, query?: any): HttpRequestConfig {
+  return {
+    query,
+    init: {
+      headers: {
+        'Content-Type': 'application/json',
+        OperationCode: operaionCode
+      }
+    }
+  }
 };
 
 export interface ApiClient<TData extends null> {
-  readonly delete: (url: string, config?: ApiRequestConfig) => Promise<ApiRequestResult<TData>>;
-  readonly get: (url: string, config?: ApiRequestConfig) => Promise<ApiRequestResult<TData>>;
-  readonly post: (url: string, config?: ApiRequestConfig) => Promise<ApiRequestResult<TData>>;
-  readonly put: (url: string, config?: ApiRequestConfig) => Promise<ApiRequestResult<TData>>;
+  readonly delete: (endpoint: string, operationCode: string, query?: any) => Promise<ApiResult<TData>>;
+  readonly get: (endpoint: string, operationCode: string, query?: any) => Promise<ApiResult<TData>>;
+  readonly post: (endpoint: string, operationCode: string, body: any, query?: any) => Promise<ApiResult<TData>>;
+  readonly put: (endpoint: string, operationCode: string, body: any, query?: any) => Promise<ApiResult<TData>>;
 }
 
 export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
   constructor (
-    private readonly operationName: string,
-    private readonly httpClient: HttpClient,
-    private readonly functionToSetNotification: (data: NotificationData) => void
+    private readonly apiConfig: ApiConfig,
+    private readonly httpClient: HttpClient
   ) {}
 
-  async delete (url: string, config?: ApiRequestConfig): Promise<ApiRequestResult<TData>> {
+  async delete (endpoint: string, operationCode: string, query?: any): Promise<ApiResult<TData>> {
     return await this.request(
-      { url },
-      async () => await this.httpClient.delete(url, { query: config?.query, ...httpRequestConfig }),
-      config?.operationCode
+      async () => await this.httpClient.delete(
+        this.createUrl(endpoint),
+        createRequestConfig(operationCode, query)),
+      operationCode
     );
   }
 
-  async get (url: string, config?: ApiRequestConfig): Promise<ApiRequestResult<TData>> {
+  async get (endpoint: string, operationCode: string, query?: any): Promise<ApiResult<TData>> {
     return await this.request(
-      { url },
-      async () => await this.httpClient.get(url, { query: config?.query, ...httpRequestConfig }),
-      config?.operationCode
+      async () => await this.httpClient.get(
+        this.createUrl(endpoint),
+        createRequestConfig(operationCode, query)),
+      operationCode
     );
   }
 
-  async post (url: string, body: any, config?: ApiRequestConfig): Promise<ApiRequestResult<TData>> {
+  async post (endpoint: string, operationCode: string, body: any, query?: any): Promise<ApiResult<TData>> {
     return await this.request(
-      { url, body },
-      async () => await this.httpClient.post(url, body, { query: config?.query, ...httpRequestConfig }),
-      config?.operationCode
+      async () => await this.httpClient.post(
+        this.createUrl(endpoint),
+        body,
+        createRequestConfig(operationCode, query)),
+      operationCode
     );
   }
 
-  async put (url: string, body: any, config?: ApiRequestConfig): Promise<ApiRequestResult<TData>> {
+  async put (endpoint: string, operationCode: string, body: any, query?: any): Promise<ApiResult<TData>> {
     return await this.request(
-      { url, body },
-      async () => await this.httpClient.put(url, body, { query: config?.query, ...httpRequestConfig }),
-      config?.operationCode
+      async () => await this.httpClient.put(
+        this.createUrl(endpoint),
+        body,
+        createRequestConfig(operationCode, query)),
+      operationCode
     );
+  }
+
+  private createUrl (endpoint: string) {
+    return `${this.apiConfig.url}/${endpoint}`;
   }
 
   private async request (
-    request: ApiRequest,
     getRequestResult: () => Promise<HttpRequestResult>,
-    operationCode?: string
-  ): Promise<ApiRequestResult<TData>> {
-    let result: ApiRequestResult<TData>;
+    operationCode: string
+  ): Promise<ApiResult<TData>> {
+      const { ok, value, status, statusText } = await getRequestResult();
 
-    const title = `${this.operationName}: ${operationCode ?? uuidv4()}`;
+      const responseWithData: ApiResponseWithData<TData> | null = value;
+      const responseWithDetailsData: ApiResponseWithDetailsData | null = value;
+      const responseWithErrorsData: ApiResponseWithErrorsData | null = value;
 
-    try {
-      console.log(title, request);
+      if (!ok) {
+        let message = statusText ?? 'Unknown';
 
-      const requestResult = await getRequestResult();
+        switch (status) {
+          case 400:
+            message = '@@status-text-400';
+            break;
+          case 404:
+            message = '@@status-text-404';
+            break;
+          case 500:
+            message = '@@status-text-500';
+            break;
+        }
 
-      const responseWithData: ApiResponseWithData<TData> | null = requestResult.value;
-      const responseWithDetailsData: ApiResponseWithDetailsData | null = requestResult.value;
-      const responseWithErrorsData: ApiResponseWithErrorsData | null = requestResult.value;
-
-      result = {
-        data: responseWithData?.data,
-        operationCode,
-        responseDetailsData: responseWithDetailsData?.data,
-        responseErrorsData: responseWithErrorsData?.data,
-        responseStatusCode: requestResult.status
-      };
-
-      this.onSuccess(title, result, requestResult.ok, requestResult.statusText);
-    } catch (error) {
-      this.onError(title, error);
-
-      result = {
-        data: null,
-        operationCode,
-        responseDetailsData: null,
-        responseErrorsData: null,
-        responseStatusCode: 0
-      };
-    }
-
-    return result;
-  }
-
-  private onSuccess<TData> (title: string, result: ApiRequestResult<TData>, ok: boolean, statusText: string) {
-    console.log(title, result);
-
-    if (ok) {
-      this.functionToSetNotification({
-        type: NotificationType.Success,
-        message: title,
-      });
-    } else {
-      let message = statusText ?? 'Unknown';
-
-      switch (result.responseStatusCode) {
-        case 400:
-          message = '@@status-text-400';
-          break;
-        case 404:
-          message = '@@status-text-404';
-          break;
-        case 500:
-          message = '@@status-text-500';
-          break;
+        throw new Error(message);
       }
 
-      throw new Error(message);
-    }
-  }
-
-  private onError (title: string, error: any) {
-    console.error(title, error);
-
-    this.functionToSetNotification({
-      type: NotificationType.Error,
-      message: title,
-      description: error.message
-    });
+    return {
+      data: responseWithData?.data,
+      operationCode,
+      responseDetailsData: responseWithDetailsData?.data,
+      responseErrorsData: responseWithErrorsData?.data,
+      responseStatusCode: status
+    };
   }
 }

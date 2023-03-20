@@ -3,9 +3,9 @@ import {
   type ApiResponseErrorsData
 } from '../../all';
 
-export interface ApiRequestResult<TData> {
+export interface ApiResult<TData> {
   readonly data?: TData | null;
-  readonly operationCode?: string;
+  readonly operationCode: string;
   readonly responseDetailsData?: ApiResponseDetailsData | null;
   readonly responseErrorsData?: ApiResponseErrorsData | null;
   readonly responseStatusCode?: number;
