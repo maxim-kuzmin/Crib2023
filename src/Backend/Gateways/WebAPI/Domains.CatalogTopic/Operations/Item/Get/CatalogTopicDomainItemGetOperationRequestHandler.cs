@@ -44,7 +44,7 @@ public class CatalogTopicDomainItemGetOperationRequestHandler :
     {
         try
         {
-            _operationHandler.OnStart(request.Input, request.OperationCode);
+            _operationHandler.HandleStart(request.Input, request.OperationCode);
 
             CatalogTopicItemGetOperationRequest clientRequest = new()
             {
@@ -80,11 +80,11 @@ public class CatalogTopicDomainItemGetOperationRequestHandler :
                 operationResult.InvalidInputProperties.Add(property);
             }
 
-            _operationHandler.OnSuccessWithResult(operationResult);
+            _operationHandler.HandleSuccessWithResult(operationResult);
         }
         catch (Exception ex)
         {
-            _operationHandler.OnError(ex);
+            _operationHandler.HandleError(ex);
         }
 
         return new CatalogTopicDomainItemGetOperationResponse(_operationHandler.OperationResult);

@@ -42,15 +42,15 @@ public class ArticleDomainListGetOperationRequestHandler :
     {
         try
         {
-            _operationHandler.OnStart(request.Input, request.OperationCode);
+            _operationHandler.HandleStart(request.Input, request.OperationCode);
 
             var operationOutput = await _repository.GetList(request.Input).ConfigureAwait(false);
 
-            _operationHandler.OnSuccess(operationOutput);
+            _operationHandler.HandleSuccess(operationOutput);
         }
         catch (Exception ex)
         {
-            _operationHandler.OnError(ex);
+            _operationHandler.HandleError(ex);
         }
 
         return new ArticleDomainListGetOperationResponse(_operationHandler.OperationResult);

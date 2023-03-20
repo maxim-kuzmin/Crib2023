@@ -6,7 +6,7 @@ try
 {
     var appEnvironment = new AppEnvironment();
 
-    appHandler.OnStart(appEnvironment);
+    appHandler.HandleStart(appEnvironment);
 
     var appBuilder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +20,7 @@ try
 }
 catch (Exception exception)
 {
-    appHandler.OnError(exception);
+    appHandler.HandleError(exception);
 
     throw;
 }
