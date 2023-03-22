@@ -5,7 +5,7 @@ import {
   getModule,
   SpinnerControl,
   StoreDispatchType,
-  StoreStatus
+  AsyncOperationStatus
 } from '../../all';
 import styles from './TopicPage.module.css';
 
@@ -56,7 +56,7 @@ export function TopicPage () {
   return (
     <div className={styles.root}>
       <h1>TopicPage {topicId}</h1>
-      {requestStatus === StoreStatus.Pending
+      {requestStatus === AsyncOperationStatus.Pending
         ? <SpinnerControl/>
         : <ArticleTableView articles={articles}/>}
     </div>

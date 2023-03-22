@@ -1,4 +1,4 @@
-export enum StoreStatus {
+export enum AsyncOperationStatus {
     Fulfilled,
     Pending,
     Rejected

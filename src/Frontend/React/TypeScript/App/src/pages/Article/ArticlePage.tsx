@@ -6,7 +6,7 @@ import {
   NotificationType,
   SpinnerControl,
   StoreDispatchType,
-  StoreStatus
+  AsyncOperationStatus
 } from '../../all';
 
 import styles from './ArticlePage.module.css';
@@ -62,7 +62,7 @@ export function ArticlePage () {
             message: val
           })
       }}>Notify</button>
-      {requestStatus === StoreStatus.Pending
+      {requestStatus === AsyncOperationStatus.Pending
         ? <SpinnerControl/>
         : <ArticleView article={article}/>}
     </div>
