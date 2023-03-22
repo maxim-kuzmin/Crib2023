@@ -1,16 +1,16 @@
 import {
   type ApiClient,
   type ApiRequestHandler,
-  type ApiResult,
   type ArticleDomainListGetOperationInput,
   type ArticleDomainListGetOperationRequest,
-  type ArticleDomainListGetOperationResponse
+  type ArticleDomainListGetOperationResponse,
+  type ArticleDomainListGetOperationResult
 } from '../../../../../all';
 
 export interface ArticleDomainListGetOperationRequestHandler {
   handle: (
     request: ArticleDomainListGetOperationRequest
-  ) => Promise<ApiResult<ArticleDomainListGetOperationResponse>>;
+  ) => Promise<ArticleDomainListGetOperationResult>;
 }
 
 export class ArticleDomainListGetOperationRequestHandlerImpl {
@@ -21,7 +21,7 @@ export class ArticleDomainListGetOperationRequestHandlerImpl {
 
   async handle (
     request: ArticleDomainListGetOperationRequest
-  ): Promise<ApiResult<ArticleDomainListGetOperationResponse>> {
+  ): Promise<ArticleDomainListGetOperationResult> {
     const { operationCode, input } = request;
 
     return await this.apiRequestHandler.handleWithInput<
