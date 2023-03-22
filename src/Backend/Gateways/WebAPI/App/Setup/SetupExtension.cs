@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Microsoft.Extensions.Options;
+
 namespace Crib2023.Backend.Gateways.WebAPI.App.Setup;
 
 /// <summary>
@@ -23,18 +25,11 @@ public static class SetupExtension
         appBuilder.Services.AddAppModules(new AppModule[]
         {
             new ModuleOfCommonCore(configuration.GetRequiredSection("App:Common:Core")),
-            new ModuleOfGatewayApp(appEnvironment),
+            new ModuleOfGatewayApp(appEnvironment, configuration.GetRequiredSection("App:Gateway:App")),
             new ModuleOfGatewayDomain(configuration.GetRequiredSection("App:Gateway:Domain")),
             new ModuleOfGatewayDomainsCatalogArticle(),
             new ModuleOfGatewayDomainsCatalogTopic(),
         });
-
-        // Add services to the container.
-
-        appBuilder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        appBuilder.Services.AddEndpointsApiExplorer();
-        appBuilder.Services.AddSwaggerGen();
     }
 
     /// <summary>
@@ -48,6 +43,15 @@ public static class SetupExtension
         app.UseRequestLocalization(x => x.SetDefaultCulture(appEnvironment.DefaultCulture)
             .AddSupportedCultures(appEnvironment.SupportedCultures)
             .AddSupportedUICultures(appEnvironment.SupportedCultures));
+
+        app.UseRouting();
+
+        var setupOptions = app.Services.GetRequiredService<IOptions<SetupOptions>>().Value;
+
+        if (setupOptions.CorsPolicyIsEnabled)
+        {
+            app.UseCors();
+        }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

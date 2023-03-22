@@ -11,6 +11,8 @@ public class SetupAppModule : AppModule
 
     private readonly IAppEnvironment _appEnvironment;
 
+    private readonly IConfigurationSection _configurationSection;
+
     #endregion Fields
 
     #region Constructors
@@ -19,9 +21,11 @@ public class SetupAppModule : AppModule
     /// Конструктор.
     /// </summary>
     /// <param name="appEnvironment">Окружение приложения.</param>
-    public SetupAppModule(IAppEnvironment appEnvironment)
+    /// <param name="configurationSection">Раздел конфигурации.</param>
+    public SetupAppModule(IAppEnvironment appEnvironment, IConfigurationSection configurationSection)
     {
         _appEnvironment = appEnvironment;
+        _configurationSection = configurationSection;
     }
 
     #endregion Constructors
@@ -31,6 +35,8 @@ public class SetupAppModule : AppModule
     /// <inheritdoc/>
     public sealed override void ConfigureServices(IServiceCollection services)
     {
+        services.Configure<SetupOptions>(_configurationSection);
+
         services.AddSingleton(x => _appEnvironment);
 
         services.AddLocalization(x => x.ConfigureLocalization());
@@ -39,6 +45,39 @@ public class SetupAppModule : AppModule
             typeof(ModuleOfCommonDomain),
             typeof(ModuleOfGatewayDomainsCatalogArticle),
             typeof(ModuleOfGatewayDomainsCatalogTopic));
+
+        // Add services to the container.
+
+        services.AddControllers();
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+
+        var setupOptions = _configurationSection.Get<SetupOptions>() ?? new SetupOptions();
+
+        if (setupOptions.CorsPolicyIsEnabled)
+        { 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        if (setupOptions.CorsPolicyOrigins.Any())
+                        {
+                            policy.WithOrigins(setupOptions.CorsPolicyOrigins)
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .AllowCredentials();
+                        }
+                        else
+                        {
+                            policy.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                        }
+                    });
+            });
+        }
     }
 
     /// <inheritdoc/>

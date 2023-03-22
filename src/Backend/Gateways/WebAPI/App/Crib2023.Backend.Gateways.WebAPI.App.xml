@@ -95,11 +95,12 @@
             Модуль настройки приложения.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule.#ctor(Makc2023.Backend.Common.Core.App.IAppEnvironment)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule.#ctor(Makc2023.Backend.Common.Core.App.IAppEnvironment,Microsoft.Extensions.Configuration.IConfigurationSection)">
             <summary>
             Конструктор.
             </summary>
             <param name="appEnvironment">Окружение приложения.</param>
+            <param name="configurationSection">Раздел конфигурации.</param>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <inheritdoc/>
@@ -129,6 +130,21 @@
             <param name="app">Приложение.</param>
             <param name="appEnvironment">Окружение приложения.</param>
             <returns>Задача на использование.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions">
+            <summary>
+            Параметры настройки.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions.CorsPolicyIsEnabled">
+            <summary>
+            Признак включения политики CORS.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions.CorsPolicyOrigins">
+            <summary>
+            Список URL, на которые действует политика CORS.
+            </summary>
         </member>
     </members>
 </doc>

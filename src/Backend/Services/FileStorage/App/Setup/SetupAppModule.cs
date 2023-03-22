@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using System.Reflection.PortableExecutable;
+
 namespace Crib2023.Backend.Services.FileStorage.App.Setup;
 
 /// <summary>
@@ -46,6 +48,12 @@ public class SetupAppModule : AppModule
             typeof(ModuleOfCommonDomainSQLMappersEF),
             typeof(ModuleOfServiceDomainsArticle),
             typeof(ModuleOfServiceDomainsTopic));
+
+
+        // Additional configuration is required to successfully run gRPC on macOS.
+        // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
+
+        services.AddGrpc();
     }
 
     /// <inheritdoc/>
