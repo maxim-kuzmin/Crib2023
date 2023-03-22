@@ -4,7 +4,7 @@ import {
   type ApiResponseWithData,
   type ApiResponseWithDetailsData,
   type ApiResponseWithErrorsData,
-  type ApiResult,
+  type ApiOperationResponse,
   type HttpClient,
   type HttpRequestConfig,
   type HttpRequestResult
@@ -50,7 +50,7 @@ export class ApiClientImpl implements ApiClient {
     endpoint: string,
     operationCode: string,
     query?: any
-  ): Promise<ApiResult<TData>> {
+  ): Promise<ApiOperationResponse<TData>> {
     return await this.request(
       async () => await this.httpClient.delete(
         this.createUrl(endpoint),
@@ -63,7 +63,7 @@ export class ApiClientImpl implements ApiClient {
     endpoint: string,
     operationCode: string,
     query?: any
-  ): Promise<ApiResult<TData>> {
+  ): Promise<ApiOperationResponse<TData>> {
     return await this.request(
       async () => await this.httpClient.get(
         this.createUrl(endpoint),
@@ -77,7 +77,7 @@ export class ApiClientImpl implements ApiClient {
     operationCode: string,
     body: any,
     query?: any
-  ): Promise<ApiResult<TData>> {
+  ): Promise<ApiOperationResponse<TData>> {
     return await this.request(
       async () => await this.httpClient.post(
         this.createUrl(endpoint),
@@ -92,7 +92,7 @@ export class ApiClientImpl implements ApiClient {
     operationCode: string,
     body: any,
     query?: any
-  ): Promise<ApiResult<TData>> {
+  ): Promise<ApiOperationResponse<TData>> {
     return await this.request(
       async () => await this.httpClient.put(
         this.createUrl(endpoint),
@@ -109,7 +109,7 @@ export class ApiClientImpl implements ApiClient {
   private async request<TData> (
     getRequestResult: () => Promise<HttpRequestResult>,
     operationCode: string
-  ): Promise<ApiResult<TData>> {
+  ): Promise<ApiOperationResponse<TData>> {
     const { ok, value, status, statusText } = await getRequestResult();
 
     const responseWithData: ApiResponseWithData<TData> | null = value;

@@ -1,7 +1,7 @@
 import {
   type ApiRequest,
   type ApiRequestWithInput,
-  type ApiResult
+  type ApiOperationResponse
 } from '../../all';
 
 export interface ApiRequestHandler {
@@ -9,7 +9,7 @@ export interface ApiRequestHandler {
     TInput,
     TRequest extends ApiRequestWithInput<TInput>,
     TOutput,
-    TResponse extends ApiResult<TOutput>
+    TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
     getResult: () => Promise<TResponse>
@@ -18,7 +18,7 @@ export interface ApiRequestHandler {
   readonly handleWithoutInput: <
     TRequest extends ApiRequest,
     TOutput,
-    TResponse extends ApiResult<TOutput>
+    TResponse extends ApiOperationResponse<TOutput>
   >(
     request: TRequest,
     getResult: () => Promise<TResponse>

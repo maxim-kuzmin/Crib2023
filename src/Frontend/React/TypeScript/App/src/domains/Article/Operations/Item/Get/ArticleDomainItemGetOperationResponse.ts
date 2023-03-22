@@ -1,8 +1,8 @@
 import {
-  type ApiResult,
+  type ApiOperationResponse,
   type ArticleDomainItemGetOperationOutput
 } from '../../../../../all';
 
 export interface ArticleDomainItemGetOperationResponse
-  extends ApiResult<ArticleDomainItemGetOperationOutput> {
+  extends ApiOperationResponse<ArticleDomainItemGetOperationOutput> {
 }

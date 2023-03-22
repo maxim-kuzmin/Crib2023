@@ -3,7 +3,7 @@ import {
   type ApiResponseErrorsData
 } from '../../all';
 
-export interface ApiResult<TData> {
+export interface ApiOperationResponse<TData> {
   readonly data?: TData | null;
   readonly error?: Error | null;
   readonly operationCode: string;

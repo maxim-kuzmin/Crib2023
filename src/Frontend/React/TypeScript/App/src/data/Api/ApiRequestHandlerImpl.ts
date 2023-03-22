@@ -2,7 +2,7 @@ import {
   type ApiRequest,
   type ApiRequestHandler,
   type ApiRequestWithInput,
-  type ApiResult,
+  type ApiOperationResponse,
   type OperationInput,
   type OperationHandler
 } from '../../all';
@@ -14,7 +14,7 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
     TInput,
     TRequest extends ApiRequestWithInput<TInput>,
     TOutput,
-    TResponse extends ApiResult<TOutput>
+    TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
     getResult: () => Promise<TResponse>
@@ -33,7 +33,7 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
   async handleWithoutInput<
     TRequest extends ApiRequest,
     TOutput,
-    TResponse extends ApiResult<TOutput>
+    TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
     getResult: () => Promise<TResponse>
@@ -51,7 +51,7 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
   private async handle<
     TRequest extends ApiRequest,
     TOutput,
-    TResponse extends ApiResult<TOutput>
+    TResponse extends ApiOperationResponse<TOutput>
   > (
     operationInput: OperationInput,
     request: TRequest,
