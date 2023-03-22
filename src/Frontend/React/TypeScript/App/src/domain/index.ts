@@ -1,2 +1,2 @@
-export * from './Entities1';
+export * from './Entities';
 export * from './ValueObjects';
