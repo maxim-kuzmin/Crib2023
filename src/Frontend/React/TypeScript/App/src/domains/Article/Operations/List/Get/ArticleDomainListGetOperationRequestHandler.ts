@@ -10,7 +10,7 @@ import {
 export interface ArticleDomainListGetOperationRequestHandler {
   handle: (
     request: ArticleDomainListGetOperationRequest
-  ) => Promise<ArticleDomainListGetOperationResult>;
+  ) => Promise<ArticleDomainListGetOperationResult | null>;
 }
 
 export class ArticleDomainListGetOperationRequestHandlerImpl {
@@ -21,13 +21,14 @@ export class ArticleDomainListGetOperationRequestHandlerImpl {
 
   async handle (
     request: ArticleDomainListGetOperationRequest
-  ): Promise<ArticleDomainListGetOperationResult> {
+  ): Promise<ArticleDomainListGetOperationResult | null> {
     const { operationCode, input } = request;
 
     return await this.apiRequestHandler.handleWithInput<
       ArticleDomainListGetOperationInput,
       ArticleDomainListGetOperationRequest,
-      ArticleDomainListGetOperationResponse
+      ArticleDomainListGetOperationResponse,
+      ArticleDomainListGetOperationResult
     >(
       request,
       async () => await this.apiClient.get<ArticleDomainListGetOperationResponse>(

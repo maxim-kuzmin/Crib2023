@@ -7,24 +7,38 @@ import {
 } from '../../all';
 
 export interface ApiRequestHandler {
-  readonly handleWithInput: <TInput, TRequest extends ApiRequestWithInput<TInput>, TResponse> (
+  readonly handleWithInput: <
+    TInput,
+    TRequest extends ApiRequestWithInput<TInput>,
+    TResponse,
+    TResult extends ApiResult<TResponse>
+  > (
     request: TRequest,
-    getResult: () => Promise<ApiResult<TResponse>>
-  ) => Promise<ApiResult<TResponse>>;
+    getResult: () => Promise<TResult>
+  ) => Promise<TResult | null>;
 
-  readonly handleWithoutInput: <TRequest extends ApiRequest, TResponse> (
+  readonly handleWithoutInput: <
+    TRequest extends ApiRequest,
+    TResponse,
+    TResult extends ApiResult<TResponse>
+  >(
     request: TRequest,
-    getResult: () => Promise<ApiResult<TResponse>>
-  ) => Promise<ApiResult<TResponse>>;
+    getResult: () => Promise<TResult>
+  ) => Promise<TResult | null>;
 }
 
 export class ApiRequestHandlerImpl implements ApiRequestHandler {
   constructor (private readonly operationHandler: OperationHandler) {}
 
-  async handleWithInput<TInput, TRequest extends ApiRequestWithInput<TInput>, TResponse> (
+  async handleWithInput<
+    TInput,
+    TRequest extends ApiRequestWithInput<TInput>,
+    TResponse,
+    TResult extends ApiResult<TResponse>
+  > (
     request: TRequest,
-    getResult: () => Promise<ApiResult<TResponse>>
-  ): Promise<ApiResult<TResponse>> {
+    getResult: () => Promise<TResult>
+  ): Promise<TResult | null> {
     const { operationCode, operationName, input } = request;
 
     return await this.handle({
@@ -36,10 +50,14 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
     getResult);
   }
 
-  async handleWithoutInput<TRequest extends ApiRequest, TResponse> (
+  async handleWithoutInput<
+    TRequest extends ApiRequest,
+    TResponse,
+    TResult extends ApiResult<TResponse>
+  > (
     request: TRequest,
-    getResult: () => Promise<ApiResult<TResponse>>
-  ): Promise<ApiResult<TResponse>> {
+    getResult: () => Promise<TResult>
+  ): Promise<TResult | null> {
     const { operationCode, operationName } = request;
 
     return await this.handle({
@@ -50,11 +68,15 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
     getResult);
   }
 
-  private async handle<TRequest extends ApiRequest, TResponse> (
+  private async handle<
+    TRequest extends ApiRequest,
+    TResponse,
+    TResult extends ApiResult<TResponse>
+  > (
     operationInput: OperationInput,
     request: TRequest,
-    getResult: () => Promise<ApiResult<TResponse>>
-  ): Promise<ApiResult<TResponse>> {
+    getResult: () => Promise<TResult>
+  ): Promise<TResult | null> {
     try {
       this.operationHandler.handleStart(operationInput);
 
@@ -74,12 +96,6 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
       this.operationHandler.handleError(error);
     }
 
-    return {
-      data: null,
-      operationCode: operationInput.operationCode,
-      responseDetailsData: null,
-      responseErrorsData: null,
-      responseStatusCode: 0
-    };
+    return null;
   }
 }
