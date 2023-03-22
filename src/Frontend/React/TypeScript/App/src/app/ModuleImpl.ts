@@ -39,9 +39,6 @@ export class ModuleImpl implements Module {
   private readonly topicPathStoreService = createTopicPathStoreService();
   private readonly topicTreeStoreService = createTopicTreeStoreService();
 
-  getApiConfig = () => this.apiConfig;
-  getApiClient = () => this.apiClient;
-  getHttpClient = () => this.httpClient;
   getNotificationControlService = () => this.notificationControlService;
   getAppNotificationStoreService = () => this.appNotificationStoreService;
   getArticleItemStoreService = () => this.articleItemStoreService;
@@ -50,10 +47,14 @@ export class ModuleImpl implements Module {
   getTopicPathStoreService = () => this.topicPathStoreService;
   getTopicTreeStoreService = () => this.topicTreeStoreService;
 
+  private readonly articleDomainRepository: ArticleDomainRepository = this.config.isTestModeEnabled
+    ? new TestArticleDomainRepositoryImpl()
+    : new ArticleDomainRepositoryImpl(this.apiClient);
+
   getArticleDomainRepository (): ArticleDomainRepository {
     return this.config.isTestModeEnabled
       ? new TestArticleDomainRepositoryImpl()
-      : new ArticleDomainRepositoryImpl(this.getApiClient());
+      : new ArticleDomainRepositoryImpl(this.apiClient);
   }
 
   useArticleDomainItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {

@@ -5,19 +5,13 @@ import {
   type TopicItemStoreService,
   type TopicPathStoreService,
   type TopicTreeStoreService,
-  type HttpClient,
   type NotificationControlService,
-  type ApiClient,
-  type ApiConfig,
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository
 } from '../all';
 
 export interface Module {
-  readonly getApiClient: () => ApiClient;
-  readonly getApiConfig: () => ApiConfig;
-  readonly getHttpClient: () => HttpClient;
   readonly getNotificationControlService: () => NotificationControlService;
   readonly getAppNotificationStoreService: () => AppNotificationStoreService;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
