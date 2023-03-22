@@ -1,5 +1,7 @@
-import { type ApiRequest } from '../../all';
+import { ApiRequest } from '../../all';
 
-export interface ApiRequestWithInput<TInput> extends ApiRequest {
-  readonly input: TInput;
+export class ApiRequestWithInput<TInput> extends ApiRequest {
+  constructor (operationName: string, public input: TInput, operationCode?: string) {
+    super(operationName, operationCode);
+  }
 }

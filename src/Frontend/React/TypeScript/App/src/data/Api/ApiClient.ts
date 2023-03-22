@@ -21,20 +21,45 @@ function createRequestConfig (operaionCode: string, query?: any): HttpRequestCon
   }
 };
 
-export interface ApiClient<TData extends null> {
-  readonly delete: (endpoint: string, operationCode: string, query?: any) => Promise<ApiResult<TData>>;
-  readonly get: (endpoint: string, operationCode: string, query?: any) => Promise<ApiResult<TData>>;
-  readonly post: (endpoint: string, operationCode: string, body: any, query?: any) => Promise<ApiResult<TData>>;
-  readonly put: (endpoint: string, operationCode: string, body: any, query?: any) => Promise<ApiResult<TData>>;
+export interface ApiClient {
+  readonly delete: <TData>(
+    endpoint: string,
+    operationCode: string,
+    query?: any
+  ) => Promise<ApiResult<TData>>;
+
+  readonly get: <TData>(
+    endpoint: string,
+    operationCode: string,
+    query?: any
+  ) => Promise<ApiResult<TData>>;
+
+  readonly post: <TData>(
+    endpoint: string,
+    operationCode: string,
+    body: any,
+    query?: any
+  ) => Promise<ApiResult<TData>>;
+
+  readonly put: <TData>(
+    endpoint: string,
+    operationCode: string,
+    body: any,
+    query?: any
+  ) => Promise<ApiResult<TData>>;
 }
 
-export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
+export class ApiClientImpl implements ApiClient {
   constructor (
     private readonly apiConfig: ApiConfig,
     private readonly httpClient: HttpClient
   ) {}
 
-  async delete (endpoint: string, operationCode: string, query?: any): Promise<ApiResult<TData>> {
+  async delete<TData> (
+    endpoint: string,
+    operationCode: string,
+    query?: any
+  ): Promise<ApiResult<TData>> {
     return await this.request(
       async () => await this.httpClient.delete(
         this.createUrl(endpoint),
@@ -43,7 +68,11 @@ export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
     );
   }
 
-  async get (endpoint: string, operationCode: string, query?: any): Promise<ApiResult<TData>> {
+  async get<TData> (
+    endpoint: string,
+    operationCode: string,
+    query?: any
+  ): Promise<ApiResult<TData>> {
     return await this.request(
       async () => await this.httpClient.get(
         this.createUrl(endpoint),
@@ -52,7 +81,12 @@ export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
     );
   }
 
-  async post (endpoint: string, operationCode: string, body: any, query?: any): Promise<ApiResult<TData>> {
+  async post<TData> (
+    endpoint: string,
+    operationCode: string,
+    body: any,
+    query?: any
+  ): Promise<ApiResult<TData>> {
     return await this.request(
       async () => await this.httpClient.post(
         this.createUrl(endpoint),
@@ -62,7 +96,12 @@ export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
     );
   }
 
-  async put (endpoint: string, operationCode: string, body: any, query?: any): Promise<ApiResult<TData>> {
+  async put<TData> (
+    endpoint: string,
+    operationCode: string,
+    body: any,
+    query?: any
+  ): Promise<ApiResult<TData>> {
     return await this.request(
       async () => await this.httpClient.put(
         this.createUrl(endpoint),
@@ -76,7 +115,7 @@ export class ApiClientImpl<TData extends null> implements ApiClient<TData> {
     return `${this.apiConfig.url}/${endpoint}`;
   }
 
-  private async request (
+  private async request<TData> (
     getRequestResult: () => Promise<HttpRequestResult>,
     operationCode: string
   ): Promise<ApiResult<TData>> {

@@ -1,4 +1,4 @@
 export interface ListGetOperationOutput<TItem> {
-  items: [TItem];
-  totalCoubt: number;
+  items: [TItem] | [];
+  totalCount: number;
 }

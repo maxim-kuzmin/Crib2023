@@ -1,2 +1,3 @@
-export * from './OperationConfig';
+export * from './OperationDataOnStart';
+export * from './OperationDataOnSuccess';
 export * from './OperationHandler';

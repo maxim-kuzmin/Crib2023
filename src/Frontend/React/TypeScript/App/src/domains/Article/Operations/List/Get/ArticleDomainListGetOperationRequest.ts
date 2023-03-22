@@ -1,8 +1,11 @@
 import {
-  type ApiRequestWithInput,
+  ApiRequestWithInput,
   type ArticleDomainListGetOperationInput
 } from '../../../../../all';
 
-export interface ArticleDomainListGetOperationRequest
+export class ArticleDomainListGetOperationRequest
   extends ApiRequestWithInput<ArticleDomainListGetOperationInput> {
+  constructor (input: ArticleDomainListGetOperationInput, operationCode?: string) {
+    super('ArticleDomainListGet', input, operationCode);
+  }
 }
