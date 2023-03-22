@@ -1,10 +1,10 @@
 import { useContext, createContext, type Dispatch, useEffect, useRef, type Context } from 'react';
 import {
-  createAsyncOperationState,
+  createOperationState,
   StoreDispatchType,
-  AsyncOperationStatus,
+  OperationStatus,
   type StoreDispatchOptions,
-  type AsyncOperationState,
+  type OperationState,
 } from '../../../all';
 
 type Data = string | null;
@@ -33,7 +33,7 @@ interface ActionToSet {
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
 
-interface State extends AsyncOperationState {
+interface State extends OperationState {
   data: Data;
   input: Input;
 }
@@ -42,7 +42,7 @@ const DispatchContext = createContext<Dispatch<Action> | null>(null);
 
 const StateContext = createContext<State | null>(null);
 
-const initialState = createAsyncOperationState<State>({
+const initialState = createOperationState<State>({
   data: null,
   input: null
 });
@@ -57,7 +57,7 @@ function reducer (state: State, action: Action): State {
       return {
         ...state,
         input,
-        status: AsyncOperationStatus.Pending
+        status: OperationStatus.Pending
       };
     }
     case ActionType.Set: {
@@ -65,7 +65,7 @@ function reducer (state: State, action: Action): State {
       return {
         ...state,
         data,
-        status: AsyncOperationStatus.Fulfilled
+        status: OperationStatus.Fulfilled
       };
     }
   }
