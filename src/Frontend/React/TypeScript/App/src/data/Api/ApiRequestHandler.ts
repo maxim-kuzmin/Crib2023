@@ -2,7 +2,7 @@ import {
   type ApiRequest,
   type ApiRequestWithInput,
   type ApiResult,
-  type OperationDataOnStart,
+  type OperationInput,
   type OperationHandler
 } from '../../all';
 
@@ -25,12 +25,12 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
     request: TRequest,
     getResult: () => Promise<ApiResult<TResponse>>
   ): Promise<ApiResult<TResponse>> {
-    const { operationCode, operationName, input: requestInput } = request;
+    const { operationCode, operationName, input } = request;
 
     return await this.handle({
       operationCode,
       operationName,
-      requestInput
+      input
     },
     request,
     getResult);
@@ -51,20 +51,22 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
   }
 
   private async handle<TRequest extends ApiRequest, TResponse> (
-    operationDataOnStart: OperationDataOnStart,
+    operationInput: OperationInput,
     request: TRequest,
     getResult: () => Promise<ApiResult<TResponse>>
   ): Promise<ApiResult<TResponse>> {
     try {
-      this.operationHandler.handleStart(operationDataOnStart);
+      this.operationHandler.handleStart(operationInput);
 
       request.operationCode = this.operationHandler.operationCode;
 
       const result = await getResult();
 
+      const { operationCode, data } = result;
+
       this.operationHandler.handleSuccess({
-        operationCode: result.operationCode,
-        responseData: result.data
+        operationCode,
+        data
       });
 
       return result;
@@ -74,7 +76,7 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
 
     return {
       data: null,
-      operationCode: operationDataOnStart.operationCode,
+      operationCode: operationInput.operationCode,
       responseDetailsData: null,
       responseErrorsData: null,
       responseStatusCode: 0

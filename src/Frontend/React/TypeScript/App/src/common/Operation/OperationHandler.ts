@@ -1,15 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
 import {
   NotificationType,
-  type OperationDataOnStart,
-  type OperationDataOnSuccess,
+  type OperationInput,
+  type OperationResult,
   type NotificationData
 } from '../../all';
 
 export interface OperationHandler {
   readonly handleError: (error: any) => void;
-  readonly handleStart: (data: OperationDataOnStart) => void;
-  readonly handleSuccess: (data: OperationDataOnSuccess) => void;
+  readonly handleStart: (operationInput: OperationInput) => void;
+  readonly handleSuccess: (operationResult: OperationResult) => void;
   readonly operationCode: string;
 }
 
@@ -40,7 +40,7 @@ export class OperationHandlerImpl implements OperationHandler {
     });
   }
 
-  handleStart ({ operationCode, operationName, requestInput }: OperationDataOnStart) {
+  handleStart ({ operationCode, operationName, input }: OperationInput) {
     if (operationCode) {
       this._operationCode = operationCode;
     }
@@ -49,17 +49,17 @@ export class OperationHandlerImpl implements OperationHandler {
 
     const title = this.createTitle();
 
-    console.log(`${title}Start`, requestInput);
+    console.log(`${title}Start`, input);
   }
 
-  handleSuccess ({ operationCode, responseData }: OperationDataOnSuccess) {
+  handleSuccess ({ operationCode, data }: OperationResult) {
     if (operationCode) {
       this._operationCode = operationCode;
     }
 
     const title = this.createTitle();
 
-    console.log(`${title}Success`, responseData);
+    console.log(`${title}Success`, data);
 
     this.functionToSetNotification({
       type: NotificationType.Success,
