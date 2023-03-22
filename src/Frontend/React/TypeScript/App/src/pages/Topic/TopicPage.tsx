@@ -20,7 +20,7 @@ export function TopicPage () {
 
   const articleListStoreService = getArticleListStoreService();
 
-  const { data: articles, requestStatus } = articleListStoreService.useState();
+  const { data: articles, status: requestStatus } = articleListStoreService.useState();
 
   const topicId = Number(urlParams.topicId);
 

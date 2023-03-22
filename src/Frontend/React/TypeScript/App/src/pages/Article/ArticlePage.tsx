@@ -22,7 +22,7 @@ export function ArticlePage () {
 
   const articleItemStoreService = getArticleItemStoreService();
 
-  const { data: article, requestStatus } = articleItemStoreService.useState();
+  const { data: article, status: requestStatus } = articleItemStoreService.useState();
 
   const articleId = Number(urlParams.articleId);
 

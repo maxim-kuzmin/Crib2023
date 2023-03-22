@@ -57,7 +57,7 @@ function reducer (state: State, action: Action): State {
       return {
         ...state,
         input,
-        requestStatus: StoreStatus.Pending
+        status: StoreStatus.Pending
       };
     }
     case ActionType.Set: {
@@ -65,7 +65,7 @@ function reducer (state: State, action: Action): State {
       return {
         ...state,
         data,
-        requestStatus: StoreStatus.Fulfilled
+        status: StoreStatus.Fulfilled
       };
     }
   }
