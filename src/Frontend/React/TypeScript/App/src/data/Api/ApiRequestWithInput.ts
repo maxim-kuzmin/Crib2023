@@ -1,7 +1,19 @@
-import { ApiRequest } from '../../all';
+import { type ApiRequest } from '../../all';
 
-export class ApiRequestWithInput<TInput> extends ApiRequest {
-  constructor (operationName: string, public input: TInput, operationCode?: string) {
-    super(operationName, operationCode);
-  }
+export interface ApiRequestWithInput<TInput> extends ApiRequest {
+  input: TInput;
+  operationCode: string;
+  readonly operationName: string;
+}
+
+export function createApiRequestWithInput<TInput> (
+  operationName: string,
+  input: TInput,
+  operationCode: string
+): ApiRequestWithInput<TInput> {
+  return {
+    input,
+    operationCode,
+    operationName
+  };
 }

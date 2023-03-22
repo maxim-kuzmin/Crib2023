@@ -1,11 +1,18 @@
 import {
-  ApiRequestWithInput,
-  type ArticleDomainItemGetOperationInput
+  type ApiRequestWithInput,
+  type ArticleDomainItemGetOperationInput,
+  createApiRequestWithInput,
 } from '../../../../../all';
 
-export class ArticleDomainItemGetOperationRequest
-  extends ApiRequestWithInput<ArticleDomainItemGetOperationInput> {
-  constructor (input: ArticleDomainItemGetOperationInput, operationCode?: string) {
-    super('ArticleDomainItemGet', input, operationCode);
-  }
+export interface ArticleDomainItemGetOperationRequest
+  extends ApiRequestWithInput<ArticleDomainItemGetOperationInput> {}
+
+export function createArticleDomainItemGetOperationRequest (
+  input: ArticleDomainItemGetOperationInput,
+  operationCode: string = ''
+): ArticleDomainItemGetOperationRequest {
+  return createApiRequestWithInput<ArticleDomainItemGetOperationInput>(
+    '@@ArticleDomainItemGet',
+    input,
+    operationCode);
 }

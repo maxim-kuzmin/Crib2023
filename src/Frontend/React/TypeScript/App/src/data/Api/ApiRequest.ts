@@ -1,9 +1,11 @@
-export class ApiRequest {
-  public operationCode = '';
+export interface ApiRequest {
+  operationCode: string;
+  readonly operationName: string;
+}
 
-  constructor (public operationName: string, operationCode?: string) {
-    if (operationCode) {
-      this.operationCode = operationCode;
-    }
-  }
+export function createApiRequest (operationName: string, operationCode: string): ApiRequest {
+  return {
+    operationCode,
+    operationName
+  };
 }
