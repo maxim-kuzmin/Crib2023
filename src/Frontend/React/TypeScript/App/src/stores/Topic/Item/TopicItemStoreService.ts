@@ -5,6 +5,7 @@ import {
   OperationStatus,
   type StoreDispatchOptions,
   type OperationState,
+  getTestDataAsync,
 } from '../../../all';
 
 type Data = string | null;
@@ -165,9 +166,7 @@ async function runDispatchToLoad (
 
   dispatch(actionToLoad);
 
-  const data = await (new Promise<Data>((resolve, reject) => {
-    setTimeout(() => { resolve(`TopicItem, input=${(input ?? '')}: ${(new Date()).toString()}`); }, 1000)
-  }));
+  const data = await getTestDataAsync(() => `TopicItem, input=${(input ?? '')}: ${(new Date()).toString()}`);
 
   if (!shouldBeCanceled()) {
     runDispatchToSet(dispatch, callback, data);
