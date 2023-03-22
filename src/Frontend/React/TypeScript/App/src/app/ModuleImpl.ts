@@ -39,6 +39,10 @@ export class ModuleImpl implements Module {
   private readonly topicPathStoreService = createTopicPathStoreService();
   private readonly topicTreeStoreService = createTopicTreeStoreService();
 
+  private readonly articleDomainRepository: ArticleDomainRepository = this.config.isTestModeEnabled
+    ? new TestArticleDomainRepositoryImpl()
+    : new ArticleDomainRepositoryImpl(this.apiClient);
+
   getNotificationControlService = () => this.notificationControlService;
   getAppNotificationStoreService = () => this.appNotificationStoreService;
   getArticleItemStoreService = () => this.articleItemStoreService;
@@ -47,26 +51,22 @@ export class ModuleImpl implements Module {
   getTopicPathStoreService = () => this.topicPathStoreService;
   getTopicTreeStoreService = () => this.topicTreeStoreService;
 
-  private readonly articleDomainRepository: ArticleDomainRepository = this.config.isTestModeEnabled
-    ? new TestArticleDomainRepositoryImpl()
-    : new ArticleDomainRepositoryImpl(this.apiClient);
-
   getArticleDomainRepository (): ArticleDomainRepository {
-    return this.config.isTestModeEnabled
-      ? new TestArticleDomainRepositoryImpl()
-      : new ArticleDomainRepositoryImpl(this.apiClient);
+    return this.articleDomainRepository;
   }
 
   useArticleDomainItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {
     return new ArticleDomainItemGetOperationRequestHandlerImpl(
       this.getArticleDomainRepository(),
-      this.useApiRequestHandler());
+      this.useApiRequestHandler()
+    );
   }
 
   useArticleDomainListGetOperationRequestHandler (): ArticleDomainListGetOperationRequestHandler {
     return new ArticleDomainListGetOperationRequestHandlerImpl(
       this.getArticleDomainRepository(),
-      this.useApiRequestHandler());
+      this.useApiRequestHandler()
+    );
   }
 
   private useOperationHandler (): OperationHandler {

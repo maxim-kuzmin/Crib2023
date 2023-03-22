@@ -1,32 +1,49 @@
+import { v4 as uuidv4 } from 'uuid';
 import {
   type ArticleDomainListGetOperationRequest,
   type ArticleDomainListGetOperationResponse,
   type ArticleDomainItemGetOperationRequest,
   type ArticleDomainItemGetOperationResponse,
   type ArticleDomainRepository,
-  getTestDataAsync
+  getTestDataAsync,
+  type ArticleEntity,
+  type ArticleDomainItemGetOperationOutput,
+  type ArticleDomainListGetOperationOutput
 } from '../../../../all';
 
 export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
+  private readonly items: ArticleEntity[] = [];
+
+  constructor () {
+    for (let id = 1; id < 101; id++) {
+      const item: ArticleEntity = {
+        data: {
+          id,
+          body: `Body ${id}`,
+          title: `Title ${id}`,
+          topicId: 0,
+          rowGuid: uuidv4()
+        },
+        topicPathItems: []
+      };
+
+      this.items.push(item);
+    }
+  }
+
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
     const { operationCode, input } = request;
 
+    const item = this.items.find(x => x.data.id === input.id);
+
+    const data: ArticleDomainItemGetOperationOutput | null = item ? { item } : null;
+
     const result: ArticleDomainItemGetOperationResponse = {
+      data,
       operationCode,
-      data: {
-        item: {
-          data: {
-            id: input.id,
-            title: `Title ${input.id}`,
-            body: `Body ${input.id}`,
-            topicId: 0,
-            rowGuid: ''
-          },
-          topicPathItems: []
-        },
-      }
+      responseStatusCode: data ? 200 : 404
     };
 
     return await getTestDataAsync(() => result);
@@ -37,12 +54,15 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
   ): Promise<ArticleDomainListGetOperationResponse> {
     const { operationCode } = request;
 
+    const data: ArticleDomainListGetOperationOutput | null = {
+      items: this.items,
+      totalCount: this.items.length
+    };
+
     const result: ArticleDomainListGetOperationResponse = {
+      data,
       operationCode,
-      data: {
-        items: [],
-        totalCount: 0
-      }
+      responseStatusCode: 200
     };
 
     return await getTestDataAsync(() => result);
