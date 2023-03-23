@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   ArticleView,
@@ -6,7 +6,9 @@ import {
   NotificationType,
   SpinnerControl,
   StoreDispatchType,
-  OperationStatus
+  OperationStatus,
+  type ArticleDomainItemGetOperationResponse,
+  type ArticleDomainItemGetOperationInput
 } from '../../all';
 
 import styles from './ArticlePage.module.css';
@@ -34,14 +36,16 @@ export function ArticlePage () {
 
   const topicPathDispatchToSet = topicPathStoreService.useDispatchToSet();
 
-  const callbackOnArticleItemLoad = useCallback((data: string | null) => {
-    topicPathDispatchToSet.run(`TopicPath from ${data ?? ''}`);
+  const callbackOnArticleItemLoad = useCallback((response: ArticleDomainItemGetOperationResponse | null) => {
+    topicPathDispatchToSet.run(`TopicPath from ${response?.data?.item?.data.id ?? ''}`);
   }, [topicPathDispatchToSet]);
+
+  const inputAtDispatch: ArticleDomainItemGetOperationInput = useMemo(() => ({ id: articleId }), [articleId]);
 
   articleItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleItemLoad,
-    inputAtDispatch: articleId
+    inputAtDispatch
   });
 
   articleItemStoreService.useDispatchToClear({

@@ -6,7 +6,7 @@ export function ArticleView ({ article }: ArticleViewProps) {
   return (
     <div className={styles.root}>
       <h2>ArticleView</h2>
-      {article}
+      {article?.data?.item?.data.id}
     </div>
   )
 }

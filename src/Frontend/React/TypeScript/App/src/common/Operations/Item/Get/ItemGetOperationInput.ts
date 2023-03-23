@@ -1,3 +1,3 @@
 export interface ItemGetOperationInput {
-  id: number;
+  id?: number;
 }

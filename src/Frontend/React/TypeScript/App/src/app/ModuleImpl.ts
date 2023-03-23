@@ -23,7 +23,7 @@ import {
   ArticleDomainRepositoryImpl,
   type Module,
   createConfig,
-  TestArticleDomainRepositoryImpl
+  TestArticleDomainRepositoryImpl,
 } from '../all';
 
 export class ModuleImpl implements Module {
