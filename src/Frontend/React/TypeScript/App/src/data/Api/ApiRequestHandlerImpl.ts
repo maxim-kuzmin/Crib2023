@@ -66,13 +66,13 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
 
       const { operationCode, data } = result;
 
-      this.operationHandler.handleSuccess({
-        operationCode,
-        data
-      });
-
       if (result.error) {
         this.operationHandler.handleError(result.error);
+      } else {
+        this.operationHandler.handleSuccess({
+          operationCode,
+          data
+        });
       }
 
       return result;

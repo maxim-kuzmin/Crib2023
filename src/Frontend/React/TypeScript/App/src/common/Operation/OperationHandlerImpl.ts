@@ -25,7 +25,7 @@ export class OperationHandlerImpl implements OperationHandler {
   handleError (error: any) {
     const title = this.createTitle();
 
-    console.error(`${title}Error`, error);
+    console.error(title, error);
 
     this.functionToSetNotification({
       type: NotificationType.Error,

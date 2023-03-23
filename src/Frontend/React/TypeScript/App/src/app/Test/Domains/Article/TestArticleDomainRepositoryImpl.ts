@@ -40,10 +40,19 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
 
     const data: ArticleDomainItemGetOperationOutput | null = item ? { item } : null;
 
+    const responseStatusCode = data ? 200 : 404;
+
+    let error: Error | null = null;
+
+    if (responseStatusCode === 404) {
+      error = new Error('@@HttpError404');
+    }
+
     const result: ArticleDomainItemGetOperationResponse = {
       data,
+      error,
       operationCode,
-      responseStatusCode: data ? 200 : 404
+      responseStatusCode
     };
 
     return await getTestDataAsync(() => result);
