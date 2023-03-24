@@ -1,1 +1,1 @@
-export * from './TopicTypeEntity';
+export { type TopicTypeEntity } from './TopicTypeEntity';

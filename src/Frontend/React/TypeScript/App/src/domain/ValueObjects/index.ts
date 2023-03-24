@@ -1,1 +1,1 @@
-export * from './OptionValueObject';
+export { type OptionValueObject } from './OptionValueObject';

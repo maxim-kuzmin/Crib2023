@@ -1,1 +1,1 @@
-export * from './ApiSetupOptions';
+export { type ApiSetupOptions, createApiSetupOptions } from './ApiSetupOptions';

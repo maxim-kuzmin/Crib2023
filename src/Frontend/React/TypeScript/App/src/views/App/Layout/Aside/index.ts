@@ -1,2 +1,2 @@
-export * from './AppLayoutAsideView';
-export * from './AppLayoutAsideViewProps';
+export { AppLayoutAsideView } from './AppLayoutAsideView';
+export { type AppLayoutAsideViewProps } from './AppLayoutAsideViewProps';

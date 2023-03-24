@@ -1,2 +1,2 @@
-export * from './ArticleTableView';
-export * from './ArticleTableViewProps';
+export { ArticleTableView } from './ArticleTableView';
+export { type ArticleTableViewProps } from './ArticleTableViewProps';

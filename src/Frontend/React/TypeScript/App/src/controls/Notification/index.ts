@@ -1,1 +1,1 @@
-export * from './NotificationControlService';
+export { type NotificationControlService, createNotificationControlService } from './NotificationControlService';

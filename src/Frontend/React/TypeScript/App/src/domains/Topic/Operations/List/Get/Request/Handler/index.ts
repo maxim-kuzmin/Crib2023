@@ -1,2 +1,2 @@
-export * from './TopicDomainListGetOperationRequestHandler';
-export * from './TopicDomainListGetOperationRequestHandlerImpl';
+export { type TopicDomainListGetOperationRequestHandler } from './TopicDomainListGetOperationRequestHandler';
+export { TopicDomainListGetOperationRequestHandlerImpl } from './TopicDomainListGetOperationRequestHandlerImpl';

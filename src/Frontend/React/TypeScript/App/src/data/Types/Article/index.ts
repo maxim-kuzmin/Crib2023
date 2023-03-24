@@ -1,2 +1,2 @@
-export * from './ArticleTypeEntity';
-export * from './ArticleTypeEntityForList';
+export { type ArticleTypeEntity } from './ArticleTypeEntity';
+export { type ArticleTypeEntityForList } from './ArticleTypeEntityForList';

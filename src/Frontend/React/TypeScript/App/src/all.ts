@@ -6,7 +6,7 @@ export function getModule (): Module {
   return module;
 }
 
-export * from './App';
+export { App } from './App';
 export * from './common';
 export * from './controls';
 export * from './data';
@@ -18,4 +18,4 @@ export * from './stores';
 export * from './views';
 export * from './app/Test';
 export * from './app/Module';
-export * from './app/Provider';
+export { Provider } from './app/Provider';

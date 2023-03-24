@@ -1,1 +1,1 @@
-export * from './SpinnerControl';
+export { SpinnerControl } from './SpinnerControl';

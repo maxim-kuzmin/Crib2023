@@ -1,2 +1,2 @@
-export * from './LayoutControl';
-export * from './LayoutControlProps';
+export { LayoutControl } from './LayoutControl';
+export { type LayoutControlProps } from './LayoutControlProps';

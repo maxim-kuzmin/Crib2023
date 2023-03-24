@@ -1,2 +1,2 @@
-export * from './ArticleView';
-export * from './ArticleViewProps';
+export { ArticleView } from './ArticleView';
+export { type ArticleViewProps } from './ArticleViewProps';

@@ -1,4 +1,4 @@
 export * from './Request';
-export * from './TopicDomainItemGetOperationInput';
-export * from './TopicDomainItemGetOperationOutput';
-export * from './TopicDomainItemGetOperationResponse';
+export { type TopicDomainItemGetOperationInput } from './TopicDomainItemGetOperationInput';
+export { type TopicDomainItemGetOperationOutput } from './TopicDomainItemGetOperationOutput';
+export { type TopicDomainItemGetOperationResponse } from './TopicDomainItemGetOperationResponse';

@@ -1,1 +1,1 @@
-export * from './ApiOperationResponse';
+export { type ApiOperationResponse } from './ApiOperationResponse';

@@ -1,1 +1,1 @@
-export * from './TopicTreeView';
+export { TopicTreeView } from './TopicTreeView';

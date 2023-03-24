@@ -1,2 +1,5 @@
-export * from './ArticleItemStoreProvider';
-export * from './ArticleItemStoreService';
+export { ArticleItemStoreProvider } from './ArticleItemStoreProvider';
+export {
+  type ArticleItemStoreService,
+  createArticleItemStoreService
+} from './ArticleItemStoreService';

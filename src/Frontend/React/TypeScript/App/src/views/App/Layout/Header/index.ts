@@ -1,1 +1,1 @@
-export * from './AppLayoutHeaderView';
+export { AppLayoutHeaderView } from './AppLayoutHeaderView';

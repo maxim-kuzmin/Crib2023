@@ -1,2 +1,5 @@
-export * from './TopicTreeStoreProvider';
-export * from './TopicTreeStoreService';
+export { TopicTreeStoreProvider } from './TopicTreeStoreProvider';
+export {
+  type TopicTreeStoreService,
+  createTopicTreeStoreService
+} from './TopicTreeStoreService';

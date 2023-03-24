@@ -1,2 +1,5 @@
-export * from './TopicPathStoreProvider';
-export * from './TopicPathStoreService';
+export { TopicPathStoreProvider } from './TopicPathStoreProvider';
+export {
+  type TopicPathStoreService,
+  createTopicPathStoreService
+} from './TopicPathStoreService';

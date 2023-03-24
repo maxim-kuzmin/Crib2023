@@ -1,1 +1,1 @@
-export * from './AppNotificationView';
+export { AppNotificationView } from './AppNotificationView';

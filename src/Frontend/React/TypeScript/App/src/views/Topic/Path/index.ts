@@ -1,1 +1,1 @@
-export * from './TopicPathView';
+export { TopicPathView } from './TopicPathView';

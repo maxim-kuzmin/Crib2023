@@ -1,2 +1,2 @@
-export * from './ApiRequestHandler';
-export * from './ApiRequestHandlerImpl';
+export { type ApiRequestHandler } from './ApiRequestHandler';
+export { ApiRequestHandlerImpl } from './ApiRequestHandlerImpl';

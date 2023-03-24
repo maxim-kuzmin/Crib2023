@@ -1,2 +1,2 @@
-export * from './ApiResponseDataWithDetails';
-export * from './ApiResponseDataWithMessages';
+export { type ApiResponseDataWithDetails } from './ApiResponseDataWithDetails';
+export { type ApiResponseDataWithMessages } from './ApiResponseDataWithMessages';

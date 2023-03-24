@@ -1,1 +1,1 @@
-export * from './AppLayoutFooterView';
+export { AppLayoutFooterView } from './AppLayoutFooterView';

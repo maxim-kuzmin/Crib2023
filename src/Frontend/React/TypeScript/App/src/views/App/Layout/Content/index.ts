@@ -1,2 +1,2 @@
-export * from './AppLayoutContentView';
-export * from './AppLayoutContentViewProps';
+export { AppLayoutContentView } from './AppLayoutContentView';
+export { type AppLayoutContentViewProps } from './AppLayoutContentViewProps';

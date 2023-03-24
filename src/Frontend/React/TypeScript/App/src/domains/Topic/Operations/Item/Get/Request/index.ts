@@ -1,2 +1,5 @@
 export * from './Handler';
-export * from './TopicDomainItemGetOperationRequest';
+export {
+  type TopicDomainItemGetOperationRequest,
+  createTopicDomainItemGetOperationRequest
+} from './TopicDomainItemGetOperationRequest';
