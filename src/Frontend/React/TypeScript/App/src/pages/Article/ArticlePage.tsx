@@ -24,7 +24,7 @@ export function ArticlePage () {
 
   const articleItemStoreService = getArticleItemStoreService();
 
-  const { data: article, status } = articleItemStoreService.useState();
+  const { data, status } = articleItemStoreService.useState();
 
   const articleId = Number(urlParams.articleId);
 
@@ -69,7 +69,7 @@ export function ArticlePage () {
       }}>Notify</button>
       {status === OperationStatus.Pending
         ? <SpinnerControl/>
-        : <ArticleView article={article}/>}
+        : <ArticleView response={data}/>}
     </div>
   )
 }

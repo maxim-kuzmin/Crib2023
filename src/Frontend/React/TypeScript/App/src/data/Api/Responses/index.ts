@@ -1,2 +1,2 @@
-export * from './ApiResponseWithDetailsData';
-export * from './ApiResponseWithErrorsData';
+export * from './ApiResponseWithDetails';
+export * from './ApiResponseWithMessages';

@@ -2,15 +2,15 @@ import {
   type ApiClient,
   type ApiSetupOptions,
   type ApiResponseWithData,
-  type ApiResponseWithDetailsData,
-  type ApiResponseWithErrorsData,
+  type ApiResponseWithDetails,
+  type ApiResponseWithMessages,
   type ApiOperationResponse,
   type HttpClient,
   type HttpRequestConfig,
   type HttpRequestResult,
   type ApiResponse,
-  type ApiResponseDetailsData,
-  type ApiResponseErrorsData,
+  type ApiResponseDataWithDetails,
+  type ApiResponseDataWithMessages,
   ApiResponseErrorImpl,
   type ApiResponseError
 } from '../../../all';
@@ -35,6 +35,7 @@ export class ApiClientImpl implements ApiClient {
 
   async delete<TData> (
     endpoint: string,
+    operationName: string,
     operationCode: string,
     query?: any
   ): Promise<ApiOperationResponse<TData>> {
@@ -43,12 +44,14 @@ export class ApiClientImpl implements ApiClient {
         this.createUrl(endpoint),
         createRequestConfig(operationCode, query)
       ),
+      operationName,
       operationCode
     );
   }
 
   async get<TData> (
     endpoint: string,
+    operationName: string,
     operationCode: string,
     query?: any
   ): Promise<ApiOperationResponse<TData>> {
@@ -57,12 +60,14 @@ export class ApiClientImpl implements ApiClient {
         this.createUrl(endpoint),
         createRequestConfig(operationCode, query)
       ),
+      operationName,
       operationCode
     );
   }
 
   async post<TData> (
     endpoint: string,
+    operationName: string,
     operationCode: string,
     body: any,
     query?: any
@@ -73,12 +78,14 @@ export class ApiClientImpl implements ApiClient {
         body,
         createRequestConfig(operationCode, query)
       ),
+      operationName,
       operationCode
     );
   }
 
   async put<TData> (
     endpoint: string,
+    operationName: string,
     operationCode: string,
     body: any,
     query?: any
@@ -89,6 +96,7 @@ export class ApiClientImpl implements ApiClient {
         body,
         createRequestConfig(operationCode, query)
       ),
+      operationName,
       operationCode
     );
   }
@@ -99,44 +107,53 @@ export class ApiClientImpl implements ApiClient {
 
   private async request<TData> (
     getRequestResult: () => Promise<HttpRequestResult>,
+    requestOperationName: string,
     requestOperationCode: string
   ): Promise<ApiOperationResponse<TData>> {
     const { ok, value, status } = await getRequestResult();
 
     const response: ApiResponse = value;
 
-    let error: ApiResponseError | null = null;
     let responseWithData: ApiResponseWithData<TData> | null = null;
-    let responseWithDetailsData: ApiResponseWithDetailsData | null = null;
-    let responseWithErrorsData: ApiResponseWithErrorsData | null = null;
+    let data: TData | null = null;
 
-    let responseDetailsData: ApiResponseDetailsData | null = null;
-    let responseErrorsData: ApiResponseErrorsData | null = null;
+    let responseWithDetails: ApiResponseWithDetails | null = null;
+    let responseDataWithDetails: ApiResponseDataWithDetails | null = null;
+
+    let responseWithMessages: ApiResponseWithMessages | null = null;
+    let responseDataWithMessages: ApiResponseDataWithMessages | null = null;
+
+    let error: ApiResponseError | null = null;
 
     if (ok) {
       responseWithData = value;
+
+      if (responseWithData) {
+        data = responseWithData.data;
+      }
     } else {
       if (status === 400) {
-          responseWithDetailsData = value;
+          responseWithDetails = value;
 
-          if (responseWithDetailsData) {
-            responseDetailsData = responseWithDetailsData.data;
+          if (responseWithDetails) {
+            responseDataWithDetails = responseWithDetails.data;
           }
       } else if (status === 500) {
-          responseWithErrorsData = value;
+          responseWithMessages = value;
 
-          if (responseWithErrorsData) {
-            responseErrorsData = responseWithErrorsData.data;
+          if (responseWithMessages) {
+            responseDataWithMessages = responseWithMessages.data;
           }
       }
 
-      error = new ApiResponseErrorImpl({ responseDetailsData, responseErrorsData });
+      error = new ApiResponseErrorImpl(status, { responseDataWithDetails, responseDataWithMessages });
     }
 
     return {
-      data: responseWithData?.data,
+      data,
       error,
-      operationCode: response.operationCode ?? requestOperationCode
+      operationCode: response.operationCode ?? requestOperationCode,
+      operationName: requestOperationName
     };
   }
 }

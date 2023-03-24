@@ -36,24 +36,25 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, input } = request;
+    const { operationCode, operationName, input } = request;
 
     const item = this.items.find(x => x.data.id === input.id);
 
     const data: ArticleDomainItemGetOperationOutput | null = item ? { item } : null;
 
-    const responseStatusCode = data ? 200 : 404;
+    const status = data ? 200 : 404;
 
     let error: ApiResponseError | null = null;
 
-    if (responseStatusCode === 404) {
-      error = new ApiResponseErrorImpl();
+    if (status === 404) {
+      error = new ApiResponseErrorImpl(status);
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
       data,
       error,
-      operationCode
+      operationCode,
+      operationName
     };
 
     return await getTestDataAsync(() => result);
@@ -62,7 +63,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
   async getList (
     request: ArticleDomainListGetOperationRequest
   ): Promise<ArticleDomainListGetOperationResponse> {
-    const { operationCode } = request;
+    const { operationCode, operationName } = request;
 
     const data: ArticleDomainListGetOperationOutput | null = {
       items: this.items,
@@ -71,7 +72,8 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
 
     const result: ArticleDomainListGetOperationResponse = {
       data,
-      operationCode
+      operationCode,
+      operationName
     };
 
     return await getTestDataAsync(() => result);

@@ -1,9 +1,10 @@
 import {
-  type ApiResponseErrorsData,
-  type ApiResponseDetailsData
+  type ApiResponseDataWithMessages,
+  type ApiResponseDataWithDetails
 } from '../../../../all';
 
 export interface ApiResponseError extends Error {
-  readonly responseDetailsData: ApiResponseDetailsData | null;
-  readonly responseErrorsData: ApiResponseErrorsData | null;
+  readonly responseDataWithDetails: ApiResponseDataWithDetails | null;
+  readonly responseDataWithMessages: ApiResponseDataWithMessages | null;
+  readonly responseStatus: number;
 }

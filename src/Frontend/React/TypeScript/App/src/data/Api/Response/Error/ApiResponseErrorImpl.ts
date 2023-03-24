@@ -1,34 +1,52 @@
 import {
-  type ApiResponseErrorsData,
-  type ApiResponseDetailsData,
+  type ApiResponseDataWithMessages,
+  type ApiResponseDataWithDetails,
   type ApiResponseError,
   type ApiResponseErrorOptions
 } from '../../../../all';
 
 export class ApiResponseErrorImpl extends Error implements ApiResponseError {
-  readonly responseDetailsData: ApiResponseDetailsData | null = null;
-  readonly responseErrorsData: ApiResponseErrorsData | null = null;
+  readonly responseDataWithDetails: ApiResponseDataWithDetails | null = null;
+  readonly responseDataWithMessages: ApiResponseDataWithMessages | null = null;
 
-  constructor (options?: ApiResponseErrorOptions) {
+  constructor (public responseStatus: number, options?: ApiResponseErrorOptions) {
     let message = 'Unknown';
 
-    if (options?.responseDetailsData) {
-      message = '@@HttpError400';
-    } else if (options?.responseErrorsData) {
-      message = '@@HttpError500';
+    switch (responseStatus) {
+      case 400:
+        message = '@@HttpError400';
+        if (options?.responseDataWithDetails) {
+          const { summary } = options?.responseDataWithDetails;
+          if (summary) {
+            message = summary;
+          }
+        }
+        break;
+      case 404:
+        message = '@@HttpError404';
+        break;
+      case 500:
+        message = '@@HttpError500';
+        if (options?.responseDataWithMessages) {
+          const { messages } = options?.responseDataWithMessages;
+          if (messages?.length > 0) {
+            message = messages.join('. ');
+          }
+        }
+        break;
     }
 
     super(message, options);
 
     if (options) {
-      const { responseDetailsData, responseErrorsData } = options;
+      const { responseDataWithDetails: responseDetailsData, responseDataWithMessages: responseErrorsData } = options;
 
       if (responseDetailsData) {
-        this.responseDetailsData = responseDetailsData;
+        this.responseDataWithDetails = responseDetailsData;
       }
 
       if (responseErrorsData) {
-        this.responseErrorsData = responseErrorsData;
+        this.responseDataWithMessages = responseErrorsData;
       }
     }
   }

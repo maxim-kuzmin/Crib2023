@@ -14,21 +14,25 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, input } = request;
+    const { operationCode, operationName, input } = request;
 
     return await this.apiClient.get<ArticleDomainItemGetOperationOutput>(
-      `CatalogArticle/${input.id}`,
-      operationCode);
+      `CatalogArticle/${input.id ?? 0}`,
+      operationName,
+      operationCode
+    );
   }
 
   async getList (
     request: ArticleDomainListGetOperationRequest
   ): Promise<ArticleDomainListGetOperationResponse> {
-    const { operationCode, input } = request;
+    const { operationCode, operationName, input } = request;
 
     return await this.apiClient.get<ArticleDomainListGetOperationOutput>(
       'CatalogArticle',
+      operationName,
       operationCode,
-      input)
+      input
+    );
   }
 }

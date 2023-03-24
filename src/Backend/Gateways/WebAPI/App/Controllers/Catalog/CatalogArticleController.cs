@@ -38,9 +38,9 @@ public class CatalogArticleController : ControllerBase
     /// <returns>Задача на получение элемента.</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(CatalogArticleItemGetResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(WebAppResponseWithDetailsData), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(WebAppResponseWithErrorsData), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(WebAppResponseWithMessages), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetItem(
         [FromRoute] long id,
         [FromHeader(Name = nameof(CatalogArticleDomainItemGetOperationRequest.OperationCode))] string operationCode = "")
@@ -75,7 +75,7 @@ public class CatalogArticleController : ControllerBase
         }
         else if (operationResult.InvalidInputProperties.Any())
         {
-            WebAppResponseWithDetailsData response = new(
+            WebAppResponseWithDetails response = new(
                 operationResult.OperationCode,
                 new (operationResult.InvalidInputProperties, operationResult.ErrorMessages.FromSentencesToText()));
 
@@ -83,7 +83,7 @@ public class CatalogArticleController : ControllerBase
         }
         else
         {
-            WebAppResponseWithErrorsData response = new(
+            WebAppResponseWithMessages response = new(
                 operationResult.OperationCode,
                 new (operationResult.ErrorMessages));
 
@@ -99,9 +99,9 @@ public class CatalogArticleController : ControllerBase
     /// <returns>Задача на получение списка.</returns>
     [HttpGet]
     [ProducesResponseType(typeof(CatalogArticleListGetResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(WebAppResponseWithDetailsData), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(WebAppResponseWithErrorsData), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(WebAppResponseWithMessages), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetList(
         [FromQuery] CatalogArticleListGetOperationInput input,
         [FromHeader(Name = nameof(CatalogArticleDomainListGetOperationRequest.OperationCode))] string operationCode = "")
@@ -131,7 +131,7 @@ public class CatalogArticleController : ControllerBase
         }
         else if (operationResult.InvalidInputProperties.Any())
         {
-            WebAppResponseWithDetailsData response = new(
+            WebAppResponseWithDetails response = new(
                 operationResult.OperationCode,
                 new(operationResult.InvalidInputProperties, operationResult.ErrorMessages.FromSentencesToText()));
 
@@ -139,7 +139,7 @@ public class CatalogArticleController : ControllerBase
         }
         else
         {
-            WebAppResponseWithErrorsData response = new(
+            WebAppResponseWithMessages response = new(
                 operationResult.OperationCode,
                 new(operationResult.ErrorMessages));
 
