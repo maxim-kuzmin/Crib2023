@@ -1,4 +1,4 @@
-import { type StoreDispatchType } from '../../all';
+import { type StoreDispatchType } from '../../../all';
 
 export interface StoreDispatchOptions {
     dispatchType?: StoreDispatchType;

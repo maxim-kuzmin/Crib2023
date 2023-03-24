@@ -3,7 +3,7 @@ import {
   type HttpClient,
   type HttpRequestConfig,
   type HttpRequestResult
-} from '../../all';
+} from '../../../all';
 
 function createRequestConfigValue (method: string, config?: HttpRequestConfig, body?: any) {
   const result: HttpRequestConfig = { ...config };

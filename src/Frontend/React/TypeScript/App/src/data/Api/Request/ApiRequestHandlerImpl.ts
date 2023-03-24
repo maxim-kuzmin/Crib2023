@@ -6,7 +6,7 @@ import {
   type OperationInput,
   type OperationHandler,
   type ShouldBeCanceled
-} from '../../all';
+} from '../../../all';
 
 export class ApiRequestHandlerImpl implements ApiRequestHandler {
   constructor (private readonly operationHandler: OperationHandler) {}

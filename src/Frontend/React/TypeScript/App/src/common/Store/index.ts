@@ -1,2 +1,1 @@
-export * from './StoreDispatchOptions';
-export * from './StoreDispatchType';
+export * from './Dispatch';

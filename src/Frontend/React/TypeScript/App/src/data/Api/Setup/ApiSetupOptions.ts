@@ -1,8 +1,8 @@
-export interface ApiConfig {
+export interface ApiSetupOptions {
   readonly url: string;
 }
 
-export function createApiConfig (): ApiConfig {
+export function createApiSetupOptions (): ApiSetupOptions {
   let url = process.env.REACT_APP_API_URL;
 
   if ((!url && url !== '') || url === '/') {

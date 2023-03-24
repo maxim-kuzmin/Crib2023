@@ -5,7 +5,7 @@ import {
   type OperationInput,
   type OperationResult,
   type NotificationData
-} from '../../all';
+} from '../../../all';
 
 export class OperationHandlerImpl implements OperationHandler {
   private _operationCode = '';

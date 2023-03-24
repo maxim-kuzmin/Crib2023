@@ -1,5 +1,4 @@
-export * from './OperationHandler';
-export * from './OperationHandlerImpl';
+export * from './Handler';
 export * from './OperationInput';
 export * from './OperationResult';
 export * from './OperationState';

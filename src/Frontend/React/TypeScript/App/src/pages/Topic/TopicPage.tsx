@@ -20,7 +20,7 @@ export function TopicPage () {
 
   const articleListStoreService = getArticleListStoreService();
 
-  const { data: articles, status: requestStatus } = articleListStoreService.useState();
+  const { data: articles, status } = articleListStoreService.useState();
 
   const topicId = Number(urlParams.topicId);
 
@@ -56,7 +56,7 @@ export function TopicPage () {
   return (
     <div className={styles.root}>
       <h1>TopicPage {topicId}</h1>
-      {requestStatus === OperationStatus.Pending
+      {status === OperationStatus.Pending
         ? <SpinnerControl/>
         : <ArticleTableView articles={articles}/>}
     </div>

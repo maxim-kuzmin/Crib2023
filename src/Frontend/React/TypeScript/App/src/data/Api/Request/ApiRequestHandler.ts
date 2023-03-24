@@ -3,7 +3,7 @@ import {
   type ApiRequestWithInput,
   type ApiOperationResponse,
   type ShouldBeCanceled
-} from '../../all';
+} from '../../../all';
 
 export interface ApiRequestHandler {
   readonly handleWithInput: <

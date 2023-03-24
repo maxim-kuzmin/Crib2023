@@ -1,7 +1,7 @@
 import {
   type HttpRequestConfig,
   type HttpRequestResult
-} from '../../all';
+} from '../../../all';
 
 export interface HttpClient {
   readonly delete: (url: string, config?: HttpRequestConfig) => Promise<HttpRequestResult>;

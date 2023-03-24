@@ -9,7 +9,7 @@ import {
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository
-} from '../all';
+} from '../../all';
 
 export interface Module {
   readonly getNotificationControlService: () => NotificationControlService;

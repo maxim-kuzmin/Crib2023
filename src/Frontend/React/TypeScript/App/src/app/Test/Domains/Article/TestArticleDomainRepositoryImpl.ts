@@ -8,7 +8,9 @@ import {
   getTestDataAsync,
   type ArticleEntity,
   type ArticleDomainItemGetOperationOutput,
-  type ArticleDomainListGetOperationOutput
+  type ArticleDomainListGetOperationOutput,
+  type ApiResponseError,
+  ApiResponseErrorImpl
 } from '../../../../all';
 
 export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
@@ -42,17 +44,16 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
 
     const responseStatusCode = data ? 200 : 404;
 
-    let error: Error | null = null;
+    let error: ApiResponseError | null = null;
 
     if (responseStatusCode === 404) {
-      error = new Error('@@HttpError404');
+      error = new ApiResponseErrorImpl();
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
       data,
       error,
-      operationCode,
-      responseStatusCode
+      operationCode
     };
 
     return await getTestDataAsync(() => result);
@@ -70,8 +71,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
 
     const result: ArticleDomainListGetOperationResponse = {
       data,
-      operationCode,
-      responseStatusCode: 200
+      operationCode
     };
 
     return await getTestDataAsync(() => result);

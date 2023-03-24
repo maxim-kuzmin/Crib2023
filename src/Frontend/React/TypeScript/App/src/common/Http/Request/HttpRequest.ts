@@ -1,4 +1,4 @@
-import { type HttpRequestConfig } from '../../all';
+import { type HttpRequestConfig } from '../../../all';
 
 export interface HttpRequest {
   body?: any;

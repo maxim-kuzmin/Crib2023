@@ -1,32 +1,19 @@
 import {
   type ApiClient,
-  type ApiConfig,
+  type ApiSetupOptions,
   type ApiResponseWithData,
   type ApiResponseWithDetailsData,
   type ApiResponseWithErrorsData,
   type ApiOperationResponse,
   type HttpClient,
   type HttpRequestConfig,
-  type HttpRequestResult
-} from '../../all';
-
-function createError (status: number, statusText: string): Error {
-  let message = statusText ?? 'Unknown';
-
-  switch (status) {
-    case 400:
-      message = '@@HttpError400';
-      break;
-    case 404:
-      message = '@@HttpError404';
-      break;
-    case 500:
-      message = '@@HttpError500';
-      break;
-  }
-
-  return new Error(message);
-}
+  type HttpRequestResult,
+  type ApiResponse,
+  type ApiResponseDetailsData,
+  type ApiResponseErrorsData,
+  ApiResponseErrorImpl,
+  type ApiResponseError
+} from '../../../all';
 
 function createRequestConfig (operaionCode: string, query?: any): HttpRequestConfig {
   return {
@@ -42,7 +29,7 @@ function createRequestConfig (operaionCode: string, query?: any): HttpRequestCon
 
 export class ApiClientImpl implements ApiClient {
   constructor (
-    private readonly apiConfig: ApiConfig,
+    private readonly apiSetupOptions: ApiSetupOptions,
     private readonly httpClient: HttpClient
   ) {}
 
@@ -54,7 +41,8 @@ export class ApiClientImpl implements ApiClient {
     return await this.request(
       async () => await this.httpClient.delete(
         this.createUrl(endpoint),
-        createRequestConfig(operationCode, query)),
+        createRequestConfig(operationCode, query)
+      ),
       operationCode
     );
   }
@@ -67,7 +55,8 @@ export class ApiClientImpl implements ApiClient {
     return await this.request(
       async () => await this.httpClient.get(
         this.createUrl(endpoint),
-        createRequestConfig(operationCode, query)),
+        createRequestConfig(operationCode, query)
+      ),
       operationCode
     );
   }
@@ -82,7 +71,8 @@ export class ApiClientImpl implements ApiClient {
       async () => await this.httpClient.post(
         this.createUrl(endpoint),
         body,
-        createRequestConfig(operationCode, query)),
+        createRequestConfig(operationCode, query)
+      ),
       operationCode
     );
   }
@@ -97,33 +87,56 @@ export class ApiClientImpl implements ApiClient {
       async () => await this.httpClient.put(
         this.createUrl(endpoint),
         body,
-        createRequestConfig(operationCode, query)),
+        createRequestConfig(operationCode, query)
+      ),
       operationCode
     );
   }
 
   private createUrl (endpoint: string) {
-    return `${this.apiConfig.url}/${endpoint}`;
+    return `${this.apiSetupOptions.url}/${endpoint}`;
   }
 
   private async request<TData> (
     getRequestResult: () => Promise<HttpRequestResult>,
-    operationCode: string
+    requestOperationCode: string
   ): Promise<ApiOperationResponse<TData>> {
-    const { ok, value, status, statusText } = await getRequestResult();
+    const { ok, value, status } = await getRequestResult();
 
-    const responseWithData: ApiResponseWithData<TData> | null = value;
-    const responseWithDetailsData: ApiResponseWithDetailsData | null = value;
-    const responseWithErrorsData: ApiResponseWithErrorsData | null = value;
-    const error: Error | null = ok ? null : createError(status, statusText);
+    const response: ApiResponse = value;
+
+    let error: ApiResponseError | null = null;
+    let responseWithData: ApiResponseWithData<TData> | null = null;
+    let responseWithDetailsData: ApiResponseWithDetailsData | null = null;
+    let responseWithErrorsData: ApiResponseWithErrorsData | null = null;
+
+    let responseDetailsData: ApiResponseDetailsData | null = null;
+    let responseErrorsData: ApiResponseErrorsData | null = null;
+
+    if (ok) {
+      responseWithData = value;
+    } else {
+      if (status === 400) {
+          responseWithDetailsData = value;
+
+          if (responseWithDetailsData) {
+            responseDetailsData = responseWithDetailsData.data;
+          }
+      } else if (status === 500) {
+          responseWithErrorsData = value;
+
+          if (responseWithErrorsData) {
+            responseErrorsData = responseWithErrorsData.data;
+          }
+      }
+
+      error = new ApiResponseErrorImpl({ responseDetailsData, responseErrorsData });
+    }
 
     return {
       data: responseWithData?.data,
       error,
-      operationCode,
-      responseDetailsData: responseWithDetailsData?.data,
-      responseErrorsData: responseWithErrorsData?.data,
-      responseStatusCode: status
+      operationCode: response.operationCode ?? requestOperationCode
     };
   }
 }

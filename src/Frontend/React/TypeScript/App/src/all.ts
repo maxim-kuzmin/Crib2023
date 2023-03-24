@@ -1,5 +1,4 @@
-import { type Module } from './app/Module';
-import { ModuleImpl } from './app/ModuleImpl';
+import { type Module, ModuleImpl } from './app/Module';
 
 const module: Module = new ModuleImpl();
 
@@ -19,5 +18,4 @@ export * from './stores';
 export * from './views';
 export * from './app/Test';
 export * from './app/Module';
-export * from './app/ModuleImpl';
 export * from './app/Provider';

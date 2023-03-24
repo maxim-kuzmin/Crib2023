@@ -1,7 +1,7 @@
 import {
   type OperationInput,
   type OperationResult
-} from '../../all';
+} from '../../../all';
 
 export interface OperationHandler {
   readonly handleError: (error: any) => void;

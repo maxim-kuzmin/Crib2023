@@ -11,7 +11,7 @@ import {
   type ApiClient,
   ApiClientImpl,
   OperationHandlerImpl,
-  createApiConfig,
+  createApiSetupOptions,
   ApiRequestHandlerImpl,
   ArticleDomainItemGetOperationRequestHandlerImpl,
   type ArticleDomainItemGetOperationRequestHandler,
@@ -22,24 +22,25 @@ import {
   type ArticleDomainRepository,
   ArticleDomainRepositoryImpl,
   type Module,
-  createConfig,
+  createSetupOptions,
   TestArticleDomainRepositoryImpl,
-} from '../all';
+} from '../../all';
 
 export class ModuleImpl implements Module {
-  private readonly config = createConfig();
-  private readonly apiConfig = createApiConfig();
-  private readonly httpClient: HttpClient = new HttpClientImpl();
-  private readonly apiClient: ApiClient = new ApiClientImpl(this.apiConfig, this.httpClient);
-  private readonly notificationControlService = createNotificationControlService();
+  private readonly apiSetupOptions = createApiSetupOptions();
   private readonly appNotificationStoreService = creareAppNotificationStoreService();
+  private readonly httpClient: HttpClient = new HttpClientImpl();
+  private readonly notificationControlService = createNotificationControlService();
   private readonly articleItemStoreService = createArticleItemStoreService();
   private readonly articleListStoreService = createArticleListStoreService();
+  private readonly setupOptions = createSetupOptions();
   private readonly topicItemStoreService = createTopicItemStoreService();
   private readonly topicPathStoreService = createTopicPathStoreService();
   private readonly topicTreeStoreService = createTopicTreeStoreService();
 
-  private readonly articleDomainRepository: ArticleDomainRepository = this.config.isTestModeEnabled
+  private readonly apiClient: ApiClient = new ApiClientImpl(this.apiSetupOptions, this.httpClient);
+
+  private readonly articleDomainRepository: ArticleDomainRepository = this.setupOptions.isTestModeEnabled
     ? new TestArticleDomainRepositoryImpl()
     : new ArticleDomainRepositoryImpl(this.apiClient);
 

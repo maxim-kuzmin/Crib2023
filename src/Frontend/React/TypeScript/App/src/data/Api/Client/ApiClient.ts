@@ -1,4 +1,4 @@
-import { type ApiOperationResponse } from '../../all';
+import { type ApiOperationResponse } from '../../../all';
 
 export interface ApiClient {
   readonly delete: <TData>(

@@ -24,7 +24,7 @@ export function ArticlePage () {
 
   const articleItemStoreService = getArticleItemStoreService();
 
-  const { data: article, status: requestStatus } = articleItemStoreService.useState();
+  const { data: article, status } = articleItemStoreService.useState();
 
   const articleId = Number(urlParams.articleId);
 
@@ -37,6 +37,7 @@ export function ArticlePage () {
   const topicPathDispatchToSet = topicPathStoreService.useDispatchToSet();
 
   const callbackOnArticleItemLoad = useCallback((response: ArticleDomainItemGetOperationResponse | null) => {
+    console.log('MAKC:ArticlePage:callbackOnArticleItemLoad:response', response);
     topicPathDispatchToSet.run(`TopicPath from ${response?.data?.item?.data.id ?? ''}`);
   }, [topicPathDispatchToSet]);
 
@@ -66,7 +67,7 @@ export function ArticlePage () {
             message: val
           })
       }}>Notify</button>
-      {requestStatus === OperationStatus.Pending
+      {status === OperationStatus.Pending
         ? <SpinnerControl/>
         : <ArticleView article={article}/>}
     </div>
