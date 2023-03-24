@@ -1,5 +1,5 @@
 export * from './Handler';
-export * from './OperationInput';
-export * from './OperationResult';
-export * from './OperationState';
-export * from './OperationStatus';
+export { type OperationInput } from './OperationInput';
+export { type OperationResult } from './OperationResult';
+export { type OperationState, createOperationState } from './OperationState';
+export { OperationStatus } from './OperationStatus';

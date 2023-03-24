@@ -2,7 +2,7 @@ import {
   type ShouldBeCanceled,
   type ArticleDomainItemGetOperationRequest,
   type ArticleDomainItemGetOperationResponse
-} from '../../../../../all';
+} from '../../../../../../../all';
 
 export interface ArticleDomainItemGetOperationRequestHandler {
   handle: (

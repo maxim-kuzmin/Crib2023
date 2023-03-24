@@ -1,1 +1,1 @@
-export * from './TestArticleDomainRepositoryImpl';
+export { TestArticleDomainRepositoryImpl } from './TestArticleDomainRepositoryImpl';

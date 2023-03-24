@@ -1,2 +1,2 @@
-export * from './ArticleDomainRepository';
-export * from './ArticleDomainRepositoryImpl';
+export { type ArticleDomainRepository } from './ArticleDomainRepository';
+export { ArticleDomainRepositoryImpl } from './ArticleDomainRepositoryImpl';

@@ -7,7 +7,7 @@ import {
   type ArticleDomainItemGetOperationResponse,
   type ArticleDomainRepository,
   type ShouldBeCanceled
-} from '../../../../../all';
+} from '../../../../../../../all';
 
 export class ArticleDomainItemGetOperationRequestHandlerImpl implements ArticleDomainItemGetOperationRequestHandler {
   constructor (

@@ -1,2 +1,2 @@
-export * from './Module';
-export * from './ModuleImpl';
+export { type Module } from './Module';
+export { ModuleImpl } from './ModuleImpl';

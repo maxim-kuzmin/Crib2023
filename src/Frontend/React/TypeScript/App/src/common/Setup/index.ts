@@ -1,1 +1,1 @@
-export * from './SetupOptions';
+export { type SetupOptions, createSetupOptions } from './SetupOptions';

@@ -20,9 +20,9 @@ import {
   type ArticleDomainListGetOperationRequestHandler,
   ArticleDomainListGetOperationRequestHandlerImpl,
   type ArticleDomainRepository,
-  ArticleDomainRepositoryImpl,
   type Module,
   createSetupOptions,
+  ArticleDomainRepositoryImpl,
   TestArticleDomainRepositoryImpl,
 } from '../../all';
 

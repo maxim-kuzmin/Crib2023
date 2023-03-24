@@ -1,2 +1,2 @@
-export * from './OperationHandler';
-export * from './OperationHandlerImpl';
+export { type OperationHandler } from './OperationHandler';
+export { OperationHandlerImpl } from './OperationHandlerImpl';

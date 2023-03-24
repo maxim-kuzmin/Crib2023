@@ -2,7 +2,7 @@ import {
   type ApiRequestWithInput,
   type ArticleDomainItemGetOperationInput,
   createApiRequestWithInput,
-} from '../../../../../all';
+} from '../../../../../../all';
 
 export interface ArticleDomainItemGetOperationRequest
   extends ApiRequestWithInput<ArticleDomainItemGetOperationInput> {}

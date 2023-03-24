@@ -1,2 +1,2 @@
-export * from './StoreDispatchOptions';
-export * from './StoreDispatchType';
+export { type StoreDispatchOptions } from './StoreDispatchOptions';
+export { StoreDispatchType } from './StoreDispatchType';
