@@ -1,11 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   ArticleTableView,
   getModule,
   SpinnerControl,
   StoreDispatchType,
-  OperationStatus
+  OperationStatus,
+  type ArticleDomainListGetOperationInput,
+  type ArticleDomainListGetOperationResponse
 } from '../../all';
 import styles from './TopicPage.module.css';
 
@@ -20,13 +22,23 @@ export function TopicPage () {
 
   const articleListStoreService = getArticleListStoreService();
 
-  const { data: articles, status } = articleListStoreService.useState();
+  const { data: articleListResponse, status } = articleListStoreService.useState();
 
-  const topicId = Number(urlParams.topicId);
+  const topicId = Number(urlParams.topicId ?? 0);
+  const inputAtDispatch: ArticleDomainListGetOperationInput = useMemo(() => ({
+    topicId,
+    pageNumber: 1,
+    pageSize: 10
+  }), [topicId]);
+
+  const callbackOnArticleListLoad = useCallback((response: ArticleDomainListGetOperationResponse | null) => {
+    console.log('MAKC:ArticlePage:callbackOnArticleListLoad:response', response);
+  }, []);
 
   articleListStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
-    inputAtDispatch: topicId
+    callback: callbackOnArticleListLoad,
+    inputAtDispatch
   });
 
   articleListStoreService.useDispatchToClear({
@@ -58,7 +70,7 @@ export function TopicPage () {
       <h1>TopicPage {topicId}</h1>
       {status === OperationStatus.Pending
         ? <SpinnerControl/>
-        : <ArticleTableView articles={articles}/>}
+        : <ArticleTableView response={articleListResponse}/>}
     </div>
   )
 }

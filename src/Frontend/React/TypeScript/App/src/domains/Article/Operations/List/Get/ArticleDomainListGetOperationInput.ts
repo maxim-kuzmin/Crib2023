@@ -1,6 +1,6 @@
 export interface ArticleDomainListGetOperationInput {
-  ids: [number];
-  title: string;
-  topicId: number;
-  topicIds: [number];
+  ids?: [number];
+  title?: string;
+  topicId?: number;
+  topicIds?: [number];
 }

@@ -1,21 +1,31 @@
 import React from 'react';
 import {
+  type ArticleTypeEntity,
   type ArticleEntity,
   type ArticleViewProps
 } from '../../../all';
 import styles from './ArticleView.module.css';
 
 export function ArticleView ({ response }: ArticleViewProps) {
-  let entity: ArticleEntity | null = null;
+  let item: ArticleEntity | null = null;
+  let data: ArticleTypeEntity | null = null;
 
   if (response?.data) {
-    entity = response.data.item
+    item = response.data.item;
+    data = item.data;
   }
 
   return (
     <div className={styles.root}>
       <h2>ArticleView</h2>
-      {entity?.data.id}
+      { data
+        ? (
+          <div>
+            { data.id }
+          </div>
+        )
+        : null
+      }
     </div>
   )
 }

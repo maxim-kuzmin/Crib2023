@@ -3,7 +3,7 @@ import {
   type ArticleDomainItemGetOperationResponse,
   type ArticleDomainListGetOperationRequest,
   type ArticleDomainListGetOperationResponse
-} from '../../all';
+} from '../../../all';
 
 export interface ArticleDomainRepository {
   getItem: (

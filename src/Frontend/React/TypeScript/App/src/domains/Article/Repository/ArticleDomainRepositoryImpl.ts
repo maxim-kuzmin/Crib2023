@@ -7,7 +7,7 @@ import {
   type ArticleDomainListGetOperationResponse,
   type ArticleDomainRepository,
   type ArticleDomainListGetOperationOutput
-} from '../../all';
+} from '../../../all';
 
 export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   constructor (private readonly apiClient: ApiClient) {}
