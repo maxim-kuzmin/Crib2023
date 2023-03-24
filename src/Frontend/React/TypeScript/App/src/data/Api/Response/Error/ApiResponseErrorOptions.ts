@@ -1,7 +1,7 @@
 import {
   type ApiResponseErrorsData,
   type ApiResponseDetailsData
-} from '../../../all';
+} from '../../../../all';
 
 export interface ApiResponseErrorOptions extends ErrorOptions {
   readonly responseDetailsData?: ApiResponseDetailsData | null;

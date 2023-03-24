@@ -3,7 +3,7 @@ import {
   type ApiResponseDetailsData,
   type ApiResponseError,
   type ApiResponseErrorOptions
-} from '../../../all';
+} from '../../../../all';
 
 export class ApiResponseErrorImpl extends Error implements ApiResponseError {
   readonly responseDetailsData: ApiResponseDetailsData | null = null;
