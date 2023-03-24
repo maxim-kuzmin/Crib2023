@@ -1,7 +1,8 @@
 import {
   type ApiRequest,
   type ApiRequestWithInput,
-  type ApiOperationResponse
+  type ApiOperationResponse,
+  type ShouldBeCanceled
 } from '../../all';
 
 export interface ApiRequestHandler {
@@ -12,7 +13,8 @@ export interface ApiRequestHandler {
     TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
-    getResult: () => Promise<TResponse>
+    getResult: () => Promise<TResponse>,
+    shouldBeCanceled: ShouldBeCanceled
   ) => Promise<TResponse | null>;
 
   readonly handleWithoutInput: <
@@ -21,6 +23,7 @@ export interface ApiRequestHandler {
     TResponse extends ApiOperationResponse<TOutput>
   >(
     request: TRequest,
-    getResult: () => Promise<TResponse>
+    getResult: () => Promise<TResponse>,
+    shouldBeCanceled: ShouldBeCanceled
   ) => Promise<TResponse | null>;
 }

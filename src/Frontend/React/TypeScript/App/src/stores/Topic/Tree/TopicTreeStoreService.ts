@@ -6,6 +6,7 @@ import {
   type StoreDispatchOptions,
   type OperationState,
   getTestDataAsync,
+  type ShouldBeCanceled,
 } from '../../../all';
 
 type Data = string | null;
@@ -150,8 +151,6 @@ function runDispatchToSet (
     callback(data);
   }
 }
-
-type ShouldBeCanceled = () => boolean;
 
 async function runDispatchToLoad (
   dispatch: Dispatch<Action>,

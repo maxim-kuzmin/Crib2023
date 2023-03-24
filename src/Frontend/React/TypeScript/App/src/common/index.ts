@@ -1,3 +1,5 @@
+export type ShouldBeCanceled = () => boolean;
+
 export * from './Config';
 export * from './Http';
 export * from './Notification';

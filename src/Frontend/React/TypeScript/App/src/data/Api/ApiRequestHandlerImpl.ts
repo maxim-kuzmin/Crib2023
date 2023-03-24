@@ -4,7 +4,8 @@ import {
   type ApiRequestWithInput,
   type ApiOperationResponse,
   type OperationInput,
-  type OperationHandler
+  type OperationHandler,
+  type ShouldBeCanceled
 } from '../../all';
 
 export class ApiRequestHandlerImpl implements ApiRequestHandler {
@@ -17,7 +18,8 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
     TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
-    getResult: () => Promise<TResponse>
+    getResult: () => Promise<TResponse>,
+    shouldBeCanceled: ShouldBeCanceled
   ): Promise<TResponse | null> {
     const { operationCode, operationName, input } = request;
 
@@ -27,7 +29,8 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
       input
     },
     request,
-    getResult);
+    getResult,
+    shouldBeCanceled);
   }
 
   async handleWithoutInput<
@@ -36,7 +39,8 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
     TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
-    getResult: () => Promise<TResponse>
+    getResult: () => Promise<TResponse>,
+    shouldBeCanceled: ShouldBeCanceled
   ): Promise<TResponse | null> {
     const { operationCode, operationName } = request;
 
@@ -45,7 +49,8 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
       operationName
     },
     request,
-    getResult);
+    getResult,
+    shouldBeCanceled);
   }
 
   private async handle<
@@ -55,31 +60,36 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
   > (
     operationInput: OperationInput,
     request: TRequest,
-    getResult: () => Promise<TResponse>
+    getResult: () => Promise<TResponse>,
+    shouldBeCanceled: ShouldBeCanceled
   ): Promise<TResponse | null> {
+    let result: TResponse | null = null;
+
     try {
       this.operationHandler.handleStart(operationInput);
 
       request.operationCode = this.operationHandler.operationCode;
 
-      const result = await getResult();
+      result = await getResult();
 
-      const { operationCode, data } = result;
+      if (!shouldBeCanceled()) {
+        const { operationCode, data } = result;
 
-      if (result.error) {
-        this.operationHandler.handleError(result.error);
-      } else {
-        this.operationHandler.handleSuccess({
-          operationCode,
-          data
-        });
+        if (result.error) {
+          this.operationHandler.handleError(result.error);
+        } else {
+          this.operationHandler.handleSuccess({
+            operationCode,
+            data
+          });
+        }
       }
-
-      return result;
     } catch (error: any) {
-      this.operationHandler.handleError(error);
+      if (!shouldBeCanceled()) {
+        this.operationHandler.handleError(error);
+      }
     }
 
-    return null;
+    return result;
   }
 }

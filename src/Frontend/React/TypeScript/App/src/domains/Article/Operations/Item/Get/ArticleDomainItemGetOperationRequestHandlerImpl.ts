@@ -5,7 +5,8 @@ import {
   type ArticleDomainItemGetOperationRequest,
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainItemGetOperationResponse,
-  type ArticleDomainRepository
+  type ArticleDomainRepository,
+  type ShouldBeCanceled
 } from '../../../../../all';
 
 export class ArticleDomainItemGetOperationRequestHandlerImpl implements ArticleDomainItemGetOperationRequestHandler {
@@ -15,7 +16,8 @@ export class ArticleDomainItemGetOperationRequestHandlerImpl implements ArticleD
   ) {}
 
   async handle (
-    request: ArticleDomainItemGetOperationRequest
+    request: ArticleDomainItemGetOperationRequest,
+    shouldBeCanceled: ShouldBeCanceled
   ): Promise<ArticleDomainItemGetOperationResponse | null> {
     return await this.apiRequestHandler.handleWithInput<
       ArticleDomainItemGetOperationInput,
@@ -24,7 +26,8 @@ export class ArticleDomainItemGetOperationRequestHandlerImpl implements ArticleD
       ArticleDomainItemGetOperationResponse
     >(
       request,
-      async () => await this.repository.getItem(request)
+      async () => await this.repository.getItem(request),
+      shouldBeCanceled
     );
   }
 }

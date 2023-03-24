@@ -9,7 +9,8 @@ import {
   type ArticleDomainItemGetOperationResponse,
   getModule,
   type ArticleDomainItemGetOperationRequestHandler,
-  createArticleDomainItemGetOperationRequest
+  createArticleDomainItemGetOperationRequest,
+  type ShouldBeCanceled
 } from '../../../all';
 
 type Data = ArticleDomainItemGetOperationResponse;
@@ -155,8 +156,6 @@ function runDispatchToSet (
   }
 }
 
-type ShouldBeCanceled = () => boolean;
-
 async function runDispatchToLoad (
   requestHandler: ArticleDomainItemGetOperationRequestHandler,
   dispatch: Dispatch<Action>,
@@ -171,7 +170,10 @@ async function runDispatchToLoad (
 
   dispatch(actionToLoad);
 
-  const data = await requestHandler.handle(createArticleDomainItemGetOperationRequest(input));
+  const data = await requestHandler.handle(
+    createArticleDomainItemGetOperationRequest(input),
+    shouldBeCanceled
+  );
 
   if (!shouldBeCanceled()) {
     runDispatchToSet(dispatch, callback, data);
