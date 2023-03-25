@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article;
 /// <summary>
 /// Репозиторий домена.
 /// </summary>
-public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticleRepository
+public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IArticleDomainRepository
 {
     #region Properties
 
@@ -35,9 +35,9 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
     #region Public methods
 
     /// <inheritdoc/>
-    public async Task<ArticleItemGetOperationOutput> GetItem(ArticleItemGetOperationInput input)
+    public async Task<ArticleDomainItemGetOperationOutput> GetItem(ArticleDomainItemGetOperationInput input)
     {
-        ArticleItemGetOperationOutput result = new();
+        ArticleDomainItemGetOperationOutput result = new();
 
         using var dbContext = DbContextFactory.CreateDbContext();
 
@@ -50,7 +50,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
 
         if (mapperForItem != null)
         {
-            var item = new ArticleEntity(mapperForItem);
+            var item = new ArticleDomainEntity(mapperForItem);
 
             await LoadTopicPathItems(dbContext, item, mapperForItem).ConfigureAwait(false);
 
@@ -61,9 +61,9 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
     }
 
     /// <inheritdoc/>
-    public async Task<ArticleListGetOperationOutput> GetList(ArticleListGetOperationInput input)
+    public async Task<ArticleDomainListGetOperationOutput> GetList(ArticleDomainListGetOperationInput input)
     {
-        ArticleListGetOperationOutput result = new();
+        ArticleDomainListGetOperationOutput result = new();
 
         using var dbContext = DbContextFactory.CreateDbContext();
         using var dbContextForTotalCount = DbContextFactory.CreateDbContext();
@@ -83,7 +83,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
         var itemLookup = mapperForItems
-            .Select(x => new ArticleEntity(x))
+            .Select(x => new ArticleDomainEntity(x))
             .ToDictionary(x => x.Data.Id);
 
         await LoadTopicPathItems(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
@@ -100,7 +100,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
 
     private static async Task LoadTopicPathItems(
         ClientMapperDbContext dbContext,
-        ArticleEntity item,
+        ArticleDomainEntity item,
         ClientMapperArticleTypeEntity mapperForItem)
     {
         var mapperTopic = mapperForItem.Topic;
@@ -111,7 +111,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
         {
             var taskForLookup = dbContext.Topic
                 .Where(x => ancestorIds.Contains(x.Id))
-                .Select(x => new OptionValueObject(x.Id, x.Name))
+                .Select(x => new OptionWithInt64IdValueObject(x.Id, x.Name))
                 .ToDictionaryAsync(x => x.Id);
 
             var topicPathItemLookup = await taskForLookup.ConfigureAwait(false);
@@ -125,12 +125,12 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
             }
         }
 
-        item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
+        item.AddTopicPathItem(new OptionWithInt64IdValueObject(mapperTopic.Id, mapperTopic.Name));
     }
 
     private static async Task LoadTopicPathItems(
         ClientMapperDbContext dbContext,
-        Dictionary<long, ArticleEntity> itemLookup,
+        Dictionary<long, ArticleDomainEntity> itemLookup,
         IEnumerable<ClientMapperArticleTypeEntity> mapperForItems)
     {
         long[] ancestorIdsForLookup = mapperForItems
@@ -142,7 +142,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
         {
             var taskForLookup = dbContext.Topic
                 .Where(x => ancestorIdsForLookup.Contains(x.Id))
-                .Select(x => new OptionValueObject(x.Id, x.Name))
+                .Select(x => new OptionWithInt64IdValueObject(x.Id, x.Name))
                 .ToDictionaryAsync(x => x.Id);
 
             var ancestorLookup = await taskForLookup.ConfigureAwait(false);
@@ -167,7 +167,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
                         }
                     }
 
-                    item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
+                    item.AddTopicPathItem(new OptionWithInt64IdValueObject(mapperTopic.Id, mapperTopic.Name));
                 }
             }
         }

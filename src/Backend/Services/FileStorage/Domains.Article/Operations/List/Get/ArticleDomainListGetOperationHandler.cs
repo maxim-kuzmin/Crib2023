@@ -7,10 +7,10 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.
 /// </summary>
 public class ArticleDomainListGetOperationHandler :
     OperationWithInputAndOutputHandler<
-        ArticleListGetOperationInput,
-        ArticleListGetOperationOutput,
-        ArticleListGetOperationResult>,
-    IArticleListGetOperationHandler
+        ArticleDomainListGetOperationInput,
+        ArticleDomainListGetOperationOutput,
+        ArticleDomainListGetOperationResult>,
+    IArticleDomainListGetOperationHandler
 {
     #region Fields
 
@@ -31,8 +31,8 @@ public class ArticleDomainListGetOperationHandler :
 
     /// <inheritdoc/>
     public ArticleDomainListGetOperationHandler(
-        IOperationsResource operationsResource,
         IArticleDomainResource domainResource,
+        IOperationsResource operationsResource,        
         IOperationResource operationResource,
         ILogger<ArticleDomainListGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
@@ -53,7 +53,7 @@ public class ArticleDomainListGetOperationHandler :
 
     #region Private methods
 
-    private ArticleListGetOperationInput TransformOperationInput(ArticleListGetOperationInput source)
+    private ArticleDomainListGetOperationInput TransformOperationInput(ArticleDomainListGetOperationInput source)
     {
         source.Normalize();
 
@@ -69,14 +69,14 @@ public class ArticleDomainListGetOperationHandler :
         return source;
     }
 
-    private ArticleListGetOperationOutput TransformOperationOutput(ArticleListGetOperationOutput source)
+    private ArticleDomainListGetOperationOutput TransformOperationOutput(ArticleDomainListGetOperationOutput source)
     {
-        source.Items ??= Array.Empty<ArticleEntity>();
+        source.Items ??= Array.Empty<ArticleDomainEntity>();
 
         return source;
     }
 
-    private ArticleListGetOperationResult TransformOperationResult(ArticleListGetOperationResult source)
+    private ArticleDomainListGetOperationResult TransformOperationResult(ArticleDomainListGetOperationResult source)
     {
         InvalidInputProperties.CopyToNamedValuesList(source.InvalidInputProperties);
 

@@ -7,10 +7,10 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Ge
 /// </summary>
 public class TopicDomainListGetOperationHandler :
     OperationWithInputAndOutputHandler<
-        TopicListGetOperationInput,
-        TopicListGetOperationOutput,
-        TopicListGetOperationResult>,
-    ITopicListGetOperationHandler
+        TopicDomainListGetOperationInput,
+        TopicDomainListGetOperationOutput,
+        TopicDomainListGetOperationResult>,
+    ITopicDomainListGetOperationHandler
 {
     #region Fields
 
@@ -31,8 +31,8 @@ public class TopicDomainListGetOperationHandler :
 
     /// <inheritdoc/>
     public TopicDomainListGetOperationHandler(
-        IOperationsResource operationsResource,
         ITopicDomainResource domainResource,
+        IOperationsResource operationsResource,        
         IOperationResource operationResource,
         ILogger<TopicDomainListGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
@@ -53,7 +53,7 @@ public class TopicDomainListGetOperationHandler :
 
     #region Private methods
 
-    private TopicListGetOperationInput TransformOperationInput(TopicListGetOperationInput source)
+    private TopicDomainListGetOperationInput TransformOperationInput(TopicDomainListGetOperationInput source)
     {
         source.Normalize();
 
@@ -69,14 +69,14 @@ public class TopicDomainListGetOperationHandler :
         return source;
     }
 
-    private TopicListGetOperationOutput TransformOperationOutput(TopicListGetOperationOutput source)
+    private TopicDomainListGetOperationOutput TransformOperationOutput(TopicDomainListGetOperationOutput source)
     {
-        source.Items ??= Array.Empty<TopicEntity>();
+        source.Items ??= Array.Empty<TopicDomainEntity>();
 
         return source;
     }
 
-    private TopicListGetOperationResult TransformOperationResult(TopicListGetOperationResult source)
+    private TopicDomainListGetOperationResult TransformOperationResult(TopicDomainListGetOperationResult source)
     {
         InvalidInputProperties.CopyToNamedValuesList(source.InvalidInputProperties);
 

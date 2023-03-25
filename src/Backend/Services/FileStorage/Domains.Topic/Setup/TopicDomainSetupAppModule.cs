@@ -15,23 +15,22 @@ public class TopicDomainSetupAppModule : AppModule
         services.AddSingleton<ITopicDomainResource>(x => new TopicDomainResource(
             x.GetRequiredService<IStringLocalizer<TopicDomainResource>>()));
 
-        services.AddTransient<ITopicRepository>(x => new TopicDomainRepository(
+        services.AddTransient<ITopicDomainRepository>(x => new TopicDomainRepository(
             x.GetRequiredService<IClientMapperDbContextFactory>(),
             x.GetRequiredService<ClientMapperDbManager>(),
             x.GetRequiredService<IMediator>()
             ));
 
-        services.AddTransient<ITopicItemGetOperationHandler>(x => new TopicDomainItemGetOperationHandler(
-            x.GetRequiredService<IOperationsResource>(),
-            x.GetRequiredService<IResourceOfServiceDomainSQL>(),
+        services.AddTransient<ITopicDomainItemGetOperationHandler>(x => new TopicDomainItemGetOperationHandler(
             x.GetRequiredService<ITopicDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),            
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<TopicDomainItemGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
 
-        services.AddTransient<ITopicListGetOperationHandler>(x => new TopicDomainListGetOperationHandler(
-            x.GetRequiredService<IOperationsResource>(),
+        services.AddTransient<ITopicDomainListGetOperationHandler>(x => new TopicDomainListGetOperationHandler(
             x.GetRequiredService<ITopicDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),            
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<TopicDomainListGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
@@ -45,9 +44,9 @@ public class TopicDomainSetupAppModule : AppModule
             typeof(TopicDomainItemGetOperationRequestHandler),
             typeof(TopicDomainListGetOperationRequestHandler),
             typeof(ITopicDomainResource),
-            typeof(ITopicItemGetOperationHandler),
-            typeof(ITopicListGetOperationHandler),
-            typeof(ITopicRepository),
+            typeof(ITopicDomainItemGetOperationHandler),
+            typeof(ITopicDomainListGetOperationHandler),
+            typeof(ITopicDomainRepository),
         };
     }
 
@@ -66,7 +65,6 @@ public class TopicDomainSetupAppModule : AppModule
                 typeof(IMediator),
                 typeof(IOperationResource),
                 typeof(IOperationsResource),
-                typeof(IResourceOfServiceDomainSQL),
                 typeof(IStringLocalizer),
                 typeof(SetupOptionsOfCommonCore),
             };

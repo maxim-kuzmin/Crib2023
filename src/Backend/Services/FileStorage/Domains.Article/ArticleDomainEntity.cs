@@ -1,15 +1,15 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities;
+namespace Crib2023.Backend.Services.FileStorage.Domains.Article;
 
 /// <summary>
 /// Сущность "Статья".
 /// </summary>
-public class ArticleEntity : Entity<long>, IAggregateRoot
+public class ArticleDomainEntity : Entity<long>, IAggregateRoot
 {
     #region Fields
 
-    private readonly List<OptionValueObject> _topicPathItems = new();
+    private readonly List<OptionWithInt64IdValueObject> _topicPathItems = new();
 
     #endregion Fields
 
@@ -23,7 +23,7 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     /// <summary>
     /// Элементы пути темы.
     /// </summary>
-    public IReadOnlyCollection<OptionValueObject> TopicPathItems => _topicPathItems;
+    public IReadOnlyCollection<OptionWithInt64IdValueObject> TopicPathItems => _topicPathItems;
 
     #endregion Properties    
 
@@ -33,7 +33,7 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     /// Конструктор.
     /// </summary>
     /// <param name="data">Данные.</param>
-    public ArticleEntity(ArticleTypeEntity? data = null)
+    public ArticleDomainEntity(ArticleTypeEntity? data = null)
     {
         Data = data ?? new ArticleTypeEntity();
     }
@@ -47,7 +47,7 @@ public class ArticleEntity : Entity<long>, IAggregateRoot
     /// </summary>
     /// <param name="data">Данные.</param>
     /// <returns>Добавленный элемент пути.</returns>
-    public OptionValueObject AddTopicPathItem(OptionValueObject data)
+    public OptionWithInt64IdValueObject AddTopicPathItem(OptionWithInt64IdValueObject data)
     {
         var result = _topicPathItems.Where(x => x.Id == data.Id).SingleOrDefault();
 

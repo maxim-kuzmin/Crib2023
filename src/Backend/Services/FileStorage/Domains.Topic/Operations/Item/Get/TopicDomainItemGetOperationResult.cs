@@ -2,12 +2,12 @@
 
 using Makc2023.Backend.Common.Core;
 
-namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Article.Item.Get;
+namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get;
 
 /// <summary>
-/// Результат операции получения элемента "Статья".
+/// Результат операции получения элемента "Тема".
 /// </summary>
-public class ArticleItemGetOperationResult : OperationResultWithOutput<ArticleItemGetOperationOutput>
+public class TopicDomainItemGetOperationResult : OperationResultWithOutput<TopicDomainItemGetOperationOutput>
 {
     #region Properties
 

@@ -12,7 +12,7 @@ public class TopicDomainListGetOperationRequest : IRequest<TopicDomainListGetOpe
     /// <summary>
     /// Входные данные.
     /// </summary>
-    public TopicListGetOperationInput Input { get; }
+    public TopicDomainListGetOperationInput Input { get; }
 
     /// <summary>
     /// Код операции.
@@ -28,7 +28,7 @@ public class TopicDomainListGetOperationRequest : IRequest<TopicDomainListGetOpe
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public TopicDomainListGetOperationRequest(TopicListGetOperationInput input, string operationCode = "")
+    public TopicDomainListGetOperationRequest(TopicDomainListGetOperationInput input, string operationCode = "")
     {
         Input = input;
         OperationCode = operationCode;

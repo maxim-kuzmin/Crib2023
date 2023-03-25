@@ -21,6 +21,18 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article
         /// <returns>Имя операции.</returns>
         string GetListGetOperationName();
 
+        /// <summary>
+        /// Получить корректное значение свойства "Title".
+        /// </summary>
+        /// <returns>Корректное значение.</returns>
+        string GetValidValueForTitle();
+
+        /// <summary>
+        /// Получить корректное значение свойства "TopicId".
+        /// </summary>
+        /// <returns>Корректное значение.</returns>
+        string GetValidValueForTopicId();
+
         #endregion Methods
     }
 }

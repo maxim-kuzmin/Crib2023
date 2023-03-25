@@ -142,7 +142,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
     #region Private methods
 
-    private static FileStorageArticleEntity CreateItem(ArticleEntity item)
+    private static FileStorageArticleEntity CreateItem(ArticleDomainEntity item)
     {
         FileStorageArticleEntity result;
 

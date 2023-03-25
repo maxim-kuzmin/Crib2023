@@ -17,7 +17,7 @@ public static class TopicDomainExtension
     /// <returns>Запрос с учётом фильтрации.</returns>
     public static IQueryable<ClientMapperTopicTypeEntity> ApplyFiltering(
         this IQueryable<ClientMapperTopicTypeEntity> query,
-        TopicItemGetOperationInput input
+        TopicDomainItemGetOperationInput input
         )
     {
         if (input.Id > 0)
@@ -46,7 +46,7 @@ public static class TopicDomainExtension
     /// <returns>Запрос с учётом фильтрации.</returns>
     public static IQueryable<ClientMapperTopicTypeEntity> ApplyFiltering(
         this IQueryable<ClientMapperTopicTypeEntity> query,
-        TopicListGetOperationInput input
+        TopicDomainListGetOperationInput input
         )
     {
         if (!string.IsNullOrWhiteSpace(input.Name))
@@ -131,7 +131,7 @@ public static class TopicDomainExtension
     /// <returns>Запрос с учётом сортировки.</returns>
     public static IQueryable<ClientMapperTopicTypeEntity> ApplySorting(
         this IQueryable<ClientMapperTopicTypeEntity> query,
-        TopicListGetOperationInput input
+        TopicDomainListGetOperationInput input
         )
     {
         if (input.SortField.Equals(nameof(TopicTypeEntity.Id), StringComparison.OrdinalIgnoreCase))
@@ -156,7 +156,7 @@ public static class TopicDomainExtension
                 query = query.OrderByDescending(x => x.Name);
             }
         }
-        else if (input.SortField.Equals(nameof(TopicEntity.TreePath), StringComparison.OrdinalIgnoreCase))
+        else if (input.SortField.Equals(nameof(TopicDomainEntity.TreePath), StringComparison.OrdinalIgnoreCase))
         {
             if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
             {
@@ -170,7 +170,7 @@ public static class TopicDomainExtension
 
         if (!string.IsNullOrWhiteSpace(input.SortField)
             && !input.SortField.Equals(nameof(TopicTypeEntity.Id), StringComparison.OrdinalIgnoreCase)
-            && !input.SortField.Equals(nameof(TopicEntity.TreePath), StringComparison.OrdinalIgnoreCase))
+            && !input.SortField.Equals(nameof(TopicDomainEntity.TreePath), StringComparison.OrdinalIgnoreCase))
         {
             query = ((IOrderedQueryable<ClientMapperTopicTypeEntity>)query).ThenBy(x => x.Id);
         }

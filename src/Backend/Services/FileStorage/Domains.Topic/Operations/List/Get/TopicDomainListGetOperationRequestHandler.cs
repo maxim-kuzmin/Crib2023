@@ -10,9 +10,9 @@ public class TopicDomainListGetOperationRequestHandler :
 {
     #region Fields
 
-    private readonly ITopicListGetOperationHandler _operationHandler;
+    private readonly ITopicDomainListGetOperationHandler _operationHandler;
 
-    private readonly ITopicRepository _repository;
+    private readonly ITopicDomainRepository _repository;
 
     #endregion Fields
 
@@ -24,8 +24,8 @@ public class TopicDomainListGetOperationRequestHandler :
     /// <param name="operationHandler">Обработчик операции.</param>
     /// <param name="repository">Репозиторий.</param>
     public TopicDomainListGetOperationRequestHandler(
-        ITopicListGetOperationHandler operationHandler,
-        ITopicRepository repository)
+        ITopicDomainListGetOperationHandler operationHandler,
+        ITopicDomainRepository repository)
     {
         _operationHandler = operationHandler;
         _repository = repository;

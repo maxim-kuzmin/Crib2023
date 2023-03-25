@@ -16,7 +16,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Data.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
-	  <ProjectReference Include="..\Domain.SQL\Backend.Services.FileStorage.Domain.SQL.csproj" />
 	</ItemGroup>
 
 </Project>

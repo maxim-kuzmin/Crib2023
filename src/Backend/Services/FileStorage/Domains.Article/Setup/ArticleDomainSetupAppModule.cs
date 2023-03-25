@@ -15,23 +15,22 @@ public class ArticleDomainSetupAppModule : AppModule
         services.AddSingleton<IArticleDomainResource>(x => new ArticleDomainResource(
             x.GetRequiredService<IStringLocalizer<ArticleDomainResource>>()));
 
-        services.AddTransient<IArticleRepository>(x => new ArticleDomainRepository(
+        services.AddTransient<IArticleDomainRepository>(x => new ArticleDomainRepository(
             x.GetRequiredService<IClientMapperDbContextFactory>(),
             x.GetRequiredService<ClientMapperDbManager>(),
             x.GetRequiredService<IMediator>()
             ));
 
-        services.AddTransient<IArticleItemGetOperationHandler>(x => new ArticleDomainItemGetOperationHandler(
-            x.GetRequiredService<IOperationsResource>(),
-            x.GetRequiredService<IResourceOfServiceDomainSQL>(),
+        services.AddTransient<IArticleDomainItemGetOperationHandler>(x => new ArticleDomainItemGetOperationHandler(
             x.GetRequiredService<IArticleDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),            
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<ArticleDomainItemGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
 
-        services.AddTransient<IArticleListGetOperationHandler>(x => new ArticleDomainListGetOperationHandler(
-            x.GetRequiredService<IOperationsResource>(),
+        services.AddTransient<IArticleDomainListGetOperationHandler>(x => new ArticleDomainListGetOperationHandler(
             x.GetRequiredService<IArticleDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),            
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<ArticleDomainListGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
@@ -45,9 +44,9 @@ public class ArticleDomainSetupAppModule : AppModule
             typeof(ArticleDomainItemGetOperationRequestHandler),
             typeof(ArticleDomainListGetOperationRequestHandler),
             typeof(IArticleDomainResource),
-            typeof(IArticleItemGetOperationHandler),
-            typeof(IArticleListGetOperationHandler),
-            typeof(IArticleRepository),
+            typeof(IArticleDomainItemGetOperationHandler),
+            typeof(IArticleDomainListGetOperationHandler),
+            typeof(IArticleDomainRepository),
         };
     }
 
@@ -66,7 +65,6 @@ public class ArticleDomainSetupAppModule : AppModule
                 typeof(IMediator),
                 typeof(IOperationResource),
                 typeof(IOperationsResource),
-                typeof(IResourceOfServiceDomainSQL),
                 typeof(IStringLocalizer),
                 typeof(SetupOptionsOfCommonCore),
             };

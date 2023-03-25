@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities;
+namespace Crib2023.Backend.Services.FileStorage.Domains.Article;
 
 /// <summary>
 /// Сущность "Тема".
 /// </summary>
-public class TopicEntity : Entity<long>, IAggregateRoot
+public class TopicDomainEntity : Entity<long>, IAggregateRoot
 {
     #region Properties
 
@@ -40,7 +40,7 @@ public class TopicEntity : Entity<long>, IAggregateRoot
     /// <param name="treeHasChildren">Признак наличия детей в дереве.</param>
     /// <param name="treeLevel">Уровень в дереве.</param>
     /// <param name="treePath">Путь в дереве.</param>
-    public TopicEntity(
+    public TopicDomainEntity(
         TopicTypeEntity? data = null,
         bool treeHasChildren = false,
         int treeLevel = 0,

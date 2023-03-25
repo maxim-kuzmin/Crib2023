@@ -12,7 +12,7 @@ public class TopicDomainItemGetOperationRequest : IRequest<TopicDomainItemGetOpe
     /// <summary>
     /// Входные данные.
     /// </summary>
-    public TopicItemGetOperationInput Input { get; }
+    public TopicDomainItemGetOperationInput Input { get; }
 
     /// <summary>
     /// Код операции.
@@ -28,7 +28,7 @@ public class TopicDomainItemGetOperationRequest : IRequest<TopicDomainItemGetOpe
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public TopicDomainItemGetOperationRequest(TopicItemGetOperationInput input, string operationCode = "")
+    public TopicDomainItemGetOperationRequest(TopicDomainItemGetOperationInput input, string operationCode = "")
     {
         Input = input;
         OperationCode = operationCode;

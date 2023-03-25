@@ -7,16 +7,16 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.
 /// </summary>
 public class ArticleDomainItemGetOperationHandler :
     OperationWithInputAndOutputHandler<
-        ArticleItemGetOperationInput,
-        ArticleItemGetOperationOutput,
-        ArticleItemGetOperationResult>,
-    IArticleItemGetOperationHandler
+        ArticleDomainItemGetOperationInput,
+        ArticleDomainItemGetOperationOutput,
+        ArticleDomainItemGetOperationResult>,
+    IArticleDomainItemGetOperationHandler
 {
     #region Fields
 
-    private readonly IOperationsResource _operationsResource;
+    private readonly IArticleDomainResource _domainResource;
 
-    private readonly IResourceOfServiceDomainSQL _resourceOfServiceDomainSQL;
+    private readonly IOperationsResource _operationsResource;    
 
     #endregion Fields
 
@@ -33,9 +33,8 @@ public class ArticleDomainItemGetOperationHandler :
 
     /// <inheritdoc/>
     public ArticleDomainItemGetOperationHandler(
-        IOperationsResource operationsResource,
-        IResourceOfServiceDomainSQL resourceOfServiceDomainSQL,
         IArticleDomainResource domainResource,
+        IOperationsResource operationsResource,        
         IOperationResource operationResource,
         ILogger<ArticleDomainItemGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
@@ -45,8 +44,8 @@ public class ArticleDomainItemGetOperationHandler :
             logger,
             setupOptionsOfCommonCore)
     {
-        _operationsResource = operationsResource;
-        _resourceOfServiceDomainSQL = resourceOfServiceDomainSQL;
+        _domainResource = domainResource;
+        _operationsResource = operationsResource;        
 
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
@@ -57,11 +56,11 @@ public class ArticleDomainItemGetOperationHandler :
 
     #region Private methods
 
-    private ArticleItemGetOperationInput TransformOperationInput(ArticleItemGetOperationInput source)
+    private ArticleDomainItemGetOperationInput TransformOperationInput(ArticleDomainItemGetOperationInput source)
     {
         source.Normalize();
 
-        InvalidInputProperties = source.GetInvalidProperties(_resourceOfServiceDomainSQL, _operationsResource);
+        InvalidInputProperties = source.GetInvalidProperties(_domainResource, _operationsResource);
 
         if (InvalidInputProperties.Any())
         {
@@ -73,14 +72,14 @@ public class ArticleDomainItemGetOperationHandler :
         return source;
     }
 
-    private ArticleItemGetOperationOutput TransformOperationOutput(ArticleItemGetOperationOutput source)
+    private ArticleDomainItemGetOperationOutput TransformOperationOutput(ArticleDomainItemGetOperationOutput source)
     {
         source.Item ??= new();
 
         return source;
     }
 
-    private ArticleItemGetOperationResult TransformOperationResult(ArticleItemGetOperationResult source)
+    private ArticleDomainItemGetOperationResult TransformOperationResult(ArticleDomainItemGetOperationResult source)
     {
         InvalidInputProperties.CopyToNamedValuesList(source.InvalidInputProperties);
 

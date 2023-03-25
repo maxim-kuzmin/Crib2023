@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.Item.Get;
+namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get;
 
 /// <summary>
 /// Входные данные операции получения элемента "Тема".
 /// </summary>
-public class TopicItemGetOperationInput : ItemWithInt64IdGetOperationInput
+public class TopicDomainItemGetOperationInput : ItemWithInt64IdGetOperationInput
 {
     #region Properties
 
@@ -55,7 +55,7 @@ public class TopicItemGetOperationInput : ItemWithInt64IdGetOperationInput
 
     /// <inheritdoc/>
     public OperationInputInvalidProperties GetInvalidProperties(
-        IResource resource,
+        ITopicDomainResource domainResource,
         IOperationsResource operationsResource)
     {
         var result = base.GetInvalidProperties(operationsResource);
@@ -71,7 +71,7 @@ public class TopicItemGetOperationInput : ItemWithInt64IdGetOperationInput
                 {
                     var values = result.GetOrAdd(nameof(Name));
 
-                    string value = resource.GetValidValueForName();
+                    string value = domainResource.GetValidValueForName();
 
                     values.Add(value);
                 }
@@ -80,7 +80,7 @@ public class TopicItemGetOperationInput : ItemWithInt64IdGetOperationInput
                 {
                     var values = result.GetOrAdd(nameof(ParentId));
 
-                    string value = resource.GetValidValueForParentId();
+                    string value = domainResource.GetValidValueForParentId();
 
                     values.Add(value);
                 }

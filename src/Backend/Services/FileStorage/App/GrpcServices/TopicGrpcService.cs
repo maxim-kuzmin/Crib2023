@@ -142,7 +142,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
     #region Private methods
 
-    private static FileStorageTopicEntity CreateItem(TopicEntity item)
+    private static FileStorageTopicEntity CreateItem(TopicDomainEntity item)
     {
         FileStorageTopicEntity result;
 

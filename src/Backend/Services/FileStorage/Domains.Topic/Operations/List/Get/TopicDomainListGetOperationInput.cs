@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Operations.Topic.List.Get;
+namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get;
 
 /// <summary>
 /// Входные данные операции получения списка "Тема".
 /// </summary>
-public class TopicListGetOperationInput : ListGetOperationInput
+public class TopicDomainListGetOperationInput : ListGetOperationInput
 {
     #region Properties
 
@@ -84,7 +84,7 @@ public class TopicListGetOperationInput : ListGetOperationInput
         {
             if (string.IsNullOrWhiteSpace(SortField))
             {
-                SortField = nameof(TopicEntity.TreePath);
+                SortField = nameof(TopicDomainEntity.TreePath);
             }
 
             if (string.IsNullOrWhiteSpace(SortDirection))

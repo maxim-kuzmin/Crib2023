@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories;
 /// <summary>
 /// Интерфейс репозитория "Тема".
 /// </summary>
-public interface ITopicRepository : IRepository<TopicEntity>
+public interface ITopicDomainRepository : IRepository<TopicDomainEntity>
 {
     #region Methods
 
@@ -14,14 +14,14 @@ public interface ITopicRepository : IRepository<TopicEntity>
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <returns>Задача на получение элемента.</returns>
-    Task<TopicItemGetOperationOutput> GetItem(TopicItemGetOperationInput input);
+    Task<TopicDomainItemGetOperationOutput> GetItem(TopicDomainItemGetOperationInput input);
 
     /// <summary>
     /// Получить список.
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <returns>Задача на получение списка.</returns>
-    Task<TopicListGetOperationOutput> GetList(TopicListGetOperationInput input);
+    Task<TopicDomainListGetOperationOutput> GetList(TopicDomainListGetOperationInput input);
 
     #endregion Methods
 }

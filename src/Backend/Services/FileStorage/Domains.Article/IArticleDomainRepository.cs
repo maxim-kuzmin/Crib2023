@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories;
 /// <summary>
 /// Интерфейс репозитория "Статья".
 /// </summary>
-public interface IArticleRepository : IRepository<ArticleEntity>
+public interface IArticleDomainRepository : IRepository<ArticleDomainEntity>
 {
     #region Methods
 
@@ -14,14 +14,14 @@ public interface IArticleRepository : IRepository<ArticleEntity>
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <returns>Задача на получение элемента.</returns>
-    Task<ArticleItemGetOperationOutput> GetItem(ArticleItemGetOperationInput input);
+    Task<ArticleDomainItemGetOperationOutput> GetItem(ArticleDomainItemGetOperationInput input);
 
     /// <summary>
     /// Получить список.
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <returns>Задача на получение списка.</returns>
-    Task<ArticleListGetOperationOutput> GetList(ArticleListGetOperationInput input);
+    Task<ArticleDomainListGetOperationOutput> GetList(ArticleDomainListGetOperationInput input);
 
     #endregion Methods
 }

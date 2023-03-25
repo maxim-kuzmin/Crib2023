@@ -2,7 +2,7 @@
 
 global using Crib2023.Backend.Services.FileStorage.App.GrpcServices;
 global using Crib2023.Backend.Services.FileStorage.App.Setup;
-global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Entities;
+global using Crib2023.Backend.Services.FileStorage.Domains.Article;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get;
 global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get;
@@ -25,7 +25,6 @@ global using ModuleOfServiceDataSQLClientsPostgreSQL = Crib2023.Backend.Services
 global using ModuleOfServiceDataSQLMappersEFClientsPostgreSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup.ClientMapperSetupAppModule;
 global using ISetupServiceOfServiceDataSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Setup.ISetupService;
 global using ModuleOfServiceDataSQL = Crib2023.Backend.Services.FileStorage.Data.SQL.Setup.SetupAppModule;
-global using ModuleOfServiceDomainSQL = Crib2023.Backend.Services.FileStorage.Domain.SQL.Setup.SetupAppModule;
 global using ModuleOfServiceDomainsArticle = Crib2023.Backend.Services.FileStorage.Domains.Article.Setup.ArticleDomainSetupAppModule;
 global using ModuleOfServiceDomainsTopic = Crib2023.Backend.Services.FileStorage.Domains.Topic.Setup.TopicDomainSetupAppModule;
 global using GrpcServerOfAtrticle = Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleService.FileStorageArticleServiceBase;

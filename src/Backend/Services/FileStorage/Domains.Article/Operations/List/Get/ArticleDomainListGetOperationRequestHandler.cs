@@ -10,9 +10,9 @@ public class ArticleDomainListGetOperationRequestHandler :
 {
     #region Fields
 
-    private readonly IArticleListGetOperationHandler _operationHandler;
+    private readonly IArticleDomainListGetOperationHandler _operationHandler;
 
-    private readonly IArticleRepository _repository;
+    private readonly IArticleDomainRepository _repository;
 
     #endregion Fields
 
@@ -24,8 +24,8 @@ public class ArticleDomainListGetOperationRequestHandler :
     /// <param name="operationHandler">Обработчик операции.</param>
     /// <param name="repository">Репозиторий.</param>
     public ArticleDomainListGetOperationRequestHandler(
-        IArticleListGetOperationHandler operationHandler,
-        IArticleRepository repository)
+        IArticleDomainListGetOperationHandler operationHandler,
+        IArticleDomainRepository repository)
     {
         _operationHandler = operationHandler;
         _repository = repository;

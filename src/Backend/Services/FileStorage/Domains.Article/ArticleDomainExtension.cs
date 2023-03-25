@@ -17,7 +17,7 @@ public static class ArticleDomainExtension
     /// <returns>Запрос с учётом фильтрации.</returns>
     public static IQueryable<ClientMapperArticleTypeEntity> ApplyFiltering(
         this IQueryable<ClientMapperArticleTypeEntity> query,
-        ArticleItemGetOperationInput input
+        ArticleDomainItemGetOperationInput input
         )
     {
         if (input.Id > 0)
@@ -46,7 +46,7 @@ public static class ArticleDomainExtension
     /// <returns>Запрос с учётом фильтрации.</returns>
     public static IQueryable<ClientMapperArticleTypeEntity> ApplyFiltering(
         this IQueryable<ClientMapperArticleTypeEntity> query,
-        ArticleListGetOperationInput input
+        ArticleDomainListGetOperationInput input
         )
     {
         if (!string.IsNullOrWhiteSpace(input.Title))
@@ -103,7 +103,7 @@ public static class ArticleDomainExtension
     /// <returns>Запрос с учётом сортировки.</returns>
     public static IQueryable<ClientMapperArticleTypeEntity> ApplySorting(
         this IQueryable<ClientMapperArticleTypeEntity> query,
-        ArticleListGetOperationInput input
+        ArticleDomainListGetOperationInput input
         )
     {
         if (input.SortField.Equals(nameof(ArticleTypeEntity.Id), StringComparison.OrdinalIgnoreCase))
