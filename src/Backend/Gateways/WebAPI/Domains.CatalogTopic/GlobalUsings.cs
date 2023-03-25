@@ -5,6 +5,7 @@ global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Lis
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get;
 global using Crib2023.Grpc.Backend.Services.Catalog;
+global using Makc2023.Backend.Common.Core;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Operation;
 global using Makc2023.Backend.Common.Core.Operation.Handlers;

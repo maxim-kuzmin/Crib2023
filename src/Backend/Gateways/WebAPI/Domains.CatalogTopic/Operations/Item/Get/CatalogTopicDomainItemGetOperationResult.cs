@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get;
+namespace Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get;
 
 /// <summary>
-/// Результат операции получения элемента "Статья в каталоге".
+/// Результат операции получения элемента в домене "Тема в каталоге".
 /// </summary>
-public class CatalogArticleItemGetOperationResult : OperationResultWithOutput<CatalogArticleItemGetOperationOutput>
+public class CatalogTopicItemGetOperationResult : OperationResultWithOutput<CatalogTopicItemGetOperationOutput>
 {
     #region Properties
 

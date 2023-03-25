@@ -73,7 +73,7 @@
             Обработчик запроса операции получения элемента в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleItemGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleDomainItemGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient)">
             <summary>
             Конструктор.
             </summary>
@@ -93,7 +93,7 @@
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.CatalogArticleItemGetOperationResult)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.CatalogArticleDomainItemGetOperationResult)">
             <summary>
             Конструктор.
             </summary>
@@ -134,7 +134,7 @@
             Обработчик запроса операции получения списка в домене.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleListGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleDomainListGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient)">
             <summary>
             Конструктор.
             </summary>
@@ -154,7 +154,7 @@
             Результат операции.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.CatalogArticleListGetOperationResult)">
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.CatalogArticleDomainListGetOperationResult)">
             <summary>
             Конструктор.
             </summary>
@@ -173,6 +173,36 @@
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Setup.CatalogArticleDomainSetupAppModule.GetImports">
             <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.CatalogArticleDomainItemGetOperationResult">
+            <summary>
+            Результат операции получения элемента в домене "Статья в каталоге".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.CatalogArticleDomainItemGetOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleDomainItemGetOperationHandler">
+            <summary>
+            Интерфейс обработчика операции получения элемента в домене "Статья в каталоге".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.CatalogArticleDomainListGetOperationResult">
+            <summary>
+            Результат операции получения списка в домене "Статья в каталоге".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.CatalogArticleDomainListGetOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleDomainListGetOperationHandler">
+            <summary>
+            Интерфейс обработчика операции получения списка в домене "Статья в каталоге".
+            </summary>
         </member>
     </members>
 </doc>

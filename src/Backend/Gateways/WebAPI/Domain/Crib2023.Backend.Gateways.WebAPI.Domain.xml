@@ -4,66 +4,6 @@
         <name>Crib2023.Backend.Gateways.WebAPI.Domain</name>
     </assembly>
     <members>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.CatalogArticleItemGetOperationResult">
-            <summary>
-            Результат операции получения элемента "Статья в каталоге".
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.CatalogArticleItemGetOperationResult.InvalidInputProperties">
-            <summary>
-            Список свойств с недействительными значениями во входных данных.
-            </summary>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleItemGetOperationHandler">
-            <summary>
-            Интерфейс обработчика операции получения элемента "Статья в каталоге".
-            </summary>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.CatalogArticleListGetOperationResult">
-            <summary>
-            Результат операции получения списка "Статья в каталоге".
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.CatalogArticleListGetOperationResult.InvalidInputProperties">
-            <summary>
-            Список свойств с недействительными значениями во входных данных.
-            </summary>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleListGetOperationHandler">
-            <summary>
-            Интерфейс обработчика операции получения списка "Статья в каталоге".
-            </summary>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.CatalogTopicItemGetOperationResult">
-            <summary>
-            Результат операции получения элемента "Тема в каталоге".
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.CatalogTopicItemGetOperationResult.InvalidInputProperties">
-            <summary>
-            Список свойств с недействительными значениями во входных данных.
-            </summary>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.ICatalogTopicItemGetOperationHandler">
-            <summary>
-            Интерфейс обработчика операции получения элемента "Тема в каталоге".
-            </summary>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.CatalogTopicListGetOperationResult">
-            <summary>
-            Результат операции получения списка "Тема в каталоге".
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.CatalogTopicListGetOperationResult.InvalidInputProperties">
-            <summary>
-            Список свойств с недействительными значениями во входных данных.
-            </summary>
-        </member>
-        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.ICatalogTopicListGetOperationHandler">
-            <summary>
-            Интерфейс обработчика операции получения списка "Тема в каталоге".
-            </summary>
-        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Setup.SetupAppModule">
             <summary>
             Модуль настройки приложения.

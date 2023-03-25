@@ -3,12 +3,12 @@
 namespace Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get;
 
 /// <summary>
-/// Интерфейс обработчика операции получения списка "Тема в каталоге".
+/// Интерфейс обработчика операции получения списка в домене "Тема в каталоге".
 /// </summary>
-public interface ICatalogTopicListGetOperationHandler :
+public interface ICatalogTopicDomainListGetOperationHandler :
     IOperationWithInputAndOutputHandler<
         CatalogTopicListGetOperationInput,
         CatalogTopicListGetOperationOutput,
-        CatalogTopicListGetOperationResult>
+        CatalogTopicDomainListGetOperationResult>
 {
 }

@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Makc2023.Backend.Common.Core;
-
 namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
 
 /// <summary>
@@ -12,7 +10,7 @@ public class CatalogArticleDomainItemGetOperationRequestHandler :
 {
     #region Fields
 
-    private readonly ICatalogArticleItemGetOperationHandler _operationHandler;
+    private readonly ICatalogArticleDomainItemGetOperationHandler _operationHandler;
 
     private readonly GrpcClientOfCatalogArticle _client;
 
@@ -26,7 +24,7 @@ public class CatalogArticleDomainItemGetOperationRequestHandler :
     /// <param name="operationHandler">Обработчик операции.</param>
     /// <param name="client">Клиент.</param>
     public CatalogArticleDomainItemGetOperationRequestHandler(
-        ICatalogArticleItemGetOperationHandler operationHandler,
+        ICatalogArticleDomainItemGetOperationHandler operationHandler,
         GrpcClientOfCatalogArticle client)
     {
         _operationHandler = operationHandler;
@@ -56,7 +54,7 @@ public class CatalogArticleDomainItemGetOperationRequestHandler :
 
             var clientReply = await task.ConfigureAwait(false);
 
-            CatalogArticleItemGetOperationResult operationResult = new()
+            CatalogArticleDomainItemGetOperationResult operationResult = new()
             {
                 IsOk = clientReply.IsOk,
                 OperationCode = clientReply.OperationCode,

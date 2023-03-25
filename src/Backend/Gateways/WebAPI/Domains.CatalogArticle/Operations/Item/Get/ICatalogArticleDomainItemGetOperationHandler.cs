@@ -3,12 +3,12 @@
 namespace Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get;
 
 /// <summary>
-/// Интерфейс обработчика операции получения элемента "Статья в каталоге".
+/// Интерфейс обработчика операции получения элемента в домене "Статья в каталоге".
 /// </summary>
-public interface ICatalogArticleItemGetOperationHandler :
+public interface ICatalogArticleDomainItemGetOperationHandler :
     IOperationWithInputAndOutputHandler<
         CatalogArticleItemGetOperationInput,
         CatalogArticleItemGetOperationOutput,
-        CatalogArticleItemGetOperationResult>
+        CatalogArticleDomainItemGetOperationResult>
 {
 }

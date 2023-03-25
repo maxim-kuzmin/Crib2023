@@ -15,13 +15,13 @@ public class CatalogArticleDomainSetupAppModule : AppModule
         services.AddSingleton<ICatalogArticleDomainResource>(x => new CatalogArticleDomainResource(
             x.GetRequiredService<IStringLocalizer<CatalogArticleDomainResource>>()));
 
-        services.AddTransient<ICatalogArticleItemGetOperationHandler>(x => new CatalogArticleDomainItemGetOperationHandler(
+        services.AddTransient<ICatalogArticleDomainItemGetOperationHandler>(x => new CatalogArticleDomainItemGetOperationHandler(
             x.GetRequiredService<ICatalogArticleDomainResource>(),
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<CatalogArticleDomainItemGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptions>>()));
 
-        services.AddTransient<ICatalogArticleListGetOperationHandler>(x => new CatalogArticleDomainListGetOperationHandler(
+        services.AddTransient<ICatalogArticleDomainListGetOperationHandler>(x => new CatalogArticleDomainListGetOperationHandler(
             x.GetRequiredService<ICatalogArticleDomainResource>(),
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<CatalogArticleDomainListGetOperationHandler>>(),
@@ -35,8 +35,8 @@ public class CatalogArticleDomainSetupAppModule : AppModule
             {
                 typeof(CatalogArticleDomainItemGetOperationRequestHandler),
                 typeof(CatalogArticleDomainListGetOperationRequestHandler),
-                typeof(ICatalogArticleItemGetOperationHandler),
-                typeof(ICatalogArticleListGetOperationHandler),            
+                typeof(ICatalogArticleDomainItemGetOperationHandler),
+                typeof(ICatalogArticleDomainListGetOperationHandler),            
                 typeof(ICatalogArticleDomainResource),
             };
     }

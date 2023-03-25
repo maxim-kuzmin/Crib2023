@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Domain\Backend.Gateways.WebAPI.Domain.csproj" />
+	  <ProjectReference Include="..\Domain\Backend.Gateways.WebAPI.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -19,5 +19,4 @@
 	    <SubType>Designer</SubType>
 	  </EmbeddedResource>
 	</ItemGroup>
-
 </Project>

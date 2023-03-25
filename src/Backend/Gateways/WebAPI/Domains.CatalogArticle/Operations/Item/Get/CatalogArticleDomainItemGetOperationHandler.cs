@@ -9,8 +9,8 @@ public class CatalogArticleDomainItemGetOperationHandler :
     OperationWithInputAndOutputHandler<
         CatalogArticleItemGetOperationInput,
         CatalogArticleItemGetOperationOutput,
-        CatalogArticleItemGetOperationResult>,
-    ICatalogArticleItemGetOperationHandler
+        CatalogArticleDomainItemGetOperationResult>,
+    ICatalogArticleDomainItemGetOperationHandler
 {
     #region Constructors
 

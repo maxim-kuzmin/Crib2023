@@ -10,7 +10,7 @@ public class CatalogTopicDomainItemGetOperationHandler :
         CatalogTopicItemGetOperationInput,
         CatalogTopicItemGetOperationOutput,
         CatalogTopicItemGetOperationResult>,
-    ICatalogTopicItemGetOperationHandler
+    ICatalogTopicDomainItemGetOperationHandler
 {
     #region Constructors
 

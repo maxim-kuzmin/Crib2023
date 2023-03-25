@@ -12,7 +12,7 @@ public class CatalogTopicDomainListGetOperationRequestHandler :
 {
     #region Fields
 
-    private readonly ICatalogTopicListGetOperationHandler _operationHandler;
+    private readonly ICatalogTopicDomainListGetOperationHandler _operationHandler;
 
     private readonly GrpcClientOfCatalogTopic _client;
 
@@ -26,7 +26,7 @@ public class CatalogTopicDomainListGetOperationRequestHandler :
     /// <param name="operationHandler">Обработчик операции.</param>
     /// <param name="client">Клиент.</param>
     public CatalogTopicDomainListGetOperationRequestHandler(
-        ICatalogTopicListGetOperationHandler operationHandler,
+        ICatalogTopicDomainListGetOperationHandler operationHandler,
         GrpcClientOfCatalogTopic client)
     {
         _operationHandler = operationHandler;
@@ -56,7 +56,7 @@ public class CatalogTopicDomainListGetOperationRequestHandler :
 
             var clientReply = await task.ConfigureAwait(false);
 
-            CatalogTopicListGetOperationResult operationResult = new()
+            CatalogTopicDomainListGetOperationResult operationResult = new()
             {
                 IsOk = clientReply.IsOk,
                 OperationCode = clientReply.OperationCode,

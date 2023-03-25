@@ -12,7 +12,7 @@ public class CatalogTopicDomainItemGetOperationRequestHandler :
 {
     #region Fields
 
-    private readonly ICatalogTopicItemGetOperationHandler _operationHandler;
+    private readonly ICatalogTopicDomainItemGetOperationHandler _operationHandler;
 
     private readonly GrpcClientOfCatalogTopic _client;
 
@@ -26,7 +26,7 @@ public class CatalogTopicDomainItemGetOperationRequestHandler :
     /// <param name="operationHandler">Обработчик операции.</param>
     /// <param name="client">Клиент.</param>
     public CatalogTopicDomainItemGetOperationRequestHandler(
-        ICatalogTopicItemGetOperationHandler operationHandler,
+        ICatalogTopicDomainItemGetOperationHandler operationHandler,
         GrpcClientOfCatalogTopic client)
     {
         _operationHandler = operationHandler;
