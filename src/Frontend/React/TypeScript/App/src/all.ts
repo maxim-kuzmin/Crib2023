@@ -6,6 +6,8 @@ export function getModule (): Module {
   return module;
 }
 
+export type ShouldBeCanceled = () => boolean;
+
 export { App } from './App';
 export * from './common';
 export * from './controls';

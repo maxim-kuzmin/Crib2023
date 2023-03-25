@@ -5,8 +5,8 @@ import {
   OperationStatus,
   type StoreDispatchOptions,
   type OperationState,
-  getTestDataAsync,
   type ShouldBeCanceled,
+  getModule,
 } from '../../../all';
 
 type Data = string | null;
@@ -165,7 +165,9 @@ async function runDispatchToLoad (
 
   dispatch(actionToLoad);
 
-  const data = await getTestDataAsync(() => `TopicItem, input=${(input ?? '')}: ${(new Date()).toString()}`);
+  const data = await getModule().getTestService().getDataAsync(
+    () => `TopicItem, input=${(input ?? '')}: ${(new Date()).toString()}`
+  );
 
   if (!shouldBeCanceled()) {
     runDispatchToSet(dispatch, callback, data);

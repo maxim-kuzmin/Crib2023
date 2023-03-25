@@ -5,12 +5,12 @@ import {
   type ArticleDomainItemGetOperationRequest,
   type ArticleDomainItemGetOperationResponse,
   type ArticleDomainRepository,
-  getTestDataAsync,
   type ArticleEntity,
   type ArticleDomainItemGetOperationOutput,
   type ArticleDomainListGetOperationOutput,
   type ApiResponseError,
-  ApiResponseErrorImpl
+  ApiResponseErrorImpl,
+  getModule
 } from '../../../../all';
 
 export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
@@ -57,7 +57,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await getTestDataAsync(() => result);
+    return await getModule().getTestService().getDataAsync(() => result);
   }
 
   async getList (
@@ -76,6 +76,6 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await getTestDataAsync(() => result);
+    return await getModule().getTestService().getDataAsync(() => result);
   }
 }

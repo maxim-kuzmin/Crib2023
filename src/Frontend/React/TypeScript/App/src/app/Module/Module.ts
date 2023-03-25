@@ -8,7 +8,8 @@ import {
   type NotificationControlService,
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
-  type ArticleDomainRepository
+  type ArticleDomainRepository,
+  type TestService
 } from '../../all';
 
 export interface Module {
@@ -17,6 +18,7 @@ export interface Module {
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
   readonly getArticleItemStoreService: () => ArticleItemStoreService;
   readonly getArticleListStoreService: () => ArticleListStoreService;
+  readonly getTestService: () => TestService;
   readonly getTopicItemStoreService: () => TopicItemStoreService;
   readonly getTopicPathStoreService: () => TopicPathStoreService;
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;

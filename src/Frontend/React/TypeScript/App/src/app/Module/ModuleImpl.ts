@@ -24,6 +24,7 @@ import {
   createSetupOptions,
   ArticleDomainRepositoryImpl,
   TestArticleDomainRepositoryImpl,
+  createTestService,
 } from '../../all';
 
 export class ModuleImpl implements Module {
@@ -34,6 +35,7 @@ export class ModuleImpl implements Module {
   private readonly articleItemStoreService = createArticleItemStoreService();
   private readonly articleListStoreService = createArticleListStoreService();
   private readonly setupOptions = createSetupOptions();
+  private readonly testService = createTestService();
   private readonly topicItemStoreService = createTopicItemStoreService();
   private readonly topicPathStoreService = createTopicPathStoreService();
   private readonly topicTreeStoreService = createTopicTreeStoreService();
@@ -48,6 +50,7 @@ export class ModuleImpl implements Module {
   getAppNotificationStoreService = () => this.appNotificationStoreService;
   getArticleItemStoreService = () => this.articleItemStoreService;
   getArticleListStoreService = () => this.articleListStoreService;
+  getTestService = () => this.testService;
   getTopicItemStoreService = () => this.topicItemStoreService;
   getTopicPathStoreService = () => this.topicPathStoreService;
   getTopicTreeStoreService = () => this.topicTreeStoreService;
