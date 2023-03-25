@@ -16,7 +16,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Data.SQL.Mappers.EF.Clients.PostgreSQL\Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.csproj" />
-		<ProjectReference Include="..\Domain.SQL\Backend.Services.Catalog.Domain.SQL.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

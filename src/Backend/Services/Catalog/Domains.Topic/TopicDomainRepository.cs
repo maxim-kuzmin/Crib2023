@@ -3,9 +3,9 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic;
 
 /// <summary>
-/// Репозиторий домена.
+/// Репозиторий домена "Тема".
 /// </summary>
-public class TopicDomainRepository : MapperRepository<ArticleEntity>, ITopicRepository
+public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopicDomainRepository
 {
     #region Properties
 
@@ -35,9 +35,9 @@ public class TopicDomainRepository : MapperRepository<ArticleEntity>, ITopicRepo
     #region Public methods
 
     /// <inheritdoc/>
-    public async Task<TopicItemGetOperationOutput> GetItem(TopicItemGetOperationInput input)
+    public async Task<TopicDomainItemGetOperationOutput> GetItem(TopicDomainItemGetOperationInput input)
     {
-        TopicItemGetOperationOutput result = new();
+        TopicDomainItemGetOperationOutput result = new();
 
         using var dbContext = DbContextFactory.CreateDbContext();
 
@@ -68,7 +68,7 @@ public class TopicDomainRepository : MapperRepository<ArticleEntity>, ITopicRepo
 
         if (mapperForItem != null)
         {
-            result.Item = new TopicEntity(
+            result.Item = new TopicDomainEntity(
                 mapperForItem.Data,
                 mapperForItem.TreeHasChildren,
                 mapperForItem.TreeLevel,
@@ -79,9 +79,9 @@ public class TopicDomainRepository : MapperRepository<ArticleEntity>, ITopicRepo
     }
 
     /// <inheritdoc/>
-    public async Task<TopicListGetOperationOutput> GetList(TopicListGetOperationInput input)
+    public async Task<TopicDomainListGetOperationOutput> GetList(TopicDomainListGetOperationInput input)
     {
-        TopicListGetOperationOutput result = new();
+        TopicDomainListGetOperationOutput result = new();
 
         using var dbContext = DbContextFactory.CreateDbContext();
         using var dbContextForTotalCount = DbContextFactory.CreateDbContext();
@@ -107,7 +107,7 @@ public class TopicDomainRepository : MapperRepository<ArticleEntity>, ITopicRepo
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
         result.Items = mapperForItems.Select(x =>
-            new TopicEntity(x.Data, x.TreeHasChildren, x.TreeLevel, x.Data.TreePath))
+            new TopicDomainEntity(x.Data, x.TreeHasChildren, x.TreeLevel, x.Data.TreePath))
             .ToArray();
 
         result.TotalCount = await taskForTotalCount.ConfigureAwait(false);

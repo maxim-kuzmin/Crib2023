@@ -2,9 +2,10 @@
 
 global using Crib2023.Backend.Services.Catalog.App.GrpcServices;
 global using Crib2023.Backend.Services.Catalog.App.Setup;
-global using Crib2023.Backend.Services.Catalog.Domain.SQL.Entities;
+global using Crib2023.Backend.Services.Catalog.Domains.Article.Entities;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get;
+global using Crib2023.Backend.Services.Catalog.Domains.Topic;
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Item.Get;
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get;
 global using Crib2023.Grpc.Backend.Services.Catalog;
@@ -13,9 +14,9 @@ global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Apps.WebApp;
 global using Makc2023.Backend.Common.Core.Apps.WebApp.Setup;
 global using Makc2023.Backend.Common.Core.Converting;
-global using Makc2023.Backend.Common.Core.Repeat;
 global using Makc2023.Backend.Common.Core.Operations.Tree.Node.Get;
 global using Makc2023.Backend.Common.Core.Operations.Tree.Path.Get;
+global using Makc2023.Backend.Common.Core.Repeat;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Localization;
@@ -25,7 +26,6 @@ global using ModuleOfServiceDataSQLClientsPostgreSQL = Crib2023.Backend.Services
 global using ModuleOfServiceDataSQLMappersEFClientsPostgreSQL = Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Setup.ClientMapperSetupAppModule;
 global using ISetupServiceOfServiceDataSQL = Crib2023.Backend.Services.Catalog.Data.SQL.Setup.ISetupService;
 global using ModuleOfServiceDataSQL = Crib2023.Backend.Services.Catalog.Data.SQL.Setup.SetupAppModule;
-global using ModuleOfServiceDomainSQL = Crib2023.Backend.Services.Catalog.Domain.SQL.Setup.SetupAppModule;
 global using ModuleOfServiceDomainsArticle = Crib2023.Backend.Services.Catalog.Domains.Article.Setup.ArticleDomainSetupAppModule;
 global using ModuleOfServiceDomainsTopic = Crib2023.Backend.Services.Catalog.Domains.Topic.Setup.TopicDomainSetupAppModule;
 global using GrpcServerOfAtrticle = Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceBase;

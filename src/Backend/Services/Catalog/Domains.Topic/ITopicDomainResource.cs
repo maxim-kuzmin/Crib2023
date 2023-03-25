@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic
 {
     /// <summary>
-    /// Интерфейс ресурса домена.
+    /// Интерфейс ресурса домена "Тема".
     /// </summary>
     public interface ITopicDomainResource
     {
@@ -20,6 +20,18 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Topic
         /// </summary>
         /// <returns>Имя операции.</returns>
         string GetListGetOperationName();
+
+        /// <summary>
+        /// Получить корректное значение свойства "Name".
+        /// </summary>
+        /// <returns>Корректное значение.</returns>
+        string GetValidValueForName();
+
+        /// <summary>
+        /// Получить корректное значение свойства "ParentId".
+        /// </summary>
+        /// <returns>Корректное значение.</returns>
+        string GetValidValueForParentId();
 
         #endregion Methods
     }

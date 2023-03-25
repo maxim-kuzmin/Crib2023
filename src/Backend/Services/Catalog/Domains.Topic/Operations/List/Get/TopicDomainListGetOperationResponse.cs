@@ -12,7 +12,7 @@ public class TopicDomainListGetOperationResponse
     /// <summary>
     /// Результат операции.
     /// </summary>
-    public TopicListGetOperationResult OperationResult { get; }
+    public TopicDomainListGetOperationResult OperationResult { get; }
 
     #endregion Properties
 
@@ -22,7 +22,7 @@ public class TopicDomainListGetOperationResponse
     /// Конструктор.
     /// </summary>
     /// <param name="operationResult">Результат операции.</param>
-    public TopicDomainListGetOperationResponse(TopicListGetOperationResult operationResult)
+    public TopicDomainListGetOperationResponse(TopicDomainListGetOperationResult operationResult)
     {
         OperationResult = operationResult;
     }

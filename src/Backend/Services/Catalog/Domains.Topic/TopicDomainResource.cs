@@ -3,15 +3,15 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic;
 
 /// <summary>
-/// Ресурс домена.
+/// Ресурс домена "Тема".
 /// </summary>
 public class TopicDomainResource : ITopicDomainResource
 {
-    #region Properties
+    #region Fields
 
-    private IStringLocalizer<TopicDomainResource> Localizer { get; }
+    private readonly IStringLocalizer<TopicDomainResource> _localizer;
 
-    #endregion Properties
+    #endregion Fields
 
     #region Constructors
 
@@ -21,7 +21,7 @@ public class TopicDomainResource : ITopicDomainResource
     /// <param name="localizer">Локализатор.</param>
     public TopicDomainResource(IStringLocalizer<TopicDomainResource> localizer)
     {
-        Localizer = localizer;
+        _localizer = localizer;
     }
 
     #endregion Constructors
@@ -31,13 +31,25 @@ public class TopicDomainResource : ITopicDomainResource
     /// <inheritdoc/>
     public string GetItemGetOperationName()
     {
-        return Localizer["@@ItemGetOperationName"];
+        return _localizer["@@ItemGetOperationName"];
     }
 
     /// <inheritdoc/>
     public string GetListGetOperationName()
     {
-        return Localizer["@@ListGetOperationName"];
+        return _localizer["@@ListGetOperationName"];
+    }
+
+    /// <inheritdoc/>
+    public string GetValidValueForName()
+    {
+        return _localizer["@@ValidValueForName"];
+    }
+
+    /// <inheritdoc/>
+    public string GetValidValueForParentId()
+    {
+        return _localizer["@@ValidValueForParentId"];
     }
 
     #endregion Public methods

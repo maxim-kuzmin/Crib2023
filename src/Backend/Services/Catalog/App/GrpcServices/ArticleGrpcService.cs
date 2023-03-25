@@ -1,9 +1,5 @@
 // Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get;
-using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get;
-using Makc2023.Backend.Common.Core;
-
 namespace Crib2023.Backend.Services.Catalog.App.GrpcServices;
 
 /// <summary>
@@ -169,7 +165,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
     #region Private methods
 
-    private static CatalogArticleEntity CreateItem(ArticleEntity source)
+    private static CatalogArticleEntity CreateItem(ArticleDomainEntityForItem source)
     {
         CatalogArticleEntity result;
 
@@ -203,7 +199,7 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
         return result;
     }
 
-    private static CatalogArticleEntityForList CreateItemForList(ArticleEntityForList source)
+    private static CatalogArticleEntityForList CreateItemForList(ArticleDomainEntityForList source)
     {
         CatalogArticleEntityForList result;
 

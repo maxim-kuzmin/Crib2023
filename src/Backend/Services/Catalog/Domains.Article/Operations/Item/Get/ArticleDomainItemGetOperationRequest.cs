@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get;
 
 /// <summary>
-/// Запрос операции получения элемента в домене.
+/// Запрос операции получения элемента в домене "Статья".
 /// </summary>
 public class ArticleDomainItemGetOperationRequest : IRequest<ArticleDomainItemGetOperationResponse>
 {
@@ -12,7 +12,7 @@ public class ArticleDomainItemGetOperationRequest : IRequest<ArticleDomainItemGe
     /// <summary>
     /// Входные данные.
     /// </summary>
-    public ArticleItemGetOperationInput Input { get; }
+    public ArticleDomainItemGetOperationInput Input { get; }
 
     /// <summary>
     /// Код операции.
@@ -28,7 +28,7 @@ public class ArticleDomainItemGetOperationRequest : IRequest<ArticleDomainItemGe
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public ArticleDomainItemGetOperationRequest(ArticleItemGetOperationInput input, string operationCode = "")
+    public ArticleDomainItemGetOperationRequest(ArticleDomainItemGetOperationInput input, string operationCode = "")
     {
         Input = input;
         OperationCode = operationCode;

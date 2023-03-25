@@ -1,13 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic;
-
 namespace Crib2023.Backend.Services.Catalog.Domains.Article;
 
 /// <summary>
-/// Репозиторий домена.
+/// Репозиторий домена "Статья".
 /// </summary>
-public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticleRepository
+public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForItem>, IArticleDomainRepository
 {
     #region Properties
 
@@ -37,9 +35,9 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
     #region Public methods
 
     /// <inheritdoc/>
-    public async Task<ArticleItemGetOperationOutput> GetItem(ArticleItemGetOperationInput input)
+    public async Task<ArticleDomainItemGetOperationOutput> GetItem(ArticleDomainItemGetOperationInput input)
     {
-        ArticleItemGetOperationOutput result = new();
+        ArticleDomainItemGetOperationOutput result = new();
 
         using var dbContext = DbContextFactory.CreateDbContext();
 
@@ -52,7 +50,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
 
         if (mapperForItem != null)
         {
-            var item = new ArticleEntity(mapperForItem);
+            var item = new ArticleDomainEntityForItem(mapperForItem);
 
             await LoadTopicPathItems(dbContext, item, mapperForItem).ConfigureAwait(false);
 
@@ -63,9 +61,9 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
     }
 
     /// <inheritdoc/>
-    public async Task<ArticleListGetOperationOutput> GetList(ArticleListGetOperationInput input)
+    public async Task<ArticleDomainListGetOperationOutput> GetList(ArticleDomainListGetOperationInput input)
     {
-        ArticleListGetOperationOutput result = new();
+        ArticleDomainListGetOperationOutput result = new();
 
         using var dbContext = DbContextFactory.CreateDbContext();
         using var dbContextForTotalCount = DbContextFactory.CreateDbContext();
@@ -92,7 +90,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
         var itemLookup = mapperForItems
-            .Select(x => new ArticleEntityForList(new ArticleTypeEntityForList
+            .Select(x => new ArticleDomainEntityForList(new ArticleTypeEntityForList
             {
                 Id = x.Id,
                 RowGuid = x.RowGuid,
@@ -130,7 +128,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
 
     private static async Task LoadTopicPathItems(
         ClientMapperDbContext dbContext,
-        ArticleEntity item,
+        ArticleDomainEntityForItem item,
         ClientMapperArticleTypeEntity mapperForItem)
     {
         var mapperTopic = mapperForItem.Topic;
@@ -141,7 +139,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
         {
             var taskForLookup = dbContext.Topic
                 .Where(x => ancestorIds.Contains(x.Id))
-                .Select(x => new OptionValueObject(x.Id, x.Name))
+                .Select(x => new OptionWithInt64IdValueObject(x.Id, x.Name))
                 .ToDictionaryAsync(x => x.Id);
 
             var topicPathItemLookup = await taskForLookup.ConfigureAwait(false);
@@ -155,12 +153,12 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
             }
         }
 
-        item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
+        item.AddTopicPathItem(new OptionWithInt64IdValueObject(mapperTopic.Id, mapperTopic.Name));
     }
 
     private static async Task LoadTopicPathItemsForList(
         ClientMapperDbContext dbContext,
-        Dictionary<long, ArticleEntityForList> itemLookup,
+        Dictionary<long, ArticleDomainEntityForList> itemLookup,
         IEnumerable<ItemForList> mapperForItems)
     {
         long[] ancestorIdsForLookup = mapperForItems
@@ -172,7 +170,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
         {
             var taskForLookup = dbContext.Topic
                 .Where(x => ancestorIdsForLookup.Contains(x.Id))
-                .Select(x => new OptionValueObject(x.Id, x.Name))
+                .Select(x => new OptionWithInt64IdValueObject(x.Id, x.Name))
                 .ToDictionaryAsync(x => x.Id);
 
             var ancestorLookup = await taskForLookup.ConfigureAwait(false);
@@ -197,7 +195,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleEntity>, IArticle
                         }
                     }
 
-                    item.AddTopicPathItem(new OptionValueObject(mapperTopic.Id, mapperTopic.Name));
+                    item.AddTopicPathItem(new OptionWithInt64IdValueObject(mapperTopic.Id, mapperTopic.Name));
                 }
             }
         }

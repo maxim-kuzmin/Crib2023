@@ -1,8 +1,5 @@
 // Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Item.Get;
-using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get;
-
 namespace Crib2023.Backend.Services.Catalog.App.GrpcServices;
 
 /// <summary>
@@ -168,7 +165,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
     #region Private methods
 
-    private static CatalogTopicEntity CreateItem(TopicEntity source)
+    private static CatalogTopicEntity CreateItem(TopicDomainEntity source)
     {
         CatalogTopicEntity result;
 

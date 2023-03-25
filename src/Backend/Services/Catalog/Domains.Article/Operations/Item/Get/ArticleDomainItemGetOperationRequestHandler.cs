@@ -3,16 +3,16 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get;
 
 /// <summary>
-/// Обработчик запроса операции получения элемента в домене.
+/// Обработчик запроса операции получения элемента в домене "Статья".
 /// </summary>
 public class ArticleDomainItemGetOperationRequestHandler :
     IRequestHandler<ArticleDomainItemGetOperationRequest, ArticleDomainItemGetOperationResponse>
 {
     #region Fields
 
-    private readonly IArticleItemGetOperationHandler _operationHandler;
+    private readonly IArticleDomainItemGetOperationHandler _operationHandler;
 
-    private readonly IArticleRepository _repository;
+    private readonly IArticleDomainRepository _repository;
 
     #endregion Fields
 
@@ -24,8 +24,8 @@ public class ArticleDomainItemGetOperationRequestHandler :
     /// <param name="operationHandler">Обработчик операции.</param>
     /// <param name="repository">Репозиторий.</param>
     public ArticleDomainItemGetOperationRequestHandler(
-        IArticleItemGetOperationHandler operationHandler,
-        IArticleRepository repository)
+        IArticleDomainItemGetOperationHandler operationHandler,
+        IArticleDomainRepository repository)
     {
         _operationHandler = operationHandler;
         _repository = repository;
