@@ -1,7 +1,6 @@
 import {
   type ApiRequestWithInput,
-  type ArticleDomainItemGetOperationInput,
-  createApiRequestWithInput,
+  type ArticleDomainItemGetOperationInput
 } from '../../../../../../all';
 
 export interface ArticleDomainItemGetOperationRequest
@@ -11,8 +10,9 @@ export function createArticleDomainItemGetOperationRequest (
   input: ArticleDomainItemGetOperationInput,
   operationCode: string = ''
 ): ArticleDomainItemGetOperationRequest {
-  return createApiRequestWithInput<ArticleDomainItemGetOperationInput>(
-    '@@ArticleDomainItemGet',
-    input,
-    operationCode);
+  return {
+    operationName: '@@ArticleDomainItemGet',
+    operationCode,
+    input
+  };
 }

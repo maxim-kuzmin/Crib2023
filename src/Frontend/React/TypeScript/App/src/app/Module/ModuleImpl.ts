@@ -24,7 +24,7 @@ import {
   createSetupOptions,
   ArticleDomainRepositoryImpl,
   TestArticleDomainRepositoryImpl,
-  createTestService,
+  TestServiceImpl
 } from '../../all';
 
 export class ModuleImpl implements Module {
@@ -35,7 +35,7 @@ export class ModuleImpl implements Module {
   private readonly articleItemStoreService = createArticleItemStoreService();
   private readonly articleListStoreService = createArticleListStoreService();
   private readonly setupOptions = createSetupOptions();
-  private readonly testService = createTestService();
+  private readonly testService = new TestServiceImpl();
   private readonly topicItemStoreService = createTopicItemStoreService();
   private readonly topicPathStoreService = createTopicPathStoreService();
   private readonly topicTreeStoreService = createTopicTreeStoreService();
