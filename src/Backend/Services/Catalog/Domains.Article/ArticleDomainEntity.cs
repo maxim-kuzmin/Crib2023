@@ -11,7 +11,7 @@ public class ArticleDomainEntity<TData> : Entity<long>, IAggregateRoot
 {
     #region Fields
 
-    private readonly List<OptionWithInt64IdValueObject> _topicPathItems = new();
+    private readonly List<OptionValueObjectWithInt64Id> _topicPathItems = new();
 
     #endregion Fields
 
@@ -25,7 +25,7 @@ public class ArticleDomainEntity<TData> : Entity<long>, IAggregateRoot
     /// <summary>
     /// Элементы пути темы.
     /// </summary>
-    public IReadOnlyCollection<OptionWithInt64IdValueObject> TopicPathItems => _topicPathItems;
+    public IReadOnlyCollection<OptionValueObjectWithInt64Id> TopicPathItems => _topicPathItems;
 
     #endregion Properties    
 
@@ -49,7 +49,7 @@ public class ArticleDomainEntity<TData> : Entity<long>, IAggregateRoot
     /// </summary>
     /// <param name="data">Данные.</param>
     /// <returns>Добавленный элемент пути.</returns>
-    public OptionWithInt64IdValueObject AddTopicPathItem(OptionWithInt64IdValueObject data)
+    public OptionValueObjectWithInt64Id AddTopicPathItem(OptionValueObjectWithInt64Id data)
     {
         var result = _topicPathItems.Where(x => x.Id == data.Id).SingleOrDefault();
 

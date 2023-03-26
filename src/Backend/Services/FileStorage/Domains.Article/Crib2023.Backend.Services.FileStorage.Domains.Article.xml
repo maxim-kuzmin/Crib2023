@@ -25,7 +25,7 @@
             </summary>
             <param name="data">Данные.</param>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainEntity.AddTopicPathItem(Makc2023.Backend.Common.Domain.ValueObjects.Options.OptionWithInt64IdValueObject)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainEntity.AddTopicPathItem(Makc2023.Backend.Common.Domain.ValueObjects.Options.OptionValueObjectWithInt64Id)">
             <summary>
             Добавить элемент пути темы.
             </summary>

@@ -111,7 +111,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
         {
             var taskForLookup = dbContext.Topic
                 .Where(x => ancestorIds.Contains(x.Id))
-                .Select(x => new OptionWithInt64IdValueObject(x.Id, x.Name))
+                .Select(x => new OptionValueObjectWithInt64Id(x.Id, x.Name))
                 .ToDictionaryAsync(x => x.Id);
 
             var topicPathItemLookup = await taskForLookup.ConfigureAwait(false);
@@ -125,7 +125,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
             }
         }
 
-        item.AddTopicPathItem(new OptionWithInt64IdValueObject(mapperTopic.Id, mapperTopic.Name));
+        item.AddTopicPathItem(new OptionValueObjectWithInt64Id(mapperTopic.Id, mapperTopic.Name));
     }
 
     private static async Task LoadTopicPathItems(
@@ -142,7 +142,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
         {
             var taskForLookup = dbContext.Topic
                 .Where(x => ancestorIdsForLookup.Contains(x.Id))
-                .Select(x => new OptionWithInt64IdValueObject(x.Id, x.Name))
+                .Select(x => new OptionValueObjectWithInt64Id(x.Id, x.Name))
                 .ToDictionaryAsync(x => x.Id);
 
             var ancestorLookup = await taskForLookup.ConfigureAwait(false);
@@ -167,7 +167,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
                         }
                     }
 
-                    item.AddTopicPathItem(new OptionWithInt64IdValueObject(mapperTopic.Id, mapperTopic.Name));
+                    item.AddTopicPathItem(new OptionValueObjectWithInt64Id(mapperTopic.Id, mapperTopic.Name));
                 }
             }
         }
