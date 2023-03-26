@@ -12,7 +12,6 @@ export { App } from './App';
 export * from './common';
 export * from './controls';
 export * from './data';
-export * from './domain';
 export * from './domains';
 export * from './pages';
 export * from './reportWebVitals';

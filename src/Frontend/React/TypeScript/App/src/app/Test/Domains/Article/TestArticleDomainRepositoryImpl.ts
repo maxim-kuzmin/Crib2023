@@ -5,7 +5,7 @@ import {
   type ArticleDomainItemGetOperationRequest,
   type ArticleDomainItemGetOperationResponse,
   type ArticleDomainRepository,
-  type ArticleEntity,
+  type ArticleDomainEntityForItem,
   type ArticleDomainItemGetOperationOutput,
   type ArticleDomainListGetOperationOutput,
   type ApiResponseError,
@@ -14,14 +14,14 @@ import {
 } from '../../../../all';
 
 export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
-  private readonly items: ArticleEntity[] = [];
+  private readonly items: ArticleDomainEntityForItem[] = [];
 
   constructor () {
     for (let id = 1; id < 101; id++) {
-      const item: ArticleEntity = {
+      const item: ArticleDomainEntityForItem = {
         data: {
-          id,
           body: `Body ${id}`,
+          id,
           title: `Title ${id}`,
           topicId: 0,
           rowGuid: uuidv4()

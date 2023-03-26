@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  type ArticleEntityForList,
+  type ArticleDomainEntityForList,
   type ArticleTableViewProps
 } from '../../../all';
 import styles from './ArticleTableView.module.css';
 
 export function ArticleTableView ({ response }: ArticleTableViewProps) {
-  let items: ArticleEntityForList[] | null = null;
+  let items: ArticleDomainEntityForList[] | null = null;
   let totalCount = 0;
 
   if (response?.data) {

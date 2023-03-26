@@ -1,18 +1,20 @@
 import React from 'react';
 import {
   type ArticleTypeEntity,
-  type ArticleEntity,
+  type ArticleDomainEntityForItem,
   type ArticleViewProps
 } from '../../../all';
 import styles from './ArticleView.module.css';
 
 export function ArticleView ({ response }: ArticleViewProps) {
-  let item: ArticleEntity | null = null;
+  let item: ArticleDomainEntityForItem | null = null;
   let data: ArticleTypeEntity | null = null;
 
   if (response?.data) {
     item = response.data.item;
-    data = item.data;
+    if (item) {
+      data = item.data;
+    }
   }
 
   return (

@@ -1,4 +1,4 @@
-import { type TopicEntity, type ListGetOperationOutput } from '../../../../../all';
+import { type TopicDomainEntity, type ListGetOperationOutput } from '../../../../../all';
 
-export interface TopicDomainListGetOperationOutput extends ListGetOperationOutput<TopicEntity> {
+export interface TopicDomainListGetOperationOutput extends ListGetOperationOutput<TopicDomainEntity> {
 }

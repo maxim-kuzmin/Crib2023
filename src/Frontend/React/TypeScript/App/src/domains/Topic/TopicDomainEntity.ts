@@ -1,6 +1,6 @@
 import { type TopicTypeEntity } from '../../all';
 
-export interface TopicEntity {
+export interface TopicDomainEntity {
   data: TopicTypeEntity;
   treeHasChildren: boolean;
   treeLevel: number;

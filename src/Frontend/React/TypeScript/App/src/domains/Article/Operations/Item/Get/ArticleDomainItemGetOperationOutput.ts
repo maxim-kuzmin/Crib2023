@@ -1,4 +1,4 @@
-import { type ItemGetOperationOutput, type ArticleEntity } from '../../../../../all';
+import { type ItemGetOperationOutput, type ArticleDomainEntityForItem } from '../../../../../all';
 
-export interface ArticleDomainItemGetOperationOutput extends ItemGetOperationOutput<ArticleEntity> {
+export interface ArticleDomainItemGetOperationOutput extends ItemGetOperationOutput<ArticleDomainEntityForItem> {
 }
