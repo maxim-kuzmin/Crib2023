@@ -41,9 +41,10 @@ message FileStorageTopicItemGetOperationOutput {
 
 message FileStorageTopicEntity {
   FileStorageTopicTypeEntity data = 1;
-  bool tree_has_children = 2;
-  int32 treeLevel = 3;
-  string treePath = 4;
+  repeated FileStorageOptionValueObject tree_ancestors = 2;
+  bool tree_has_children = 3;
+  int32 tree_level = 4;
+  string tree_path = 5;  
 }
 
 message FileStorageTopicTypeEntity {

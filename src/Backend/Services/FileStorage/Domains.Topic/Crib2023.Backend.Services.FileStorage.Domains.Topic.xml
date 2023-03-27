@@ -331,7 +331,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainRepository">
             <summary>
-            Репозиторий домена.
+            Репозиторий домена "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainRepository.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.IClientMapperDbContextFactory,Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.ClientMapperDbManager,MediatR.IMediator)">
@@ -373,12 +373,17 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.TopicDomainEntity">
             <summary>
-            Сущность "Тема".
+            Сущность домена "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.TopicDomainEntity.Data">
             <summary>
             Данные.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.TopicDomainEntity.TreeAncestors">
+            <summary>
+            Предки в дереве.
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.TopicDomainEntity.TreeHasChildren">
@@ -404,6 +409,13 @@
             <param name="treeHasChildren">Признак наличия детей в дереве.</param>
             <param name="treeLevel">Уровень в дереве.</param>
             <param name="treePath">Путь в дереве.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.TopicDomainEntity.AddTreeAncestor(Makc2023.Backend.Common.Domain.ValueObjects.Options.OptionValueObjectWithInt64Id)">
+            <summary>
+            Добавить предка в дереве.
+            </summary>
+            <param name="data">Данные.</param>
+            <returns>Добавленный предок.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.TopicDomainEntity.GetId">
             <inheritdoc/>

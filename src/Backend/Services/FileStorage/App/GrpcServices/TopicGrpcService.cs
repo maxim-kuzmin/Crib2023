@@ -142,11 +142,13 @@ public class TopicGrpcService : GrpcServerOfTopic
 
     #region Private methods
 
-    private static FileStorageTopicEntity CreateItem(TopicDomainEntity item)
+    private static FileStorageTopicEntity CreateItem(TopicDomainEntity source)
     {
         FileStorageTopicEntity result;
 
-        var data = item.Data;
+        var data = source.Data;
+
+        var treeAncestors = source.TreeAncestors;
 
         result = new()
         {
@@ -157,10 +159,21 @@ public class TopicGrpcService : GrpcServerOfTopic
                 ParentId = data.ParentId ?? 0,
                 RowGuid = data.RowGuid.ToString()
             },
-            TreeHasChildren = item.TreeHasChildren,
-            TreeLevel = item.TreeLevel,
-            TreePath = item.TreePath,
+            TreeHasChildren = source.TreeHasChildren,
+            TreeLevel = source.TreeLevel,
+            TreePath = source.TreePath,
         };
+
+        foreach (var treeAncestor in treeAncestors)
+        {
+            FileStorageOptionValueObject option = new()
+            {
+                Id = treeAncestor.Id,
+                Name = treeAncestor.Name,
+            };
+
+            result.TreeAncestors.Add(option);
+        }
 
         return result;
     }

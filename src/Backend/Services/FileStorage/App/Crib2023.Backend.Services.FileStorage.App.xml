@@ -313,14 +313,17 @@
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.TreeAncestorsFieldNumber">
+            <summary>Field number for the "tree_ancestors" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.TreeHasChildrenFieldNumber">
             <summary>Field number for the "tree_has_children" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.TreeLevelFieldNumber">
-            <summary>Field number for the "treeLevel" field.</summary>
+            <summary>Field number for the "tree_level" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.TreePathFieldNumber">
-            <summary>Field number for the "treePath" field.</summary>
+            <summary>Field number for the "tree_path" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTypeEntity.IdFieldNumber">
             <summary>Field number for the "id" field.</summary>

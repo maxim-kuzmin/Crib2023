@@ -43,8 +43,8 @@ message CatalogTopicEntity {
   CatalogTopicTypeEntity data = 1;
   repeated CatalogOptionValueObject tree_ancestors = 2;
   bool tree_has_children = 3;
-  int32 treeLevel = 4;
-  string treePath = 5;  
+  int32 tree_level = 4;
+  string tree_path = 5;  
 }
 
 message CatalogTopicTypeEntity {

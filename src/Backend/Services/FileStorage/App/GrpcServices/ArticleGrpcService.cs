@@ -142,13 +142,13 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
 
     #region Private methods
 
-    private static FileStorageArticleEntity CreateItem(ArticleDomainEntity item)
+    private static FileStorageArticleEntity CreateItem(ArticleDomainEntity source)
     {
         FileStorageArticleEntity result;
 
-        var data = item.Data;
+        var data = source.Data;
 
-        var topicPathItems = item.TopicPathItems;
+        var topicPathItems = source.TopicPathItems;
 
         result = new()
         {
