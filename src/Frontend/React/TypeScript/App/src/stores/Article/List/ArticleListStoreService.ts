@@ -13,7 +13,7 @@ import {
   type ShouldBeCanceled
 } from '../../../all';
 
-type Data = ArticleDomainListGetOperationResponse;
+type Response = ArticleDomainListGetOperationResponse;
 
 type Input = ArticleDomainListGetOperationInput;
 
@@ -34,13 +34,13 @@ interface ActionToLoad {
 
 interface ActionToSet {
   type: ActionType.Set;
-  data: Data | null;
+  response: Response | null;
 }
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
 
 interface State extends OperationState {
-  data: Data | null;
+  response: Response | null;
   input: Input | null;
 }
 
@@ -49,7 +49,7 @@ const DispatchContext = createContext<Dispatch<Action> | null>(null);
 const StateContext = createContext<State | null>(null);
 
 const initialState = createOperationState<State>({
-  data: null,
+  response: null,
   input: null
 });
 
@@ -67,10 +67,10 @@ function reducer (state: State, action: Action): State {
       };
     }
     case ActionType.Set: {
-      const { data } = action;
+      const { response } = action;
       return {
         ...state,
-        data,
+        response,
         status: OperationStatus.Fulfilled
       };
     }
@@ -137,22 +137,22 @@ function useDispatchToClear ({
   }).current;
 }
 
-type CallbackToSet = (data: Data | null) => void;
+type CallbackToSet = (response: Response | null) => void;
 
 function runDispatchToSet (
   dispatch: Dispatch<Action>,
   callback: CallbackToSet | null,
-  data: Data | null
+  response: Response | null
 ) {
   const actionToSet: ActionToSet = {
     type: ActionType.Set,
-    data
+    response
   };
 
   dispatch(actionToSet);
 
   if (callback) {
-    callback(data);
+    callback(response);
   }
 }
 
@@ -170,13 +170,13 @@ async function runDispatchToLoad (
 
   dispatch(actionToLoad);
 
-  const data = await requestHandler.handle(
+  const response = await requestHandler.handle(
     createArticleDomainListGetOperationRequest(input),
     shouldBeCanceled
   );
 
   if (!shouldBeCanceled()) {
-    runDispatchToSet(dispatch, callback, data);
+    runDispatchToSet(dispatch, callback, response);
   }
 }
 
@@ -225,39 +225,39 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
 
 interface DispatchOptionsToSet extends StoreDispatchOptions {
   callback?: CallbackToSet;
-  dataAtDispatch?: Data;
+  responseAtDispatch?: Response;
 }
 
 interface DispatchToSet {
-  run: (data: Data) => void;
+  run: (response: Response) => void;
 }
 
 function useDispatchToSet ({
   dispatchType,
   callback,
-  dataAtDispatch
+  responseAtDispatch
 }: DispatchOptionsToSet = {}): DispatchToSet {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
 
-  const dataAtDispatchInner = dataAtDispatch ?? null;
+  const responseAtDispatchInner = responseAtDispatch ?? null;
 
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToSet(dispatch, callbackInner, dataAtDispatchInner);
+      runDispatchToSet(dispatch, callbackInner, responseAtDispatchInner);
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToSet(dispatch, callbackInner, dataAtDispatchInner);
+        runDispatchToSet(dispatch, callbackInner, responseAtDispatchInner);
       }
     };
-  }, [dispatch, dispatchType, callbackInner, dataAtDispatchInner]);
+  }, [dispatch, dispatchType, callbackInner, responseAtDispatchInner]);
 
   return useRef({
-    run: (data: Data) => {
-      runDispatchToSet(dispatch, callbackInner, data);
+    run: (response: Response) => {
+      runDispatchToSet(dispatch, callbackInner, response);
     }
   }).current;
 }

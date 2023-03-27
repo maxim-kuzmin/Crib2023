@@ -24,7 +24,7 @@ export function TopicPage () {
 
   const articleListStoreService = getArticleListStoreService();
 
-  const { data: articleListResponse, status } = articleListStoreService.useState();
+  const { response: articleListResponse, status } = articleListStoreService.useState();
 
   const topicId = Number(urlParams.topicId ?? 0);
   const inputAtDispatch: ArticleDomainListGetOperationInput = useMemo(() => ({
