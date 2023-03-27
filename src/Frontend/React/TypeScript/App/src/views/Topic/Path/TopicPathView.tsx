@@ -11,7 +11,7 @@ export function TopicPathView () {
 
   return (
     <div className={styles.root}>
-      <h2>TopicPathView: {response?.data?.item.treeAncestors.map(x => x.name).join('/')}</h2>
+      <h2>TopicPathView: {response?.data?.item.treeAncestors.map(x => `${x.id}.${x.name}`).join('/')}</h2>
     </div>
   );
 }

@@ -74,12 +74,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
                 mapperForItem.TreeLevel,
                 mapperForItem.Data.TreePath);
 
-            var mapperForItemParent = mapperForItem.Data.Parent;
-
-            if (mapperForItemParent != null)
-            {
-                await LoadTreeAncestorsForItem(dbContext, item, mapperForItemParent).ConfigureAwait(false);
-            }
+            await LoadTreeAncestorsForItem(dbContext, item, mapperForItem.Data).ConfigureAwait(false);
 
             result.Item = item;
         }
@@ -138,9 +133,9 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
     private static async Task LoadTreeAncestorsForItem(
         ClientMapperDbContext dbContext,
         TopicDomainEntity item,
-        ClientMapperTopicTypeEntity mapperForItemParent)
+        ClientMapperTopicTypeEntity mapperForItem)
     {
-        long[] ancestorIds = mapperForItemParent.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
+        long[] ancestorIds = mapperForItem.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
 
         if (ancestorIds.Any())
         {
