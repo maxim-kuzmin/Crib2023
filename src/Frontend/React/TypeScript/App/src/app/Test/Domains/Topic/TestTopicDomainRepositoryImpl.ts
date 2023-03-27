@@ -25,6 +25,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
           parentId: 0,
           rowGuid: uuidv4()
         },
+        treeAncestors: [],
         treeHasChildren: false,
         treeLevel: 1,
         treePath: `${id}`
