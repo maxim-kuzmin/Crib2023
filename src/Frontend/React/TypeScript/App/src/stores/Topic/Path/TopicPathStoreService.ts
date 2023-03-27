@@ -5,13 +5,17 @@ import {
   OperationStatus,
   type StoreDispatchOptions,
   type OperationState,
-  type ShouldBeCanceled,
+  type TopicDomainListGetOperationInput,
+  type TopicDomainListGetOperationResponse,
   getModule,
+  type TopicDomainListGetOperationRequestHandler,
+  createTopicDomainListGetOperationRequest,
+  type ShouldBeCanceled
 } from '../../../all';
 
-type Data = string | null;
+type Data = TopicDomainListGetOperationResponse;
 
-type Input = string | null;
+type Input = TopicDomainListGetOperationInput;
 
 enum ActionType {
   Clear,
@@ -30,14 +34,14 @@ interface ActionToLoad {
 
 interface ActionToSet {
   type: ActionType.Set;
-  data: Data;
+  data: Data | null;
 }
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
 
 interface State extends OperationState {
-  data: Data;
-  input: Input;
+  data: Data | null;
+  input: Input | null;
 }
 
 const DispatchContext = createContext<Dispatch<Action> | null>(null);
@@ -133,12 +137,12 @@ function useDispatchToClear ({
   }).current;
 }
 
-type CallbackToSet = (data: Data) => void;
+type CallbackToSet = (data: Data | null) => void;
 
 function runDispatchToSet (
   dispatch: Dispatch<Action>,
   callback: CallbackToSet | null,
-  data: Data
+  data: Data | null
 ) {
   const actionToSet: ActionToSet = {
     type: ActionType.Set,
@@ -153,6 +157,7 @@ function runDispatchToSet (
 }
 
 async function runDispatchToLoad (
+  requestHandler: TopicDomainListGetOperationRequestHandler,
   dispatch: Dispatch<Action>,
   callback: CallbackToSet | null,
   shouldBeCanceled: ShouldBeCanceled,
@@ -165,8 +170,9 @@ async function runDispatchToLoad (
 
   dispatch(actionToLoad);
 
-  const data = await getModule().getTestService().getDataAsync(
-    () => `TopicPath, input=${(input ?? '')}: ${(new Date()).toString()}`
+  const data = await requestHandler.handle(
+    createTopicDomainListGetOperationRequest(input),
+    shouldBeCanceled
   );
 
   if (!shouldBeCanceled()) {
@@ -176,45 +182,43 @@ async function runDispatchToLoad (
 
 interface DispatchOptionsToLoad extends StoreDispatchOptions {
   callback?: CallbackToSet;
-  inputAtDispatch?: Input;
+  inputAtDispatch: Input;
 }
 
 interface DispatchToLoad {
   run: (input: Input, shouldBeCanceled: ShouldBeCanceled) => void;
 }
 
-function useDispatchToLoad ({
-  dispatchType,
-  callback,
-  inputAtDispatch
-}: DispatchOptionsToLoad = {}): DispatchToLoad {
+function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
   const dispatch = useDispatchContext();
 
-  const callbackInner = callback ?? null;
+  const callbackInner = options?.callback ?? null;
 
-  const inputAtDispatchInner = inputAtDispatch ?? null;
+  const inputAtDispatchInner = options?.inputAtDispatch ?? null;
+
+  const requestHandler = useRef(getModule().useTopicDomainListGetOperationRequestHandler()).current;
 
   useEffect(() => {
     let isCanceled = false;
 
     const shouldBeCanceledInner = () => isCanceled;
 
-    if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToLoad(dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
+    if (options?.dispatchType === StoreDispatchType.MountOrUpdate && inputAtDispatchInner) {
+      runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
     }
 
     return () => {
-      if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToLoad(dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
+      if (options?.dispatchType === StoreDispatchType.Unmount && inputAtDispatchInner) {
+        runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
       } else {
         isCanceled = true;
       }
     };
-  }, [dispatch, dispatchType, callbackInner, inputAtDispatchInner]);
+  }, [requestHandler, dispatch, options?.dispatchType, callbackInner, inputAtDispatchInner]);
 
   return useRef({
     run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = () => false) => {
-      runDispatchToLoad(dispatch, callbackInner, shouldBeCanceled, input)
+      runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceled, input)
     }
   }).current;
 }

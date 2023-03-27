@@ -15,6 +15,7 @@ global using Makc2023.Backend.Common.Core.Operation;
 global using Makc2023.Backend.Common.Core.Operation.Handlers;
 global using Makc2023.Backend.Common.Core.Operations;
 global using Makc2023.Backend.Common.Core.Operations.Item.Get;
+global using Makc2023.Backend.Common.Core.Operations.Item.Get.Inputs;
 global using Makc2023.Backend.Common.Core.Operations.List.Get;
 global using Makc2023.Backend.Common.Data.SQL.Commands.Tree;
 global using Makc2023.Backend.Common.Domain;

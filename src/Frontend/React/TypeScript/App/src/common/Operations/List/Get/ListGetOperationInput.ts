@@ -1,6 +1,6 @@
 export interface ListGetOperationInput {
-  pageNumber: number;
-  pageSize: number;
-  sortField: string;
-  sortDirection: string;
+  pageNumber?: number;
+  pageSize?: number;
+  sortField?: string;
+  sortDirection?: 'asc' | 'desc';
 }

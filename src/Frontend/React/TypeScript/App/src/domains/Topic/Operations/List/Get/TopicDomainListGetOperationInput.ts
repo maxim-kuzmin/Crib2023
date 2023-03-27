@@ -1,6 +1,8 @@
-export interface TopicDomainListGetOperationInput {
+import { type ListGetOperationInput, type TreePathGetOperationAxis } from '../../../../../all';
+
+export interface TopicDomainListGetOperationInput extends ListGetOperationInput {
+  axis: TreePathGetOperationAxis;
   ids?: number[];
-  title?: string;
-  topicId?: number;
-  topicIds?: number[];
+  name?: string;
+  treePath?: string;
 }

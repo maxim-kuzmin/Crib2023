@@ -24,7 +24,14 @@ import {
   createSetupOptions,
   ArticleDomainRepositoryImpl,
   TestArticleDomainRepositoryImpl,
-  TestServiceImpl
+  TestServiceImpl,
+  type TopicDomainItemGetOperationRequestHandler,
+  type TopicDomainListGetOperationRequestHandler,
+  TopicDomainItemGetOperationRequestHandlerImpl,
+  TopicDomainListGetOperationRequestHandlerImpl,
+  type TopicDomainRepository,
+  TopicDomainRepositoryImpl,
+  TestTopicDomainRepositoryImpl
 } from '../../all';
 
 export class ModuleImpl implements Module {
@@ -46,6 +53,10 @@ export class ModuleImpl implements Module {
     ? new TestArticleDomainRepositoryImpl()
     : new ArticleDomainRepositoryImpl(this.apiClient);
 
+  private readonly topicDomainRepository: TopicDomainRepository = this.setupOptions.isTestModeEnabled
+    ? new TestTopicDomainRepositoryImpl()
+    : new TopicDomainRepositoryImpl(this.apiClient);
+
   getNotificationControlService = () => this.notificationControlService;
   getAppNotificationStoreService = () => this.appNotificationStoreService;
   getArticleItemStoreService = () => this.articleItemStoreService;
@@ -59,6 +70,10 @@ export class ModuleImpl implements Module {
     return this.articleDomainRepository;
   }
 
+  getTopicDomainRepository (): TopicDomainRepository {
+    return this.topicDomainRepository;
+  }
+
   useArticleDomainItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {
     return new ArticleDomainItemGetOperationRequestHandlerImpl(
       this.getArticleDomainRepository(),
@@ -69,6 +84,20 @@ export class ModuleImpl implements Module {
   useArticleDomainListGetOperationRequestHandler (): ArticleDomainListGetOperationRequestHandler {
     return new ArticleDomainListGetOperationRequestHandlerImpl(
       this.getArticleDomainRepository(),
+      this.useApiRequestHandler()
+    );
+  }
+
+  useTopicDomainItemGetOperationRequestHandler (): TopicDomainItemGetOperationRequestHandler {
+    return new TopicDomainItemGetOperationRequestHandlerImpl(
+      this.getTopicDomainRepository(),
+      this.useApiRequestHandler()
+    );
+  }
+
+  useTopicDomainListGetOperationRequestHandler (): TopicDomainListGetOperationRequestHandler {
+    return new TopicDomainListGetOperationRequestHandlerImpl(
+      this.getTopicDomainRepository(),
       this.useApiRequestHandler()
     );
   }

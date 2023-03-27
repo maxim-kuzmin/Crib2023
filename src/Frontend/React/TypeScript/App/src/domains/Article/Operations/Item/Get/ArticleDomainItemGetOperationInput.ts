@@ -1,6 +1,6 @@
-import { type ItemGetOperationInput } from '../../../../../all';
+import { type ItemGetOperationInputWithNumberId } from '../../../../../all';
 
-export interface ArticleDomainItemGetOperationInput extends ItemGetOperationInput {
+export interface ArticleDomainItemGetOperationInput extends ItemGetOperationInputWithNumberId {
   title?: string;
   topicId?: number;
 }

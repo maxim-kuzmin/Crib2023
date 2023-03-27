@@ -7,7 +7,9 @@ import {
   StoreDispatchType,
   OperationStatus,
   type ArticleDomainListGetOperationInput,
-  type ArticleDomainListGetOperationResponse
+  type ArticleDomainListGetOperationResponse,
+  type TopicDomainItemGetOperationResponse,
+  TreeNodeGetOperationAxis
 } from '../../all';
 import styles from './TopicPage.module.css';
 
@@ -49,8 +51,16 @@ export function TopicPage () {
 
   const topicPathDispatchToSet = topicPathStoreService.useDispatchToSet();
 
-  const callbackOnTopicItemLoad = useCallback((data: string | null) => {
-    topicPathDispatchToSet.run(`TopicPath from ${data ?? ''}`);
+  const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
+    console.log('MAKC:TopicPage:callbackOnTopicItemLoad:response', response);
+    topicPathDispatchToSet.run({
+      data: {
+          items: [],
+          totalCount: 0
+      },
+      operationCode: response?.operationCode ?? '',
+      operationName: response?.operationName ?? '',
+    });
   }, [topicPathDispatchToSet]);
 
   const topicItemStoreService = getTopicItemStoreService();
@@ -58,7 +68,7 @@ export function TopicPage () {
   topicItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnTopicItemLoad,
-    inputAtDispatch: topicId
+    inputAtDispatch: { axis: TreeNodeGetOperationAxis.Self, id: topicId }
   });
 
   topicItemStoreService.useDispatchToClear({

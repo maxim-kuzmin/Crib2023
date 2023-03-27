@@ -1,0 +1,1 @@
+export { TestTopicDomainRepositoryImpl } from './TestTopicDomainRepositoryImpl';

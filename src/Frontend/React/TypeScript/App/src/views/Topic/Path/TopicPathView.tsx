@@ -11,7 +11,7 @@ export function TopicPathView () {
 
   return (
     <div className={styles.root}>
-      <h2>TopicPathView: {data}</h2>
+      <h2>TopicPathView: {data?.data?.totalCount}</h2>
     </div>
   );
 }

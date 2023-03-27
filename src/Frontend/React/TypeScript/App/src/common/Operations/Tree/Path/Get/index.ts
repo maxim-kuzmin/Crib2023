@@ -1,0 +1,1 @@
+export { TreePathGetOperationAxis } from './TreePathGetOperationAxis';

@@ -1,4 +1,6 @@
-export interface ArticleDomainListGetOperationInput {
+import { type ListGetOperationInput } from '../../../../../all';
+
+export interface ArticleDomainListGetOperationInput extends ListGetOperationInput {
   ids?: number[];
   title?: string;
   topicId?: number;

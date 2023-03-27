@@ -1,5 +1,5 @@
 export enum OperationStatus {
-    Fulfilled,
-    Pending,
-    Rejected
+    Fulfilled = 1,
+    Pending = 2,
+    Rejected = 3
 }

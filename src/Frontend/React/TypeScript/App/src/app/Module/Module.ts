@@ -9,7 +9,10 @@ import {
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository,
-  type TestService
+  type TestService,
+  type TopicDomainItemGetOperationRequestHandler,
+  type TopicDomainListGetOperationRequestHandler,
+  type TopicDomainRepository
 } from '../../all';
 
 export interface Module {
@@ -24,4 +27,7 @@ export interface Module {
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;
   readonly useArticleDomainItemGetOperationRequestHandler: () => ArticleDomainItemGetOperationRequestHandler;
   readonly useArticleDomainListGetOperationRequestHandler: () => ArticleDomainListGetOperationRequestHandler;
+  readonly useTopicDomainItemGetOperationRequestHandler: () => TopicDomainItemGetOperationRequestHandler;
+  readonly useTopicDomainListGetOperationRequestHandler: () => TopicDomainListGetOperationRequestHandler;
+  readonly getTopicDomainRepository: () => TopicDomainRepository;
 }

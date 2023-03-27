@@ -38,7 +38,14 @@ export function ArticlePage () {
 
   const callbackOnArticleItemLoad = useCallback((response: ArticleDomainItemGetOperationResponse | null) => {
     console.log('MAKC:ArticlePage:callbackOnArticleItemLoad:response', response);
-    topicPathDispatchToSet.run(`TopicPath from ${response?.data?.item?.data.id ?? ''}`);
+    topicPathDispatchToSet.run({
+      data: {
+          items: [],
+          totalCount: 0
+      },
+      operationCode: response?.operationCode ?? '',
+      operationName: response?.operationName ?? '',
+    });
   }, [topicPathDispatchToSet]);
 
   const inputAtDispatch: ArticleDomainItemGetOperationInput = useMemo(() => ({ id: articleId }), [articleId]);
