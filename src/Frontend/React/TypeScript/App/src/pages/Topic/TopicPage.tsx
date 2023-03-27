@@ -27,6 +27,7 @@ export function TopicPage () {
   const { response: articleListResponse, status } = articleListStoreService.useState();
 
   const topicId = Number(urlParams.topicId ?? 0);
+
   const inputAtDispatch: ArticleDomainListGetOperationInput = useMemo(() => ({
     topicId,
     pageNumber: 1,
