@@ -13,9 +13,9 @@ import {
   type ShouldBeCanceled
 } from '../../../all';
 
-type Response = TopicDomainItemGetOperationResponse;
+type Response = TopicDomainItemGetOperationResponse | null;
 
-type Input = TopicDomainItemGetOperationInput;
+type Input = TopicDomainItemGetOperationInput | null;
 
 enum ActionType {
   Clear,
@@ -34,14 +34,14 @@ interface ActionToLoad {
 
 interface ActionToSet {
   type: ActionType.Set;
-  response: Response | null;
+  response: Response;
 }
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
 
 interface State extends OperationState {
-  response: Response | null;
-  input: Input | null;
+  response: Response;
+  input: Input;
 }
 
 const DispatchContext = createContext<Dispatch<Action> | null>(null);
@@ -137,12 +137,12 @@ function useDispatchToClear ({
   }).current;
 }
 
-type CallbackToSet = (response: Response | null) => void;
+type CallbackToSet = (response: Response) => void;
 
 function runDispatchToSet (
   dispatch: Dispatch<Action>,
   callback: CallbackToSet | null,
-  response: Response | null
+  response: Response
 ) {
   const actionToSet: ActionToSet = {
     type: ActionType.Set,
@@ -170,10 +170,12 @@ async function runDispatchToLoad (
 
   dispatch(actionToLoad);
 
-  const response = await requestHandler.handle(
-    createTopicDomainItemGetOperationRequest(input),
-    shouldBeCanceled
-  );
+  const response = input
+    ? await requestHandler.handle(
+        createTopicDomainItemGetOperationRequest(input),
+        shouldBeCanceled
+      )
+    : null;
 
   if (!shouldBeCanceled()) {
     runDispatchToSet(dispatch, callback, response);
