@@ -7,11 +7,11 @@ export function TopicPathView () {
 
   const service = getTopicPathStoreService();
 
-  const { data } = service.useState();
+  const { response } = service.useState();
 
   return (
     <div className={styles.root}>
-      <h2>TopicPathView: {data?.data?.totalCount}</h2>
+      <h2>TopicPathView: {response?.data?.totalCount}</h2>
     </div>
   );
 }
