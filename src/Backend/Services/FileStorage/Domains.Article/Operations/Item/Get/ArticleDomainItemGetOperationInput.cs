@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.
 /// <summary>
 /// Входные данные операции получения элемента "Статья".
 /// </summary>
-public class ArticleDomainItemGetOperationInput : ItemWithInt64IdGetOperationInput
+public class ArticleDomainItemGetOperationInput : ItemGetOperationInputWithInt64Id
 {
     #region Properties
 

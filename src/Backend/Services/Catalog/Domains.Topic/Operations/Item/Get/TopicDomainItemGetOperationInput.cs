@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Item.Get;
 /// <summary>
 /// Входные данные операции получения элемента в домене "Тема".
 /// </summary>
-public class TopicDomainItemGetOperationInput : ItemWithInt64IdGetOperationInput
+public class TopicDomainItemGetOperationInput : ItemGetOperationInputWithInt64Id
 {
     #region Properties
 

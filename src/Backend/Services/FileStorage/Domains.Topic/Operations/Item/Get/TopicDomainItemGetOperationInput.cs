@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Ge
 /// <summary>
 /// Входные данные операции получения элемента "Тема".
 /// </summary>
-public class TopicDomainItemGetOperationInput : ItemWithInt64IdGetOperationInput
+public class TopicDomainItemGetOperationInput : ItemGetOperationInputWithInt64Id
 {
     #region Properties
 
