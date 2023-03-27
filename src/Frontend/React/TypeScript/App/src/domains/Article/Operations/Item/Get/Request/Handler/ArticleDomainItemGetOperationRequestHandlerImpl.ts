@@ -26,7 +26,13 @@ export class ArticleDomainItemGetOperationRequestHandlerImpl implements ArticleD
       ArticleDomainItemGetOperationResponse
     >(
       request,
-      async () => await this.repository.getItem(request),
+      async () => {
+        const { id, title, topicId } = request.input;
+
+        const isInputValid = (id ?? 0) > 0 || (title && (topicId ?? 0) > 0);
+
+        return isInputValid ? await this.repository.getItem(request) : null;
+      },
       shouldBeCanceled
     );
   }

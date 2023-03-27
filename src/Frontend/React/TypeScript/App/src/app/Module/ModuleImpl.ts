@@ -3,7 +3,6 @@ import {
   createArticleItemStoreService,
   createArticleListStoreService,
   createTopicItemStoreService,
-  createTopicPathStoreService,
   createTopicTreeStoreService,
   type HttpClient,
   HttpClientImpl,
@@ -44,7 +43,6 @@ export class ModuleImpl implements Module {
   private readonly setupOptions = createSetupOptions();
   private readonly testService = new TestServiceImpl();
   private readonly topicItemStoreService = createTopicItemStoreService();
-  private readonly topicPathStoreService = createTopicPathStoreService();
   private readonly topicTreeStoreService = createTopicTreeStoreService();
 
   private readonly apiClient: ApiClient = new ApiClientImpl(this.apiSetupOptions, this.httpClient);
@@ -63,7 +61,6 @@ export class ModuleImpl implements Module {
   getArticleListStoreService = () => this.articleListStoreService;
   getTestService = () => this.testService;
   getTopicItemStoreService = () => this.topicItemStoreService;
-  getTopicPathStoreService = () => this.topicPathStoreService;
   getTopicTreeStoreService = () => this.topicTreeStoreService;
 
   getArticleDomainRepository (): ArticleDomainRepository {

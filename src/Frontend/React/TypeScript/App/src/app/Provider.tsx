@@ -4,7 +4,6 @@ import {
   ArticleItemStoreProvider,
   ArticleListStoreProvider,
   TopicItemStoreProvider,
-  TopicPathStoreProvider,
   TopicTreeStoreProvider
 } from '../all';
 
@@ -14,11 +13,9 @@ export function Provider ({ children }: PropsWithChildren) {
       <ArticleItemStoreProvider>
         <ArticleListStoreProvider>
           <TopicItemStoreProvider>
-            <TopicPathStoreProvider>
-              <TopicTreeStoreProvider>
-                {children}
-              </TopicTreeStoreProvider>
-            </TopicPathStoreProvider>
+            <TopicTreeStoreProvider>
+              {children}
+            </TopicTreeStoreProvider>
           </TopicItemStoreProvider>
         </ArticleListStoreProvider>
       </ArticleItemStoreProvider>

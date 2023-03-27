@@ -13,7 +13,7 @@ export interface ApiRequestHandler {
     TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
-    getResult: () => Promise<TResponse>,
+    getResult: () => Promise<TResponse | null>,
     shouldBeCanceled: ShouldBeCanceled
   ) => Promise<TResponse | null>;
 
@@ -23,7 +23,7 @@ export interface ApiRequestHandler {
     TResponse extends ApiOperationResponse<TOutput>
   >(
     request: TRequest,
-    getResult: () => Promise<TResponse>,
+    getResult: () => Promise<TResponse | null>,
     shouldBeCanceled: ShouldBeCanceled
   ) => Promise<TResponse | null>;
 }

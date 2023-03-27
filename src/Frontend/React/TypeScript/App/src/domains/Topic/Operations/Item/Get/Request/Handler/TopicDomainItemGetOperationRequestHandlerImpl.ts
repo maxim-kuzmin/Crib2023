@@ -26,7 +26,13 @@ export class TopicDomainItemGetOperationRequestHandlerImpl implements TopicDomai
       TopicDomainItemGetOperationResponse
     >(
       request,
-      async () => await this.repository.getItem(request),
+      async () => {
+        const { id, name, parentId } = request.input;
+
+        const isInputValid = (id ?? 0) > 0 || (name && (parentId ?? 0) > 0);
+
+        return isInputValid ? await this.repository.getItem(request) : null;
+      },
       shouldBeCanceled
     );
   }

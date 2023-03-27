@@ -18,7 +18,7 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
     TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
-    getResult: () => Promise<TResponse>,
+    getResult: () => Promise<TResponse | null>,
     shouldBeCanceled: ShouldBeCanceled
   ): Promise<TResponse | null> {
     const { operationCode, operationName, input } = request;
@@ -39,7 +39,7 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
     TResponse extends ApiOperationResponse<TOutput>
   > (
     request: TRequest,
-    getResult: () => Promise<TResponse>,
+    getResult: () => Promise<TResponse | null>,
     shouldBeCanceled: ShouldBeCanceled
   ): Promise<TResponse | null> {
     const { operationCode, operationName } = request;
@@ -60,7 +60,7 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
   > (
     operationInput: OperationInput,
     request: TRequest,
-    getResult: () => Promise<TResponse>,
+    getResult: () => Promise<TResponse | null>,
     shouldBeCanceled: ShouldBeCanceled
   ): Promise<TResponse | null> {
     let result: TResponse | null = null;
@@ -72,16 +72,18 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
 
       result = await getResult();
 
-      if (!shouldBeCanceled()) {
-        const { operationCode, data } = result;
+      if (result) {
+        if (!shouldBeCanceled()) {
+          const { operationCode, data } = result;
 
-        if (result.error) {
-          this.operationHandler.handleError(result.error);
-        } else {
-          this.operationHandler.handleSuccess({
-            operationCode,
-            data
-          });
+          if (result.error) {
+            this.operationHandler.handleError(result.error);
+          } else {
+            this.operationHandler.handleSuccess({
+              operationCode,
+              data
+            });
+          }
         }
       }
     } catch (error: any) {
