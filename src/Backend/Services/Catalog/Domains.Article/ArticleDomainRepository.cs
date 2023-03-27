@@ -52,7 +52,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
         {
             var item = new ArticleDomainEntityForItem(mapperForItem);
 
-            await LoadTopicPathItems(dbContext, item, mapperForItem).ConfigureAwait(false);
+            await LoadTopicPathItemsForItem(dbContext, item, mapperForItem).ConfigureAwait(false);
 
             result.Item = item;
         }
@@ -77,13 +77,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
         var queryForTotalCount = dbContextForTotalCount.Article
             .ApplyFiltering(input);
 
-        var taskForItems = queryForItems.Select(x => new ItemForList(
-            x.Id,
-            x.RowGuid,
-            x.Title,
-            x.Topic,
-            x.TopicId
-        )).ToArrayAsync();
+        var taskForItems = queryForItems.Select(x => CreateItemForList(x)).ToArrayAsync();
 
         var taskForTotalCount = queryForTotalCount.CountAsync();
 
@@ -99,10 +93,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
             }))
             .ToDictionary(x => x.Data.Id);
 
-        await LoadTopicPathItemsForList(
-            dbContext,
-            itemLookup,
-            mapperForItems).ConfigureAwait(false);
+        await LoadTopicPathItemsForList(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
 
         result.Items = itemLookup.Values.ToArray();
         result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
@@ -126,14 +117,14 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
         };
     }
 
-    private static async Task LoadTopicPathItems(
+    private static async Task LoadTopicPathItemsForItem(
         ClientMapperDbContext dbContext,
         ArticleDomainEntityForItem item,
         ClientMapperArticleTypeEntity mapperForItem)
     {
-        var mapperTopic = mapperForItem.Topic;
+        var mapperForItemTopic = mapperForItem.Topic;
 
-        long[] ancestorIds = mapperTopic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
+        long[] ancestorIds = mapperForItemTopic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
 
         if (ancestorIds.Any())
         {
@@ -153,13 +144,13 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
             }
         }
 
-        item.AddTopicPathItem(new OptionValueObjectWithInt64Id(mapperTopic.Id, mapperTopic.Name));
+        item.AddTopicPathItem(new OptionValueObjectWithInt64Id(mapperForItemTopic.Id, mapperForItemTopic.Name));
     }
 
     private static async Task LoadTopicPathItemsForList(
         ClientMapperDbContext dbContext,
         Dictionary<long, ArticleDomainEntityForList> itemLookup,
-        IEnumerable<ItemForList> mapperForItems)
+        IEnumerable<ClientMapperArticleTypeEntity> mapperForItems)
     {
         long[] ancestorIdsForLookup = mapperForItems
             .SelectMany(x => x.Topic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors())
@@ -179,11 +170,11 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
             {
                 if (itemLookup.TryGetValue(mapperForItem.Id, out var item))
                 {
-                    var mapperTopic = mapperForItem.Topic;
+                    var mapperForItemTopic = mapperForItem.Topic;
 
                     if (ancestorLookup.Any())
                     {
-                        long[] ancestorIds = mapperTopic.TreePath.ToString()
+                        long[] ancestorIds = mapperForItemTopic.TreePath.ToString()
                             .FromTreePathToInt64ArrayOfAncestors();
 
                         foreach (long ancestorId in ancestorIds)
@@ -195,33 +186,13 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
                         }
                     }
 
-                    item.AddTopicPathItem(new OptionValueObjectWithInt64Id(mapperTopic.Id, mapperTopic.Name));
+                    item.AddTopicPathItem(new OptionValueObjectWithInt64Id(
+                        mapperForItemTopic.Id,
+                        mapperForItemTopic.Name));
                 }
             }
         }
     }
 
     #endregion Private methods
-
-    private class ItemForList
-    {
-        public long Id { get; }
-
-        public Guid RowGuid { get; }
-
-        public string Title { get; }
-
-        public ClientMapperTopicTypeEntity Topic { get; }
-
-        public long TopicId { get; }
-
-        public ItemForList(long id, Guid rowGuid, string title, ClientMapperTopicTypeEntity topic, long topicId)
-        {
-            Id = id;
-            RowGuid = rowGuid;
-            Title = title;
-            Topic = topic;
-            TopicId = topicId;
-        }
-    }
 }

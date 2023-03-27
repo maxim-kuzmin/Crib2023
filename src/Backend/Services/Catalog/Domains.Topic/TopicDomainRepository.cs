@@ -68,11 +68,20 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         if (mapperForItem != null)
         {
-            result.Item = new TopicDomainEntity(
+            var item = result.Item = new TopicDomainEntity(
                 mapperForItem.Data,
                 mapperForItem.TreeHasChildren,
                 mapperForItem.TreeLevel,
                 mapperForItem.Data.TreePath);
+
+            var mapperForItemParent = mapperForItem.Data.Parent;
+
+            if (mapperForItemParent != null)
+            {
+                await LoadTreeAncestorsForItem(dbContext, item, mapperForItemParent).ConfigureAwait(false);
+            }
+
+            result.Item = item;
         }
 
         return result;
@@ -91,12 +100,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             .ApplyFiltering(input)
             .ApplySorting(input)
             .ApplyPagination(input)
-            .Select(x => new
-            {
-                Data = x,
-                TreeHasChildren = x.Children.Any(),
-                TreeLevel = x.TreePath.NLevel
-            });
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
 
         var queryForTotalCount = dbContextForTotalCount.Topic
             .ApplyFiltering(input);
@@ -105,6 +109,18 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         var taskForTotalCount = queryForTotalCount.CountAsync();
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
+
+        var itemLookup = mapperForItems
+            .Select(x => new TopicDomainEntity(new TopicTypeEntity
+            {
+                Id = x.Data.Id,
+                RowGuid = x.Data.RowGuid,
+                Name = x.Data.Name,
+                ParentId = x.Data.ParentId
+            }))
+            .ToDictionary(x => x.Data.Id);
+
+        await LoadTreeAncestorsForList(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
 
         result.Items = mapperForItems.Select(x =>
             new TopicDomainEntity(x.Data, x.TreeHasChildren, x.TreeLevel, x.Data.TreePath))
@@ -116,6 +132,83 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
     }
 
     #endregion Public methods
+
+    #region Private methods
+
+    private static async Task LoadTreeAncestorsForItem(
+        ClientMapperDbContext dbContext,
+        TopicDomainEntity item,
+        ClientMapperTopicTypeEntity mapperForItemParent)
+    {
+        long[] ancestorIds = mapperForItemParent.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
+
+        if (ancestorIds.Any())
+        {
+            var taskForLookup = dbContext.Topic
+                .Where(x => ancestorIds.Contains(x.Id))
+                .Select(x => new OptionValueObjectWithInt64Id(x.Id, x.Name))
+                .ToDictionaryAsync(x => x.Id);
+
+            var topicPathItemLookup = await taskForLookup.ConfigureAwait(false);
+
+            foreach (long ancestorId in ancestorIds)
+            {
+                if (topicPathItemLookup.TryGetValue(ancestorId, out var option))
+                {
+                    item.AddTreeAncestor(option);
+                }
+            }
+        }
+    }
+
+    private static async Task LoadTreeAncestorsForList(
+        ClientMapperDbContext dbContext,
+        Dictionary<long, TopicDomainEntity> itemLookup,
+        IEnumerable<Item> mapperForItems)
+    {
+        long[] ancestorIdsForLookup = mapperForItems
+            .Where(x => x.Data.Parent != null)
+            .SelectMany(x => x.Data.Parent!.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors())
+            .Distinct()
+            .ToArray();
+
+        if (ancestorIdsForLookup.Any())
+        {
+            var taskForLookup = dbContext.Topic
+                .Where(x => ancestorIdsForLookup.Contains(x.Id))
+                .Select(x => new OptionValueObjectWithInt64Id(x.Id, x.Name))
+                .ToDictionaryAsync(x => x.Id);
+
+            var ancestorLookup = await taskForLookup.ConfigureAwait(false);
+
+            if (ancestorLookup.Any())
+            {
+                foreach (var mapperForItem in mapperForItems)
+                {
+                    if (itemLookup.TryGetValue(mapperForItem.Data.Id, out var item))
+                    {
+                        var mapperForItemParent = mapperForItem.Data.Parent;
+
+                        if (mapperForItemParent != null)
+                        {
+                            long[] ancestorIds = mapperForItemParent.TreePath.ToString()
+                                .FromTreePathToInt64ArrayOfAncestors();
+
+                            foreach (long ancestorId in ancestorIds)
+                            {
+                                if (ancestorLookup.TryGetValue(ancestorId, out var ancestor))
+                                {
+                                    item.AddTreeAncestor(ancestor);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #endregion Private methods
 
     #region Classes
 

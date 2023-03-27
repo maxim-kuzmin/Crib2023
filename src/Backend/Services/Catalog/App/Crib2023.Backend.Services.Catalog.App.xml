@@ -328,6 +328,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntity.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntity.TreeAncestorsFieldNumber">
+            <summary>Field number for the "tree_ancestors" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntity.TreeHasChildrenFieldNumber">
             <summary>Field number for the "tree_has_children" field.</summary>
         </member>

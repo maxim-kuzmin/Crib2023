@@ -171,6 +171,8 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         var data = source.Data;
 
+        var treeAncestors = source.TreeAncestors;
+
         result = new()
         {
             Data = new()
@@ -184,6 +186,17 @@ public class TopicGrpcService : GrpcServerOfTopic
             TreeLevel = source.TreeLevel,
             TreePath = source.TreePath,
         };
+
+        foreach (var treeAncestor in treeAncestors)
+        {
+            CatalogOptionValueObject option = new()
+            {
+                Id = treeAncestor.Id,
+                Name = treeAncestor.Name,
+            };
+
+            result.TreeAncestors.Add(option);
+        }
 
         return result;
     }

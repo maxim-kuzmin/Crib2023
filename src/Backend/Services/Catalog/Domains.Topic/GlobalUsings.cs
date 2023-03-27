@@ -20,6 +20,7 @@ global using Makc2023.Backend.Common.Core.Operations.Tree.Path.Get;
 global using Makc2023.Backend.Common.Data.SQL.Commands.Tree;
 global using Makc2023.Backend.Common.Domain;
 global using Makc2023.Backend.Common.Domain.SQL.Mappers.EF;
+global using Makc2023.Backend.Common.Domain.ValueObjects.Options;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
