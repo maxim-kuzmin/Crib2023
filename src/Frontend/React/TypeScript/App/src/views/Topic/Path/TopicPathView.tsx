@@ -3,15 +3,15 @@ import { getModule } from '../../../all';
 import styles from './TopicPathView.module.css';
 
 export function TopicPathView () {
-  const { getTopicPathStoreService } = getModule();
+  const { getTopicItemStoreService } = getModule();
 
-  const service = getTopicPathStoreService();
+  const service = getTopicItemStoreService();
 
   const { response } = service.useState();
 
   return (
     <div className={styles.root}>
-      <h2>TopicPathView: {response?.data?.totalCount}</h2>
+      <h2>TopicPathView: {response?.data?.item.treeAncestors.map(x => x.name).join('/')}</h2>
     </div>
   );
 }

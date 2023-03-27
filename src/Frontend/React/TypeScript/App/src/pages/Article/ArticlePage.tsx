@@ -8,7 +8,10 @@ import {
   StoreDispatchType,
   OperationStatus,
   type ArticleDomainItemGetOperationResponse,
-  type ArticleDomainItemGetOperationInput
+  type ArticleDomainItemGetOperationInput,
+  TreeNodeGetOperationAxis,
+  type TopicDomainItemGetOperationInput,
+  type TopicDomainItemGetOperationResponse
 } from '../../all';
 
 import styles from './ArticlePage.module.css';
@@ -19,12 +22,14 @@ export function ArticlePage () {
   const {
     getAppNotificationStoreService,
     getArticleItemStoreService,
-    getTopicPathStoreService
+    getTopicItemStoreService
   } = getModule();
 
   const articleItemStoreService = getArticleItemStoreService();
 
   const { response: articleItemResoponse, status } = articleItemStoreService.useState();
+
+  const topicId = articleItemResoponse?.data?.item?.data.topicId ?? 0;
 
   const articleId = Number(urlParams.articleId ?? 0);
 
@@ -32,31 +37,42 @@ export function ArticlePage () {
 
   const appNotificationDispatchToSet = appNotificationStoreService.useDispatchToSet();
 
-  const topicPathStoreService = getTopicPathStoreService();
-
-  const topicPathDispatchToSet = topicPathStoreService.useDispatchToSet();
+  const inputAtDispatchToArticleItemLoad: ArticleDomainItemGetOperationInput = useMemo(() => ({
+     id: articleId
+  }), [articleId]);
 
   const callbackOnArticleItemLoad = useCallback((response: ArticleDomainItemGetOperationResponse | null) => {
     console.log('MAKC:ArticlePage:callbackOnArticleItemLoad:response', response);
-    topicPathDispatchToSet.run({
-      data: {
-          items: [],
-          totalCount: 0
-      },
-      operationCode: response?.operationCode ?? '',
-      operationName: response?.operationName ?? '',
-    });
-  }, [topicPathDispatchToSet]);
-
-  const inputAtDispatch: ArticleDomainItemGetOperationInput = useMemo(() => ({ id: articleId }), [articleId]);
+  }, []);
 
   articleItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleItemLoad,
-    inputAtDispatch
+    inputAtDispatch: inputAtDispatchToArticleItemLoad
   });
 
   articleItemStoreService.useDispatchToClear({
+    dispatchType: StoreDispatchType.Unmount
+  });
+
+  const topicItemStoreService = getTopicItemStoreService();
+
+  const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(() => ({
+    axis: TreeNodeGetOperationAxis.Self,
+    id: topicId
+  }), [topicId]);
+
+  const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
+    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
+  }, []);
+
+  topicItemStoreService.useDispatchToLoad({
+    dispatchType: StoreDispatchType.MountOrUpdate,
+    callback: callbackOnTopicItemLoad,
+    inputAtDispatch: inputAtDispatchToTopicItemLoad
+  });
+
+  topicItemStoreService.useDispatchToClear({
     dispatchType: StoreDispatchType.Unmount
   });
 

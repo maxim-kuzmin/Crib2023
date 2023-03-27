@@ -8,8 +8,9 @@ import {
   OperationStatus,
   type ArticleDomainListGetOperationInput,
   type ArticleDomainListGetOperationResponse,
-  type TopicDomainItemGetOperationResponse,
-  TreeNodeGetOperationAxis
+  TreeNodeGetOperationAxis,
+  type TopicDomainItemGetOperationInput,
+  type TopicDomainItemGetOperationResponse
 } from '../../all';
 import styles from './TopicPage.module.css';
 
@@ -18,8 +19,7 @@ export function TopicPage () {
 
   const {
     getArticleListStoreService,
-    getTopicItemStoreService,
-    getTopicPathStoreService
+    getTopicItemStoreService
   } = getModule();
 
   const articleListStoreService = getArticleListStoreService();
@@ -28,48 +28,41 @@ export function TopicPage () {
 
   const topicId = Number(urlParams.topicId ?? 0);
 
-  const inputAtDispatch: ArticleDomainListGetOperationInput = useMemo(() => ({
+  const inputAtDispatchToArticleListLoad: ArticleDomainListGetOperationInput = useMemo(() => ({
     topicId,
     pageNumber: 1,
     pageSize: 10
   }), [topicId]);
 
   const callbackOnArticleListLoad = useCallback((response: ArticleDomainListGetOperationResponse | null) => {
-    console.log('MAKC:ArticlePage:callbackOnArticleListLoad:response', response);
+    console.log('MAKC:TopicPage:callbackOnArticleListLoad:response', response);
   }, []);
 
   articleListStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleListLoad,
-    inputAtDispatch
+    inputAtDispatch: inputAtDispatchToArticleListLoad
   });
 
   articleListStoreService.useDispatchToClear({
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const topicPathStoreService = getTopicPathStoreService();
+  const topicItemStoreService = getTopicItemStoreService();
 
-  const topicPathDispatchToSet = topicPathStoreService.useDispatchToSet();
+  const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(() => ({
+    axis: TreeNodeGetOperationAxis.Self,
+    id: topicId
+  }), [topicId]);
 
   const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
-    console.log('MAKC:TopicPage:callbackOnTopicItemLoad:response', response);
-    topicPathDispatchToSet.run({
-      data: {
-          items: [],
-          totalCount: 0
-      },
-      operationCode: response?.operationCode ?? '',
-      operationName: response?.operationName ?? '',
-    });
-  }, [topicPathDispatchToSet]);
-
-  const topicItemStoreService = getTopicItemStoreService();
+    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
+  }, []);
 
   topicItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnTopicItemLoad,
-    inputAtDispatch: { axis: TreeNodeGetOperationAxis.Self, id: topicId }
+    inputAtDispatch: inputAtDispatchToTopicItemLoad
   });
 
   topicItemStoreService.useDispatchToClear({
