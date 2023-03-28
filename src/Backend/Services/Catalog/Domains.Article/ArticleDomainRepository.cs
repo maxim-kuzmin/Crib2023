@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Article;
 /// <summary>
 /// Репозиторий домена "Статья".
 /// </summary>
-public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IArticleDomainRepository
+public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForItem>, IArticleDomainRepository
 {
     #region Properties
 

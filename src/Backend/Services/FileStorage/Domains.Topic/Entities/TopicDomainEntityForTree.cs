@@ -3,13 +3,13 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities;
 
 /// <summary>
-/// Сущность для узла домена "Тема".
+/// Сущность для дерева домена "Тема".
 /// </summary>
-public class TopicDomainEntityForNode : TopicDomainEntity, IAggregateRoot
+public class TopicDomainEntityForTree : TopicDomainEntity, IAggregateRoot
 {
     #region Fields
 
-    private readonly List<TopicDomainEntityForNode> _treeChildren = new();
+    private readonly List<TopicDomainEntityForTree> _treeChildren = new();
 
     #endregion Fields
 
@@ -18,14 +18,14 @@ public class TopicDomainEntityForNode : TopicDomainEntity, IAggregateRoot
     /// <summary>
     /// Дети в дереве.
     /// </summary>
-    public IReadOnlyCollection<TopicDomainEntityForNode> TreeChildren => _treeChildren;
+    public IReadOnlyCollection<TopicDomainEntityForTree> TreeChildren => _treeChildren;
 
     #endregion Properties    
 
     #region Constructors
 
     /// <inheritdoc/>
-    public TopicDomainEntityForNode(
+    public TopicDomainEntityForTree(
         TopicTypeEntity? data = null,
         bool treeHasChildren = false,
         int treeLevel = 0,
@@ -43,7 +43,7 @@ public class TopicDomainEntityForNode : TopicDomainEntity, IAggregateRoot
     /// </summary>
     /// <param name="child">Ребёнок.</param>
     /// <returns>Добавленный ребёнок.</returns>
-    public TopicDomainEntityForNode AddTreeChild(TopicDomainEntityForNode child)
+    public TopicDomainEntityForTree AddTreeChild(TopicDomainEntityForTree child)
     {
         var result = _treeChildren.Where(x => x.Data.Id == child.Data.Id).SingleOrDefault();
 

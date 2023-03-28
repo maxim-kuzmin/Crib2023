@@ -45,7 +45,7 @@ public class TopicGrpcService : GrpcServerOfTopic
         TopicDomainItemGetOperationRequest operationRequest = new(
             new()
             {
-                Axis = input.Axis.FromStringToEnum(TreeNodeGetOperationAxis.Self),
+                Axis = input.Axis.FromStringToEnum(TreeGetOperationAxisForItem.Self),
                 Id = input.Id,
                 Name = input.Name,
                 ParentId = input.ParentId,
@@ -97,7 +97,7 @@ public class TopicGrpcService : GrpcServerOfTopic
                 PageSize = input.PageSize,
                 SortDirection = input.SortDirection,
                 SortField = input.SortField,
-                Axis = input.Axis.FromStringToEnum(TreePathGetOperationAxis.None),
+                Axis = input.Axis.FromStringToEnum(TreeGetOperationAxisForList.None),
                 Ids = input.Ids.ToArray(),
                 Name = input.Name,
                 TreePath = input.TreePath,

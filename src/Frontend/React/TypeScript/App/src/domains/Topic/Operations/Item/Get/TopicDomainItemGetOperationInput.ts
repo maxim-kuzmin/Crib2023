@@ -1,10 +1,10 @@
 import {
-  type TreeNodeGetOperationAxis,
+  type TreeGetOperationAxisForItem,
   type ItemGetOperationInputWithNumberId
 } from '../../../../../all';
 
 export interface TopicDomainItemGetOperationInput extends ItemGetOperationInputWithNumberId {
-  axis: TreeNodeGetOperationAxis;
+  axis: TreeGetOperationAxisForItem;
   name?: string;
   parentId?: number;
 }

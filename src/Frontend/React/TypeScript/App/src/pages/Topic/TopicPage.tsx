@@ -8,7 +8,7 @@ import {
   OperationStatus,
   type ArticleDomainListGetOperationInput,
   type ArticleDomainListGetOperationResponse,
-  TreeNodeGetOperationAxis,
+  TreeGetOperationAxisForItem,
   type TopicDomainItemGetOperationInput,
   type TopicDomainItemGetOperationResponse
 } from '../../all';
@@ -55,7 +55,7 @@ export function TopicPage () {
   const topicItemStoreService = getTopicItemStoreService();
 
   const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(() => ({
-    axis: TreeNodeGetOperationAxis.Self,
+    axis: TreeGetOperationAxisForItem.Self,
     id: topicId
   }), [topicId]);
 

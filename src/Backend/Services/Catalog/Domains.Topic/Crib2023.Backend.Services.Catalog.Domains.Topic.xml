@@ -24,27 +24,27 @@
             <param name="ancestor">Предок.</param>
             <returns>Добавленный предок.</returns>
         </member>
-        <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode">
+        <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForTree">
             <summary>
-            Сущность для узла домена "Тема".
+            Сущность для дерева домена "Тема".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode.TreeChildren">
+        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForTree.TreeChildren">
             <summary>
             Дети в дереве.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Int32,System.String)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForTree.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Int32,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode.AddTreeChild(Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForTree.AddTreeChild(Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForTree)">
             <summary>
             Добавить ребёнка в дереве.
             </summary>
             <param name="child">Ребёнок.</param>
             <returns>Добавленный ребёнок.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode.GetId">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForTree.GetId">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.ITopicDomainRepository">

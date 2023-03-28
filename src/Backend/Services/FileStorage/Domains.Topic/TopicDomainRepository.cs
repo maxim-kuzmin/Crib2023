@@ -43,7 +43,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         var query = dbContext.Topic.AsQueryable();
 
-        if (input.Axis == TreeNodeGetOperationAxis.Parent)
+        if (input.Axis == TreeGetOperationAxisForItem.Parent)
         {
             query = query.Include(x => x.Parent).Where(x => x.Parent != null);
         }
@@ -52,7 +52,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         IQueryable<Item> queryForItem;
 
-        if (input.Axis == TreeNodeGetOperationAxis.Parent)
+        if (input.Axis == TreeGetOperationAxisForItem.Parent)
         {
             queryForItem = query.Select(x => new Item(
                 x.Parent!,

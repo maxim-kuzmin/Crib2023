@@ -1,4 +1,4 @@
-export enum TreePathGetOperationAxis {
+export enum TreeGetOperationAxisForList {
     None = 1,
     All = 2,
     Ancestor = 3,

@@ -74,19 +74,19 @@ public static class TopicDomainExtension
 
             switch (input.Axis)
             {
-                case TreePathGetOperationAxis.Ancestor:
+                case TreeGetOperationAxisForList.Ancestor:
                     query = query.Where(x => x.TreePath.IsAncestorOf(treePath));
                     break;
-                case TreePathGetOperationAxis.AncestorOrSelf:
+                case TreeGetOperationAxisForList.AncestorOrSelf:
                     query = query.Where(x => x.TreePath.IsAncestorOf(treePath) || x.TreePath == treePath);
                     break;
-                case TreePathGetOperationAxis.Descendant:
+                case TreeGetOperationAxisForList.Descendant:
                     query = query.Where(x => x.TreePath.IsDescendantOf(treePath));
                     break;
-                case TreePathGetOperationAxis.DescendantOrSelf:
+                case TreeGetOperationAxisForList.DescendantOrSelf:
                     query = query.Where(x => x.TreePath.IsDescendantOf(treePath) || x.TreePath == treePath);
                     break;
-                case TreePathGetOperationAxis.ParentOrSelf:
+                case TreeGetOperationAxisForList.ParentOrSelf:
                     {
                         string parentTreePathString = input.TreePath.FromTreePathToParentTreePath();
 
@@ -107,15 +107,15 @@ public static class TopicDomainExtension
                         }
                     }
                     break;
-                case TreePathGetOperationAxis.Child:
+                case TreeGetOperationAxisForList.Child:
                     query = query.Where(x => x.Parent != null && x.Parent.TreePath == treePath);
                     break;
-                case TreePathGetOperationAxis.ChildOrSelf:
+                case TreeGetOperationAxisForList.ChildOrSelf:
                     query = query.Where(x => x.Parent != null && x.Parent.TreePath == treePath || x.TreePath == treePath);
                     break;
             }
         }
-        else if (input.Axis == TreePathGetOperationAxis.Child)
+        else if (input.Axis == TreeGetOperationAxisForList.Child)
         {
             query = query.Where(x => x.Parent == null);
         }

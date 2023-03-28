@@ -1,7 +1,7 @@
-import { type ListGetOperationInput, type TreePathGetOperationAxis } from '../../../../../all';
+import { type ListGetOperationInput, type TreeGetOperationAxisForList } from '../../../../../all';
 
 export interface TopicDomainListGetOperationInput extends ListGetOperationInput {
-  axis: TreePathGetOperationAxis;
+  axis: TreeGetOperationAxisForList;
   ids?: number[];
   name?: string;
   treePath?: string;

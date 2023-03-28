@@ -12,7 +12,7 @@ public class TopicDomainItemGetOperationInput : ItemGetOperationInputWithInt64Id
     /// <summary>
     /// Ось.
     /// </summary>
-    public TreeNodeGetOperationAxis Axis { get; set; }
+    public TreeGetOperationAxisForItem Axis { get; set; }
 
     /// <summary>
     /// Имя.
@@ -33,9 +33,9 @@ public class TopicDomainItemGetOperationInput : ItemGetOperationInputWithInt64Id
     {
         base.Normalize();
 
-        if (Axis == TreeNodeGetOperationAxis.Parent && ParentId > 0)
+        if (Axis == TreeGetOperationAxisForItem.Parent && ParentId > 0)
         {
-            Axis = TreeNodeGetOperationAxis.Self;
+            Axis = TreeGetOperationAxisForItem.Self;
             Id = ParentId;
         }
 

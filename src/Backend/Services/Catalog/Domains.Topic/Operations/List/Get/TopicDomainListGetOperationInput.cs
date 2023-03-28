@@ -12,7 +12,7 @@ public class TopicDomainListGetOperationInput : ListGetOperationInput
     /// <summary>
     /// Ось.
     /// </summary>
-    public TreePathGetOperationAxis Axis { get; set; }
+    public TreeGetOperationAxisForList Axis { get; set; }
 
     /// <summary>
     /// Идентификаторы.
@@ -52,23 +52,23 @@ public class TopicDomainListGetOperationInput : ListGetOperationInput
         {
             if (Ids.Any())
             {
-                Axis = TreePathGetOperationAxis.None;
+                Axis = TreeGetOperationAxisForList.None;
             }
-            else if (Axis == TreePathGetOperationAxis.ChildOrSelf)
+            else if (Axis == TreeGetOperationAxisForList.ChildOrSelf)
             {
-                Axis = TreePathGetOperationAxis.Child;
+                Axis = TreeGetOperationAxisForList.Child;
             }
             else
             {
-                Axis = TreePathGetOperationAxis.All;
+                Axis = TreeGetOperationAxisForList.All;
             }            
         }
-        else if (Axis == TreePathGetOperationAxis.None)
+        else if (Axis == TreeGetOperationAxisForList.None)
         {
-            Axis = TreePathGetOperationAxis.All;
+            Axis = TreeGetOperationAxisForList.All;
         }
 
-        if (Axis == TreePathGetOperationAxis.None || Axis == TreePathGetOperationAxis.Child)
+        if (Axis == TreeGetOperationAxisForList.None || Axis == TreeGetOperationAxisForList.Child)
         {
             if (string.IsNullOrWhiteSpace(SortField))
             {
