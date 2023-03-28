@@ -5,7 +5,7 @@ global using Crib2023.Backend.Services.Catalog.App.Setup;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Entities;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get;
-global using Crib2023.Backend.Services.Catalog.Domains.Topic;
+global using Crib2023.Backend.Services.Catalog.Domains.Topic.Entities;
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Item.Get;
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get;
 global using Crib2023.Grpc.Backend.Services.Catalog;

@@ -156,7 +156,7 @@ public static class TopicDomainExtension
                 query = query.OrderByDescending(x => x.Name);
             }
         }
-        else if (input.SortField.Equals(nameof(TopicDomainEntity.TreePath), StringComparison.OrdinalIgnoreCase))
+        else if (input.SortField.Equals(nameof(TopicDomainEntityForItem.TreePath), StringComparison.OrdinalIgnoreCase))
         {
             if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
             {
@@ -170,7 +170,7 @@ public static class TopicDomainExtension
 
         if (!string.IsNullOrWhiteSpace(input.SortField)
             && !input.SortField.Equals(nameof(TopicTypeEntity.Id), StringComparison.OrdinalIgnoreCase)
-            && !input.SortField.Equals(nameof(TopicDomainEntity.TreePath), StringComparison.OrdinalIgnoreCase))
+            && !input.SortField.Equals(nameof(TopicDomainEntityForItem.TreePath), StringComparison.OrdinalIgnoreCase))
         {
             query = ((IOrderedQueryable<ClientMapperTopicTypeEntity>)query).ThenBy(x => x.Id);
         }

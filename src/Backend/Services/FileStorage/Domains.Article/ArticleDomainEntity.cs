@@ -45,18 +45,18 @@ public class ArticleDomainEntity : Entity<long>, IAggregateRoot
     /// <summary>
     /// Добавить элемент пути темы.
     /// </summary>
-    /// <param name="data">Данные.</param>
+    /// <param name="pathItem">Элемент пути.</param>
     /// <returns>Добавленный элемент пути.</returns>
-    public OptionValueObjectWithInt64Id AddTopicPathItem(OptionValueObjectWithInt64Id data)
+    public OptionValueObjectWithInt64Id AddTopicPathItem(OptionValueObjectWithInt64Id pathItem)
     {
-        var result = _topicPathItems.Where(x => x.Id == data.Id).SingleOrDefault();
+        var result = _topicPathItems.Where(x => x.Id == pathItem.Id).SingleOrDefault();
 
         if (result is null)
         {
-            _topicPathItems.Add(data);
+            _topicPathItems.Add(pathItem);
         }
 
-        return result ?? data;
+        return result ?? pathItem;
     }
 
     #endregion Public methods

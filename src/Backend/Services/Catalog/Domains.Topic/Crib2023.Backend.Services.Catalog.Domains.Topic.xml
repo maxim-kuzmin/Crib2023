@@ -4,6 +4,49 @@
         <name>Crib2023.Backend.Services.Catalog.Domains.Topic</name>
     </assembly>
     <members>
+        <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForItem">
+            <summary>
+            Сущность для элемента домена "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForItem.TreeAncestors">
+            <summary>
+            Предки в дереве.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForItem.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Int32,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForItem.AddTreeAncestor(Makc2023.Backend.Common.Domain.ValueObjects.Options.OptionValueObjectWithInt64Id)">
+            <summary>
+            Добавить предка в дереве.
+            </summary>
+            <param name="ancestor">Предок.</param>
+            <returns>Добавленный предок.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode">
+            <summary>
+            Сущность для узла домена "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode.TreeChildren">
+            <summary>
+            Дети в дереве.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode.#ctor(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Int32,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode.AddTreeChild(Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode)">
+            <summary>
+            Добавить ребёнка в дереве.
+            </summary>
+            <param name="child">Ребёнок.</param>
+            <returns>Добавленный ребёнок.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Entities.TopicDomainEntityForNode.GetId">
+            <inheritdoc/>
+        </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.ITopicDomainRepository">
             <summary>
             Интерфейс репозитория домена "Тема".
@@ -302,17 +345,12 @@
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainEntity">
             <summary>
-            Сущность домена "Тема".
+            Сущность для элемента домена "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainEntity.Data">
             <summary>
             Данные.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainEntity.TreeAncestors">
-            <summary>
-            Предки в дереве.
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainEntity.TreeHasChildren">
@@ -338,13 +376,6 @@
             <param name="treeHasChildren">Признак наличия детей в дереве.</param>
             <param name="treeLevel">Уровень в дереве.</param>
             <param name="treePath">Путь в дереве.</param>
-        </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainEntity.AddTreeAncestor(Makc2023.Backend.Common.Domain.ValueObjects.Options.OptionValueObjectWithInt64Id)">
-            <summary>
-            Добавить предка в дереве.
-            </summary>
-            <param name="data">Данные.</param>
-            <returns>Добавленный предок.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainEntity.GetId">
             <inheritdoc/>

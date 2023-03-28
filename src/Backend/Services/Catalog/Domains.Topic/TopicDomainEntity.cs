@@ -3,27 +3,16 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic;
 
 /// <summary>
-/// Сущность домена "Тема".
+/// Сущность для элемента домена "Тема".
 /// </summary>
 public class TopicDomainEntity : Entity<long>, IAggregateRoot
 {
-    #region Fields
-
-    private readonly List<OptionValueObjectWithInt64Id> _treeAncestors = new();
-
-    #endregion Fields
-
     #region Properties
 
     /// <summary>
     /// Данные.
     /// </summary>
     public TopicTypeEntity Data { get; }
-
-    /// <summary>
-    /// Предки в дереве.
-    /// </summary>
-    public IReadOnlyCollection<OptionValueObjectWithInt64Id> TreeAncestors => _treeAncestors;
 
     /// <summary>
     /// Признак наличия детей в дереве.
@@ -64,27 +53,6 @@ public class TopicDomainEntity : Entity<long>, IAggregateRoot
     }
 
     #endregion Constructors
-
-    #region Public methods
-
-    /// <summary>
-    /// Добавить предка в дереве.
-    /// </summary>
-    /// <param name="data">Данные.</param>
-    /// <returns>Добавленный предок.</returns>
-    public OptionValueObjectWithInt64Id AddTreeAncestor(OptionValueObjectWithInt64Id data)
-    {
-        var result = _treeAncestors.Where(x => x.Id == data.Id).SingleOrDefault();
-
-        if (result is null)
-        {
-            _treeAncestors.Add(data);
-        }
-
-        return result ?? data;
-    }
-
-    #endregion Public methods
 
     #region Protected methods
 

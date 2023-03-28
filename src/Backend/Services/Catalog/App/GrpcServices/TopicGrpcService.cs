@@ -165,7 +165,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
     #region Private methods
 
-    private static CatalogTopicEntity CreateItem(TopicDomainEntity source)
+    private static CatalogTopicEntity CreateItem(TopicDomainEntityForItem source)
     {
         CatalogTopicEntity result;
 

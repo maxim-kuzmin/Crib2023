@@ -68,7 +68,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         if (mapperForItem != null)
         {
-            var item = result.Item = new TopicDomainEntity(
+            var item = result.Item = new TopicDomainEntityForItem(
                 mapperForItem.Data,
                 mapperForItem.TreeHasChildren,
                 mapperForItem.TreeLevel,
@@ -106,7 +106,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
         var itemLookup = mapperForItems
-            .Select(x => new TopicDomainEntity(new TopicTypeEntity
+            .Select(x => new TopicDomainEntityForItem(new TopicTypeEntity
             {
                 Id = x.Data.Id,
                 RowGuid = x.Data.RowGuid,
@@ -118,7 +118,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         await LoadTreeAncestorsForList(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
 
         result.Items = mapperForItems.Select(x =>
-            new TopicDomainEntity(x.Data, x.TreeHasChildren, x.TreeLevel, x.Data.TreePath))
+            new TopicDomainEntityForItem(x.Data, x.TreeHasChildren, x.TreeLevel, x.Data.TreePath))
             .ToArray();
 
         result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
@@ -132,7 +132,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
     private static async Task LoadTreeAncestorsForItem(
         ClientMapperDbContext dbContext,
-        TopicDomainEntity item,
+        TopicDomainEntityForItem item,
         ClientMapperTopicTypeEntity mapperForItem)
     {
         long[] ancestorIds = mapperForItem.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
@@ -158,7 +158,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
     private static async Task LoadTreeAncestorsForList(
         ClientMapperDbContext dbContext,
-        Dictionary<long, TopicDomainEntity> itemLookup,
+        Dictionary<long, TopicDomainEntityForItem> itemLookup,
         IEnumerable<Item> mapperForItems)
     {
         long[] ancestorIdsForLookup = mapperForItems

@@ -5,6 +5,6 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Ge
 /// <summary>
 /// Выходные данные операции получения списка "Тема".
 /// </summary>
-public class TopicDomainListGetOperationOutput : ListGetOperationOutput<TopicDomainEntity>
+public class TopicDomainListGetOperationOutput : ListGetOperationOutput<TopicDomainEntityForItem>
 {
 }

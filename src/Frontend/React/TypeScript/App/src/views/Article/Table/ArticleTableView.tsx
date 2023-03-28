@@ -22,17 +22,28 @@ export function ArticleTableView ({ response }: ArticleTableViewProps) {
       { items
         ? (
           <>
-            <ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
               {
                 items.map(item => {
                     const data = item.data;
                     return (
-                      <li key={data.id}>{data.id}</li>
+                      <tr key={data.id}>
+                        <td>{data.id}</td>
+                        <td>{data.title}</td>
+                      </tr>
                     );
                   }
                 )
               }
-            </ul>
+              </tbody>
+            </table>
             Total: {totalCount}
           </>
         )

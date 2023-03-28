@@ -84,7 +84,7 @@ public class TopicDomainListGetOperationInput : ListGetOperationInput
         {
             if (string.IsNullOrWhiteSpace(SortField))
             {
-                SortField = nameof(TopicDomainEntity.TreePath);
+                SortField = nameof(TopicDomainEntityForItem.TreePath);
             }
 
             if (string.IsNullOrWhiteSpace(SortDirection))

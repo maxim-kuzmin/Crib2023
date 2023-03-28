@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories;
 /// <summary>
 /// Интерфейс репозитория "Тема".
 /// </summary>
-public interface ITopicDomainRepository : IRepository<TopicDomainEntity>
+public interface ITopicDomainRepository : IRepository<TopicDomainEntityForItem>
 {
     #region Methods
 

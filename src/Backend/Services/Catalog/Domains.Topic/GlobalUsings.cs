@@ -3,6 +3,7 @@
 global using Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db;
 global using Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic;
 global using Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic;
+global using Crib2023.Backend.Services.Catalog.Domains.Topic.Entities;
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Item.Get;
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get;
 global using Makc2023.Backend.Common.Core;

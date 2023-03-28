@@ -4,7 +4,7 @@ global using Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.P
 global using Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic;
 global using Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic;
 global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories;
-global using Crib2023.Backend.Services.FileStorage.Domains.Article;
+global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities;
 global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get;
 global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get;
 global using Makc2023.Backend.Common.Core.App;

@@ -29,7 +29,7 @@
             <summary>
             Добавить элемент пути темы.
             </summary>
-            <param name="data">Данные.</param>
+            <param name="pathItem">Элемент пути.</param>
             <returns>Добавленный элемент пути.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainEntity.GetId">

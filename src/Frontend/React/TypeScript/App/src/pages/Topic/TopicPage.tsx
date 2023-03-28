@@ -26,7 +26,11 @@ export function TopicPage () {
 
   const { response: articleListResponse, status } = articleListStoreService.useState();
 
-  const topicId = Number(urlParams.topicId ?? 0);
+  let topicId = Number(urlParams.topicId ?? 0);
+
+  if (isNaN(topicId)) {
+    topicId = 0;
+  }
 
   const inputAtDispatchToArticleListLoad: ArticleDomainListGetOperationInput = useMemo(() => ({
     topicId,

@@ -1,8 +1,5 @@
 // Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get;
-using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get;
-
 namespace Crib2023.Backend.Services.FileStorage.App.GrpcServices;
 
 /// <summary>
@@ -142,7 +139,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
     #region Private methods
 
-    private static FileStorageTopicEntity CreateItem(TopicDomainEntity source)
+    private static FileStorageTopicEntity CreateItem(TopicDomainEntityForItem source)
     {
         FileStorageTopicEntity result;
 

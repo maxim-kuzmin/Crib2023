@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Topic;
 /// <summary>
 /// Интерфейс репозитория домена "Тема".
 /// </summary>
-public interface ITopicDomainRepository : IRepository<TopicDomainEntity>
+public interface ITopicDomainRepository : IRepository<TopicDomainEntityForItem>
 {
     #region Methods
 

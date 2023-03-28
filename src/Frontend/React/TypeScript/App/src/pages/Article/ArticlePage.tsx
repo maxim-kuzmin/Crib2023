@@ -31,7 +31,11 @@ export function ArticlePage () {
 
   const topicId = articleItemResoponse?.data?.item?.data.topicId ?? 0;
 
-  const articleId = Number(urlParams.articleId ?? 0);
+  let articleId = Number(urlParams.articleId ?? 0);
+
+  if (isNaN(articleId)) {
+    articleId = 0;
+  }
 
   const appNotificationStoreService = getAppNotificationStoreService();
 
