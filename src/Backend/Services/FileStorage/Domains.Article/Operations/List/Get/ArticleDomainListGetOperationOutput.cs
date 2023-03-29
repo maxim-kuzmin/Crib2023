@@ -5,6 +5,6 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.
 /// <summary>
 /// Выходные данные операции получения списка в домене "Статья".
 /// </summary>
-public class ArticleDomainListGetOperationOutput : ListGetOperationOutput<ArticleDomainEntity>
+public class ArticleDomainListGetOperationOutput : ListGetOperationOutput<ArticleDomainEntity, long>
 {
 }

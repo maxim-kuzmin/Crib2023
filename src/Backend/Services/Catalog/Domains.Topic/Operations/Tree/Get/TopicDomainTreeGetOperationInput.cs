@@ -7,32 +7,50 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
 /// </summary>
 public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64NodeId
 {
+    #region Fields
+
+    private readonly TopicDomainListGetOperationInput _listInput = new();
+
+    #endregion Fields
+
+    #region Operators
+
+    /// <summary>
+    /// Неявное преобразование к входным данным операции получения списка.
+    /// </summary>
+    /// <param name="input"></param>
+    public static implicit operator TopicDomainListGetOperationInput(
+        TopicDomainTreeGetOperationInput input
+        ) => input._listInput;
+
+    #endregion Operators
+
     #region Properties
 
     /// <summary>
     /// Ось.
     /// </summary>
-    public TreeGetOperationAxisForList Axis { get; set; }
+    public TreeGetOperationAxisForList Axis => _listInput.Axis;
 
     /// <summary>
     /// Идентификаторы.
     /// </summary>
-    public long[] Ids { get; set; } = Array.Empty<long>();
+    public long[] Ids => _listInput.Ids;
 
     /// <summary>
     /// Строка идентификаторов.
     /// </summary>
-    public string IdsString { get; set; } = "";
+    public string IdsString => _listInput.IdsString;
 
     /// <summary>
     /// Имя.
     /// </summary>
-    public string Name { get; set; } = "";
+    public string Name => _listInput.Name;
 
     /// <summary>
     /// Путь в дереве.
     /// </summary>
-    public string TreePath { get; set; } = "";
+    public string TreePath => _listInput.TreePath;
 
     #endregion Properties
 
@@ -43,55 +61,7 @@ public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64No
     {
         base.Normalize();
 
-        if (!string.IsNullOrWhiteSpace(IdsString) && !Ids.Any())
-        {
-            Ids = IdsString.FromStringToNumericInt64Array();
-        }
-
-        if (string.IsNullOrWhiteSpace(TreePath))
-        {
-            if (Ids.Any())
-            {
-                Axis = TreeGetOperationAxisForList.None;
-            }
-            else if (Axis == TreeGetOperationAxisForList.ChildOrSelf)
-            {
-                Axis = TreeGetOperationAxisForList.Child;
-            }
-            else
-            {
-                Axis = TreeGetOperationAxisForList.All;
-            }            
-        }
-        else if (Axis == TreeGetOperationAxisForList.None)
-        {
-            Axis = TreeGetOperationAxisForList.All;
-        }
-
-        if (Axis == TreeGetOperationAxisForList.None || Axis == TreeGetOperationAxisForList.Child)
-        {
-            if (string.IsNullOrWhiteSpace(SortField))
-            {
-                SortField = nameof(TopicTypeEntity.Id);
-            }
-
-            if (string.IsNullOrWhiteSpace(SortDirection))
-            {
-                SortDirection = OperationOptions.SORT_DIRECTION_DESC;
-            }
-        }
-        else
-        {
-            if (string.IsNullOrWhiteSpace(SortField))
-            {
-                SortField = nameof(TopicDomainEntityForItem.TreePath);
-            }
-
-            if (string.IsNullOrWhiteSpace(SortDirection))
-            {
-                SortDirection = OperationOptions.SORT_DIRECTION_ASC;
-            }
-        }
+        _listInput.Normalize();
     }
 
     #endregion Public methods

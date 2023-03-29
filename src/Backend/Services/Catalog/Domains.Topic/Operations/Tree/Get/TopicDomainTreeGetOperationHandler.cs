@@ -71,7 +71,7 @@ public class TopicDomainTreeGetOperationHandler :
 
     private TopicDomainTreeGetOperationOutput TransformOperationOutput(TopicDomainTreeGetOperationOutput source)
     {
-        source.Items ??= Array.Empty<TopicDomainEntityForItem>();
+        source.Nodes ??= Array.Empty<TopicDomainEntityForTree>();
 
         return source;
     }
