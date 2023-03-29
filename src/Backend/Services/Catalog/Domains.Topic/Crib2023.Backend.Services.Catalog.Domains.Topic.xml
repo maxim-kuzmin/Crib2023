@@ -365,40 +365,6 @@
             Входные данные операции получения дерева в домене "Тема".
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.op_Implicit(Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)~Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput">
-            <summary>
-            Неявное преобразование к входным данным операции получения списка.
-            </summary>
-            <param name="input"></param>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Axis">
-            <summary>
-            Ось.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Ids">
-            <summary>
-            Идентификаторы.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.IdsString">
-            <summary>
-            Строка идентификаторов.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Name">
-            <summary>
-            Имя.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.TreePath">
-            <summary>
-            Путь в дереве.
-            </summary>
-        </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Normalize">
-            <inheritdoc/>
-        </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationOutput">
             <summary>
             Выходные данные операции получения дерева в домене "Тема".

@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic;
 
 /// <summary>
@@ -117,7 +119,9 @@ public static class TopicDomainExtension
         }
         else if (input.Axis == TreeGetOperationAxisForList.Child)
         {
-            query = query.Where(x => x.Parent == null);
+            query = input.RootNodeId > 0
+                ? query.Where(x => x.ParentId == input.RootNodeId)
+                : query.Where(x => x.Parent == null);
         }
 
         return query;
