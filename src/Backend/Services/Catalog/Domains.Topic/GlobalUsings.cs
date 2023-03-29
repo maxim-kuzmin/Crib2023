@@ -17,6 +17,7 @@ global using Makc2023.Backend.Common.Core.Operations.Item.Get;
 global using Makc2023.Backend.Common.Core.Operations.Item.Get.Inputs;
 global using Makc2023.Backend.Common.Core.Operations.List.Get;
 global using Makc2023.Backend.Common.Core.Operations.Tree.Get.Axes;
+global using Makc2023.Backend.Common.Core.Operations.Tree.Get.Inputs;
 global using Makc2023.Backend.Common.Data.SQL.Commands.Tree;
 global using Makc2023.Backend.Common.Domain;
 global using Makc2023.Backend.Common.Domain.SQL.Mappers.EF;
