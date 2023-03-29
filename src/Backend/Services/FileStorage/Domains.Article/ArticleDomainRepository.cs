@@ -7,11 +7,11 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article;
 /// </summary>
 public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IArticleDomainRepository
 {
-    #region Properties
+    #region Fields
 
-    private IClientMapperDbContextFactory DbContextFactory { get; }
+    private readonly IClientMapperDbContextFactory _dbContextFactory;
 
-    #endregion Properties
+    #endregion Fields
 
     #region Constructors
 
@@ -27,7 +27,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
         IMediator mediator)
         : base(dbManager.DbContext, mediator)
     {
-        DbContextFactory = dbContextFactory;
+        _dbContextFactory = dbContextFactory;
     }
 
     #endregion Constructors
@@ -39,7 +39,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
     {
         ArticleDomainItemGetOperationOutput result = new();
 
-        using var dbContext = DbContextFactory.CreateDbContext();
+        using var dbContext = _dbContextFactory.CreateDbContext();
 
         var taskForItem = dbContext.Article
             .Include(x => x.Topic)
@@ -65,8 +65,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
     {
         ArticleDomainListGetOperationOutput result = new();
 
-        using var dbContext = DbContextFactory.CreateDbContext();
-        using var dbContextForTotalCount = DbContextFactory.CreateDbContext();
+        using var dbContext = _dbContextFactory.CreateDbContext();
 
         var queryForItems = dbContext.Article
             .Include(x => x.Topic)
@@ -74,11 +73,18 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
             .ApplySorting(input)
             .ApplyPagination(input);
 
-        var queryForTotalCount = dbContextForTotalCount.Article
-            .ApplyFiltering(input);
-
         var taskForItems = queryForItems.ToArrayAsync();
-        var taskForTotalCount = queryForTotalCount.CountAsync();
+
+        long? totalCount = null;
+
+        if (input.PageSize > 0)
+        {
+            using var dbContextForTotalCount = _dbContextFactory.CreateDbContext();
+
+            var queryForTotalCount = dbContextForTotalCount.Article.ApplyFiltering(input);
+
+            totalCount = await queryForTotalCount.LongCountAsync().ConfigureAwait(false);
+        }
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
@@ -89,7 +95,13 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
         await LoadTopicPathItems(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
 
         result.Items = itemLookup.Values.ToArray();
-        result.TotalCount = await taskForTotalCount.ConfigureAwait(false);
+
+        if (!totalCount.HasValue)
+        {
+            totalCount = result.Items.LongLength;
+        }
+
+        result.TotalCount = totalCount.Value;
 
         return result;
     }
