@@ -1,18 +1,18 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get;
+namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
 
 /// <summary>
-/// Запрос операции получения списка в домене "Тема".
+/// Запрос операции получения дерева в домене "Тема".
 /// </summary>
-public class TopicDomainListGetOperationRequest : IRequest<TopicDomainListGetOperationResponse>
+public class TopicDomainTreeGetOperationRequest : IRequest<TopicDomainTreeGetOperationResponse>
 {
     #region Properties
 
     /// <summary>
     /// Входные данные.
     /// </summary>
-    public TopicDomainListGetOperationInput Input { get; }
+    public TopicDomainTreeGetOperationInput Input { get; }
 
     /// <summary>
     /// Код операции.
@@ -28,7 +28,7 @@ public class TopicDomainListGetOperationRequest : IRequest<TopicDomainListGetOpe
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public TopicDomainListGetOperationRequest(TopicDomainListGetOperationInput input, string operationCode = "")
+    public TopicDomainTreeGetOperationRequest(TopicDomainTreeGetOperationInput input, string operationCode = "")
     {
         Input = input;
         OperationCode = operationCode;

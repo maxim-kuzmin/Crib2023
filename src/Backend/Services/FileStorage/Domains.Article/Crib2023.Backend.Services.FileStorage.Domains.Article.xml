@@ -137,7 +137,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationHandler">
             <summary>
-            Обработчик операции получения элемента в домене.
+            Обработчик операции получения элемента в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationHandler.InvalidInputProperties">
@@ -150,7 +150,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput">
             <summary>
-            Входные данные операции получения элемента "Статья".
+            Входные данные операции получения элемента в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput.Title">
@@ -174,12 +174,12 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationOutput">
             <summary>
-            Выходные данные операции получения элемента "Статья".
+            Выходные данные операции получения элемента в домене "Статья".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationRequest">
             <summary>
-            Запрос операции получения элемента в домене.
+            Запрос операции получения элемента в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationRequest.Input">
@@ -201,7 +201,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationRequestHandler">
             <summary>
-            Обработчик запроса операции получения элемента в домене.
+            Обработчик запроса операции получения элемента в домене "Статья".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.IArticleDomainItemGetOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleDomainRepository)">
@@ -216,7 +216,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationResponse">
             <summary>
-            Отклик операции получения элемента в домене.
+            Отклик операции получения элемента в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationResponse.OperationResult">
@@ -232,7 +232,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationResult">
             <summary>
-            Результат операции получения элемента "Статья".
+            Результат операции получения элемента в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationResult.InvalidInputProperties">
@@ -242,12 +242,12 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.IArticleDomainItemGetOperationHandler">
             <summary>
-            Интерфейс обработчика операции получения элемента "Статья".
+            Интерфейс обработчика операции получения элемента в домене "Статья".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationHandler">
             <summary>
-            Обработчик операции получения списка в домене.
+            Обработчик операции получения списка в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationHandler.InvalidInputProperties">
@@ -260,7 +260,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput">
             <summary>
-            Входные данные операции получения списка "Статья".
+            Входные данные операции получения списка в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput.Ids">
@@ -303,12 +303,12 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationOutput">
             <summary>
-            Выходные данные операции получения списка "Статья".
+            Выходные данные операции получения списка в домене "Статья".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationRequest">
             <summary>
-            Запрос операции получения списка в домене.
+            Запрос операции получения списка в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationRequest.Input">
@@ -330,7 +330,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationRequestHandler">
             <summary>
-            Обработчик запроса операции получения списка в домене.
+            Обработчик запроса операции получения списка в домене "Статья".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.IArticleDomainListGetOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleDomainRepository)">
@@ -345,7 +345,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationResponse">
             <summary>
-            Отклик операции получения списка в домене.
+            Отклик операции получения списка в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationResponse.OperationResult">
@@ -361,7 +361,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationResult">
             <summary>
-            Результат операции получения списка "Статья".
+            Результат операции получения списка в домене "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationResult.InvalidInputProperties">
@@ -371,7 +371,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.IArticleDomainListGetOperationHandler">
             <summary>
-            Интерфейс обработчика операции получения списка "Статья".
+            Интерфейс обработчика операции получения списка в домене "Статья".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Setup.ArticleDomainSetupAppModule">

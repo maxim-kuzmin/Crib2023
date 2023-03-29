@@ -1,22 +1,20 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get;
+namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
 
 /// <summary>
-/// Обработчик операции получения элемента в домене "Статья".
+/// Обработчик операции получения дерева в домене "Тема".
 /// </summary>
-public class ArticleDomainItemGetOperationHandler :
+public class TopicDomainTreeGetOperationHandler :
     OperationWithInputAndOutputHandler<
-        ArticleDomainItemGetOperationInput,
-        ArticleDomainItemGetOperationOutput,
-        ArticleDomainItemGetOperationResult>,
-    IArticleDomainItemGetOperationHandler
+        TopicDomainTreeGetOperationInput,
+        TopicDomainTreeGetOperationOutput,
+        TopicDomainTreeGetOperationResult>,
+    ITopicDomainTreeGetOperationHandler
 {
     #region Fields
 
-    private readonly IArticleDomainResource _domainResource;
-
-    private readonly IOperationsResource _operationsResource;    
+    private readonly IOperationsResource _operationsResource;
 
     #endregion Fields
 
@@ -32,20 +30,19 @@ public class ArticleDomainItemGetOperationHandler :
     #region Constructors
 
     /// <inheritdoc/>
-    public ArticleDomainItemGetOperationHandler(
-        IArticleDomainResource domainResource,
+    public TopicDomainTreeGetOperationHandler(
+        ITopicDomainResource domainResource,
         IOperationsResource operationsResource,        
         IOperationResource operationResource,
-        ILogger<ArticleDomainItemGetOperationHandler> logger,
+        ILogger<TopicDomainTreeGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
-            domainResource.GetItemGetOperationName(),
+            domainResource.GetListGetOperationName(),
             operationResource,
             logger,
             setupOptionsOfCommonCore)
     {
-        _domainResource = domainResource;
-        _operationsResource = operationsResource;        
+        _operationsResource = operationsResource;
 
         FunctionToTransformOperationInput = TransformOperationInput;
         FunctionToTransformOperationOutput = TransformOperationOutput;
@@ -56,11 +53,11 @@ public class ArticleDomainItemGetOperationHandler :
 
     #region Private methods
 
-    private ArticleDomainItemGetOperationInput TransformOperationInput(ArticleDomainItemGetOperationInput source)
+    private TopicDomainTreeGetOperationInput TransformOperationInput(TopicDomainTreeGetOperationInput source)
     {
         source.Normalize();
 
-        InvalidInputProperties = source.GetInvalidProperties(_domainResource, _operationsResource);
+        InvalidInputProperties = source.GetInvalidProperties(_operationsResource);
 
         if (InvalidInputProperties.Any())
         {
@@ -72,14 +69,14 @@ public class ArticleDomainItemGetOperationHandler :
         return source;
     }
 
-    private ArticleDomainItemGetOperationOutput TransformOperationOutput(ArticleDomainItemGetOperationOutput source)
+    private TopicDomainTreeGetOperationOutput TransformOperationOutput(TopicDomainTreeGetOperationOutput source)
     {
-        source.Item ??= new();
+        source.Items ??= Array.Empty<TopicDomainEntityForItem>();
 
         return source;
     }
 
-    private ArticleDomainItemGetOperationResult TransformOperationResult(ArticleDomainItemGetOperationResult source)
+    private TopicDomainTreeGetOperationResult TransformOperationResult(TopicDomainTreeGetOperationResult source)
     {
         InvalidInputProperties.CopyToNamedValuesList(source.InvalidInputProperties);
 

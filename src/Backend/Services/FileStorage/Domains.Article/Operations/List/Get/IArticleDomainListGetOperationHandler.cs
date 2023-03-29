@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get;
 
 /// <summary>
-/// Интерфейс обработчика операции получения списка "Статья".
+/// Интерфейс обработчика операции получения списка в домене "Статья".
 /// </summary>
 public interface IArticleDomainListGetOperationHandler :
     IOperationWithInputAndOutputHandler<

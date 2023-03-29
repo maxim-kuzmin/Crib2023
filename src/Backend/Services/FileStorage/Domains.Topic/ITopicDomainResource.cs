@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Topic
 {
     /// <summary>
-    /// Интерфейс ресурса домена.
+    /// Интерфейс ресурса домена "Тема".
     /// </summary>
     public interface ITopicDomainResource
     {
@@ -20,6 +20,12 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Topic
         /// </summary>
         /// <returns>Имя операции.</returns>
         string GetListGetOperationName();
+
+        /// <summary>
+        /// Получить имя операции получения дерева.
+        /// </summary>
+        /// <returns>Имя операции.</returns>
+        string GetTreeGetOperationName();
 
         /// <summary>
         /// Получить корректное значение свойства "Name".

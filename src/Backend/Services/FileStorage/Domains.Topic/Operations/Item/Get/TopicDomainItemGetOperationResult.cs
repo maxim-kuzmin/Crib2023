@@ -5,7 +5,7 @@ using Makc2023.Backend.Common.Core;
 namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get;
 
 /// <summary>
-/// Результат операции получения элемента "Тема".
+/// Результат операции получения элемента в домене "Тема".
 /// </summary>
 public class TopicDomainItemGetOperationResult : OperationResultWithOutput<TopicDomainItemGetOperationOutput>
 {

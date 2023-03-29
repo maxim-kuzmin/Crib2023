@@ -1,18 +1,18 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get;
+namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
 
 /// <summary>
-/// Отклик операции получения списка в домене "Статья".
+/// Отклик операции получения дерева в домене "Тема".
 /// </summary>
-public class ArticleDomainListGetOperationResponse
+public class TopicDomainTreeGetOperationResponse
 {
     #region Properties
 
     /// <summary>
     /// Результат операции.
     /// </summary>
-    public ArticleDomainListGetOperationResult OperationResult { get; }
+    public TopicDomainTreeGetOperationResult OperationResult { get; }
 
     #endregion Properties
 
@@ -22,7 +22,7 @@ public class ArticleDomainListGetOperationResponse
     /// Конструктор.
     /// </summary>
     /// <param name="operationResult">Результат операции.</param>
-    public ArticleDomainListGetOperationResponse(ArticleDomainListGetOperationResult operationResult)
+    public TopicDomainTreeGetOperationResponse(TopicDomainTreeGetOperationResult operationResult)
     {
         OperationResult = operationResult;
     }

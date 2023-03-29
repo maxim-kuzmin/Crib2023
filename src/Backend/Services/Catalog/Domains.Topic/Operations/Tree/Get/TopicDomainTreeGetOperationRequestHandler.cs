@@ -1,16 +1,16 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get;
+namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
 
 /// <summary>
-/// Обработчик запроса операции получения списка в домене "Тема".
+/// Обработчик запроса операции получения дерева в домене "Тема".
 /// </summary>
-public class TopicDomainListGetOperationRequestHandler :
-    IRequestHandler<TopicDomainListGetOperationRequest, TopicDomainListGetOperationResponse>
+public class TopicDomainTreeGetOperationRequestHandler :
+    IRequestHandler<TopicDomainTreeGetOperationRequest, TopicDomainTreeGetOperationResponse>
 {
     #region Fields
 
-    private readonly ITopicDomainListGetOperationHandler _operationHandler;
+    private readonly ITopicDomainTreeGetOperationHandler _operationHandler;
 
     private readonly ITopicDomainRepository _repository;
 
@@ -23,8 +23,8 @@ public class TopicDomainListGetOperationRequestHandler :
     /// </summary>
     /// <param name="operationHandler">Обработчик операции.</param>
     /// <param name="repository">Репозиторий.</param>
-    public TopicDomainListGetOperationRequestHandler(
-        ITopicDomainListGetOperationHandler operationHandler,
+    public TopicDomainTreeGetOperationRequestHandler(
+        ITopicDomainTreeGetOperationHandler operationHandler,
         ITopicDomainRepository repository)
     {
         _operationHandler = operationHandler;
@@ -36,15 +36,15 @@ public class TopicDomainListGetOperationRequestHandler :
     #region Public methods
 
     /// <inheritdoc/>
-    public async Task<TopicDomainListGetOperationResponse> Handle(
-        TopicDomainListGetOperationRequest request,
+    public async Task<TopicDomainTreeGetOperationResponse> Handle(
+        TopicDomainTreeGetOperationRequest request,
         CancellationToken cancellationToken)
     {
         try
         {
             _operationHandler.HandleStart(request.Input, request.OperationCode);
 
-            var operationOutput = await _repository.GetList(request.Input).ConfigureAwait(false);
+            var operationOutput = await _repository.GetTree(request.Input).ConfigureAwait(false);
 
             _operationHandler.HandleSuccess(operationOutput);
         }
@@ -53,7 +53,7 @@ public class TopicDomainListGetOperationRequestHandler :
             _operationHandler.HandleError(ex);
         }
 
-        return new TopicDomainListGetOperationResponse(_operationHandler.OperationResult);
+        return new TopicDomainTreeGetOperationResponse(_operationHandler.OperationResult);
     }
 
     #endregion Public methods

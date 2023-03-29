@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get;
 
 /// <summary>
-/// Выходные данные операции получения списка "Тема".
+/// Выходные данные операции получения списка в домене "Тема".
 /// </summary>
 public class TopicDomainListGetOperationOutput : ListGetOperationOutput<TopicDomainEntityForItem>
 {

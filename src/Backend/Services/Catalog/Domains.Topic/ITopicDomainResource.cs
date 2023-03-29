@@ -22,6 +22,12 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Topic
         string GetListGetOperationName();
 
         /// <summary>
+        /// Получить имя операции получения дерева.
+        /// </summary>
+        /// <returns>Имя операции.</returns>
+        string GetTreeGetOperationName();
+
+        /// <summary>
         /// Получить корректное значение свойства "Name".
         /// </summary>
         /// <returns>Корректное значение.</returns>

@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get;
 
 /// <summary>
-/// Обработчик запроса операции получения списка в домене.
+/// Обработчик запроса операции получения списка в домене "Тема".
 /// </summary>
 public class TopicDomainListGetOperationRequestHandler :
     IRequestHandler<TopicDomainListGetOperationRequest, TopicDomainListGetOperationResponse>

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get;
+namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
 
 /// <summary>
-/// Входные данные операции получения списка в домене "Тема".
+/// Входные данные операции получения дерева в домене "Тема".
 /// </summary>
-public class TopicDomainListGetOperationInput : ListGetOperationInput
+public class TopicDomainTreeGetOperationInput : ListGetOperationInput
 {
     #region Properties
 

@@ -49,7 +49,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.ITopicDomainResource">
             <summary>
-            Интерфейс ресурса домена.
+            Интерфейс ресурса домена "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.ITopicDomainResource.GetItemGetOperationName">
@@ -61,6 +61,12 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.ITopicDomainResource.GetListGetOperationName">
             <summary>
             Получить имя операции получения списка.
+            </summary>
+            <returns>Имя операции.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.ITopicDomainResource.GetTreeGetOperationName">
+            <summary>
+            Получить имя операции получения дерева.
             </summary>
             <returns>Имя операции.</returns>
         </member>
@@ -78,12 +84,12 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.ITopicDomainItemGetOperationHandler">
             <summary>
-            Интерфейс обработчика операции получения элемента "Тема".
+            Интерфейс обработчика операции получения элемента в домене "Тема".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationHandler">
             <summary>
-            Обработчик операции получения элемента в домене.
+            Обработчик операции получения элемента в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationHandler.InvalidInputProperties">
@@ -96,7 +102,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput">
             <summary>
-            Входные данные операции получения элемента "Тема".
+            Входные данные операции получения элемента в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput.Axis">
@@ -125,12 +131,12 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationOutput">
             <summary>
-            Выходные данные операции получения элемента "Тема".
+            Выходные данные операции получения элемента в домене "Тема".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationRequest">
             <summary>
-            Запрос операции получения элемента в домене.
+            Запрос операции получения элемента в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationRequest.Input">
@@ -152,7 +158,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationRequestHandler">
             <summary>
-            Обработчик запроса операции получения элемента в домене.
+            Обработчик запроса операции получения элемента в домене "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.ITopicDomainItemGetOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository)">
@@ -167,7 +173,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationResponse">
             <summary>
-            Отклик операции получения элемента в домене.
+            Отклик операции получения элемента в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationResponse.OperationResult">
@@ -183,7 +189,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationResult">
             <summary>
-            Результат операции получения элемента "Тема".
+            Результат операции получения элемента в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationResult.InvalidInputProperties">
@@ -193,12 +199,12 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.ITopicDomainListGetOperationHandler">
             <summary>
-            Интерфейс обработчика операции получения списка "Тема".
+            Интерфейс обработчика операции получения списка в домене "Тема".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationHandler">
             <summary>
-            Обработчик операции получения списка в домене.
+            Обработчик операции получения списка в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationHandler.InvalidInputProperties">
@@ -211,7 +217,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput">
             <summary>
-            Входные данные операции получения списка "Тема".
+            Входные данные операции получения списка в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Axis">
@@ -244,12 +250,12 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationOutput">
             <summary>
-            Выходные данные операции получения списка "Тема".
+            Выходные данные операции получения списка в домене "Тема".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationRequest">
             <summary>
-            Запрос операции получения списка в домене.
+            Запрос операции получения списка в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationRequest.Input">
@@ -271,7 +277,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationRequestHandler">
             <summary>
-            Обработчик запроса операции получения списка в домене.
+            Обработчик запроса операции получения списка в домене "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.ITopicDomainListGetOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository)">
@@ -286,7 +292,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationResponse">
             <summary>
-            Отклик операции получения списка в домене.
+            Отклик операции получения списка в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationResponse.OperationResult">
@@ -302,7 +308,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationResult">
             <summary>
-            Результат операции получения списка "Тема".
+            Результат операции получения списка в домене "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationResult.InvalidInputProperties">
@@ -411,7 +417,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainResource">
             <summary>
-            Ресурс домена.
+            Ресурс домена "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainResource.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainResource})">
@@ -424,6 +430,9 @@
             <inheritdoc/>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainResource.GetListGetOperationName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainResource.GetTreeGetOperationName">
             <inheritdoc/>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainResource.GetValidValueForName">

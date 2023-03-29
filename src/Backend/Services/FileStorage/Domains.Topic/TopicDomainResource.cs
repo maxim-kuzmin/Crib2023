@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Topic;
 
 /// <summary>
-/// Ресурс домена.
+/// Ресурс домена "Тема".
 /// </summary>
 public class TopicDomainResource : ITopicDomainResource
 {
@@ -39,6 +39,13 @@ public class TopicDomainResource : ITopicDomainResource
     {
         return _localizer["@@ListGetOperationName"];
     }
+
+    /// <inheritdoc/>
+    public string GetTreeGetOperationName()
+    {
+        return _localizer["@@TreeGetOperationName"];
+    }
+
     /// <inheritdoc/>
     public string GetValidValueForName()
     {

@@ -41,6 +41,12 @@ public class TopicDomainResource : ITopicDomainResource
     }
 
     /// <inheritdoc/>
+    public string GetTreeGetOperationName()
+    {
+        return _localizer["@@TreeGetOperationName"];
+    }
+
+    /// <inheritdoc/>
     public string GetValidValueForName()
     {
         return _localizer["@@ValidValueForName"];
