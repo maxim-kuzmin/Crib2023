@@ -163,6 +163,78 @@ public class TopicGrpcService : GrpcServerOfTopic
         return result;
     }
 
+    /// <summary>
+    /// Получить дерево.
+    /// </summary>
+    /// <param name="request">Запрос.</param>
+    /// <param name="context">Контекст.</param>
+    /// <returns>Задача на получение дерева.</returns>
+    public override async Task<CatalogTopicTreeGetOperationReply> GetTree(
+        CatalogTopicTreeGetOperationRequest request,
+        ServerCallContext context)
+    {
+        CatalogTopicTreeGetOperationInput input = request.Input ?? new();
+
+        TopicDomainTreeGetOperationRequest operationRequest = new(
+            new()
+            {
+                PageNumber = input.PageNumber,
+                PageSize = input.PageSize,
+                SortDirection = input.SortDirection,
+                SortField = input.SortField,
+                Axis = input.Axis.FromStringToEnum(TreeGetOperationAxisForList.None),
+                ExpandedNodeIds = input.ExpandedNodeIds.ToArray(),
+                RootNodeId = input.RootNodeId,
+                RootNodeTreePath = input.RootNodeTreePath
+            },
+            request.OperationCode);
+
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
+
+        var operationResult = response.OperationResult;
+
+        var operationOutput = operationResult.Output;
+
+        CatalogTopicTreeGetOperationReply result = new()
+        {
+            IsOk = operationResult.IsOk,
+            OperationCode = operationResult.OperationCode,
+            Output = new()
+            {
+                TotalCount = operationOutput.TotalCount
+            }
+        };
+
+        foreach (string errorMessage in operationResult.ErrorMessages)
+        {
+            result.ErrorMessages.Add(errorMessage);
+        }
+
+        foreach (var operationOutputNode in operationOutput.Nodes)
+        {
+            var node = CreateNode(operationOutputNode);
+
+            result.Output.Nodes.Add(node);
+        }
+
+        foreach (var invalidInputProperty in operationResult.InvalidInputProperties)
+        {
+            CatalogInvalidInputProperty property = new()
+            {
+                Name = invalidInputProperty.Name
+            };
+
+            foreach (string propertyValue in invalidInputProperty.Values)
+            {
+                property.Values.Add(propertyValue);
+            }
+
+            result.InvalidInputProperties.Add(property);
+        }
+
+        return result;
+    }
+
     #endregion Public methods
 
     #region Private methods
@@ -191,13 +263,45 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         foreach (var treeAncestor in treeAncestors)
         {
-            CatalogOptionValueObject option = new()
+            CatalogOptionValueObject ancestor = new()
             {
                 Id = treeAncestor.Id,
                 Name = treeAncestor.Name,
             };
 
-            result.TreeAncestors.Add(option);
+            result.TreeAncestors.Add(ancestor);
+        }
+
+        return result;
+    }
+
+    private static CatalogTopicEntityForTree CreateNode(TopicDomainEntityForTree source)
+    {
+        CatalogTopicEntityForTree result;
+
+        var data = source.Data;
+
+        var treeChildren = source.TreeChildren;
+
+        result = new()
+        {
+            Data = new()
+            {
+                Id = data.Id,
+                Name = data.Name,
+                ParentId = data.ParentId ?? 0,
+                RowGuid = data.RowGuid.ToString()
+            },
+            TreeHasChildren = source.TreeHasChildren,
+            TreeLevel = source.TreeLevel,
+            TreePath = source.TreePath,
+        };
+
+        foreach (var treeChild in treeChildren)
+        {
+            var child = CreateNode(treeChild);
+
+            result.TreeChildren.Add(child);
         }
 
         return result;

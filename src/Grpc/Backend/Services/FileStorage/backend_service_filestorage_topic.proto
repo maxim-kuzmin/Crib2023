@@ -9,6 +9,7 @@ import "backend_service_filestorage.proto";
 service FileStorageTopicService {
   rpc GetItem (FileStorageTopicItemGetOperationRequest) returns (FileStorageTopicItemGetOperationReply);
   rpc GetList (FileStorageTopicListGetOperationRequest) returns (FileStorageTopicListGetOperationReply);
+  rpc GetTree (FileStorageTopicTreeGetOperationRequest) returns (FileStorageTopicTreeGetOperationReply);
 }
 
 // GetItem Request
@@ -32,14 +33,14 @@ message FileStorageTopicItemGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   FileStorageTopicItemGetOperationOutput output = 4;
-  repeated string invalid_input_properties = 5;
+  repeated FileStorageInvalidInputProperty invalid_input_properties = 5;
 }
 
 message FileStorageTopicItemGetOperationOutput {
-  FileStorageTopicEntity item = 1;
+  FileStorageTopicEntityForItem item = 1;
 }
 
-message FileStorageTopicEntity {
+message FileStorageTopicEntityForItem {
   FileStorageTopicTypeEntity data = 1;
   repeated FileStorageOptionValueObject tree_ancestors = 2;
   bool tree_has_children = 3;
@@ -81,11 +82,11 @@ message FileStorageTopicListGetOperationReply {
   string operation_code = 2;
   repeated string error_messages = 3;
   FileStorageTopicListGetOperationOutput output = 4;
-  repeated string invalid_input_properties = 5;
+  repeated FileStorageInvalidInputProperty invalid_input_properties = 5;
 }
 
 message FileStorageTopicListGetOperationOutput {
-  repeated FileStorageTopicEntity items = 1;
+  repeated FileStorageTopicEntityForItem items = 1;
   int64 total_count = 2;
 }
 

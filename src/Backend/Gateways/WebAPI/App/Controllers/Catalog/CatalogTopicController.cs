@@ -153,7 +153,7 @@ public class CatalogTopicController : ControllerBase
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение дерева.</returns>
-    [HttpGet]
+    [HttpGet("Tree")]
     [ProducesResponseType(typeof(CatalogTopicTreeGetResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]

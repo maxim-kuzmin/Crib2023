@@ -8,6 +8,7 @@ global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.G
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Entities;
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Item.Get;
 global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get;
+global using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
 global using Crib2023.Grpc.Backend.Services.Catalog;
 global using Grpc.Core;
 global using Makc2023.Backend.Common.Core.App;

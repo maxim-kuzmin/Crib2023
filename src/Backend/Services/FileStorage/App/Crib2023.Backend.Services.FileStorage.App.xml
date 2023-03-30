@@ -58,6 +58,14 @@
             <param name="context">Контекст.</param>
             <returns>Задача на получение списка.</returns>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.App.GrpcServices.TopicGrpcService.GetTree(Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTreeGetOperationRequest,Grpc.Core.ServerCallContext)">
+            <summary>
+            Получить дерево.
+            </summary>
+            <param name="request">Запрос.</param>
+            <param name="context">Контекст.</param>
+            <returns>Задача на получение дерева.</returns>
+        </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.App.Setup.SetupAppModule">
             <summary>
             Модуль настройки приложения.
@@ -310,19 +318,19 @@
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicItemGetOperationOutput.ItemFieldNumber">
             <summary>Field number for the "item" field.</summary>
         </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.DataFieldNumber">
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.DataFieldNumber">
             <summary>Field number for the "data" field.</summary>
         </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.TreeAncestorsFieldNumber">
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeAncestorsFieldNumber">
             <summary>Field number for the "tree_ancestors" field.</summary>
         </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.TreeHasChildrenFieldNumber">
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeHasChildrenFieldNumber">
             <summary>Field number for the "tree_has_children" field.</summary>
         </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.TreeLevelFieldNumber">
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeLevelFieldNumber">
             <summary>Field number for the "tree_level" field.</summary>
         </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntity.TreePathFieldNumber">
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreePathFieldNumber">
             <summary>Field number for the "tree_path" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTypeEntity.IdFieldNumber">

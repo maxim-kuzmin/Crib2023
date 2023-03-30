@@ -8,6 +8,7 @@ global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Li
 global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities;
 global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get;
 global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get;
+global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get;
 global using Crib2023.Grpc.Backend.Services.FileStorage;
 global using Grpc.Core;
 global using Makc2023.Backend.Common.Core.App;

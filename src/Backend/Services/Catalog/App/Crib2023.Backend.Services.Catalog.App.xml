@@ -58,6 +58,14 @@
             <param name="context">Контекст.</param>
             <returns>Задача на получение списка.</returns>
         </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.App.GrpcServices.TopicGrpcService.GetTree(Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationRequest,Grpc.Core.ServerCallContext)">
+            <summary>
+            Получить дерево.
+            </summary>
+            <param name="request">Запрос.</param>
+            <param name="context">Контекст.</param>
+            <returns>Задача на получение дерева.</returns>
+        </member>
         <member name="T:Crib2023.Backend.Services.Catalog.App.Setup.SetupAppModule">
             <summary>
             Модуль настройки приложения.

@@ -51,8 +51,8 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         query = query.ApplyFiltering(input);
 
         var queryForItem = input.Axis == TreeGetOperationAxisForItem.Parent
-            ? query.Select(x => CreateItem(x.Parent!))
-            : query.Select(x => CreateItem(x));
+            ? query.Select(x => new Item(x.Parent!, x.Parent!.Children.Any(), x.Parent!.TreePath.NLevel))
+            : query.Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
 
         var mapperForItem = await queryForItem.SingleOrDefaultAsync().ConfigureAwait(false);
 
@@ -80,7 +80,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             .ApplyFiltering(input)
             .ApplySorting(input)
             .ApplyPagination(input)
-            .Select(x => CreateItem(x));
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
 
         var taskForItems = queryForItems.ToListAsync();
 
@@ -125,7 +125,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             .ApplyFiltering(input)
             .ApplySorting(input)
             .ApplyPagination(input)
-            .Select(x => CreateItem(x));
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
 
         var taskForItems = queryForItems.ToListAsync();
 
@@ -176,11 +176,6 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             item.TreeHasChildren,
             item.TreeLevel,
             item.Data.TreePath);
-    }
-
-    private static Item CreateItem(ClientMapperTopicTypeEntity mapper)
-    {
-        return new Item(mapper, mapper.Children.Any(), mapper.TreePath.NLevel);
     }
 
     private async static Task<Dictionary<long, Item>> CreateItemLookup(
@@ -321,7 +316,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         var task = dbContext.Topic
             .Where(x => x.ParentId.HasValue && ids.Contains(x.ParentId.Value) || ids.Contains(x.Id))
             .ApplySorting(input)
-            .Select(x => CreateItem(x))
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel))
             .ToArrayAsync();
 
         var mapper = await task.ConfigureAwait(false);
