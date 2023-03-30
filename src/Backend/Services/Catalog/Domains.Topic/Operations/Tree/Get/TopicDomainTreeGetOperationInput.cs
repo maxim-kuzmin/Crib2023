@@ -35,30 +35,15 @@ public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64No
                 Axis = TreeGetOperationAxisForList.Child;
             }
         }
-        
-        if (Axis == TreeGetOperationAxisForList.None || Axis == TreeGetOperationAxisForList.Child)
-        {
-            if (string.IsNullOrWhiteSpace(SortField))
-            {
-                SortField = nameof(TopicTypeEntity.Id);
-            }
 
-            if (string.IsNullOrWhiteSpace(SortDirection))
-            {
-                SortDirection = OperationOptions.SORT_DIRECTION_DESC;
-            }
+        if (string.IsNullOrWhiteSpace(SortField))
+        {
+            SortField = nameof(TopicTypeEntity.Id);
         }
-        else
-        {
-            if (string.IsNullOrWhiteSpace(SortField))
-            {
-                SortField = nameof(TopicDomainEntityForItem.TreePath);
-            }
 
-            if (string.IsNullOrWhiteSpace(SortDirection))
-            {
-                SortDirection = OperationOptions.SORT_DIRECTION_ASC;
-            }
+        if (string.IsNullOrWhiteSpace(SortDirection))
+        {
+            SortDirection = OperationOptions.SORT_DIRECTION_DESC;
         }
 
         if (Axis == TreeGetOperationAxisForList.None)

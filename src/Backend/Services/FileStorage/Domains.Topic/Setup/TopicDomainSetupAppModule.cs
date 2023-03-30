@@ -23,16 +23,23 @@ public class TopicDomainSetupAppModule : AppModule
 
         services.AddTransient<ITopicDomainItemGetOperationHandler>(x => new TopicDomainItemGetOperationHandler(
             x.GetRequiredService<ITopicDomainResource>(),
-            x.GetRequiredService<IOperationsResource>(),            
+            x.GetRequiredService<IOperationsResource>(),
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<TopicDomainItemGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
 
         services.AddTransient<ITopicDomainListGetOperationHandler>(x => new TopicDomainListGetOperationHandler(
             x.GetRequiredService<ITopicDomainResource>(),
-            x.GetRequiredService<IOperationsResource>(),            
+            x.GetRequiredService<IOperationsResource>(),
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<TopicDomainListGetOperationHandler>>(),
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
+
+        services.AddTransient<ITopicDomainTreeGetOperationHandler>(x => new TopicDomainTreeGetOperationHandler(
+            x.GetRequiredService<ITopicDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),
+            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<ILogger<TopicDomainTreeGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
     }
 
@@ -43,6 +50,7 @@ public class TopicDomainSetupAppModule : AppModule
         {
             typeof(TopicDomainItemGetOperationRequestHandler),
             typeof(TopicDomainListGetOperationRequestHandler),
+            typeof(TopicDomainTreeGetOperationRequestHandler),
             typeof(ITopicDomainResource),
             typeof(ITopicDomainItemGetOperationHandler),
             typeof(ITopicDomainListGetOperationHandler),
