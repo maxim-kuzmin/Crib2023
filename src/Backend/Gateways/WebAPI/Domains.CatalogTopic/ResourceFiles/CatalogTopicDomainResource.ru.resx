@@ -123,4 +123,7 @@
   <data name="@@ListGetOperationName" xml:space="preserve">
     <value>Операция получения списка</value>
   </data>
+  <data name="@@TreeGetOperationName" xml:space="preserve">
+    <value>Операция получения дерева</value>
+  </data>
 </root>

@@ -7,11 +7,11 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic;
 /// </summary>
 public class CatalogTopicDomainResource : ICatalogTopicDomainResource
 {
-    #region Properties
+    #region Fields
 
-    private IStringLocalizer<CatalogTopicDomainResource> Localizer { get; }
+    private readonly IStringLocalizer<CatalogTopicDomainResource> _localizer;
 
-    #endregion Properties
+    #endregion Fields
 
     #region Constructors
 
@@ -21,7 +21,7 @@ public class CatalogTopicDomainResource : ICatalogTopicDomainResource
     /// <param name="localizer">Локализатор.</param>
     public CatalogTopicDomainResource(IStringLocalizer<CatalogTopicDomainResource> localizer)
     {
-        Localizer = localizer;
+        _localizer = localizer;
     }
 
     #endregion Constructors
@@ -31,13 +31,19 @@ public class CatalogTopicDomainResource : ICatalogTopicDomainResource
     /// <inheritdoc/>
     public string GetItemGetOperationName()
     {
-        return Localizer["@@ItemGetOperationName"];
+        return _localizer["@@ItemGetOperationName"];
     }
 
     /// <inheritdoc/>
     public string GetListGetOperationName()
     {
-        return Localizer["@@ListGetOperationName"];
+        return _localizer["@@ListGetOperationName"];
+    }
+
+    /// <inheritdoc/>
+    public string GetTreeGetOperationName()
+    {
+        return _localizer["@@TreeGetOperationName"];
     }
 
     #endregion Public methods

@@ -1,18 +1,18 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get;
+namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get;
 
 /// <summary>
 /// Запрос операции получения списка в домене "Тема в каталоге".
 /// </summary>
-public class CatalogTopicDomainListGetOperationRequest : IRequest<CatalogTopicDomainListGetOperationResponse>
+public class CatalogTopicDomainTreeGetOperationRequest : IRequest<CatalogTopicDomainTreeGetOperationResponse>
 {
     #region Properties
 
     /// <summary>
     /// Входные данные.
     /// </summary>
-    public CatalogTopicListGetOperationInput Input { get; }
+    public CatalogTopicTreeGetOperationInput Input { get; }
 
     /// <summary>
     /// Код операции.
@@ -28,7 +28,7 @@ public class CatalogTopicDomainListGetOperationRequest : IRequest<CatalogTopicDo
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public CatalogTopicDomainListGetOperationRequest(CatalogTopicListGetOperationInput input, string operationCode = "")
+    public CatalogTopicDomainTreeGetOperationRequest(CatalogTopicTreeGetOperationInput input, string operationCode = "")
     {
         Input = input;
         OperationCode = operationCode;

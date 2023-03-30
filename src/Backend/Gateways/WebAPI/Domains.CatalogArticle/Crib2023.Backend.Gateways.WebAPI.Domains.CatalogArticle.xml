@@ -40,7 +40,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationHandler">
             <summary>
-            Обработчик операции получения элемента в домене.
+            Обработчик операции получения элемента в домене "Статья в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.ICatalogArticleDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
@@ -48,7 +48,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationRequest">
             <summary>
-            Запрос операции получения элемента в домене.
+            Запрос операции получения элемента в домене "Статья в каталоге".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationRequest.Input">
@@ -70,7 +70,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationRequestHandler">
             <summary>
-            Обработчик запроса операции получения элемента в домене.
+            Обработчик запроса операции получения элемента в домене "Статья в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get.ICatalogArticleDomainItemGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient)">
@@ -85,7 +85,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationResponse">
             <summary>
-            Отклик операции получения элемента в домене.
+            Отклик операции получения элемента в домене "Статья в каталоге".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get.CatalogArticleDomainItemGetOperationResponse.OperationResult">
@@ -101,7 +101,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationHandler">
             <summary>
-            Обработчик операции получения списка в домене.
+            Обработчик операции получения списка в домене "Статья в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.ICatalogArticleDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
@@ -109,7 +109,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationRequest">
             <summary>
-            Запрос операции получения списка в домене.
+            Запрос операции получения списка в домене "Статья в каталоге".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationRequest.Input">
@@ -131,7 +131,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationRequestHandler">
             <summary>
-            Обработчик запроса операции получения списка в домене.
+            Обработчик запроса операции получения списка в домене "Статья в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get.ICatalogArticleDomainListGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.CatalogArticleServiceClient)">
@@ -146,7 +146,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationResponse">
             <summary>
-            Отклик операции получения списка в домене.
+            Отклик операции получения списка в домене "Статья в каталоге".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get.CatalogArticleDomainListGetOperationResponse.OperationResult">

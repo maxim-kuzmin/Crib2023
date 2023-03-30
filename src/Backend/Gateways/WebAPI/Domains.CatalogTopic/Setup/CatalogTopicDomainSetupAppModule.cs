@@ -26,6 +26,12 @@ public class CatalogTopicDomainSetupAppModule : AppModule
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<CatalogTopicDomainListGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptions>>()));
+
+        services.AddTransient<ICatalogTopicDomainTreeGetOperationHandler>(x => new CatalogTopicDomainTreeGetOperationHandler(
+            x.GetRequiredService<ICatalogTopicDomainResource>(),
+            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<ILogger<CatalogTopicDomainTreeGetOperationHandler>>(),
+            x.GetRequiredService<IOptionsMonitor<SetupOptions>>()));
     }
 
     /// <inheritdoc/>
@@ -35,6 +41,7 @@ public class CatalogTopicDomainSetupAppModule : AppModule
             {
                 typeof(CatalogTopicDomainItemGetOperationRequestHandler),
                 typeof(CatalogTopicDomainListGetOperationRequestHandler),
+                typeof(CatalogTopicDomainTreeGetOperationRequestHandler),
                 typeof(ICatalogTopicDomainItemGetOperationHandler),
                 typeof(ICatalogTopicDomainListGetOperationHandler),
                 typeof(ICatalogTopicDomainResource),

@@ -67,9 +67,11 @@ message FileStorageTopicListGetOperationInput {
   string sort_field = 3;
   string sort_direction = 4;
   string axis = 5;
-  repeated int64 ids = 6;
-  string name = 7;
-  string tree_path = 8;
+  repeated int64 expanded_node_ids = 6;
+  int64 root_node_id = 7;
+  string root_node_tree_path = 8;
+  repeated int64 ids = 9;
+  string name = 10;
 }
 
 // GetList Reply
@@ -85,4 +87,45 @@ message FileStorageTopicListGetOperationReply {
 message FileStorageTopicListGetOperationOutput {
   repeated FileStorageTopicEntity items = 1;
   int64 total_count = 2;
+}
+
+// GetTree Request
+
+message FileStorageTopicTreeGetOperationRequest {
+  FileStorageTopicTreeGetOperationInput input = 1;
+  string operation_code = 2;
+}
+
+message FileStorageTopicTreeGetOperationInput {
+  int32 page_number = 1;
+  int32 page_size = 2;
+  string sort_field = 3;
+  string sort_direction = 4;
+  string axis = 5;
+  repeated int64 expanded_node_ids = 6;
+  int64 root_node_id = 7;
+  string root_node_tree_path = 8;
+}
+
+// GetTree Reply
+
+message FileStorageTopicTreeGetOperationReply {
+  bool is_ok = 1;
+  string operation_code = 2;
+  repeated string error_messages = 3;
+  FileStorageTopicTreeGetOperationOutput output = 4;
+  repeated FileStorageInvalidInputProperty invalid_input_properties = 5;
+}
+
+message FileStorageTopicTreeGetOperationOutput {
+  repeated FileStorageTopicEntityForTree nodes = 1;
+  int64 total_count = 2;
+}
+
+message FileStorageTopicEntityForTree {
+  FileStorageTopicTypeEntity data = 1;
+  repeated FileStorageTopicEntityForTree tree_children = 2;
+  bool tree_has_children = 3;
+  int32 tree_level = 4;
+  string tree_path = 5;  
 }

@@ -147,5 +147,61 @@ public class CatalogTopicController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Получить дерево.
+    /// </summary>
+    /// <param name="input">Входные данные.</param>
+    /// <param name="operationCode">Код операции.</param>
+    /// <returns>Задача на получение дерева.</returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(CatalogTopicTreeGetResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(WebAppResponseWithMessages), StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetTree(
+        [FromQuery] CatalogTopicTreeGetOperationInput input,
+        [FromHeader(Name = nameof(CatalogTopicDomainTreeGetOperationRequest.OperationCode))] string operationCode = "")
+    {
+        CatalogTopicDomainTreeGetOperationRequest operationRequest = new(input, operationCode);
+
+        var operationResponse = await _mediator.Send(operationRequest).ConfigureAwait(false);
+
+        var operationResult = operationResponse.OperationResult;
+
+        if (operationResult.IsOk)
+        {
+            if (operationResult.Output.Nodes.Any())
+            {
+                CatalogTopicTreeGetResponse response = new(
+                    operationResult.OperationCode,
+                    operationResult.Output);
+
+                return Ok(response);
+            }
+            else
+            {
+                WebAppResponse response = new(operationResult.OperationCode);
+
+                return NotFound(response);
+            }
+        }
+        else if (operationResult.InvalidInputProperties.Any())
+        {
+            WebAppResponseWithDetails response = new(
+                operationResult.OperationCode,
+                new(operationResult.InvalidInputProperties, operationResult.ErrorMessages.FromSentencesToText()));
+
+            return BadRequest(response);
+        }
+        else
+        {
+            WebAppResponseWithMessages response = new(
+                operationResult.OperationCode,
+                new(operationResult.ErrorMessages));
+
+            return StatusCode(StatusCodes.Status500InternalServerError, response);
+        }
+    }
+
     #endregion Public methods
 }

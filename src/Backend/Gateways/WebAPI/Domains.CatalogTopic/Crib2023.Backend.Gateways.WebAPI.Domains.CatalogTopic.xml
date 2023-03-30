@@ -21,6 +21,9 @@
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.CatalogTopicDomainResource.GetListGetOperationName">
             <inheritdoc/>
         </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.CatalogTopicDomainResource.GetTreeGetOperationName">
+            <inheritdoc/>
+        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource">
             <summary>
             Интерфейс ресурса домена.
@@ -38,9 +41,15 @@
             </summary>
             <returns>Имя операции.</returns>
         </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource.GetTreeGetOperationName">
+            <summary>
+            Получить имя операции получения дерева.
+            </summary>
+            <returns>Имя операции.</returns>
+        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationHandler">
             <summary>
-            Обработчик операции получения элемента в домене.
+            Обработчик операции получения элемента в домене "Тема в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
@@ -48,7 +57,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequest">
             <summary>
-            Запрос операции получения элемента в домене.
+            Запрос операции получения элемента в домене "Тема в каталоге".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequest.Input">
@@ -70,7 +79,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequestHandler">
             <summary>
-            Обработчик запроса операции получения элемента в домене.
+            Обработчик запроса операции получения элемента в домене "Тема в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get.ICatalogTopicDomainItemGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicService.CatalogTopicServiceClient)">
@@ -85,7 +94,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationResponse">
             <summary>
-            Отклик операции получения элемента в домене.
+            Отклик операции получения элемента в домене "Тема в каталоге".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get.CatalogTopicDomainItemGetOperationResponse.OperationResult">
@@ -101,7 +110,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationHandler">
             <summary>
-            Обработчик операции получения списка в домене.
+            Обработчик операции получения списка в домене "Тема в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
@@ -109,7 +118,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequest">
             <summary>
-            Запрос операции получения списка в домене.
+            Запрос операции получения списка в домене "Тема в каталоге".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequest.Input">
@@ -131,7 +140,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequestHandler">
             <summary>
-            Обработчик запроса операции получения списка в домене.
+            Обработчик запроса операции получения списка в домене "Тема в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.ICatalogTopicDomainListGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicService.CatalogTopicServiceClient)">
@@ -146,7 +155,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationResponse">
             <summary>
-            Отклик операции получения списка в домене.
+            Отклик операции получения списка в домене "Тема в каталоге".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationResponse.OperationResult">
@@ -155,6 +164,67 @@
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get.CatalogTopicDomainListGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.CatalogTopicDomainListGetOperationResult)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationResult">Результат операции.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationHandler">
+            <summary>
+            Обработчик операции получения списка в домене "Тема в каталоге".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.ICatalogTopicDomainResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationRequest">
+            <summary>
+            Запрос операции получения списка в домене "Тема в каталоге".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationRequest.Input">
+            <summary>
+            Входные данные.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationRequest.OperationCode">
+            <summary>
+            Код операции.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationRequest.#ctor(Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationInput,System.String)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <param name="operationCode">Код операции.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationRequestHandler">
+            <summary>
+            Обработчик запроса операции получения списка в домене "Тема в каталоге".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationRequestHandler.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Tree.Get.ICatalogTopicDomainTreeGetOperationHandler,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicService.CatalogTopicServiceClient)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationHandler">Обработчик операции.</param>
+            <param name="client">Клиент.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationRequestHandler.Handle(Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationRequest,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationResponse">
+            <summary>
+            Отклик операции получения списка в домене "Тема в каталоге".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationResponse.OperationResult">
+            <summary>
+            Результат операции.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get.CatalogTopicDomainTreeGetOperationResponse.#ctor(Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Tree.Get.CatalogTopicDomainTreeGetOperationResult)">
             <summary>
             Конструктор.
             </summary>
@@ -200,6 +270,21 @@
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get.ICatalogTopicDomainListGetOperationHandler">
+            <summary>
+            Интерфейс обработчика операции получения списка в домене "Тема в каталоге".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Tree.Get.CatalogTopicDomainTreeGetOperationResult">
+            <summary>
+            Результат операции получения списка в домене "Тема в каталоге".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Tree.Get.CatalogTopicDomainTreeGetOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Tree.Get.ICatalogTopicDomainTreeGetOperationHandler">
             <summary>
             Интерфейс обработчика операции получения списка в домене "Тема в каталоге".
             </summary>

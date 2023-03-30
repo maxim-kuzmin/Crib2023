@@ -1,27 +1,29 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get;
+using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Tree.Get;
+
+namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get;
 
 /// <summary>
 /// Обработчик операции получения списка в домене "Тема в каталоге".
 /// </summary>
-public class CatalogTopicDomainListGetOperationHandler :
+public class CatalogTopicDomainTreeGetOperationHandler :
     OperationWithInputAndOutputHandler<
-        CatalogTopicListGetOperationInput,
-        CatalogTopicListGetOperationOutput,
-        CatalogTopicDomainListGetOperationResult>,
-    ICatalogTopicDomainListGetOperationHandler
+        CatalogTopicTreeGetOperationInput,
+        CatalogTopicTreeGetOperationOutput,
+        CatalogTopicDomainTreeGetOperationResult>,
+    ICatalogTopicDomainTreeGetOperationHandler
 {
     #region Constructors
 
     /// <inheritdoc/>
-    public CatalogTopicDomainListGetOperationHandler(
+    public CatalogTopicDomainTreeGetOperationHandler(
         ICatalogTopicDomainResource domainResource,
         IOperationResource operationResource,
-        ILogger<CatalogTopicDomainListGetOperationHandler> logger,
+        ILogger<CatalogTopicDomainTreeGetOperationHandler> logger,
         IOptionsMonitor<SetupOptions> setupOptions)
         : base(
-            domainResource.GetListGetOperationName(),
+            domainResource.GetTreeGetOperationName(),
             operationResource,
             logger,
             setupOptions)

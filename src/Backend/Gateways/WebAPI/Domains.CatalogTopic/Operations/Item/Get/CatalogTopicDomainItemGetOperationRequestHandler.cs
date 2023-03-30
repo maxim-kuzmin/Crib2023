@@ -5,7 +5,7 @@ using Makc2023.Backend.Common.Core;
 namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get;
 
 /// <summary>
-/// Обработчик запроса операции получения элемента в домене.
+/// Обработчик запроса операции получения элемента в домене "Тема в каталоге".
 /// </summary>
 public class CatalogTopicDomainItemGetOperationRequestHandler :
     IRequestHandler<CatalogTopicDomainItemGetOperationRequest, CatalogTopicDomainItemGetOperationResponse>

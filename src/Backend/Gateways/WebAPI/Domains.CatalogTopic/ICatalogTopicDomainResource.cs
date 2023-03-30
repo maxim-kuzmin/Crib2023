@@ -21,6 +21,12 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic
         /// <returns>Имя операции.</returns>
         string GetListGetOperationName();
 
+        /// <summary>
+        /// Получить имя операции получения дерева.
+        /// </summary>
+        /// <returns>Имя операции.</returns>
+        string GetTreeGetOperationName();
+
         #endregion Methods
     }
 }

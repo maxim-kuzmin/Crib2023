@@ -9,6 +9,7 @@ import "backend_service_catalog.proto";
 service CatalogTopicService {
   rpc GetItem (CatalogTopicItemGetOperationRequest) returns (CatalogTopicItemGetOperationReply);
   rpc GetList (CatalogTopicListGetOperationRequest) returns (CatalogTopicListGetOperationReply);
+  rpc GetTree (CatalogTopicTreeGetOperationRequest) returns (CatalogTopicTreeGetOperationReply);
 }
 
 // GetItem Request
@@ -36,10 +37,10 @@ message CatalogTopicItemGetOperationReply {
 }
 
 message CatalogTopicItemGetOperationOutput {
-  CatalogTopicEntity item = 1;
+  CatalogTopicEntityForItem item = 1;
 }
 
-message CatalogTopicEntity {
+message CatalogTopicEntityForItem {
   CatalogTopicTypeEntity data = 1;
   repeated CatalogOptionValueObject tree_ancestors = 2;
   bool tree_has_children = 3;
@@ -67,9 +68,11 @@ message CatalogTopicListGetOperationInput {
   string sort_field = 3;
   string sort_direction = 4;
   string axis = 5;
-  repeated int64 ids = 6;
-  string name = 7;
-  string tree_path = 8;
+  repeated int64 expanded_node_ids = 6;
+  int64 root_node_id = 7;
+  string root_node_tree_path = 8;
+  repeated int64 ids = 9;
+  string name = 10;
 }
 
 // GetList Reply
@@ -83,6 +86,47 @@ message CatalogTopicListGetOperationReply {
 }
 
 message CatalogTopicListGetOperationOutput {
-  repeated CatalogTopicEntity items = 1;
+  repeated CatalogTopicEntityForItem items = 1;
   int64 total_count = 2;
+}
+
+// GetTree Request
+
+message CatalogTopicTreeGetOperationRequest {
+  CatalogTopicTreeGetOperationInput input = 1;
+  string operation_code = 2;
+}
+
+message CatalogTopicTreeGetOperationInput {
+  int32 page_number = 1;
+  int32 page_size = 2;
+  string sort_field = 3;
+  string sort_direction = 4;
+  string axis = 5;
+  repeated int64 expanded_node_ids = 6;
+  int64 root_node_id = 7;
+  string root_node_tree_path = 8;
+}
+
+// GetTree Reply
+
+message CatalogTopicTreeGetOperationReply {
+  bool is_ok = 1;
+  string operation_code = 2;
+  repeated string error_messages = 3;
+  CatalogTopicTreeGetOperationOutput output = 4;
+  repeated CatalogInvalidInputProperty invalid_input_properties = 5;
+}
+
+message CatalogTopicTreeGetOperationOutput {
+  repeated CatalogTopicEntityForTree nodes = 1;
+  int64 total_count = 2;
+}
+
+message CatalogTopicEntityForTree {
+  CatalogTopicTypeEntity data = 1;
+  repeated CatalogTopicEntityForTree tree_children = 2;
+  bool tree_has_children = 3;
+  int32 tree_level = 4;
+  string tree_path = 5;  
 }

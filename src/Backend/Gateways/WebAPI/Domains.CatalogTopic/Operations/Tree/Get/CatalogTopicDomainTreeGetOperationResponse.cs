@@ -1,18 +1,18 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get;
+namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get;
 
 /// <summary>
-/// Отклик операции получения элемента в домене "Тема в каталоге".
+/// Отклик операции получения списка в домене "Тема в каталоге".
 /// </summary>
-public class CatalogTopicDomainItemGetOperationResponse
+public class CatalogTopicDomainTreeGetOperationResponse
 {
     #region Properties
 
     /// <summary>
     /// Результат операции.
     /// </summary>
-    public CatalogTopicItemGetOperationResult OperationResult { get; }
+    public CatalogTopicDomainTreeGetOperationResult OperationResult { get; }
 
     #endregion Properties
 
@@ -22,7 +22,7 @@ public class CatalogTopicDomainItemGetOperationResponse
     /// Конструктор.
     /// </summary>
     /// <param name="operationResult">Результат операции.</param>
-    public CatalogTopicDomainItemGetOperationResponse(CatalogTopicItemGetOperationResult operationResult)
+    public CatalogTopicDomainTreeGetOperationResponse(CatalogTopicDomainTreeGetOperationResult operationResult)
     {
         OperationResult = operationResult;
     }

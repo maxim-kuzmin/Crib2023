@@ -2,8 +2,10 @@
 
 global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Item.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.List.Get;
+global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogTopic.Tree.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get;
+global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get;
 global using Crib2023.Grpc.Backend.Services.Catalog;
 global using Makc2023.Backend.Common.Core;
 global using Makc2023.Backend.Common.Core.App;

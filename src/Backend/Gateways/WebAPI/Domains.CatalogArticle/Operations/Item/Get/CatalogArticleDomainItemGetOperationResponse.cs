@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
 
 /// <summary>
-/// Отклик операции получения элемента в домене.
+/// Отклик операции получения элемента в домене "Статья в каталоге".
 /// </summary>
 public class CatalogArticleDomainItemGetOperationResponse
 {

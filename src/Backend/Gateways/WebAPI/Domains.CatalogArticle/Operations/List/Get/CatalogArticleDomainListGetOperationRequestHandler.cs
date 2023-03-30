@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get;
 
 /// <summary>
-/// Обработчик запроса операции получения списка в домене.
+/// Обработчик запроса операции получения списка в домене "Статья в каталоге".
 /// </summary>
 public class CatalogArticleDomainListGetOperationRequestHandler :
     IRequestHandler<CatalogArticleDomainListGetOperationRequest, CatalogArticleDomainListGetOperationResponse>

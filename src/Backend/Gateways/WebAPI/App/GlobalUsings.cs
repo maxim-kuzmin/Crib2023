@@ -4,11 +4,13 @@ global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Article.Item
 global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Article.List;
 global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Topic.Item;
 global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Topic.List;
+global using Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Topic.Tree;
 global using Crib2023.Backend.Gateways.WebAPI.App.Setup;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Item.Get;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.List.Get;
+global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogTopic.Operations.Tree.Get;
 global using Crib2023.Grpc.Backend.Services.Catalog;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Apps.WebApp;

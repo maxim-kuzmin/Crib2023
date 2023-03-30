@@ -58,6 +58,14 @@
             <param name="operationCode">Код операции.</param>
             <returns>Задача на получение списка.</returns>
         </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog.CatalogTopicController.GetTree(Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationInput,System.String)">
+            <summary>
+            Получить дерево.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <param name="operationCode">Код операции.</param>
+            <returns>Задача на получение дерева.</returns>
+        </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Article.Item.CatalogArticleItemGetResponse">
             <summary>
             Отклик веб-приложения, содержащий данные получения элемента "Статья в каталоге". 
@@ -88,6 +96,14 @@
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Topic.List.CatalogTopicListGetResponse.#ctor(System.String,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationOutput)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Topic.Tree.CatalogTopicTreeGetResponse">
+            <summary>
+            Отклик веб-приложения, содержащий данные получения дерева "Тема в каталоге". 
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Responses.Catalog.Topic.Tree.CatalogTopicTreeGetResponse.#ctor(System.String,Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationOutput)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupAppModule">

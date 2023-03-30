@@ -98,9 +98,11 @@ public class TopicGrpcService : GrpcServerOfTopic
                 SortDirection = input.SortDirection,
                 SortField = input.SortField,
                 Axis = input.Axis.FromStringToEnum(TreeGetOperationAxisForList.None),
+                ExpandedNodeIds = input.ExpandedNodeIds.ToArray(),
+                RootNodeId = input.RootNodeId,
+                RootNodeTreePath = input.RootNodeTreePath,
                 Ids = input.Ids.ToArray(),
-                Name = input.Name,
-                RootNodeTreePath = input.TreePath,
+                Name = input.Name
             },
             request.OperationCode);
 
