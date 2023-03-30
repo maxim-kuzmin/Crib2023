@@ -137,6 +137,49 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         return result;
     }
 
+    /// <inheritdoc/>
+    public async Task<TopicDomainTreeGetOperationOutput> GetTree(TopicDomainTreeGetOperationInput input)
+    {
+        TopicDomainTreeGetOperationOutput result = new();
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var queryForItems = dbContext.Topic
+            .Include(x => x.Parent)
+            .ApplyFiltering(input)
+            .ApplySorting(input)
+            .ApplyPagination(input)
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
+
+        var taskForItems = queryForItems.ToArrayAsync();
+
+        long? totalCount = null;
+
+        if (input.PageSize > 0)
+        {
+            using var dbContextForTotalCount = _dbContextFactory.CreateDbContext();
+
+            var queryForTotalCount = dbContextForTotalCount.Topic.ApplyFiltering(input);
+
+            totalCount = await queryForTotalCount.LongCountAsync().ConfigureAwait(false);
+        }
+
+        var mapperForItems = await taskForItems.ConfigureAwait(false);
+
+        result.Nodes = mapperForItems.Select(x =>
+            new TopicDomainEntityForTree(x.Data, x.TreeHasChildren, x.TreeLevel, x.Data.TreePath))
+            .ToArray();
+
+        if (!totalCount.HasValue)
+        {
+            totalCount = result.Nodes.LongLength;
+        }
+
+        result.TotalCount = totalCount.Value;
+
+        return result;
+    }
+
     #endregion Public methods
 
     #region Private methods

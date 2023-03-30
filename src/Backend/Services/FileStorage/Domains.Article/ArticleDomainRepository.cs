@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Article;
 
 /// <summary>
-/// Репозиторий домена.
+/// Репозиторий домена "Статья".
 /// </summary>
 public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IArticleDomainRepository
 {

@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic;
 
 /// <summary>
@@ -70,6 +68,20 @@ public static class TopicDomainExtension
             }
         }
 
+        return query.ApplyFiltering((TopicDomainTreeGetOperationInput)input);
+    }
+
+    /// <summary>
+    /// Применить фильтрацию.
+    /// </summary>
+    /// <param name="query">Запрос.</param>
+    /// <param name="input">Входные данные.</param>
+    /// <returns>Запрос с учётом фильтрации.</returns>
+    public static IQueryable<ClientMapperTopicTypeEntity> ApplyFiltering(
+        this IQueryable<ClientMapperTopicTypeEntity> query,
+        TopicDomainTreeGetOperationInput input
+        )
+    {
         if (!string.IsNullOrWhiteSpace(input.TreePath))
         {
             var treePath = new LTree(input.TreePath);
@@ -99,14 +111,9 @@ public static class TopicDomainExtension
                             parentTreePath = new LTree(parentTreePathString);
                         }
 
-                        if (parentTreePath != null)
-                        {
-                            query = query.Where(x => x.TreePath == parentTreePath || x.TreePath == treePath);
-                        }
-                        else
-                        {
-                            query = query.Where(x => x.TreePath == treePath);
-                        }
+                        query = parentTreePath != null
+                            ? query.Where(x => x.TreePath == parentTreePath || x.TreePath == treePath)
+                            : query.Where(x => x.TreePath == treePath);
                     }
                     break;
                 case TreeGetOperationAxisForList.Child:
@@ -135,7 +142,7 @@ public static class TopicDomainExtension
     /// <returns>Запрос с учётом сортировки.</returns>
     public static IQueryable<ClientMapperTopicTypeEntity> ApplySorting(
         this IQueryable<ClientMapperTopicTypeEntity> query,
-        TopicDomainListGetOperationInput input
+        TopicDomainTreeGetOperationInput input
         )
     {
         if (input.SortField.Equals(nameof(TopicTypeEntity.Id), StringComparison.OrdinalIgnoreCase))

@@ -246,11 +246,6 @@
             Входные данные операции получения списка в домене "Тема".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Axis">
-            <summary>
-            Ось.
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Ids">
             <summary>
             Идентификаторы.
@@ -264,11 +259,6 @@
         <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Name">
             <summary>
             Имя.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.TreePath">
-            <summary>
-            Путь в дереве.
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Normalize">
@@ -365,6 +355,19 @@
             Входные данные операции получения дерева в домене "Тема".
             </summary>
         </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Axis">
+            <summary>
+            Ось.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.TreePath">
+            <summary>
+            Путь в дереве.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Normalize">
+            <inheritdoc/>
+        </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationOutput">
             <summary>
             Выходные данные операции получения дерева в домене "Тема".
@@ -435,7 +438,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.Setup.TopicDomainSetupAppModule">
             <summary>
-            Модуль настройки приложения домена.
+            Модуль настройки приложения домена "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Setup.TopicDomainSetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
@@ -449,7 +452,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainEntity">
             <summary>
-            Сущность для элемента домена "Тема".
+            Сущность домена "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainEntity.Data">
@@ -505,7 +508,15 @@
             <param name="input">Входные данные.</param>
             <returns>Запрос с учётом фильтрации.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainExtension.ApplySorting(System.Linq.IQueryable{Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
+            <summary>
+            Применить фильтрацию.
+            </summary>
+            <param name="query">Запрос.</param>
+            <param name="input">Входные данные.</param>
+            <returns>Запрос с учётом фильтрации.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.TopicDomainExtension.ApplySorting(System.Linq.IQueryable{Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
             <summary>
             Применить сортировку.
             </summary>

@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories;
 
 /// <summary>
-/// Интерфейс репозитория "Тема".
+/// Интерфейс репозитория домена "Тема".
 /// </summary>
 public interface ITopicDomainRepository : IRepository<TopicDomainEntityForItem>
 {
@@ -22,6 +22,13 @@ public interface ITopicDomainRepository : IRepository<TopicDomainEntityForItem>
     /// <param name="input">Входные данные.</param>
     /// <returns>Задача на получение списка.</returns>
     Task<TopicDomainListGetOperationOutput> GetList(TopicDomainListGetOperationInput input);
+
+    /// <summary>
+    /// Получить дерево.
+    /// </summary>
+    /// <param name="input">Входные данные.</param>
+    /// <returns>Задача на получение дерева.</returns>
+    Task<TopicDomainTreeGetOperationOutput> GetTree(TopicDomainTreeGetOperationInput input);
 
     #endregion Methods
 }

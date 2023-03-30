@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Article;
 
 /// <summary>
-/// Ресурс домена.
+/// Ресурс домена "Статья".
 /// </summary>
 public class ArticleDomainResource : IArticleDomainResource
 {

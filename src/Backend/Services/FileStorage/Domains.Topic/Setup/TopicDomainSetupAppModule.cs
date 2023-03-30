@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Topic.Setup;
 
 /// <summary>
-/// Модуль настройки приложения домена.
+/// Модуль настройки приложения домена "Тема".
 /// </summary>
 public class TopicDomainSetupAppModule : AppModule
 {

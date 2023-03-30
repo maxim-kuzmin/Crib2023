@@ -6,7 +6,7 @@
     <members>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainEntity">
             <summary>
-            Сущность "Статья".
+            Сущность домена "Статья".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainEntity.Data">
@@ -37,7 +37,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainExtension">
             <summary>
-            Расширение домена.
+            Расширение домена "Статья".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput)">
@@ -66,7 +66,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainRepository">
             <summary>
-            Репозиторий домена.
+            Репозиторий домена "Статья".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainRepository.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.IClientMapperDbContextFactory,Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Db.ClientMapperDbManager,MediatR.IMediator)">
@@ -85,7 +85,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource">
             <summary>
-            Ресурс домена.
+            Ресурс домена "Статья".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource.#ctor(Microsoft.Extensions.Localization.IStringLocalizer{Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource})">
@@ -108,7 +108,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource">
             <summary>
-            Интерфейс ресурса домена.
+            Интерфейс ресурса домена "Статья".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource.GetItemGetOperationName">
@@ -376,7 +376,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Setup.ArticleDomainSetupAppModule">
             <summary>
-            Модуль настройки приложения домена.
+            Модуль настройки приложения домена "Статья".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Setup.ArticleDomainSetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
@@ -390,7 +390,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleDomainRepository">
             <summary>
-            Интерфейс репозитория "Статья".
+            Интерфейс репозитория домена "Статья".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleDomainRepository.GetItem(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput)">

@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories;
 
 /// <summary>
-/// Интерфейс репозитория "Статья".
+/// Интерфейс репозитория домена "Статья".
 /// </summary>
 public interface IArticleDomainRepository : IRepository<ArticleDomainEntity>
 {

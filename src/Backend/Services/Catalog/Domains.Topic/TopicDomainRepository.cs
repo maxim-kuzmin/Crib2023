@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
-
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic;
 
 /// <summary>

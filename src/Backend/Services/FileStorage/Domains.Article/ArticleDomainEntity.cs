@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Article;
 
 /// <summary>
-/// Сущность "Статья".
+/// Сущность домена "Статья".
 /// </summary>
 public class ArticleDomainEntity : Entity<long>, IAggregateRoot
 {

@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic;
 
 /// <summary>
-/// Сущность для элемента домена "Тема".
+/// Сущность домена "Тема".
 /// </summary>
 public class TopicDomainEntity : Entity<long>, IAggregateRoot
 {

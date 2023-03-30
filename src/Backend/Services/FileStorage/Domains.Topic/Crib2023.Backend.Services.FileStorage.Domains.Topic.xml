@@ -220,11 +220,6 @@
             Входные данные операции получения списка в домене "Тема".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Axis">
-            <summary>
-            Ось.
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Ids">
             <summary>
             Идентификаторы.
@@ -238,11 +233,6 @@
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Name">
             <summary>
             Имя.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.TreePath">
-            <summary>
-            Путь в дереве.
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Normalize">
@@ -316,9 +306,113 @@
             Список свойств с недействительными значениями во входных данных.
             </summary>
         </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.ITopicDomainTreeGetOperationHandler">
+            <summary>
+            Интерфейс обработчика операции получения дерева в домене "Тема".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationHandler">
+            <summary>
+            Обработчик операции получения дерева в домене "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationHandler.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Topic.ITopicDomainResource,Makc2023.Backend.Common.Core.Operations.IOperationsResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput">
+            <summary>
+            Входные данные операции получения дерева в домене "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Axis">
+            <summary>
+            Ось.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.TreePath">
+            <summary>
+            Путь в дереве.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Normalize">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationOutput">
+            <summary>
+            Выходные данные операции получения дерева в домене "Тема".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationRequest">
+            <summary>
+            Запрос операции получения дерева в домене "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationRequest.Input">
+            <summary>
+            Входные данные.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationRequest.OperationCode">
+            <summary>
+            Код операции.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationRequest.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput,System.String)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <param name="operationCode">Код операции.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationRequestHandler">
+            <summary>
+            Обработчик запроса операции получения дерева в домене "Тема".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.ITopicDomainTreeGetOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationHandler">Обработчик операции.</param>
+            <param name="repository">Репозиторий.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationRequestHandler.Handle(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationRequest,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationResponse">
+            <summary>
+            Отклик операции получения дерева в домене "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationResponse.OperationResult">
+            <summary>
+            Результат операции.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationResponse.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationResult)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationResult">Результат операции.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationResult">
+            <summary>
+            Результат операции получения дерева в домене "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Setup.TopicDomainSetupAppModule">
             <summary>
-            Модуль настройки приложения домена.
+            Модуль настройки приложения домена "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Setup.TopicDomainSetupAppModule.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
@@ -332,7 +426,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity">
             <summary>
-            Сущность для элемента домена "Тема".
+            Сущность домена "Тема".
             </summary>
         </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity.Data">
@@ -369,7 +463,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension">
             <summary>
-            Расширение домена.
+            Расширение домена "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput)">
@@ -388,7 +482,15 @@
             <param name="input">Входные данные.</param>
             <returns>Запрос с учётом фильтрации.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ApplySorting(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
+            <summary>
+            Применить фильтрацию.
+            </summary>
+            <param name="query">Запрос.</param>
+            <param name="input">Входные данные.</param>
+            <returns>Запрос с учётом фильтрации.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ApplySorting(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
             <summary>
             Применить сортировку.
             </summary>
@@ -413,6 +515,9 @@
             <inheritdoc/>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainRepository.GetList(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainRepository.GetTree(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainResource">
@@ -443,7 +548,7 @@
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository">
             <summary>
-            Интерфейс репозитория "Тема".
+            Интерфейс репозитория домена "Тема".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository.GetItem(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput)">
@@ -459,6 +564,13 @@
             </summary>
             <param name="input">Входные данные.</param>
             <returns>Задача на получение списка.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository.GetTree(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
+            <summary>
+            Получить дерево.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <returns>Задача на получение дерева.</returns>
         </member>
     </members>
 </doc>

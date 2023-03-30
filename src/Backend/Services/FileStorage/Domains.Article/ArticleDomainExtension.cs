@@ -3,7 +3,7 @@
 namespace Crib2023.Backend.Services.FileStorage.Domains.Article;
 
 /// <summary>
-/// Расширение домена.
+/// Расширение домена "Статья".
 /// </summary>
 public static class ArticleDomainExtension
 {
