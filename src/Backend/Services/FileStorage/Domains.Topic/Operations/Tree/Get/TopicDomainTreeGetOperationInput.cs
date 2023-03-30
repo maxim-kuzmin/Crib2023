@@ -15,9 +15,9 @@ public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64No
     public TreeGetOperationAxisForList Axis { get; set; }
 
     /// <summary>
-    /// Путь в дереве.
+    /// Путь в дереве корневого узла.
     /// </summary>
-    public string TreePath { get; set; } = "";
+    public string RootNodeTreePath { get; set; } = "";
 
     #endregion Properties
 
@@ -28,7 +28,7 @@ public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64No
     {
         base.Normalize();
 
-        if (string.IsNullOrWhiteSpace(TreePath) || RootNodeId < 1)
+        if (string.IsNullOrWhiteSpace(RootNodeTreePath) || RootNodeId < 1)
         {
             if (Axis == TreeGetOperationAxisForList.ChildOrSelf)
             {

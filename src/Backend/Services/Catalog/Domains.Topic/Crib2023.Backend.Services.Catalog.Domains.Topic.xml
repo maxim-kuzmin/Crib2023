@@ -360,9 +360,9 @@
             Ось.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.TreePath">
+        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.RootNodeTreePath">
             <summary>
-            Путь в дереве.
+            Путь в дереве корневого узла.
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Normalize">

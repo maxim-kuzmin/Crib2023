@@ -111,7 +111,7 @@ public class TopicGrpcService : GrpcServerOfTopic
                 Axis = input.Axis.FromStringToEnum(TreeGetOperationAxisForList.None),
                 Ids = input.Ids.ToArray(),
                 Name = input.Name,
-                TreePath = input.TreePath,
+                RootNodeTreePath = input.TreePath,
             },
             request.OperationCode);
 

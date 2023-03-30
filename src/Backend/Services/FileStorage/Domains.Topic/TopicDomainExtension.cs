@@ -82,9 +82,9 @@ public static class TopicDomainExtension
         TopicDomainTreeGetOperationInput input
         )
     {
-        if (!string.IsNullOrWhiteSpace(input.TreePath))
+        if (!string.IsNullOrWhiteSpace(input.RootNodeTreePath))
         {
-            var treePath = new LTree(input.TreePath);
+            var treePath = new LTree(input.RootNodeTreePath);
 
             switch (input.Axis)
             {
@@ -102,7 +102,7 @@ public static class TopicDomainExtension
                     break;
                 case TreeGetOperationAxisForList.ParentOrSelf:
                     {
-                        string parentTreePathString = input.TreePath.FromTreePathToParentTreePath();
+                        string parentTreePathString = input.RootNodeTreePath.FromTreePathToParentTreePath();
 
                         LTree? parentTreePath = null;
 
