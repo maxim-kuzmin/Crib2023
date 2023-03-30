@@ -7,34 +7,12 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Operations.Tree.Get;
 /// </summary>
 public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64NodeId
 {
-    #region Properties
-
-    /// <summary>
-    /// Ось.
-    /// </summary>
-    public TreeGetOperationAxisForList Axis { get; set; }
-
-    /// <summary>
-    /// Путь в дереве корневого узла.
-    /// </summary>
-    public string RootNodeTreePath { get; set; } = "";
-
-    #endregion Properties
-
     #region Public methods
 
     /// <inheritdoc/>
     public override void Normalize()
     {
         base.Normalize();
-
-        if (string.IsNullOrWhiteSpace(RootNodeTreePath) || RootNodeId < 1)
-        {
-            if (Axis == TreeGetOperationAxisForList.ChildOrSelf)
-            {
-                Axis = TreeGetOperationAxisForList.Child;
-            }
-        }
 
         if (string.IsNullOrWhiteSpace(SortField))
         {
@@ -44,11 +22,6 @@ public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64No
         if (string.IsNullOrWhiteSpace(SortDirection))
         {
             SortDirection = OperationOptions.SORT_DIRECTION_DESC;
-        }
-
-        if (Axis == TreeGetOperationAxisForList.None)
-        {
-            Axis = TreeGetOperationAxisForList.All;
         }
     }
 

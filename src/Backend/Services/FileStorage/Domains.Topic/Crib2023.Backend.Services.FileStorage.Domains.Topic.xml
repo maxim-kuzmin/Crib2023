@@ -329,16 +329,6 @@
             Входные данные операции получения дерева в домене "Тема".
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Axis">
-            <summary>
-            Ось.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.RootNodeTreePath">
-            <summary>
-            Путь в дереве корневого узла.
-            </summary>
-        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
