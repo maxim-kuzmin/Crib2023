@@ -64,10 +64,12 @@ message CatalogArticleListGetOperationInput {
   string sort_field = 3;
   string sort_direction = 4;
   repeated int64 ids = 5;
-  string title = 6;
-  int64 topic_id = 7;
-  repeated int64 topic_ids = 8;
-  string topic_name = 9;  
+  string ids_string = 6;
+  string title = 7;
+  int64 topic_id = 8;
+  repeated int64 topic_ids = 9;
+  string topic_ids_string = 10;
+  string topic_name = 11; 
 }
 
 // GetList Reply

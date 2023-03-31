@@ -110,9 +110,11 @@ public class TopicGrpcService : GrpcServerOfTopic
                 SortField = input.SortField,
                 Axis = input.Axis.FromStringToEnum(TreeGetOperationAxisForList.None),
                 ExpandedNodeIds = input.ExpandedNodeIds.ToArray(),
+                ExpandedNodeIdsString = input.ExpandedNodeIdsString,
                 RootNodeId = input.RootNodeId,
                 RootNodeTreePath = input.RootNodeTreePath,
                 Ids = input.Ids.ToArray(),
+                IdsString = input.IdsString,
                 Name = input.Name
             },
             request.OperationCode);
@@ -184,6 +186,7 @@ public class TopicGrpcService : GrpcServerOfTopic
                 SortField = input.SortField,
                 Axis = input.Axis.FromStringToEnum(TreeGetOperationAxisForList.None),
                 ExpandedNodeIds = input.ExpandedNodeIds.ToArray(),
+                ExpandedNodeIdsString = input.ExpandedNodeIdsString,
                 RootNodeId = input.RootNodeId,
                 RootNodeTreePath = input.RootNodeTreePath
             },

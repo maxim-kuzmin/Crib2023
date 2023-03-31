@@ -224,6 +224,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationInput.IdsFieldNumber">
             <summary>Field number for the "ids" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationInput.IdsStringFieldNumber">
+            <summary>Field number for the "ids_string" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationInput.TitleFieldNumber">
             <summary>Field number for the "title" field.</summary>
         </member>
@@ -232,6 +235,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationInput.TopicIdsFieldNumber">
             <summary>Field number for the "topic_ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationInput.TopicIdsStringFieldNumber">
+            <summary>Field number for the "topic_ids_string" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationInput.TopicNameFieldNumber">
             <summary>Field number for the "topic_name" field.</summary>
@@ -384,6 +390,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.ExpandedNodeIdsFieldNumber">
             <summary>Field number for the "expanded_node_ids" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.ExpandedNodeIdsStringFieldNumber">
+            <summary>Field number for the "expanded_node_ids_string" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.RootNodeIdFieldNumber">
             <summary>Field number for the "root_node_id" field.</summary>
         </member>
@@ -392,6 +401,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.IdsFieldNumber">
             <summary>Field number for the "ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.IdsStringFieldNumber">
+            <summary>Field number for the "ids_string" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
@@ -440,6 +452,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationInput.ExpandedNodeIdsFieldNumber">
             <summary>Field number for the "expanded_node_ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationInput.ExpandedNodeIdsStringFieldNumber">
+            <summary>Field number for the "expanded_node_ids_string" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationInput.RootNodeIdFieldNumber">
             <summary>Field number for the "root_node_id" field.</summary>

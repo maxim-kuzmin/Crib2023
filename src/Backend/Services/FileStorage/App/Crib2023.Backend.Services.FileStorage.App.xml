@@ -227,6 +227,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleListGetOperationInput.IdsFieldNumber">
             <summary>Field number for the "ids" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleListGetOperationInput.IdsStringFieldNumber">
+            <summary>Field number for the "ids_string" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleListGetOperationInput.TitleFieldNumber">
             <summary>Field number for the "title" field.</summary>
         </member>
@@ -235,6 +238,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleListGetOperationInput.TopicIdsFieldNumber">
             <summary>Field number for the "topic_ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleListGetOperationInput.TopicIdsStringFieldNumber">
+            <summary>Field number for the "topic_ids_string" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleListGetOperationInput.TopicNameFieldNumber">
             <summary>Field number for the "topic_name" field.</summary>
@@ -369,6 +375,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.ExpandedNodeIdsFieldNumber">
             <summary>Field number for the "expanded_node_ids" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.ExpandedNodeIdsStringFieldNumber">
+            <summary>Field number for the "expanded_node_ids_string" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.RootNodeIdFieldNumber">
             <summary>Field number for the "root_node_id" field.</summary>
         </member>
@@ -377,6 +386,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.IdsFieldNumber">
             <summary>Field number for the "ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.IdsStringFieldNumber">
+            <summary>Field number for the "ids_string" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
@@ -425,6 +437,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTreeGetOperationInput.ExpandedNodeIdsFieldNumber">
             <summary>Field number for the "expanded_node_ids" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTreeGetOperationInput.ExpandedNodeIdsStringFieldNumber">
+            <summary>Field number for the "expanded_node_ids_string" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTreeGetOperationInput.RootNodeIdFieldNumber">
             <summary>Field number for the "root_node_id" field.</summary>

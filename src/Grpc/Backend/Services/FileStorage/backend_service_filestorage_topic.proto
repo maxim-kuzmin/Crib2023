@@ -69,10 +69,12 @@ message FileStorageTopicListGetOperationInput {
   string sort_direction = 4;
   string axis = 5;
   repeated int64 expanded_node_ids = 6;
-  int64 root_node_id = 7;
-  string root_node_tree_path = 8;
-  repeated int64 ids = 9;
-  string name = 10;
+  string expanded_node_ids_string = 7;
+  int64 root_node_id = 8;
+  string root_node_tree_path = 9;
+  repeated int64 ids = 10;
+  string ids_string = 11;
+  string name = 12;
 }
 
 // GetList Reply
@@ -104,8 +106,9 @@ message FileStorageTopicTreeGetOperationInput {
   string sort_direction = 4;
   string axis = 5;
   repeated int64 expanded_node_ids = 6;
-  int64 root_node_id = 7;
-  string root_node_tree_path = 8;
+  string expanded_node_ids_string = 7;
+  int64 root_node_id = 8;
+  string root_node_tree_path = 9;
 }
 
 // GetTree Reply
