@@ -41,11 +41,13 @@ public class SetupAppModule : AppModule
 
         services.AddLocalization(x => x.ConfigureLocalization());
 
-        services.AddMediatR(
-            typeof(ModuleOfCommonDomain),
-            typeof(ModuleOfCommonDomainSQLMappersEF),
-            typeof(ModuleOfServiceDomainsArticle),
-            typeof(ModuleOfServiceDomainsTopic));
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining<ModuleOfCommonDomain>()
+                .RegisterServicesFromAssemblyContaining<ModuleOfCommonDomainSQLMappersEF>()
+                .RegisterServicesFromAssemblyContaining<ModuleOfServiceDomainsArticle>()
+                .RegisterServicesFromAssemblyContaining<ModuleOfServiceDomainsTopic>();
+        });
 
         // Additional configuration is required to successfully run gRPC on macOS.
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682

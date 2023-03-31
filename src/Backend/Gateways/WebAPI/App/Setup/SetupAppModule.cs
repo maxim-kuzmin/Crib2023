@@ -41,10 +41,12 @@ public class SetupAppModule : AppModule
 
         services.AddLocalization(x => x.ConfigureLocalization());
 
-        services.AddMediatR(
-            typeof(ModuleOfCommonDomain),
-            typeof(ModuleOfGatewayDomainsCatalogArticle),
-            typeof(ModuleOfGatewayDomainsCatalogTopic));
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining<ModuleOfCommonDomain>()
+                .RegisterServicesFromAssemblyContaining<ModuleOfGatewayDomainsCatalogArticle>()
+                .RegisterServicesFromAssemblyContaining<ModuleOfGatewayDomainsCatalogTopic>();
+        });
 
         // Add services to the container.
 
@@ -56,7 +58,7 @@ public class SetupAppModule : AppModule
         var setupOptions = _configurationSection.Get<SetupOptions>() ?? new SetupOptions();
 
         if (setupOptions.CorsPolicyIsEnabled)
-        { 
+        {
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
