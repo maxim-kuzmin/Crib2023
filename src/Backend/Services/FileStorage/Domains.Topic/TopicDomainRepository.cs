@@ -127,14 +127,13 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         var predicate = input.CreatePredicate();
 
-        var queryForItems = dbContext.Topic
+        var taskForItems = dbContext.Topic
             .Include(x => x.Parent)
             .Where(predicate)
             .ApplySorting(input)
             .ApplyPagination(input)
-            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, false));
-
-        var taskForItems = queryForItems.ToListAsync();
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, false))
+            .ToListAsync();
 
         long? totalCount = null;
 
