@@ -41,9 +41,11 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
+        var predicate = input.CreatePredicate();
+
         var taskForItem = dbContext.Article
             .Include(x => x.Topic)
-            .ApplyFiltering(input)
+            .Where(predicate)
             .SingleOrDefaultAsync();
 
         var mapperForItem = await taskForItem.ConfigureAwait(false);
@@ -52,7 +54,7 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
         {
             var item = new ArticleDomainEntity(mapperForItem);
 
-            await LoadTopicPathItems(dbContext, item, mapperForItem).ConfigureAwait(false);
+            await LoadTopicPathItemsForItem(dbContext, item, mapperForItem).ConfigureAwait(false);
 
             result.Item = item;
         }
@@ -67,13 +69,24 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
-        var queryForItems = dbContext.Article
-            .Include(x => x.Topic)
-            .ApplyFiltering(input)
-            .ApplySorting(input)
-            .ApplyPagination(input);
+        var predicate = input.CreatePredicate();
 
-        var taskForItems = queryForItems.ToArrayAsync();
+        var taskForItems = dbContext.Article
+            .Include(x => x.Topic)
+            .Where(predicate)
+            .ApplySorting(input)
+            .ApplyPagination(input)
+            .Select(x => new ClientMapperArticleTypeEntity
+            {
+                Hash = x.Hash,
+                Id = x.Id,
+                Path = x.Path,
+                RowGuid = x.RowGuid,
+                Title = x.Title,
+                Topic = x.Topic,
+                TopicId = x.TopicId,
+            })
+            .ToArrayAsync();
 
         long? totalCount = null;
 
@@ -81,18 +94,26 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
         {
             using var dbContextForTotalCount = _dbContextFactory.CreateDbContext();
 
-            var queryForTotalCount = dbContextForTotalCount.Article.ApplyFiltering(input);
+            var taskForTotalCount = dbContextForTotalCount.Article.Where(predicate).LongCountAsync();
 
-            totalCount = await queryForTotalCount.LongCountAsync().ConfigureAwait(false);
+            totalCount = await taskForTotalCount.ConfigureAwait(false);
         }
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
         var itemLookup = mapperForItems
-            .Select(x => new ArticleDomainEntity(x))
+            .Select(x => new ArticleDomainEntity(new ArticleTypeEntity
+            {
+                Hash = x.Hash,
+                Id = x.Id,
+                Path = x.Path,
+                RowGuid = x.RowGuid,
+                Title = x.Title,
+                TopicId = x.TopicId,                
+            }))
             .ToDictionary(x => x.Data.Id);
 
-        await LoadTopicPathItems(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
+        await LoadTopicPathItemsForList(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
 
         result.Items = itemLookup.Values.ToArray();
 
@@ -110,14 +131,14 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
 
     #region Private methods
 
-    private static async Task LoadTopicPathItems(
+    private static async Task LoadTopicPathItemsForItem(
         ClientMapperDbContext dbContext,
         ArticleDomainEntity item,
         ClientMapperArticleTypeEntity mapperForItem)
     {
-        var mapperTopic = mapperForItem.Topic;
+        var mapperForItemTopic = mapperForItem.Topic;
 
-        long[] ancestorIds = mapperTopic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
+        long[] ancestorIds = mapperForItemTopic.TreePath.ToString().FromTreePathToInt64ArrayOfAncestors();
 
         if (ancestorIds.Any())
         {
@@ -137,10 +158,10 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
             }
         }
 
-        item.AddTopicPathItem(new OptionValueObjectWithInt64Id(mapperTopic.Id, mapperTopic.Name));
+        item.AddTopicPathItem(new OptionValueObjectWithInt64Id(mapperForItemTopic.Id, mapperForItemTopic.Name));
     }
 
-    private static async Task LoadTopicPathItems(
+    private static async Task LoadTopicPathItemsForList(
         ClientMapperDbContext dbContext,
         Dictionary<long, ArticleDomainEntity> itemLookup,
         IEnumerable<ClientMapperArticleTypeEntity> mapperForItems)
@@ -163,11 +184,11 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
             {
                 if (itemLookup.TryGetValue(mapperForItem.Id, out var item))
                 {
-                    var mapperTopic = mapperForItem.Topic;
+                    var mapperForItemTopic = mapperForItem.Topic;
 
                     if (ancestorLookup.Any())
                     {
-                        long[] ancestorIds = mapperTopic.TreePath.ToString()
+                        long[] ancestorIds = mapperForItemTopic.TreePath.ToString()
                             .FromTreePathToInt64ArrayOfAncestors();
 
                         foreach (long ancestorId in ancestorIds)
@@ -179,7 +200,9 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
                         }
                     }
 
-                    item.AddTopicPathItem(new OptionValueObjectWithInt64Id(mapperTopic.Id, mapperTopic.Name));
+                    item.AddTopicPathItem(new OptionValueObjectWithInt64Id(
+                        mapperForItemTopic.Id,
+                        mapperForItemTopic.Name));
                 }
             }
         }

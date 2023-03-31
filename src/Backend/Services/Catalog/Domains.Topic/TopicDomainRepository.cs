@@ -48,7 +48,9 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             query = query.Include(x => x.Parent).Where(x => x.Parent != null);
         }
 
-        query = query.ApplyFiltering(input);
+        var predicate = input.CreatePredicate();
+
+        query = query.Where(predicate);
 
         var queryForItem = input.Axis == TreeGetOperationAxisForItem.Parent
             ? query.Select(x => new Item(x.Parent!, x.Parent!.Children.Any(), x.Parent!.TreePath.NLevel, false))
@@ -75,14 +77,17 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
-        var queryForItems = dbContext.Topic
+        long[] expandedPathIds = await GetExpandedPathIds(dbContext, input);
+
+        var predicate = input.CreatePredicate(expandedPathIds);
+
+        var taskForItems = dbContext.Topic
             .Include(x => x.Parent)
-            .ApplyFiltering(input)
+            .Where(predicate)
             .ApplySorting(input)
             .ApplyPagination(input)
-            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, false));
-
-        var taskForItems = queryForItems.ToListAsync();
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, false))
+            .ToListAsync();
 
         long? totalCount = null;
 
@@ -90,14 +95,14 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         {
             using var dbContextForTotalCount = _dbContextFactory.CreateDbContext();
 
-            var queryForTotalCount = dbContextForTotalCount.Topic.ApplyFiltering(input);
+            var taskForTotalCount = dbContextForTotalCount.Topic.Where(predicate).LongCountAsync();
 
-            totalCount = await queryForTotalCount.LongCountAsync().ConfigureAwait(false);
+            totalCount = await taskForTotalCount.ConfigureAwait(false);
         }
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
-        var itemLookup = await CreateItemLookup(dbContext, input, mapperForItems);
+        var itemLookup = CreateItemLookup(mapperForItems);
 
         await LoadTreeAncestorsForList(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
 
@@ -120,9 +125,11 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
+        var predicate = input.CreatePredicate();
+
         var queryForItems = dbContext.Topic
             .Include(x => x.Parent)
-            .ApplyFiltering(input)
+            .Where(predicate)
             .ApplySorting(input)
             .ApplyPagination(input)
             .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, false));
@@ -135,14 +142,16 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         {
             using var dbContextForTotalCount = _dbContextFactory.CreateDbContext();
 
-            var queryForTotalCount = dbContextForTotalCount.Topic.ApplyFiltering(input);
+            var taskForTotalCount = dbContextForTotalCount.Topic.Where(predicate).LongCountAsync();
 
-            totalCount = await queryForTotalCount.LongCountAsync().ConfigureAwait(false);
+            totalCount = await taskForTotalCount.ConfigureAwait(false);
         }
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
-        var itemLookup = await CreateItemLookup(dbContext, input, mapperForItems);
+        await LoadExpandedPath(dbContext, input, mapperForItems).ConfigureAwait(false);
+
+        var itemLookup = CreateItemLookup(mapperForItems);
 
         result.Nodes = CreateTreeOutputNodes(itemLookup, input.RootNodeId, mapperForItems);
 
@@ -180,19 +189,9 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             treePath: item.Data.TreePath);
     }
 
-    private async static Task<Dictionary<long, Item>> CreateItemLookup(
-        ClientMapperDbContext dbContext,
-        TopicDomainTreeGetOperationInput input,
-        List<Item> mapperForItems)
+    private static Dictionary<long, Item> CreateItemLookup(List<Item> mapperForItems)
     {
         Dictionary<long, Item> result = new();
-
-        if (input.Axis == TreeGetOperationAxisForList.Child && (input.ExpandedNodeId > 0 || input.ExpandedNodeIds.Any()))
-        {
-            var task = LoadExpandedNodesAndTheirAncestorsWithChildren(dbContext, input, mapperForItems);
-
-            await task.ConfigureAwait(false);
-        }
 
         foreach (var mapperForItem in mapperForItems)
         {
@@ -308,33 +307,64 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         }
     }
 
-    private static async Task LoadExpandedNodesAndTheirAncestorsWithChildren(
+    private static async Task<long[]> GetExpandedPathIds(
+        ClientMapperDbContext dbContext,
+        TopicDomainTreeGetOperationInput input)
+    {
+        long[] result;
+
+        bool isOk = input.Axis == TreeGetOperationAxisForList.Child 
+            && 
+            (
+                input.ExpandedNodeId > 0
+                ||
+                input.ExpandedNodeIds.Any()
+            );
+
+        if (isOk)
+        {
+            var query = dbContext.Topic.AsQueryable();
+
+            if (input.ExpandedNodeId > 0)
+            {
+                query = query.Where(x => x.Id == input.ExpandedNodeId);
+            }
+
+            if (input.ExpandedNodeIds.Any())
+            {
+                query = query.Where(x => input.ExpandedNodeIds.Contains(x.Id));
+            }
+
+            var task = query.Select(x => x.TreePath.ToString()).ToArrayAsync();
+
+            string[] treePaths = await task.ConfigureAwait(false);
+
+            result = treePaths.SelectMany(x => x.FromTreePathToInt64Array()).Distinct().ToArray();
+        }
+        else
+        {
+            result = Array.Empty<long>();
+        }
+
+        return result;
+    }
+
+    private static async Task LoadExpandedPath(
         ClientMapperDbContext dbContext,
         TopicDomainTreeGetOperationInput input,
         List<Item> mapperForItems)
     {
-        var queryForTreePaths = dbContext.Topic.AsQueryable();
+        long[] expandedPathIds = await GetExpandedPathIds(dbContext, input);
 
-        if (input.ExpandedNodeId > 0)
+        if (!expandedPathIds.Any())
         {
-            queryForTreePaths = queryForTreePaths.Where(x => x.Id == input.ExpandedNodeId);
+            return;
         }
-        
-        if (input.ExpandedNodeIds.Any())
-        {
-            queryForTreePaths = queryForTreePaths.Where(x => input.ExpandedNodeIds.Contains(x.Id));
-        }
-
-        var taskForTreePaths = queryForTreePaths.Select(x => x.TreePath.ToString()).ToArrayAsync();
-
-        string[] treePaths = await taskForTreePaths.ConfigureAwait(false);
-
-        long[] ids = treePaths.SelectMany(x => x.FromTreePathToInt64Array()).Distinct().ToArray();
 
         var task = dbContext.Topic
-            .Where(x => x.ParentId.HasValue && ids.Contains(x.ParentId.Value) || ids.Contains(x.Id))
+            .Where(expandedPathIds.ToPredicateForExpandedPath())
             .ApplySorting(input)
-            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, ids.Contains(x.Id)))
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, expandedPathIds.Contains(x.Id)))
             .ToArrayAsync();
 
         var mapper = await task.ConfigureAwait(false);

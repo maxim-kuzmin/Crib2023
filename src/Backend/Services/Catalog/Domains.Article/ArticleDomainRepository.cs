@@ -41,9 +41,11 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
+        var predicate = input.CreatePredicate();
+
         var taskForItem = dbContext.Article
             .Include(x => x.Topic)
-            .ApplyFiltering(input)
+            .Where(predicate)
             .SingleOrDefaultAsync();
 
         var mapperForItem = await taskForItem.ConfigureAwait(false);
@@ -67,13 +69,22 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
-        var queryForItems = dbContext.Article
-            .Include(x => x.Topic)
-            .ApplyFiltering(input)
-            .ApplySorting(input)
-            .ApplyPagination(input);
+        var predicate = input.CreatePredicate();
 
-        var taskForItems = queryForItems.Select(x => CreateItemForList(x)).ToArrayAsync();
+        var taskForItems = dbContext.Article
+            .Include(x => x.Topic)
+            .Where(predicate)
+            .ApplySorting(input)
+            .ApplyPagination(input)
+            .Select(x => new ClientMapperArticleTypeEntity
+            {
+                Id = x.Id,
+                RowGuid = x.RowGuid,
+                Title = x.Title,
+                Topic = x.Topic,
+                TopicId = x.TopicId,
+            })
+            .ToArrayAsync();
 
         long? totalCount = null;
 
@@ -81,9 +92,9 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
         {
             using var dbContextForTotalCount = _dbContextFactory.CreateDbContext();
 
-            var queryForTotalCount = dbContextForTotalCount.Article.ApplyFiltering(input);
+            var taskForTotalCount = dbContextForTotalCount.Article.Where(predicate).LongCountAsync();
 
-            totalCount = await queryForTotalCount.LongCountAsync().ConfigureAwait(false);
+            totalCount = await taskForTotalCount.ConfigureAwait(false);
         }
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
@@ -115,18 +126,6 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
     #endregion Public methods
 
     #region Private methods
-
-    private static ClientMapperArticleTypeEntity CreateItemForList(ClientMapperArticleTypeEntity mapperForItem)
-    {
-        return new ClientMapperArticleTypeEntity
-        {
-            Id = mapperForItem.Id,
-            RowGuid = mapperForItem.RowGuid,
-            Title = mapperForItem.Title,
-            Topic = mapperForItem.Topic,
-            TopicId = mapperForItem.TopicId,
-        };
-    }
 
     private static async Task LoadTopicPathItemsForItem(
         ClientMapperDbContext dbContext,

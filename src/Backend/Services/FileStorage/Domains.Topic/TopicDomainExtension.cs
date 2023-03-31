@@ -10,128 +10,17 @@ public static class TopicDomainExtension
     #region Public methods
 
     /// <summary>
-    /// Применить фильтрацию.
+    /// Преобразовать к предикату для раскрытого пути.
     /// </summary>
-    /// <param name="query">Запрос.</param>
-    /// <param name="input">Входные данные.</param>
-    /// <returns>Запрос с учётом фильтрации.</returns>
-    public static IQueryable<ClientMapperTopicTypeEntity> ApplyFiltering(
-        this IQueryable<ClientMapperTopicTypeEntity> query,
-        TopicDomainItemGetOperationInput input
-        )
+    /// <param name="ids">Идентификаторы узлов раскрытого пути.</param>
+    /// <returns>Предикат.</returns>
+    public static ExpressionStarter<ClientMapperTopicTypeEntity> ToPredicateForExpandedPath(this long[] ids)
     {
-        if (input.Id > 0)
-        {
-            query = query.Where(x => x.Id == input.Id);
-        }
+        var result = PredicateBuilder.New<ClientMapperTopicTypeEntity>(true);
 
-        if (!string.IsNullOrWhiteSpace(input.Name))
-        {
-            query = query.Where(x => x.Name == input.Name);
-        }
+        result.And(x => x.ParentId.HasValue && ids.Contains(x.ParentId.Value) || ids.Contains(x.Id));
 
-        if (input.ParentId > 0)
-        {
-            query = query.Where(x => x.ParentId == input.ParentId);
-        }
-
-        return query;
-    }
-
-    /// <summary>
-    /// Применить фильтрацию.
-    /// </summary>
-    /// <param name="query">Запрос.</param>
-    /// <param name="input">Входные данные.</param>
-    /// <returns>Запрос с учётом фильтрации.</returns>
-    public static IQueryable<ClientMapperTopicTypeEntity> ApplyFiltering(
-        this IQueryable<ClientMapperTopicTypeEntity> query,
-        TopicDomainListGetOperationInput input
-        )
-    {
-        if (!string.IsNullOrWhiteSpace(input.Name))
-        {
-            query = query.Where(x => x.Name.Contains(input.Name));
-        }
-
-        if (input.Ids != null && input.Ids.Any())
-        {
-            if (input.Ids.Length > 1)
-            {
-                query = query.Where(x => input.Ids.Contains(x.Id));
-            }
-            else
-            {
-                long id = input.Ids[0];
-
-                query = query.Where(x => x.Id == id);
-            }
-        }
-
-        return query.ApplyFiltering((TopicDomainTreeGetOperationInput)input);
-    }
-
-    /// <summary>
-    /// Применить фильтрацию.
-    /// </summary>
-    /// <param name="query">Запрос.</param>
-    /// <param name="input">Входные данные.</param>
-    /// <returns>Запрос с учётом фильтрации.</returns>
-    public static IQueryable<ClientMapperTopicTypeEntity> ApplyFiltering(
-        this IQueryable<ClientMapperTopicTypeEntity> query,
-        TopicDomainTreeGetOperationInput input
-        )
-    {
-        if (!string.IsNullOrWhiteSpace(input.RootNodeTreePath))
-        {
-            var treePath = new LTree(input.RootNodeTreePath);
-
-            switch (input.Axis)
-            {
-                case TreeGetOperationAxisForList.Ancestor:
-                    query = query.Where(x => x.TreePath.IsAncestorOf(treePath));
-                    break;
-                case TreeGetOperationAxisForList.AncestorOrSelf:
-                    query = query.Where(x => x.TreePath.IsAncestorOf(treePath) || x.TreePath == treePath);
-                    break;
-                case TreeGetOperationAxisForList.Descendant:
-                    query = query.Where(x => x.TreePath.IsDescendantOf(treePath));
-                    break;
-                case TreeGetOperationAxisForList.DescendantOrSelf:
-                    query = query.Where(x => x.TreePath.IsDescendantOf(treePath) || x.TreePath == treePath);
-                    break;
-                case TreeGetOperationAxisForList.ParentOrSelf:
-                    {
-                        string parentTreePathString = input.RootNodeTreePath.FromTreePathToParentTreePath();
-
-                        LTree? parentTreePath = null;
-
-                        if (!string.IsNullOrWhiteSpace(parentTreePathString))
-                        {
-                            parentTreePath = new LTree(parentTreePathString);
-                        }
-
-                        query = parentTreePath != null
-                            ? query.Where(x => x.TreePath == parentTreePath || x.TreePath == treePath)
-                            : query.Where(x => x.TreePath == treePath);
-                    }
-                    break;
-                case TreeGetOperationAxisForList.Child:
-                    query = query.Where(x => x.Parent != null && x.Parent.TreePath == treePath);
-                    break;
-                case TreeGetOperationAxisForList.ChildOrSelf:
-                    query = query.Where(x => x.Parent != null && x.Parent.TreePath == treePath || x.TreePath == treePath);
-                    break;
-            }
-        }
-        else if (input.Axis == TreeGetOperationAxisForList.Child)
-        {
-            query = input.RootNodeId > 0
-                ? query.Where(x => x.ParentId == input.RootNodeId)
-                : query.Where(x => x.Parent == null);
-        }
-
-        return query;
+        return result;
     }
 
     /// <summary>
@@ -142,8 +31,7 @@ public static class TopicDomainExtension
     /// <returns>Запрос с учётом сортировки.</returns>
     public static IQueryable<ClientMapperTopicTypeEntity> ApplySorting(
         this IQueryable<ClientMapperTopicTypeEntity> query,
-        TopicDomainTreeGetOperationInput input
-        )
+        TopicDomainTreeGetOperationInput input)
     {
         if (input.SortField.Equals(nameof(TopicTypeEntity.Id), StringComparison.OrdinalIgnoreCase))
         {

@@ -28,6 +28,32 @@ public class TopicDomainItemGetOperationInput : ItemGetOperationInputWithInt64Id
 
     #region Public methods
 
+    /// <summary>
+    /// Создать предикат.
+    /// </summary>
+    /// <returns>Предикат.</returns>
+    public ExpressionStarter<ClientMapperTopicTypeEntity> CreatePredicate()
+    {
+        var result = PredicateBuilder.New<ClientMapperTopicTypeEntity>(true);
+
+        if (Id > 0)
+        {
+            result = result.And(x => x.Id == Id);
+        }
+
+        if (!string.IsNullOrWhiteSpace(Name))
+        {
+            result = result.And(x => x.Name == Name);
+        }
+
+        if (ParentId > 0)
+        {
+            result = result.And(x => x.ParentId == ParentId);
+        }
+
+        return result;
+    }
+
     /// <inheritdoc/>
     public sealed override void Normalize()
     {

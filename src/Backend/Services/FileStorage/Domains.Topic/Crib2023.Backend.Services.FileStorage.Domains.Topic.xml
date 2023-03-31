@@ -120,6 +120,12 @@
             Идентификатор родителя.
             </summary>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput.CreatePredicate">
+            <summary>
+            Создать предикат.
+            </summary>
+            <returns>Предикат.</returns>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
@@ -238,6 +244,13 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.CreatePredicate(System.Int64[])">
+            <summary>
+            Создать предикат.
+            </summary>
+            <param name="expandedPathIds">Идентификаторы раскрытого пути.</param>
+            <returns>Предикат.</returns>
+        </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationOutput">
             <summary>
             Выходные данные операции получения списка в домене "Тема".
@@ -331,6 +344,12 @@
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.Normalize">
             <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput.CreatePredicate">
+            <summary>
+            Создать предикат.
+            </summary>
+            <returns>Предикат.</returns>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationOutput">
             <summary>
@@ -462,29 +481,12 @@
             Расширение домена "Тема".
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ToPredicateForExpandedPath(System.Int64[])">
             <summary>
-            Применить фильтрацию.
+            Преобразовать к предикату для раскрытого пути.
             </summary>
-            <param name="query">Запрос.</param>
-            <param name="input">Входные данные.</param>
-            <returns>Запрос с учётом фильтрации.</returns>
-        </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput)">
-            <summary>
-            Применить фильтрацию.
-            </summary>
-            <param name="query">Запрос.</param>
-            <param name="input">Входные данные.</param>
-            <returns>Запрос с учётом фильтрации.</returns>
-        </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
-            <summary>
-            Применить фильтрацию.
-            </summary>
-            <param name="query">Запрос.</param>
-            <param name="input">Входные данные.</param>
-            <returns>Запрос с учётом фильтрации.</returns>
+            <param name="ids">Идентификаторы узлов раскрытого пути.</param>
+            <returns>Предикат.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainExtension.ApplySorting(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
             <summary>

@@ -8,6 +8,7 @@ global using Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get;
+global using LinqKit;
 global using Makc2023.Backend.Common.Core;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Converting;

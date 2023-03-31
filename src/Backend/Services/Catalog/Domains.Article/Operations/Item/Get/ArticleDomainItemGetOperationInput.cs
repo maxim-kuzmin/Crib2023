@@ -23,6 +23,32 @@ public class ArticleDomainItemGetOperationInput : ItemGetOperationInputWithInt64
 
     #region Public methods
 
+    /// <summary>
+    /// Создать предикат.
+    /// </summary>
+    /// <returns>Предикат.</returns>
+    public ExpressionStarter<ClientMapperArticleTypeEntity> CreatePredicate()
+    {
+        var result = PredicateBuilder.New<ClientMapperArticleTypeEntity>(true);
+
+        if (Id > 0)
+        {
+            result = result.And(x => x.Id == Id);
+        }
+
+        if (!string.IsNullOrWhiteSpace(Title))
+        {
+            result = result.And(x => x.Title == Title);
+        }
+
+        if (TopicId > 0)
+        {
+            result = result.And(x => x.TopicId == TopicId);
+        }
+
+        return result;
+    }
+
     /// <inheritdoc/>
     public sealed override void Normalize()
     {

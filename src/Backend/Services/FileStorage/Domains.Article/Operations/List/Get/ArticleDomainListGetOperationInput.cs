@@ -48,6 +48,60 @@ public class ArticleDomainListGetOperationInput : ListGetOperationInput
 
     #region Public methods
 
+    /// <summary>
+    /// Создать предикат.
+    /// </summary>
+    /// <returns>Предикат.</returns>
+    public ExpressionStarter<ClientMapperArticleTypeEntity> CreatePredicate()
+    {
+        var result = PredicateBuilder.New<ClientMapperArticleTypeEntity>(true);
+
+        if (!string.IsNullOrWhiteSpace(Title))
+        {
+            result = result.And(x => x.Title.Contains(Title));
+        }
+
+        if (Ids != null && Ids.Any())
+        {
+            if (Ids.Length > 1)
+            {
+                result = result.And(x => Ids.Contains(x.Id));
+            }
+            else
+            {
+                long entityId = Ids[0];
+
+                result = result.And(x => x.Id == entityId);
+            }
+        }
+
+        if (TopicId > 0)
+        {
+            result = result.And(x => x.TopicId == TopicId);
+        }
+
+        if (TopicIds != null && TopicIds.Any())
+        {
+            if (TopicIds.Length > 1)
+            {
+                result = result.And(x => TopicIds.Contains(x.TopicId));
+            }
+            else
+            {
+                long id = TopicIds[0];
+
+                result = result.And(x => x.TopicId == id);
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(TopicName))
+        {
+            result = result.And(x => x.Topic!.Name!.Contains(TopicName));
+        }
+
+        return result;
+    }
+
     /// <inheritdoc/>
     public sealed override void Normalize()
     {

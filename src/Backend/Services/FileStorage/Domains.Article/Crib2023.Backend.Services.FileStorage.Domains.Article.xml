@@ -40,22 +40,6 @@
             Расширение домена "Статья".
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput)">
-            <summary>
-            Применить фильтрацию.
-            </summary>
-            <param name="query">Запрос.</param>
-            <param name="input">Входные данные.</param>
-            <returns>Запрос с учётом фильтрации.</returns>
-        </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainExtension.ApplyFiltering(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput)">
-            <summary>
-            Применить фильтрацию.
-            </summary>
-            <param name="query">Запрос.</param>
-            <param name="input">Входные данные.</param>
-            <returns>Запрос с учётом фильтрации.</returns>
-        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainExtension.ApplySorting(System.Linq.IQueryable{Crib2023.Backend.Services.FileStorage.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity},Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput)">
             <summary>
             Применить сортировку.
@@ -162,6 +146,12 @@
             <summary>
             Идентификатор темы.
             </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput.CreatePredicate">
+            <summary>
+            Создать предикат.
+            </summary>
+            <returns>Предикат.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput.Normalize">
             <inheritdoc/>
@@ -297,6 +287,12 @@
             <summary>
             Имя экземпляра сущности "Тема".
             </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput.CreatePredicate">
+            <summary>
+            Создать предикат.
+            </summary>
+            <returns>Предикат.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput.Normalize">
             <inheritdoc/>
