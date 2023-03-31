@@ -1,5 +1,7 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using System.Security.Cryptography.X509Certificates;
+
 namespace Crib2023.Backend.Services.FileStorage.Domains.Topic;
 
 /// <summary>
@@ -183,14 +185,21 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         TopicDomainTreeGetOperationInput input,
         List<Item> mapperForItems)
     {
+        Dictionary<long, Item> result = new();
+
         if (input.Axis == TreeGetOperationAxisForList.Child && input.ExpandedNodeIds.Any())
         {
             var task = LoadExpandedNodesAndTheirAncestorsWithChildren(dbContext, input, mapperForItems);
 
             await task.ConfigureAwait(false);
         }
+        
+        foreach (var mapperForItem in mapperForItems)
+        {
+            result[mapperForItem.Data.Id] = mapperForItem;
+        }
 
-        return mapperForItems.ToDictionary(x => x.Data.Id);
+        return result;
     }
 
     private static Item[] CreateItemsWithChildren(

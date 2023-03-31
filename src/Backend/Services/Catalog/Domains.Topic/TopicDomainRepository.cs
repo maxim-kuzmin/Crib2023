@@ -183,6 +183,8 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         TopicDomainTreeGetOperationInput input,
         List<Item> mapperForItems)
     {
+        Dictionary<long, Item> result = new();
+
         if (input.Axis == TreeGetOperationAxisForList.Child && input.ExpandedNodeIds.Any())
         {
             var task = LoadExpandedNodesAndTheirAncestorsWithChildren(dbContext, input, mapperForItems);
@@ -190,7 +192,12 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             await task.ConfigureAwait(false);
         }
 
-        return mapperForItems.ToDictionary(x => x.Data.Id);
+        foreach (var mapperForItem in mapperForItems)
+        {
+            result[mapperForItem.Data.Id] = mapperForItem;
+        }
+
+        return result;
     }
 
     private static Item[] CreateItemsWithChildren(
