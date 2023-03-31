@@ -172,6 +172,13 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
     {
         return new TopicDomainEntityForItem(
             data: item.Data,
+            treePath: item.Data.TreePath);
+    }
+
+    private static TopicDomainEntityForList CreateEntityForList(Item item)
+    {
+        return new TopicDomainEntityForList(
+            data: item.Data,
             treeHasChildren: item.TreeHasChildren,
             treeIsExpanded: item.TreeIsExpanded,
             treeLevel: item.TreeLevel,
@@ -241,12 +248,12 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         return result.ToArray();
     }
 
-    private static TopicDomainEntityForItem[] CreateListOutputItems(
+    private static TopicDomainEntityForList[] CreateListOutputItems(
         Dictionary<long, Item> itemLookup,
         long? rootNodeId,
         List<Item> mapperForItems)
     {
-        List<TopicDomainEntityForItem> result = new();
+        List<TopicDomainEntityForList> result = new();
 
         var items = CreateItemsWithChildren(itemLookup, rootNodeId, mapperForItems);
 
@@ -291,11 +298,11 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
     private static void FillListOutputItems(
         IEnumerable<Item> items,
-        List<TopicDomainEntityForItem> result)
+        List<TopicDomainEntityForList> result)
     {
         foreach (var item in items)
         {
-            var entity = CreateEntityForItem(item);
+            var entity = CreateEntityForList(item);
 
             result.Add(entity);
 

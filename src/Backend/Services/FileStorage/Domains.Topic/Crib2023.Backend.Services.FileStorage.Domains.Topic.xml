@@ -14,10 +14,52 @@
             Предки в дереве.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForItem.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Boolean,System.Int32,System.String)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForItem.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForItem.AddTreeAncestor(Makc2023.Backend.Common.Domain.ValueObjects.Options.OptionValueObjectWithInt64Id)">
+            <summary>
+            Добавить предка в дереве.
+            </summary>
+            <param name="ancestor">Предок.</param>
+            <returns>Добавленный предок.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForList">
+            <summary>
+            Сущность для списка домена "Тема".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForList.TreeAncestors">
+            <summary>
+            Предки в дереве.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForList.TreeHasChildren">
+            <summary>
+            Признак наличия детей в дереве.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForList.TreeIsExpanded">
+            <summary>
+            Признак раскрытого узла дерева.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForList.TreeLevel">
+            <summary>
+            Уровень в дереве.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForList.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="data">Данные.</param>    
+            <param name="treeHasChildren">Признак наличия детей в дереве.</param>
+            <param name="treeIsExpanded">Признак раскрытого узла дерева.</param>
+            <param name="treeLevel">Уровень в дереве.</param>
+            <param name="treePath">Путь в дереве.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForList.AddTreeAncestor(Makc2023.Backend.Common.Domain.ValueObjects.Options.OptionValueObjectWithInt64Id)">
             <summary>
             Добавить предка в дереве.
             </summary>
@@ -34,8 +76,30 @@
             Дети в дереве.
             </summary>
         </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForTree.TreeHasChildren">
+            <summary>
+            Признак наличия детей в дереве.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForTree.TreeIsExpanded">
+            <summary>
+            Признак раскрытого узла дерева.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForTree.TreeLevel">
+            <summary>
+            Уровень в дереве.
+            </summary>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForTree.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Boolean,System.Int32,System.String)">
-            <inheritdoc/>
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="data">Данные.</param>    
+            <param name="treeHasChildren">Признак наличия детей в дереве.</param>
+            <param name="treeIsExpanded">Признак раскрытого узла дерева.</param>
+            <param name="treeLevel">Уровень в дереве.</param>
+            <param name="treePath">Путь в дереве.</param>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForTree.AddTreeChild(Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities.TopicDomainEntityForTree)">
             <summary>
@@ -443,34 +507,16 @@
             Данные.
             </summary>
         </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity.TreeHasChildren">
-            <summary>
-            Признак наличия детей в дереве.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity.TreeIsExpanded">
-            <summary>
-            Признак раскрытого узла дерева.
-            </summary>
-        </member>
-        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity.TreeLevel">
-            <summary>
-            Уровень в дереве.
-            </summary>
-        </member>
         <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity.TreePath">
             <summary>
             Путь в дереве.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity,System.Boolean,System.Boolean,System.Int32,System.String)">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity,System.String)">
             <summary>
             Конструктор.
             </summary>
             <param name="data">Данные.</param>
-            <param name="treeHasChildren">Признак наличия детей в дереве.</param>
-            <param name="treeIsExpanded">Признак раскрытого узла дерева.</param>
-            <param name="treeLevel">Уровень в дереве.</param>
             <param name="treePath">Путь в дереве.</param>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainEntity.GetId">

@@ -32,7 +32,7 @@ public class TopicDomainListGetOperationHandler :
     /// <inheritdoc/>
     public TopicDomainListGetOperationHandler(
         ITopicDomainResource domainResource,
-        IOperationsResource operationsResource,        
+        IOperationsResource operationsResource,
         IOperationResource operationResource,
         ILogger<TopicDomainListGetOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
@@ -71,7 +71,7 @@ public class TopicDomainListGetOperationHandler :
 
     private TopicDomainListGetOperationOutput TransformOperationOutput(TopicDomainListGetOperationOutput source)
     {
-        source.Items ??= Array.Empty<TopicDomainEntityForItem>();
+        source.Items ??= Array.Empty<TopicDomainEntityForList>();
 
         return source;
     }

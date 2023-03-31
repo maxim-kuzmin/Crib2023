@@ -71,7 +71,7 @@ public class TopicDomainListGetOperationHandler :
 
     private TopicDomainListGetOperationOutput TransformOperationOutput(TopicDomainListGetOperationOutput source)
     {
-        source.Items ??= Array.Empty<TopicDomainEntityForItem>();
+        source.Items ??= Array.Empty<TopicDomainEntityForList>();
 
         return source;
     }

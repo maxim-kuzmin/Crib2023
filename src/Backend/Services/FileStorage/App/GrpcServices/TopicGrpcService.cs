@@ -62,7 +62,7 @@ public class TopicGrpcService : GrpcServerOfTopic
             OperationCode = operationResult.OperationCode,
             Output = new()
             {
-                Item = CreateItem(operationOutput.Item),
+                Item = CreateEntityForItem(operationOutput.Item),
             }
         };
 
@@ -143,7 +143,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         foreach (var operationOutputItem in operationOutput.Items)
         {
-            var item = CreateItem(operationOutputItem);
+            var item = CreateEntityForList(operationOutputItem);
 
             result.Output.Items.Add(item);
         }
@@ -217,7 +217,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         foreach (var operationOutputNode in operationOutput.Nodes)
         {
-            var node = CreateNode(operationOutputNode);
+            var node = CreateEntityForTree(operationOutputNode);
 
             result.Output.Nodes.Add(node);
         }
@@ -244,9 +244,43 @@ public class TopicGrpcService : GrpcServerOfTopic
 
     #region Private methods
 
-    private static FileStorageTopicEntityForItem CreateItem(TopicDomainEntityForItem source)
+    private static FileStorageTopicEntityForItem CreateEntityForItem(TopicDomainEntityForItem source)
     {
         FileStorageTopicEntityForItem result;
+
+        var data = source.Data;
+
+        var treeAncestors = source.TreeAncestors;
+
+        result = new()
+        {
+            Data = new()
+            {
+                Id = data.Id,
+                Name = data.Name,
+                ParentId = data.ParentId ?? 0,
+                RowGuid = data.RowGuid.ToString()
+            },
+            TreePath = source.TreePath,
+        };
+
+        foreach (var treeAncestor in treeAncestors)
+        {
+            FileStorageOptionValueObject ancestor = new()
+            {
+                Id = treeAncestor.Id,
+                Name = treeAncestor.Name,
+            };
+
+            result.TreeAncestors.Add(ancestor);
+        }
+
+        return result;
+    }
+
+    private static FileStorageTopicEntityForList CreateEntityForList(TopicDomainEntityForList source)
+    {
+        FileStorageTopicEntityForList result;
 
         var data = source.Data;
 
@@ -281,7 +315,7 @@ public class TopicGrpcService : GrpcServerOfTopic
         return result;
     }
 
-    private static FileStorageTopicEntityForTree CreateNode(TopicDomainEntityForTree source)
+    private static FileStorageTopicEntityForTree CreateEntityForTree(TopicDomainEntityForTree source)
     {
         FileStorageTopicEntityForTree result;
 
@@ -306,7 +340,7 @@ public class TopicGrpcService : GrpcServerOfTopic
 
         foreach (var treeChild in treeChildren)
         {
-            var child = CreateNode(treeChild);
+            var child = CreateEntityForTree(treeChild);
 
             result.TreeChildren.Add(child);
         }

@@ -264,15 +264,6 @@
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForItem.TreeAncestorsFieldNumber">
             <summary>Field number for the "tree_ancestors" field.</summary>
         </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForItem.TreeHasChildrenFieldNumber">
-            <summary>Field number for the "tree_has_children" field.</summary>
-        </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForItem.TreeIsExpandedFieldNumber">
-            <summary>Field number for the "tree_is_expanded" field.</summary>
-        </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForItem.TreeLevelFieldNumber">
-            <summary>Field number for the "tree_level" field.</summary>
-        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForItem.TreePathFieldNumber">
             <summary>Field number for the "tree_path" field.</summary>
         </member>
@@ -353,6 +344,24 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationOutput.TotalCountFieldNumber">
             <summary>Field number for the "total_count" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForList.DataFieldNumber">
+            <summary>Field number for the "data" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForList.TreeAncestorsFieldNumber">
+            <summary>Field number for the "tree_ancestors" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForList.TreeHasChildrenFieldNumber">
+            <summary>Field number for the "tree_has_children" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForList.TreeIsExpandedFieldNumber">
+            <summary>Field number for the "tree_is_expanded" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForList.TreeLevelFieldNumber">
+            <summary>Field number for the "tree_level" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForList.TreePathFieldNumber">
+            <summary>Field number for the "tree_path" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationRequest.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>
@@ -666,15 +675,6 @@
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeAncestorsFieldNumber">
             <summary>Field number for the "tree_ancestors" field.</summary>
         </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeHasChildrenFieldNumber">
-            <summary>Field number for the "tree_has_children" field.</summary>
-        </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeIsExpandedFieldNumber">
-            <summary>Field number for the "tree_is_expanded" field.</summary>
-        </member>
-        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeLevelFieldNumber">
-            <summary>Field number for the "tree_level" field.</summary>
-        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreePathFieldNumber">
             <summary>Field number for the "tree_path" field.</summary>
         </member>
@@ -755,6 +755,24 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationOutput.TotalCountFieldNumber">
             <summary>Field number for the "total_count" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForList.DataFieldNumber">
+            <summary>Field number for the "data" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForList.TreeAncestorsFieldNumber">
+            <summary>Field number for the "tree_ancestors" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForList.TreeHasChildrenFieldNumber">
+            <summary>Field number for the "tree_has_children" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForList.TreeIsExpandedFieldNumber">
+            <summary>Field number for the "tree_is_expanded" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForList.TreeLevelFieldNumber">
+            <summary>Field number for the "tree_level" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForList.TreePathFieldNumber">
+            <summary>Field number for the "tree_path" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTreeGetOperationRequest.InputFieldNumber">
             <summary>Field number for the "input" field.</summary>

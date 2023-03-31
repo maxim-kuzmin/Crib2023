@@ -43,10 +43,7 @@ message CatalogTopicItemGetOperationOutput {
 message CatalogTopicEntityForItem {
   CatalogTopicTypeEntity data = 1;
   repeated CatalogOptionValueObject tree_ancestors = 2;
-  bool tree_has_children = 3;
-  bool tree_is_expanded = 4;
-  int32 tree_level = 5;
-  string tree_path = 6;  
+  string tree_path = 3;  
 }
 
 message CatalogTopicTypeEntity {
@@ -90,8 +87,17 @@ message CatalogTopicListGetOperationReply {
 }
 
 message CatalogTopicListGetOperationOutput {
-  repeated CatalogTopicEntityForItem items = 1;
+  repeated CatalogTopicEntityForList items = 1;
   int64 total_count = 2;
+}
+
+message CatalogTopicEntityForList {
+  CatalogTopicTypeEntity data = 1;
+  repeated CatalogOptionValueObject tree_ancestors = 2;
+  bool tree_has_children = 3;
+  bool tree_is_expanded = 4;
+  int32 tree_level = 5;
+  string tree_path = 6;  
 }
 
 // GetTree Request

@@ -20,24 +20,44 @@ public class TopicDomainEntityForTree : TopicDomainEntity, IAggregateRoot
     /// </summary>
     public IReadOnlyCollection<TopicDomainEntityForTree> TreeChildren => _treeChildren;
 
+    /// <summary>
+    /// Признак наличия детей в дереве.
+    /// </summary>
+    public bool TreeHasChildren { get; }
+
+    /// <summary>
+    /// Признак раскрытого узла дерева.
+    /// </summary>
+    public bool TreeIsExpanded { get; }
+
+    /// <summary>
+    /// Уровень в дереве.
+    /// </summary>
+    public int TreeLevel { get; }
+
     #endregion Properties    
 
     #region Constructors
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Конструктор.
+    /// </summary>
+    /// <param name="data">Данные.</param>    
+    /// <param name="treeHasChildren">Признак наличия детей в дереве.</param>
+    /// <param name="treeIsExpanded">Признак раскрытого узла дерева.</param>
+    /// <param name="treeLevel">Уровень в дереве.</param>
+    /// <param name="treePath">Путь в дереве.</param>
     public TopicDomainEntityForTree(
         TopicTypeEntity? data = null,
         bool treeHasChildren = false,
         bool treeIsExpanded = false,
         int treeLevel = 0,
         string treePath = "")
-        : base(
-            data: data,
-            treeHasChildren: treeHasChildren,
-            treeIsExpanded: treeIsExpanded,
-            treeLevel: treeLevel,
-            treePath: treePath)
+        : base(data: data, treePath: treePath)
     {
+        TreeHasChildren = treeHasChildren;
+        TreeIsExpanded = treeIsExpanded;
+        TreeLevel = treeLevel;
     }
 
     #endregion Constructors

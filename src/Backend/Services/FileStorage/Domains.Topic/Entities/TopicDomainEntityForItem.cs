@@ -25,18 +25,8 @@ public class TopicDomainEntityForItem : TopicDomainEntity, IAggregateRoot
     #region Constructors
 
     /// <inheritdoc/>
-    public TopicDomainEntityForItem(
-        TopicTypeEntity? data = null,
-        bool treeHasChildren = false,
-        bool treeIsExpanded = false,
-        int treeLevel = 0,
-        string treePath = "")
-        : base(
-            data: data,
-            treeHasChildren: treeHasChildren,
-            treeIsExpanded: treeIsExpanded,
-            treeLevel: treeLevel,
-            treePath: treePath)
+    public TopicDomainEntityForItem(TopicTypeEntity? data = null, string treePath = "")
+        : base(data: data, treePath: treePath)
     {
     }
 

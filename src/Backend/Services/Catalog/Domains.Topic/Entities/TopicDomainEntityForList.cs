@@ -3,22 +3,22 @@
 namespace Crib2023.Backend.Services.Catalog.Domains.Topic.Entities;
 
 /// <summary>
-/// Сущность для дерева домена "Тема".
+/// Сущность для списка домена "Тема".
 /// </summary>
-public class TopicDomainEntityForTree : TopicDomainEntity, IAggregateRoot
+public class TopicDomainEntityForList : TopicDomainEntity, IAggregateRoot
 {
     #region Fields
 
-    private readonly List<TopicDomainEntityForTree> _treeChildren = new();
+    private readonly List<OptionValueObjectWithInt64Id> _treeAncestors = new();
 
     #endregion Fields
 
     #region Properties
 
     /// <summary>
-    /// Дети в дереве.
+    /// Предки в дереве.
     /// </summary>
-    public IReadOnlyCollection<TopicDomainEntityForTree> TreeChildren => _treeChildren;
+    public IReadOnlyCollection<OptionValueObjectWithInt64Id> TreeAncestors => _treeAncestors;
 
     /// <summary>
     /// Признак наличия детей в дереве.
@@ -47,7 +47,7 @@ public class TopicDomainEntityForTree : TopicDomainEntity, IAggregateRoot
     /// <param name="treeIsExpanded">Признак раскрытого узла дерева.</param>
     /// <param name="treeLevel">Уровень в дереве.</param>
     /// <param name="treePath">Путь в дереве.</param>
-    public TopicDomainEntityForTree(
+    public TopicDomainEntityForList(
         TopicTypeEntity? data = null,
         bool treeHasChildren = false,
         bool treeIsExpanded = false,
@@ -65,28 +65,21 @@ public class TopicDomainEntityForTree : TopicDomainEntity, IAggregateRoot
     #region Public methods
 
     /// <summary>
-    /// Добавить ребёнка в дереве.
+    /// Добавить предка в дереве.
     /// </summary>
-    /// <param name="child">Ребёнок.</param>
-    /// <returns>Добавленный ребёнок.</returns>
-    public TopicDomainEntityForTree AddTreeChild(TopicDomainEntityForTree child)
+    /// <param name="ancestor">Предок.</param>
+    /// <returns>Добавленный предок.</returns>
+    public OptionValueObjectWithInt64Id AddTreeAncestor(OptionValueObjectWithInt64Id ancestor)
     {
-        var result = _treeChildren.Where(x => x.Data.Id == child.Data.Id).SingleOrDefault();
+        var result = _treeAncestors.Where(x => x.Id == ancestor.Id).SingleOrDefault();
 
         if (result is null)
         {
-            _treeChildren.Add(child);
+            _treeAncestors.Add(ancestor);
         }
 
-        return result ?? child;
+        return result ?? ancestor;
     }
 
     #endregion Public methods
-
-    #region Protected methods
-
-    /// <inheritdoc/>
-    protected override long GetId() => Data.Id;
-
-    #endregion Protected methods
 }
