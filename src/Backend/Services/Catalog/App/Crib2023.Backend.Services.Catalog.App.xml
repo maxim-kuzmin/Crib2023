@@ -348,6 +348,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForItem.TreeHasChildrenFieldNumber">
             <summary>Field number for the "tree_has_children" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForItem.TreeIsExpandedFieldNumber">
+            <summary>Field number for the "tree_is_expanded" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForItem.TreeLevelFieldNumber">
             <summary>Field number for the "tree_level" field.</summary>
         </member>
@@ -386,6 +389,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.AxisFieldNumber">
             <summary>Field number for the "axis" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.ExpandedNodeIdFieldNumber">
+            <summary>Field number for the "expanded_node_id" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicListGetOperationInput.ExpandedNodeIdsFieldNumber">
             <summary>Field number for the "expanded_node_ids" field.</summary>
@@ -450,6 +456,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationInput.AxisFieldNumber">
             <summary>Field number for the "axis" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationInput.ExpandedNodeIdFieldNumber">
+            <summary>Field number for the "expanded_node_id" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicTreeGetOperationInput.ExpandedNodeIdsFieldNumber">
             <summary>Field number for the "expanded_node_ids" field.</summary>
         </member>
@@ -491,6 +500,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForTree.TreeHasChildrenFieldNumber">
             <summary>Field number for the "tree_has_children" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForTree.TreeIsExpandedFieldNumber">
+            <summary>Field number for the "tree_is_expanded" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogTopicEntityForTree.TreeLevelFieldNumber">
             <summary>Field number for the "tree_level" field.</summary>

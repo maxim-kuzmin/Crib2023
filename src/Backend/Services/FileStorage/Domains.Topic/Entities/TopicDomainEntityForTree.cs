@@ -28,9 +28,15 @@ public class TopicDomainEntityForTree : TopicDomainEntity, IAggregateRoot
     public TopicDomainEntityForTree(
         TopicTypeEntity? data = null,
         bool treeHasChildren = false,
+        bool treeIsExpanded = false,
         int treeLevel = 0,
         string treePath = "")
-        : base(data, treeHasChildren, treeLevel, treePath)
+        : base(
+            data: data,
+            treeHasChildren: treeHasChildren,
+            treeIsExpanded: treeIsExpanded,
+            treeLevel: treeLevel,
+            treePath: treePath)
     {
     }
 

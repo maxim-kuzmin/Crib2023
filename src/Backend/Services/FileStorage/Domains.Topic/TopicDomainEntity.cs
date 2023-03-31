@@ -20,6 +20,11 @@ public class TopicDomainEntity : Entity<long>, IAggregateRoot
     public bool TreeHasChildren { get; }
 
     /// <summary>
+    /// Признак раскрытого узла дерева.
+    /// </summary>
+    public bool TreeIsExpanded { get; }
+
+    /// <summary>
     /// Уровень в дереве.
     /// </summary>
     public int TreeLevel { get; }
@@ -38,16 +43,19 @@ public class TopicDomainEntity : Entity<long>, IAggregateRoot
     /// </summary>
     /// <param name="data">Данные.</param>
     /// <param name="treeHasChildren">Признак наличия детей в дереве.</param>
+    /// <param name="treeIsExpanded">Признак раскрытого узла дерева.</param>
     /// <param name="treeLevel">Уровень в дереве.</param>
     /// <param name="treePath">Путь в дереве.</param>
     public TopicDomainEntity(
         TopicTypeEntity? data = null,
         bool treeHasChildren = false,
+        bool treeIsExpanded = false,
         int treeLevel = 0,
         string treePath = "")
     {
         Data = data ?? new TopicTypeEntity();
         TreeHasChildren = treeHasChildren;
+        TreeIsExpanded = treeIsExpanded;
         TreeLevel = treeLevel;
         TreePath = treePath;
     }

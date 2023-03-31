@@ -333,6 +333,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeHasChildrenFieldNumber">
             <summary>Field number for the "tree_has_children" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeIsExpandedFieldNumber">
+            <summary>Field number for the "tree_is_expanded" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForItem.TreeLevelFieldNumber">
             <summary>Field number for the "tree_level" field.</summary>
         </member>
@@ -371,6 +374,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.AxisFieldNumber">
             <summary>Field number for the "axis" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.ExpandedNodeIdFieldNumber">
+            <summary>Field number for the "expanded_node_id" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicListGetOperationInput.ExpandedNodeIdsFieldNumber">
             <summary>Field number for the "expanded_node_ids" field.</summary>
@@ -435,6 +441,9 @@
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTreeGetOperationInput.AxisFieldNumber">
             <summary>Field number for the "axis" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTreeGetOperationInput.ExpandedNodeIdFieldNumber">
+            <summary>Field number for the "expanded_node_id" field.</summary>
+        </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicTreeGetOperationInput.ExpandedNodeIdsFieldNumber">
             <summary>Field number for the "expanded_node_ids" field.</summary>
         </member>
@@ -476,6 +485,9 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForTree.TreeHasChildrenFieldNumber">
             <summary>Field number for the "tree_has_children" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForTree.TreeIsExpandedFieldNumber">
+            <summary>Field number for the "tree_is_expanded" field.</summary>
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageTopicEntityForTree.TreeLevelFieldNumber">
             <summary>Field number for the "tree_level" field.</summary>

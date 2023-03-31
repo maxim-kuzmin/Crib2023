@@ -44,8 +44,9 @@ message FileStorageTopicEntityForItem {
   FileStorageTopicTypeEntity data = 1;
   repeated FileStorageOptionValueObject tree_ancestors = 2;
   bool tree_has_children = 3;
-  int32 tree_level = 4;
-  string tree_path = 5;  
+  bool tree_is_expanded = 4;
+  int32 tree_level = 5;
+  string tree_path = 6;  
 }
 
 message FileStorageTopicTypeEntity {
@@ -68,13 +69,14 @@ message FileStorageTopicListGetOperationInput {
   string sort_field = 3;
   string sort_direction = 4;
   string axis = 5;
-  repeated int64 expanded_node_ids = 6;
-  string expanded_node_ids_string = 7;
-  int64 root_node_id = 8;
-  string root_node_tree_path = 9;
-  repeated int64 ids = 10;
-  string ids_string = 11;
-  string name = 12;
+  int64 expanded_node_id = 6;
+  repeated int64 expanded_node_ids = 7;
+  string expanded_node_ids_string = 8;
+  int64 root_node_id = 9;
+  string root_node_tree_path = 10;
+  repeated int64 ids = 11;
+  string ids_string = 12;
+  string name = 13;
 }
 
 // GetList Reply
@@ -105,10 +107,11 @@ message FileStorageTopicTreeGetOperationInput {
   string sort_field = 3;
   string sort_direction = 4;
   string axis = 5;
-  repeated int64 expanded_node_ids = 6;
-  string expanded_node_ids_string = 7;
-  int64 root_node_id = 8;
-  string root_node_tree_path = 9;
+  int64 expanded_node_id = 6;
+  repeated int64 expanded_node_ids = 7;
+  string expanded_node_ids_string = 8;
+  int64 root_node_id = 9;
+  string root_node_tree_path = 10;
 }
 
 // GetTree Reply
@@ -130,6 +133,7 @@ message FileStorageTopicEntityForTree {
   FileStorageTopicTypeEntity data = 1;
   repeated FileStorageTopicEntityForTree tree_children = 2;
   bool tree_has_children = 3;
-  int32 tree_level = 4;
-  string tree_path = 5;  
+  bool tree_is_expanded = 4;
+  int32 tree_level = 5;
+  string tree_path = 6;  
 }

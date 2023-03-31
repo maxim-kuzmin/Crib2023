@@ -1,7 +1,5 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using System.Security.Cryptography.X509Certificates;
-
 namespace Crib2023.Backend.Services.FileStorage.Domains.Topic;
 
 /// <summary>
@@ -53,8 +51,8 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         query = query.ApplyFiltering(input);
 
         var queryForItem = input.Axis == TreeGetOperationAxisForItem.Parent
-            ? query.Select(x => new Item(x.Parent!, x.Parent!.Children.Any(), x.Parent!.TreePath.NLevel))
-            : query.Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
+            ? query.Select(x => new Item(x.Parent!, x.Parent!.Children.Any(), x.Parent!.TreePath.NLevel, false))
+            : query.Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, false));
 
         var mapperForItem = await queryForItem.SingleOrDefaultAsync().ConfigureAwait(false);
 
@@ -82,7 +80,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             .ApplyFiltering(input)
             .ApplySorting(input)
             .ApplyPagination(input)
-            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, false));
 
         var taskForItems = queryForItems.ToListAsync();
 
@@ -127,7 +125,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             .ApplyFiltering(input)
             .ApplySorting(input)
             .ApplyPagination(input)
-            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel));
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, false));
 
         var taskForItems = queryForItems.ToListAsync();
 
@@ -165,19 +163,21 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
     private static TopicDomainEntityForItem CreateEntityForItem(Item item)
     {
         return new TopicDomainEntityForItem(
-            item.Data,
-            item.TreeHasChildren,
-            item.TreeLevel,
-            item.Data.TreePath);
+            data: item.Data,
+            treeHasChildren: item.TreeHasChildren,
+            treeIsExpanded: item.TreeIsExpanded,
+            treeLevel: item.TreeLevel,
+            treePath: item.Data.TreePath);
     }
 
     private static TopicDomainEntityForTree CreateEntityForTree(Item item)
     {
         return new TopicDomainEntityForTree(
-            item.Data,
-            item.TreeHasChildren,
-            item.TreeLevel,
-            item.Data.TreePath);
+            data: item.Data,
+            treeHasChildren: item.TreeHasChildren,
+            treeIsExpanded: item.TreeIsExpanded,
+            treeLevel: item.TreeLevel,
+            treePath: item.Data.TreePath);
     }
 
     private async static Task<Dictionary<long, Item>> CreateItemLookup(
@@ -187,13 +187,13 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
     {
         Dictionary<long, Item> result = new();
 
-        if (input.Axis == TreeGetOperationAxisForList.Child && input.ExpandedNodeIds.Any())
+        if (input.Axis == TreeGetOperationAxisForList.Child && (input.ExpandedNodeId > 0 || input.ExpandedNodeIds.Any()))
         {
             var task = LoadExpandedNodesAndTheirAncestorsWithChildren(dbContext, input, mapperForItems);
 
             await task.ConfigureAwait(false);
         }
-        
+
         foreach (var mapperForItem in mapperForItems)
         {
             result[mapperForItem.Data.Id] = mapperForItem;
@@ -313,10 +313,19 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         TopicDomainTreeGetOperationInput input,
         List<Item> mapperForItems)
     {
-        var taskForTreePaths = dbContext.Topic
-            .Where(x => input.ExpandedNodeIds.Contains(x.Id))
-            .Select(x => x.TreePath.ToString())
-            .ToArrayAsync();
+        var queryForTreePaths = dbContext.Topic.AsQueryable();
+
+        if (input.ExpandedNodeId > 0)
+        {
+            queryForTreePaths = queryForTreePaths.Where(x => x.Id == input.ExpandedNodeId);
+        }
+
+        if (input.ExpandedNodeIds.Any())
+        {
+            queryForTreePaths = queryForTreePaths.Where(x => input.ExpandedNodeIds.Contains(x.Id));
+        }
+
+        var taskForTreePaths = queryForTreePaths.Select(x => x.TreePath.ToString()).ToArrayAsync();
 
         string[] treePaths = await taskForTreePaths.ConfigureAwait(false);
 
@@ -325,7 +334,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         var task = dbContext.Topic
             .Where(x => x.ParentId.HasValue && ids.Contains(x.ParentId.Value) || ids.Contains(x.Id))
             .ApplySorting(input)
-            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel))
+            .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, ids.Contains(x.Id)))
             .ToArrayAsync();
 
         var mapper = await task.ConfigureAwait(false);
@@ -425,17 +434,20 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         public bool TreeHasChildren { get; }
 
+        public bool TreeIsExpanded { get; }
+
         public int TreeLevel { get; }
 
         #endregion Properties
 
         #region Constructors
 
-        public Item(ClientMapperTopicTypeEntity data, bool treeHasChildren, int treeLevel)
+        public Item(ClientMapperTopicTypeEntity data, bool treeHasChildren, int treeLevel, bool treeIsExpanded)
         {
             Data = data;
             TreeLevel = treeLevel;
             TreeHasChildren = treeHasChildren;
+            TreeIsExpanded = treeIsExpanded;
         }
 
         #endregion Constructors

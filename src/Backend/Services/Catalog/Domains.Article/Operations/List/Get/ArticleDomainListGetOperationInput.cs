@@ -53,6 +53,11 @@ public class ArticleDomainListGetOperationInput : ListGetOperationInput
     {
         base.Normalize();
 
+        if (TopicId < 0)
+        {
+            TopicId = 0;
+        }
+
         if (string.IsNullOrWhiteSpace(SortField))
         {
             SortField = nameof(ArticleTypeEntity.Id);
