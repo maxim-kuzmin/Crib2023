@@ -14,14 +14,23 @@ public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64No
     {
         base.Normalize();
 
-        if (string.IsNullOrWhiteSpace(SortField))
+        if (Axis == TreeGetOperationAxisForList.Child || Axis == TreeGetOperationAxisForList.None)
         {
-            SortField = nameof(TopicTypeEntity.Id);
-        }
+            if (string.IsNullOrWhiteSpace(SortField))
+            {
+                SortField = nameof(TopicTypeEntity.Id);
+            }
 
-        if (string.IsNullOrWhiteSpace(SortDirection))
+            if (string.IsNullOrWhiteSpace(SortDirection))
+            {
+                SortDirection = OperationOptions.SORT_DIRECTION_DESC;
+            }
+        }
+        else
         {
-            SortDirection = OperationOptions.SORT_DIRECTION_DESC;
+            SortField = nameof(ClientMapperTopicTypeEntity.TreePath);
+
+            SortDirection = OperationOptions.SORT_DIRECTION_ASC;
         }
     }
 
