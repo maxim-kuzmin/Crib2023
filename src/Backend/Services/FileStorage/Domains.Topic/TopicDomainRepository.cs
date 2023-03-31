@@ -188,7 +188,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             treePath: item.Data.TreePath);
     }
 
-    private static Dictionary<long, Item> CreateItemLookup(List<Item> mapperForItems)
+    private static Dictionary<long, Item> CreateItemLookup(IEnumerable<Item> mapperForItems)
     {
         Dictionary<long, Item> result = new();
 
@@ -366,11 +366,13 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
             .Select(x => new Item(x, x.Children.Any(), x.TreePath.NLevel, expandedPathIds.Contains(x.Id)))
             .ToArrayAsync();
 
-        var mapper = await task.ConfigureAwait(false);
+        var mapperForExpandedPathItems = await task.ConfigureAwait(false);
 
-        if (mapper.Any())
+        if (mapperForExpandedPathItems.Any())
         {
-            mapperForItems.AddRange(mapper);
+            var itemIdLookup = mapperForItems.Select(x => x.Data.Id).ToHashSet();
+
+            mapperForItems.AddRange(mapperForExpandedPathItems.Where(x => !itemIdLookup.Contains(x.Data.Id)));
         }
     }
 
