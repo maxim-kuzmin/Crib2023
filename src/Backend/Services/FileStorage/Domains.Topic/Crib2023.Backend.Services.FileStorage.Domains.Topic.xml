@@ -308,11 +308,10 @@
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.Normalize">
             <inheritdoc/>
         </member>
-        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.CreatePredicate(System.Int64[])">
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationInput.CreatePredicate">
             <summary>
             Создать предикат.
             </summary>
-            <param name="expandedPathIds">Идентификаторы раскрытого пути.</param>
             <returns>Предикат.</returns>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.List.Get.TopicDomainListGetOperationOutput">

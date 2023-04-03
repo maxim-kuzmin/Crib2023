@@ -38,7 +38,7 @@ public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64No
     /// Создать предикат.
     /// </summary>
     /// <returns>Предикат.</returns>
-    public ExpressionStarter<ClientMapperTopicTypeEntity> CreatePredicate()
+    public virtual ExpressionStarter<ClientMapperTopicTypeEntity> CreatePredicate()
     {
         var result = PredicateBuilder.New<ClientMapperTopicTypeEntity>(true);
 

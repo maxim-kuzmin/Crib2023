@@ -51,9 +51,8 @@ public class TopicDomainListGetOperationInput : TopicDomainTreeGetOperationInput
     /// <summary>
     /// Создать предикат.
     /// </summary>
-    /// <param name="expandedPathIds">Идентификаторы раскрытого пути.</param>
     /// <returns>Предикат.</returns>
-    public ExpressionStarter<ClientMapperTopicTypeEntity> CreatePredicate(long[] expandedPathIds)
+    public sealed override ExpressionStarter<ClientMapperTopicTypeEntity> CreatePredicate()
     {
         ExpressionStarter<ClientMapperTopicTypeEntity> result;
 
@@ -82,22 +81,7 @@ public class TopicDomainListGetOperationInput : TopicDomainTreeGetOperationInput
         }
         else
         {
-            var predicate = CreatePredicate();
-
-            if (expandedPathIds.Any())
-            {
-                result = PredicateBuilder.New<ClientMapperTopicTypeEntity>();
-
-                result = result.Or(predicate);
-
-                result = result.Or(expandedPathIds.ToPredicateForExpandedPath());
-            }
-            else
-            {
-                result = PredicateBuilder.New<ClientMapperTopicTypeEntity>(true);
-
-                result = result.And(predicate);
-            }
+            result = base.CreatePredicate();
         }
 
         return result;

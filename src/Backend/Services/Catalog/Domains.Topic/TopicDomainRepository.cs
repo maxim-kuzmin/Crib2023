@@ -77,9 +77,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
-        long[] expandedPathIds = await GetExpandedPathIds(dbContext, input);
-
-        var predicate = input.CreatePredicate(expandedPathIds);
+        var predicate = input.CreatePredicate();
 
         var taskForItems = dbContext.Topic
             .Include(x => x.Parent)
@@ -102,18 +100,20 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         var mapperForItems = await taskForItems.ConfigureAwait(false);
 
+        long expandedPathLength = await LoadExpandedPath(dbContext, input, mapperForItems).ConfigureAwait(false);
+
         var itemLookup = CreateItemLookup(mapperForItems);
 
         await LoadTreeAncestorsForList(dbContext, itemLookup, mapperForItems).ConfigureAwait(false);
 
-        result.Items = CreateListOutputItems(itemLookup, input.RootNodeId, mapperForItems);
+        result.Items = CreateListOutputItems(input, itemLookup, mapperForItems);
 
         if (!totalCount.HasValue)
         {
             totalCount = result.Items.LongLength;
         }
 
-        result.TotalCount = totalCount.Value;
+        result.TotalCount = totalCount.Value + expandedPathLength;
 
         return result;
     }
@@ -152,7 +152,7 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
 
         var itemLookup = CreateItemLookup(mapperForItems);
 
-        result.Nodes = CreateTreeOutputNodes(itemLookup, input.RootNodeId, mapperForItems);
+        result.Nodes = CreateTreeOutputNodes(input, itemLookup, mapperForItems);
 
         if (!totalCount.HasValue)
         {
@@ -248,28 +248,28 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         return result.ToArray();
     }
 
-    private static TopicDomainEntityForList[] CreateListOutputItems(
+    private static TopicDomainEntityForList[] CreateListOutputItems(        
+        TopicDomainTreeGetOperationInput input,
         Dictionary<long, Item> itemLookup,
-        long? rootNodeId,
         List<Item> mapperForItems)
     {
         List<TopicDomainEntityForList> result = new();
 
-        var items = CreateItemsWithChildren(itemLookup, rootNodeId, mapperForItems);
+        var items = CreateItemsWithChildren(itemLookup, input.RootNodeId, mapperForItems);
 
         FillListOutputItems(items, result: result);
 
-        return result.ToArray();
+        return result.ApplyPagination(input).ToArray();
     }
 
     private static TopicDomainEntityForTree[] CreateTreeOutputNodes(
-        Dictionary<long, Item> itemLookup,
-        long? rootNodeId,
+        TopicDomainTreeGetOperationInput input,
+        Dictionary<long, Item> itemLookup,        
         List<Item> mapperForItems)
     {
         List<TopicDomainEntityForTree> result = new();
 
-        var items = CreateItemsWithChildren(itemLookup, rootNodeId, mapperForItems);
+        var items = CreateItemsWithChildren(itemLookup, input.RootNodeId, mapperForItems);
 
         FillTreeOutputNodes(items, result: result);
 
@@ -355,16 +355,18 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         return result;
     }
 
-    private static async Task LoadExpandedPath(
+    private static async Task<long> LoadExpandedPath(
         ClientMapperDbContext dbContext,
         TopicDomainTreeGetOperationInput input,
         List<Item> mapperForItems)
     {
+        long result = 0;
+
         long[] expandedPathIds = await GetExpandedPathIds(dbContext, input);
 
         if (!expandedPathIds.Any())
         {
-            return;
+            return result;
         }
 
         var task = dbContext.Topic
@@ -379,8 +381,14 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         {            
             var itemIdLookup = mapperForItems.Select(x => x.Data.Id).ToHashSet();
 
-            mapperForItems.AddRange(mapperForExpandedPathItems.Where(x => !itemIdLookup.Contains(x.Data.Id)));
+            var items = mapperForExpandedPathItems.Where(x => !itemIdLookup.Contains(x.Data.Id));
+
+            result = items.Count();
+
+            mapperForItems.AddRange(items);
         }
+
+        return result;
     }
 
     private static async Task LoadTreeAncestorsForItem(
