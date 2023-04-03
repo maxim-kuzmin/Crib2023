@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren, useReducer } from 'react';
 import { getModule } from '../../../all';
 
-export function TopicTreeStoreProvider ({ children }: PropsWithChildren) {
+export const TopicTreeStoreProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
   const { getTopicTreeStoreService } = getModule();
 
   const service = getTopicTreeStoreService();

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { getModule, StoreDispatchType } from '../../../all';
 
-export function AppNotificationView () {
+export const AppNotificationView: React.FC = () => {
     const {
       getAppNotificationStoreService,
       getNotificationControlService

@@ -5,7 +5,7 @@ import {
 } from '../../../all';
 import styles from './ArticleTableView.module.css';
 
-export function ArticleTableView ({ response }: ArticleTableViewProps) {
+export const ArticleTableView: React.FC<ArticleTableViewProps> = ({ response }: ArticleTableViewProps) => {
   let items: ArticleDomainEntityForList[] | null = null;
   let totalCount = 0;
 

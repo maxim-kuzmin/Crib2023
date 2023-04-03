@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren, useReducer } from 'react';
 import { getModule } from '../../../all';
 
-export function AppNotificationStoreProvider ({ children }: PropsWithChildren) {
+export const AppNotificationStoreProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
   const { getAppNotificationStoreService } = getModule();
 
   const service = getAppNotificationStoreService();

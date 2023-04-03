@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function AppLayoutFooterView () {
+export const AppLayoutFooterView: React.FC = () => {
   return (
     <>
-      Ant Design ©2023 Created by Ant UED
+      ©{(new Date()).getFullYear()} Maxim Kuzmin
     </>
   );
 }

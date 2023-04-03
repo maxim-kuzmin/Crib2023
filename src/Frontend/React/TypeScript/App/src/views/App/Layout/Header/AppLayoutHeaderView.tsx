@@ -1,6 +1,6 @@
 import React from 'react';
 import { TopicPathView } from '../../../../all';
 
-export function AppLayoutHeaderView () {
+export const AppLayoutHeaderView: React.FC = () => {
   return <TopicPathView/>;
 }

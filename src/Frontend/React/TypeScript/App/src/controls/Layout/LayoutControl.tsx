@@ -5,12 +5,12 @@ import { type LayoutControlProps } from '../../all';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export function LayoutControl ({
+export const LayoutControl: React.FC<LayoutControlProps> = ({
   createAsideView,
   createContentView,
   createFooterView,
   createHeaderView
-}: LayoutControlProps) {
+}: LayoutControlProps) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -26,7 +26,8 @@ export function LayoutControl ({
         onCollapse={(collapsed, type) => {
           // console.log(collapsed, type);
         }}
-        className={styles.root}
+        className={styles.sider}
+        width="auto"
       >
         {createAsideView()}
       </Sider>

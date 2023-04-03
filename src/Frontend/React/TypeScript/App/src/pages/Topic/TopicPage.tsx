@@ -14,7 +14,7 @@ import {
 } from '../../all';
 import styles from './TopicPage.module.css';
 
-export function TopicPage () {
+export const TopicPage: React.FC = () => {
   const urlParams = useParams();
 
   const {

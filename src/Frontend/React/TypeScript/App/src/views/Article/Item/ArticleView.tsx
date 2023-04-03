@@ -6,7 +6,7 @@ import {
 } from '../../../all';
 import styles from './ArticleView.module.css';
 
-export function ArticleView ({ response }: ArticleViewProps) {
+export const ArticleView: React.FC<ArticleViewProps> = ({ response }: ArticleViewProps) => {
   let item: ArticleDomainEntityForItem | null = null;
   let data: ArticleTypeEntity | null = null;
 

@@ -5,7 +5,7 @@ import {
 } from '../../../../all';
 import styles from './AppLayoutAsideView.module.css';
 
-export function AppLayoutAsideView ({ logoUrl }: AppLayoutAsideViewProps) {
+export const AppLayoutAsideView: React.FC<AppLayoutAsideViewProps> = ({ logoUrl }: AppLayoutAsideViewProps) => {
   return (
     <>
       <div className={styles.root}>

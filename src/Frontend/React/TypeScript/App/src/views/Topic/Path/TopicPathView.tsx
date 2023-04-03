@@ -12,7 +12,7 @@ function createTopicTitle (topic?: TopicDomainEntityForItem) {
   return '';
 }
 
-export function TopicPathView () {
+export const TopicPathView: React.FC = () => {
   const { getTopicItemStoreService } = getModule();
 
   const service = getTopicItemStoreService();

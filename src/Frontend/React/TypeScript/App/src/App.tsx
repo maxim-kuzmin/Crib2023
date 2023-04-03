@@ -9,7 +9,7 @@ import {
   LayoutControl
 } from './all';
 
-export function App () {
+export const App: React.FC = () => {
   return (
     <>
       <AppNotificationView/>

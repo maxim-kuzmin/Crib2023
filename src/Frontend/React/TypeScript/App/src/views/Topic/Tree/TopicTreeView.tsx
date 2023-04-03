@@ -5,11 +5,35 @@ import {
   getModule,
   type TopicDomainTreeGetOperationInput,
   TreeGetOperationAxisForList,
-  OperationStatus
+  OperationStatus,
+  type TopicDomainEntityForTree,
+  SpinnerControl,
+  type TreeControlData,
+  TreeControl
 } from '../../../all';
 import styles from './TopicTreeView.module.css';
 
-export function TopicTreeView () {
+function getTreeControlData (topicId: number, nodes?: TopicDomainEntityForTree[]): TreeControlData[] {
+  return nodes
+    ? nodes.map((node) => {
+      const { treeChildren, treeHasChildren, treeIsExpanded, data } = node;
+      const { id, name } = data;
+
+      const result: TreeControlData = {
+        isLeaf: !treeHasChildren,
+        isExpanded: treeIsExpanded,
+        isSelected: id === topicId,
+        key: id.toString(),
+        title: name,
+        children: treeChildren.length > 0 ? getTreeControlData(topicId, treeChildren) : []
+      };
+
+      return result;
+    })
+  : [];
+}
+
+export const TopicTreeView: React.FC = () => {
   const [expandedTopicId, setExpandedTopicId] = useState(0);
 
   function handleClick (e: React.MouseEvent<HTMLElement>) {
@@ -60,11 +84,26 @@ export function TopicTreeView () {
     dispatchType: StoreDispatchType.Unmount
   });
 
+  const { response: topicTreeResponse, status: topicTreeStatus } = topicTreeStoreService.useState();
+
+  const treeControlData = useMemo(() => getTreeControlData(
+      topicId,
+      topicTreeResponse?.data?.nodes
+    ),
+    [topicTreeResponse?.data, topicId]
+  );
+
   return (
     <div className={styles.root}>
       <h2>TopicTreeView: {topicId}</h2>
       <input name="expandedTopicId" value={expandedTopicId} onChange={handleChange}/>
       <button onClick={handleClick}>Load</button>
+      {
+        topicTreeStatus === OperationStatus.Pending
+          ? <SpinnerControl/>
+          // : topicTreeResponse?.data && createNodes(topicTreeResponse?.data?.nodes)
+          : <TreeControl data={treeControlData} />
+      }
     </div>
   );
 }

@@ -16,7 +16,7 @@ import {
 
 import styles from './ArticlePage.module.css';
 
-export function ArticlePage () {
+export const ArticlePage: React.FC = () => {
   const urlParams = useParams();
 
   const {
@@ -98,9 +98,11 @@ export function ArticlePage () {
             message: val
           })
       }}>Notify</button>
-      {articleItemStatus === OperationStatus.Pending
-        ? <SpinnerControl/>
-        : <ArticleView response={articleItemResoponse}/>}
+      {
+        articleItemStatus === OperationStatus.Pending
+          ? <SpinnerControl/>
+          : <ArticleView response={articleItemResoponse}/>
+      }
     </div>
   )
 }

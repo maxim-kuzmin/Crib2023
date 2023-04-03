@@ -7,7 +7,7 @@ import {
   TopicTreeStoreProvider
 } from '../all';
 
-export function Provider ({ children }: PropsWithChildren) {
+export const Provider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
   return (
     <AppNotificationStoreProvider>
       <ArticleItemStoreProvider>
