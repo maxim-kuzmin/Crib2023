@@ -9,6 +9,8 @@ import {
   type ArticleDomainListGetOperationOutput
 } from '../../../all';
 
+const controller = 'CatalogArticle';
+
 export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   constructor (private readonly apiClient: ApiClient) {}
   async getItem (
@@ -17,7 +19,7 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
     const { operationCode, operationName, input } = request;
 
     return await this.apiClient.get<ArticleDomainItemGetOperationOutput>(
-      `CatalogArticle/${input.id ?? 0}`,
+      `${controller}Item-${input.id ?? 0}`,
       operationName,
       operationCode
     );
@@ -29,7 +31,7 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
     const { operationCode, operationName, input } = request;
 
     return await this.apiClient.get<ArticleDomainListGetOperationOutput>(
-      'CatalogArticle',
+      `${controller}List`,
       operationName,
       operationCode,
       input

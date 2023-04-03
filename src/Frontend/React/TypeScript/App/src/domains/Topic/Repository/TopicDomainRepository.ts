@@ -1,8 +1,10 @@
 import {
+  type TopicDomainTreeGetOperationRequest,
   type TopicDomainItemGetOperationRequest,
   type TopicDomainItemGetOperationResponse,
   type TopicDomainListGetOperationRequest,
-  type TopicDomainListGetOperationResponse
+  type TopicDomainListGetOperationResponse,
+  type TopicDomainTreeGetOperationResponse
 } from '../../../all';
 
 export interface TopicDomainRepository {
@@ -13,4 +15,8 @@ export interface TopicDomainRepository {
   getList: (
     request: TopicDomainListGetOperationRequest
   ) => Promise<TopicDomainListGetOperationResponse>;
+
+  getTree: (
+    request: TopicDomainTreeGetOperationRequest
+  ) => Promise<TopicDomainTreeGetOperationResponse>;
 }

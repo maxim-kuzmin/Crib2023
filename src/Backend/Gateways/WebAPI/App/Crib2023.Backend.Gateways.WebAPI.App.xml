@@ -33,7 +33,7 @@
         </member>
         <member name="T:Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog.CatalogTopicController">
             <summary>
-            Контроллер "Статья в каталоге".
+            Контроллер "Тема в каталоге".
             </summary>
         </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog.CatalogTopicController.#ctor(MediatR.IMediator)">

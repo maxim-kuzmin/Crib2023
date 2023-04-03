@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   ArticleView,
@@ -27,7 +27,7 @@ export function ArticlePage () {
 
   const articleItemStoreService = getArticleItemStoreService();
 
-  const { response: articleItemResoponse, status } = articleItemStoreService.useState();
+  const { response: articleItemResoponse, status: articleItemStatus } = articleItemStoreService.useState();
 
   const topicId = articleItemResoponse?.data?.item?.data.topicId ?? 0;
 
@@ -37,17 +37,20 @@ export function ArticlePage () {
     articleId = 0;
   }
 
+  const articleItemIsLoaded = useRef(false);
+
   const appNotificationStoreService = getAppNotificationStoreService();
 
   const appNotificationDispatchToSet = appNotificationStoreService.useDispatchToSet();
 
-  const inputAtDispatchToArticleItemLoad: ArticleDomainItemGetOperationInput = useMemo(() => ({
-     id: articleId
-  }), [articleId]);
-
   const callbackOnArticleItemLoad = useCallback((response: ArticleDomainItemGetOperationResponse | null) => {
     console.log('MAKC:ArticlePage:callbackOnArticleItemLoad:response', response);
+    articleItemIsLoaded.current = true;
   }, []);
+
+  const inputAtDispatchToArticleItemLoad: ArticleDomainItemGetOperationInput = useMemo(() => ({
+    id: articleId
+  }), [articleId]);
 
   articleItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -61,17 +64,18 @@ export function ArticlePage () {
 
   const topicItemStoreService = getTopicItemStoreService();
 
+  const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
+    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
+  }, []);
+
   const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(() => ({
     axis: TreeGetOperationAxisForItem.Self,
     id: topicId
   }), [topicId]);
 
-  const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
-    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
-  }, []);
-
   topicItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
+    isCanceled: !articleItemIsLoaded.current,
     callback: callbackOnTopicItemLoad,
     inputAtDispatch: inputAtDispatchToTopicItemLoad
   });
@@ -94,7 +98,7 @@ export function ArticlePage () {
             message: val
           })
       }}>Notify</button>
-      {status === OperationStatus.Pending
+      {articleItemStatus === OperationStatus.Pending
         ? <SpinnerControl/>
         : <ArticleView response={articleItemResoponse}/>}
     </div>

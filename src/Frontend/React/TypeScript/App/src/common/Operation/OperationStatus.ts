@@ -1,5 +1,6 @@
 export enum OperationStatus {
-    Fulfilled = 1,
-    Pending = 2,
-    Rejected = 3
+    Initial = 1,
+    Fulfilled = 2,
+    Pending = 3,
+    Rejected = 4
 }

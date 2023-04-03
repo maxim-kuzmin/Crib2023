@@ -11,7 +11,8 @@ import {
   type TestService,
   type TopicDomainItemGetOperationRequestHandler,
   type TopicDomainListGetOperationRequestHandler,
-  type TopicDomainRepository
+  type TopicDomainRepository,
+  type TopicDomainTreeGetOperationRequestHandler
 } from '../../all';
 
 export interface Module {
@@ -27,5 +28,6 @@ export interface Module {
   readonly useArticleDomainListGetOperationRequestHandler: () => ArticleDomainListGetOperationRequestHandler;
   readonly useTopicDomainItemGetOperationRequestHandler: () => TopicDomainItemGetOperationRequestHandler;
   readonly useTopicDomainListGetOperationRequestHandler: () => TopicDomainListGetOperationRequestHandler;
+  readonly useTopicDomainTreeGetOperationRequestHandler: () => TopicDomainTreeGetOperationRequestHandler;
   readonly getTopicDomainRepository: () => TopicDomainRepository;
 }

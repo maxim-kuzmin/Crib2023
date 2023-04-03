@@ -1,6 +1,16 @@
 import React from 'react';
-import { getModule } from '../../../all';
+import { type TopicDomainEntityForItem, getModule } from '../../../all';
 import styles from './TopicPathView.module.css';
+
+function createTopicTitle (topic?: TopicDomainEntityForItem) {
+  if (topic) {
+    const { id, name } = topic.data;
+
+    return `/${id}.${name}`;
+  }
+
+  return '';
+}
 
 export function TopicPathView () {
   const { getTopicItemStoreService } = getModule();
@@ -9,9 +19,11 @@ export function TopicPathView () {
 
   const { response: topicItemResponse } = service.useState();
 
+  const topic = topicItemResponse?.data?.item;
+
   return (
     <div className={styles.root}>
-      <h2>TopicPathView: {topicItemResponse?.data?.item.treeAncestors.map(x => `${x.id}.${x.name}`).join('/')}</h2>
+      <h2>TopicPathView: {topic?.treeAncestors.map(x => `${x.id}.${x.name}`).join('/')}{createTopicTitle(topic)}</h2>
     </div>
   );
 }

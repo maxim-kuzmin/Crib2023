@@ -13,10 +13,12 @@ export function createOperationState<T extends OperationState> (
   } = state;
 
   if (!status) {
-    status = OperationStatus.Fulfilled;
+    status = OperationStatus.Initial;
   }
 
   return {
-    ...extension
+    ...extension,
+    ...state,
+    status
   };
 }

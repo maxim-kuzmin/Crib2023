@@ -5,17 +5,17 @@ import {
   OperationStatus,
   type StoreDispatchOptions,
   type OperationState,
-  type TopicDomainListGetOperationInput,
-  type TopicDomainListGetOperationResponse,
+  type TopicDomainTreeGetOperationInput,
+  type TopicDomainTreeGetOperationResponse,
   getModule,
-  type TopicDomainListGetOperationRequestHandler,
-  createTopicDomainListGetOperationRequest,
+  type TopicDomainTreeGetOperationRequestHandler,
+  createTopicDomainTreeGetOperationRequest,
   type ShouldBeCanceled
 } from '../../../all';
 
-type Response = TopicDomainListGetOperationResponse | null;
+type Response = TopicDomainTreeGetOperationResponse | null;
 
-type Input = TopicDomainListGetOperationInput | null;
+type Input = TopicDomainTreeGetOperationInput | null;
 
 enum ActionType {
   Clear,
@@ -157,12 +157,16 @@ function runDispatchToSet (
 }
 
 async function runDispatchToLoad (
-  requestHandler: TopicDomainListGetOperationRequestHandler,
+  requestHandler: TopicDomainTreeGetOperationRequestHandler,
   dispatch: Dispatch<Action>,
   callback: CallbackToSet | null,
   shouldBeCanceled: ShouldBeCanceled,
   input: Input
 ) {
+  if (shouldBeCanceled()) {
+    return;
+  }
+
   const actionToLoad: ActionToLoad = {
     type: ActionType.Load,
     input
@@ -172,14 +176,16 @@ async function runDispatchToLoad (
 
   const response = input
     ? await requestHandler.handle(
-      createTopicDomainListGetOperationRequest(input),
+      createTopicDomainTreeGetOperationRequest(input),
       shouldBeCanceled
     )
     : null;
 
-  if (!shouldBeCanceled()) {
-    runDispatchToSet(dispatch, callback, response);
+  if (shouldBeCanceled()) {
+    return;
   }
+
+  runDispatchToSet(dispatch, callback, response);
 }
 
 interface DispatchOptionsToLoad extends StoreDispatchOptions {
@@ -198,10 +204,10 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
 
   const inputAtDispatchInner = options?.inputAtDispatch ?? null;
 
-  const requestHandler = useRef(getModule().useTopicDomainListGetOperationRequestHandler()).current;
+  const requestHandler = useRef(getModule().useTopicDomainTreeGetOperationRequestHandler()).current;
 
   useEffect(() => {
-    let isCanceled = false;
+    let isCanceled = options?.isCanceled ?? false;
 
     const shouldBeCanceledInner = () => isCanceled;
 
@@ -216,7 +222,14 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
         isCanceled = true;
       }
     };
-  }, [requestHandler, dispatch, options?.dispatchType, callbackInner, inputAtDispatchInner]);
+  }, [
+    requestHandler,
+    dispatch,
+    options?.dispatchType,
+    options?.isCanceled,
+    callbackInner,
+    inputAtDispatchInner
+  ]);
 
   return useRef({
     run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = () => false) => {

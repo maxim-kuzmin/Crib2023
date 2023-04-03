@@ -1,3 +1,4 @@
+export * from './Entities';
 export * from './Operations';
 export * from './Repository';
-export * from './TopicDomainEntity';
+export { type TopicDomainEntity } from './TopicDomainEntity';

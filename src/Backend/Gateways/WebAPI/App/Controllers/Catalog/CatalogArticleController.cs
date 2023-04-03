@@ -5,7 +5,7 @@ namespace Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog;
 /// <summary>
 /// Контроллер "Статья в каталоге".
 /// </summary>
-[Route("api/[controller]")]
+[Route("api")]
 [ApiController]
 public class CatalogArticleController : ControllerBase
 {
@@ -36,7 +36,7 @@ public class CatalogArticleController : ControllerBase
     /// <param name="id">Идентификатор.</param>
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение элемента.</returns>
-    [HttpGet("{id}")]
+    [HttpGet("[controller]Item-{id}")]
     [ProducesResponseType(typeof(CatalogArticleItemGetResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]
@@ -97,7 +97,7 @@ public class CatalogArticleController : ControllerBase
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
     /// <returns>Задача на получение списка.</returns>
-    [HttpGet]
+    [HttpGet("[controller]List")]
     [ProducesResponseType(typeof(CatalogArticleListGetResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(WebAppResponseWithDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(WebAppResponse), StatusCodes.Status404NotFound)]

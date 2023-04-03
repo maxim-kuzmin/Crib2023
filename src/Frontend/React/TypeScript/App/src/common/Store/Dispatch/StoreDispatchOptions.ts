@@ -1,5 +1,6 @@
 import { type StoreDispatchType } from '../../../all';
 
 export interface StoreDispatchOptions {
-    dispatchType?: StoreDispatchType;
+  dispatchType?: StoreDispatchType;
+  isCanceled?: boolean;
 }

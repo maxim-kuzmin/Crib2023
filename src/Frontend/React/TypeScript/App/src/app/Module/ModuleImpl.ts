@@ -30,7 +30,9 @@ import {
   TopicDomainListGetOperationRequestHandlerImpl,
   type TopicDomainRepository,
   TopicDomainRepositoryImpl,
-  TestTopicDomainRepositoryImpl
+  TestTopicDomainRepositoryImpl,
+  type TopicDomainTreeGetOperationRequestHandler,
+  TopicDomainTreeGetOperationRequestHandlerImpl
 } from '../../all';
 
 export class ModuleImpl implements Module {
@@ -94,6 +96,13 @@ export class ModuleImpl implements Module {
 
   useTopicDomainListGetOperationRequestHandler (): TopicDomainListGetOperationRequestHandler {
     return new TopicDomainListGetOperationRequestHandlerImpl(
+      this.getTopicDomainRepository(),
+      this.useApiRequestHandler()
+    );
+  }
+
+  useTopicDomainTreeGetOperationRequestHandler (): TopicDomainTreeGetOperationRequestHandler {
+    return new TopicDomainTreeGetOperationRequestHandlerImpl(
       this.getTopicDomainRepository(),
       this.useApiRequestHandler()
     );

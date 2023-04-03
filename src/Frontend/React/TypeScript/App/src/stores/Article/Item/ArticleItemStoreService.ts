@@ -163,6 +163,10 @@ async function runDispatchToLoad (
   shouldBeCanceled: ShouldBeCanceled,
   input: Input
 ) {
+  if (shouldBeCanceled()) {
+    return;
+  }
+
   const actionToLoad: ActionToLoad = {
     type: ActionType.Load,
     input
@@ -177,9 +181,11 @@ async function runDispatchToLoad (
       )
     : null;
 
-  if (!shouldBeCanceled()) {
-    runDispatchToSet(dispatch, callback, response);
+  if (shouldBeCanceled()) {
+    return;
   }
+
+  runDispatchToSet(dispatch, callback, response);
 }
 
 interface DispatchOptionsToLoad extends StoreDispatchOptions {
@@ -201,7 +207,7 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
   const requestHandler = useRef(getModule().useArticleDomainItemGetOperationRequestHandler()).current;
 
   useEffect(() => {
-    let isCanceled = false;
+    let isCanceled = options?.isCanceled ?? false;
 
     const shouldBeCanceledInner = () => isCanceled;
 
@@ -216,7 +222,14 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
         isCanceled = true;
       }
     };
-  }, [requestHandler, dispatch, options?.dispatchType, callbackInner, inputAtDispatchInner]);
+  }, [
+    requestHandler,
+    dispatch,
+    options?.dispatchType,
+    options?.isCanceled,
+    callbackInner,
+    inputAtDispatchInner
+  ]);
 
   return useRef({
     run: async (input: Input, shouldBeCanceled: ShouldBeCanceled = () => false) => {

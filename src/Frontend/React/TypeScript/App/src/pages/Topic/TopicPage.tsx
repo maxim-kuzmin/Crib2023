@@ -24,7 +24,7 @@ export function TopicPage () {
 
   const articleListStoreService = getArticleListStoreService();
 
-  const { response: articleListResponse, status } = articleListStoreService.useState();
+  const { response: articleListResponse, status: articleListStatus } = articleListStoreService.useState();
 
   let topicId = Number(urlParams.topicId ?? 0);
 
@@ -32,15 +32,15 @@ export function TopicPage () {
     topicId = 0;
   }
 
+  const callbackOnArticleListLoad = useCallback((response: ArticleDomainListGetOperationResponse | null) => {
+    console.log('MAKC:TopicPage:callbackOnArticleListLoad:response', response);
+  }, []);
+
   const inputAtDispatchToArticleListLoad: ArticleDomainListGetOperationInput = useMemo(() => ({
     topicId,
     pageNumber: 1,
     pageSize: 10
   }), [topicId]);
-
-  const callbackOnArticleListLoad = useCallback((response: ArticleDomainListGetOperationResponse | null) => {
-    console.log('MAKC:TopicPage:callbackOnArticleListLoad:response', response);
-  }, []);
 
   articleListStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -54,14 +54,14 @@ export function TopicPage () {
 
   const topicItemStoreService = getTopicItemStoreService();
 
+  const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
+    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
+  }, []);
+
   const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(() => ({
     axis: TreeGetOperationAxisForItem.Self,
     id: topicId
   }), [topicId]);
-
-  const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
-    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
-  }, []);
 
   topicItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -76,7 +76,7 @@ export function TopicPage () {
   return (
     <div className={styles.root}>
       <h1>TopicPage {topicId}</h1>
-      {status === OperationStatus.Pending
+      {articleListStatus === OperationStatus.Pending
         ? <SpinnerControl/>
         : <ArticleTableView response={articleListResponse}/>}
     </div>

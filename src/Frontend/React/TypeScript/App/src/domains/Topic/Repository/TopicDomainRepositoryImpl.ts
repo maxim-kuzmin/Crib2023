@@ -6,8 +6,13 @@ import {
   type TopicDomainListGetOperationRequest,
   type TopicDomainListGetOperationResponse,
   type TopicDomainRepository,
-  type TopicDomainListGetOperationOutput
+  type TopicDomainListGetOperationOutput,
+  type TopicDomainTreeGetOperationRequest,
+  type TopicDomainTreeGetOperationResponse,
+  type TopicDomainTreeGetOperationOutput
 } from '../../../all';
+
+const controller = 'CatalogTopic';
 
 export class TopicDomainRepositoryImpl implements TopicDomainRepository {
   constructor (private readonly apiClient: ApiClient) {}
@@ -17,7 +22,7 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
     const { operationCode, operationName, input } = request;
 
     return await this.apiClient.get<TopicDomainItemGetOperationOutput>(
-      `CatalogTopic/${input.id ?? 0}`,
+      `${controller}Item-${input.id ?? 0}`,
       operationName,
       operationCode
     );
@@ -29,7 +34,20 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
     const { operationCode, operationName, input } = request;
 
     return await this.apiClient.get<TopicDomainListGetOperationOutput>(
-      'CatalogTopic',
+      `${controller}List`,
+      operationName,
+      operationCode,
+      input
+    );
+  }
+
+  async getTree (
+    request: TopicDomainTreeGetOperationRequest
+  ): Promise<TopicDomainTreeGetOperationResponse> {
+    const { operationCode, operationName, input } = request;
+
+    return await this.apiClient.get<TopicDomainTreeGetOperationOutput>(
+      `${controller}Tree`,
       operationName,
       operationCode,
       input
