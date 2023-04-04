@@ -4,7 +4,7 @@ import {
   type OperationHandler,
   type OperationInput,
   type OperationResult,
-  type NotificationData
+  type OperationHandlerOptions
 } from '../../../all';
 
 export class OperationHandlerImpl implements OperationHandler {
@@ -12,7 +12,7 @@ export class OperationHandlerImpl implements OperationHandler {
 
   private operationName = '';
 
-  constructor (private readonly functionToSetNotification: (data: NotificationData) => void) {}
+  constructor (private readonly options: OperationHandlerOptions) {}
 
   get operationCode () {
     if (!this._operationCode) {
@@ -23,18 +23,26 @@ export class OperationHandlerImpl implements OperationHandler {
   }
 
   handleError (error: any) {
+    const { functionToSetNotification, shouldBeLogged, shouldBeNotified } = this.options;
+
     const title = this.createTitle();
 
-    console.error(title, error);
+    if (shouldBeLogged) {
+      console.error(title, error);
+    }
 
-    this.functionToSetNotification({
-      type: NotificationType.Error,
-      message: title,
-      description: error.message
-    });
+    if (shouldBeNotified) {
+      functionToSetNotification({
+        type: NotificationType.Error,
+        message: title,
+        description: error.message
+      });
+    }
   }
 
   handleStart ({ operationCode, operationName, input }: OperationInput) {
+    const { shouldBeLogged } = this.options;
+
     if (operationCode) {
       this._operationCode = operationCode;
     }
@@ -43,22 +51,30 @@ export class OperationHandlerImpl implements OperationHandler {
 
     const title = this.createTitle();
 
-    console.log(`${title}Start`, input);
+    if (shouldBeLogged) {
+      console.log(`${title}Start`, input);
+    }
   }
 
   handleSuccess ({ operationCode, data }: OperationResult) {
+    const { functionToSetNotification, shouldBeLogged, shouldBeNotified } = this.options;
+
     if (operationCode) {
       this._operationCode = operationCode;
     }
 
     const title = this.createTitle();
 
-    console.log(`${title}Success`, data);
+    if (shouldBeLogged) {
+      console.log(`${title}Success`, data);
+    }
 
-    this.functionToSetNotification({
-      type: NotificationType.Success,
-      message: title,
-    });
+    if (shouldBeNotified) {
+      functionToSetNotification({
+        type: NotificationType.Success,
+        message: title,
+      });
+    }
   }
 
   private createTitle (): string {

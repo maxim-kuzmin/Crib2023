@@ -9,7 +9,6 @@ function convertToItems (controlItems: BreadcrumbControlItem[]): ItemType[] {
     const { href, title } = controlItem;
 
     return {
-      href,
       title: href
         ? <Link to={href}>{title}</Link>
         : <h1>{title}</h1>

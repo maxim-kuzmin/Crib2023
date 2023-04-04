@@ -35,6 +35,11 @@ import {
   TopicDomainTreeGetOperationRequestHandlerImpl
 } from '../../all';
 
+interface UseOperationHandlerOptions {
+  shouldBeLogged: boolean;
+  shouldBeNotified: boolean;
+}
+
 export class ModuleImpl implements Module {
   private readonly apiSetupOptions = createApiSetupOptions();
   private readonly appNotificationStoreService = creareAppNotificationStoreService();
@@ -76,47 +81,68 @@ export class ModuleImpl implements Module {
   useArticleDomainItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {
     return new ArticleDomainItemGetOperationRequestHandlerImpl(
       this.getArticleDomainRepository(),
-      this.useApiRequestHandler()
+      this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: false
+      })
     );
   }
 
   useArticleDomainListGetOperationRequestHandler (): ArticleDomainListGetOperationRequestHandler {
     return new ArticleDomainListGetOperationRequestHandlerImpl(
       this.getArticleDomainRepository(),
-      this.useApiRequestHandler()
+      this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: false
+      })
     );
   }
 
   useTopicDomainItemGetOperationRequestHandler (): TopicDomainItemGetOperationRequestHandler {
     return new TopicDomainItemGetOperationRequestHandlerImpl(
       this.getTopicDomainRepository(),
-      this.useApiRequestHandler()
+      this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: false
+      })
     );
   }
 
   useTopicDomainListGetOperationRequestHandler (): TopicDomainListGetOperationRequestHandler {
     return new TopicDomainListGetOperationRequestHandlerImpl(
       this.getTopicDomainRepository(),
-      this.useApiRequestHandler()
+      this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: false
+      })
     );
   }
 
   useTopicDomainTreeGetOperationRequestHandler (): TopicDomainTreeGetOperationRequestHandler {
     return new TopicDomainTreeGetOperationRequestHandlerImpl(
       this.getTopicDomainRepository(),
-      this.useApiRequestHandler()
+      this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: false
+      })
     );
   }
 
-  private useOperationHandler (): OperationHandler {
+  private useOperationHandler (options: UseOperationHandlerOptions): OperationHandler {
+    const { shouldBeLogged, shouldBeNotified } = options;
+
     const service = this.getAppNotificationStoreService();
 
     const { run } = service.useDispatchToSet();
 
-    return new OperationHandlerImpl(run);
+    return new OperationHandlerImpl({
+      functionToSetNotification: run,
+      shouldBeLogged,
+      shouldBeNotified
+    });
   }
 
-  private useApiRequestHandler (): ApiRequestHandler {
-    return new ApiRequestHandlerImpl(this.useOperationHandler());
+  private useApiRequestHandler (options: UseOperationHandlerOptions): ApiRequestHandler {
+    return new ApiRequestHandlerImpl(this.useOperationHandler(options));
   }
 }
