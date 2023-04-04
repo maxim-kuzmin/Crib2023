@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import {
   StoreDispatchType,
   type TopicDomainTreeGetOperationResponse,
@@ -8,24 +8,32 @@ import {
   OperationStatus,
   type TopicDomainEntityForTree,
   SpinnerControl,
-  type TreeControlData,
-  TreeControl
+  type TreeControlNode,
+  TreeControl,
+  createTopicDomainTreeGetOperationRequest
 } from '../../../all';
 import styles from './TopicTreeView.module.css';
 
-function getTreeControlData (topicId: number, nodes?: TopicDomainEntityForTree[]): TreeControlData[] {
-  return nodes
-    ? nodes.map((node) => {
-      const { treeChildren, treeHasChildren, treeIsExpanded, data } = node;
+const topicInput: TopicDomainTreeGetOperationInput = {
+  axis: TreeGetOperationAxisForList.Child,
+  sortField: 'Name',
+  sortDirection: 'asc',
+};
+
+function convertToControlNodes (topicId: number, entities?: TopicDomainEntityForTree[]): TreeControlNode[] {
+  return entities
+    ? entities.map((entity) => {
+      const { treeChildren, treeHasChildren, treeIsExpanded, data } = entity;
       const { id, name } = data;
 
-      const result: TreeControlData = {
+      const result: TreeControlNode = {
+        href: `/topic/${id}`,
         isLeaf: !treeHasChildren,
         isExpanded: treeIsExpanded,
         isSelected: id === topicId,
-        key: id.toString(),
+        key: id,
         title: name,
-        children: treeChildren.length > 0 ? getTreeControlData(topicId, treeChildren) : []
+        children: treeChildren.length > 0 ? convertToControlNodes(topicId, treeChildren) : []
       };
 
       return result;
@@ -34,24 +42,6 @@ function getTreeControlData (topicId: number, nodes?: TopicDomainEntityForTree[]
 }
 
 export const TopicTreeView: React.FC = () => {
-  const [expandedTopicId, setExpandedTopicId] = useState(0);
-
-  function handleClick (e: React.MouseEvent<HTMLElement>) {
-    e.preventDefault();
-
-    console.log('MAKC:TopicTreeView:handleClick:clickedTopicId', expandedTopicId);
-  }
-
-  function handleChange (e: React.ChangeEvent<HTMLInputElement>) {
-    let value = Number(e.currentTarget.value);
-
-    if (isNaN(value)) {
-      value = 0;
-    }
-
-    setExpandedTopicId(value);
-  }
-
   const { getTopicItemStoreService, getTopicTreeStoreService } = getModule();
 
   const topicItemStoreService = getTopicItemStoreService();
@@ -67,10 +57,8 @@ export const TopicTreeView: React.FC = () => {
   }, []);
 
   const inputAtDispatchToTopicTreeLoad: TopicDomainTreeGetOperationInput = useMemo(() => ({
-    axis: TreeGetOperationAxisForList.Child,
-    expandedNodeId: topicId,
-    sortField: 'Name',
-    sortDirection: 'asc'
+    ...topicInput,
+    expandedNodeId: topicId
   }), [topicId]);
 
   topicTreeStoreService.useDispatchToLoad({
@@ -86,23 +74,33 @@ export const TopicTreeView: React.FC = () => {
 
   const { response: topicTreeResponse, status: topicTreeStatus } = topicTreeStoreService.useState();
 
-  const treeControlData = useMemo(() => getTreeControlData(
+  const controlNodes = useMemo(() => convertToControlNodes(
       topicId,
       topicTreeResponse?.data?.nodes
     ),
     [topicTreeResponse?.data, topicId]
   );
 
+  const requestHandler = useRef(getModule().useTopicDomainTreeGetOperationRequestHandler()).current;
+
+  const getChildrenCallback = useCallback(async (key: string) => {
+    const response = await requestHandler.handle(
+      createTopicDomainTreeGetOperationRequest({
+        ...topicInput,
+        rootNodeId: Number(key)
+      }),
+      () => false
+    );
+
+    return convertToControlNodes(topicId, response?.data?.nodes);
+  }, [requestHandler, topicId]);
+
   return (
     <div className={styles.root}>
-      <h2>TopicTreeView: {topicId}</h2>
-      <input name="expandedTopicId" value={expandedTopicId} onChange={handleChange}/>
-      <button onClick={handleClick}>Load</button>
       {
         topicTreeStatus === OperationStatus.Pending
           ? <SpinnerControl/>
-          // : topicTreeResponse?.data && createNodes(topicTreeResponse?.data?.nodes)
-          : <TreeControl data={treeControlData} />
+          : <TreeControl controlNodes={controlNodes} getChildrenCallback={getChildrenCallback} />
       }
     </div>
   );

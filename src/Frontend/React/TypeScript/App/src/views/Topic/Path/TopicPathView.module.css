@@ -1,3 +1,7 @@
 .root {
   text-align: left;
 }
+
+.root h1 {
+  display: inline;
+}

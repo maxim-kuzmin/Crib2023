@@ -32,7 +32,14 @@ export const LayoutControl: React.FC<LayoutControlProps> = ({
         {createAsideView()}
       </Sider>
       <Layout>
-        <Header style={{ padding: '0 16px', background: colorBgContainer }}>
+        <Header style={{
+          padding: '0 16px',
+          background: colorBgContainer,
+          alignItems: 'center',
+          display: 'flex',
+          height: 'auto',
+          minHeight: '64px'
+          }}>
           {createHeaderView()}
         </Header>
         <Content style={{ margin: '24px 16px 0' }}>

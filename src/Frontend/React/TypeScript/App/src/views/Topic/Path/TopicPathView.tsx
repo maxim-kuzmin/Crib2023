@@ -1,15 +1,41 @@
-import React from 'react';
-import { type TopicDomainEntityForItem, getModule } from '../../../all';
+import React, { useMemo } from 'react';
+import {
+  type TopicDomainEntityForItem,
+  getModule,
+  type BreadcrumbControlItem,
+  BreadcrumbControl
+} from '../../../all';
 import styles from './TopicPathView.module.css';
 
-function createTopicTitle (topic?: TopicDomainEntityForItem) {
-  if (topic) {
-    const { id, name } = topic.data;
+function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbControlItem[] {
+  const root: BreadcrumbControlItem = { title: '@@AllTopics', key: 0 };
 
-    return `/${id}.${name}`;
+  const result: BreadcrumbControlItem[] = [root];
+
+  if (entity) {
+    root.href = '/';
+
+    const treeAncestors = entity.treeAncestors.map((valueObject) => {
+      const { id, name } = valueObject;
+
+      return {
+        href: `/topic/${id}`,
+        key: id,
+        title: name
+      };
+    });
+
+    result.push(...treeAncestors);
+
+    const { id, name } = entity.data;
+
+    result.push({
+      key: id,
+      title: name
+    });
   }
 
-  return '';
+  return result;
 }
 
 export const TopicPathView: React.FC = () => {
@@ -21,9 +47,11 @@ export const TopicPathView: React.FC = () => {
 
   const topic = topicItemResponse?.data?.item;
 
+  const controlItems = useMemo(() => convertToControlItems(topic), [topic]);
+
   return (
     <div className={styles.root}>
-      <h2>TopicPathView: {topic?.treeAncestors.map(x => `${x.id}.${x.name}`).join('/')}{createTopicTitle(topic)}</h2>
+      <BreadcrumbControl controlItems={controlItems}/>
     </div>
   );
 }

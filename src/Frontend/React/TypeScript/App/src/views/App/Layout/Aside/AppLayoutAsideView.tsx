@@ -4,12 +4,15 @@ import {
   TopicTreeView
 } from '../../../../all';
 import styles from './AppLayoutAsideView.module.css';
+import { Link } from 'react-router-dom';
 
 export const AppLayoutAsideView: React.FC<AppLayoutAsideViewProps> = ({ logoUrl }: AppLayoutAsideViewProps) => {
   return (
     <>
       <div className={styles.root}>
-        <div className={styles.logo} style={{ backgroundImage: `url(${logoUrl})` }}/>
+        <Link to="/">
+          <div className={styles.logo} style={{ backgroundImage: `url(${logoUrl})` }}/>
+        </Link>
       </div>
       <TopicTreeView/>
     </>

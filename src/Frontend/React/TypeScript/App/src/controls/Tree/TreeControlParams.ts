@@ -1,5 +1,6 @@
-import { type TreeControlData } from '../../all';
+import { type TreeControlNode } from '../../all';
 
 export interface TreeControlParams {
-  data: TreeControlData[];
+  getChildrenCallback: (key: string) => Promise<TreeControlNode[]>;
+  controlNodes: TreeControlNode[];
 }

@@ -1,25 +1,26 @@
-import React, { useMemo } from 'react';
+import React, { type Key, useMemo, useState } from 'react';
 import { Tree } from 'antd';
-import { type TreeControlData, type TreeControlParams } from '../../all';
+import { type TreeControlNode, type TreeControlParams } from '../../all';
 import { type DataNode } from 'antd/es/tree';
+import { Link } from 'react-router-dom';
 
 interface Data {
-  treeData: DataNode[];
-  defaultExpandedKeys: string[];
-  defaultSelectedKeys: string[];
+  defaultExpandedKeys: Key[];
+  defaultSelectedKeys: Key[];
+  initTreeData: DataNode[];
 }
 
-function getTreeData (nodes: TreeControlData[]): Data {
-  const defaultExpandedKeys: string[] = [];
-  const defaultSelectedKeys: string[] = [];
+function convertToData (controlNodes: TreeControlNode[]): Data {
+  const defaultExpandedKeys: Key[] = [];
+  const defaultSelectedKeys: Key[] = [];
 
-  const treeData = nodes.map((node) => {
-    const { children, isLeaf, key, title, isExpanded, isSelected } = node;
+  const initTreeData = controlNodes.map((controlNode) => {
+    const { children, href, isLeaf, key, title, isExpanded, isSelected } = controlNode;
 
     const result: DataNode = {
       isLeaf,
       key,
-      title
+      title: <Link to={href}>{title}</Link>
     };
 
     if (isExpanded) {
@@ -31,9 +32,9 @@ function getTreeData (nodes: TreeControlData[]): Data {
     }
 
     if (children.length > 0) {
-      const data = getTreeData(children);
+      const data = convertToData(children);
 
-      result.children = data.treeData;
+      result.children = data.initTreeData;
 
       defaultExpandedKeys.push(...data.defaultExpandedKeys);
       defaultSelectedKeys.push(...data.defaultSelectedKeys);
@@ -45,16 +46,56 @@ function getTreeData (nodes: TreeControlData[]): Data {
   return {
     defaultExpandedKeys,
     defaultSelectedKeys,
-    treeData
+    initTreeData
   }
 };
 
-export const TreeControl: React.FC<TreeControlParams> = ({ data }: TreeControlParams) => {
-  const { treeData, defaultExpandedKeys, defaultSelectedKeys } = useMemo(() => getTreeData(data), [data]);
+function updateTreeData (list: DataNode[], key: Key, children: DataNode[]): DataNode[] {
+  return list.map((node) => {
+    if (node.key === key) {
+      return {
+        ...node,
+        children,
+      };
+    }
+
+    if (node.children) {
+      return {
+        ...node,
+        children: updateTreeData(node.children, key, children),
+      };
+    }
+
+    return node;
+  });
+}
+
+export const TreeControl: React.FC<TreeControlParams> = ({ controlNodes, getChildrenCallback }: TreeControlParams) => {
+  const { initTreeData, defaultExpandedKeys, defaultSelectedKeys } = useMemo(() =>
+    convertToData(controlNodes),
+    [controlNodes]
+  );
+
+  const [treeData, setTreeData] = useState(initTreeData);
+
+  async function onLoadData ({ key, children }: any) {
+    if (children) {
+      return;
+    }
+
+    const nodes = await getChildrenCallback(key);
+
+    const { initTreeData } = convertToData(nodes);
+
+    setTreeData((origin) =>
+      updateTreeData(origin, key, initTreeData),
+    );
+  };
 
   return <Tree
-    treeData={treeData}
     defaultExpandedKeys={defaultExpandedKeys}
     defaultSelectedKeys={defaultSelectedKeys}
+    loadData={onLoadData}
+    treeData={treeData}
     />
 }

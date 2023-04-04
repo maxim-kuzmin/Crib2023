@@ -1,4 +1,4 @@
-export interface OptionValueObject<TId> {
-  id: TId;
+export interface OptionValueObject {
+  id: string | number;
   name: string;
 }

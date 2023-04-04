@@ -1,6 +1,6 @@
-import { type OptionValueObjectWithNumberId } from '../../all';
+import { type OptionValueObject } from '../../all';
 
 export interface ArticleDomainEntity<TData> {
   data: TData;
-  topicPathItems: OptionValueObjectWithNumberId[];
+  topicPathItems: OptionValueObject[];
 }
