@@ -1,9 +1,9 @@
 import {
   type TreeGetOperationAxisForItem,
-  type ItemGetOperationInputWithNumberId
+  type ItemGetOperationInput
 } from '../../../../../all';
 
-export interface TopicDomainItemGetOperationInput extends ItemGetOperationInputWithNumberId {
+export interface TopicDomainItemGetOperationInput extends ItemGetOperationInput {
   axis: TreeGetOperationAxisForItem;
   name?: string;
   parentId?: number;

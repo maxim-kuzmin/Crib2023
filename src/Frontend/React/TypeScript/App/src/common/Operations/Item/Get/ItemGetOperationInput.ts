@@ -1,3 +1,3 @@
-export interface ItemGetOperationInput<TId> {
-  id?: TId;
+export interface ItemGetOperationInput {
+  id?: string | number;
 }

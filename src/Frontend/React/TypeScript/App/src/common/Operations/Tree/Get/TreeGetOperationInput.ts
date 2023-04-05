@@ -1,10 +1,10 @@
 import { type ListGetOperationInput, type TreeGetOperationAxisForList } from '../../../../all';
 
-export interface TreeGetOperationInput<TId> extends ListGetOperationInput {
+export interface TreeGetOperationInput extends ListGetOperationInput {
   axis: TreeGetOperationAxisForList;
-  expandedNodeId?: TId;
-  expandedNodeIds?: TId[];
+  expandedNodeId?: number | string;
+  expandedNodeIds?: number[] | string[];
   expandedNodeIdsString?: string;
-  rootNodeId?: TId;
+  rootNodeId?: number | string;
   rootNodeTreePath?: string;
 }
