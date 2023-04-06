@@ -97,5 +97,5 @@ export const TreeControl: React.FC<TreeControlParams> = ({ controlNodes, getChil
     defaultSelectedKeys={defaultSelectedKeys}
     loadData={onLoadData}
     treeData={treeData}
-    />
+  />
 }

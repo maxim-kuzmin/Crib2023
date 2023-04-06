@@ -167,39 +167,45 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
             .Distinct()
             .ToArray();
 
+        Dictionary<long, OptionValueObjectWithInt64Id> ancestorLookup;
+
         if (ancestorIdsForLookup.Any())
         {
-            var taskForLookup = dbContext.Topic
+            var taskForAncestorLookup = dbContext.Topic
                 .Where(x => ancestorIdsForLookup.Contains(x.Id))
                 .Select(x => new OptionValueObjectWithInt64Id(x.Id, x.Name))
                 .ToDictionaryAsync(x => x.Id);
 
-            var ancestorLookup = await taskForLookup.ConfigureAwait(false);
+            ancestorLookup = await taskForAncestorLookup.ConfigureAwait(false);
+        }
+        else
+        {
+            ancestorLookup = new();
+        }
 
-            foreach (var mapperForItem in mapperForItems)
+        foreach (var mapperForItem in mapperForItems)
+        {
+            if (itemLookup.TryGetValue(mapperForItem.Id, out var item))
             {
-                if (itemLookup.TryGetValue(mapperForItem.Id, out var item))
+                var mapperForItemTopic = mapperForItem.Topic;
+
+                if (ancestorLookup.Any())
                 {
-                    var mapperForItemTopic = mapperForItem.Topic;
+                    long[] ancestorIds = mapperForItemTopic.TreePath.ToString()
+                        .FromTreePathToInt64ArrayOfAncestors();
 
-                    if (ancestorLookup.Any())
+                    foreach (long ancestorId in ancestorIds)
                     {
-                        long[] ancestorIds = mapperForItemTopic.TreePath.ToString()
-                            .FromTreePathToInt64ArrayOfAncestors();
-
-                        foreach (long ancestorId in ancestorIds)
+                        if (ancestorLookup.TryGetValue(ancestorId, out var ancestor))
                         {
-                            if (ancestorLookup.TryGetValue(ancestorId, out var ancestor))
-                            {
-                                item.AddTopicPathItem(ancestor);
-                            }
+                            item.AddTopicPathItem(ancestor);
                         }
                     }
-
-                    item.AddTopicPathItem(new OptionValueObjectWithInt64Id(
-                        mapperForItemTopic.Id,
-                        mapperForItemTopic.Name));
                 }
+
+                item.AddTopicPathItem(new OptionValueObjectWithInt64Id(
+                    mapperForItemTopic.Id,
+                    mapperForItemTopic.Name));
             }
         }
     }

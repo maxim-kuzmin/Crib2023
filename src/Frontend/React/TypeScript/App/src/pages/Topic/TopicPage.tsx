@@ -1,21 +1,22 @@
 import React, { useCallback, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import {
   ArticleTableView,
   getModule,
-  SpinnerControl,
   StoreDispatchType,
   OperationStatus,
   type ArticleDomainListGetOperationInput,
   type ArticleDomainListGetOperationResponse,
   TreeGetOperationAxisForItem,
   type TopicDomainItemGetOperationInput,
-  type TopicDomainItemGetOperationResponse
+  type TopicDomainItemGetOperationResponse,
+  type TableControlPagination
 } from '../../all';
 import styles from './TopicPage.module.css';
 
 export const TopicPage: React.FC = () => {
   const urlParams = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     getArticleListStoreService,
@@ -32,15 +33,18 @@ export const TopicPage: React.FC = () => {
     topicId = 0;
   }
 
+  const pageNumber = Number(searchParams.get('pn') ?? '1');
+  const pageSize = Number(searchParams.get('ps') ?? '10');
+
   const callbackOnArticleListLoad = useCallback((response: ArticleDomainListGetOperationResponse | null) => {
     console.log('MAKC:TopicPage:callbackOnArticleListLoad:response', response);
   }, []);
 
   const inputAtDispatchToArticleListLoad: ArticleDomainListGetOperationInput = useMemo(() => ({
     topicId,
-    pageNumber: 1,
-    pageSize: 10
-  }), [topicId]);
+    pageNumber,
+    pageSize
+  }), [pageNumber, pageSize, topicId]);
 
   articleListStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -73,12 +77,24 @@ export const TopicPage: React.FC = () => {
     dispatchType: StoreDispatchType.Unmount
   });
 
+  const onTableChangeCallback = useCallback((pagination: TableControlPagination) => {
+    const pn = pagination.pageNumber.toString();
+    const ps = pagination.pageSize.toString();
+
+    setSearchParams({ pn, ps });
+  }, [setSearchParams]);
+
+  const loading = (articleListStatus === OperationStatus.Pending);
+
   return (
     <div className={styles.root}>
-      <h1>TopicPage {topicId}</h1>
-      {articleListStatus === OperationStatus.Pending
-        ? <SpinnerControl/>
-        : <ArticleTableView response={articleListResponse}/>}
+      <ArticleTableView
+        loading={loading}
+        response={articleListResponse}
+        onTableChangeCallback={onTableChangeCallback}
+        pageNumber={pageNumber}
+        pageSize={pageSize}
+      />
     </div>
   )
 }
