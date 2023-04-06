@@ -44,6 +44,11 @@ public class ArticleDomainListGetOperationInput : ListGetOperationInput
     /// </summary>
     public string TopicName { get; set; } = "";
 
+    /// <summary>
+    /// Путь в дереве экземпляра сущности "Тема".
+    /// </summary>
+    public string TopicTreePath { get; set; } = "";
+
     #endregion Properties
 
     #region Public methods
@@ -130,6 +135,11 @@ public class ArticleDomainListGetOperationInput : ListGetOperationInput
         if (!string.IsNullOrWhiteSpace(TopicIdsString) && !TopicIds.Any())
         {
             TopicIds = TopicIdsString.FromStringToNumericInt64Array();
+        }
+
+        if (TopicIds.Length > 0)
+        {
+            TopicId = 0;
         }
     }
 

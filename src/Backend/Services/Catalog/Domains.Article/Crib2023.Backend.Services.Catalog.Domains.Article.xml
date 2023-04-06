@@ -324,6 +324,11 @@
             Имя экземпляра сущности "Тема".
             </summary>
         </member>
+        <member name="P:Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput.TopicTreePath">
+            <summary>
+            Путь в дереве экземпляра сущности "Тема".
+            </summary>
+        </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput.CreatePredicate">
             <summary>
             Создать предикат.
