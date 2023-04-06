@@ -69,6 +69,17 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
 
         using var dbContext = _dbContextFactory.CreateDbContext();
 
+        if (!input.TopicIds.Any() && input.TopicId > 0)
+        {
+            long[] ids = await GetTopicWithDescendantsIds(dbContext, input.TopicId).ConfigureAwait(false);
+
+            if (ids.Length > 1)
+            {
+                input.TopicId = 0;
+                input.TopicIds = ids;
+            }
+        }
+
         var predicate = input.CreatePredicate();
 
         var taskForItems = dbContext.Article
@@ -130,6 +141,33 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntity>, IA
     #endregion Public methods
 
     #region Private methods
+
+    private static async Task<long[]> GetTopicWithDescendantsIds(ClientMapperDbContext dbContext, long topicId)
+    {
+        long[] result;
+
+        var topic = await dbContext.Topic.Where(x => x.Id == topicId).SingleOrDefaultAsync();
+
+        if (topic != null)
+        {
+            var task = dbContext.Topic
+                .Where(x => x.TreePath.IsDescendantOf(topic.TreePath))
+                .Select(x => x.Id)
+                .ToListAsync();
+
+            var list = await task.ConfigureAwait(false);
+
+            list.Add(topicId);
+
+            result = list.ToArray();
+        }
+        else
+        {
+            result = Array.Empty<long>();
+        }
+
+        return result;
+    }
 
     private static async Task LoadTopicPathItemsForItem(
         ClientMapperDbContext dbContext,
