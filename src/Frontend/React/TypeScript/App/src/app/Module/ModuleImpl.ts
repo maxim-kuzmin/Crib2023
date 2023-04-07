@@ -46,45 +46,53 @@ interface UseOperationHandlerOptions {
 }
 
 export class ModuleImpl implements Module {
-  private readonly apiSetupOptions = new ApiSetupOptionsImpl(process.env.REACT_APP_API_URL ?? '');
-  private readonly setupOptions = new SetupOptionsImpl(process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true');
+  private readonly apiSetupOptions = new ApiSetupOptionsImpl(
+    process.env.REACT_APP_API_URL ?? ''
+  );
 
-  private readonly appNotificationStoreService = creareAppNotificationStoreService();
+  private readonly setupOptions = new SetupOptionsImpl(
+    process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true'
+  );
+
   private readonly httpClient: HttpClient = new HttpClientImpl();
-  private readonly notificationControlService = createNotificationControlService();
-  private readonly tableControlService = createTableControlService();
-  private readonly articleItemStoreService = createArticleItemStoreService();
-  private readonly articleListStoreService = createArticleListStoreService();
-  private readonly testService = new TestServiceImpl();
-  private readonly topicItemStoreService = createTopicItemStoreService();
-  private readonly topicTreeStoreService = createTopicTreeStoreService();
 
   private readonly apiClient: ApiClient = new ApiClientImpl(this.apiSetupOptions, this.httpClient);
+
+  private readonly testService = new TestServiceImpl();
+  getTestService = () => this.testService;
+
+  private readonly appNotificationStoreService = creareAppNotificationStoreService();
+  getAppNotificationStoreService = () => this.appNotificationStoreService;
+
+  private readonly notificationControlService = createNotificationControlService();
+  getNotificationControlService = () => this.notificationControlService;
+
+  private readonly tableControlService = createTableControlService();
+  getTableControlService = () => this.tableControlService;
+
+  private readonly articleItemStoreService = createArticleItemStoreService();
+  getArticleItemStoreService = () => this.articleItemStoreService;
+
+  private readonly articleListStoreService = createArticleListStoreService();
+  getArticleListStoreService = () => this.articleListStoreService;
+
+  private readonly topicItemStoreService = createTopicItemStoreService();
+  getTopicItemStoreService = () => this.topicItemStoreService;
+
+  private readonly topicTreeStoreService = createTopicTreeStoreService();
+  getTopicTreeStoreService = () => this.topicTreeStoreService;
 
   private readonly articleDomainRepository: ArticleDomainRepository = this.setupOptions.isTestModeEnabled
     ? new TestArticleDomainRepositoryImpl()
     : new ArticleDomainRepositoryImpl(this.apiClient);
 
+  getArticleDomainRepository = () => this.articleDomainRepository;
+
   private readonly topicDomainRepository: TopicDomainRepository = this.setupOptions.isTestModeEnabled
     ? new TestTopicDomainRepositoryImpl()
     : new TopicDomainRepositoryImpl(this.apiClient);
 
-  getNotificationControlService = () => this.notificationControlService;
-  getTableControlService = () => this.tableControlService;
-  getAppNotificationStoreService = () => this.appNotificationStoreService;
-  getArticleItemStoreService = () => this.articleItemStoreService;
-  getArticleListStoreService = () => this.articleListStoreService;
-  getTestService = () => this.testService;
-  getTopicItemStoreService = () => this.topicItemStoreService;
-  getTopicTreeStoreService = () => this.topicTreeStoreService;
-
-  getArticleDomainRepository (): ArticleDomainRepository {
-    return this.articleDomainRepository;
-  }
-
-  getTopicDomainRepository (): TopicDomainRepository {
-    return this.topicDomainRepository;
-  }
+  getTopicDomainRepository = () => this.topicDomainRepository;
 
   private readonly topicPageService: TopicPageService = new TopicPageServiceImpl(this.getTableControlService());
 
