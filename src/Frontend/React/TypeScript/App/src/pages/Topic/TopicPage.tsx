@@ -87,12 +87,12 @@ export const TopicPage: React.FC = () => {
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
 
-  const loading = (articleListStatus === OperationStatus.Pending);
+  const articleListLoading = (articleListStatus === OperationStatus.Pending);
 
   return (
     <div className={styles.root}>
       <ArticleTableView
-        loading={loading}
+        loading={articleListLoading}
         response={articleListResponse}
         onTableChangeCallback={onTableChangeCallback}
         pageNumber={pageNumber}

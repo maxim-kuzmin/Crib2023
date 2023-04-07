@@ -1,10 +1,7 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import {
-  ArticleView,
   getModule,
-  NotificationType,
-  SpinnerControl,
   StoreDispatchType,
   OperationStatus,
   type ArticleDomainItemGetOperationResponse,
@@ -15,12 +12,12 @@ import {
 } from '../../all';
 
 import styles from './ArticlePage.module.css';
+import { Card } from 'antd';
 
 export const ArticlePage: React.FC = () => {
   const urlParams = useParams();
 
   const {
-    getAppNotificationStoreService,
     getArticleItemStoreService,
     getTopicItemStoreService
   } = getModule();
@@ -38,10 +35,6 @@ export const ArticlePage: React.FC = () => {
   }
 
   const articleItemIsLoaded = useRef(false);
-
-  const appNotificationStoreService = getAppNotificationStoreService();
-
-  const appNotificationDispatchToSet = appNotificationStoreService.useDispatchToSet();
 
   const callbackOnArticleItemLoad = useCallback((response: ArticleDomainItemGetOperationResponse | null) => {
     console.log('MAKC:ArticlePage:callbackOnArticleItemLoad:response', response);
@@ -84,11 +77,23 @@ export const ArticlePage: React.FC = () => {
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const [val, setVal] = useState('1111');
+  // const [val, setVal] = useState('1111');
+
+  const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
 
   return (
     <div className={styles.root}>
-      <h1>ArticlePage {articleId}</h1>
+      <Card
+        loading={articleItemLoading}
+        title={<h1>{articleItemResoponse?.data?.item.data.title}</h1>}
+        extra={`ID: ${articleItemResoponse?.data?.item.data.id ?? 0}`}
+        actions={[
+          <Link key="edit" to={'#'}>Edit</Link>,
+          <Link key="delete" to={'#'}>Delete</Link>
+        ]}>
+        { (articleItemResoponse?.data?.item.data.body ?? '').split('\n').map((x, i) => <p key={i}>{x.trim()}</p>) }
+      </Card>
+      {/* <h1>ArticlePage {articleId}</h1>
       <input name='name' value={val} onChange={(e) => {
         setVal(e.target.value);
         }}/>
@@ -102,7 +107,7 @@ export const ArticlePage: React.FC = () => {
         articleItemStatus === OperationStatus.Pending
           ? <SpinnerControl/>
           : <ArticleView response={articleItemResoponse}/>
-      }
+      } */}
     </div>
   )
 }

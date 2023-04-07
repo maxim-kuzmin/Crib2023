@@ -1,3 +1,4 @@
-.root h1 {
-  text-align: center;
+.root p {
+  text-align: justify;
+  text-align-last: justify;
 }
