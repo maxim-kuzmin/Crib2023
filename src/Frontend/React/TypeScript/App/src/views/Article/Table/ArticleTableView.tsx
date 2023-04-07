@@ -13,49 +13,10 @@ import {
 import styles from './ArticleTableView.module.css';
 import { Link } from 'react-router-dom';
 
-const controlColumns: TableControlColumn[] = [
-  {
-    field: 'id',
-    title: '@@Id'
-  },
-  {
-    field: 'title',
-    title: '@@Title',
-    render: (row: any) => {
-      const viewRow: ArticleTableViewRow = row;
+function getRowKey (row: any): Key {
+  const viewRow: ArticleTableViewRow = row;
 
-      const { id, title } = viewRow;
-
-      return <Link to={`/article/${id}`}>{title}</Link>;
-    }
-  },
-  {
-    field: 'path',
-    title: '@@Path',
-    render: (row: any) => {
-      const viewRow: ArticleTableViewRow = row;
-
-      const { path } = viewRow;
-
-      const topicPageService = getModule().getTopicPageService();
-
-      const controlItems: BreadcrumbControlItem[] = path.map((item) => {
-        const { id, name } = item;
-
-        return {
-          href: topicPageService.createUrl({ topicId: Number(id) }),
-          key: id,
-          title: name
-        };
-      });
-
-      return <BreadcrumbControl controlItems={controlItems} />
-    }
-  }
-]
-
-function getRowKey (record: any): Key {
-  return record.id;
+  return viewRow.id;
 }
 
 export const ArticleTableView: React.FC<ArticleTableViewProps> = ({
@@ -95,6 +56,51 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = ({
     pageSize,
     totalCount
   }), [pageNumber, pageSize, totalCount]);
+
+  const atriclePageService = getModule().getArticlePageService();
+
+  const controlColumns: TableControlColumn[] = useMemo(() => ([
+      {
+        field: 'id',
+        title: '@@Id'
+      },
+      {
+        field: 'title',
+        title: '@@Title',
+        render: (row: any) => {
+          const viewRow: ArticleTableViewRow = row;
+
+          const { id, title } = viewRow;
+
+          return <Link to={ atriclePageService.createUrl({ articleId: Number(id) })}>{title}</Link>;
+        }
+      },
+      {
+        field: 'path',
+        title: '@@Path',
+        render: (row: any) => {
+          const viewRow: ArticleTableViewRow = row;
+
+          const { path } = viewRow;
+
+          const topicPageService = getModule().getTopicPageService();
+
+          const controlItems: BreadcrumbControlItem[] = path.map((item) => {
+            const { id, name } = item;
+
+            return {
+              href: topicPageService.createUrl({ topicId: Number(id) }),
+              key: id,
+              title: name
+            };
+          });
+
+          return <BreadcrumbControl controlItems={controlItems} />
+        }
+      }
+    ]),
+    [atriclePageService]
+  );
 
   return (
     <div className={styles.root}>

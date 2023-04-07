@@ -14,7 +14,8 @@ import {
   type TopicDomainRepository,
   type TopicDomainTreeGetOperationRequestHandler,
   type TableControlService,
-  type TopicPageService
+  type TopicPageService,
+  type ArticlePageService
 } from '../../all';
 
 export interface Module {
@@ -24,6 +25,7 @@ export interface Module {
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
   readonly getArticleItemStoreService: () => ArticleItemStoreService;
   readonly getArticleListStoreService: () => ArticleListStoreService;
+  readonly getArticlePageService: () => ArticlePageService;
   readonly getTestService: () => TestService;
   readonly getTopicItemStoreService: () => TopicItemStoreService;
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;

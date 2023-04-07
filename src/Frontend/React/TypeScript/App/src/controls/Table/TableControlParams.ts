@@ -5,7 +5,7 @@ export interface TableControlParams {
   controlColumns: TableControlColumn[];
   controlPagination: TableControlPagination;
   controlRows: any[];
-  getRowKeyCallback: (record: any) => Key;
+  getRowKeyCallback: (row: any) => Key;
   onChangeCallback: (pagination: TableControlPagination) => void;
   loading: boolean;
 }

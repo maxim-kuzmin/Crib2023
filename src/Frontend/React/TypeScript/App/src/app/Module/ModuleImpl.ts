@@ -35,7 +35,9 @@ import {
   TopicDomainTreeGetOperationRequestHandlerImpl,
   createTableControlService,
   type TopicPageService,
-  TopicPageServiceImpl
+  TopicPageServiceImpl,
+  type ArticlePageService,
+  ArticlePageServiceImpl
 } from '../../all';
 
 interface UseOperationHandlerOptions {
@@ -87,6 +89,12 @@ export class ModuleImpl implements Module {
 
   getTopicPageService (): TopicPageService {
     return this.topicPageService;
+  }
+
+  private readonly articlePageService: ArticlePageService = new ArticlePageServiceImpl();
+
+  getArticlePageService (): ArticlePageService {
+    return this.articlePageService;
   }
 
   useArticleDomainItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {
