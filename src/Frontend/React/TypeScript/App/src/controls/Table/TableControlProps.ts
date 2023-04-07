@@ -1,7 +1,7 @@
 import { type Key } from 'react';
 import { type TableControlPagination, type TableControlColumn } from '../../common';
 
-export interface TableControlParams {
+export interface TableControlProps {
   controlColumns: TableControlColumn[];
   controlPagination: TableControlPagination;
   controlRows: any[];

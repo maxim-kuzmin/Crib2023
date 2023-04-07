@@ -1,2 +1,2 @@
 export { BreadcrumbControl } from './BreadcrumbControl';
-export { type BreadcrumbControlParams } from './BreadcrumbControlParams';
+export { type BreadcrumbControlProps } from './BreadcrumbControlProps';

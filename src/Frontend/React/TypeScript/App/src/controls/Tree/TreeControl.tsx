@@ -1,6 +1,6 @@
 import React, { type Key, useMemo, useState } from 'react';
 import { Tree } from 'antd';
-import { type TreeControlNode, type TreeControlParams } from '../../all';
+import { type TreeControlNode, type TreeControlProps } from '../../all';
 import { type DataNode } from 'antd/es/tree';
 import { Link } from 'react-router-dom';
 
@@ -70,7 +70,7 @@ function updateTreeData (list: DataNode[], key: Key, children: DataNode[]): Data
   });
 }
 
-export const TreeControl: React.FC<TreeControlParams> = ({ controlNodes, getChildrenCallback }: TreeControlParams) => {
+export const TreeControl: React.FC<TreeControlProps> = ({ controlNodes, getChildrenCallback }: TreeControlProps) => {
   const { initTreeData, defaultExpandedKeys, defaultSelectedKeys } = useMemo(() =>
     convertToData(controlNodes),
     [controlNodes]

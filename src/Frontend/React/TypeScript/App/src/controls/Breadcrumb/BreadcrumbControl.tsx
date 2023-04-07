@@ -1,5 +1,5 @@
 import React, { type Key, useMemo } from 'react';
-import { type BreadcrumbControlItem, type BreadcrumbControlParams } from '../../all';
+import { type BreadcrumbControlItem, type BreadcrumbControlProps } from '../../all';
 import { Breadcrumb } from 'antd';
 import { type ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import { Link } from 'react-router-dom';
@@ -24,7 +24,7 @@ function convertToItems (controlItems: BreadcrumbControlItem[], currentItemKey?:
   });
 }
 
-export const BreadcrumbControl: React.FC<BreadcrumbControlParams> = ({ controlItems, currentItemKey }) => {
+export const BreadcrumbControl: React.FC<BreadcrumbControlProps> = ({ controlItems, currentItemKey }) => {
   const items = useMemo(() =>
     convertToItems(controlItems, currentItemKey),
     [controlItems, currentItemKey]

@@ -4,7 +4,7 @@ import { type TablePaginationConfig, type ColumnsType } from 'antd/es/table';
 import {
   type TableControlPagination,
   type TableControlColumn,
-  type TableControlParams,
+  type TableControlProps,
   getModule
 } from '../../all';
 import {
@@ -45,14 +45,14 @@ function convertToPagination (
   };
 }
 
-export const TableControl: React.FC<TableControlParams> = ({
+export const TableControl: React.FC<TableControlProps> = ({
   controlColumns,
   controlPagination,
   controlRows,
   getRowKeyCallback,
   onChangeCallback,
   loading
-}: TableControlParams) => {
+}: TableControlProps) => {
   const columns = useMemo(() => convertToColumns(controlColumns), [controlColumns]);
 
   const { defaultPageSize } = getModule().getTableControlService();
