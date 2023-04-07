@@ -1,1 +1,2 @@
-export { type ApiSetupOptions, createApiSetupOptions } from './ApiSetupOptions';
+export { type ApiSetupOptions } from './ApiSetupOptions';
+export { ApiSetupOptionsImpl } from './ApiSetupOptionsImpl';

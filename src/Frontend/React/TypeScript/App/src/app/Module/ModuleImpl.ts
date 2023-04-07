@@ -10,7 +10,6 @@ import {
   type ApiClient,
   ApiClientImpl,
   OperationHandlerImpl,
-  createApiSetupOptions,
   ApiRequestHandlerImpl,
   ArticleDomainItemGetOperationRequestHandlerImpl,
   type ArticleDomainItemGetOperationRequestHandler,
@@ -20,7 +19,6 @@ import {
   ArticleDomainListGetOperationRequestHandlerImpl,
   type ArticleDomainRepository,
   type Module,
-  createSetupOptions,
   ArticleDomainRepositoryImpl,
   TestArticleDomainRepositoryImpl,
   TestServiceImpl,
@@ -37,7 +35,9 @@ import {
   type TopicPageService,
   TopicPageServiceImpl,
   type ArticlePageService,
-  ArticlePageServiceImpl
+  ArticlePageServiceImpl,
+  ApiSetupOptionsImpl,
+  SetupOptionsImpl
 } from '../../all';
 
 interface UseOperationHandlerOptions {
@@ -46,14 +46,15 @@ interface UseOperationHandlerOptions {
 }
 
 export class ModuleImpl implements Module {
-  private readonly apiSetupOptions = createApiSetupOptions();
+  private readonly apiSetupOptions = new ApiSetupOptionsImpl(process.env.REACT_APP_API_URL ?? '');
+  private readonly setupOptions = new SetupOptionsImpl(process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true');
+
   private readonly appNotificationStoreService = creareAppNotificationStoreService();
   private readonly httpClient: HttpClient = new HttpClientImpl();
   private readonly notificationControlService = createNotificationControlService();
   private readonly tableControlService = createTableControlService();
   private readonly articleItemStoreService = createArticleItemStoreService();
   private readonly articleListStoreService = createArticleListStoreService();
-  private readonly setupOptions = createSetupOptions();
   private readonly testService = new TestServiceImpl();
   private readonly topicItemStoreService = createTopicItemStoreService();
   private readonly topicTreeStoreService = createTopicTreeStoreService();
