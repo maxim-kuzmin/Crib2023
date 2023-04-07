@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { type URLSearchParamsInit, useParams, useSearchParams } from 'react-router-dom';
 import {
   ArticleTableView,
   getModule,
@@ -33,8 +33,10 @@ export const TopicPage: React.FC = () => {
     topicId = 0;
   }
 
-  const pageNumber = Number(searchParams.get('pn') ?? '1');
-  const pageSize = Number(searchParams.get('ps') ?? '10');
+  const { defaultPageSize } = getModule().getTableControlService();
+
+  const pageNumber = Number(searchParams.get('pn') ?? 1);
+  const pageSize = Number(searchParams.get('ps') ?? defaultPageSize);
 
   const callbackOnArticleListLoad = useCallback((response: ArticleDomainListGetOperationResponse | null) => {
     console.log('MAKC:TopicPage:callbackOnArticleListLoad:response', response);
@@ -78,11 +80,20 @@ export const TopicPage: React.FC = () => {
   });
 
   const onTableChangeCallback = useCallback((pagination: TableControlPagination) => {
-    const pn = pagination.pageNumber.toString();
-    const ps = pagination.pageSize.toString();
+    const qs: URLSearchParamsInit = {};
 
-    setSearchParams({ pn, ps });
-  }, [setSearchParams]);
+    const { pageNumber, pageSize } = pagination;
+
+    if (pageNumber > 1) {
+      qs.pn = pageNumber.toString();
+    }
+
+    if (pageSize !== defaultPageSize) {
+      qs.ps = pageSize.toString();
+    }
+
+    setSearchParams(qs);
+  }, [defaultPageSize, setSearchParams]);
 
   const loading = (articleListStatus === OperationStatus.Pending);
 

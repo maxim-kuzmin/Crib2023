@@ -12,11 +12,13 @@ import {
   type TopicDomainItemGetOperationRequestHandler,
   type TopicDomainListGetOperationRequestHandler,
   type TopicDomainRepository,
-  type TopicDomainTreeGetOperationRequestHandler
+  type TopicDomainTreeGetOperationRequestHandler,
+  type TableControlService
 } from '../../all';
 
 export interface Module {
   readonly getNotificationControlService: () => NotificationControlService;
+  readonly getTableControlService: () => TableControlService;
   readonly getAppNotificationStoreService: () => AppNotificationStoreService;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
   readonly getArticleItemStoreService: () => ArticleItemStoreService;

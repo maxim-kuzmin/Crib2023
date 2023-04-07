@@ -32,7 +32,8 @@ import {
   TopicDomainRepositoryImpl,
   TestTopicDomainRepositoryImpl,
   type TopicDomainTreeGetOperationRequestHandler,
-  TopicDomainTreeGetOperationRequestHandlerImpl
+  TopicDomainTreeGetOperationRequestHandlerImpl,
+  createTableControlService
 } from '../../all';
 
 interface UseOperationHandlerOptions {
@@ -45,6 +46,7 @@ export class ModuleImpl implements Module {
   private readonly appNotificationStoreService = creareAppNotificationStoreService();
   private readonly httpClient: HttpClient = new HttpClientImpl();
   private readonly notificationControlService = createNotificationControlService();
+  private readonly tableControlService = createTableControlService();
   private readonly articleItemStoreService = createArticleItemStoreService();
   private readonly articleListStoreService = createArticleListStoreService();
   private readonly setupOptions = createSetupOptions();
@@ -63,6 +65,7 @@ export class ModuleImpl implements Module {
     : new TopicDomainRepositoryImpl(this.apiClient);
 
   getNotificationControlService = () => this.notificationControlService;
+  getTableControlService = () => this.tableControlService;
   getAppNotificationStoreService = () => this.appNotificationStoreService;
   getArticleItemStoreService = () => this.articleItemStoreService;
   getArticleListStoreService = () => this.articleListStoreService;

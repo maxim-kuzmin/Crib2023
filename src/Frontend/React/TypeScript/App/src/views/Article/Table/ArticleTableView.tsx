@@ -6,10 +6,11 @@ import {
   type TableControlColumn,
   type TableControlPagination,
   type BreadcrumbControlItem,
-  type OptionValueObject,
-  BreadcrumbControl
+  BreadcrumbControl,
+  type ArticleTableViewRow
 } from '../../../all';
 import styles from './ArticleTableView.module.css';
+import { Link } from 'react-router-dom';
 
 const controlColumns: TableControlColumn[] = [
   {
@@ -18,15 +19,24 @@ const controlColumns: TableControlColumn[] = [
   },
   {
     field: 'title',
-    title: '@@Title'
+    title: '@@Title',
+    render: (row: any) => {
+      const viewRow: ArticleTableViewRow = row;
+
+      const { id, title } = viewRow;
+
+      return <Link to={`/article/${id}`}>{title}</Link>;
+    }
   },
   {
     field: 'path',
     title: '@@Path',
-    render: (value: any) => {
-      const topicPathItems: OptionValueObject[] = value;
+    render: (row: any) => {
+      const viewRow: ArticleTableViewRow = row;
 
-      const controlItems: BreadcrumbControlItem[] = topicPathItems.map((item) => {
+      const { path } = viewRow;
+
+      const controlItems: BreadcrumbControlItem[] = path.map((item) => {
         const { id, name } = item;
 
         return {
@@ -55,7 +65,7 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = ({
   let items: ArticleDomainEntityForList[];
   let totalCount = 0;
 
-  let controlRows: any[] = [];
+  let controlRows: ArticleTableViewRow[] = [];
 
   if (response?.data) {
     const { data } = response;

@@ -30,6 +30,7 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
     const { id, name } = entity.data;
 
     result.push({
+      href: `/topic/${id}`,
       key: id,
       title: name
     });
@@ -49,9 +50,11 @@ export const TopicPathView: React.FC = () => {
 
   const controlItems = useMemo(() => convertToControlItems(topic), [topic]);
 
+  const currentItemKey = topic?.data.id ?? 0;
+
   return (
     <div className={styles.root}>
-      <BreadcrumbControl controlItems={controlItems}/>
+      <BreadcrumbControl controlItems={controlItems} currentItemKey={currentItemKey}/>
     </div>
   );
 }
