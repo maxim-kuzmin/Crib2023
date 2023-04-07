@@ -21,13 +21,15 @@ const topicInput: TopicDomainTreeGetOperationInput = {
 };
 
 function convertToControlNodes (topicId: number, entities?: TopicDomainEntityForTree[]): TreeControlNode[] {
+  const topicPageService = getModule().getTopicPageService();
+
   return entities
     ? entities.map((entity) => {
       const { treeChildren, treeHasChildren, treeIsExpanded, data } = entity;
       const { id, name } = data;
 
       const result: TreeControlNode = {
-        href: `/topic/${id}`,
+        href: topicPageService.createUrl({ topicId: Number(id) }),
         isLeaf: !treeHasChildren,
         isExpanded: treeIsExpanded,
         isSelected: id === topicId,

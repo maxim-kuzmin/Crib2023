@@ -7,7 +7,8 @@ import {
   type TableControlPagination,
   type BreadcrumbControlItem,
   BreadcrumbControl,
-  type ArticleTableViewRow
+  type ArticleTableViewRow,
+  getModule
 } from '../../../all';
 import styles from './ArticleTableView.module.css';
 import { Link } from 'react-router-dom';
@@ -36,11 +37,13 @@ const controlColumns: TableControlColumn[] = [
 
       const { path } = viewRow;
 
+      const topicPageService = getModule().getTopicPageService();
+
       const controlItems: BreadcrumbControlItem[] = path.map((item) => {
         const { id, name } = item;
 
         return {
-          href: `/topic/${id}`,
+          href: topicPageService.createUrl({ topicId: Number(id) }),
           key: id,
           title: name
         };

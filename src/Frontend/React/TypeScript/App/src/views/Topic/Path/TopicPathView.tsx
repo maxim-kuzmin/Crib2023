@@ -12,6 +12,8 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
 
   const result: BreadcrumbControlItem[] = [root];
 
+  const topicPageService = getModule().getTopicPageService();
+
   if (entity) {
     root.href = '/';
 
@@ -19,7 +21,7 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
       const { id, name } = valueObject;
 
       return {
-        href: `/topic/${id}`,
+        href: topicPageService.createUrl({ topicId: Number(id) }),
         key: id,
         title: name
       };
@@ -30,7 +32,7 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
     const { id, name } = entity.data;
 
     result.push({
-      href: `/topic/${id}`,
+      href: topicPageService.createUrl({ topicId: Number(id) }),
       key: id,
       title: name
     });

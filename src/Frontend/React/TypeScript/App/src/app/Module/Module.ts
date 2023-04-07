@@ -13,7 +13,8 @@ import {
   type TopicDomainListGetOperationRequestHandler,
   type TopicDomainRepository,
   type TopicDomainTreeGetOperationRequestHandler,
-  type TableControlService
+  type TableControlService,
+  type TopicPageService
 } from '../../all';
 
 export interface Module {
@@ -26,6 +27,7 @@ export interface Module {
   readonly getTestService: () => TestService;
   readonly getTopicItemStoreService: () => TopicItemStoreService;
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;
+  readonly getTopicPageService: () => TopicPageService;
   readonly useArticleDomainItemGetOperationRequestHandler: () => ArticleDomainItemGetOperationRequestHandler;
   readonly useArticleDomainListGetOperationRequestHandler: () => ArticleDomainListGetOperationRequestHandler;
   readonly useTopicDomainItemGetOperationRequestHandler: () => TopicDomainItemGetOperationRequestHandler;
