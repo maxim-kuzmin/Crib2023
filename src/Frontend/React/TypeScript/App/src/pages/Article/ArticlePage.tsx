@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   getModule,
   StoreDispatchType,
@@ -8,11 +8,9 @@ import {
   type ArticleDomainItemGetOperationInput,
   TreeGetOperationAxisForItem,
   type TopicDomainItemGetOperationInput,
-  type TopicDomainItemGetOperationResponse
+  type TopicDomainItemGetOperationResponse,
+  ArticleItemView
 } from '../../all';
-
-import styles from './ArticlePage.module.css';
-import { Card } from 'antd';
 
 export const ArticlePage: React.FC = () => {
   const urlParams = useParams();
@@ -77,37 +75,9 @@ export const ArticlePage: React.FC = () => {
     dispatchType: StoreDispatchType.Unmount
   });
 
-  // const [val, setVal] = useState('1111');
-
   const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
 
   return (
-    <div className={styles.root}>
-      <Card
-        loading={articleItemLoading}
-        title={<h1>{articleItemResoponse?.data?.item.data.title}</h1>}
-        extra={`ID: ${articleItemResoponse?.data?.item.data.id ?? 0}`}
-        actions={[
-          <Link key="edit" to={'#'}>Edit</Link>,
-          <Link key="delete" to={'#'}>Delete</Link>
-        ]}>
-        { (articleItemResoponse?.data?.item.data.body ?? '').split('\n').map((x, i) => <p key={i}>{x.trim()}</p>) }
-      </Card>
-      {/* <h1>ArticlePage {articleId}</h1>
-      <input name='name' value={val} onChange={(e) => {
-        setVal(e.target.value);
-        }}/>
-      <button onClick={(e) => {
-          appNotificationDispatchToSet.run({
-            type: NotificationType.Error,
-            message: val
-          })
-      }}>Notify</button>
-      {
-        articleItemStatus === OperationStatus.Pending
-          ? <SpinnerControl/>
-          : <ArticleView response={articleItemResoponse}/>
-      } */}
-    </div>
+    <ArticleItemView loading={articleItemLoading} response={articleItemResoponse}/>
   )
 }

@@ -1,7 +1,9 @@
 import { type Key } from 'react';
 
 export interface CardControlAction {
-  href: string;
+  className?: string;
+  href?: string;
   key: Key;
+  onClickCallback?: () => void;
   title: string;
 }

@@ -1,18 +1,36 @@
-import { Card } from 'antd';
+import { Button, Card } from 'antd';
 import React, { useMemo, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { type CardControlExtra, type CardControlAction, type CardControlProps } from '../../all';
 
 function convertToActions (controlActions?: CardControlAction[]): ReactNode[] | undefined {
   return controlActions?.map((controlAction) => {
-    const { href, key, title } = controlAction;
+    const { className, href, key, onClickCallback, title } = controlAction;
 
-    return <Link to={href} key={key}>{title}</Link>
+    return href
+      ? <Link className={className} to={href} key={key}>{title}</Link>
+      : (
+          onClickCallback
+            ? <Button className={className} onClick={onClickCallback}>{title}</Button>
+            : (
+                className
+                  ? <span className={className}>{ title }</span>
+                  : title
+              )
+        );
   })
 }
 
 function convertToExtra (controlExtra?: CardControlExtra): ReactNode | undefined {
   let result: ReactNode;
+
+  if (controlExtra) {
+    const { className, title } = controlExtra;
+
+    result = className
+      ? <span className={className}>{ title }</span>
+      : title;
+  }
 
   return result
 }
