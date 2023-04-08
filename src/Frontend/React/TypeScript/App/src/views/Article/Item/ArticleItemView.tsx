@@ -5,7 +5,8 @@ import {
   type ArticleItemViewProps,
   CardControl,
   type CardControlAction,
-  type CardControlExtra
+  type CardControlExtra,
+  getModule
 } from '../../../all';
 import styles from './ArticleItemView.module.css';
 
@@ -22,9 +23,11 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = ({ loading, respo
 
   const id = data?.id ?? 0;
 
+  const articlePageService = getModule().getArticlePageService();
+
   const controlActions: CardControlAction[] = useMemo(() => ([
     {
-      href: '#',
+      href: articlePageService.createUrl({ articleId: id, isEdit: true }),
       key: 'edit',
       title: 'Edit'
     },
@@ -33,7 +36,7 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = ({ loading, respo
       key: 'delete',
       title: 'Delete'
     }
-  ]), [id]);
+  ]), [id, articlePageService]);
 
   const controlExtra: CardControlExtra = {
     title: `ID: ${id}`

@@ -9,10 +9,12 @@ import {
   TreeGetOperationAxisForItem,
   type TopicDomainItemGetOperationInput,
   type TopicDomainItemGetOperationResponse,
-  ArticleItemView
+  ArticleItemView,
+  type ArticlePageProps,
+  ArticleItemEditView
 } from '../../all';
 
-export const ArticlePage: React.FC = () => {
+export const ArticlePage: React.FC<ArticlePageProps> = ({ isEdit }) => {
   const urlParams = useParams();
 
   const {
@@ -78,6 +80,8 @@ export const ArticlePage: React.FC = () => {
   const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
 
   return (
-    <ArticleItemView loading={articleItemLoading} response={articleItemResoponse}/>
+    isEdit
+      ? <ArticleItemEditView />
+      : <ArticleItemView loading={articleItemLoading} response={articleItemResoponse}/>
   )
 }

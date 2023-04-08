@@ -28,6 +28,10 @@ const router = createBrowserRouter([{
       element: <ArticlePage />
     },
     {
+      path: 'article/:articleId/edit',
+      element: <ArticlePage isEdit={true} />
+    },
+    {
       path: '*',
       element: <NotFoundPage />
     }
