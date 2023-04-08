@@ -5,9 +5,9 @@ import {
   ArticleListStoreProvider,
   TopicItemStoreProvider,
   TopicTreeStoreProvider
-} from '../all';
+} from '../../all';
 
-export const Provider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
+export const ContextProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
   return (
     <AppNotificationStoreProvider>
       <ArticleItemStoreProvider>

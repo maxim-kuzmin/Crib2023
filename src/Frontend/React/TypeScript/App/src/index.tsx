@@ -6,7 +6,7 @@ import {
   App,
   ArticlePage,
   NotFoundPage,
-  Provider as AppProvider,
+  ContextProvider,
   reportWebVitals,
   TopicPage
 } from './all';
@@ -40,9 +40,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <AppProvider>
+      <ContextProvider>
         <RouterProvider router={router} />
-      </AppProvider>
+      </ContextProvider>
   </React.StrictMode>
 );
 

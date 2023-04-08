@@ -19,4 +19,4 @@ export * from './stores';
 export * from './views';
 export * from './app/Test';
 export * from './app/Module';
-export { Provider } from './app/Provider';
+export * from './app/Context';
