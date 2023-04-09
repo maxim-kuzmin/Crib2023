@@ -8,7 +8,8 @@ import {
   NotFoundPage,
   ContextProvider,
   reportWebVitals,
-  TopicPage
+  TopicPage,
+  ArticlePageMode
 } from './all';
 
 const router = createBrowserRouter([{
@@ -24,12 +25,16 @@ const router = createBrowserRouter([{
       element: <TopicPage />
     },
     {
+      path: 'article',
+      element: <ArticlePage mode={ArticlePageMode.New} />
+    },
+    {
       path: 'article/:articleId',
-      element: <ArticlePage />
+      element: <ArticlePage mode={ArticlePageMode.Display} />
     },
     {
       path: 'article/:articleId/edit',
-      element: <ArticlePage isEdit={true} />
+      element: <ArticlePage mode={ArticlePageMode.Edit} />
     },
     {
       path: '*',

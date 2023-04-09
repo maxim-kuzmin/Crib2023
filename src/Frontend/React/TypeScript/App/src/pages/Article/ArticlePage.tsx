@@ -11,10 +11,11 @@ import {
   type TopicDomainItemGetOperationResponse,
   ArticleItemView,
   type ArticlePageProps,
-  ArticleItemEditView
+  ArticleItemEditView,
+  ArticlePageMode
 } from '../../all';
 
-export const ArticlePage: React.FC<ArticlePageProps> = ({ isEdit }) => {
+export const ArticlePage: React.FC<ArticlePageProps> = ({ mode }) => {
   const urlParams = useParams();
 
   const {
@@ -80,7 +81,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ isEdit }) => {
   const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
 
   return (
-    isEdit
+    mode === ArticlePageMode.Edit
       ? <ArticleItemEditView />
       : <ArticleItemView loading={articleItemLoading} response={articleItemResoponse}/>
   )

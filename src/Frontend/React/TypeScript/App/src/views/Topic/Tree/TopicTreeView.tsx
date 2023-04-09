@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useMemo, useRef } from 'react';
 import {
   StoreDispatchType,
   type TopicDomainTreeGetOperationResponse,
@@ -43,7 +43,7 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
   : [];
 }
 
-export const TopicTreeView: React.FC = () => {
+export const TopicTreeView: React.FC = memo(function TopicTreeView () {
   const { getTopicItemStoreService, getTopicTreeStoreService } = getModule();
 
   const topicItemStoreService = getTopicItemStoreService();
@@ -106,4 +106,4 @@ export const TopicTreeView: React.FC = () => {
       }
     </div>
   );
-}
+});

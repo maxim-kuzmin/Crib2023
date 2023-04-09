@@ -1,3 +1,5 @@
+import { type ArticlePageMode } from '../../all';
+
 export interface ArticlePageProps {
-  isEdit?: boolean;
+  mode: ArticlePageMode;
 }

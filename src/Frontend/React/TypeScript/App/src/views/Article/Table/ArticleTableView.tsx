@@ -1,4 +1,4 @@
-import React, { useMemo, type Key } from 'react';
+import React, { useMemo, type Key, memo } from 'react';
 import {
   TableControl,
   type ArticleDomainEntityForList,
@@ -8,10 +8,12 @@ import {
   type BreadcrumbControlItem,
   BreadcrumbControl,
   type ArticleTableViewRow,
-  getModule
+  getModule,
+  ArticlePageMode
 } from '../../../all';
 import styles from './ArticleTableView.module.css';
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 
 function getRowKey (row: any): Key {
   const viewRow: ArticleTableViewRow = row;
@@ -19,13 +21,13 @@ function getRowKey (row: any): Key {
   return viewRow.id;
 }
 
-export const ArticleTableView: React.FC<ArticleTableViewProps> = ({
+export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function ArticleTableView ({
   loading,
   onTableChangeCallback,
   pageNumber,
   pageSize,
   response
-}: ArticleTableViewProps) => {
+}: ArticleTableViewProps) {
   let items: ArticleDomainEntityForList[];
   let totalCount = 0;
 
@@ -95,7 +97,36 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = ({
             };
           });
 
-          return <BreadcrumbControl controlItems={controlItems} />
+          return (
+            <BreadcrumbControl controlItems={controlItems} />
+          );
+        }
+      },
+      {
+        title: '@@Actions',
+
+        render: (row: any) => {
+          const viewRow: ArticleTableViewRow = row;
+
+          const { id } = viewRow;
+
+          return (
+            <div className={styles.actions}>
+              <Link
+                className={styles.action}
+                to={atriclePageService.createUrl({ articleId: Number(id) })}
+              >
+                @@Display
+              </Link>
+              <Link
+                className={styles.action}
+                to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticlePageMode.Edit })}
+              >
+                @@Edit
+              </Link>
+              <Button>@@Delete</Button>
+            </div>
+          );
         }
       }
     ]),
@@ -103,15 +134,13 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = ({
   );
 
   return (
-    <div className={styles.root}>
-      <TableControl
-        controlColumns={controlColumns}
-        controlRows={controlRows}
-        controlPagination={controlPagination}
-        getRowKeyCallback={getRowKey}
-        loading={loading}
-        onChangeCallback={onTableChangeCallback}
-      />
-    </div>
+    <TableControl
+      controlColumns={controlColumns}
+      controlRows={controlRows}
+      controlPagination={controlPagination}
+      getRowKeyCallback={getRowKey}
+      loading={loading}
+      onChangeCallback={onTableChangeCallback}
+    />
   )
-}
+});

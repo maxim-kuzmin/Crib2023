@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   type ArticleTypeEntity,
   type ArticleDomainEntityForItem,
@@ -6,11 +6,15 @@ import {
   CardControl,
   type CardControlAction,
   type CardControlExtra,
-  getModule
+  getModule,
+  ArticlePageMode
 } from '../../../all';
 import styles from './ArticleItemView.module.css';
 
-export const ArticleItemView: React.FC<ArticleItemViewProps> = ({ loading, response }: ArticleItemViewProps) => {
+export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(function ArticleItemView ({
+  loading,
+  response
+}: ArticleItemViewProps) {
   let item: ArticleDomainEntityForItem | null = null;
   let data: ArticleTypeEntity | null = null;
 
@@ -27,14 +31,14 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = ({ loading, respo
 
   const controlActions: CardControlAction[] = useMemo(() => ([
     {
-      href: articlePageService.createUrl({ articleId: id, isEdit: true }),
+      href: articlePageService.createUrl({ articleId: id, mode: ArticlePageMode.Edit }),
       key: 'edit',
-      title: 'Edit'
+      title: '@@Edit'
     },
     {
       onClickCallback: () => { console.log('MAKC:ArticleItemView:delete', id) },
       key: 'delete',
-      title: 'Delete'
+      title: '@@Delete'
     }
   ]), [id, articlePageService]);
 
@@ -58,4 +62,4 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = ({ loading, respo
       }
     </div>
   )
-}
+});

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   type TopicDomainEntityForItem,
   getModule,
@@ -41,7 +41,7 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
   return result;
 }
 
-export const TopicPathView: React.FC = () => {
+export const TopicPathView: React.FC = memo(function TopicPathView () {
   const { getTopicItemStoreService } = getModule();
 
   const service = getTopicItemStoreService();
@@ -59,4 +59,4 @@ export const TopicPathView: React.FC = () => {
       <BreadcrumbControl controlItems={controlItems} currentItemKey={currentItemKey}/>
     </div>
   );
-}
+});

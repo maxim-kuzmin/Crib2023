@@ -55,7 +55,7 @@ export class TopicPageServiceImpl implements TopicPageService {
     return {
       pageNumber: Number(searchParams.get(pageNumberParamName) ?? 1),
       pageSize: Number(searchParams.get(pageSizeParamName) ?? defaultPageSize)
-    }
+    };
   }
 
   updateURLSearchParams (searchParams: URLSearchParams, urlSearch: TopicPageUrlSearch) {
