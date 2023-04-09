@@ -5,7 +5,7 @@ import {
   ArticlePageMode
 } from '../../../all';
 
-const topicIdParamName = 'topicId';
+const paramNameForTopicId = 'topicId';
 
 export class ArticlePageServiceImpl implements ArticlePageService {
   createUrl (options?: ArticlePageUrlOptions) {
@@ -56,7 +56,7 @@ export class ArticlePageServiceImpl implements ArticlePageService {
 
   getUrlSearch (searchParams: URLSearchParams): ArticlePageUrlSearch {
     return {
-      topicId: Number(searchParams.get(topicIdParamName) ?? 0)
+      topicId: Number(searchParams.get(paramNameForTopicId) ?? 0)
     };
   }
 
@@ -64,9 +64,9 @@ export class ArticlePageServiceImpl implements ArticlePageService {
     const { topicId } = urlSearch;
 
     if (topicId > 0) {
-      searchParams.set(topicIdParamName, topicId.toString());
+      searchParams.set(paramNameForTopicId, topicId.toString());
     } else {
-      searchParams.delete(topicIdParamName);
+      searchParams.delete(paramNameForTopicId);
     }
   }
 }

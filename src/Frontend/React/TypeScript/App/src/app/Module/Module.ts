@@ -16,6 +16,7 @@ import {
   type TableControlService,
   type TopicPageService,
   type ArticlePageService,
+  type ArticleItemEditViewService,
 } from '../../all';
 
 export interface Module {
@@ -26,6 +27,7 @@ export interface Module {
   readonly getArticleItemStoreService: () => ArticleItemStoreService;
   readonly getArticleListStoreService: () => ArticleListStoreService;
   readonly getArticlePageService: () => ArticlePageService;
+  readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
   readonly getTestService: () => TestService;
   readonly getTopicItemStoreService: () => TopicItemStoreService;
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;

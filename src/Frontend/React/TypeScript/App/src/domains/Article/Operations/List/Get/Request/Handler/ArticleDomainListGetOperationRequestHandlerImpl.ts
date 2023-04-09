@@ -9,11 +9,19 @@ import {
   type ShouldBeCanceled
 } from '../../../../../../../all';
 
+interface Options {
+  apiRequestHandler: ApiRequestHandler;
+  repository: ArticleDomainRepository;
+}
+
 export class ArticleDomainListGetOperationRequestHandlerImpl implements ArticleDomainListGetOperationRequestHandler {
-  constructor (
-    private readonly repository: ArticleDomainRepository,
-    private readonly apiRequestHandler: ApiRequestHandler
-  ) {}
+  private readonly apiRequestHandler: ApiRequestHandler;
+  private readonly repository: ArticleDomainRepository;
+
+  constructor (options: Options) {
+    this.apiRequestHandler = options.apiRequestHandler;
+    this.repository = options.repository;
+  }
 
   async handle (
     request: ArticleDomainListGetOperationRequest,

@@ -1,43 +1,55 @@
 import {
+  type AppNotificationStoreService,
   creareAppNotificationStoreService,
+  type ArticleItemStoreService,
   createArticleItemStoreService,
+  type ArticleListStoreService,
   createArticleListStoreService,
+  type NotificationControlService,
+  createNotificationControlService,
+  type TopicItemStoreService,
   createTopicItemStoreService,
+  type TopicTreeStoreService,
   createTopicTreeStoreService,
   type HttpClient,
   HttpClientImpl,
-  createNotificationControlService,
   type ApiClient,
   ApiClientImpl,
-  OperationHandlerImpl,
-  ApiRequestHandlerImpl,
-  ArticleDomainItemGetOperationRequestHandlerImpl,
-  type ArticleDomainItemGetOperationRequestHandler,
-  type ApiRequestHandler,
   type OperationHandler,
+  OperationHandlerImpl,
+  type ApiRequestHandler,
+  ApiRequestHandlerImpl,
+  type ArticleDomainItemGetOperationRequestHandler,
+  ArticleDomainItemGetOperationRequestHandlerImpl,
   type ArticleDomainListGetOperationRequestHandler,
   ArticleDomainListGetOperationRequestHandlerImpl,
   type ArticleDomainRepository,
-  type Module,
   ArticleDomainRepositoryImpl,
   TestArticleDomainRepositoryImpl,
+  type TestService,
   TestServiceImpl,
   type TopicDomainItemGetOperationRequestHandler,
-  type TopicDomainListGetOperationRequestHandler,
   TopicDomainItemGetOperationRequestHandlerImpl,
+  type TopicDomainListGetOperationRequestHandler,
   TopicDomainListGetOperationRequestHandlerImpl,
   type TopicDomainRepository,
   TopicDomainRepositoryImpl,
   TestTopicDomainRepositoryImpl,
   type TopicDomainTreeGetOperationRequestHandler,
   TopicDomainTreeGetOperationRequestHandlerImpl,
-  createTableControlService,
   type TopicPageService,
   TopicPageServiceImpl,
   type ArticlePageService,
   ArticlePageServiceImpl,
+  type ApiSetupOptions,
   ApiSetupOptionsImpl,
-  SetupOptionsImpl
+  type SetupOptions,
+  SetupOptionsImpl,
+  type ArticleItemEditViewService,
+  ArticleItemEditViewServiceImpl,
+  type TableControlService,
+  TableControlServiceImpl,
+  type Module
 } from '../../all';
 
 interface UseOperationHandlerOptions {
@@ -46,59 +58,63 @@ interface UseOperationHandlerOptions {
 }
 
 export class ModuleImpl implements Module {
-  private readonly apiSetupOptions = new ApiSetupOptionsImpl(
-    process.env.REACT_APP_API_URL ?? ''
-  );
+  private readonly apiSetupOptions: ApiSetupOptions = new ApiSetupOptionsImpl({
+    url: process.env.REACT_APP_API_URL ?? ''
+  });
 
-  private readonly setupOptions = new SetupOptionsImpl(
-    process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true'
-  );
+  private readonly setupOptions: SetupOptions = new SetupOptionsImpl({
+    isTestModeEnabled: process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true'
+  });
 
   private readonly httpClient: HttpClient = new HttpClientImpl();
 
-  private readonly apiClient: ApiClient = new ApiClientImpl(this.apiSetupOptions, this.httpClient);
+  private readonly apiClient: ApiClient = new ApiClientImpl({
+    apiSetupOptions: this.apiSetupOptions,
+    httpClient: this.httpClient
+  });
 
-  private readonly testService = new TestServiceImpl();
+  private readonly testService: TestService = new TestServiceImpl();
   getTestService = () => this.testService;
 
-  private readonly appNotificationStoreService = creareAppNotificationStoreService();
+  private readonly appNotificationStoreService: AppNotificationStoreService = creareAppNotificationStoreService();
   getAppNotificationStoreService = () => this.appNotificationStoreService;
 
-  private readonly notificationControlService = createNotificationControlService();
+  private readonly notificationControlService: NotificationControlService = createNotificationControlService();
   getNotificationControlService = () => this.notificationControlService;
 
-  private readonly tableControlService = createTableControlService();
+  private readonly tableControlService: TableControlService = new TableControlServiceImpl({
+    defaultPageSize: 10
+  });
+
   getTableControlService = () => this.tableControlService;
 
-  private readonly articleItemStoreService = createArticleItemStoreService();
+  private readonly articleItemStoreService: ArticleItemStoreService = createArticleItemStoreService();
   getArticleItemStoreService = () => this.articleItemStoreService;
 
-  private readonly articleListStoreService = createArticleListStoreService();
+  private readonly articleListStoreService: ArticleListStoreService = createArticleListStoreService();
   getArticleListStoreService = () => this.articleListStoreService;
 
-  private readonly topicItemStoreService = createTopicItemStoreService();
+  private readonly topicItemStoreService: TopicItemStoreService = createTopicItemStoreService();
   getTopicItemStoreService = () => this.topicItemStoreService;
 
-  private readonly topicTreeStoreService = createTopicTreeStoreService();
+  private readonly topicTreeStoreService: TopicTreeStoreService = createTopicTreeStoreService();
   getTopicTreeStoreService = () => this.topicTreeStoreService;
 
   private readonly articleDomainRepository: ArticleDomainRepository = this.setupOptions.isTestModeEnabled
     ? new TestArticleDomainRepositoryImpl()
-    : new ArticleDomainRepositoryImpl(this.apiClient);
+    : new ArticleDomainRepositoryImpl({
+        apiClient: this.apiClient
+      });
 
   getArticleDomainRepository = () => this.articleDomainRepository;
 
   private readonly topicDomainRepository: TopicDomainRepository = this.setupOptions.isTestModeEnabled
     ? new TestTopicDomainRepositoryImpl()
-    : new TopicDomainRepositoryImpl(this.apiClient);
+    : new TopicDomainRepositoryImpl({
+        apiClient: this.apiClient
+      });
 
   getTopicDomainRepository = () => this.topicDomainRepository;
-
-  private readonly topicPageService: TopicPageService = new TopicPageServiceImpl(this.getTableControlService());
-
-  getTopicPageService (): TopicPageService {
-    return this.topicPageService;
-  }
 
   private readonly articlePageService: ArticlePageService = new ArticlePageServiceImpl();
 
@@ -106,54 +122,68 @@ export class ModuleImpl implements Module {
     return this.articlePageService;
   }
 
+  private readonly topicPageService: TopicPageService = new TopicPageServiceImpl({
+    tableControlService: this.getTableControlService()
+  });
+
+  getTopicPageService (): TopicPageService {
+    return this.topicPageService;
+  }
+
+  private readonly articleItemEditViewService: ArticleItemEditViewService = new ArticleItemEditViewServiceImpl();
+
+  getArticleItemEditViewService (): ArticleItemEditViewService {
+    return this.articleItemEditViewService;
+  }
+
   useArticleDomainItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {
-    return new ArticleDomainItemGetOperationRequestHandlerImpl(
-      this.getArticleDomainRepository(),
-      this.useApiRequestHandler({
+    return new ArticleDomainItemGetOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
-      })
-    );
+      }),
+      repository: this.getArticleDomainRepository()
+    });
   }
 
   useArticleDomainListGetOperationRequestHandler (): ArticleDomainListGetOperationRequestHandler {
-    return new ArticleDomainListGetOperationRequestHandlerImpl(
-      this.getArticleDomainRepository(),
-      this.useApiRequestHandler({
+    return new ArticleDomainListGetOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
-      })
-    );
+      }),
+      repository: this.getArticleDomainRepository()
+    });
   }
 
   useTopicDomainItemGetOperationRequestHandler (): TopicDomainItemGetOperationRequestHandler {
-    return new TopicDomainItemGetOperationRequestHandlerImpl(
-      this.getTopicDomainRepository(),
-      this.useApiRequestHandler({
+    return new TopicDomainItemGetOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
-      })
-    );
+      }),
+      repository: this.getTopicDomainRepository()
+    });
   }
 
   useTopicDomainListGetOperationRequestHandler (): TopicDomainListGetOperationRequestHandler {
-    return new TopicDomainListGetOperationRequestHandlerImpl(
-      this.getTopicDomainRepository(),
-      this.useApiRequestHandler({
+    return new TopicDomainListGetOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
-      })
-    );
+      }),
+      repository: this.getTopicDomainRepository()
+    });
   }
 
   useTopicDomainTreeGetOperationRequestHandler (): TopicDomainTreeGetOperationRequestHandler {
-    return new TopicDomainTreeGetOperationRequestHandlerImpl(
-      this.getTopicDomainRepository(),
-      this.useApiRequestHandler({
+    return new TopicDomainTreeGetOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
-      })
-    );
+      }),
+      repository: this.getTopicDomainRepository()
+    });
   }
 
   private useOperationHandler (options: UseOperationHandlerOptions): OperationHandler {
@@ -171,6 +201,8 @@ export class ModuleImpl implements Module {
   }
 
   private useApiRequestHandler (options: UseOperationHandlerOptions): ApiRequestHandler {
-    return new ApiRequestHandlerImpl(this.useOperationHandler(options));
+    return new ApiRequestHandlerImpl({
+      operationHandler: this.useOperationHandler(options)
+    });
   }
 }

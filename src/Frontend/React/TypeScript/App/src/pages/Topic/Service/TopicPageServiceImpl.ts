@@ -5,12 +5,20 @@ import {
   type TopicPageUrlSearch
 } from '../../../all';
 
-const pageNumberParamName = 'pn';
+const paramNameForPageNumber = 'pn';
 
-const pageSizeParamName = 'ps';
+const paramNameForPageSize = 'ps';
+
+interface Options {
+  tableControlService: TableControlService;
+}
 
 export class TopicPageServiceImpl implements TopicPageService {
-  constructor (private readonly tableControlService: TableControlService) {}
+  private readonly tableControlService: TableControlService
+
+  constructor (options: Options) {
+    this.tableControlService = options.tableControlService;
+  }
 
   createUrl (options?: TopicPageUrlOptions): string {
     let result = '/topic';
@@ -53,8 +61,8 @@ export class TopicPageServiceImpl implements TopicPageService {
     const { defaultPageSize } = this.tableControlService;
 
     return {
-      pageNumber: Number(searchParams.get(pageNumberParamName) ?? 1),
-      pageSize: Number(searchParams.get(pageSizeParamName) ?? defaultPageSize)
+      pageNumber: Number(searchParams.get(paramNameForPageNumber) ?? 1),
+      pageSize: Number(searchParams.get(paramNameForPageSize) ?? defaultPageSize)
     };
   }
 
@@ -64,15 +72,15 @@ export class TopicPageServiceImpl implements TopicPageService {
     const { defaultPageSize } = this.tableControlService;
 
     if (pageNumber > 1) {
-      searchParams.set(pageNumberParamName, pageNumber.toString());
+      searchParams.set(paramNameForPageNumber, pageNumber.toString());
     } else {
-      searchParams.delete(pageNumberParamName);
+      searchParams.delete(paramNameForPageNumber);
     }
 
     if (pageSize !== defaultPageSize) {
-      searchParams.set(pageSizeParamName, pageSize.toString());
+      searchParams.set(paramNameForPageSize, pageSize.toString());
     } else {
-      searchParams.delete(pageSizeParamName);
+      searchParams.delete(paramNameForPageSize);
     }
   }
 }

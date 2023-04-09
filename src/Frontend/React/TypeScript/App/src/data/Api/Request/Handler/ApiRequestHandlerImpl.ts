@@ -8,8 +8,16 @@ import {
   type ShouldBeCanceled
 } from '../../../../all';
 
+interface Options {
+  operationHandler: OperationHandler;
+}
+
 export class ApiRequestHandlerImpl implements ApiRequestHandler {
-  constructor (private readonly operationHandler: OperationHandler) {}
+  private readonly operationHandler: OperationHandler
+
+  constructor (options: Options) {
+    this.operationHandler = options.operationHandler;
+  }
 
   async handleWithInput<
     TInput,

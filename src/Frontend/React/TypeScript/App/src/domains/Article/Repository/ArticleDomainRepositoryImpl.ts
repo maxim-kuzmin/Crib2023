@@ -11,8 +11,17 @@ import {
 
 const controller = 'CatalogArticle';
 
+interface Options {
+  apiClient: ApiClient;
+}
+
 export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
-  constructor (private readonly apiClient: ApiClient) {}
+  private readonly apiClient: ApiClient;
+
+  constructor (options: Options) {
+    this.apiClient = options.apiClient;
+  }
+
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {

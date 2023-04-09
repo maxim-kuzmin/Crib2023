@@ -27,11 +27,19 @@ function createRequestConfig (operaionCode: string, query?: any): HttpRequestCon
   }
 };
 
+interface Options {
+  apiSetupOptions: ApiSetupOptions;
+  httpClient: HttpClient;
+}
+
 export class ApiClientImpl implements ApiClient {
-  constructor (
-    private readonly apiSetupOptions: ApiSetupOptions,
-    private readonly httpClient: HttpClient
-  ) {}
+  private readonly apiSetupOptions: ApiSetupOptions;
+  private readonly httpClient: HttpClient;
+
+  constructor (options: Options) {
+    this.apiSetupOptions = options.apiSetupOptions;
+    this.httpClient = options.httpClient;
+  }
 
   async delete<TData> (
     endpoint: string,
