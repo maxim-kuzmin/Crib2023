@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Layout, theme } from 'antd';
 import styles from './LayoutControl.module.css';
 import { type LayoutControlProps } from '../../all';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export const LayoutControl: React.FC<LayoutControlProps> = ({
+export const LayoutControl: React.FC<LayoutControlProps> = memo(function LayoutControl ({
   createAsideView,
   createContentView,
   createFooterView,
   createHeaderView
-}: LayoutControlProps) => {
+}: LayoutControlProps) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -51,4 +51,4 @@ export const LayoutControl: React.FC<LayoutControlProps> = ({
       </Layout>
     </Layout>
   );
-}
+});

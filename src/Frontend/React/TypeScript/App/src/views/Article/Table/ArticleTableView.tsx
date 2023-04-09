@@ -9,11 +9,11 @@ import {
   BreadcrumbControl,
   type ArticleTableViewRow,
   getModule,
-  ArticlePageMode
+  ArticlePageMode,
+  ButtonControl
 } from '../../../all';
 import styles from './ArticleTableView.module.css';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
 
 function getRowKey (row: any): Key {
   const viewRow: ArticleTableViewRow = row;
@@ -139,7 +139,7 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
               >
                 @@Edit
               </Link>
-              <Button>@@Delete</Button>
+              <ButtonControl>@@Delete</ButtonControl>
             </div>
           );
         }

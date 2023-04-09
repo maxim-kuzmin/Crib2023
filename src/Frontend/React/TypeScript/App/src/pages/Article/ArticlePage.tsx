@@ -81,8 +81,8 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ mode }) => {
   const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
 
   return (
-    mode === ArticlePageMode.Edit
-      ? <ArticleItemEditView />
-      : <ArticleItemView loading={articleItemLoading} response={articleItemResoponse}/>
+    mode === ArticlePageMode.Display
+      ? <ArticleItemView loading={articleItemLoading} response={articleItemResoponse}/>
+      : <ArticleItemEditView topicId={topicId} />
   )
 }

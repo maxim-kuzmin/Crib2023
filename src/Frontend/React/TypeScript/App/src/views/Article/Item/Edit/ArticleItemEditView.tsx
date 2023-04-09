@@ -1,9 +1,10 @@
 import React from 'react';
+import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 
-export const ArticleItemEditView: React.FC = () => {
+export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = ({ topicId }) => {
   return (
     <>
-      ArticleItemEditView
+      ArticleItemEditView: {topicId}
     </>
   );
 }

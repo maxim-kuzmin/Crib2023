@@ -1,5 +1,5 @@
 import { Button, Card } from 'antd';
-import React, { useMemo, type ReactNode } from 'react';
+import React, { useMemo, type ReactNode, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { type CardControlExtra, type CardControlAction, type CardControlProps } from '../../all';
 
@@ -35,12 +35,12 @@ function convertToExtra (controlExtra?: CardControlExtra): ReactNode | undefined
   return result
 }
 
-export const CardControl: React.FC<CardControlProps> = ({
+export const CardControl: React.FC<CardControlProps> = memo(function CardControl ({
   children,
   controlActions,
   controlExtra,
   title
-}: CardControlProps) => {
+}: CardControlProps) {
   const actions = useMemo(() => convertToActions(controlActions), [controlActions]);
   const extra = useMemo(() => convertToExtra(controlExtra), [controlExtra]);
 
@@ -49,4 +49,4 @@ export const CardControl: React.FC<CardControlProps> = ({
       {children}
     </Card>
   );
-}
+});

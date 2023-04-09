@@ -1,4 +1,4 @@
-import React, { type ReactNode, useMemo } from 'react';
+import React, { type ReactNode, useMemo, memo } from 'react';
 import { Table } from 'antd';
 import { type TablePaginationConfig, type ColumnsType } from 'antd/es/table';
 import {
@@ -59,7 +59,7 @@ function convertToPagination (
   };
 }
 
-export const TableControl: React.FC<TableControlProps> = ({
+export const TableControl: React.FC<TableControlProps> = memo(function TableControl ({
   className,
   controlColumns,
   controlPagination,
@@ -67,7 +67,7 @@ export const TableControl: React.FC<TableControlProps> = ({
   getRowKeyCallback,
   onChangeCallback,
   loading
-}: TableControlProps) => {
+}: TableControlProps) {
   const columns = useMemo(() => convertToColumns(controlColumns), [controlColumns]);
 
   const { defaultPageSize } = getModule().getTableControlService();
@@ -115,4 +115,4 @@ export const TableControl: React.FC<TableControlProps> = ({
       loading={loading}
     />
   );
-}
+});

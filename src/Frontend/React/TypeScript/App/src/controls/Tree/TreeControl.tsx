@@ -1,4 +1,4 @@
-import React, { type Key, useMemo, useState } from 'react';
+import React, { type Key, useMemo, useState, memo } from 'react';
 import { Tree } from 'antd';
 import { type TreeControlNode, type TreeControlProps } from '../../all';
 import { type DataNode } from 'antd/es/tree';
@@ -70,7 +70,10 @@ function updateTreeData (list: DataNode[], key: Key, children: DataNode[]): Data
   });
 }
 
-export const TreeControl: React.FC<TreeControlProps> = ({ controlNodes, getChildrenCallback }: TreeControlProps) => {
+export const TreeControl: React.FC<TreeControlProps> = memo(function TreeControl ({
+  controlNodes,
+  getChildrenCallback
+}: TreeControlProps) {
   const { initTreeData, defaultExpandedKeys, defaultSelectedKeys } = useMemo(() =>
     convertToData(controlNodes),
     [controlNodes]
@@ -100,4 +103,4 @@ export const TreeControl: React.FC<TreeControlProps> = ({ controlNodes, getChild
       treeData={treeData}
     />
   );
-}
+});
