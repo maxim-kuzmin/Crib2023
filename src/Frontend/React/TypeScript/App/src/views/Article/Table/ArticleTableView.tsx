@@ -74,7 +74,9 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
 
           const { id, title } = viewRow;
 
-          return <Link to={ atriclePageService.createUrl({ articleId: Number(id) })}>{title}</Link>;
+          return (
+            <Link to={ atriclePageService.createUrl({ articleId: Number(id) })}>{title}</Link>
+          );
         }
       },
       {
@@ -104,9 +106,17 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
       },
       {
         header: {
-          render: () => {
+          title: '@@Actions',
+          render: (title?: string) => {
             return (
-              <Link to={atriclePageService.createUrl({ search: { topicId } })}>@@New</Link>
+              <div className={styles.actions}>
+                <span className={styles.action}>{title}</span>
+                {
+                  topicId > 0
+                    ? <Link to={atriclePageService.createUrl({ search: { topicId } })}>@@New</Link>
+                    : null
+                }
+              </div>
             );
           }
         },
@@ -140,6 +150,7 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
 
   return (
     <TableControl
+      className={styles.root}
       controlColumns={controlColumns}
       controlRows={controlRows}
       controlPagination={controlPagination}

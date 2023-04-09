@@ -60,6 +60,7 @@ function convertToPagination (
 }
 
 export const TableControl: React.FC<TableControlProps> = ({
+  className,
   controlColumns,
   controlPagination,
   controlRows,
@@ -103,12 +104,15 @@ export const TableControl: React.FC<TableControlProps> = ({
     [controlPagination, paginationConfig]
   );
 
-  return <Table
-    columns={columns}
-    rowKey={getRowKeyCallback}
-    dataSource={controlRows}
-    onChange={handleTableChange}
-    pagination={pagination}
-    loading={loading}
-  />
+  return (
+    <Table
+      className={className}
+      columns={columns}
+      rowKey={getRowKeyCallback}
+      dataSource={controlRows}
+      onChange={handleTableChange}
+      pagination={pagination}
+      loading={loading}
+    />
+  );
 }

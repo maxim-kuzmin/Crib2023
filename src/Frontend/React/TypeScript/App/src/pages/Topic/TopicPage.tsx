@@ -18,12 +18,7 @@ export const TopicPage: React.FC = () => {
   const urlParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const {
-    getArticleListStoreService,
-    getTopicItemStoreService
-  } = getModule();
-
-  const articleListStoreService = getArticleListStoreService();
+  const articleListStoreService = getModule().getArticleListStoreService();
 
   const { response: articleListResponse, status: articleListStatus } = articleListStoreService.useState();
 
@@ -55,7 +50,7 @@ export const TopicPage: React.FC = () => {
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const topicItemStoreService = getTopicItemStoreService();
+  const topicItemStoreService = getModule().getTopicItemStoreService();
 
   const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
     console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);

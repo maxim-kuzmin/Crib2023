@@ -92,10 +92,12 @@ export const TreeControl: React.FC<TreeControlProps> = ({ controlNodes, getChild
     );
   };
 
-  return <Tree
-    defaultExpandedKeys={defaultExpandedKeys}
-    defaultSelectedKeys={defaultSelectedKeys}
-    loadData={onLoadData}
-    treeData={treeData}
-  />
+  return (
+    <Tree
+      defaultExpandedKeys={defaultExpandedKeys}
+      defaultSelectedKeys={defaultSelectedKeys}
+      loadData={onLoadData}
+      treeData={treeData}
+    />
+  );
 }

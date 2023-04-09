@@ -30,5 +30,7 @@ export const BreadcrumbControl: React.FC<BreadcrumbControlProps> = ({ controlIte
     [controlItems, currentItemKey]
   );
 
-  return <Breadcrumb items={items} />
+  return (
+    <Breadcrumb items={items} />
+  );
 }

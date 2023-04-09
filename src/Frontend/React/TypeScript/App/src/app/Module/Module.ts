@@ -15,7 +15,7 @@ import {
   type TopicDomainTreeGetOperationRequestHandler,
   type TableControlService,
   type TopicPageService,
-  type ArticlePageService
+  type ArticlePageService,
 } from '../../all';
 
 export interface Module {

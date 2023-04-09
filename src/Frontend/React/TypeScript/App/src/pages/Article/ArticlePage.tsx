@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import {
   getModule,
   StoreDispatchType,
@@ -17,17 +17,17 @@ import {
 
 export const ArticlePage: React.FC<ArticlePageProps> = ({ mode }) => {
   const urlParams = useParams();
+  const [searchParams] = useSearchParams();
 
-  const {
-    getArticleItemStoreService,
-    getTopicItemStoreService
-  } = getModule();
-
-  const articleItemStoreService = getArticleItemStoreService();
+  const articleItemStoreService = getModule().getArticleItemStoreService();
 
   const { response: articleItemResoponse, status: articleItemStatus } = articleItemStoreService.useState();
 
-  const topicId = articleItemResoponse?.data?.item?.data.topicId ?? 0;
+  let topicId = articleItemResoponse?.data?.item?.data.topicId ?? 0;
+
+  if (topicId === 0) {
+    topicId = getModule().getArticlePageService().getUrlSearch(searchParams).topicId;
+  }
 
   let articleId = Number(urlParams.articleId ?? 0);
 
@@ -56,7 +56,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ mode }) => {
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const topicItemStoreService = getTopicItemStoreService();
+  const topicItemStoreService = getModule().getTopicItemStoreService();
 
   const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
     console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
