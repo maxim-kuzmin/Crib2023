@@ -3,19 +3,23 @@ import { type ArticleItemEditViewService, type ArticleTypeEntity } from '../../.
 export class ArticleItemEditViewServiceImpl implements ArticleItemEditViewService {
   public readonly fieldNameForBody = 'body';
 
-  public readonly fieldNameTitle = 'title';
+  public readonly fieldNameForTitle = 'title';
 
-  convertToFormValues (entity: ArticleTypeEntity): any {
-    const { body, title } = entity;
+  convertToFormValues (entity?: ArticleTypeEntity): any {
+    if (entity) {
+      const { body, title } = entity;
 
-    return {
-      [this.fieldNameForBody]: body,
-      [this.fieldNameTitle]: title
-    };
+      return {
+        [this.fieldNameForBody]: body,
+        [this.fieldNameForTitle]: title
+      };
+    } else {
+      return {};
+    }
   }
 
   updateEntity (entity: ArticleTypeEntity, formValues: any): void {
     entity.body = formValues[this.fieldNameForBody];
-    entity.title = formValues[this.fieldNameTitle];
+    entity.title = formValues[this.fieldNameForTitle];
   }
 }

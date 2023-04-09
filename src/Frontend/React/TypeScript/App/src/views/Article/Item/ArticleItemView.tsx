@@ -27,20 +27,21 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(function Art
 
   const id = data?.id ?? 0;
 
-  const articlePageService = getModule().getArticlePageService();
-
-  const controlActions: CardControlAction[] = useMemo(() => ([
-    {
-      href: articlePageService.createUrl({ articleId: id, mode: ArticlePageMode.Edit }),
-      key: 'edit',
-      title: '@@Edit'
-    },
-    {
-      onClickCallback: () => { console.log('MAKC:ArticleItemView:delete', id) },
-      key: 'delete',
-      title: '@@Delete'
-    }
-  ]), [id, articlePageService]);
+  const controlActions: CardControlAction[] = useMemo(
+    () => ([
+      {
+        href: getModule().getArticlePageService().createUrl({ articleId: id, mode: ArticlePageMode.Edit }),
+        key: 'edit',
+        title: '@@Edit'
+      },
+      {
+        onClickCallback: () => { console.log('MAKC:ArticleItemView:delete', id) },
+        key: 'delete',
+        title: '@@Delete'
+      }
+    ]),
+    [id]
+  );
 
   const controlExtra: CardControlExtra = {
     title: `ID: ${id}`

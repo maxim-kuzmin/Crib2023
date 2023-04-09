@@ -71,11 +71,15 @@ export const TableControl: React.FC<TableControlProps> = memo(function TableCont
   onChangeCallback,
   loading
 }: TableControlProps) {
-  const columns = useMemo(() => convertToColumns(controlColumns), [controlColumns]);
+  const columns = useMemo(
+    () => convertToColumns(controlColumns),
+    [controlColumns]
+  );
 
   const { defaultPageSize } = getModule().getTableControlService();
 
-  const paginationConfig: TablePaginationConfig = useMemo(() => ({
+  const paginationConfig: TablePaginationConfig = useMemo(
+    () => ({
       defaultPageSize,
       showTotal: (total, range) => `${range[0]}-${range[1]} @@From ${total}`,
       pageSizeOptions: [10, 20, 50, 100, 1000000],
@@ -102,8 +106,8 @@ export const TableControl: React.FC<TableControlProps> = memo(function TableCont
     });
   }
 
-  const pagination: TablePaginationConfig = useMemo(() =>
-    convertToPagination(controlPagination, paginationConfig),
+  const pagination: TablePaginationConfig = useMemo(
+    () => convertToPagination(controlPagination, paginationConfig),
     [controlPagination, paginationConfig]
   );
 

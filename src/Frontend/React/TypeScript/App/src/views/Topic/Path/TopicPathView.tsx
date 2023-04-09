@@ -42,13 +42,14 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
 }
 
 export const TopicPathView: React.FC = memo(function TopicPathView () {
-  const service = getModule().getTopicItemStoreService();
-
-  const { response: topicItemResponse } = service.useState();
+  const { response: topicItemResponse } = getModule().getTopicItemStoreService().useState();
 
   const topic = topicItemResponse?.data?.item;
 
-  const controlItems = useMemo(() => convertToControlItems(topic), [topic]);
+  const controlItems = useMemo(
+    () => convertToControlItems(topic),
+    [topic]
+  );
 
   const currentItemKey = topic?.data.id ?? 0;
 

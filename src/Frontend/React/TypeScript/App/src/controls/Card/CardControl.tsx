@@ -41,8 +41,15 @@ export const CardControl: React.FC<CardControlProps> = memo(function CardControl
   controlExtra,
   title
 }: CardControlProps) {
-  const actions = useMemo(() => convertToActions(controlActions), [controlActions]);
-  const extra = useMemo(() => convertToExtra(controlExtra), [controlExtra]);
+  const actions = useMemo(
+    () => convertToActions(controlActions),
+    [controlActions]
+  );
+
+  const extra = useMemo(
+    () => convertToExtra(controlExtra),
+    [controlExtra]
+  );
 
   return (
     <Card title={title} extra={extra} actions={actions}>

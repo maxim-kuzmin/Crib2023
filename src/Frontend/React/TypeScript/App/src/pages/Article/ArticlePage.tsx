@@ -44,9 +44,12 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(function ArticlePage
     articleItemIsLoaded.current = true;
   }, []);
 
-  const inputAtDispatchToArticleItemLoad: ArticleDomainItemGetOperationInput = useMemo(() => ({
-    id: articleId
-  }), [articleId]);
+  const inputAtDispatchToArticleItemLoad: ArticleDomainItemGetOperationInput = useMemo(
+    () => ({
+      id: articleId
+    }),
+    [articleId]
+  );
 
   articleItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -64,10 +67,13 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(function ArticlePage
     console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
   }, []);
 
-  const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(() => ({
-    axis: TreeGetOperationAxisForItem.Self,
-    id: topicId
-  }), [topicId]);
+  const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(
+    () => ({
+      axis: TreeGetOperationAxisForItem.Self,
+      id: topicId
+    }),
+    [topicId]
+  );
 
   topicItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -84,7 +90,14 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(function ArticlePage
 
   return (
     mode === ArticlePageMode.Display
-      ? <ArticleItemView loading={articleItemLoading} response={articleItemResoponse}/>
-      : <ArticleItemEditView topicId={topicId} />
+      ? <ArticleItemView
+          loading={articleItemLoading}
+          response={articleItemResoponse}
+        />
+      : <ArticleItemEditView
+          loading={articleItemLoading}
+          response={articleItemResoponse}
+          topicId={topicId}
+        />
   )
 });

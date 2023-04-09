@@ -8,6 +8,7 @@ export const FormItemControl: React.FC<FormItemControlProps> = memo(function For
   label,
   name
 }: FormItemControlProps) {
+  console.log('name', name);
   return (
     <Form.Item
       className={className}

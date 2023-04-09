@@ -56,10 +56,13 @@ export const TopicTreeView: React.FC = memo(function TopicTreeView () {
     console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:response', response);
   }, []);
 
-  const inputAtDispatchToTopicTreeLoad: TopicDomainTreeGetOperationInput = useMemo(() => ({
-    ...topicInput,
-    expandedNodeId: topicId
-  }), [topicId]);
+  const inputAtDispatchToTopicTreeLoad: TopicDomainTreeGetOperationInput = useMemo(
+    () => ({
+      ...topicInput,
+      expandedNodeId: topicId
+    }),
+    [topicId]
+  );
 
   topicTreeStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -74,11 +77,11 @@ export const TopicTreeView: React.FC = memo(function TopicTreeView () {
 
   const { response: topicTreeResponse, status: topicTreeStatus } = topicTreeStoreService.useState();
 
-  const controlNodes = useMemo(() => convertToControlNodes(
-      topicId,
-      topicTreeResponse?.data?.nodes
-    ),
-    [topicTreeResponse?.data, topicId]
+  const entities = topicTreeResponse?.data?.nodes;
+
+  const controlNodes = useMemo(
+    () => convertToControlNodes(topicId, entities),
+    [topicId, entities]
   );
 
   const requestHandler = useRef(getModule().useTopicDomainTreeGetOperationRequestHandler()).current;

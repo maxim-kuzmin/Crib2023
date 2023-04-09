@@ -4,7 +4,8 @@ import { type FormControlProps } from '../../all';
 
 export const FormControl: React.FC<FormControlProps> = memo(function FormControl ({
   children,
-  className
+  className,
+  formValues
 }: FormControlProps) {
   const [form] = Form.useForm();
 
@@ -12,6 +13,7 @@ export const FormControl: React.FC<FormControlProps> = memo(function FormControl
     <Form
       className={className}
       form={form}
+      initialValues={formValues}
     >
       { children }
     </Form>

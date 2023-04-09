@@ -33,11 +33,14 @@ export const TopicPage: React.FC = memo(function TopicPage () {
     console.log('MAKC:TopicPage:callbackOnArticleListLoad:response', response);
   }, []);
 
-  const inputAtDispatchToArticleListLoad: ArticleDomainListGetOperationInput = useMemo(() => ({
-    topicId,
-    pageNumber,
-    pageSize
-  }), [pageNumber, pageSize, topicId]);
+  const inputAtDispatchToArticleListLoad: ArticleDomainListGetOperationInput = useMemo(
+    () => ({
+      topicId,
+      pageNumber,
+      pageSize
+    }),
+    [pageNumber, pageSize, topicId]
+  );
 
   articleListStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
@@ -55,10 +58,13 @@ export const TopicPage: React.FC = memo(function TopicPage () {
     console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
   }, []);
 
-  const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(() => ({
-    axis: TreeGetOperationAxisForItem.Self,
-    id: topicId
-  }), [topicId]);
+  const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(
+    () => ({
+      axis: TreeGetOperationAxisForItem.Self,
+      id: topicId
+    }),
+    [topicId]
+  );
 
   topicItemStoreService.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,

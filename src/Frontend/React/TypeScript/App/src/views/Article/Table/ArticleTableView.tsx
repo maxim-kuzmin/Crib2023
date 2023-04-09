@@ -53,99 +53,105 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
     }
   }
 
-  const controlPagination: TableControlPagination = useMemo(() => ({
-    pageNumber,
-    pageSize,
-    totalCount
-  }), [pageNumber, pageSize, totalCount]);
+  const controlPagination: TableControlPagination = useMemo(
+    () => ({
+      pageNumber,
+      pageSize,
+      totalCount
+    }),
+    [pageNumber, pageSize, totalCount]
+  );
 
-  const atriclePageService = getModule().getArticlePageService();
+  const controlColumns: TableControlColumn[] = useMemo(
+    () => {
+      const atriclePageService = getModule().getArticlePageService();
 
-  const controlColumns: TableControlColumn[] = useMemo(() => ([
-      {
-        field: 'id',
-        header: { title: '@@Id' }
-      },
-      {
-        field: 'title',
-        header: { title: '@@Title' },
-        render: (row: any) => {
-          const viewRow: ArticleTableViewRow = row;
+      return [
+        {
+          field: 'id',
+          header: { title: '@@Id' }
+        },
+        {
+          field: 'title',
+          header: { title: '@@Title' },
+          render: (row: any) => {
+            const viewRow: ArticleTableViewRow = row;
 
-          const { id, title } = viewRow;
+            const { id, title } = viewRow;
 
-          return (
-            <Link to={ atriclePageService.createUrl({ articleId: Number(id) })}>{title}</Link>
-          );
-        }
-      },
-      {
-        field: 'path',
-        header: { title: '@@Path' },
-        render: (row: any) => {
-          const viewRow: ArticleTableViewRow = row;
-
-          const { path } = viewRow;
-
-          const topicPageService = getModule().getTopicPageService();
-
-          const controlItems: BreadcrumbControlItem[] = path.map((item) => {
-            const { id, name } = item;
-
-            return {
-              href: topicPageService.createUrl({ topicId: Number(id) }),
-              key: id,
-              title: name
-            };
-          });
-
-          return (
-            <BreadcrumbControl controlItems={controlItems} />
-          );
-        }
-      },
-      {
-        header: {
-          title: '@@Actions',
-          render: (title?: string) => {
             return (
-              <div className={styles.actions}>
-                <span className={styles.action}>{title}</span>
-                {
-                  topicId > 0
-                    ? <Link to={atriclePageService.createUrl({ search: { topicId } })}>@@New</Link>
-                    : null
-                }
-              </div>
+              <Link to={ atriclePageService.createUrl({ articleId: Number(id) })}>{title}</Link>
             );
           }
         },
-        render: (row: any) => {
-          const viewRow: ArticleTableViewRow = row;
+        {
+          field: 'path',
+          header: { title: '@@Path' },
+          render: (row: any) => {
+            const viewRow: ArticleTableViewRow = row;
 
-          const { id } = viewRow;
+            const { path } = viewRow;
 
-          return (
-            <div className={styles.actions}>
-              <Link
-                className={styles.action}
-                to={atriclePageService.createUrl({ articleId: Number(id) })}
-              >
-                @@Display
-              </Link>
-              <Link
-                className={styles.action}
-                to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticlePageMode.Edit })}
-              >
-                @@Edit
-              </Link>
-              <ButtonControl>@@Delete</ButtonControl>
-            </div>
-          );
+            const topicPageService = getModule().getTopicPageService();
+
+            const controlItems: BreadcrumbControlItem[] = path.map((item) => {
+              const { id, name } = item;
+
+              return {
+                href: topicPageService.createUrl({ topicId: Number(id) }),
+                key: id,
+                title: name
+              };
+            });
+
+            return (
+              <BreadcrumbControl controlItems={controlItems} />
+            );
+          }
+        },
+        {
+          header: {
+            title: '@@Actions',
+            render: (title?: string) => {
+              return (
+                <div className={styles.actions}>
+                  <span className={styles.action}>{title}</span>
+                  {
+                    topicId > 0
+                      ? <Link to={atriclePageService.createUrl({ search: { topicId } })}>@@New</Link>
+                      : null
+                  }
+                </div>
+              );
+            }
+          },
+          render: (row: any) => {
+            const viewRow: ArticleTableViewRow = row;
+
+            const { id } = viewRow;
+
+            return (
+              <div className={styles.actions}>
+                <Link
+                  className={styles.action}
+                  to={atriclePageService.createUrl({ articleId: Number(id) })}
+                >
+                  @@Display
+                </Link>
+                <Link
+                  className={styles.action}
+                  to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticlePageMode.Edit })}
+                >
+                  @@Edit
+                </Link>
+                <ButtonControl>@@Delete</ButtonControl>
+              </div>
+            );
+          }
         }
-      }
-    ]),
-    [atriclePageService, topicId]
+      ];
+    },
+    [topicId]
   );
 
   return (
