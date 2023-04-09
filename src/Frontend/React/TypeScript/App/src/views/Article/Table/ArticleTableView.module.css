@@ -7,3 +7,7 @@
 .action {
   margin-right: 1em;
 }
+
+th a {
+  font-weight: normal;
+}

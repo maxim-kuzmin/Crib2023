@@ -10,4 +10,5 @@ export interface ArticleTableViewProps extends PropsWithChildren {
   pageNumber: number;
   pageSize: number;
   response: ArticleDomainListGetOperationResponse | null;
+  topicId: number;
 }

@@ -1,11 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { type ReactNode, useMemo } from 'react';
 import { Table } from 'antd';
 import { type TablePaginationConfig, type ColumnsType } from 'antd/es/table';
 import {
   type TableControlPagination,
   type TableControlColumn,
   type TableControlProps,
-  getModule
+  getModule,
+  type TableControlHeader
 } from '../../all';
 import {
   type TableCurrentDataSource,
@@ -14,9 +15,22 @@ import {
   type ColumnType
 } from 'antd/es/table/interface';
 
+function convertHeaderToTitle (header: TableControlHeader): ReactNode | undefined {
+  const { render, title } = header;
+
+  return render ? render(title) : title;
+}
+
 function convertToColumns (controlColumns: TableControlColumn[]): ColumnsType<any> {
   return controlColumns.map((controlColumn) => {
-    const { field, key, render, title } = controlColumn;
+    const { field, key, render, header } = controlColumn;
+
+    let title: ReactNode;
+
+    if (header) {
+      title = convertHeaderToTitle(header);
+    }
+
     const result: ColumnType<any> = {
       dataIndex: field,
       key,

@@ -26,11 +26,11 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
   onTableChangeCallback,
   pageNumber,
   pageSize,
-  response
+  response,
+  topicId
 }: ArticleTableViewProps) {
   let items: ArticleDomainEntityForList[];
   let totalCount = 0;
-
   let controlRows: ArticleTableViewRow[] = [];
 
   if (response?.data) {
@@ -64,11 +64,11 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
   const controlColumns: TableControlColumn[] = useMemo(() => ([
       {
         field: 'id',
-        title: '@@Id'
+        header: { title: '@@Id' }
       },
       {
         field: 'title',
-        title: '@@Title',
+        header: { title: '@@Title' },
         render: (row: any) => {
           const viewRow: ArticleTableViewRow = row;
 
@@ -79,7 +79,7 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
       },
       {
         field: 'path',
-        title: '@@Path',
+        header: { title: '@@Path' },
         render: (row: any) => {
           const viewRow: ArticleTableViewRow = row;
 
@@ -103,8 +103,13 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
         }
       },
       {
-        title: '@@Actions',
-
+        header: {
+          render: () => {
+            return (
+              <Link to={atriclePageService.createUrl({ search: { topicId } })}>@@New</Link>
+            );
+          }
+        },
         render: (row: any) => {
           const viewRow: ArticleTableViewRow = row;
 
@@ -130,7 +135,7 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
         }
       }
     ]),
-    [atriclePageService]
+    [atriclePageService, topicId]
   );
 
   return (

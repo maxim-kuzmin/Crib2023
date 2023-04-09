@@ -97,6 +97,7 @@ export const TopicPage: React.FC = () => {
         onTableChangeCallback={onTableChangeCallback}
         pageNumber={pageNumber}
         pageSize={pageSize}
+        topicId={topicId}
       />
     </div>
   )
