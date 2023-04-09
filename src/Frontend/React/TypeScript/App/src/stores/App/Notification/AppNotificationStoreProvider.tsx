@@ -1,10 +1,10 @@
-import React, { type PropsWithChildren, useReducer } from 'react';
+import React, { type PropsWithChildren, useReducer, memo } from 'react';
 import { getModule } from '../../../all';
 
-export const AppNotificationStoreProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
-  const { getAppNotificationStoreService } = getModule();
-
-  const service = getAppNotificationStoreService();
+export const AppNotificationStoreProvider: React.FC<PropsWithChildren> = memo(function AppNotificationStoreProvider ({
+  children
+}: PropsWithChildren) {
+  const service = getModule().getAppNotificationStoreService();
 
   const [state, dispatch] = useReducer(service.reducer, service.initialState);
 
@@ -15,4 +15,4 @@ export const AppNotificationStoreProvider: React.FC<PropsWithChildren> = ({ chil
       </service.DispatchContext.Provider>
     </service.StateContext.Provider>
   );
-}
+});

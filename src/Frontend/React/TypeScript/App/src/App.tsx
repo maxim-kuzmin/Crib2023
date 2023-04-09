@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import logo from './logo.svg';
 import { AppNotificationView } from './views/App/Notification';
 import { LayoutControl } from './controls/Layout/LayoutControl';
@@ -7,7 +7,7 @@ import { AppLayoutContentView } from './views/App/Layout/Content';
 import { AppLayoutFooterView } from './views/App/Layout/Footer';
 import { AppLayoutHeaderView } from './views/App/Layout/Header';
 
-export const App: React.FC = () => {
+export const App: React.FC = memo(function App () {
   return (
     <>
       <AppNotificationView/>
@@ -19,4 +19,4 @@ export const App: React.FC = () => {
       />
     </>
   );
-}
+});

@@ -1,17 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { getModule, StoreDispatchType } from '../../../all';
 
-export const AppNotificationView: React.FC = () => {
-    const {
-      getAppNotificationStoreService,
-      getNotificationControlService
-    } = getModule();
-
-    const notificationControlService = getNotificationControlService();
+export const AppNotificationView: React.FC = memo(function AppNotificationView () {
+    const notificationControlService = getModule().getNotificationControlService();
 
     const component = notificationControlService.useComponent();
 
-    const appNotificationStoreService = getAppNotificationStoreService();
+    const appNotificationStoreService = getModule().getAppNotificationStoreService();
 
     const { data } = appNotificationStoreService.useState();
 
@@ -31,4 +26,4 @@ export const AppNotificationView: React.FC = () => {
             {component.content}
         </>
     );
-}
+});

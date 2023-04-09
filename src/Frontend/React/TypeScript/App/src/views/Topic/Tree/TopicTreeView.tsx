@@ -44,15 +44,13 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
 }
 
 export const TopicTreeView: React.FC = memo(function TopicTreeView () {
-  const { getTopicItemStoreService, getTopicTreeStoreService } = getModule();
-
-  const topicItemStoreService = getTopicItemStoreService();
+  const topicItemStoreService = getModule().getTopicItemStoreService();
 
   const { response: topicItemResponse, status: topicItemStatus } = topicItemStoreService.useState();
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const topicTreeStoreService = getTopicTreeStoreService();
+  const topicTreeStoreService = getModule().getTopicTreeStoreService();
 
   const callbackOnTopicTreeLoad = useCallback((response: TopicDomainTreeGetOperationResponse | null) => {
     console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:response', response);

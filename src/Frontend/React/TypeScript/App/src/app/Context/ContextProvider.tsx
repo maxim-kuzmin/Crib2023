@@ -1,4 +1,4 @@
-import React, { type PropsWithChildren } from 'react';
+import React, { memo, type PropsWithChildren } from 'react';
 import {
   AppNotificationStoreProvider,
   ArticleItemStoreProvider,
@@ -7,7 +7,9 @@ import {
   TopicTreeStoreProvider
 } from '../../all';
 
-export const ContextProvider: React.FC<PropsWithChildren> = ({ children }: PropsWithChildren) => {
+export const ContextProvider: React.FC<PropsWithChildren> = memo(function ContextProvider ({
+  children
+}: PropsWithChildren) {
   return (
     <AppNotificationStoreProvider>
       <ArticleItemStoreProvider>
@@ -21,4 +23,4 @@ export const ContextProvider: React.FC<PropsWithChildren> = ({ children }: Props
       </ArticleItemStoreProvider>
   </AppNotificationStoreProvider>
   );
-}
+});

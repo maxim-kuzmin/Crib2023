@@ -6,9 +6,12 @@ export const FormControl: React.FC<FormControlProps> = memo(function FormControl
   children,
   className
 }: FormControlProps) {
+  const [form] = Form.useForm();
+
   return (
     <Form
       className={className}
+      form={form}
     >
       { children }
     </Form>

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import {
   getModule,
@@ -15,7 +15,9 @@ import {
   ArticlePageMode
 } from '../../all';
 
-export const ArticlePage: React.FC<ArticlePageProps> = ({ mode }) => {
+export const ArticlePage: React.FC<ArticlePageProps> = memo(function ArticlePage ({
+  mode
+}: ArticlePageProps) {
   const urlParams = useParams();
   const [searchParams] = useSearchParams();
 
@@ -85,4 +87,4 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ mode }) => {
       ? <ArticleItemView loading={articleItemLoading} response={articleItemResoponse}/>
       : <ArticleItemEditView topicId={topicId} />
   )
-}
+});

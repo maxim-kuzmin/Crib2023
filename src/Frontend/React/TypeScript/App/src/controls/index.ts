@@ -5,4 +5,6 @@ export * from './Layout';
 export * from './Notification';
 export * from './Spinner';
 export * from './Table';
+export * from './TextArea';
+export * from './TextInput';
 export * from './Tree';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   type AppLayoutAsideViewProps,
   TopicTreeView
@@ -6,7 +6,9 @@ import {
 import styles from './AppLayoutAsideView.module.css';
 import { Link } from 'react-router-dom';
 
-export const AppLayoutAsideView: React.FC<AppLayoutAsideViewProps> = ({ logoUrl }: AppLayoutAsideViewProps) => {
+export const AppLayoutAsideView: React.FC<AppLayoutAsideViewProps> = memo(function AppLayoutAsideView ({
+  logoUrl
+}: AppLayoutAsideViewProps) {
   return (
     <>
       <div className={styles.root}>
@@ -17,4 +19,4 @@ export const AppLayoutAsideView: React.FC<AppLayoutAsideViewProps> = ({ logoUrl 
       <TopicTreeView/>
     </>
   );
-}
+});

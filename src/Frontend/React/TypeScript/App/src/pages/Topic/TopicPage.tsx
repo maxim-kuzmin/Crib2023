@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import {
   ArticleTableView,
@@ -12,9 +12,8 @@ import {
   type TopicDomainItemGetOperationResponse,
   type TableControlPagination
 } from '../../all';
-import styles from './TopicPage.module.css';
 
-export const TopicPage: React.FC = () => {
+export const TopicPage: React.FC = memo(function TopicPage () {
   const urlParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -85,15 +84,13 @@ export const TopicPage: React.FC = () => {
   const articleListLoading = (articleListStatus === OperationStatus.Pending);
 
   return (
-    <div className={styles.root}>
-      <ArticleTableView
-        loading={articleListLoading}
-        response={articleListResponse}
-        onTableChangeCallback={onTableChangeCallback}
-        pageNumber={pageNumber}
-        pageSize={pageSize}
-        topicId={topicId}
-      />
-    </div>
+    <ArticleTableView
+      loading={articleListLoading}
+      response={articleListResponse}
+      onTableChangeCallback={onTableChangeCallback}
+      pageNumber={pageNumber}
+      pageSize={pageSize}
+      topicId={topicId}
+    />
   )
-}
+});
