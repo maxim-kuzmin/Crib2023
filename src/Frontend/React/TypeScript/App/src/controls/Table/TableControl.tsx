@@ -1,6 +1,15 @@
 import React, { type ReactNode, useMemo, memo } from 'react';
 import { Table } from 'antd';
-import { type TablePaginationConfig, type ColumnsType } from 'antd/es/table';
+import {
+  type TablePaginationConfig,
+  type ColumnsType
+} from 'antd/es/table';
+import {
+  type TableCurrentDataSource,
+  type FilterValue,
+  type SorterResult,
+  type ColumnType
+} from 'antd/es/table/interface';
 import {
   type TableControlPagination,
   type TableControlColumn,
@@ -8,12 +17,6 @@ import {
   getModule,
   type TableControlHeader
 } from '../../all';
-import {
-  type TableCurrentDataSource,
-  type FilterValue,
-  type SorterResult,
-  type ColumnType
-} from 'antd/es/table/interface';
 
 function convertHeaderToTitle (header: TableControlHeader): ReactNode | undefined {
   const { render, title } = header;

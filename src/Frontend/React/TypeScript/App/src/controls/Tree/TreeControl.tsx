@@ -1,8 +1,8 @@
 import React, { type Key, useMemo, useState, memo } from 'react';
-import { Tree } from 'antd';
-import { type TreeControlNode, type TreeControlProps } from '../../all';
-import { type DataNode } from 'antd/es/tree';
 import { Link } from 'react-router-dom';
+import { Tree } from 'antd';
+import { type DataNode } from 'antd/es/tree';
+import { type TreeControlNode, type TreeControlProps } from '../../all';
 
 interface Data {
   defaultExpandedKeys: Key[];

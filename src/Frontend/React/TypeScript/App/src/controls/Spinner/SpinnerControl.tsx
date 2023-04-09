@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import styles from './SpinnerControl.module.css';
 import { Spin } from 'antd';
+import styles from './SpinnerControl.module.css';
 
 export const SpinnerControl: React.FC = memo(function SpinnerControl () {
   return (
