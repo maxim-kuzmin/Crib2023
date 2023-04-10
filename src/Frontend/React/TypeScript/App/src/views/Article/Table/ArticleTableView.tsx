@@ -155,14 +155,17 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
   );
 
   return (
-    <TableControl
-      className={styles.root}
-      controlColumns={controlColumns}
-      controlRows={controlRows}
-      controlPagination={controlPagination}
-      getRowKey={getRowKey}
-      loading={loading}
-      onChange={onTableChange}
-    />
+    <div className={styles.root}>
+      <h2>@@Articles</h2>
+      <TableControl
+        className={styles.root}
+        controlColumns={controlColumns}
+        controlRows={controlRows}
+        controlPagination={controlPagination}
+        getRowKey={getRowKey}
+        loading={loading}
+        onChange={onTableChange}
+      />
+    </div>
   )
 });

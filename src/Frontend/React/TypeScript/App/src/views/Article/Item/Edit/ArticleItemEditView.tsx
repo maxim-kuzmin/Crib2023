@@ -9,8 +9,10 @@ import {
   FormControlFieldType,
   type ArticleItemEditViewProps
 } from '../../../../all';
+import styles from './ArticleItemEditView.module.css';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(function ArticleItemEditView ({
+  articleId,
   loading,
   response,
   topicId
@@ -23,8 +25,6 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
   );
 
   const { fieldNameForBody, fieldNameForId, fieldNameForTitle } = getModule().getArticleItemEditViewService();
-
-  const articleId = entity?.id ?? 0;
 
   const controlActions = useMemo(
     () => {
@@ -106,15 +106,20 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
   );
 
   return (
-    loading
-      ? <SpinnerControl/>
-      : <FormControl
-          controlActions={controlActions}
-          controlFields={controlFields}
-          formValues={formValues}
-          name="article"
-          onSubmitFailed={onSubmitFailed}
-          onSubmitSuccess={onSubmitSuccess}
-        />
+    <div className={styles.root}>
+      <h2>{ articleId > 0 ? '@@ArticleEdit' : '@@ArticleNew' }</h2>
+      {
+        loading
+          ? <SpinnerControl/>
+          : <FormControl
+              controlActions={controlActions}
+              controlFields={controlFields}
+              formValues={formValues}
+              name="article"
+              onSubmitFailed={onSubmitFailed}
+              onSubmitSuccess={onSubmitSuccess}
+            />
+      }
+    </div>
   );
 });

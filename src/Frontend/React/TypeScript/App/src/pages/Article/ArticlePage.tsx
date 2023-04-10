@@ -95,6 +95,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(function ArticlePage
           response={articleItemResoponse}
         />
       : <ArticleItemEditView
+          articleId={articleId}
           loading={articleItemLoading}
           response={articleItemResoponse}
           topicId={topicId}

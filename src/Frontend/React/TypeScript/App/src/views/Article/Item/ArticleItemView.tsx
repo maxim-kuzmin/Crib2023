@@ -7,7 +7,8 @@ import {
   type CardControlAction,
   type CardControlExtra,
   getModule,
-  ArticlePageMode
+  ArticlePageMode,
+  CardControlType
 } from '../../../all';
 import styles from './ArticleItemView.module.css';
 
@@ -52,6 +53,7 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(function Art
 
   return (
     <div className={styles.root}>
+      <h2>@@Article</h2>
       {
         data
           ? <CardControl
@@ -59,6 +61,7 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(function Art
               controlExtra={controlExtra}
               loading={loading}
               title={data.title}
+              type={CardControlType.Main}
             >
                 { data.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
             </CardControl>

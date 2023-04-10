@@ -1,7 +1,7 @@
 import React, { useMemo, type ReactNode, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card } from 'antd';
-import { type CardControlExtra, type CardControlAction, type CardControlProps } from '../../all';
+import { type CardControlExtra, type CardControlAction, type CardControlProps, CardControlType } from '../../all';
 
 function convertToActions (controlActions?: CardControlAction[]): ReactNode[] | undefined {
   return controlActions?.map((controlAction) => {
@@ -39,7 +39,8 @@ export const CardControl: React.FC<CardControlProps> = memo(function CardControl
   children,
   controlActions,
   controlExtra,
-  title
+  title,
+  type
 }: CardControlProps) {
   const actions = useMemo(
     () => convertToActions(controlActions),
@@ -51,8 +52,16 @@ export const CardControl: React.FC<CardControlProps> = memo(function CardControl
     [controlExtra]
   );
 
+  let titleMarkup: ReactNode = title;
+
+  if (type === CardControlType.Main) {
+    titleMarkup = (
+      <h1>{titleMarkup}</h1>
+    );
+  }
+
   return (
-    <Card title={title} extra={extra} actions={actions}>
+    <Card title={titleMarkup} extra={extra} actions={actions}>
       {children}
     </Card>
   );
