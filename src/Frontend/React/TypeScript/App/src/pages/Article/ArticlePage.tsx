@@ -88,17 +88,21 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(function ArticlePage
 
   const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
 
+  const topicPageLastUrl = getModule().getTopicPageService().lastUrl;
+
   return (
     mode === ArticlePageMode.Display
       ? <ArticleItemView
           loading={articleItemLoading}
           response={articleItemResoponse}
+          topicPageLastUrl={topicPageLastUrl}
         />
       : <ArticleItemEditView
           articleId={articleId}
           loading={articleItemLoading}
           response={articleItemResoponse}
           topicId={topicId}
+          topicPageLastUrl={topicPageLastUrl}
         />
   )
 });

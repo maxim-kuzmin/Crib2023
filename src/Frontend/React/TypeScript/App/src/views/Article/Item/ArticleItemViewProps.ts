@@ -4,4 +4,5 @@ import { type ArticleDomainItemGetOperationResponse } from '../../../all';
 export interface ArticleItemViewProps extends PropsWithChildren {
   loading: boolean;
   response: ArticleDomainItemGetOperationResponse | null;
+  topicPageLastUrl?: string;
 }

@@ -14,14 +14,16 @@ interface Options {
 }
 
 export class TopicPageServiceImpl implements TopicPageService {
-  private readonly tableControlService: TableControlService
+  private readonly tableControlService: TableControlService;
+
+  public lastUrl?: string;
 
   constructor (options: Options) {
     this.tableControlService = options.tableControlService;
   }
 
   createUrl (options?: TopicPageUrlOptions): string {
-    let result = '/topic';
+    let result = '/';
 
     let topicId = 0;
 
@@ -41,7 +43,7 @@ export class TopicPageServiceImpl implements TopicPageService {
     }
 
     if (topicId > 0) {
-      result += `/${topicId}`;
+      result += `topic/${topicId}`;
     }
 
     const searchParams = new URLSearchParams();

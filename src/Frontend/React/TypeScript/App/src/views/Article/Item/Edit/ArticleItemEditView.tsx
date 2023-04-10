@@ -15,7 +15,8 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
   articleId,
   loading,
   response,
-  topicId
+  topicId,
+  topicPageLastUrl
 }: ArticleItemEditViewProps) {
   const entity = response?.data?.item.data;
 
@@ -51,9 +52,20 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
         result.push(actionToDisplay);
       }
 
+      if (topicPageLastUrl) {
+        const actionToBackToList: FormControlAction = {
+          href: topicPageLastUrl,
+          key: 'goToList',
+          title: '@@BackToList',
+          type: FormControlActionType.None
+        };
+
+        result.push(actionToBackToList);
+      }
+
       return result;
     },
-    [articleId]
+    [articleId, topicPageLastUrl]
   );
 
   const controlFields = useMemo(

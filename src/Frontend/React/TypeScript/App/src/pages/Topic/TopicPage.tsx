@@ -27,7 +27,13 @@ export const TopicPage: React.FC = memo(function TopicPage () {
     topicId = 0;
   }
 
-  const { pageNumber, pageSize } = getModule().getTopicPageService().getUrlSearch(searchParams);
+  const topicPageService = getModule().getTopicPageService();
+
+  const topicPageSearch = topicPageService.getUrlSearch(searchParams);
+
+  const topicPageLastUrl = topicPageService.createUrl({ topicId, search: topicPageSearch });
+
+  const { pageNumber, pageSize } = topicPageSearch;
 
   const callbackOnArticleListLoad = useCallback((response: ArticleDomainListGetOperationResponse | null) => {
     console.log('MAKC:TopicPage:callbackOnArticleListLoad:response', response);
@@ -72,7 +78,14 @@ export const TopicPage: React.FC = memo(function TopicPage () {
     inputAtDispatch: inputAtDispatchToTopicItemLoad
   });
 
+  const callbackOnTopicItemClear = useCallback(() => {
+    console.log('MAKC:TopicPage:callbackOnTopicItemClear:topicPageLastUrl', topicPageLastUrl);
+
+    topicPageService.lastUrl = topicPageLastUrl;
+  }, [topicPageLastUrl, topicPageService]);
+
   topicItemStoreService.useDispatchToClear({
+    callback: callbackOnTopicItemClear,
     dispatchType: StoreDispatchType.Unmount
   });
 

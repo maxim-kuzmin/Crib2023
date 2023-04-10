@@ -14,7 +14,8 @@ import styles from './ArticleItemView.module.css';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(function ArticleItemView ({
   loading,
-  response
+  response,
+  topicPageLastUrl
 }: ArticleItemViewProps) {
   let item: ArticleDomainEntityForItem | null = null;
   let data: ArticleTypeEntity | null = null;
@@ -30,21 +31,37 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(function Art
 
   const controlActions: CardControlAction[] = useMemo(
     () => {
+      const result: CardControlAction[] = [];
+
+      if (topicPageLastUrl) {
+        const actionToBackToList: CardControlAction = {
+          href: topicPageLastUrl,
+          key: 'goToList',
+          title: '@@BackToList'
+        };
+
+        result.push(actionToBackToList);
+      }
+
+      const actionToEdit: CardControlAction = {
+        href: getModule().getArticlePageService().createUrl({ articleId: id, mode: ArticlePageMode.Edit }),
+        key: 'edit',
+        title: '@@Edit'
+      };
+
+      result.push(actionToEdit);
+
       const actionToDelete: CardControlAction = {
         onClick: () => { console.log('MAKC:ArticleItemView:delete', id) },
         key: 'delete',
         title: '@@Delete'
       };
 
-      const actionToEdit = {
-        href: getModule().getArticlePageService().createUrl({ articleId: id, mode: ArticlePageMode.Edit }),
-        key: 'edit',
-        title: '@@Edit'
-      };
+      result.push(actionToDelete);
 
-      return [actionToEdit, actionToDelete];
-},
-    [id]
+      return result;
+    },
+    [id, topicPageLastUrl]
   );
 
   const controlExtra: CardControlExtra = {
