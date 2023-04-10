@@ -17,16 +17,22 @@ function convertToFieldProps (controlField: FormControlField): FormItemProps<any
     className,
     key: key ?? name,
     label,
-    name,
-  }
+    name
+  };
 }
 
 function convertToFieldMarkup (controlField: FormControlField) {
   const props = convertToFieldProps(controlField);
 
-  const { type } = controlField;
+  const { children, type } = controlField;
 
   switch (type) {
+    case FormControlFieldType.Container:
+      return (
+        <Form.Item {...props}>
+          { children?.map((child) => convertToFieldMarkup(child)) }
+        </Form.Item>
+      );
     case FormControlFieldType.Readonly:
       return (
         <Form.Item {...props}>
@@ -78,7 +84,9 @@ export const FormControl: React.FC<FormControlProps> = memo(function FormControl
   controlFields,
   formValues,
   keyForActions,
-  name
+  name,
+  onSubmitFailed,
+  onSubmitSuccess
 }: FormControlProps) {
   const [form] = Form.useForm();
 
@@ -91,6 +99,8 @@ export const FormControl: React.FC<FormControlProps> = memo(function FormControl
       name={name}
       labelCol={{ span: 2 }}
       wrapperCol={{ span: 22 }}
+      onFinish={onSubmitSuccess}
+      onFinishFailed={onSubmitFailed}
     >
       { controlFields?.map((controlField) => convertToFieldMarkup(controlField)) }
       {

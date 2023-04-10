@@ -9,4 +9,6 @@ export interface FormControlProps {
   formValues?: any;
   keyForActions?: Key;
   name?: string;
+  onSubmitFailed?: (error: any) => void;
+  onSubmitSuccess?: (values: any) => void;
 }

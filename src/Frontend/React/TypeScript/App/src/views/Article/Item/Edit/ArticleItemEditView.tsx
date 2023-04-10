@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import {
   FormControl,
@@ -23,7 +23,7 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
 
   const { fieldNameForBody, fieldNameForId, fieldNameForTitle } = getModule().getArticleItemEditViewService();
 
-  const articleId = entity?.id;
+  const articleId = entity?.id ?? 0;
 
   const controlActions = useMemo(
     () => {
@@ -49,11 +49,25 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
 
   const controlFields = useMemo(
     () => {
-      const fieldForId: FormControlField = {
-        label: '@@ID',
-        name: fieldNameForId,
-        type: FormControlFieldType.Readonly
+      const result: FormControlField[] = [];
+
+      if (articleId > 0) {
+        const fieldForId: FormControlField = {
+          label: '@@ID',
+          name: fieldNameForId,
+          type: FormControlFieldType.Readonly
+        };
+
+        result.push(fieldForId);
+      }
+
+      const fieldForTitle: FormControlField = {
+        name: fieldNameForTitle,
+        label: '@@Title',
+        type: FormControlFieldType.TextInput
       };
+
+      result.push(fieldForTitle);
 
       const fieldForBody: FormControlField = {
         label: '@@Body',
@@ -61,15 +75,25 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
         type: FormControlFieldType.TextArea
       };
 
-      const fieldForTitle: FormControlField = {
-        label: '@@Title',
-        name: fieldNameForTitle,
-        type: FormControlFieldType.TextInput
-      };
+      result.push(fieldForBody);
 
-      return [fieldForId, fieldForTitle, fieldForBody];
+      return result;
     },
-    [fieldNameForBody, fieldNameForId, fieldNameForTitle]
+    [articleId, fieldNameForBody, fieldNameForId, fieldNameForTitle]
+  );
+
+  const onSubmitFailed = useCallback(
+    (error: any) => {
+      console.log('MAKC:onSubmitFailed:error', error);
+    },
+    []
+  );
+
+  const onSubmitSuccess = useCallback(
+    (values: any) => {
+      console.log('MAKC:onSubmitSuccess:values', values);
+    },
+    []
   );
 
   return (
@@ -79,6 +103,8 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
           controlFields={controlFields}
           formValues={formValues}
           name="article"
+          onSubmitFailed={onSubmitFailed}
+          onSubmitSuccess={onSubmitSuccess}
         />
       : <SpinnerControl/>
   );
