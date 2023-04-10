@@ -23,17 +23,28 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
 
   const { fieldNameForBody, fieldNameForId, fieldNameForTitle } = getModule().getArticleItemEditViewService();
 
+  const articleId = entity?.id;
+
   const controlActions = useMemo(
     () => {
+      const articlePageService = getModule().getArticlePageService();
+
+      const actionToDisplay: FormControlAction = {
+        href: articlePageService.createUrl({ articleId }),
+        key: 'display',
+        title: '@@Display',
+        type: FormControlActionType.None
+      };
+
       const actionToSave: FormControlAction = {
         key: 'save',
         title: '@@Save',
         type: FormControlActionType.Submit
       };
 
-      return [actionToSave];
+      return [actionToSave, actionToDisplay];
     },
-    []
+    [articleId]
   );
 
   const controlFields = useMemo(

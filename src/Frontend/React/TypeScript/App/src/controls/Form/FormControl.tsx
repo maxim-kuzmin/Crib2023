@@ -8,6 +8,7 @@ import {
   FormControlFieldType,
   type FormControlProps
 } from '../../all';
+import styles from './FormControl.module.css';
 
 function convertToFieldProps (controlField: FormControlField): FormItemProps<any> & Attributes {
   const { className, key, label, name } = controlField;
@@ -21,26 +22,26 @@ function convertToFieldProps (controlField: FormControlField): FormItemProps<any
 }
 
 function convertToFieldMarkup (controlField: FormControlField) {
-  const fieldProps = convertToFieldProps(controlField);
+  const props = convertToFieldProps(controlField);
 
   const { type } = controlField;
 
   switch (type) {
     case FormControlFieldType.Readonly:
       return (
-        <Form.Item {...fieldProps}>
+        <Form.Item {...props}>
           <Input readOnly/>
         </Form.Item>
       );
     case FormControlFieldType.TextInput:
       return (
-        <Form.Item {...fieldProps}>
+        <Form.Item {...props}>
           <Input/>
         </Form.Item>
       );
     case FormControlFieldType.TextArea:
       return (
-        <Form.Item {...fieldProps}>
+        <Form.Item {...props}>
           <Input.TextArea autoSize />
         </Form.Item>
       );
@@ -49,16 +50,23 @@ function convertToFieldMarkup (controlField: FormControlField) {
   }
 }
 
-function convertToActionMarkup (controlAction: FormControlAction) {
+function convertToActionMarkup (controlAction: FormControlAction, isLast: boolean) {
   const { className, href, key, onClick, title, type } = controlAction;
 
-  const props = { className, key };
+  const props = {
+    className: isLast
+      ? className
+      : (
+          (className ?? '') + styles.action
+        ),
+    key
+  };
 
   return href
     ? <Link to={href} {...props}>{title}</Link>
     : (
         onClick
-          ? <Button onClick={onClick} {...props}>{title}</Button>
+          ? <Button htmlType="button" onClick={onClick} {...props}>{title}</Button>
           : (
               type === FormControlActionType.Submit
                 ? <Button htmlType="submit" {...props}>{title}</Button>
@@ -69,22 +77,44 @@ function convertToActionMarkup (controlAction: FormControlAction) {
 
 export const FormControl: React.FC<FormControlProps> = memo(function FormControl ({
   className,
+  classNameForActions,
   controlActions,
   controlFields,
   formValues,
+  keyForActions,
   name
 }: FormControlProps) {
   const [form] = Form.useForm();
 
   return (
     <Form
+      autoComplete="off"
       className={className}
       form={form}
       initialValues={formValues}
       name={name}
+      labelCol={{ span: 2 }}
+      wrapperCol={{ span: 22 }}
     >
       { controlFields?.map((controlField) => convertToFieldMarkup(controlField)) }
-      { controlActions?.map((controlAction) => convertToActionMarkup(controlAction)) }
+      {
+        controlActions
+          ? (
+              <Form.Item
+                className={classNameForActions}
+                key={keyForActions ?? 'actions'}
+                wrapperCol={{ offset: 2, span: 22 }}
+              >
+                {
+                  controlActions.map((controlAction, index) => convertToActionMarkup(
+                    controlAction,
+                    index === controlActions.length - 1
+                  ))
+                }
+              </Form.Item>
+            )
+          : null
+      }
     </Form>
   );
 });
