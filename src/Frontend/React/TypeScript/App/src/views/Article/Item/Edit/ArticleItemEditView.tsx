@@ -11,8 +11,9 @@ import {
 } from '../../../../all';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(function ArticleItemEditView ({
-  topicId,
-  response
+  loading,
+  response,
+  topicId
 }: ArticleItemEditViewProps) {
   const entity = response?.data?.item.data;
 
@@ -27,14 +28,9 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
 
   const controlActions = useMemo(
     () => {
-      const articlePageService = getModule().getArticlePageService();
+      const result: FormControlAction[] = [];
 
-      const actionToDisplay: FormControlAction = {
-        href: articlePageService.createUrl({ articleId }),
-        key: 'display',
-        title: '@@Display',
-        type: FormControlActionType.None
-      };
+      const articlePageService = getModule().getArticlePageService();
 
       const actionToSave: FormControlAction = {
         key: 'save',
@@ -42,7 +38,20 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
         type: FormControlActionType.Submit
       };
 
-      return [actionToSave, actionToDisplay];
+      result.push(actionToSave);
+
+      if (articleId > 0) {
+        const actionToDisplay: FormControlAction = {
+          href: articlePageService.createUrl({ articleId }),
+          key: 'display',
+          title: '@@Display',
+          type: FormControlActionType.None
+        };
+
+        result.push(actionToDisplay);
+      }
+
+      return result;
     },
     [articleId]
   );
@@ -97,8 +106,9 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
   );
 
   return (
-    entity
-      ? <FormControl
+    loading
+      ? <SpinnerControl/>
+      : <FormControl
           controlActions={controlActions}
           controlFields={controlFields}
           formValues={formValues}
@@ -106,6 +116,5 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(func
           onSubmitFailed={onSubmitFailed}
           onSubmitSuccess={onSubmitSuccess}
         />
-      : <SpinnerControl/>
   );
 });
