@@ -23,7 +23,7 @@ function getRowKey (row: any): Key {
 
 export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function ArticleTableView ({
   loading,
-  onTableChangeCallback,
+  onTableChange,
   pageNumber,
   pageSize,
   response,
@@ -160,9 +160,9 @@ export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function A
       controlColumns={controlColumns}
       controlRows={controlRows}
       controlPagination={controlPagination}
-      getRowKeyCallback={getRowKey}
+      getRowKey={getRowKey}
       loading={loading}
-      onChangeCallback={onTableChangeCallback}
+      onChange={onTableChange}
     />
   )
 });

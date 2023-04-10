@@ -6,7 +6,7 @@ import {
 
 export interface ArticleTableViewProps extends PropsWithChildren {
   loading: boolean;
-  onTableChangeCallback: (pagination: TableControlPagination) => void;
+  onTableChange: (pagination: TableControlPagination) => void;
   pageNumber: number;
   pageSize: number;
   response: ArticleDomainListGetOperationResponse | null;

@@ -72,7 +72,7 @@ function updateTreeData (list: DataNode[], key: Key, children: DataNode[]): Data
 
 export const TreeControl: React.FC<TreeControlProps> = memo(function TreeControl ({
   controlNodes,
-  getChildrenCallback
+  getChildren
 }: TreeControlProps) {
   const { initTreeData, defaultExpandedKeys, defaultSelectedKeys } = useMemo(
     () => convertToData(controlNodes),
@@ -86,7 +86,7 @@ export const TreeControl: React.FC<TreeControlProps> = memo(function TreeControl
       return;
     }
 
-    const nodes = await getChildrenCallback(key);
+    const nodes = await getChildren(key);
 
     const { initTreeData } = convertToData(nodes);
 

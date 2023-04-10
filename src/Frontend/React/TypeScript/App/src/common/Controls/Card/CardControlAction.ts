@@ -4,6 +4,6 @@ export interface CardControlAction {
   className?: string;
   href?: string;
   key: Key;
-  onClickCallback?: () => void;
+  onClick?: () => void;
   title: string;
 }

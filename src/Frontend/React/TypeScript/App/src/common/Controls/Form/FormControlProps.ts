@@ -1,6 +1,9 @@
-import { type PropsWithChildren } from 'react';
+import { type FormControlAction, type FormControlField } from '../../../all';
 
-export interface FormControlProps extends PropsWithChildren {
+export interface FormControlProps {
   className?: string;
-  formValues: any;
+  controlActions?: FormControlAction[];
+  controlFields?: FormControlField[];
+  formValues?: any;
+  name?: string;
 }

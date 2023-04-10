@@ -67,8 +67,8 @@ export const TableControl: React.FC<TableControlProps> = memo(function TableCont
   controlColumns,
   controlPagination,
   controlRows,
-  getRowKeyCallback,
-  onChangeCallback,
+  getRowKey,
+  onChange,
   loading
 }: TableControlProps) {
   const columns = useMemo(
@@ -99,7 +99,7 @@ export const TableControl: React.FC<TableControlProps> = memo(function TableCont
   ) {
     console.log('MAKC:TableControl:handleTableChange:pagination', pagination);
 
-    onChangeCallback({
+    onChange({
       pageNumber: pagination.current ?? 1,
       pageSize: pagination.pageSize ?? 10,
       totalCount: pagination.total ?? 0
@@ -115,7 +115,7 @@ export const TableControl: React.FC<TableControlProps> = memo(function TableCont
     <Table
       className={className}
       columns={columns}
-      rowKey={getRowKeyCallback}
+      rowKey={getRowKey}
       dataSource={controlRows}
       onChange={handleTableChange}
       pagination={pagination}

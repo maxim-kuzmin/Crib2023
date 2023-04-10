@@ -6,7 +6,7 @@ export interface TableControlProps {
   controlColumns: TableControlColumn[];
   controlPagination: TableControlPagination;
   controlRows: any[];
-  getRowKeyCallback: (row: any) => Key;
-  onChangeCallback: (pagination: TableControlPagination) => void;
+  getRowKey: (row: any) => Key;
+  onChange: (pagination: TableControlPagination) => void;
   loading: boolean;
 }

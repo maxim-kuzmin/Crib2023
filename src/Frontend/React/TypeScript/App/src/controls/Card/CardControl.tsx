@@ -5,13 +5,13 @@ import { type CardControlExtra, type CardControlAction, type CardControlProps } 
 
 function convertToActions (controlActions?: CardControlAction[]): ReactNode[] | undefined {
   return controlActions?.map((controlAction) => {
-    const { className, href, key, onClickCallback, title } = controlAction;
+    const { className, href, key, onClick, title } = controlAction;
 
     return href
       ? <Link className={className} to={href} key={key}>{title}</Link>
       : (
-          onClickCallback
-            ? <Button className={className} onClick={onClickCallback}>{title}</Button>
+          onClick
+            ? <Button className={className} onClick={onClick}>{title}</Button>
             : (
                 className
                   ? <span className={className}>{ title }</span>

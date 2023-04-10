@@ -86,7 +86,7 @@ export const TopicTreeView: React.FC = memo(function TopicTreeView () {
 
   const requestHandler = useRef(getModule().useTopicDomainTreeGetOperationRequestHandler()).current;
 
-  const getChildrenCallback = useCallback(async (key: string) => {
+  const getChildren = useCallback(async (key: string) => {
     const response = await requestHandler.handle(
       createTopicDomainTreeGetOperationRequest({
         ...topicInput,
@@ -103,7 +103,7 @@ export const TopicTreeView: React.FC = memo(function TopicTreeView () {
       {
         topicTreeStatus === OperationStatus.Pending
           ? <SpinnerControl/>
-          : <TreeControl controlNodes={controlNodes} getChildrenCallback={getChildrenCallback} />
+          : <TreeControl controlNodes={controlNodes} getChildren={getChildren} />
       }
     </div>
   );

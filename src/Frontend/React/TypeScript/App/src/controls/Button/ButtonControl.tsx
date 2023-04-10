@@ -5,14 +5,14 @@ import { type ButtonControlProps } from '../../all';
 export const ButtonControl: React.FC<ButtonControlProps> = memo(function ButtonControl ({
   children,
   className,
-  onClickCallback,
+  onClick,
   title
 }: ButtonControlProps) {
   return (
     <Button
       className={className}
       title={title}
-      onClick={onClickCallback}
+      onClick={onClick}
     >
         {children}
     </Button>

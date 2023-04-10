@@ -76,7 +76,7 @@ export const TopicPage: React.FC = memo(function TopicPage () {
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const onTableChangeCallback = useCallback((pagination: TableControlPagination) => {
+  const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;
 
     getModule().getTopicPageService().updateURLSearchParams(searchParams, {
@@ -93,7 +93,7 @@ export const TopicPage: React.FC = memo(function TopicPage () {
     <ArticleTableView
       loading={articleListLoading}
       response={articleListResponse}
-      onTableChangeCallback={onTableChangeCallback}
+      onTableChange={onTableChange}
       pageNumber={pageNumber}
       pageSize={pageSize}
       topicId={topicId}
