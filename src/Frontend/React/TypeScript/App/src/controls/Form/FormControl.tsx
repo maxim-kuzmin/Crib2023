@@ -54,11 +54,7 @@ function convertToActionMarkup (controlAction: FormControlAction, isLast: boolea
   const { className, href, key, onClick, title, type } = controlAction;
 
   const props = {
-    className: isLast
-      ? className
-      : (
-          (className ?? '') + styles.action
-        ),
+    className: isLast ? className : `${(className ?? '')} ${styles.action}`,
     key
   };
 
