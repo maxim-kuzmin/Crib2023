@@ -24,7 +24,10 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
 
   const articleItemStoreHooks = getModule().getArticleItemStoreHooks();
 
-  const { response: articleItemResponse, status: articleItemStatus } = articleItemStoreHooks.useState();
+  const {
+    payloadFromSetAction: articleItemResponse,
+    status: articleItemStatus
+  } = articleItemStoreHooks.useState();
 
   let topicId = articleItemResponse?.data?.item?.data.topicId ?? 0;
 

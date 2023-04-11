@@ -19,7 +19,7 @@ const DispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
 const StateContext = createContext<State | null>(null);
 
 const initialState: State = {
-  data: null
+  payloadFromSetAction: null
 };
 
 function reducer (state: State, action: ActionUnion): State {
@@ -30,7 +30,7 @@ function reducer (state: State, action: ActionUnion): State {
     case AppNotificationStoreActionType.Set: {
       return {
         ...state,
-        data: action.payload
+        payloadFromSetAction: action.payload
       };
     }
   }

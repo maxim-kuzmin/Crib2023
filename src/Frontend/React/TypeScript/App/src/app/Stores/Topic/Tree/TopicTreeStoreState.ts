@@ -5,6 +5,6 @@ import {
 } from '../../../../all';
 
 export interface TopicTreeStoreState extends OperationState {
-  input: TopicTreeStoreLoadActionPayload;
-  response: TopicTreeStoreSetActionPayload;
+  payloadFromLoadAction: TopicTreeStoreLoadActionPayload;
+  payloadFromSetAction: TopicTreeStoreSetActionPayload;
 }

@@ -33,14 +33,14 @@ function reducer (state: State, action: ActionUnion): State {
     case TopicTreeStoreActionType.Load: {
       return {
         ...state,
-        input: action.payload,
+        payloadFromLoadAction: action.payload,
         status: OperationStatus.Pending
       };
     }
     case TopicTreeStoreActionType.Set: {
       return {
         ...state,
-        response: action.payload,
+        payloadFromSetAction: action.payload,
         status: OperationStatus.Fulfilled
       };
     }

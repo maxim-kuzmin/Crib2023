@@ -5,6 +5,6 @@ import {
 } from '../../../../all';
 
 export interface ArticleItemStoreState extends OperationState {
-  input: ArticleItemStoreLoadActionPayload;
-  response: ArticleItemStoreSetActionPayload;
+  payloadFromLoadAction: ArticleItemStoreLoadActionPayload;
+  payloadFromSetAction: ArticleItemStoreSetActionPayload;
 }

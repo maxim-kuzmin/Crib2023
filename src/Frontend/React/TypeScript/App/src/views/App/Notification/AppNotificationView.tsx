@@ -9,7 +9,7 @@ export const AppNotificationView: React.FC = memo(
 
   const appNotificationStoreHooks = getModule().getAppNotificationStoreHooks();
 
-  const { data } = appNotificationStoreHooks.useState();
+  const { payloadFromSetAction: data } = appNotificationStoreHooks.useState();
 
   const callback = useCallback(() => {
     if (data) {

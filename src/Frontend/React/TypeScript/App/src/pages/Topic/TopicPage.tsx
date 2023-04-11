@@ -20,7 +20,7 @@ export const TopicPage: React.FC = memo(
 
   const articleListStoreHooks = getModule().getArticleListStoreHooks();
 
-  const { response: articleListResponse, status: articleListStatus } = articleListStoreHooks.useState();
+  const { payloadFromSetAction: articleListResponse, status: articleListStatus } = articleListStoreHooks.useState();
 
   let topicId = Number(urlParams.topicId ?? 0);
 
