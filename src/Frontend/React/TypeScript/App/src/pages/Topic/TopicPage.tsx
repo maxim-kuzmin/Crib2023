@@ -18,9 +18,9 @@ export const TopicPage: React.FC = memo(
   const urlParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const articleListStoreService = getModule().getArticleListStoreService();
+  const articleListStoreHooks = getModule().getArticleListStoreHooks();
 
-  const { response: articleListResponse, status: articleListStatus } = articleListStoreService.useState();
+  const { response: articleListResponse, status: articleListStatus } = articleListStoreHooks.useState();
 
   let topicId = Number(urlParams.topicId ?? 0);
 
@@ -49,13 +49,13 @@ export const TopicPage: React.FC = memo(
     [pageNumber, pageSize, topicId]
   );
 
-  articleListStoreService.useDispatchToLoad({
+  articleListStoreHooks.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleListLoad,
     inputAtDispatch: inputAtDispatchToArticleListLoad
   });
 
-  articleListStoreService.useDispatchToClear({
+  articleListStoreHooks.useDispatchToClear({
     dispatchType: StoreDispatchType.Unmount
   });
 

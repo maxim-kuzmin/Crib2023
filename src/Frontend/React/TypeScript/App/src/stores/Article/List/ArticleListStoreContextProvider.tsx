@@ -7,15 +7,15 @@ import React, {
   useReducer
 } from 'react';
 import {
-  ArticleItemStoreActionType,
-  type ArticleItemStoreActionUnion,
-  type ArticleItemStoreState,
+  ArticleListStoreActionType,
+  type ArticleListStoreActionUnion,
+  type ArticleListStoreState,
   OperationStatus,
   createOperationState
-} from '../../../../all';
+} from '../../../all';
 
-type ActionUnion = ArticleItemStoreActionUnion;
-type State = ArticleItemStoreState;
+type ActionUnion = ArticleListStoreActionUnion;
+type State = ArticleListStoreState;
 
 const DispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
 const StateContext = createContext<State | null>(null);
@@ -27,17 +27,17 @@ const initialState = createOperationState<State>({
 
 function reducer (state: State, action: ActionUnion): State {
   switch (action.type) {
-    case ArticleItemStoreActionType.Clear: {
+    case ArticleListStoreActionType.Clear: {
       return initialState;
     }
-    case ArticleItemStoreActionType.Load: {
+    case ArticleListStoreActionType.Load: {
       return {
         ...state,
         input: action.payload,
         status: OperationStatus.Pending
       };
     }
-    case ArticleItemStoreActionType.Set: {
+    case ArticleListStoreActionType.Set: {
       return {
         ...state,
         response: action.payload,
@@ -47,8 +47,8 @@ function reducer (state: State, action: ActionUnion): State {
   }
 }
 
-export const ArticleItemStoreContextProvider: React.FC<PropsWithChildren> = memo(
-    function ArticleItemStoreContextProvider ({
+export const ArticleListStoreContextProvider: React.FC<PropsWithChildren> = memo(
+    function ArticleListStoreContextProvider ({
       children
     }: PropsWithChildren) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -62,10 +62,10 @@ export const ArticleItemStoreContextProvider: React.FC<PropsWithChildren> = memo
   );
 });
 
-export function useArticleItemStoreStateContext () {
+export function useArticleListStoreStateContext () {
   return useContext(StateContext)!;
 }
 
-export function useArticleItemStoreDispatchContext () {
+export function useArticleListStoreDispatchContext () {
   return useContext(DispatchContext)!;
 }

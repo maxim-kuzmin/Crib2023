@@ -2,7 +2,7 @@ import {
   type ArticleItemStoreClearAction,
   type ArticleItemStoreLoadAction,
   type ArticleItemStoreSetAction,
-} from '../../../../all';
+} from '../../../all';
 
 export type ArticleItemStoreActionUnion =
   | ArticleItemStoreClearAction

@@ -1,8 +1,8 @@
 import {
   type AppNotificationStoreService,
   creareAppNotificationStoreService,
-  type ArticleListStoreService,
-  createArticleListStoreService,
+  type ArticleListStoreHooks,
+  createArticleListStoreHooks,
   type NotificationControlService,
   createNotificationControlService,
   type TopicItemStoreService,
@@ -91,8 +91,8 @@ export class ModuleImpl implements Module {
   private readonly articleItemStoreHooks: ArticleItemStoreHooks = createArticleItemStoreHooks();
   getArticleItemStoreHooks = () => this.articleItemStoreHooks;
 
-  private readonly articleListStoreService: ArticleListStoreService = createArticleListStoreService();
-  getArticleListStoreService = () => this.articleListStoreService;
+  private readonly articleListStoreHooks: ArticleListStoreHooks = createArticleListStoreHooks();
+  getArticleListStoreHooks = () => this.articleListStoreHooks;
 
   private readonly topicItemStoreService: TopicItemStoreService = createTopicItemStoreService();
   getTopicItemStoreService = () => this.topicItemStoreService;

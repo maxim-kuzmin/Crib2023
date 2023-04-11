@@ -1,6 +1,6 @@
 import {
   type AppNotificationStoreService,
-  type ArticleListStoreService,
+  type ArticleListStoreHooks,
   type TopicItemStoreService,
   type TopicTreeStoreService,
   type NotificationControlService,
@@ -25,7 +25,7 @@ export interface Module {
   readonly getAppNotificationStoreService: () => AppNotificationStoreService;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
   readonly getArticleItemStoreHooks: () => ArticleItemStoreHooks;
-  readonly getArticleListStoreService: () => ArticleListStoreService;
+  readonly getArticleListStoreHooks: () => ArticleListStoreHooks;
   readonly getArticlePageService: () => ArticlePageService;
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
   readonly getTestService: () => TestService;
