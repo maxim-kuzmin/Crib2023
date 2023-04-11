@@ -1,6 +1,6 @@
 import {
-  type AppNotificationStoreService,
-  creareAppNotificationStoreService,
+  type AppNotificationStoreHooks,
+  createAppNotificationStoreHooks,
   type ArticleListStoreHooks,
   createArticleListStoreHooks,
   type NotificationControlService,
@@ -76,8 +76,8 @@ export class ModuleImpl implements Module {
   private readonly testService: TestService = new TestServiceImpl();
   getTestService = () => this.testService;
 
-  private readonly appNotificationStoreService: AppNotificationStoreService = creareAppNotificationStoreService();
-  getAppNotificationStoreService = () => this.appNotificationStoreService;
+  private readonly appNotificationStoreHooks: AppNotificationStoreHooks = createAppNotificationStoreHooks();
+  getAppNotificationStoreHooks = () => this.appNotificationStoreHooks;
 
   private readonly notificationControlService: NotificationControlService = createNotificationControlService();
   getNotificationControlService = () => this.notificationControlService;
@@ -189,7 +189,7 @@ export class ModuleImpl implements Module {
   private useOperationHandler (options: UseOperationHandlerOptions): OperationHandler {
     const { shouldBeLogged, shouldBeNotified } = options;
 
-    const service = this.getAppNotificationStoreService();
+    const service = this.getAppNotificationStoreHooks();
 
     const { run } = service.useDispatchToSet();
 

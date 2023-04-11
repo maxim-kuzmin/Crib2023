@@ -7,9 +7,9 @@ export const AppNotificationView: React.FC = memo(
 
   const component = notificationControlService.useComponent();
 
-  const appNotificationStoreService = getModule().getAppNotificationStoreService();
+  const appNotificationStoreHooks = getModule().getAppNotificationStoreHooks();
 
-  const { data } = appNotificationStoreService.useState();
+  const { data } = appNotificationStoreHooks.useState();
 
   const callback = useCallback(() => {
     if (data) {
@@ -17,7 +17,7 @@ export const AppNotificationView: React.FC = memo(
     }
   }, [component, data]);
 
-  appNotificationStoreService.useDispatchToClear({
+  appNotificationStoreHooks.useDispatchToClear({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback
   });
