@@ -106,12 +106,12 @@ function runDispatchToClear (
 function runDispatchToSet (
   dispatch: Dispatch<ActionUnion>,
   callback: SetActionCallback | null,
-  response: SetActionPayload
+  payload: SetActionPayload
 ) {
-  dispatch(createSetAction(response));
+  dispatch(createSetAction(payload));
 
   if (callback) {
-    callback(response);
+    callback(payload);
   }
 }
 
@@ -120,16 +120,16 @@ async function runDispatchToLoad (
   dispatch: Dispatch<ActionUnion>,
   callback: SetActionCallback | null,
   shouldBeCanceled: ShouldBeCanceled,
-  input: LoadActionPayload
+  payload: LoadActionPayload
 ) {
   if (shouldBeCanceled()) {
     return;
   }
 
-  dispatch(createLoadAction(input));
+  dispatch(createLoadAction(payload));
 
-  const response = input
-    ? await requestHandler.handle(createGetOperationRequest(input), shouldBeCanceled)
+  const response = payload
+    ? await requestHandler.handle(createGetOperationRequest(payload), shouldBeCanceled)
     : null;
 
   if (shouldBeCanceled()) {
@@ -201,8 +201,8 @@ function useDispatchToLoad (options?: LoadActionOptions): LoadActionDispatch {
   ]);
 
   return useRef({
-    run: async (input: LoadActionPayload, shouldBeCanceled: ShouldBeCanceled = () => false) => {
-      runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceled, input)
+    run: async (payload: LoadActionPayload, shouldBeCanceled: ShouldBeCanceled = () => false) => {
+      runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceled, payload)
     }
   }).current;
 }
@@ -231,8 +231,8 @@ function useDispatchToSet ({
   }, [dispatch, dispatchType, callbackInner, payloadInner]);
 
   return useRef({
-    run: (response: SetActionPayload) => {
-      runDispatchToSet(dispatch, callbackInner, response);
+    run: (payload: SetActionPayload) => {
+      runDispatchToSet(dispatch, callbackInner, payload);
     }
   }).current;
 }

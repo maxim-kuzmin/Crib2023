@@ -1,5 +1,5 @@
 import { type TopicTreeStoreLoadActionPayload, type ShouldBeCanceled } from '../../../../../../all';
 
 export interface TopicTreeStoreLoadActionDispatch {
-  run: (input: TopicTreeStoreLoadActionPayload, shouldBeCanceled: ShouldBeCanceled) => void;
+  run: (payload: TopicTreeStoreLoadActionPayload, shouldBeCanceled: ShouldBeCanceled) => void;
 }
