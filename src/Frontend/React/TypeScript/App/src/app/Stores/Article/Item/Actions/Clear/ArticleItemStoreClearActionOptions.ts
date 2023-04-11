@@ -1,5 +1,5 @@
-import { type ArticleItemStoreClearActionCallback, type StoreDispatchOptions } from '../../../../../../all';
+import { type ArticleItemStoreClearActionCallback, type StoreActionOptions } from '../../../../../../all';
 
-export interface ArticleItemStoreClearActionOptions extends StoreDispatchOptions {
+export interface ArticleItemStoreClearActionOptions extends StoreActionOptions {
   callback?: ArticleItemStoreClearActionCallback;
 }

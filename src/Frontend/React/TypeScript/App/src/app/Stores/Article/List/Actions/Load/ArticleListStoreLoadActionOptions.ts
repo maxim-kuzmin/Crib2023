@@ -1,10 +1,10 @@
 import {
   type ArticleListStoreLoadActionPayload,
   type ArticleListStoreSetActionCallback,
-  type StoreDispatchOptions
+  type StoreActionOptions
 } from '../../../../../../all';
 
-export interface ArticleListStoreLoadActionOptions extends StoreDispatchOptions {
+export interface ArticleListStoreLoadActionOptions extends StoreActionOptions {
   callback?: ArticleListStoreSetActionCallback;
   inputAtDispatch: ArticleListStoreLoadActionPayload;
 }

@@ -2,7 +2,7 @@ import { useContext, createContext, type Dispatch, useEffect, useRef, type Conte
 import {
   type NotificationData,
   StoreDispatchType,
-  type StoreDispatchOptions
+  type StoreActionOptions
 } from '../../../all';
 
 type Data = NotificationData | null;
@@ -75,7 +75,7 @@ function runDispatchToClear (
   }
 }
 
-interface DispatchOptionsToClear extends StoreDispatchOptions {
+interface DispatchOptionsToClear extends StoreActionOptions {
   callback?: CallbackToClear;
 }
 
@@ -129,7 +129,7 @@ function runDispatchToSet (
   }
 }
 
-interface DispatchOptionsToSet extends StoreDispatchOptions {
+interface DispatchOptionsToSet extends StoreActionOptions {
   callback?: CallbackToSet;
   dataAtDispatch?: NotificationData;
 }

@@ -3,7 +3,7 @@ import {
   createOperationState,
   StoreDispatchType,
   OperationStatus,
-  type StoreDispatchOptions,
+  type StoreActionOptions,
   type OperationState,
   type ArticleDomainListGetOperationInput,
   type ArticleDomainListGetOperationResponse,
@@ -102,7 +102,7 @@ function runDispatchToClear (
   }
 }
 
-interface DispatchOptionsToClear extends StoreDispatchOptions {
+interface DispatchOptionsToClear extends StoreActionOptions {
   callback?: CallbackToClear;
 }
 
@@ -188,7 +188,7 @@ async function runDispatchToLoad (
   runDispatchToSet(dispatch, callback, response);
 }
 
-interface DispatchOptionsToLoad extends StoreDispatchOptions {
+interface DispatchOptionsToLoad extends StoreActionOptions {
   callback?: CallbackToSet;
   inputAtDispatch: Input;
 }
@@ -238,7 +238,7 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
   }).current;
 }
 
-interface DispatchOptionsToSet extends StoreDispatchOptions {
+interface DispatchOptionsToSet extends StoreActionOptions {
   callback?: CallbackToSet;
   responseAtDispatch?: Response;
 }
