@@ -8,9 +8,9 @@ import {
   type ArticleDomainListGetOperationInput,
   TreeGetOperationAxisForItem,
   type TopicDomainItemGetOperationInput,
-  type TopicDomainItemGetOperationResponse,
   type TableControlPagination,
-  type ArticleListStoreSetActionPayload
+  type ArticleListStoreSetActionPayload,
+  type TopicItemStoreSetActionPayload
 } from '../../all';
 
 export const TopicPage: React.FC = memo(
@@ -61,8 +61,8 @@ export const TopicPage: React.FC = memo(
 
   const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
 
-  const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
-    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
+  const callbackOnTopicItemLoad = useCallback((payload: TopicItemStoreSetActionPayload) => {
+    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:payload', payload);
   }, []);
 
   const payloadToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(
