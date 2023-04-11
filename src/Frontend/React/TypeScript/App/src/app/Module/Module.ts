@@ -17,6 +17,7 @@ import {
   type TopicPageService,
   type ArticlePageService,
   type ArticleItemEditViewService,
+  type ArticleItemStoreHooks,
 } from '../../all';
 
 export interface Module {
@@ -24,6 +25,7 @@ export interface Module {
   readonly getTableControlService: () => TableControlService;
   readonly getAppNotificationStoreService: () => AppNotificationStoreService;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
+  readonly getArticleItemStoreHooks: () => ArticleItemStoreHooks;
   readonly getArticleItemStoreService: () => ArticleItemStoreService;
   readonly getArticleListStoreService: () => ArticleListStoreService;
   readonly getArticlePageService: () => ArticlePageService;

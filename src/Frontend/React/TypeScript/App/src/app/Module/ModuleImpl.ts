@@ -49,7 +49,9 @@ import {
   ArticleItemEditViewServiceImpl,
   type TableControlService,
   TableControlServiceImpl,
-  type Module
+  type Module,
+  type ArticleItemStoreHooks,
+  createArticleItemStoreHooks
 } from '../../all';
 
 interface UseOperationHandlerOptions {
@@ -87,6 +89,9 @@ export class ModuleImpl implements Module {
   });
 
   getTableControlService = () => this.tableControlService;
+
+  private readonly articleItemStoreHooks: ArticleItemStoreHooks = createArticleItemStoreHooks();
+  getArticleItemStoreHooks = () => this.articleItemStoreHooks;
 
   private readonly articleItemStoreService: ArticleItemStoreService = createArticleItemStoreService();
   getArticleItemStoreService = () => this.articleItemStoreService;

@@ -17,6 +17,7 @@ export * from './pages';
 export * from './reportWebVitals';
 export * from './stores';
 export * from './views';
+export * from './app/Stores';
 export * from './app/Test';
 export * from './app/Module';
 export * from './app/Context';

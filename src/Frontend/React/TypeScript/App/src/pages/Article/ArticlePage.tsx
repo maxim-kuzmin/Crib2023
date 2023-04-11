@@ -22,9 +22,9 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
   const urlParams = useParams();
   const [searchParams] = useSearchParams();
 
-  const articleItemStoreService = getModule().getArticleItemStoreService();
+  const articleItemStoreHooks = getModule().getArticleItemStoreHooks();
 
-  const { response: articleItemResoponse, status: articleItemStatus } = articleItemStoreService.useState();
+  const { response: articleItemResoponse, status: articleItemStatus } = articleItemStoreHooks.useState();
 
   let topicId = articleItemResoponse?.data?.item?.data.topicId ?? 0;
 
@@ -52,13 +52,13 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
     [articleId]
   );
 
-  articleItemStoreService.useDispatchToLoad({
+  articleItemStoreHooks.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleItemLoad,
     inputAtDispatch: inputAtDispatchToArticleItemLoad
   });
 
-  articleItemStoreService.useDispatchToClear({
+  articleItemStoreHooks.useDispatchToClear({
     dispatchType: StoreDispatchType.Unmount
   });
 

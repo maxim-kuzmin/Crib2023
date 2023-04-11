@@ -1,5 +1,6 @@
 export * from './Context';
 export {
   type ArticleItemStoreService,
+  createArticleItemStoreHooks,
   createArticleItemStoreService
-} from './ArticleItemStoreService';
+} from './ArticleItemStore';

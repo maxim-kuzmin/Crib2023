@@ -3,19 +3,35 @@ import {
   createOperationState,
   StoreDispatchType,
   OperationStatus,
-  type StoreDispatchOptions,
-  type OperationState,
-  type ArticleDomainItemGetOperationInput,
-  type ArticleDomainItemGetOperationResponse,
   getModule,
   type ArticleDomainItemGetOperationRequestHandler,
   createArticleDomainItemGetOperationRequest,
-  type ShouldBeCanceled
+  type ShouldBeCanceled,
+  type ArticleItemStoreHooks,
+  type ArticleItemStoreOptionsToLoad,
+  type ArticleItemStoreDispatchToLoad,
+  type ArticleItemStoreContentForResponse,
+  type ArticleItemStoreContentForInput,
+  type ArticleItemStoreState,
+  type ArticleItemStoreCallbackToClear,
+  type ArticleItemStoreOptionsToClear,
+  type ArticleItemStoreCallbackToSet,
+  type ArticleItemStoreOptionsToSet,
+  type ArticleItemStoreDispatchToSet,
+  type ArticleItemStoreDispatchToClear
 } from '../../../all';
 
-type Response = ArticleDomainItemGetOperationResponse | null;
-
-type Input = ArticleDomainItemGetOperationInput | null;
+type CallbackToClear = ArticleItemStoreCallbackToClear;
+type CallbackToSet = ArticleItemStoreCallbackToSet;
+type DispatchOptionsToClear = ArticleItemStoreOptionsToClear;
+type DispatchOptionsToLoad = ArticleItemStoreOptionsToLoad;
+type DispatchOptionsToSet = ArticleItemStoreOptionsToSet;
+type DispatchToClear = ArticleItemStoreDispatchToClear;
+type DispatchToLoad = ArticleItemStoreDispatchToLoad;
+type DispatchToSet = ArticleItemStoreDispatchToSet;
+type Input = ArticleItemStoreContentForInput;
+type Response = ArticleItemStoreContentForResponse;
+type State = ArticleItemStoreState;
 
 enum ActionType {
   Clear,
@@ -38,11 +54,6 @@ interface ActionToSet {
 }
 
 type Action = ActionToClear | ActionToLoad | ActionToSet;
-
-interface State extends OperationState {
-  response: Response;
-  input: Input;
-}
 
 const DispatchContext = createContext<Dispatch<Action> | null>(null);
 
@@ -85,8 +96,6 @@ function useDispatchContext () {
   return useContext(DispatchContext)!;
 }
 
-type CallbackToClear = () => void;
-
 function runDispatchToClear (
   dispatch: Dispatch<Action>,
   callback: CallbackToClear | null
@@ -100,14 +109,6 @@ function runDispatchToClear (
   if (callback) {
     callback();
   }
-}
-
-interface DispatchOptionsToClear extends StoreDispatchOptions {
-  callback?: CallbackToClear;
-}
-
-interface DispatchToClear {
-  run: () => void;
 }
 
 function useDispatchToClear ({
@@ -136,8 +137,6 @@ function useDispatchToClear ({
     }
   }).current;
 }
-
-type CallbackToSet = (response: Response) => void;
 
 function runDispatchToSet (
   dispatch: Dispatch<Action>,
@@ -188,15 +187,6 @@ async function runDispatchToLoad (
   runDispatchToSet(dispatch, callback, response);
 }
 
-interface DispatchOptionsToLoad extends StoreDispatchOptions {
-  callback?: CallbackToSet;
-  inputAtDispatch: Input;
-}
-
-interface DispatchToLoad {
-  run: (input: Input, shouldBeCanceled: ShouldBeCanceled) => void;
-}
-
 function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
   const dispatch = useDispatchContext();
 
@@ -238,15 +228,6 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
   }).current;
 }
 
-interface DispatchOptionsToSet extends StoreDispatchOptions {
-  callback?: CallbackToSet;
-  responseAtDispatch?: Response;
-}
-
-interface DispatchToSet {
-  run: (response: Response) => void;
-}
-
 function useDispatchToSet ({
   dispatchType,
   callback,
@@ -282,10 +263,6 @@ export interface ArticleItemStoreService {
   readonly StateContext: Context<State | null>;
   readonly initialState: State;
   readonly reducer: (state: State, action: Action) => State;
-  readonly useDispatchToClear: (options?: DispatchOptionsToClear) => DispatchToClear;
-  readonly useDispatchToLoad: (options?: DispatchOptionsToLoad) => DispatchToLoad;
-  readonly useDispatchToSet: (options?: DispatchOptionsToSet) => DispatchToSet;
-  readonly useState: () => State;
 }
 
 export function createArticleItemStoreService (): ArticleItemStoreService {
@@ -293,7 +270,12 @@ export function createArticleItemStoreService (): ArticleItemStoreService {
     DispatchContext,
     StateContext,
     initialState,
-    reducer,
+    reducer
+  };
+}
+
+export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
+  return {
     useDispatchToClear,
     useDispatchToLoad,
     useDispatchToSet,
