@@ -47,7 +47,10 @@ export const TopicTreeView: React.FC = memo(
     function TopicTreeView () {
   const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
 
-  const { payloadFromSetAction: topicItemResponse, status: topicItemStatus } = topicItemStoreHooks.useState();
+  const {
+    payloadFromSetAction: topicItemResponse,
+    status: topicItemStatus
+  } = topicItemStoreHooks.useState();
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
@@ -76,7 +79,10 @@ export const TopicTreeView: React.FC = memo(
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const { payloadFromSetAction: topicTreeResponse, status: topicTreeStatus } = topicTreeStoreHooks.useState();
+  const {
+    payloadFromSetAction: topicTreeResponse,
+    status: topicTreeStatus
+  } = topicTreeStoreHooks.useState();
 
   const entities = topicTreeResponse?.data?.nodes;
 
