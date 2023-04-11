@@ -6,5 +6,5 @@ import {
 
 export interface TopicTreeStoreSetActionOptions extends StoreActionOptions {
   callback?: TopicTreeStoreSetActionCallback;
-  responseAtDispatch?: TopicTreeStoreSetActionPayload;
+  payload?: TopicTreeStoreSetActionPayload;
 }

@@ -57,7 +57,7 @@ export const TopicTreeView: React.FC = memo(
     console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:response', response);
   }, []);
 
-  const inputAtDispatchToTopicTreeLoad: TopicDomainTreeGetOperationInput = useMemo(
+  const payloadToTopicTreeLoad: TopicDomainTreeGetOperationInput = useMemo(
     () => ({
       ...topicInput,
       expandedNodeId: topicId
@@ -69,7 +69,7 @@ export const TopicTreeView: React.FC = memo(
     dispatchType: StoreDispatchType.MountOrUpdate,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
     callback: callbackOnTopicTreeLoad,
-    inputAtDispatch: inputAtDispatchToTopicTreeLoad
+    payload: payloadToTopicTreeLoad
   });
 
   topicItemStoreService.useDispatchToClear({

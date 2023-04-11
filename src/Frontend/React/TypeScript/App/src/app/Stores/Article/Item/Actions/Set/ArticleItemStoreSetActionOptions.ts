@@ -6,5 +6,5 @@ import {
 
 export interface ArticleItemStoreSetActionOptions extends StoreActionOptions {
   callback?: ArticleItemStoreSetActionCallback;
-  responseAtDispatch?: ArticleItemStoreSetActionPayload;
+  payload?: ArticleItemStoreSetActionPayload;
 }

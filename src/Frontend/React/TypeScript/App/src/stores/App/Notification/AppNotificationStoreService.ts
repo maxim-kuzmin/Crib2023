@@ -131,7 +131,7 @@ function runDispatchToSet (
 
 interface DispatchOptionsToSet extends StoreActionOptions {
   callback?: CallbackToSet;
-  dataAtDispatch?: NotificationData;
+  payload?: NotificationData;
 }
 
 interface DispatchToSet {
@@ -141,25 +141,25 @@ interface DispatchToSet {
 function useDispatchToSet ({
   dispatchType,
   callback,
-  dataAtDispatch
+  payload
 }: DispatchOptionsToSet = {}): DispatchToSet {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
 
-  const dataAtDispatchInner = dataAtDispatch ?? null;
+  const payloadInner = payload ?? null;
 
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToSet(dispatch, callbackInner, dataAtDispatchInner);
+      runDispatchToSet(dispatch, callbackInner, payloadInner);
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToSet(dispatch, callbackInner, dataAtDispatchInner);
+        runDispatchToSet(dispatch, callbackInner, payloadInner);
       }
     };
-  }, [dispatch, dispatchType, callbackInner, dataAtDispatchInner]);
+  }, [dispatch, dispatchType, callbackInner, payloadInner]);
 
   return useRef({
     run: (data: Data) => {

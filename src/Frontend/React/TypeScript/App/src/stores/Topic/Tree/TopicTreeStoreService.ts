@@ -190,7 +190,7 @@ async function runDispatchToLoad (
 
 interface DispatchOptionsToLoad extends StoreActionOptions {
   callback?: CallbackToSet;
-  inputAtDispatch: Input;
+  payload: Input;
 }
 
 interface DispatchToLoad {
@@ -202,7 +202,7 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
 
   const callbackInner = options?.callback ?? null;
 
-  const inputAtDispatchInner = options?.inputAtDispatch ?? null;
+  const payloadInner = options?.payload ?? null;
 
   const requestHandler = useRef(getModule().useTopicDomainTreeGetOperationRequestHandler()).current;
 
@@ -211,13 +211,13 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
 
     const shouldBeCanceledInner = () => isCanceled;
 
-    if (options?.dispatchType === StoreDispatchType.MountOrUpdate && inputAtDispatchInner) {
-      runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
+    if (options?.dispatchType === StoreDispatchType.MountOrUpdate && payloadInner) {
+      runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceledInner, payloadInner);
     }
 
     return () => {
-      if (options?.dispatchType === StoreDispatchType.Unmount && inputAtDispatchInner) {
-        runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceledInner, inputAtDispatchInner);
+      if (options?.dispatchType === StoreDispatchType.Unmount && payloadInner) {
+        runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceledInner, payloadInner);
       } else {
         isCanceled = true;
       }
@@ -228,7 +228,7 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
     options?.dispatchType,
     options?.isCanceled,
     callbackInner,
-    inputAtDispatchInner
+    payloadInner
   ]);
 
   return useRef({
@@ -240,7 +240,7 @@ function useDispatchToLoad (options?: DispatchOptionsToLoad): DispatchToLoad {
 
 interface DispatchOptionsToSet extends StoreActionOptions {
   callback?: CallbackToSet;
-  responseAtDispatch?: Response;
+  payload?: Response;
 }
 
 interface DispatchToSet {
@@ -250,25 +250,25 @@ interface DispatchToSet {
 function useDispatchToSet ({
   dispatchType,
   callback,
-  responseAtDispatch
+  payload
 }: DispatchOptionsToSet = {}): DispatchToSet {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
 
-  const responseAtDispatchInner = responseAtDispatch ?? null;
+  const payloadInner = payload ?? null;
 
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToSet(dispatch, callbackInner, responseAtDispatchInner);
+      runDispatchToSet(dispatch, callbackInner, payloadInner);
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToSet(dispatch, callbackInner, responseAtDispatchInner);
+        runDispatchToSet(dispatch, callbackInner, payloadInner);
       }
     };
-  }, [dispatch, dispatchType, callbackInner, responseAtDispatchInner]);
+  }, [dispatch, dispatchType, callbackInner, payloadInner]);
 
   return useRef({
     run: (response: Response) => {

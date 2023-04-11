@@ -4,7 +4,6 @@ import {
   getModule,
   StoreDispatchType,
   OperationStatus,
-  type ArticleDomainItemGetOperationResponse,
   type ArticleDomainItemGetOperationInput,
   TreeGetOperationAxisForItem,
   type TopicDomainItemGetOperationInput,
@@ -12,7 +11,8 @@ import {
   ArticleItemView,
   type ArticlePageProps,
   ArticleItemEditView,
-  ArticlePageMode
+  ArticlePageMode,
+  type ArticleItemStoreSetActionPayload
 } from '../../all';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
@@ -24,9 +24,9 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
 
   const articleItemStoreHooks = getModule().getArticleItemStoreHooks();
 
-  const { response: articleItemResoponse, status: articleItemStatus } = articleItemStoreHooks.useState();
+  const { response: articleItemResponse, status: articleItemStatus } = articleItemStoreHooks.useState();
 
-  let topicId = articleItemResoponse?.data?.item?.data.topicId ?? 0;
+  let topicId = articleItemResponse?.data?.item?.data.topicId ?? 0;
 
   if (topicId === 0) {
     topicId = getModule().getArticlePageService().getUrlSearch(searchParams).topicId;
@@ -40,12 +40,12 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
 
   const articleItemIsLoaded = useRef(false);
 
-  const callbackOnArticleItemLoad = useCallback((response: ArticleDomainItemGetOperationResponse | null) => {
-    console.log('MAKC:ArticlePage:callbackOnArticleItemLoad:response', response);
+  const callbackOnArticleItemLoad = useCallback((payload: ArticleItemStoreSetActionPayload) => {
+    console.log('MAKC:ArticlePage:callbackOnArticleItemLoad:payload', payload);
     articleItemIsLoaded.current = true;
   }, []);
 
-  const inputAtDispatchToArticleItemLoad: ArticleDomainItemGetOperationInput = useMemo(
+  const payloadToArticleItemLoad: ArticleDomainItemGetOperationInput = useMemo(
     () => ({
       id: articleId
     }),
@@ -55,7 +55,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
   articleItemStoreHooks.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleItemLoad,
-    inputAtDispatch: inputAtDispatchToArticleItemLoad
+    payload: payloadToArticleItemLoad
   });
 
   articleItemStoreHooks.useDispatchToClear({
@@ -68,7 +68,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
     console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
   }, []);
 
-  const inputAtDispatchToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(
+  const payloadToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(
     () => ({
       axis: TreeGetOperationAxisForItem.Self,
       id: topicId
@@ -80,7 +80,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
     dispatchType: StoreDispatchType.MountOrUpdate,
     isCanceled: !articleItemIsLoaded.current,
     callback: callbackOnTopicItemLoad,
-    inputAtDispatch: inputAtDispatchToTopicItemLoad
+    payload: payloadToTopicItemLoad
   });
 
   topicItemStoreService.useDispatchToClear({
@@ -95,13 +95,13 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
     mode === ArticlePageMode.Display
       ? <ArticleItemView
           loading={articleItemLoading}
-          response={articleItemResoponse}
+          response={articleItemResponse}
           topicPageLastUrl={topicPageLastUrl}
         />
       : <ArticleItemEditView
           articleId={articleId}
           loading={articleItemLoading}
-          response={articleItemResoponse}
+          response={articleItemResponse}
           topicId={topicId}
           topicPageLastUrl={topicPageLastUrl}
         />
