@@ -62,7 +62,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const topicItemStoreService = getModule().getTopicItemStoreService();
+  const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
 
   const callbackOnTopicItemLoad = useCallback((response: TopicDomainItemGetOperationResponse | null) => {
     console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:response', response);
@@ -76,14 +76,14 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
     [topicId]
   );
 
-  topicItemStoreService.useDispatchToLoad({
+  topicItemStoreHooks.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     isCanceled: !articleItemIsLoaded.current,
     callback: callbackOnTopicItemLoad,
     payload: payloadToTopicItemLoad
   });
 
-  topicItemStoreService.useDispatchToClear({
+  topicItemStoreHooks.useDispatchToClear({
     dispatchType: StoreDispatchType.Unmount
   });
 

@@ -1,0 +1,5 @@
+export enum TopicItemStoreActionType {
+  Clear = 1,
+  Load = 2,
+  Set = 3
+}

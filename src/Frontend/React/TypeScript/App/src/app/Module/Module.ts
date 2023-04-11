@@ -1,7 +1,7 @@
 import {
   type AppNotificationStoreService,
   type ArticleListStoreHooks,
-  type TopicItemStoreService,
+  type TopicItemStoreHooks,
   type TopicTreeStoreService,
   type NotificationControlService,
   type ArticleDomainItemGetOperationRequestHandler,
@@ -29,7 +29,7 @@ export interface Module {
   readonly getArticlePageService: () => ArticlePageService;
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
   readonly getTestService: () => TestService;
-  readonly getTopicItemStoreService: () => TopicItemStoreService;
+  readonly getTopicItemStoreHooks: () => TopicItemStoreHooks;
   readonly getTopicTreeStoreService: () => TopicTreeStoreService;
   readonly getTopicPageService: () => TopicPageService;
   readonly useArticleDomainItemGetOperationRequestHandler: () => ArticleDomainItemGetOperationRequestHandler;

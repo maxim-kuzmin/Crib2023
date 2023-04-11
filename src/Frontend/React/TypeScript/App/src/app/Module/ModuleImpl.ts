@@ -5,8 +5,8 @@ import {
   createArticleListStoreHooks,
   type NotificationControlService,
   createNotificationControlService,
-  type TopicItemStoreService,
-  createTopicItemStoreService,
+  type TopicItemStoreHooks,
+  createTopicItemStoreHooks,
   type TopicTreeStoreService,
   createTopicTreeStoreService,
   type HttpClient,
@@ -94,8 +94,8 @@ export class ModuleImpl implements Module {
   private readonly articleListStoreHooks: ArticleListStoreHooks = createArticleListStoreHooks();
   getArticleListStoreHooks = () => this.articleListStoreHooks;
 
-  private readonly topicItemStoreService: TopicItemStoreService = createTopicItemStoreService();
-  getTopicItemStoreService = () => this.topicItemStoreService;
+  private readonly topicItemStoreHooks: TopicItemStoreHooks = createTopicItemStoreHooks();
+  getTopicItemStoreHooks = () => this.topicItemStoreHooks;
 
   private readonly topicTreeStoreService: TopicTreeStoreService = createTopicTreeStoreService();
   getTopicTreeStoreService = () => this.topicTreeStoreService;
