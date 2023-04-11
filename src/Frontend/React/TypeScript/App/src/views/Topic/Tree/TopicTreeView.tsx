@@ -51,7 +51,7 @@ export const TopicTreeView: React.FC = memo(
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const topicTreeStoreService = getModule().getTopicTreeStoreService();
+  const topicTreeStoreHooks = getModule().getTopicTreeStoreHooks();
 
   const callbackOnTopicTreeLoad = useCallback((response: TopicDomainTreeGetOperationResponse | null) => {
     console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:response', response);
@@ -65,7 +65,7 @@ export const TopicTreeView: React.FC = memo(
     [topicId]
   );
 
-  topicTreeStoreService.useDispatchToLoad({
+  topicTreeStoreHooks.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
     callback: callbackOnTopicTreeLoad,
@@ -76,7 +76,7 @@ export const TopicTreeView: React.FC = memo(
     dispatchType: StoreDispatchType.Unmount
   });
 
-  const { response: topicTreeResponse, status: topicTreeStatus } = topicTreeStoreService.useState();
+  const { response: topicTreeResponse, status: topicTreeStatus } = topicTreeStoreHooks.useState();
 
   const entities = topicTreeResponse?.data?.nodes;
 

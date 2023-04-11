@@ -7,8 +7,8 @@ import {
   createNotificationControlService,
   type TopicItemStoreHooks,
   createTopicItemStoreHooks,
-  type TopicTreeStoreService,
-  createTopicTreeStoreService,
+  type TopicTreeStoreHooks,
+  createTopicTreeStoreHooks,
   type HttpClient,
   HttpClientImpl,
   type ApiClient,
@@ -97,8 +97,8 @@ export class ModuleImpl implements Module {
   private readonly topicItemStoreHooks: TopicItemStoreHooks = createTopicItemStoreHooks();
   getTopicItemStoreHooks = () => this.topicItemStoreHooks;
 
-  private readonly topicTreeStoreService: TopicTreeStoreService = createTopicTreeStoreService();
-  getTopicTreeStoreService = () => this.topicTreeStoreService;
+  private readonly topicTreeStoreHooks: TopicTreeStoreHooks = createTopicTreeStoreHooks();
+  getTopicTreeStoreHooks = () => this.topicTreeStoreHooks;
 
   private readonly articleDomainRepository: ArticleDomainRepository = this.setupOptions.isTestModeEnabled
     ? new TestArticleDomainRepositoryImpl()
