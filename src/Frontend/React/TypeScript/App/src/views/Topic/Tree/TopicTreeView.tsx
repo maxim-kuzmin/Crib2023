@@ -43,7 +43,8 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
   : [];
 }
 
-export const TopicTreeView: React.FC = memo(function TopicTreeView () {
+export const TopicTreeView: React.FC = memo(
+    function TopicTreeView () {
   const topicItemStoreService = getModule().getTopicItemStoreService();
 
   const { response: topicItemResponse, status: topicItemStatus } = topicItemStoreService.useState();

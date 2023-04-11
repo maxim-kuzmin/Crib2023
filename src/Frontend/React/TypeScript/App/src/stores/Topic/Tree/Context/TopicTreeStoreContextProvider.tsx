@@ -1,10 +1,11 @@
 import React, { type PropsWithChildren, useReducer, memo } from 'react';
-import { getModule } from '../../../all';
+import { getModule } from '../../../../all';
 
-export const ArticleListStoreProvider: React.FC<PropsWithChildren> = memo(function ArticleListStoreProvider ({
-  children
-}: PropsWithChildren) {
-  const service = getModule().getArticleListStoreService();
+export const TopicTreeStoreContextProvider: React.FC<PropsWithChildren> = memo(
+    function TopicTreeStoreContextProvider ({
+      children
+    }: PropsWithChildren) {
+  const service = getModule().getTopicTreeStoreService();
 
   const [state, dispatch] = useReducer(service.reducer, service.initialState);
 

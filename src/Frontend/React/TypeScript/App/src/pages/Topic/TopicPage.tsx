@@ -13,7 +13,8 @@ import {
   type TableControlPagination
 } from '../../all';
 
-export const TopicPage: React.FC = memo(function TopicPage () {
+export const TopicPage: React.FC = memo(
+    function TopicPage () {
   const urlParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 

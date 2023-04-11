@@ -41,7 +41,8 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
   return result;
 }
 
-export const TopicPathView: React.FC = memo(function TopicPathView () {
+export const TopicPathView: React.FC = memo(
+    function TopicPathView () {
   const { response: topicItemResponse } = getModule().getTopicItemStoreService().useState();
 
   const topic = topicItemResponse?.data?.item;

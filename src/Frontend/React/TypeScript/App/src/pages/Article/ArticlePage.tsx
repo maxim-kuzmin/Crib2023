@@ -15,9 +15,10 @@ import {
   ArticlePageMode
 } from '../../all';
 
-export const ArticlePage: React.FC<ArticlePageProps> = memo(function ArticlePage ({
-  mode
-}: ArticlePageProps) {
+export const ArticlePage: React.FC<ArticlePageProps> = memo(
+    function ArticlePage ({
+      mode
+    }: ArticlePageProps) {
   const urlParams = useParams();
   const [searchParams] = useSearchParams();
 

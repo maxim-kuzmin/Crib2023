@@ -5,12 +5,13 @@ import { type LayoutControlProps } from '../../all';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-export const LayoutControl: React.FC<LayoutControlProps> = memo(function LayoutControl ({
-  createAsideView,
-  createContentView,
-  createFooterView,
-  createHeaderView
-}: LayoutControlProps) {
+export const LayoutControl: React.FC<LayoutControlProps> = memo(
+    function LayoutControl ({
+      createAsideView,
+      createContentView,
+      createFooterView,
+      createHeaderView
+    }: LayoutControlProps) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();

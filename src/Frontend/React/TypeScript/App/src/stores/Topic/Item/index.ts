@@ -1,4 +1,4 @@
-export { TopicItemStoreProvider } from './TopicItemStoreProvider';
+export * from './Context';
 export {
   type TopicItemStoreService,
   createTopicItemStoreService

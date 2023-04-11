@@ -21,14 +21,15 @@ function getRowKey (row: any): Key {
   return viewRow.id;
 }
 
-export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(function ArticleTableView ({
-  loading,
-  onTableChange,
-  pageNumber,
-  pageSize,
-  response,
-  topicId
-}: ArticleTableViewProps) {
+export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(
+    function ArticleTableView ({
+      loading,
+      onTableChange,
+      pageNumber,
+      pageSize,
+      response,
+      topicId
+    }: ArticleTableViewProps) {
   let items: ArticleDomainEntityForList[];
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];

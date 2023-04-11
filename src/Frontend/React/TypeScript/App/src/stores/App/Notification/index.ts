@@ -1,4 +1,4 @@
-export { AppNotificationStoreProvider } from './AppNotificationStoreProvider';
+export * from './Context';
 export {
   type AppNotificationStoreService,
   creareAppNotificationStoreService

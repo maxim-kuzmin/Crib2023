@@ -77,17 +77,18 @@ function convertToActionMarkup (controlAction: FormControlAction, isLast: boolea
       )
 }
 
-export const FormControl: React.FC<FormControlProps> = memo(function FormControl ({
-  className,
-  classNameForActions,
-  controlActions,
-  controlFields,
-  formValues,
-  keyForActions,
-  name,
-  onSubmitFailed,
-  onSubmitSuccess
-}: FormControlProps) {
+export const FormControl: React.FC<FormControlProps> = memo(
+    function FormControl ({
+      className,
+      classNameForActions,
+      controlActions,
+      controlFields,
+      formValues,
+      keyForActions,
+      name,
+      onSubmitFailed,
+      onSubmitSuccess
+    }: FormControlProps) {
   const [form] = Form.useForm();
 
   return (

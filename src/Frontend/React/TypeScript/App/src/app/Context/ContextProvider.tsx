@@ -1,26 +1,27 @@
 import React, { memo, type PropsWithChildren } from 'react';
 import {
-  AppNotificationStoreProvider,
-  ArticleItemStoreProvider,
-  ArticleListStoreProvider,
-  TopicItemStoreProvider,
-  TopicTreeStoreProvider
+  AppNotificationStoreContextProvider,
+  ArticleItemStoreContextProvider,
+  ArticleListStoreContextProvider,
+  TopicItemStoreContextProvider,
+  TopicTreeStoreContextProvider
 } from '../../all';
 
-export const ContextProvider: React.FC<PropsWithChildren> = memo(function ContextProvider ({
-  children
-}: PropsWithChildren) {
+export const ContextProvider: React.FC<PropsWithChildren> = memo(
+    function ContextProvider ({
+      children
+    }: PropsWithChildren) {
   return (
-    <AppNotificationStoreProvider>
-      <ArticleItemStoreProvider>
-        <ArticleListStoreProvider>
-          <TopicItemStoreProvider>
-            <TopicTreeStoreProvider>
+    <AppNotificationStoreContextProvider>
+      <ArticleItemStoreContextProvider>
+        <ArticleListStoreContextProvider>
+          <TopicItemStoreContextProvider>
+            <TopicTreeStoreContextProvider>
               {children}
-            </TopicTreeStoreProvider>
-          </TopicItemStoreProvider>
-        </ArticleListStoreProvider>
-      </ArticleItemStoreProvider>
-  </AppNotificationStoreProvider>
+            </TopicTreeStoreContextProvider>
+          </TopicItemStoreContextProvider>
+        </ArticleListStoreContextProvider>
+      </ArticleItemStoreContextProvider>
+    </AppNotificationStoreContextProvider>
   );
 });
