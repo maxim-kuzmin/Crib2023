@@ -68,7 +68,12 @@ public class ArticleDomainItemGetOperationInput : ItemGetOperationInputWithInt64
         throw new NotImplementedException();
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Получить свойства с недействительными значениями.
+    /// </summary>
+    /// <param name="domainResource">Ресурс домена.</param>
+    /// <param name="operationsResource">Ресурс операций.</param>
+    /// <returns>Свойства с недействительными значениями</returns>
     public OperationInputInvalidProperties GetInvalidProperties(
         IArticleDomainResource domainResource,
         IOperationsResource operationsResource)

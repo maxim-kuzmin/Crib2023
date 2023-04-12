@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get;
+namespace Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Save;
 
 /// <summary>
-/// Результат операции получения элемента в домене "Статья".
+/// Результат операции сохранения элемента в домене "Статья".
 /// </summary>
-public class ArticleDomainItemGetOperationResult : OperationResultWithOutput<ArticleDomainItemGetOperationOutput>
+public class ArticleDomainItemSaveOperationResult : OperationResultWithOutput<ArticleDomainItemGetOperationOutput>
 {
     #region Properties
 

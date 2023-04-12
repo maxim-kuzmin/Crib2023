@@ -63,5 +63,74 @@ public static class ArticleDomainExtension
         return query;
     }
 
+    /// <summary>
+    /// Нормализовать.
+    /// </summary>
+    /// <param name="entity">Сущность.</param>
+    /// <returns>Сущность.</returns>
+    public static ArticleTypeEntity Normalize(this ArticleTypeEntity entity)
+    {
+        if (entity.Id < 0)
+        {
+            entity.Id = 0;
+        }
+
+        entity.Body = entity.Body.Trim();
+       
+        entity.Title = entity.Title.Trim();
+
+        return entity;
+    }
+
+    /// <summary>
+    /// Получить свойства с недействительными значениями.
+    /// </summary>
+    /// <param name="entity">Сущность.</param>
+    /// <param name="domainResource">Ресурс домена.</param>
+    /// <param name="operationsResource">Ресурс операций.</param>
+    /// <returns>Свойства с недействительными значениями</returns>
+    public static OperationInputInvalidProperties GetInvalidProperties(
+        this ArticleTypeEntity entity,
+        IArticleDomainResource domainResource,
+        IOperationsResource operationsResource)
+    {
+        OperationInputInvalidProperties result = new();
+
+        if (entity.Id < 1L)
+        {
+            var values = result.GetOrAdd(nameof(entity.Id));
+
+            string value = operationsResource.GetOperationInputValidValueForId();
+
+            values.Add(value);
+        }
+
+        bool isTitleInvalid = string.IsNullOrWhiteSpace(entity.Title);
+        bool isTopicIdInvalid = entity.TopicId < 1;
+
+        if (isTitleInvalid || isTopicIdInvalid)
+        {
+            if (isTitleInvalid)
+            {
+                var values = result.GetOrAdd(nameof(entity.Title));
+
+                string value = domainResource.GetValidValueForTitle();
+
+                values.Add(value);
+            }
+
+            if (isTopicIdInvalid)
+            {
+                var values = result.GetOrAdd(nameof(entity.TopicId));
+
+                string value = domainResource.GetValidValueForTopicId();
+
+                values.Add(value);
+            }
+        }
+
+        return result;
+    }
+
     #endregion Public methods
 }

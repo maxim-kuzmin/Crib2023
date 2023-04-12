@@ -8,6 +8,7 @@ global using Crib2023.Backend.Services.Catalog.Domains.Article.Entities;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get;
 global using LinqKit;
+global using Makc2023.Backend.Common.Core;
 global using Makc2023.Backend.Common.Core.App;
 global using Makc2023.Backend.Common.Core.Converting;
 global using Makc2023.Backend.Common.Core.Exceptions;
