@@ -10,6 +10,13 @@ public interface ITopicDomainRepository : IRepository<TopicDomainEntityForItem>
     #region Methods
 
     /// <summary>
+    /// Удалить элемент.
+    /// </summary>
+    /// <param name="input">Входные данные.</param>
+    /// <returns>Задача на удаление элемента.</returns>
+    Task DeleteItem(TopicDomainItemGetOperationInput input);
+
+    /// <summary>
     /// Получить элемент.
     /// </summary>
     /// <param name="input">Входные данные.</param>
@@ -29,6 +36,13 @@ public interface ITopicDomainRepository : IRepository<TopicDomainEntityForItem>
     /// <param name="input">Входные данные.</param>
     /// <returns>Задача на получение дерева.</returns>
     Task<TopicDomainTreeGetOperationOutput> GetTree(TopicDomainTreeGetOperationInput input);
+
+    /// <summary>
+    /// Сохранить элемент.
+    /// </summary>
+    /// <param name="entity">Сущность.</param>
+    /// <returns>Задача на получение элемента.</returns>
+    Task<TopicDomainItemGetOperationOutput> SaveItem(TopicTypeEntity entity);
 
     #endregion Methods
 }

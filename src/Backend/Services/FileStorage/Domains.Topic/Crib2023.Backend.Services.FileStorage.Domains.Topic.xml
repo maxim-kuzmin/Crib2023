@@ -554,6 +554,9 @@
             <param name="dbManager">Менеджер базы данных.</param>
             <param name="mediator">Посредник.</param>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainRepository.DeleteItem(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput)">
+            <inheritdoc/>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainRepository.GetItem(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput)">
             <inheritdoc/>
         </member>
@@ -561,6 +564,9 @@
             <inheritdoc/>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainRepository.GetTree(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Tree.Get.TopicDomainTreeGetOperationInput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainRepository.SaveItem(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Topic.TopicDomainResource">
@@ -594,6 +600,13 @@
             Интерфейс репозитория домена "Тема".
             </summary>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository.DeleteItem(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput)">
+            <summary>
+            Удалить элемент.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <returns>Задача на удаление элемента.</returns>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository.GetItem(Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get.TopicDomainItemGetOperationInput)">
             <summary>
             Получить элемент.
@@ -614,6 +627,13 @@
             </summary>
             <param name="input">Входные данные.</param>
             <returns>Задача на получение дерева.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.ITopicDomainRepository.SaveItem(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Topic.TopicTypeEntity)">
+            <summary>
+            Сохранить элемент.
+            </summary>
+            <param name="entity">Сущность.</param>
+            <returns>Задача на получение элемента.</returns>
         </member>
     </members>
 </doc>

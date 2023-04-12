@@ -35,6 +35,25 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
     #region Public methods
 
     /// <inheritdoc/>
+    public async Task DeleteItem(TopicDomainItemGetOperationInput input)
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var predicate = input.CreatePredicate();
+
+        var task = dbContext.Topic.Where(predicate).SingleOrDefaultAsync();
+
+        var mapperEntity = await task.ConfigureAwait(false);
+
+        if (mapperEntity != null)
+        {
+            dbContext.Topic.Remove(mapperEntity);
+
+            await dbContext.SaveChangesAsync().ConfigureAwait(false);
+        }
+    }
+
+    /// <inheritdoc/>
     public async Task<TopicDomainItemGetOperationOutput> GetItem(TopicDomainItemGetOperationInput input)
     {
         TopicDomainItemGetOperationOutput result = new();
@@ -160,6 +179,62 @@ public class TopicDomainRepository : MapperRepository<TopicDomainEntity>, ITopic
         }
 
         result.TotalCount = totalCount.Value;
+
+        return result;
+    }
+
+    /// <inheritdoc/>
+    public async Task<TopicDomainItemGetOperationOutput> SaveItem(TopicTypeEntity entity)
+    {
+        TopicDomainItemGetOperationOutput result;
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        HashSet<string> loadableProperties = new()
+        {
+            nameof(TopicTypeEntity.Name),
+            nameof(TopicTypeEntity.ParentId)
+        };
+
+        ClientMapperTopicTypeEntity? mapperEntity;
+
+        if (entity.Id > 0)
+        {
+            TopicDomainItemGetOperationInput input = new()
+            {
+                Id = entity.Id
+            };
+
+            var predicate = input.CreatePredicate();
+
+            var task = dbContext.Topic.Where(predicate).SingleOrDefaultAsync();
+
+            mapperEntity = await task.ConfigureAwait(false);
+
+            mapperEntity?.MergeWithEntity(entity, loadableProperties);
+        }
+        else
+        {
+            mapperEntity = entity.ToMapperEntity();
+
+            dbContext.Topic.Add(mapperEntity);
+        }
+
+        if (mapperEntity != null)
+        {
+            await dbContext.SaveChangesAsync().ConfigureAwait(false);
+
+            TopicDomainItemGetOperationInput input = new()
+            {
+                Id = mapperEntity.Id
+            };
+
+            result = await GetItem(input);
+        }
+        else
+        {
+            result = new();
+        }
 
         return result;
     }

@@ -153,7 +153,6 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
         return result;
     }
 
-
     /// <inheritdoc/>
     public async Task<ArticleDomainItemGetOperationOutput> SaveItem(ArticleTypeEntity entity)
     {
