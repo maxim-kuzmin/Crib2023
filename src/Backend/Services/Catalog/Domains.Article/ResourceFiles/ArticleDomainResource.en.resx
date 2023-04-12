@@ -129,6 +129,9 @@
   <data name="@@ListGetOperationName" xml:space="preserve">
     <value>The operation to get a list</value>
   </data>
+  <data name="@@ValidValueForBody" xml:space="preserve">
+    <value>Value should be not empty string</value>
+  </data>
   <data name="@@ValidValueForTitle" xml:space="preserve">
     <value>Value should be not empty string</value>
   </data>

@@ -5,7 +5,9 @@ global using Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.Postg
 global using Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article;
 global using Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Entities;
+global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Delete;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get;
+global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Save;
 global using Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get;
 global using LinqKit;
 global using Makc2023.Backend.Common.Core;

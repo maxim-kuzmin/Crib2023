@@ -105,11 +105,21 @@ public static class ArticleDomainExtension
             values.Add(value);
         }
 
+        bool isBodyInvalid = string.IsNullOrWhiteSpace(entity.Body);
         bool isTitleInvalid = string.IsNullOrWhiteSpace(entity.Title);
         bool isTopicIdInvalid = entity.TopicId < 1;
 
-        if (isTitleInvalid || isTopicIdInvalid)
+        if (isBodyInvalid || isTitleInvalid || isTopicIdInvalid)
         {
+            if (isBodyInvalid)
+            {
+                var values = result.GetOrAdd(nameof(entity.Body));
+
+                string value = domainResource.GetValidValueForBody();
+
+                values.Add(value);
+            }
+
             if (isTitleInvalid)
             {
                 var values = result.GetOrAdd(nameof(entity.Title));

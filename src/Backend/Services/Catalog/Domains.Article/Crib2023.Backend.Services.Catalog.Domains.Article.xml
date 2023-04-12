@@ -113,6 +113,9 @@
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.ArticleDomainResource.GetListGetOperationName">
             <inheritdoc/>
         </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.ArticleDomainResource.GetValidValueForBody">
+            <inheritdoc/>
+        </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.ArticleDomainResource.GetValidValueForTitle">
             <inheritdoc/>
         </member>
@@ -196,6 +199,12 @@
             Получить имя операции получения списка.
             </summary>
             <returns>Имя операции.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.IArticleDomainResource.GetValidValueForBody">
+            <summary>
+            Получить корректное значение свойства "Body".
+            </summary>
+            <returns>Корректное значение.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.IArticleDomainResource.GetValidValueForTitle">
             <summary>

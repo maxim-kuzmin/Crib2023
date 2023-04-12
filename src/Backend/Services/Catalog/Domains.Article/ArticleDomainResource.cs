@@ -53,6 +53,12 @@ public class ArticleDomainResource : IArticleDomainResource
     }
 
     /// <inheritdoc/>
+    public string GetValidValueForBody()
+    {
+        return _localizer["@@ValidValueForBody"];
+    }
+
+    /// <inheritdoc/>
     public string GetValidValueForTitle()
     {
         return _localizer["@@ValidValueForTitle"];

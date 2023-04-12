@@ -21,11 +21,25 @@ public class ArticleDomainSetupAppModule : AppModule
             x.GetRequiredService<IMediator>()
             ));
 
+        services.AddTransient<IArticleDomainItemDeleteOperationHandler>(x => new ArticleDomainItemDeleteOperationHandler(
+            x.GetRequiredService<IArticleDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),
+            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<ILogger<ArticleDomainItemDeleteOperationHandler>>(),
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
+
         services.AddTransient<IArticleDomainItemGetOperationHandler>(x => new ArticleDomainItemGetOperationHandler(
             x.GetRequiredService<IArticleDomainResource>(),
             x.GetRequiredService<IOperationsResource>(),                        
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<ArticleDomainItemGetOperationHandler>>(),
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
+
+        services.AddTransient<IArticleDomainItemSaveOperationHandler>(x => new ArticleDomainItemSaveOperationHandler(
+            x.GetRequiredService<IArticleDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),
+            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<ILogger<ArticleDomainItemSaveOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
 
         services.AddTransient<IArticleDomainListGetOperationHandler>(x => new ArticleDomainListGetOperationHandler(
@@ -41,7 +55,9 @@ public class ArticleDomainSetupAppModule : AppModule
     {
         return new[]
         {
+            typeof(ArticleDomainItemDeleteOperationRequestHandler),
             typeof(ArticleDomainItemGetOperationRequestHandler),
+            typeof(ArticleDomainItemSaveOperationRequestHandler),
             typeof(ArticleDomainListGetOperationRequestHandler),
             typeof(IArticleDomainResource),
             typeof(IArticleDomainItemGetOperationHandler),

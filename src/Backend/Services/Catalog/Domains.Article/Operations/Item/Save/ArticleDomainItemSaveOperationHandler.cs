@@ -39,7 +39,7 @@ public class ArticleDomainItemSaveOperationHandler :
         ILogger<ArticleDomainItemSaveOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
-            domainResource.GetItemGetOperationName(),
+            domainResource.GetItemSaveOperationName(),
             operationResource,
             logger,
             setupOptionsOfCommonCore)

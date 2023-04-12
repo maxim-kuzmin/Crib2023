@@ -34,6 +34,12 @@ namespace Crib2023.Backend.Services.Catalog.Domains.Article
         string GetListGetOperationName();
 
         /// <summary>
+        /// Получить корректное значение свойства "Body".
+        /// </summary>
+        /// <returns>Корректное значение.</returns>
+        string GetValidValueForBody();
+
+        /// <summary>
         /// Получить корректное значение свойства "Title".
         /// </summary>
         /// <returns>Корректное значение.</returns>

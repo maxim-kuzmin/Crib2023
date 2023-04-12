@@ -36,7 +36,7 @@ public class ArticleDomainItemDeleteOperationHandler :
         ILogger<ArticleDomainItemDeleteOperationHandler> logger,
         IOptionsMonitor<SetupOptionsOfCommonCore> setupOptionsOfCommonCore)
         : base(
-            domainResource.GetItemGetOperationName(),
+            domainResource.GetItemDeleteOperationName(),
             operationResource,
             logger,
             setupOptionsOfCommonCore)
