@@ -10,15 +10,33 @@ public static class ClientMapperTopicTypeExtension
     #region Public methods
 
     /// <summary>
+    /// Слить с сущностью.
+    /// </summary>
+    /// <param name="mapperEntity">Сущность сопоставителя.</param>
+    /// <param name="entity">Сущность.</param>
+    /// <param name="loadableProperties">Загружаемые свойства.</param>
+    /// <returns>Сущность сопоставителя клиента.</returns>
+    public static void MergeWithEntity(
+        this ClientMapperTopicTypeEntity mapperEntity,
+        TopicTypeEntity entity,
+        HashSet<string>? loadableProperties = null)
+    {
+        new TopicTypeLoader(mapperEntity).Load(entity, loadableProperties);
+    }
+
+    /// <summary>
     /// Преобразовать в сущность сопоставителя клиента.
     /// </summary>
     /// <param name="entity">Сущность.</param>
+    /// <param name="loadableProperties">Загружаемые свойства.</param>
     /// <returns>Сущность сопоставителя клиента.</returns>
-    public static ClientMapperTopicTypeEntity ToMapperEntity(this TopicTypeEntity entity)
+    public static ClientMapperTopicTypeEntity ToMapperEntity(
+        this TopicTypeEntity entity,
+        HashSet<string>? loadableProperties = null)
     {
         ClientMapperTopicTypeEntity result = new();
 
-        new TopicTypeLoader(result).Load(entity);
+        new TopicTypeLoader(result).Load(entity, loadableProperties);
 
         return result;
     }
@@ -27,12 +45,15 @@ public static class ClientMapperTopicTypeExtension
     /// Преобразовать в сущность.
     /// </summary>
     /// <param name="mapperEntity">Сущность сопоставителя клиента.</param>
+    /// <param name="loadableProperties">Загружаемые свойства.</param>
     /// <returns>Сущность.</returns>
-    public static TopicTypeEntity ToEntity(this ClientMapperTopicTypeEntity mapperEntity)
+    public static TopicTypeEntity ToEntity(
+        this ClientMapperTopicTypeEntity mapperEntity,
+        HashSet<string>? loadableProperties = null)
     {
         TopicTypeLoader loader = new();
 
-        loader.Load(mapperEntity);
+        loader.Load(mapperEntity, loadableProperties);
 
         return loader.Target;
     }

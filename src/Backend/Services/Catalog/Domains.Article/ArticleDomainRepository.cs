@@ -35,6 +35,25 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
     #region Public methods
 
     /// <inheritdoc/>
+    public async Task DeleteItem(ArticleDomainItemGetOperationInput input)
+    {
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        var predicate = input.CreatePredicate();
+
+        var task = dbContext.Article.Where(predicate).SingleOrDefaultAsync();
+
+        var mapperEntity = await task.ConfigureAwait(false);
+
+        if (mapperEntity != null)
+        {
+            dbContext.Article.Remove(mapperEntity);
+
+            await dbContext.SaveChangesAsync().ConfigureAwait(false);
+        }
+    }
+
+    /// <inheritdoc/>
     public async Task<ArticleDomainItemGetOperationOutput> GetItem(ArticleDomainItemGetOperationInput input)
     {
         ArticleDomainItemGetOperationOutput result = new();
@@ -130,6 +149,64 @@ public class ArticleDomainRepository : MapperRepository<ArticleDomainEntityForIt
         }
 
         result.TotalCount = totalCount.Value;
+
+        return result;
+    }
+
+
+    /// <inheritdoc/>
+    public async Task<ArticleDomainItemGetOperationOutput> SaveItem(ArticleTypeEntity entity)
+    {
+        ArticleDomainItemGetOperationOutput result;
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+
+        HashSet<string> loadableProperties = new()
+        {
+            nameof(ArticleTypeEntity.Body),
+            nameof(ArticleTypeEntity.Title),
+            nameof(ArticleTypeEntity.TopicId)
+        };
+
+        ClientMapperArticleTypeEntity? mapperEntity;
+
+        if (entity.Id > 0)
+        {
+            ArticleDomainItemGetOperationInput input = new()
+            {
+                Id = entity.Id
+            };
+
+            var predicate = input.CreatePredicate();
+
+            var task = dbContext.Article.Where(predicate).SingleOrDefaultAsync();
+
+            mapperEntity = await task.ConfigureAwait(false);
+
+            mapperEntity?.MergeWithEntity(entity, loadableProperties);
+        }
+        else
+        {
+            mapperEntity = entity.ToMapperEntity();
+
+            dbContext.Article.Add(mapperEntity);
+        }
+
+        if (mapperEntity != null)
+        {
+            await dbContext.SaveChangesAsync().ConfigureAwait(false);
+
+            ArticleDomainItemGetOperationInput input = new()
+            {
+                Id = mapperEntity.Id
+            };
+
+            result = await GetItem(input);
+        }
+        else
+        {
+            result = new();
+        }
 
         return result;
     }

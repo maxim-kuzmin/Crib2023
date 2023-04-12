@@ -163,18 +163,29 @@
             Расширение типа "Статья" сопоставителя клиента.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeExtension.ToMapperEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeExtension.MergeWithEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity,Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity,System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            Слить с сущностью.
+            </summary>
+            <param name="mapperEntity">Сущность сопоставителя.</param>
+            <param name="entity">Сущность.</param>
+            <param name="loadableProperties">Загружаемые свойства.</param>
+            <returns>Сущность сопоставителя клиента.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeExtension.ToMapperEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity,System.Collections.Generic.HashSet{System.String})">
             <summary>
             Преобразовать в сущность сопоставителя клиента.
             </summary>
             <param name="entity">Сущность.</param>
+            <param name="loadableProperties">Загружаемые свойства.</param>
             <returns>Сущность сопоставителя клиента.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeExtension.ToEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeExtension.ToEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Article.ClientMapperArticleTypeEntity,System.Collections.Generic.HashSet{System.String})">
             <summary>
             Преобразовать в сущность.
             </summary>
             <param name="mapperEntity">Сущность сопоставителя клиента.</param>
+            <param name="loadableProperties">Загружаемые свойства.</param>
             <returns>Сущность.</returns>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeConfiguration">
@@ -218,18 +229,29 @@
             Расширение сущности "Тема" сопоставителя клиента.
             </summary>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeExtension.ToMapperEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeExtension.MergeWithEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity,Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity,System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            Слить с сущностью.
+            </summary>
+            <param name="mapperEntity">Сущность сопоставителя.</param>
+            <param name="entity">Сущность.</param>
+            <param name="loadableProperties">Загружаемые свойства.</param>
+            <returns>Сущность сопоставителя клиента.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeExtension.ToMapperEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Topic.TopicTypeEntity,System.Collections.Generic.HashSet{System.String})">
             <summary>
             Преобразовать в сущность сопоставителя клиента.
             </summary>
             <param name="entity">Сущность.</param>
+            <param name="loadableProperties">Загружаемые свойства.</param>
             <returns>Сущность сопоставителя клиента.</returns>
         </member>
-        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeExtension.ToEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity)">
+        <member name="M:Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeExtension.ToEntity(Crib2023.Backend.Services.Catalog.Data.SQL.Mappers.EF.Clients.PostgreSQL.Types.Topic.ClientMapperTopicTypeEntity,System.Collections.Generic.HashSet{System.String})">
             <summary>
             Преобразовать в сущность.
             </summary>
             <param name="mapperEntity">Сущность сопоставителя клиента.</param>
+            <param name="loadableProperties">Загружаемые свойства.</param>
             <returns>Сущность.</returns>
         </member>
     </members>

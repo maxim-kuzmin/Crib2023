@@ -62,10 +62,16 @@
             <param name="dbManager">Менеджер базы данных.</param>
             <param name="mediator">Посредник.</param>
         </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.ArticleDomainRepository.DeleteItem(Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput)">
+            <inheritdoc/>
+        </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.ArticleDomainRepository.GetItem(Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput)">
             <inheritdoc/>
         </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.ArticleDomainRepository.GetList(Crib2023.Backend.Services.Catalog.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationInput)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.ArticleDomainRepository.SaveItem(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity)">
             <inheritdoc/>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Article.ArticleDomainResource">
@@ -112,6 +118,13 @@
             Интерфейс репозитория домена "Статья".
             </summary>
         </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.IArticleDomainRepository.DeleteItem(Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput)">
+            <summary>
+            Удалить элемент.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <returns>Задача на удаление элемента.</returns>
+        </member>
         <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.IArticleDomainRepository.GetItem(Crib2023.Backend.Services.Catalog.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput)">
             <summary>
             Получить элемент.
@@ -125,6 +138,13 @@
             </summary>
             <param name="input">Входные данные.</param>
             <returns>Задача на получение списка.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.Domains.Article.IArticleDomainRepository.SaveItem(Crib2023.Backend.Services.Catalog.Data.SQL.Types.Article.ArticleTypeEntity)">
+            <summary>
+            Сохранить элемент.
+            </summary>
+            <param name="entity">Сущность.</param>
+            <returns>Задача на получение элемента.</returns>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.Domains.Article.IArticleDomainResource">
             <summary>
