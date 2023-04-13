@@ -1,3 +1,3 @@
 export interface TestService {
-  getDataAsync: <TData> (functionToGet: () => TData) => Promise<TData>;
+  readonly getDataAsync: <TData> (functionToGet: () => TData) => Promise<TData>;
 }

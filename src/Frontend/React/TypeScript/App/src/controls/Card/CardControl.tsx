@@ -36,13 +36,13 @@ function convertToExtra (controlExtra?: CardControlExtra): ReactNode | undefined
 }
 
 export const CardControl: React.FC<CardControlProps> = memo(
-    function CardControl ({
-      children,
-      controlActions,
-      controlExtra,
-      title,
-      type
-    }: CardControlProps) {
+function CardControl ({
+  children,
+  controlActions,
+  controlExtra,
+  title,
+  type
+}: CardControlProps) {
   const actions = useMemo(
     () => convertToActions(controlActions),
     [controlActions]

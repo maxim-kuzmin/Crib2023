@@ -1,2 +1,2 @@
 export { type Module } from './Module';
-export { ModuleImpl } from './ModuleImpl';
+export { ModuleImpl, getModule } from './ModuleImpl';

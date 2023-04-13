@@ -12,13 +12,13 @@ import {
 import styles from './ArticleItemEditView.module.css';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
-    function ArticleItemEditView ({
-      articleId,
-      loading,
-      response,
-      topicId,
-      topicPageLastUrl
-    }: ArticleItemEditViewProps) {
+function ArticleItemEditView ({
+  articleId,
+  loading,
+  response,
+  topicId,
+  topicPageLastUrl
+}: ArticleItemEditViewProps) {
   const entity = response?.data?.item.data;
 
   const formValues = useMemo(

@@ -1,10 +1,11 @@
 import {
+  AppNotificationStoreSliceName,
   type AppNotificationStoreHooks,
   createAppNotificationStoreHooks,
   type ArticleListStoreHooks,
   createArticleListStoreHooks,
-  type NotificationControlService,
-  createNotificationControlService,
+  type NotificationControlHooks,
+  createNotificationControlHooks,
   type TopicItemStoreHooks,
   createTopicItemStoreHooks,
   type TopicTreeStoreHooks,
@@ -49,7 +50,9 @@ import {
   TableControlServiceImpl,
   type Module,
   type ArticleItemStoreHooks,
-  createArticleItemStoreHooks
+  createArticleItemStoreHooks,
+  type StoreService,
+  StoreServiceImpl
 } from '../../all';
 
 interface UseOperationHandlerOptions {
@@ -76,11 +79,14 @@ export class ModuleImpl implements Module {
   private readonly testService: TestService = new TestServiceImpl();
   getTestService = () => this.testService;
 
+  private readonly storeService: StoreService = new StoreServiceImpl();
+  getStoreService = () => this.storeService;
+
   private readonly appNotificationStoreHooks: AppNotificationStoreHooks = createAppNotificationStoreHooks();
   getAppNotificationStoreHooks = () => this.appNotificationStoreHooks;
 
-  private readonly notificationControlService: NotificationControlService = createNotificationControlService();
-  getNotificationControlService = () => this.notificationControlService;
+  private readonly notificationControlHooks: NotificationControlHooks = createNotificationControlHooks();
+  getNotificationControlHooks = () => this.notificationControlHooks;
 
   private readonly tableControlService: TableControlService = new TableControlServiceImpl({
     defaultPageSize: 10
@@ -191,7 +197,9 @@ export class ModuleImpl implements Module {
 
     const service = this.getAppNotificationStoreHooks();
 
-    const { run } = service.useDispatchToSet();
+    const { run } = service.useDispatchToSet({
+      sliceName: AppNotificationStoreSliceName.Global
+    });
 
     return new OperationHandlerImpl({
       functionToSetNotification: run,
@@ -205,4 +213,10 @@ export class ModuleImpl implements Module {
       operationHandler: this.useOperationHandler(options)
     });
   }
+}
+
+const module = new ModuleImpl();
+
+export function getModule (): Module {
+  return module;
 }

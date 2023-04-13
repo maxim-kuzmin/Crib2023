@@ -18,8 +18,8 @@ type SetActionDispatch = ArticleItemStoreSetActionDispatch;
 type SetActionOptions = ArticleItemStoreSetActionOptions;
 
 export interface ArticleItemStoreHooks {
-  readonly useDispatchToClear: (options?: ClearActionOptions) => ClearActionDispatch;
-  readonly useDispatchToLoad: (options?: LoadActionOptions) => LoadActionDispatch;
-  readonly useDispatchToSet: (options?: SetActionOptions) => SetActionDispatch;
-  readonly useState: () => ArticleItemStoreState;
+  readonly useDispatchToClear: (options: ClearActionOptions) => ClearActionDispatch;
+  readonly useDispatchToLoad: (options: LoadActionOptions) => LoadActionDispatch;
+  readonly useDispatchToSet: (options: SetActionOptions) => SetActionDispatch;
+  readonly useState: (sliceName: string) => ArticleItemStoreState;
 }

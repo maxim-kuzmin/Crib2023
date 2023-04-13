@@ -63,15 +63,15 @@ function convertToPagination (
 }
 
 export const TableControl: React.FC<TableControlProps> = memo(
-    function TableControl ({
-      className,
-      controlColumns,
-      controlPagination,
-      controlRows,
-      getRowKey,
-      onChange,
-      loading
-    }: TableControlProps) {
+function TableControl ({
+  className,
+  controlColumns,
+  controlPagination,
+  controlRows,
+  getRowKey,
+  onChange,
+  loading
+}: TableControlProps) {
   const columns = useMemo(
     () => convertToColumns(controlColumns),
     [controlColumns]

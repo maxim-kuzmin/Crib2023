@@ -8,7 +8,7 @@ import { AppLayoutFooterView } from './views/App/Layout/Footer';
 import { AppLayoutHeaderView } from './views/App/Layout/Header';
 
 export const App: React.FC = memo(
-    function App () {
+function App () {
   return (
     <>
       <AppNotificationView/>

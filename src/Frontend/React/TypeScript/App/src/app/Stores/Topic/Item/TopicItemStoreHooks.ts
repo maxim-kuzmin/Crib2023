@@ -18,8 +18,8 @@ type SetActionDispatch = TopicItemStoreSetActionDispatch;
 type SetActionOptions = TopicItemStoreSetActionOptions;
 
 export interface TopicItemStoreHooks {
-  readonly useDispatchToClear: (options?: ClearActionOptions) => ClearActionDispatch;
-  readonly useDispatchToLoad: (options?: LoadActionOptions) => LoadActionDispatch;
-  readonly useDispatchToSet: (options?: SetActionOptions) => SetActionDispatch;
-  readonly useState: () => TopicItemStoreState;
+  readonly useDispatchToClear: (options: ClearActionOptions) => ClearActionDispatch;
+  readonly useDispatchToLoad: (options: LoadActionOptions) => LoadActionDispatch;
+  readonly useDispatchToSet: (options: SetActionOptions) => SetActionDispatch;
+  readonly useState: (sliceName: string) => TopicItemStoreState;
 }

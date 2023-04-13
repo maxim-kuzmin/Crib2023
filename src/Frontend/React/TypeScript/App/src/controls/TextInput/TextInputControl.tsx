@@ -3,9 +3,9 @@ import { Input } from 'antd';
 import { type TextInputControlProps } from '../../all';
 
 export const TextInputControl: React.FC<TextInputControlProps> = memo(
-    function TextInputControl ({
-      className
-    }: TextInputControlProps) {
+function TextInputControl ({
+  className
+}: TextInputControlProps) {
   return (
     <Input className={className} />
   );

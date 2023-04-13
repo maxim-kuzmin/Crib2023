@@ -3,7 +3,7 @@ import {
   type ArticleListStoreHooks,
   type TopicItemStoreHooks,
   type TopicTreeStoreHooks,
-  type NotificationControlService,
+  type NotificationControlHooks,
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository,
@@ -17,10 +17,11 @@ import {
   type ArticlePageService,
   type ArticleItemEditViewService,
   type ArticleItemStoreHooks,
+  type StoreService,
 } from '../../all';
 
 export interface Module {
-  readonly getNotificationControlService: () => NotificationControlService;
+  readonly getNotificationControlHooks: () => NotificationControlHooks;
   readonly getTableControlService: () => TableControlService;
   readonly getAppNotificationStoreHooks: () => AppNotificationStoreHooks;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
@@ -29,13 +30,14 @@ export interface Module {
   readonly getArticlePageService: () => ArticlePageService;
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
   readonly getTestService: () => TestService;
+  readonly getTopicDomainRepository: () => TopicDomainRepository;
   readonly getTopicItemStoreHooks: () => TopicItemStoreHooks;
   readonly getTopicTreeStoreHooks: () => TopicTreeStoreHooks;
   readonly getTopicPageService: () => TopicPageService;
+  readonly getStoreService: () => StoreService;
   readonly useArticleDomainItemGetOperationRequestHandler: () => ArticleDomainItemGetOperationRequestHandler;
   readonly useArticleDomainListGetOperationRequestHandler: () => ArticleDomainListGetOperationRequestHandler;
   readonly useTopicDomainItemGetOperationRequestHandler: () => TopicDomainItemGetOperationRequestHandler;
   readonly useTopicDomainListGetOperationRequestHandler: () => TopicDomainListGetOperationRequestHandler;
   readonly useTopicDomainTreeGetOperationRequestHandler: () => TopicDomainTreeGetOperationRequestHandler;
-  readonly getTopicDomainRepository: () => TopicDomainRepository;
 }

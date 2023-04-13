@@ -8,9 +8,9 @@ import {
 } from '../../all';
 
 export const ContextProvider: React.FC<PropsWithChildren> = memo(
-    function ContextProvider ({
-      children
-    }: PropsWithChildren) {
+function ContextProvider ({
+  children
+}: PropsWithChildren) {
   return (
     <AppNotificationStoreContextProvider>
       <ArticleItemStoreContextProvider>

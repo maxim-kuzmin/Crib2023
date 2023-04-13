@@ -1,5 +1,5 @@
-import { type AppNotificationStoreActionType } from '../../../../all';
+import { type StoreAction, type AppNotificationStoreActionType } from '../../../../all';
 
-export interface AppNotificationStoreClearAction {
+export interface AppNotificationStoreClearAction extends StoreAction {
   type: AppNotificationStoreActionType.Clear;
 }

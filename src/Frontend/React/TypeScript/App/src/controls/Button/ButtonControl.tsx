@@ -3,12 +3,12 @@ import { Button } from 'antd';
 import { type ButtonControlProps } from '../../all';
 
 export const ButtonControl: React.FC<ButtonControlProps> = memo(
-    function ButtonControl ({
-      children,
-      className,
-      onClick,
-      title
-    }: ButtonControlProps) {
+function ButtonControl ({
+  children,
+  className,
+  onClick,
+  title
+}: ButtonControlProps) {
   return (
     <Button
       className={className}

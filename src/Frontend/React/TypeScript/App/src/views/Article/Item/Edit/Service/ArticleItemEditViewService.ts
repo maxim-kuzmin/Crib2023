@@ -1,9 +1,9 @@
 import { type ArticleTypeEntity } from '../../../../../all';
 
 export interface ArticleItemEditViewService {
-  convertToFormValues: (entity?: ArticleTypeEntity) => any;
+  readonly convertToFormValues: (entity?: ArticleTypeEntity) => any;
   readonly fieldNameForBody: string;
   readonly fieldNameForId: string;
   readonly fieldNameForTitle: string;
-  updateEntity: (entity: ArticleTypeEntity, formValues: any) => void;
+  readonly updateEntity: (entity: ArticleTypeEntity, formValues: any) => void;
 }

@@ -5,7 +5,7 @@ export interface OperationState {
 }
 
 export function createOperationState<T extends OperationState> (
-  extension: any,
+  extension: T,
   state: OperationState = {}
 ): T {
   let {

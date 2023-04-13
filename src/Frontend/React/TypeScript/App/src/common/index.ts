@@ -1,3 +1,4 @@
+export * from './Functions';
 export * from './Controls';
 export * from './Http';
 export * from './Notification';

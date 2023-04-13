@@ -13,11 +13,11 @@ import {
 import styles from './ArticleItemView.module.css';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
-    function ArticleItemView ({
-      loading,
-      response,
-      topicPageLastUrl
-    }: ArticleItemViewProps) {
+function ArticleItemView ({
+  loading,
+  response,
+  topicPageLastUrl
+}: ArticleItemViewProps) {
   let item: ArticleDomainEntityForItem | null = null;
   let data: ArticleTypeEntity | null = null;
 

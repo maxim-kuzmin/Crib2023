@@ -51,9 +51,10 @@ type SetActionPayload = ArticleListStoreSetActionPayload;
 
 type State = ArticleListStoreState;
 
-function createClearAction (): ClearAction {
+function createClearAction (sliceName: string): ClearAction {
   return {
-    type: ArticleListStoreActionType.Clear
+    type: ArticleListStoreActionType.Clear,
+    sliceName
   };
 };
 
@@ -64,17 +65,19 @@ function createGetOperationRequest (
   return createArticleDomainListGetOperationRequest(input, operationCode);
 }
 
-function createSetAction (payload: SetActionPayload): SetAction {
+function createSetAction (sliceName: string, payload: SetActionPayload): SetAction {
   return {
     type: ArticleListStoreActionType.Set,
-    payload
+    payload,
+    sliceName
   };
 };
 
-function createLoadAction (payload: LoadActionPayload): LoadAction {
+function createLoadAction (sliceName: string, payload: LoadActionPayload): LoadAction {
   return {
     type: ArticleListStoreActionType.Load,
-    payload
+    payload,
+    sliceName
   };
 };
 
@@ -86,17 +89,18 @@ function useGetOperationRequestHandler (): GetOperationRequestHandler {
   return getModule().useArticleDomainListGetOperationRequestHandler();
 }
 
-function useState (): State {
-  return useArticleListStoreStateContext();
+function useState (sliceName: string): State {
+  return useArticleListStoreStateContext(sliceName);
 }
 
 // <---Store--- //
 
 function runDispatchToClear (
+  sliceName: string,
   dispatch: Dispatch<ActionUnion>,
   callback: ClearActionCallback | null
 ) {
-  dispatch(createClearAction());
+  dispatch(createClearAction(sliceName));
 
   if (callback) {
     callback();
@@ -104,11 +108,12 @@ function runDispatchToClear (
 }
 
 function runDispatchToSet (
+  sliceName: string,
   dispatch: Dispatch<ActionUnion>,
   callback: SetActionCallback | null,
   payload: SetActionPayload
 ) {
-  dispatch(createSetAction(payload));
+  dispatch(createSetAction(sliceName, payload));
 
   if (callback) {
     callback(payload);
@@ -116,6 +121,7 @@ function runDispatchToSet (
 }
 
 async function runDispatchToLoad (
+  sliceName: string,
   requestHandler: GetOperationRequestHandler,
   dispatch: Dispatch<ActionUnion>,
   callback: SetActionCallback | null,
@@ -126,7 +132,7 @@ async function runDispatchToLoad (
     return;
   }
 
-  dispatch(createLoadAction(payload));
+  dispatch(createLoadAction(sliceName, payload));
 
   const response = payload
     ? await requestHandler.handle(createGetOperationRequest(payload), shouldBeCanceled)
@@ -136,82 +142,83 @@ async function runDispatchToLoad (
     return;
   }
 
-  runDispatchToSet(dispatch, callback, response);
+  runDispatchToSet(sliceName, dispatch, callback, response);
 }
 
 function useDispatchToClear ({
+  callback,
   dispatchType,
-  callback
-}: ClearActionOptions = {}): ClearActionDispatch {
+  sliceName
+}: ClearActionOptions): ClearActionDispatch {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
 
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToClear(dispatch, callbackInner);
+      runDispatchToClear(sliceName, dispatch, callbackInner);
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToClear(dispatch, callbackInner);
+        runDispatchToClear(sliceName, dispatch, callbackInner);
       }
     };
-  }, [dispatch, dispatchType, callbackInner]);
+  }, [sliceName, dispatch, dispatchType, callbackInner]);
 
   return useRef({
     run: () => {
-      runDispatchToClear(dispatch, callbackInner);
+      runDispatchToClear(sliceName, dispatch, callbackInner);
     }
   }).current;
 }
 
-function useDispatchToLoad (options?: LoadActionOptions): LoadActionDispatch {
+function useDispatchToLoad ({
+  callback,
+  dispatchType,
+  isCanceled,
+  payload,
+  sliceName
+}: LoadActionOptions): LoadActionDispatch {
   const dispatch = useDispatchContext();
 
-  const callbackInner = options?.callback ?? null;
+  const callbackInner = callback ?? null;
 
-  const payloadInner = options?.payload ?? null;
+  const payloadInner = payload ?? null;
 
   const requestHandler = useRef(useGetOperationRequestHandler()).current;
 
   useEffect(() => {
-    let isCanceled = options?.isCanceled ?? false;
+    let isCanceledInner = isCanceled ?? false;
 
-    const shouldBeCanceledInner = () => isCanceled;
+    const shouldBeCanceledInner = () => isCanceledInner;
 
-    if (options?.dispatchType === StoreDispatchType.MountOrUpdate && payloadInner) {
-      runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceledInner, payloadInner);
+    if (dispatchType === StoreDispatchType.MountOrUpdate && payloadInner) {
+      runDispatchToLoad(sliceName, requestHandler, dispatch, callbackInner, shouldBeCanceledInner, payloadInner);
     }
 
     return () => {
-      if (options?.dispatchType === StoreDispatchType.Unmount && payloadInner) {
-        runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceledInner, payloadInner);
+      if (dispatchType === StoreDispatchType.Unmount && payloadInner) {
+        runDispatchToLoad(sliceName, requestHandler, dispatch, callbackInner, shouldBeCanceledInner, payloadInner);
       } else {
-        isCanceled = true;
+        isCanceledInner = true;
       }
     };
-  }, [
-    requestHandler,
-    dispatch,
-    options?.dispatchType,
-    options?.isCanceled,
-    callbackInner,
-    payloadInner
-  ]);
+  }, [sliceName, requestHandler, dispatch, dispatchType, isCanceled, callbackInner, payloadInner]);
 
   return useRef({
     run: async (payload: LoadActionPayload, shouldBeCanceled: ShouldBeCanceled = () => false) => {
-      runDispatchToLoad(requestHandler, dispatch, callbackInner, shouldBeCanceled, payload)
+      runDispatchToLoad(sliceName, requestHandler, dispatch, callbackInner, shouldBeCanceled, payload)
     }
   }).current;
 }
 
 function useDispatchToSet ({
-  dispatchType,
   callback,
-  payload
-}: SetActionOptions = {}): SetActionDispatch {
+  dispatchType,
+  payload,
+  sliceName
+}: SetActionOptions): SetActionDispatch {
   const dispatch = useDispatchContext();
 
   const callbackInner = callback ?? null;
@@ -220,19 +227,19 @@ function useDispatchToSet ({
 
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToSet(dispatch, callbackInner, payloadInner);
+      runDispatchToSet(sliceName, dispatch, callbackInner, payloadInner);
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToSet(dispatch, callbackInner, payloadInner);
+        runDispatchToSet(sliceName, dispatch, callbackInner, payloadInner);
       }
     };
-  }, [dispatch, dispatchType, callbackInner, payloadInner]);
+  }, [sliceName, dispatch, dispatchType, callbackInner, payloadInner]);
 
   return useRef({
     run: (payload: SetActionPayload) => {
-      runDispatchToSet(dispatch, callbackInner, payload);
+      runDispatchToSet(sliceName, dispatch, callbackInner, payload);
     }
   }).current;
 }

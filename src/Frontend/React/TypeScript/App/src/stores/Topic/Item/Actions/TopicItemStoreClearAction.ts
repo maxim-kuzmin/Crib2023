@@ -1,5 +1,5 @@
-import { type TopicItemStoreActionType } from '../../../../all';
+import { type StoreAction, type TopicItemStoreActionType } from '../../../../all';
 
-export interface TopicItemStoreClearAction {
+export interface TopicItemStoreClearAction extends StoreAction {
   type: TopicItemStoreActionType.Clear;
 }

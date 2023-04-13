@@ -10,20 +10,24 @@ import {
   type TopicDomainItemGetOperationInput,
   type TableControlPagination,
   type ArticleListStoreSetActionPayload,
-  type TopicItemStoreSetActionPayload
+  type TopicItemStoreSetActionPayload,
+  ArticleListStoreSliceName,
+  TopicItemStoreSliceName
 } from '../../all';
 
 export const TopicPage: React.FC = memo(
-    function TopicPage () {
+function TopicPage () {
   const urlParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const articleListStoreHooks = getModule().getArticleListStoreHooks();
 
+  const articleListStoreSliceName = ArticleListStoreSliceName.Global;
+
   const {
     payloadFromSetAction: articleListResponse,
     status: articleListStatus
-  } = articleListStoreHooks.useState();
+  } = articleListStoreHooks.useState(articleListStoreSliceName);
 
   let topicId = Number(urlParams.topicId ?? 0);
 
@@ -40,7 +44,7 @@ export const TopicPage: React.FC = memo(
   const { pageNumber, pageSize } = topicPageSearch;
 
   const callbackOnArticleListLoad = useCallback((payload: ArticleListStoreSetActionPayload) => {
-    console.log('MAKC:TopicPage:callbackOnArticleListLoad:response', payload);
+    console.log('MAKC:TopicPage:callbackOnArticleListLoad:payload', payload);
   }, []);
 
   const payloadToArticleListLoad: ArticleDomainListGetOperationInput = useMemo(
@@ -53,12 +57,14 @@ export const TopicPage: React.FC = memo(
   );
 
   articleListStoreHooks.useDispatchToLoad({
+    sliceName: articleListStoreSliceName,
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleListLoad,
     payload: payloadToArticleListLoad
   });
 
   articleListStoreHooks.useDispatchToClear({
+    sliceName: articleListStoreSliceName,
     dispatchType: StoreDispatchType.Unmount
   });
 
@@ -76,7 +82,10 @@ export const TopicPage: React.FC = memo(
     [topicId]
   );
 
+  const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
+
   topicItemStoreHooks.useDispatchToLoad({
+    sliceName: topicItemStoreSliceName,
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnTopicItemLoad,
     payload: payloadToTopicItemLoad
@@ -89,6 +98,7 @@ export const TopicPage: React.FC = memo(
   }, [topicPageLastUrl, topicPageService]);
 
   topicItemStoreHooks.useDispatchToClear({
+    sliceName: topicItemStoreSliceName,
     callback: callbackOnTopicItemClear,
     dispatchType: StoreDispatchType.Unmount
   });

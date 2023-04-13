@@ -1,23 +1,28 @@
 import React, { memo, useCallback } from 'react';
-import { getModule, StoreDispatchType } from '../../../all';
+import { AppNotificationStoreSliceName, getModule, StoreDispatchType } from '../../../all';
 
 export const AppNotificationView: React.FC = memo(
-    function AppNotificationView () {
-  const notificationControlService = getModule().getNotificationControlService();
+function AppNotificationView () {
+  const notificationControlHooks = getModule().getNotificationControlHooks();
 
-  const component = notificationControlService.useComponent();
+  const component = notificationControlHooks.useComponent();
 
   const appNotificationStoreHooks = getModule().getAppNotificationStoreHooks();
 
-  const { payloadFromSetAction: data } = appNotificationStoreHooks.useState();
+  const appNotificationStoreSliceName = AppNotificationStoreSliceName.Global;
+
+  const { payloadFromSetAction: data } = appNotificationStoreHooks.useState(appNotificationStoreSliceName);
 
   const callback = useCallback(() => {
-    if (data) {
-      component.show(data);
-    }
-  }, [component, data]);
+      if (data) {
+        component.show(data);
+      }
+    },
+    [component, data]
+  );
 
   appNotificationStoreHooks.useDispatchToClear({
+    sliceName: appNotificationStoreSliceName,
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback
   });

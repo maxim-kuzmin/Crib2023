@@ -12,22 +12,26 @@ import {
   ArticleItemEditView,
   ArticlePageMode,
   type ArticleItemStoreSetActionPayload,
-  type TopicItemStoreSetActionPayload
+  type TopicItemStoreSetActionPayload,
+  ArticleItemStoreSliceName,
+  TopicItemStoreSliceName
 } from '../../all';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
-    function ArticlePage ({
-      mode
-    }: ArticlePageProps) {
+function ArticlePage ({
+  mode
+}: ArticlePageProps) {
   const urlParams = useParams();
   const [searchParams] = useSearchParams();
 
   const articleItemStoreHooks = getModule().getArticleItemStoreHooks();
 
+  const articleItemStoreSliceName = ArticleItemStoreSliceName.Global;
+
   const {
     payloadFromSetAction: articleItemResponse,
     status: articleItemStatus
-  } = articleItemStoreHooks.useState();
+  } = articleItemStoreHooks.useState(articleItemStoreSliceName);
 
   let topicId = articleItemResponse?.data?.item?.data.topicId ?? 0;
 
@@ -56,12 +60,14 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
   );
 
   articleItemStoreHooks.useDispatchToLoad({
+    sliceName: articleItemStoreSliceName,
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback: callbackOnArticleItemLoad,
     payload: payloadToArticleItemLoad
   });
 
   articleItemStoreHooks.useDispatchToClear({
+    sliceName: articleItemStoreSliceName,
     dispatchType: StoreDispatchType.Unmount
   });
 
@@ -79,7 +85,10 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
     [topicId]
   );
 
+  const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
+
   topicItemStoreHooks.useDispatchToLoad({
+    sliceName: topicItemStoreSliceName,
     dispatchType: StoreDispatchType.MountOrUpdate,
     isCanceled: !articleItemIsLoaded.current,
     callback: callbackOnTopicItemLoad,
@@ -87,6 +96,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = memo(
   });
 
   topicItemStoreHooks.useDispatchToClear({
+    sliceName: topicItemStoreSliceName,
     dispatchType: StoreDispatchType.Unmount
   });
 

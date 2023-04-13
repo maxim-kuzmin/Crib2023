@@ -10,7 +10,9 @@ import {
   SpinnerControl,
   type TreeControlNode,
   TreeControl,
-  createTopicDomainTreeGetOperationRequest
+  createTopicDomainTreeGetOperationRequest,
+  TopicItemStoreSliceName,
+  TopicTreeStoreSliceName
 } from '../../../all';
 import styles from './TopicTreeView.module.css';
 
@@ -44,20 +46,22 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
 }
 
 export const TopicTreeView: React.FC = memo(
-    function TopicTreeView () {
+function TopicTreeView () {
   const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
+
+  const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
 
   const {
     payloadFromSetAction: topicItemResponse,
     status: topicItemStatus
-  } = topicItemStoreHooks.useState();
+  } = topicItemStoreHooks.useState(topicItemStoreSliceName);
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
   const topicTreeStoreHooks = getModule().getTopicTreeStoreHooks();
 
-  const callbackOnTopicTreeLoad = useCallback((response: TopicDomainTreeGetOperationResponse | null) => {
-    console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:response', response);
+  const callbackOnTopicTreeLoad = useCallback((payload: TopicDomainTreeGetOperationResponse | null) => {
+    console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:payload', payload);
   }, []);
 
   const payloadToTopicTreeLoad: TopicDomainTreeGetOperationInput = useMemo(
@@ -68,7 +72,10 @@ export const TopicTreeView: React.FC = memo(
     [topicId]
   );
 
+  const topicTreeStoreSliceName = TopicTreeStoreSliceName.Global;
+
   topicTreeStoreHooks.useDispatchToLoad({
+    sliceName: topicTreeStoreSliceName,
     dispatchType: StoreDispatchType.MountOrUpdate,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
     callback: callbackOnTopicTreeLoad,
@@ -76,13 +83,14 @@ export const TopicTreeView: React.FC = memo(
   });
 
   topicItemStoreHooks.useDispatchToClear({
+    sliceName: topicItemStoreSliceName,
     dispatchType: StoreDispatchType.Unmount
   });
 
   const {
     payloadFromSetAction: topicTreeResponse,
     status: topicTreeStatus
-  } = topicTreeStoreHooks.useState();
+  } = topicTreeStoreHooks.useState(topicTreeStoreSliceName);
 
   const entities = topicTreeResponse?.data?.nodes;
 

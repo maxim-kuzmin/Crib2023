@@ -1,9 +1,10 @@
 import {
   type TopicTreeStoreLoadActionPayload,
-  type TopicTreeStoreActionType
+  type TopicTreeStoreActionType,
+  type StoreAction
 } from '../../../../all';
 
-export interface TopicTreeStoreLoadAction {
+export interface TopicTreeStoreLoadAction extends StoreAction {
   type: TopicTreeStoreActionType.Load;
   payload: TopicTreeStoreLoadActionPayload;
 }
