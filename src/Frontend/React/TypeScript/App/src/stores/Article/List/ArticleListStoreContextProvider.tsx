@@ -5,17 +5,16 @@ import React, {
   memo,
   useContext,
   useReducer,
-  useRef
 } from 'react';
 import {
   ArticleListStoreActionType,
   type ArticleListStoreActionUnion,
   type ArticleListStoreState,
   OperationStatus,
-  createOperationState,
-  ArticleListStoreSliceName
+  createOperationState
 } from '../../../all';
 import { getModule } from '../../../app/Module/Impls';
+import { ArticleListStoreSliceName } from '../../../app/Stores';
 
 type ActionUnion = ArticleListStoreActionUnion;
 type State = ArticleListStoreState;
@@ -24,51 +23,47 @@ type StateMap = Map<string, State>;
 const DispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
 const StateContext = createContext<StateMap | null>(null);
 
+const initialState = getModule().getStoreService().createInitialState<State>(
+  [ArticleListStoreSliceName.Global],
+  () => createOperationState<State>({
+    payloadFromLoadAction: null,
+    payloadFromSetAction: null
+  })
+);
+
+function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
+  const result = new Map<string, State>(stateMap);
+  const { sliceName, type } = action;
+  const state = result.get(sliceName)!;
+
+  switch (type) {
+    case ArticleListStoreActionType.Clear:
+      result.set(sliceName, initialState.get(sliceName)!);
+      break;
+    case ArticleListStoreActionType.Load:
+      result.set(sliceName, {
+        ...state,
+        payloadFromLoadAction: action.payload,
+        status: OperationStatus.Pending
+      });
+      break;
+    case ArticleListStoreActionType.Set:
+      result.set(sliceName, {
+        ...state,
+        payloadFromSetAction: action.payload,
+        status: OperationStatus.Fulfilled
+      });
+      break;
+  }
+
+  return result;
+}
+
 export const ArticleListStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function ArticleListStoreContextProvider ({
   children
 }: PropsWithChildren) {
-  const initialState = useRef(
-    getModule().getStoreService().createInitialState<State>(
-      [ArticleListStoreSliceName.Global],
-      () => createOperationState<State>({
-        payloadFromLoadAction: null,
-        payloadFromSetAction: null
-      })
-    )
-  );
-
-  const reducer = useRef(
-    function (stateMap: StateMap, action: ActionUnion): StateMap {
-      const result = new Map<string, State>(stateMap);
-      const { sliceName, type } = action;
-      const state = result.get(sliceName)!;
-
-      switch (type) {
-        case ArticleListStoreActionType.Clear:
-          result.set(sliceName, initialState.current.get(sliceName)!);
-          break;
-        case ArticleListStoreActionType.Load:
-          result.set(sliceName, {
-            ...state,
-            payloadFromLoadAction: action.payload,
-            status: OperationStatus.Pending
-          });
-          break;
-        case ArticleListStoreActionType.Set:
-          result.set(sliceName, {
-            ...state,
-            payloadFromSetAction: action.payload,
-            status: OperationStatus.Fulfilled
-          });
-          break;
-      }
-
-      return result;
-    }
-  );
-
-  const [state, dispatch] = useReducer(reducer.current, initialState.current);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <StateContext.Provider value={state}>

@@ -5,15 +5,14 @@ import React, {
   memo,
   useContext,
   useReducer,
-  useRef
 } from 'react';
 import {
   AppNotificationStoreActionType,
   type AppNotificationStoreActionUnion,
   type AppNotificationStoreState,
-  AppNotificationStoreSliceName
 } from '../../../all';
 import { getModule } from '../../../app/Module/Impls';
+import { AppNotificationStoreSliceName } from '../../../app/Stores';
 
 type ActionUnion = AppNotificationStoreActionUnion;
 type State = AppNotificationStoreState;
@@ -22,42 +21,38 @@ type StateMap = Map<string, State>;
 const DispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
 const StateContext = createContext<StateMap | null>(null);
 
+const initialState = getModule().getStoreService().createInitialState<State>(
+  [AppNotificationStoreSliceName.Global],
+  () => ({
+    payloadFromSetAction: null
+  })
+);
+
+function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
+  const result = new Map<string, State>(stateMap);
+  const { sliceName, type } = action;
+  const state = result.get(sliceName)!;
+
+  switch (type) {
+    case AppNotificationStoreActionType.Clear:
+      result.set(sliceName, initialState.get(sliceName)!);
+      break;
+    case AppNotificationStoreActionType.Set:
+      result.set(sliceName, {
+        ...state,
+        payloadFromSetAction: action.payload,
+      });
+      break;
+  }
+
+  return result;
+}
+
 export const AppNotificationStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function AppNotificationStoreContextProvider ({
   children
 }: PropsWithChildren) {
-  const initialState = useRef(
-    getModule().getStoreService().createInitialState<State>(
-      [AppNotificationStoreSliceName.Global],
-      () => ({
-        payloadFromSetAction: null
-      })
-    )
-  );
-
-  const reducer = useRef(
-    function (stateMap: StateMap, action: ActionUnion): StateMap {
-      const result = new Map<string, State>(stateMap);
-      const { sliceName, type } = action;
-      const state = result.get(sliceName)!;
-
-      switch (type) {
-        case AppNotificationStoreActionType.Clear:
-          result.set(sliceName, initialState.current.get(sliceName)!);
-          break;
-        case AppNotificationStoreActionType.Set:
-          result.set(sliceName, {
-            ...state,
-            payloadFromSetAction: action.payload,
-          });
-          break;
-      }
-
-      return result;
-    }
-  );
-
-  const [state, dispatch] = useReducer(reducer.current, initialState.current);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <StateContext.Provider value={state}>

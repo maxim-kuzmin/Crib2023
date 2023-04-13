@@ -9,12 +9,11 @@ import {
   SpinnerControl,
   type TreeControlNode,
   TreeControl,
-  createTopicDomainTreeGetOperationRequest,
-  TopicItemStoreSliceName,
-  TopicTreeStoreSliceName
+  createTopicDomainTreeGetOperationRequest
 } from '../../../all';
 import styles from './TopicTreeView.module.css';
 import { getModule } from '../../../app/Module/Impls';
+import { TopicItemStoreSliceName, TopicTreeStoreSliceName } from '../../../app/Stores';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,
@@ -45,11 +44,12 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
   : [];
 }
 
+const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
+const topicTreeStoreSliceName = TopicTreeStoreSliceName.Global;
+
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView () {
   const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
-
-  const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
 
   const {
     payloadFromSetAction: topicItemResponse,
@@ -71,8 +71,6 @@ function TopicTreeView () {
     }),
     [topicId]
   );
-
-  const topicTreeStoreSliceName = TopicTreeStoreSliceName.Global;
 
   topicTreeStoreHooks.useDispatchToLoad({
     sliceName: topicTreeStoreSliceName,

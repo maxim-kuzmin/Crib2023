@@ -11,11 +11,13 @@ import {
   ArticleItemEditView,
   ArticlePageMode,
   type ArticleItemStoreSetActionPayload,
-  type TopicItemStoreSetActionPayload,
-  ArticleItemStoreSliceName,
-  TopicItemStoreSliceName
+  type TopicItemStoreSetActionPayload
 } from '../../all';
 import { getModule } from '../../app/Module/Impls';
+import { ArticleItemStoreSliceName, TopicItemStoreSliceName } from '../../app/Stores';
+
+const articleItemStoreSliceName = ArticleItemStoreSliceName.Global;
+const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({
@@ -25,8 +27,6 @@ function ArticlePage ({
   const [searchParams] = useSearchParams();
 
   const articleItemStoreHooks = getModule().getArticleItemStoreHooks();
-
-  const articleItemStoreSliceName = ArticleItemStoreSliceName.Global;
 
   const {
     payloadFromSetAction: articleItemResponse,
@@ -84,8 +84,6 @@ function ArticlePage ({
     }),
     [topicId]
   );
-
-  const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
 
   topicItemStoreHooks.useDispatchToLoad({
     sliceName: topicItemStoreSliceName,

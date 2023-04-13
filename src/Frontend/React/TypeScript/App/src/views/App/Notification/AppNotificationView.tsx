@@ -1,6 +1,9 @@
 import React, { memo, useCallback } from 'react';
-import { AppNotificationStoreSliceName, StoreDispatchType } from '../../../all';
+import { StoreDispatchType } from '../../../all';
 import { getModule } from '../../../app/Module/Impls';
+import { AppNotificationStoreSliceName } from '../../../app/Stores';
+
+const appNotificationStoreSliceName = AppNotificationStoreSliceName.Global;
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView () {
@@ -9,8 +12,6 @@ function AppNotificationView () {
   const component = notificationControlHooks.useComponent();
 
   const appNotificationStoreHooks = getModule().getAppNotificationStoreHooks();
-
-  const appNotificationStoreSliceName = AppNotificationStoreSliceName.Global;
 
   const { payloadFromSetAction: data } = appNotificationStoreHooks.useState(appNotificationStoreSliceName);
 

@@ -10,10 +10,12 @@ import {
   type TableControlPagination,
   type ArticleListStoreSetActionPayload,
   type TopicItemStoreSetActionPayload,
-  ArticleListStoreSliceName,
-  TopicItemStoreSliceName
 } from '../../all';
 import { getModule } from '../../app/Module/Impls';
+import { ArticleListStoreSliceName, TopicItemStoreSliceName } from '../../app/Stores';
+
+const articleListStoreSliceName = ArticleListStoreSliceName.Global;
+const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
 
 export const TopicPage: React.FC = memo(
 function TopicPage () {
@@ -21,8 +23,6 @@ function TopicPage () {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const articleListStoreHooks = getModule().getArticleListStoreHooks();
-
-  const articleListStoreSliceName = ArticleListStoreSliceName.Global;
 
   const {
     payloadFromSetAction: articleListResponse,
@@ -81,8 +81,6 @@ function TopicPage () {
     }),
     [topicId]
   );
-
-  const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
 
   topicItemStoreHooks.useDispatchToLoad({
     sliceName: topicItemStoreSliceName,
