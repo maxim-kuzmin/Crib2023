@@ -1,4 +1,1 @@
-export {
-  type NotificationControlHooks,
-  createNotificationControlHooks
-} from './NotificationControlHooks';
+export { type NotificationControlHooks } from './NotificationControlHooks';

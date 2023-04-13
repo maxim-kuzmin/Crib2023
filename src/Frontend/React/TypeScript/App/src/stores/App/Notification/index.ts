@@ -8,4 +8,3 @@ export {
   useAppNotificationStoreDispatchContext,
   useAppNotificationStoreStateContext
 } from './AppNotificationStoreContextProvider';
-export { createAppNotificationStoreHooks } from './AppNotificationStore';

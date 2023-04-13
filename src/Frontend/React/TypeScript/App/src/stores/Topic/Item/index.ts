@@ -8,4 +8,3 @@ export {
   useTopicItemStoreDispatchContext,
   useTopicItemStoreStateContext
 } from './TopicItemStoreContextProvider';
-export { createTopicItemStoreHooks } from './TopicItemStore';

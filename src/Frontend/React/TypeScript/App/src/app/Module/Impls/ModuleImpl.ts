@@ -35,7 +35,7 @@ import { ApiClientImpl } from './Data/Api/ApiClientImpl';
 import { TestServiceImpl } from './Test/TestServiceImpl';
 import { StoreServiceImpl } from './Store/StoreServiceImpl';
 import { createAppNotificationStoreHooks } from '../../../stores/App/Notification/AppNotificationStore';
-import { createNotificationControlHooks } from '../../../controls/Notification';
+import { createNotificationControlHooks } from '../../../controls/Notification/NotificationControlHooks';
 import { TableControlServiceImpl } from './Controls/Table/TableControlServiceImpl';
 import { createArticleItemStoreHooks } from '../../../stores/Article/Item/ArticleItemStore';
 import { createArticleListStoreHooks } from '../../../stores/Article/List/ArticleListStore';

@@ -8,4 +8,3 @@ export {
   useArticleItemStoreDispatchContext,
   useArticleItemStoreStateContext
 } from './ArticleItemStoreContextProvider';
-export { createArticleItemStoreHooks } from './ArticleItemStore';

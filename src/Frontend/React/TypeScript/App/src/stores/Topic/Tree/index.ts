@@ -8,4 +8,3 @@ export {
   useTopicTreeStoreDispatchContext,
   useTopicTreeStoreStateContext
 } from './TopicTreeStoreContextProvider';
-export { createTopicTreeStoreHooks } from './TopicTreeStore';
