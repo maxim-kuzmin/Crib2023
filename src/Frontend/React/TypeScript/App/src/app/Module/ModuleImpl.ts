@@ -195,9 +195,7 @@ export class ModuleImpl implements Module {
   private useOperationHandler (options: UseOperationHandlerOptions): OperationHandler {
     const { shouldBeLogged, shouldBeNotified } = options;
 
-    const service = this.getAppNotificationStoreHooks();
-
-    const { run } = service.useDispatchToSet({
+    const { run } = this.getAppNotificationStoreHooks().useDispatchToSet({
       sliceName: AppNotificationStoreSliceName.Global
     });
 
