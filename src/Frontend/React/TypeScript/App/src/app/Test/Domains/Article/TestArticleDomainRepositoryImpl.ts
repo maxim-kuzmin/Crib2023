@@ -10,7 +10,8 @@ import {
   type ArticleDomainListGetOperationOutput,
   type ApiResponseError,
 } from '../../../../all';
-import { ApiResponseErrorImpl, getModule } from '../../../Module/Impls';
+import { getModule } from '../../../Module/Impls';
+import { ApiResponseErrorImpl } from '../../../Module/Impls/Data/Api/Response/ApiResponseErrorImpl';
 
 export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
   private readonly items: ArticleDomainEntityForItem[] = [];

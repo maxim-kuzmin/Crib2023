@@ -15,7 +15,8 @@ import {
   type TopicDomainTreeGetOperationResponse,
   type TopicDomainTreeGetOperationOutput
 } from '../../../../all';
-import { ApiResponseErrorImpl, getModule } from '../../../Module/Impls';
+import { getModule } from '../../../Module/Impls';
+import { ApiResponseErrorImpl } from '../../../Module/Impls/Data/Api/Response/ApiResponseErrorImpl';
 
 export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
   private readonly entitiesForItem: TopicDomainEntityForItem[] = [];
