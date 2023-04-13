@@ -95,11 +95,17 @@ function useState (sliceName: string): State {
 
 // <---Store--- //
 
-function runDispatchToClear (
-  sliceName: string,
-  dispatch: Dispatch<ActionUnion>,
-  callback: ClearActionCallback | null
-) {
+interface RunDispatchToClearOptions {
+  readonly callback?: ClearActionCallback;
+  readonly dispatch: Dispatch<ActionUnion>;
+  readonly sliceName: string;
+}
+
+function runDispatchToClear ({
+  callback,
+  dispatch,
+  sliceName
+}: RunDispatchToClearOptions) {
   dispatch(createClearAction(sliceName));
 
   if (callback) {
@@ -107,12 +113,19 @@ function runDispatchToClear (
   }
 }
 
-function runDispatchToSet (
-  sliceName: string,
-  dispatch: Dispatch<ActionUnion>,
-  callback: SetActionCallback | null,
-  payload: SetActionPayload
-) {
+interface RunDispatchToSetOptions {
+  readonly callback?: SetActionCallback;
+  readonly dispatch: Dispatch<ActionUnion>;
+  readonly payload: SetActionPayload;
+  readonly sliceName: string;
+}
+
+function runDispatchToSet ({
+  callback,
+  dispatch,
+  payload,
+  sliceName
+}: RunDispatchToSetOptions) {
   dispatch(createSetAction(sliceName, payload));
 
   if (callback) {
@@ -120,14 +133,23 @@ function runDispatchToSet (
   }
 }
 
-async function runDispatchToLoad (
-  sliceName: string,
-  requestHandler: GetOperationRequestHandler,
-  dispatch: Dispatch<ActionUnion>,
-  callback: SetActionCallback | null,
-  shouldBeCanceled: ShouldBeCanceled,
-  payload: LoadActionPayload
-) {
+interface RunDispatchToLoadOptions {
+  readonly callback?: SetActionCallback;
+  readonly dispatch: Dispatch<ActionUnion>;
+  readonly payload: LoadActionPayload;
+  readonly requestHandler: GetOperationRequestHandler;
+  readonly shouldBeCanceled: ShouldBeCanceled;
+  readonly sliceName: string;
+}
+
+async function runDispatchToLoad ({
+  callback,
+  dispatch,
+  shouldBeCanceled,
+  sliceName,
+  payload,
+  requestHandler
+}: RunDispatchToLoadOptions) {
   if (shouldBeCanceled()) {
     return;
   }
@@ -142,7 +164,7 @@ async function runDispatchToLoad (
     return;
   }
 
-  runDispatchToSet(sliceName, dispatch, callback, response);
+  runDispatchToSet({ sliceName, dispatch, callback, payload: response });
 }
 
 function useDispatchToClear ({
@@ -152,23 +174,21 @@ function useDispatchToClear ({
 }: ClearActionOptions): ClearActionDispatch {
   const dispatch = useDispatchContext();
 
-  const callbackInner = callback ?? null;
-
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToClear(sliceName, dispatch, callbackInner);
+      runDispatchToClear({ sliceName, dispatch, callback });
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToClear(sliceName, dispatch, callbackInner);
+        runDispatchToClear({ sliceName, dispatch, callback });
       }
     };
-  }, [sliceName, dispatch, dispatchType, callbackInner]);
+  }, [sliceName, dispatch, dispatchType, callback]);
 
   return useRef({
     run: () => {
-      runDispatchToClear(sliceName, dispatch, callbackInner);
+      runDispatchToClear({ sliceName, dispatch, callback });
     }
   }).current;
 }
@@ -182,10 +202,6 @@ function useDispatchToLoad ({
 }: LoadActionOptions): LoadActionDispatch {
   const dispatch = useDispatchContext();
 
-  const callbackInner = callback ?? null;
-
-  const payloadInner = payload ?? null;
-
   const requestHandler = useRef(useGetOperationRequestHandler()).current;
 
   useEffect(() => {
@@ -193,22 +209,43 @@ function useDispatchToLoad ({
 
     const shouldBeCanceledInner = () => isCanceledInner;
 
-    if (dispatchType === StoreDispatchType.MountOrUpdate && payloadInner) {
-      runDispatchToLoad(sliceName, requestHandler, dispatch, callbackInner, shouldBeCanceledInner, payloadInner);
+    if (dispatchType === StoreDispatchType.MountOrUpdate && payload) {
+      runDispatchToLoad({
+        sliceName,
+        requestHandler,
+        dispatch,
+        callback,
+        shouldBeCanceled: shouldBeCanceledInner,
+        payload
+      });
     }
 
     return () => {
-      if (dispatchType === StoreDispatchType.Unmount && payloadInner) {
-        runDispatchToLoad(sliceName, requestHandler, dispatch, callbackInner, shouldBeCanceledInner, payloadInner);
+      if (dispatchType === StoreDispatchType.Unmount && payload) {
+        runDispatchToLoad({
+          sliceName,
+          requestHandler,
+          dispatch,
+          callback,
+          shouldBeCanceled: shouldBeCanceledInner,
+          payload
+        });
       } else {
         isCanceledInner = true;
       }
     };
-  }, [sliceName, requestHandler, dispatch, dispatchType, isCanceled, callbackInner, payloadInner]);
+  }, [sliceName, requestHandler, dispatch, dispatchType, isCanceled, callback, payload]);
 
   return useRef({
     run: async (payload: LoadActionPayload, shouldBeCanceled: ShouldBeCanceled = () => false) => {
-      runDispatchToLoad(sliceName, requestHandler, dispatch, callbackInner, shouldBeCanceled, payload)
+      runDispatchToLoad({
+        sliceName,
+        requestHandler,
+        dispatch,
+        callback,
+        shouldBeCanceled,
+        payload
+      });
     }
   }).current;
 }
@@ -221,25 +258,23 @@ function useDispatchToSet ({
 }: SetActionOptions): SetActionDispatch {
   const dispatch = useDispatchContext();
 
-  const callbackInner = callback ?? null;
-
   const payloadInner = payload ?? null;
 
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToSet(sliceName, dispatch, callbackInner, payloadInner);
+      runDispatchToSet({ sliceName, dispatch, callback, payload: payloadInner });
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToSet(sliceName, dispatch, callbackInner, payloadInner);
+        runDispatchToSet({ sliceName, dispatch, callback, payload: payloadInner });
       }
     };
-  }, [sliceName, dispatch, dispatchType, callbackInner, payloadInner]);
+  }, [sliceName, dispatch, dispatchType, callback, payloadInner]);
 
   return useRef({
     run: (payload: SetActionPayload) => {
-      runDispatchToSet(sliceName, dispatch, callbackInner, payload);
+      runDispatchToSet({ sliceName, dispatch, callback, payload });
     }
   }).current;
 }

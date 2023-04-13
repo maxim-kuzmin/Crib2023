@@ -15,7 +15,7 @@ import {
   type AppNotificationStoreSetAction,
   useAppNotificationStoreDispatchContext,
   useAppNotificationStoreStateContext,
-  type AppNotificationStoreState,
+  type AppNotificationStoreState
 } from '../../../all';
 
 // ---Store---> //
@@ -60,11 +60,17 @@ function useState (sliceName: string): State {
 
 // <---Store--- //
 
-function runDispatchToClear (
-  sliceName: string,
-  dispatch: Dispatch<ActionUnion>,
-  callback: ClearActionCallback | null
-) {
+interface RunDispatchToClearOptions {
+  readonly callback?: ClearActionCallback;
+  readonly dispatch: Dispatch<ActionUnion>;
+  readonly sliceName: string;
+}
+
+function runDispatchToClear ({
+  callback,
+  dispatch,
+  sliceName
+}: RunDispatchToClearOptions) {
   dispatch(createClearAction(sliceName));
 
   if (callback) {
@@ -72,12 +78,19 @@ function runDispatchToClear (
   }
 }
 
-function runDispatchToSet (
-  sliceName: string,
-  dispatch: Dispatch<ActionUnion>,
-  callback: SetActionCallback | null,
-  payload: SetActionPayload
-) {
+interface RunDispatchToSetOptions {
+  readonly callback?: SetActionCallback;
+  readonly dispatch: Dispatch<ActionUnion>;
+  readonly payload: SetActionPayload;
+  readonly sliceName: string;
+}
+
+function runDispatchToSet ({
+  callback,
+  dispatch,
+  payload,
+  sliceName
+}: RunDispatchToSetOptions) {
   dispatch(createSetAction(sliceName, payload));
 
   if (callback) {
@@ -92,23 +105,21 @@ function useDispatchToClear ({
 }: ClearActionOptions): ClearActionDispatch {
   const dispatch = useDispatchContext();
 
-  const callbackInner = callback ?? null;
-
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToClear(sliceName, dispatch, callbackInner);
+      runDispatchToClear({ sliceName, dispatch, callback });
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToClear(sliceName, dispatch, callbackInner);
+        runDispatchToClear({ sliceName, dispatch, callback });
       }
     };
-  }, [sliceName, dispatch, dispatchType, callbackInner]);
+  }, [sliceName, dispatch, dispatchType, callback]);
 
   return useRef({
     run: () => {
-      runDispatchToClear(sliceName, dispatch, callbackInner);
+      runDispatchToClear({ sliceName, dispatch, callback });
     }
   }).current;
 }
@@ -121,25 +132,23 @@ function useDispatchToSet ({
 }: SetActionOptions): SetActionDispatch {
   const dispatch = useDispatchContext();
 
-  const callbackInner = callback ?? null;
-
   const payloadInner = payload ?? null;
 
   useEffect(() => {
     if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runDispatchToSet(sliceName, dispatch, callbackInner, payloadInner);
+      runDispatchToSet({ sliceName, dispatch, callback, payload: payloadInner });
     };
 
     return () => {
       if (dispatchType === StoreDispatchType.Unmount) {
-        runDispatchToSet(sliceName, dispatch, callbackInner, payloadInner);
+        runDispatchToSet({ sliceName, dispatch, callback, payload: payloadInner });
       }
     };
-  }, [sliceName, dispatch, dispatchType, callbackInner, payloadInner]);
+  }, [sliceName, dispatch, dispatchType, callback, payloadInner]);
 
   return useRef({
     run: (payload: SetActionPayload) => {
-      runDispatchToSet(sliceName, dispatch, callbackInner, payload);
+      runDispatchToSet({ sliceName, dispatch, callback, payload });
     }
   }).current;
 }
