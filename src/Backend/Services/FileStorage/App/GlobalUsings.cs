@@ -3,7 +3,9 @@
 global using Crib2023.Backend.Services.FileStorage.App.GrpcServices;
 global using Crib2023.Backend.Services.FileStorage.App.Setup;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article;
+global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get;
+global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save;
 global using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get;
 global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Entities;
 global using Crib2023.Backend.Services.FileStorage.Domains.Topic.Operations.Item.Get;

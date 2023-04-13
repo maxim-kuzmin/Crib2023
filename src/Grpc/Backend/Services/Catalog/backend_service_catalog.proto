@@ -13,3 +13,10 @@ message CatalogOptionValueObject {
   int64 id = 1;
   string name = 2;
 }
+
+message CatalogOperationReply {
+  bool is_ok = 1;
+  string operation_code = 2;
+  repeated string error_messages = 3;
+  repeated CatalogInvalidInputProperty invalid_input_properties = 4;
+}

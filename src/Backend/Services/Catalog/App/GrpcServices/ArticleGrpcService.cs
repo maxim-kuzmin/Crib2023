@@ -29,6 +29,60 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
     #region Public methods
 
     /// <summary>
+    /// Удалить элемент.
+    /// </summary>
+    /// <param name="request">Запрос.</param>
+    /// <param name="context">Контекст.</param>
+    /// <returns>Задача на удаление элемента.</returns>
+    public override async Task<CatalogOperationReply> DeleteItem(
+        CatalogArticleItemGetOperationRequest request,
+        ServerCallContext context)
+    {
+        CatalogArticleItemGetOperationInput input = request.Input ?? new();
+
+        ArticleDomainItemDeleteOperationRequest operationRequest = new(
+            new()
+            {
+                Id = input.Id,
+                Title = input.Title,
+                TopicId = input.TopicId,
+            },
+            request.OperationCode);
+
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
+
+        var operationResult = response.OperationResult;
+
+        CatalogOperationReply result = new()
+        {
+            IsOk = operationResult.IsOk,
+            OperationCode = operationResult.OperationCode,
+        };
+
+        foreach (string errorMessage in operationResult.ErrorMessages)
+        {
+            result.ErrorMessages.Add(errorMessage);
+        }
+
+        foreach (var invalidInputProperty in operationResult.InvalidInputProperties)
+        {
+            CatalogInvalidInputProperty property = new()
+            {
+                Name = invalidInputProperty.Name
+            };
+
+            foreach (string propertyValue in invalidInputProperty.Values)
+            {
+                property.Values.Add(propertyValue);
+            }
+
+            result.InvalidInputProperties.Add(property);
+        }
+
+        return result;
+    }
+
+    /// <summary>
     /// Получить элемент.
     /// </summary>
     /// <param name="request">Запрос.</param>
@@ -143,6 +197,67 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             var item = CreateItemForList(operationOutputItem);
 
             result.Output.Items.Add(item);
+        }
+
+        foreach (var invalidInputProperty in operationResult.InvalidInputProperties)
+        {
+            CatalogInvalidInputProperty property = new()
+            {
+                Name = invalidInputProperty.Name
+            };
+
+            foreach (string propertyValue in invalidInputProperty.Values)
+            {
+                property.Values.Add(propertyValue);
+            }
+
+            result.InvalidInputProperties.Add(property);
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Сохранить элемент.
+    /// </summary>
+    /// <param name="request">Запрос.</param>
+    /// <param name="context">Контекст.</param>
+    /// <returns>Задача на получение элемента.</returns>
+    public override async Task<CatalogArticleItemGetOperationReply> SaveItem(
+        CatalogArticleItemSaveOperationRequest request,
+        ServerCallContext context)
+    {
+        CatalogArticleTypeEntity input = request.Input ?? new();
+
+        ArticleDomainItemSaveOperationRequest operationRequest = new(
+            new()
+            {
+                Body = input.Body,
+                Id = input.Id,                
+                Title = input.Title,
+                TopicId = input.TopicId,
+            },
+            request.OperationCode);
+
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
+
+        var operationResult = response.OperationResult;
+
+        var operationOutput = operationResult.Output;
+
+        CatalogArticleItemGetOperationReply result = new()
+        {
+            IsOk = operationResult.IsOk,
+            OperationCode = operationResult.OperationCode,
+            Output = new()
+            {
+                Item = CreateItem(operationOutput.Item),
+            }
+        };
+
+        foreach (string errorMessage in operationResult.ErrorMessages)
+        {
+            result.ErrorMessages.Add(errorMessage);
         }
 
         foreach (var invalidInputProperty in operationResult.InvalidInputProperties)

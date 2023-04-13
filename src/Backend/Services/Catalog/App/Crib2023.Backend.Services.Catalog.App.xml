@@ -15,6 +15,14 @@
             </summary>
             <param name="mediator">Посредник.</param>
         </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.App.GrpcServices.ArticleGrpcService.DeleteItem(Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemGetOperationRequest,Grpc.Core.ServerCallContext)">
+            <summary>
+            Удалить элемент.
+            </summary>
+            <param name="request">Запрос.</param>
+            <param name="context">Контекст.</param>
+            <returns>Задача на удаление элемента.</returns>
+        </member>
         <member name="M:Crib2023.Backend.Services.Catalog.App.GrpcServices.ArticleGrpcService.GetItem(Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemGetOperationRequest,Grpc.Core.ServerCallContext)">
             <summary>
             Получить элемент.
@@ -30,6 +38,14 @@
             <param name="request">Запрос.</param>
             <param name="context">Контекст.</param>
             <returns>Задача на получение списка.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.Catalog.App.GrpcServices.ArticleGrpcService.SaveItem(Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemSaveOperationRequest,Grpc.Core.ServerCallContext)">
+            <summary>
+            Сохранить элемент.
+            </summary>
+            <param name="request">Запрос.</param>
+            <param name="context">Контекст.</param>
+            <returns>Задача на получение элемента.</returns>
         </member>
         <member name="T:Crib2023.Backend.Services.Catalog.App.GrpcServices.TopicGrpcService">
             <summary>
@@ -142,6 +158,18 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOptionValueObject.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOperationReply.IsOkFieldNumber">
+            <summary>Field number for the "is_ok" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOperationReply.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOperationReply.ErrorMessagesFieldNumber">
+            <summary>Field number for the "error_messages" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
         </member>
         <member name="T:Crib2023.Grpc.Backend.Services.Catalog.BackendServiceCatalogArticleReflection">
             <summary>Holder for reflection information generated from backend_service_catalog_article.proto</summary>
@@ -280,6 +308,12 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationOutput.TotalCountFieldNumber">
             <summary>Field number for the "total_count" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemSaveOperationRequest.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemSaveOperationRequest.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
         </member>
         <member name="P:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.Descriptor">
             <summary>Service descriptor</summary>

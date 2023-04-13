@@ -1,8 +1,5 @@
 // Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get;
-using Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get;
-
 namespace Crib2023.Backend.Services.FileStorage.App.GrpcServices;
 
 /// <summary>
@@ -30,6 +27,60 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
     #endregion Constructors
 
     #region Public methods
+
+    /// <summary>
+    /// Удалить элемент.
+    /// </summary>
+    /// <param name="request">Запрос.</param>
+    /// <param name="context">Контекст.</param>
+    /// <returns>Задача на удаление элемента.</returns>
+    public override async Task<FileStorageOperationReply> DeleteItem(
+        FileStorageArticleItemGetOperationRequest request,
+        ServerCallContext context)
+    {
+        FileStorageArticleItemGetOperationInput input = request.Input ?? new();
+
+        ArticleDomainItemDeleteOperationRequest operationRequest = new(
+            new()
+            {
+                Id = input.Id,
+                Title = input.Title,
+                TopicId = input.TopicId,
+            },
+            request.OperationCode);
+
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
+
+        var operationResult = response.OperationResult;
+
+        FileStorageOperationReply result = new()
+        {
+            IsOk = operationResult.IsOk,
+            OperationCode = operationResult.OperationCode,
+        };
+
+        foreach (string errorMessage in operationResult.ErrorMessages)
+        {
+            result.ErrorMessages.Add(errorMessage);
+        }
+
+        foreach (var invalidInputProperty in operationResult.InvalidInputProperties)
+        {
+            FileStorageInvalidInputProperty property = new()
+            {
+                Name = invalidInputProperty.Name
+            };
+
+            foreach (string propertyValue in invalidInputProperty.Values)
+            {
+                property.Values.Add(propertyValue);
+            }
+
+            result.InvalidInputProperties.Add(property);
+        }
+
+        return result;
+    }
 
     /// <summary>
     /// Получить элемент.
@@ -135,6 +186,68 @@ public class ArticleGrpcService : GrpcServerOfAtrticle
             var item = CreateItem(operationOutputItem);
 
             result.Output.Items.Add(item);
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Сохранить элемент.
+    /// </summary>
+    /// <param name="request">Запрос.</param>
+    /// <param name="context">Контекст.</param>
+    /// <returns>Задача на получение элемента.</returns>
+    public override async Task<FileStorageArticleItemGetOperationReply> SaveItem(
+        FileStorageArticleItemSaveOperationRequest request,
+        ServerCallContext context)
+    {
+        FileStorageArticleTypeEntity input = request.Input ?? new();
+
+        ArticleDomainItemSaveOperationRequest operationRequest = new(
+            new()
+            {
+                Hash = input.Hash,
+                Path = input.Path,
+                Id = input.Id,
+                Title = input.Title,
+                TopicId = input.TopicId,
+            },
+            request.OperationCode);
+
+        var response = await _mediator.Send(operationRequest).ConfigureAwait(false);
+
+        var operationResult = response.OperationResult;
+
+        var operationOutput = operationResult.Output;
+
+        FileStorageArticleItemGetOperationReply result = new()
+        {
+            IsOk = operationResult.IsOk,
+            OperationCode = operationResult.OperationCode,
+            Output = new()
+            {
+                Item = CreateItem(operationOutput.Item),
+            }
+        };
+
+        foreach (string errorMessage in operationResult.ErrorMessages)
+        {
+            result.ErrorMessages.Add(errorMessage);
+        }
+
+        foreach (var invalidInputProperty in operationResult.InvalidInputProperties)
+        {
+            FileStorageInvalidInputProperty property = new()
+            {
+                Name = invalidInputProperty.Name
+            };
+
+            foreach (string propertyValue in invalidInputProperty.Values)
+            {
+                property.Values.Add(propertyValue);
+            }
+
+            result.InvalidInputProperties.Add(property);
         }
 
         return result;

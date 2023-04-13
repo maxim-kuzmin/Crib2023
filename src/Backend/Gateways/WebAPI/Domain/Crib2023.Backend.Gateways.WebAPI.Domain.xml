@@ -54,6 +54,18 @@
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOptionValueObject.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOperationReply.IsOkFieldNumber">
+            <summary>Field number for the "is_ok" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOperationReply.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOperationReply.ErrorMessagesFieldNumber">
+            <summary>Field number for the "error_messages" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
+        </member>
         <member name="T:Crib2023.Grpc.Backend.Services.Catalog.BackendServiceCatalogArticleReflection">
             <summary>Holder for reflection information generated from backend_service_catalog_article.proto</summary>
         </member>
@@ -191,6 +203,12 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleListGetOperationOutput.TotalCountFieldNumber">
             <summary>Field number for the "total_count" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemSaveOperationRequest.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleItemSaveOperationRequest.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
         </member>
         <member name="P:Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleService.Descriptor">
             <summary>Service descriptor</summary>
@@ -480,6 +498,18 @@
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageOptionValueObject.NameFieldNumber">
             <summary>Field number for the "name" field.</summary>
         </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageOperationReply.IsOkFieldNumber">
+            <summary>Field number for the "is_ok" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageOperationReply.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageOperationReply.ErrorMessagesFieldNumber">
+            <summary>Field number for the "error_messages" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageOperationReply.InvalidInputPropertiesFieldNumber">
+            <summary>Field number for the "invalid_input_properties" field.</summary>
+        </member>
         <member name="T:Crib2023.Grpc.Backend.Services.FileStorage.BackendServiceFilestorageArticleReflection">
             <summary>Holder for reflection information generated from backend_service_filestorage_article.proto</summary>
         </member>
@@ -602,6 +632,12 @@
         </member>
         <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleListGetOperationOutput.TotalCountFieldNumber">
             <summary>Field number for the "total_count" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleItemSaveOperationRequest.InputFieldNumber">
+            <summary>Field number for the "input" field.</summary>
+        </member>
+        <member name="F:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleItemSaveOperationRequest.OperationCodeFieldNumber">
+            <summary>Field number for the "operation_code" field.</summary>
         </member>
         <member name="P:Crib2023.Grpc.Backend.Services.FileStorage.FileStorageArticleService.Descriptor">
             <summary>Service descriptor</summary>

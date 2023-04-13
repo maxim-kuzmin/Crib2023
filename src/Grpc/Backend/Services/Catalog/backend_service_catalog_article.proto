@@ -7,8 +7,10 @@ option csharp_namespace = "Crib2023.Grpc.Backend.Services.Catalog";
 import "backend_service_catalog.proto";
 
 service CatalogArticleService {
-  rpc GetItem (CatalogArticleItemGetOperationRequest) returns (CatalogArticleItemGetOperationReply);
+  rpc DeleteItem (CatalogArticleItemGetOperationRequest) returns (CatalogOperationReply);
+  rpc GetItem (CatalogArticleItemGetOperationRequest) returns (CatalogArticleItemGetOperationReply);  
   rpc GetList (CatalogArticleListGetOperationRequest) returns (CatalogArticleListGetOperationReply);
+  rpc SaveItem (CatalogArticleItemSaveOperationRequest) returns (CatalogArticleItemGetOperationReply);
 }
 
 // GetItem Request
@@ -97,4 +99,11 @@ message CatalogArticleListGetOperationReply {
 message CatalogArticleListGetOperationOutput {
   repeated CatalogArticleEntityForList items = 1;
   int64 total_count = 2;
+}
+
+// SaveItem Request
+
+message CatalogArticleItemSaveOperationRequest {
+  CatalogArticleTypeEntity input = 1;
+  string operation_code = 2;
 }
