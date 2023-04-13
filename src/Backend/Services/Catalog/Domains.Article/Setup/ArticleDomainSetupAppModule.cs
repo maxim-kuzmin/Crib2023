@@ -18,8 +18,7 @@ public class ArticleDomainSetupAppModule : AppModule
         services.AddTransient<IArticleDomainRepository>(x => new ArticleDomainRepository(
             x.GetRequiredService<IClientMapperDbContextFactory>(),
             x.GetRequiredService<ClientMapperDbManager>(),
-            x.GetRequiredService<IMediator>()
-            ));
+            x.GetRequiredService<IMediator>()));
 
         services.AddTransient<IArticleDomainItemDeleteOperationHandler>(x => new ArticleDomainItemDeleteOperationHandler(
             x.GetRequiredService<IArticleDomainResource>(),
@@ -54,16 +53,16 @@ public class ArticleDomainSetupAppModule : AppModule
     public sealed override IEnumerable<Type> GetExports()
     {
         return new[]
-        {
-            typeof(ArticleDomainItemDeleteOperationRequestHandler),
-            typeof(ArticleDomainItemGetOperationRequestHandler),
-            typeof(ArticleDomainItemSaveOperationRequestHandler),
-            typeof(ArticleDomainListGetOperationRequestHandler),
-            typeof(IArticleDomainResource),
-            typeof(IArticleDomainItemGetOperationHandler),
-            typeof(IArticleDomainListGetOperationHandler),
-            typeof(IArticleDomainRepository),
-        };
+            {
+                typeof(ArticleDomainItemDeleteOperationRequestHandler),
+                typeof(ArticleDomainItemGetOperationRequestHandler),
+                typeof(ArticleDomainItemSaveOperationRequestHandler),
+                typeof(ArticleDomainListGetOperationRequestHandler),
+                typeof(IArticleDomainResource),
+                typeof(IArticleDomainItemGetOperationHandler),
+                typeof(IArticleDomainListGetOperationHandler),
+                typeof(IArticleDomainRepository),
+            };
     }
 
     #endregion Public methods

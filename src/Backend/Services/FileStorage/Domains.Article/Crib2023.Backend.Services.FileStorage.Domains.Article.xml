@@ -48,6 +48,22 @@
             <param name="input">Входные данные.</param>
             <returns>Запрос с учётом сортировки.</returns>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainExtension.Normalize(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity)">
+            <summary>
+            Нормализовать.
+            </summary>
+            <param name="entity">Сущность.</param>
+            <returns>Сущность.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainExtension.GetInvalidProperties(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity,Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource,Makc2023.Backend.Common.Core.Operations.IOperationsResource)">
+            <summary>
+            Получить свойства с недействительными значениями.
+            </summary>
+            <param name="entity">Сущность.</param>
+            <param name="domainResource">Ресурс домена.</param>
+            <param name="operationsResource">Ресурс операций.</param>
+            <returns>Свойства с недействительными значениями</returns>
+        </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainRepository">
             <summary>
             Репозиторий домена "Статья".
@@ -84,10 +100,22 @@
             </summary>
             <param name="localizer">Локализатор.</param>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource.GetItemDeleteOperationName">
+            <inheritdoc/>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource.GetItemGetOperationName">
             <inheritdoc/>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource.GetItemSaveOperationName">
+            <inheritdoc/>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource.GetListGetOperationName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource.GetValidValueForHash">
+            <inheritdoc/>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource.GetValidValueForPath">
             <inheritdoc/>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.ArticleDomainResource.GetValidValueForTitle">
@@ -101,9 +129,21 @@
             Интерфейс ресурса домена "Статья".
             </summary>
         </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource.GetItemDeleteOperationName">
+            <summary>
+            Получить имя операции удаления элемента.
+            </summary>
+            <returns>Имя операции.</returns>
+        </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource.GetItemGetOperationName">
             <summary>
             Получить имя операции получения элемента.
+            </summary>
+            <returns>Имя операции.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource.GetItemSaveOperationName">
+            <summary>
+            Получить имя операции сохранения элемента.
             </summary>
             <returns>Имя операции.</returns>
         </member>
@@ -112,6 +152,18 @@
             Получить имя операции получения списка.
             </summary>
             <returns>Имя операции.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource.GetValidValueForHash">
+            <summary>
+            Получить корректное значение свойства "Hash".
+            </summary>
+            <returns>Корректное значение.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource.GetValidValueForPath">
+            <summary>
+            Получить корректное значение свойства "Path".
+            </summary>
+            <returns>Корректное значение.</returns>
         </member>
         <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource.GetValidValueForTitle">
             <summary>
@@ -124,6 +176,87 @@
             Получить корректное значение свойства "TopicId".
             </summary>
             <returns>Корректное значение.</returns>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationHandler">
+            <summary>
+            Обработчик операции удаления элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationHandler.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource,Makc2023.Backend.Common.Core.Operations.IOperationsResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationRequest">
+            <summary>
+            Запрос операции удаления элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationRequest.Input">
+            <summary>
+            Входные данные.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationRequest.OperationCode">
+            <summary>
+            Код операции.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationRequest.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationInput,System.String)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <param name="operationCode">Код операции.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationRequestHandler">
+            <summary>
+            Обработчик запроса операции удаления элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.IArticleDomainItemDeleteOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleDomainRepository)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationHandler">Обработчик операции.</param>
+            <param name="repository">Репозиторий.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationRequestHandler.Handle(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationRequest,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationResponse">
+            <summary>
+            Отклик операции удаления элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationResponse.OperationResult">
+            <summary>
+            Результат операции.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationResponse.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationResult)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationResult">Результат операции.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationResult">
+            <summary>
+            Результат операции удаления элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.ArticleDomainItemDeleteOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Delete.IArticleDomainItemDeleteOperationHandler">
+            <summary>
+            Интерфейс обработчика операции удаления элемента в домене "Статья".
+            </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.ArticleDomainItemGetOperationHandler">
             <summary>
@@ -239,6 +372,87 @@
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Get.IArticleDomainItemGetOperationHandler">
             <summary>
             Интерфейс обработчика операции получения элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationHandler">
+            <summary>
+            Обработчик операции сохранения элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationHandler.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.IArticleDomainResource,Makc2023.Backend.Common.Core.Operations.IOperationsResource,Makc2023.Backend.Common.Core.Operation.IOperationResource,Microsoft.Extensions.Logging.ILogger{Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationHandler},Microsoft.Extensions.Options.IOptionsMonitor{Makc2023.Backend.Common.Core.Setup.SetupOptions})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationRequest">
+            <summary>
+            Запрос операции сохранения элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationRequest.Input">
+            <summary>
+            Входные данные.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationRequest.OperationCode">
+            <summary>
+            Код операции.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationRequest.#ctor(Crib2023.Backend.Services.FileStorage.Data.SQL.Types.Article.ArticleTypeEntity,System.String)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="input">Входные данные.</param>
+            <param name="operationCode">Код операции.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationRequestHandler">
+            <summary>
+            Обработчик запроса операции сохранения элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationRequestHandler.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.IArticleDomainItemSaveOperationHandler,Crib2023.Backend.Services.FileStorage.Domain.SQL.Repositories.IArticleDomainRepository)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationHandler">Обработчик операции.</param>
+            <param name="repository">Репозиторий.</param>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationRequestHandler.Handle(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationRequest,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationResponse">
+            <summary>
+            Отклик операции сохранения элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationResponse.OperationResult">
+            <summary>
+            Результат операции.
+            </summary>
+        </member>
+        <member name="M:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationResponse.#ctor(Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationResult)">
+            <summary>
+            Конструктор.
+            </summary>
+            <param name="operationResult">Результат операции.</param>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationResult">
+            <summary>
+            Результат операции сохранения элемента в домене "Статья".
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.ArticleDomainItemSaveOperationResult.InvalidInputProperties">
+            <summary>
+            Список свойств с недействительными значениями во входных данных.
+            </summary>
+        </member>
+        <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.Item.Save.IArticleDomainItemSaveOperationHandler">
+            <summary>
+            Интерфейс обработчика операции сохранения элемента в домене "Статья".
             </summary>
         </member>
         <member name="T:Crib2023.Backend.Services.FileStorage.Domains.Article.Operations.List.Get.ArticleDomainListGetOperationHandler">

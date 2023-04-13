@@ -10,16 +10,40 @@ namespace Crib2023.Backend.Services.FileStorage.Domains.Article
         #region Methods
 
         /// <summary>
+        /// Получить имя операции удаления элемента.
+        /// </summary>
+        /// <returns>Имя операции.</returns>
+        string GetItemDeleteOperationName();
+
+        /// <summary>
         /// Получить имя операции получения элемента.
         /// </summary>
         /// <returns>Имя операции.</returns>
         string GetItemGetOperationName();
 
         /// <summary>
+        /// Получить имя операции сохранения элемента.
+        /// </summary>
+        /// <returns>Имя операции.</returns>
+        string GetItemSaveOperationName();
+
+        /// <summary>
         /// Получить имя операции получения списка.
         /// </summary>
         /// <returns>Имя операции.</returns>
         string GetListGetOperationName();
+
+        /// <summary>
+        /// Получить корректное значение свойства "Hash".
+        /// </summary>
+        /// <returns>Корректное значение.</returns>
+        string GetValidValueForHash();
+
+        /// <summary>
+        /// Получить корректное значение свойства "Path".
+        /// </summary>
+        /// <returns>Корректное значение.</returns>
+        string GetValidValueForPath();
 
         /// <summary>
         /// Получить корректное значение свойства "Title".

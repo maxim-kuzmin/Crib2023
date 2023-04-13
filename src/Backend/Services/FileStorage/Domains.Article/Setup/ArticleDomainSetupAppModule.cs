@@ -18,19 +18,32 @@ public class ArticleDomainSetupAppModule : AppModule
         services.AddTransient<IArticleDomainRepository>(x => new ArticleDomainRepository(
             x.GetRequiredService<IClientMapperDbContextFactory>(),
             x.GetRequiredService<ClientMapperDbManager>(),
-            x.GetRequiredService<IMediator>()
-            ));
+            x.GetRequiredService<IMediator>()));
+
+        services.AddTransient<IArticleDomainItemDeleteOperationHandler>(x => new ArticleDomainItemDeleteOperationHandler(
+            x.GetRequiredService<IArticleDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),
+            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<ILogger<ArticleDomainItemDeleteOperationHandler>>(),
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
 
         services.AddTransient<IArticleDomainItemGetOperationHandler>(x => new ArticleDomainItemGetOperationHandler(
             x.GetRequiredService<IArticleDomainResource>(),
-            x.GetRequiredService<IOperationsResource>(),            
+            x.GetRequiredService<IOperationsResource>(),
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<ArticleDomainItemGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
 
+        services.AddTransient<IArticleDomainItemSaveOperationHandler>(x => new ArticleDomainItemSaveOperationHandler(
+            x.GetRequiredService<IArticleDomainResource>(),
+            x.GetRequiredService<IOperationsResource>(),
+            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<ILogger<ArticleDomainItemSaveOperationHandler>>(),
+            x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
+
         services.AddTransient<IArticleDomainListGetOperationHandler>(x => new ArticleDomainListGetOperationHandler(
             x.GetRequiredService<IArticleDomainResource>(),
-            x.GetRequiredService<IOperationsResource>(),            
+            x.GetRequiredService<IOperationsResource>(),
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<ArticleDomainListGetOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptionsOfCommonCore>>()));
@@ -40,14 +53,16 @@ public class ArticleDomainSetupAppModule : AppModule
     public sealed override IEnumerable<Type> GetExports()
     {
         return new[]
-        {
-            typeof(ArticleDomainItemGetOperationRequestHandler),
-            typeof(ArticleDomainListGetOperationRequestHandler),
-            typeof(IArticleDomainResource),
-            typeof(IArticleDomainItemGetOperationHandler),
-            typeof(IArticleDomainListGetOperationHandler),
-            typeof(IArticleDomainRepository),
-        };
+            {
+                typeof(ArticleDomainItemDeleteOperationRequestHandler),
+                typeof(ArticleDomainItemGetOperationRequestHandler),
+                typeof(ArticleDomainItemSaveOperationRequestHandler),
+                typeof(ArticleDomainListGetOperationRequestHandler),
+                typeof(IArticleDomainResource),
+                typeof(IArticleDomainItemGetOperationHandler),
+                typeof(IArticleDomainListGetOperationHandler),
+                typeof(IArticleDomainRepository),
+            };
     }
 
     #endregion Public methods

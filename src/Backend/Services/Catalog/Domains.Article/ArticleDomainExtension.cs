@@ -75,8 +75,7 @@ public static class ArticleDomainExtension
             entity.Id = 0;
         }
 
-        entity.Body = entity.Body.Trim();
-       
+        entity.Body = entity.Body.Trim();       
         entity.Title = entity.Title.Trim();
 
         return entity;

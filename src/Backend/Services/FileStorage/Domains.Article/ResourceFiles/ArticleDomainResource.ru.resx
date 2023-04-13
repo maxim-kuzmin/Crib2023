@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="@@ItemDeleteOperationName" xml:space="preserve">
+    <value>Операция удаления элемента</value>
+  </data>
   <data name="@@ItemGetOperationName" xml:space="preserve">
     <value>Операция получения элемента</value>
   </data>
+  <data name="@@ItemSaveOperationName" xml:space="preserve">
+    <value>Операция сохранения элемента</value>
+  </data>
   <data name="@@ListGetOperationName" xml:space="preserve">
     <value>Операция получения списка</value>
+  </data>
+  <data name="@@ValidValueForHash" xml:space="preserve">
+    <value>Значение должно быть непустой строкой</value>
+  </data>
+  <data name="@@ValidValueForPath" xml:space="preserve">
+    <value>Значение должно быть непустой строкой</value>
   </data>
   <data name="@@ValidValueForTitle" xml:space="preserve">
     <value>Значение должно быть непустой строкой</value>

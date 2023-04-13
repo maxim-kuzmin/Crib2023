@@ -29,15 +29,39 @@ public class ArticleDomainResource : IArticleDomainResource
     #region Public methods
 
     /// <inheritdoc/>
+    public string GetItemDeleteOperationName()
+    {
+        return _localizer["@@ItemDeleteOperationName"];
+    }
+
+    /// <inheritdoc/>
     public string GetItemGetOperationName()
     {
         return _localizer["@@ItemGetOperationName"];
     }
 
     /// <inheritdoc/>
+    public string GetItemSaveOperationName()
+    {
+        return _localizer["@@ItemSaveOperationName"];
+    }
+
+    /// <inheritdoc/>
     public string GetListGetOperationName()
     {
         return _localizer["@@ListGetOperationName"];
+    }
+
+    /// <inheritdoc/>
+    public string GetValidValueForHash()
+    {
+        return _localizer["@@ValidValueForHash"];
+    }
+
+    /// <inheritdoc/>
+    public string GetValidValueForPath()
+    {
+        return _localizer["@@ValidValueForPath"];
     }
 
     /// <inheritdoc/>
