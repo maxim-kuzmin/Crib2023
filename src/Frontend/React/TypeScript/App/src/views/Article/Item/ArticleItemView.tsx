@@ -6,11 +6,11 @@ import {
   CardControl,
   type CardControlAction,
   type CardControlExtra,
-  getModule,
   ArticlePageMode,
   CardControlType
 } from '../../../all';
 import styles from './ArticleItemView.module.css';
+import { getModule } from '../../../app/Module/Impls';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({

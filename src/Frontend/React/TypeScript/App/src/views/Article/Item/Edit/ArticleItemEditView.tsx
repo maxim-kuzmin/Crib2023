@@ -4,12 +4,12 @@ import {
   type FormControlAction,
   FormControlActionType,
   SpinnerControl,
-  getModule,
   type FormControlField,
   FormControlFieldType,
   type ArticleItemEditViewProps
 } from '../../../../all';
 import styles from './ArticleItemEditView.module.css';
+import { getModule } from '../../../../app/Module/Impls';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({

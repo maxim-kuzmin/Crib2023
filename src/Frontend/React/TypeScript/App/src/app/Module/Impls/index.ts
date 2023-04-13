@@ -1,3 +1,12 @@
+import { type Module } from '../../../all';
+import { ModuleImpl } from './ModuleImpl';
+
+const module = new ModuleImpl();
+
+export function getModule (): Module {
+  return module;
+}
+
 export { HttpClientImpl } from './Http/HttpClientImpl';
 export { TableControlServiceImpl } from './Controls/Table/TableControlServiceImpl';
 export { OperationHandlerImpl } from './Operation/OperationHandlerImpl';
@@ -27,3 +36,4 @@ export { TopicDomainRepositoryImpl } from './Domains/Topic/TopicDomainRepository
 export { ArticlePageServiceImpl } from './Pages/Article/ArticlePageServiceImpl';
 export { TopicPageServiceImpl } from './Pages/Topic/TopicPageServiceImpl';
 export { ArticleItemEditViewServiceImpl } from './Views/Article/Item/Edit/ArticleItemEditViewServiceImpl';
+export { ModuleImpl } from './ModuleImpl';

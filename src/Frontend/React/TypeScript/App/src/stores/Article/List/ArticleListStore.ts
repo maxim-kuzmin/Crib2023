@@ -1,7 +1,6 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import {
   StoreDispatchType,
-  getModule,
   type ArticleDomainListGetOperationRequestHandler,
   createArticleDomainListGetOperationRequest,
   type ShouldBeCanceled,
@@ -26,6 +25,7 @@ import {
   type ArticleListStoreState,
   type ArticleDomainListGetOperationInput
 } from '../../../all';
+import { getModule } from '../../../app/Module/Impls';
 
 // ---Store---> //
 

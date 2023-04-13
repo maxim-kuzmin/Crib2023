@@ -2,7 +2,6 @@ import React, { memo, useCallback, useMemo, useRef } from 'react';
 import {
   StoreDispatchType,
   type TopicDomainTreeGetOperationResponse,
-  getModule,
   type TopicDomainTreeGetOperationInput,
   TreeGetOperationAxisForList,
   OperationStatus,
@@ -15,6 +14,7 @@ import {
   TopicTreeStoreSliceName
 } from '../../../all';
 import styles from './TopicTreeView.module.css';
+import { getModule } from '../../../app/Module/Impls';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,

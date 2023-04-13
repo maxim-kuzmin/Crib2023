@@ -1,7 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import {
-  getModule,
   StoreDispatchType,
   OperationStatus,
   type ArticleDomainItemGetOperationInput,
@@ -16,6 +15,7 @@ import {
   ArticleItemStoreSliceName,
   TopicItemStoreSliceName
 } from '../../all';
+import { getModule } from '../../app/Module/Impls';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({

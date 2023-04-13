@@ -26,45 +26,45 @@ import {
   type Module,
   type ArticleItemStoreHooks,
   type StoreService,
-} from '../../all';
+} from '../../../all';
 
-import { ApiSetupOptionsImpl } from './Impls/Data/Api/Setup/ApiSetupOptionsImpl';
-import { SetupOptionsImpl } from './Impls/Setup/SetupOptionsImpl';
-import { HttpClientImpl } from './Impls/Http/HttpClientImpl';
-import { ApiClientImpl } from './Impls/Data/Api/ApiClientImpl';
-import { TestServiceImpl } from '../Test/Service/TestServiceImpl';
-import { StoreServiceImpl } from './Impls/Store/StoreServiceImpl';
-import { createAppNotificationStoreHooks } from '../../stores/App/Notification/AppNotificationStore';
-import { createNotificationControlHooks } from '../../controls/Notification';
-import { TableControlServiceImpl } from './Impls/Controls/Table/TableControlServiceImpl';
-import { createArticleItemStoreHooks } from '../../stores/Article/Item/ArticleItemStore';
-import { createArticleListStoreHooks } from '../../stores/Article/List/ArticleListStore';
-import { createTopicItemStoreHooks } from '../../stores/Topic/Item/TopicItemStore';
-import { createTopicTreeStoreHooks } from '../../stores/Topic/Tree/TopicTreeStore';
-import { ArticleDomainRepositoryImpl } from './Impls/Domains/Article/ArticleDomainRepositoryImpl';
-import { TopicDomainRepositoryImpl } from './Impls/Domains/Topic/TopicDomainRepositoryImpl';
-import { ArticlePageServiceImpl } from './Impls/Pages/Article/ArticlePageServiceImpl';
-import { TopicPageServiceImpl } from './Impls/Pages/Topic/TopicPageServiceImpl';
-import { ArticleItemEditViewServiceImpl } from './Impls/Views/Article/Item/Edit/ArticleItemEditViewServiceImpl';
+import { ApiSetupOptionsImpl } from './Data/Api/Setup/ApiSetupOptionsImpl';
+import { SetupOptionsImpl } from './Setup/SetupOptionsImpl';
+import { HttpClientImpl } from './Http/HttpClientImpl';
+import { ApiClientImpl } from './Data/Api/ApiClientImpl';
+import { TestServiceImpl } from '../../Test/Service/TestServiceImpl';
+import { StoreServiceImpl } from './Store/StoreServiceImpl';
+import { createAppNotificationStoreHooks } from '../../../stores/App/Notification/AppNotificationStore';
+import { createNotificationControlHooks } from '../../../controls/Notification';
+import { TableControlServiceImpl } from './Controls/Table/TableControlServiceImpl';
+import { createArticleItemStoreHooks } from '../../../stores/Article/Item/ArticleItemStore';
+import { createArticleListStoreHooks } from '../../../stores/Article/List/ArticleListStore';
+import { createTopicItemStoreHooks } from '../../../stores/Topic/Item/TopicItemStore';
+import { createTopicTreeStoreHooks } from '../../../stores/Topic/Tree/TopicTreeStore';
+import { ArticleDomainRepositoryImpl } from './Domains/Article/ArticleDomainRepositoryImpl';
+import { TopicDomainRepositoryImpl } from './Domains/Topic/TopicDomainRepositoryImpl';
+import { ArticlePageServiceImpl } from './Pages/Article/ArticlePageServiceImpl';
+import { TopicPageServiceImpl } from './Pages/Topic/TopicPageServiceImpl';
+import { ArticleItemEditViewServiceImpl } from './Views/Article/Item/Edit/ArticleItemEditViewServiceImpl';
 import {
   ArticleDomainItemGetOperationRequestHandlerImpl
-} from './Impls/Domains/Article/Operations/Item/Get/ArticleDomainItemGetOperationRequestHandlerImpl';
+} from './Domains/Article/Operations/Item/Get/ArticleDomainItemGetOperationRequestHandlerImpl';
 import {
   ArticleDomainListGetOperationRequestHandlerImpl
-} from './Impls/Domains/Article/Operations/List/Get/ArticleDomainListGetOperationRequestHandlerImpl';
+} from './Domains/Article/Operations/List/Get/ArticleDomainListGetOperationRequestHandlerImpl';
 import {
   TopicDomainTreeGetOperationRequestHandlerImpl
-} from './Impls/Domains/Topic/Operations/Tree/Get/TopicDomainTreeGetOperationRequestHandlerImpl';
+} from './Domains/Topic/Operations/Tree/Get/TopicDomainTreeGetOperationRequestHandlerImpl';
 import {
   TopicDomainItemGetOperationRequestHandlerImpl
-} from './Impls/Domains/Topic/Operations/Item/Get/TopicDomainItemGetOperationRequestHandlerImpl';
+} from './Domains/Topic/Operations/Item/Get/TopicDomainItemGetOperationRequestHandlerImpl';
 import {
   TopicDomainListGetOperationRequestHandlerImpl
-} from './Impls/Domains/Topic/Operations/List/Get/TopicDomainListGetOperationRequestHandlerImpl';
-import { OperationHandlerImpl } from './Impls/Operation/OperationHandlerImpl';
-import { ApiRequestHandlerImpl } from './Impls/Data/Api/Request/ApiRequestHandlerImpl';
-import { TestArticleDomainRepositoryImpl } from '../Test/Domains/Article/TestArticleDomainRepositoryImpl';
-import { TestTopicDomainRepositoryImpl } from '../Test/Domains/Topic/TestTopicDomainRepositoryImpl';
+} from './Domains/Topic/Operations/List/Get/TopicDomainListGetOperationRequestHandlerImpl';
+import { OperationHandlerImpl } from './Operation/OperationHandlerImpl';
+import { ApiRequestHandlerImpl } from './Data/Api/Request/ApiRequestHandlerImpl';
+import { TestArticleDomainRepositoryImpl } from '../../Test/Domains/Article/TestArticleDomainRepositoryImpl';
+import { TestTopicDomainRepositoryImpl } from '../../Test/Domains/Topic/TestTopicDomainRepositoryImpl';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -222,10 +222,4 @@ export class ModuleImpl implements Module {
       operationHandler: this.useOperationHandler(options)
     });
   }
-}
-
-const module = new ModuleImpl();
-
-export function getModule (): Module {
-  return module;
 }

@@ -13,9 +13,9 @@ import {
   type TopicItemStoreState,
   OperationStatus,
   createOperationState,
-  getModule,
   TopicItemStoreSliceName
 } from '../../../all';
+import { getModule } from '../../../app/Module/Impls';
 
 type ActionUnion = TopicItemStoreActionUnion;
 type State = TopicItemStoreState;

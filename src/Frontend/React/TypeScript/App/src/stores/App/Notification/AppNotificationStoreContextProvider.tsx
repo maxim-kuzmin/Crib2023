@@ -11,9 +11,9 @@ import {
   AppNotificationStoreActionType,
   type AppNotificationStoreActionUnion,
   type AppNotificationStoreState,
-  getModule,
   AppNotificationStoreSliceName
 } from '../../../all';
+import { getModule } from '../../../app/Module/Impls';
 
 type ActionUnion = AppNotificationStoreActionUnion;
 type State = AppNotificationStoreState;

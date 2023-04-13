@@ -1,12 +1,12 @@
 import React, { memo, useMemo } from 'react';
 import {
   type TopicDomainEntityForItem,
-  getModule,
   type BreadcrumbControlItem,
   BreadcrumbControl,
   TopicItemStoreSliceName
 } from '../../../all';
 import styles from './TopicPathView.module.css';
+import { getModule } from '../../../app/Module/Impls';
 
 function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbControlItem[] {
   const root: BreadcrumbControlItem = { title: '@@AllTopics', key: 0 };

@@ -14,9 +14,9 @@ import {
   type TableControlPagination,
   type TableControlColumn,
   type TableControlProps,
-  getModule,
   type TableControlHeader
 } from '../../all';
+import { getModule } from '../../app/Module/Impls';
 
 function convertHeaderToTitle (header: TableControlHeader): ReactNode | undefined {
   const { render, title } = header;

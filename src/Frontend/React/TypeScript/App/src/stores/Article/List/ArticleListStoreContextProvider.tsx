@@ -13,9 +13,9 @@ import {
   type ArticleListStoreState,
   OperationStatus,
   createOperationState,
-  getModule,
   ArticleListStoreSliceName
 } from '../../../all';
+import { getModule } from '../../../app/Module/Impls';
 
 type ActionUnion = ArticleListStoreActionUnion;
 type State = ArticleListStoreState;
