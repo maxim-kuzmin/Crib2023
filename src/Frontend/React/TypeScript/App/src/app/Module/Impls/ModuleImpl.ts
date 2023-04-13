@@ -32,7 +32,7 @@ import { ApiSetupOptionsImpl } from './Data/Api/Setup/ApiSetupOptionsImpl';
 import { SetupOptionsImpl } from './Setup/SetupOptionsImpl';
 import { HttpClientImpl } from './Http/HttpClientImpl';
 import { ApiClientImpl } from './Data/Api/ApiClientImpl';
-import { TestServiceImpl } from '../../Test/Service/TestServiceImpl';
+import { TestServiceImpl } from './Test/TestServiceImpl';
 import { StoreServiceImpl } from './Store/StoreServiceImpl';
 import { createAppNotificationStoreHooks } from '../../../stores/App/Notification/AppNotificationStore';
 import { createNotificationControlHooks } from '../../../controls/Notification';
@@ -63,8 +63,8 @@ import {
 } from './Domains/Topic/Operations/List/Get/TopicDomainListGetOperationRequestHandlerImpl';
 import { OperationHandlerImpl } from './Operation/OperationHandlerImpl';
 import { ApiRequestHandlerImpl } from './Data/Api/Request/ApiRequestHandlerImpl';
-import { TestArticleDomainRepositoryImpl } from '../../Test/Domains/Article/TestArticleDomainRepositoryImpl';
-import { TestTopicDomainRepositoryImpl } from '../../Test/Domains/Topic/TestTopicDomainRepositoryImpl';
+import { TestArticleDomainRepositoryImpl } from './Test/Domains/Article/TestArticleDomainRepositoryImpl';
+import { TestTopicDomainRepositoryImpl } from './Test/Domains/Topic/TestTopicDomainRepositoryImpl';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;

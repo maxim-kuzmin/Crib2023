@@ -14,9 +14,9 @@ import {
   type TopicDomainTreeGetOperationRequest,
   type TopicDomainTreeGetOperationResponse,
   type TopicDomainTreeGetOperationOutput
-} from '../../../../all';
-import { getModule } from '../../../Module/Impls';
-import { ApiResponseErrorImpl } from '../../../Module/Impls/Data/Api/Response/ApiResponseErrorImpl';
+} from '../../../../../../all';
+import { ApiResponseErrorImpl } from '../../../Data/Api/Response/ApiResponseErrorImpl';
+import { getModule } from '../../..';
 
 export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
   private readonly entitiesForItem: TopicDomainEntityForItem[] = [];
