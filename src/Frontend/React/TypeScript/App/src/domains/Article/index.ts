@@ -1,4 +1,4 @@
-export { type ArticleDomainEntity } from './ArticleDomainEntity';
 export * from './Entities';
 export * from './Operations';
-export * from './Repository';
+export { type ArticleDomainEntity } from './ArticleDomainEntity';
+export { type ArticleDomainRepository } from './ArticleDomainRepository';

@@ -6,5 +6,5 @@ import {
 export interface TopicDomainItemGetOperationInput extends ItemGetOperationInput {
   axis: TreeGetOperationAxisForItem;
   name?: string;
-  parentId?: number;
+  parentId?: string | number;
 }

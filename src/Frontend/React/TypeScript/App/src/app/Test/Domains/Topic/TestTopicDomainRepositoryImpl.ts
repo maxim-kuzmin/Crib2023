@@ -8,7 +8,6 @@ import {
   type TopicDomainItemGetOperationOutput,
   type TopicDomainListGetOperationOutput,
   type ApiResponseError,
-  ApiResponseErrorImpl,
   getModule,
   type TopicDomainEntityForList,
   type TopicDomainEntityForItem,
@@ -17,6 +16,7 @@ import {
   type TopicDomainTreeGetOperationResponse,
   type TopicDomainTreeGetOperationOutput
 } from '../../../../all';
+import { ApiResponseErrorImpl } from '../../../Module/Impls';
 
 export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
   private readonly entitiesForItem: TopicDomainEntityForItem[] = [];

@@ -1,59 +1,70 @@
 import {
   AppNotificationStoreSliceName,
   type AppNotificationStoreHooks,
-  createAppNotificationStoreHooks,
   type ArticleListStoreHooks,
-  createArticleListStoreHooks,
   type NotificationControlHooks,
-  createNotificationControlHooks,
   type TopicItemStoreHooks,
-  createTopicItemStoreHooks,
   type TopicTreeStoreHooks,
-  createTopicTreeStoreHooks,
   type HttpClient,
-  HttpClientImpl,
   type ApiClient,
-  ApiClientImpl,
   type OperationHandler,
-  OperationHandlerImpl,
   type ApiRequestHandler,
-  ApiRequestHandlerImpl,
   type ArticleDomainItemGetOperationRequestHandler,
-  ArticleDomainItemGetOperationRequestHandlerImpl,
   type ArticleDomainListGetOperationRequestHandler,
-  ArticleDomainListGetOperationRequestHandlerImpl,
   type ArticleDomainRepository,
-  ArticleDomainRepositoryImpl,
-  TestArticleDomainRepositoryImpl,
   type TestService,
-  TestServiceImpl,
   type TopicDomainItemGetOperationRequestHandler,
-  TopicDomainItemGetOperationRequestHandlerImpl,
   type TopicDomainListGetOperationRequestHandler,
-  TopicDomainListGetOperationRequestHandlerImpl,
   type TopicDomainRepository,
-  TopicDomainRepositoryImpl,
-  TestTopicDomainRepositoryImpl,
   type TopicDomainTreeGetOperationRequestHandler,
-  TopicDomainTreeGetOperationRequestHandlerImpl,
   type TopicPageService,
-  TopicPageServiceImpl,
   type ArticlePageService,
-  ArticlePageServiceImpl,
   type ApiSetupOptions,
-  ApiSetupOptionsImpl,
   type SetupOptions,
-  SetupOptionsImpl,
   type ArticleItemEditViewService,
-  ArticleItemEditViewServiceImpl,
   type TableControlService,
-  TableControlServiceImpl,
   type Module,
   type ArticleItemStoreHooks,
-  createArticleItemStoreHooks,
   type StoreService,
-  StoreServiceImpl
 } from '../../all';
+
+import { ApiSetupOptionsImpl } from './Impls/Data/Api/Setup/ApiSetupOptionsImpl';
+import { SetupOptionsImpl } from './Impls/Setup/SetupOptionsImpl';
+import { HttpClientImpl } from './Impls/Http/HttpClientImpl';
+import { ApiClientImpl } from './Impls/Data/Api/ApiClientImpl';
+import { TestServiceImpl } from '../Test/Service/TestServiceImpl';
+import { StoreServiceImpl } from './Impls/Store/StoreServiceImpl';
+import { createAppNotificationStoreHooks } from '../../stores/App/Notification/AppNotificationStore';
+import { createNotificationControlHooks } from '../../controls/Notification';
+import { TableControlServiceImpl } from './Impls/Controls/Table/TableControlServiceImpl';
+import { createArticleItemStoreHooks } from '../../stores/Article/Item/ArticleItemStore';
+import { createArticleListStoreHooks } from '../../stores/Article/List/ArticleListStore';
+import { createTopicItemStoreHooks } from '../../stores/Topic/Item/TopicItemStore';
+import { createTopicTreeStoreHooks } from '../../stores/Topic/Tree/TopicTreeStore';
+import { ArticleDomainRepositoryImpl } from './Impls/Domains/Article/ArticleDomainRepositoryImpl';
+import { TopicDomainRepositoryImpl } from './Impls/Domains/Topic/TopicDomainRepositoryImpl';
+import { ArticlePageServiceImpl } from './Impls/Pages/Article/ArticlePageServiceImpl';
+import { TopicPageServiceImpl } from './Impls/Pages/Topic/TopicPageServiceImpl';
+import { ArticleItemEditViewServiceImpl } from './Impls/Views/Article/Item/Edit/ArticleItemEditViewServiceImpl';
+import {
+  ArticleDomainItemGetOperationRequestHandlerImpl
+} from './Impls/Domains/Article/Operations/Item/Get/ArticleDomainItemGetOperationRequestHandlerImpl';
+import {
+  ArticleDomainListGetOperationRequestHandlerImpl
+} from './Impls/Domains/Article/Operations/List/Get/ArticleDomainListGetOperationRequestHandlerImpl';
+import {
+  TopicDomainTreeGetOperationRequestHandlerImpl
+} from './Impls/Domains/Topic/Operations/Tree/Get/TopicDomainTreeGetOperationRequestHandlerImpl';
+import {
+  TopicDomainItemGetOperationRequestHandlerImpl
+} from './Impls/Domains/Topic/Operations/Item/Get/TopicDomainItemGetOperationRequestHandlerImpl';
+import {
+  TopicDomainListGetOperationRequestHandlerImpl
+} from './Impls/Domains/Topic/Operations/List/Get/TopicDomainListGetOperationRequestHandlerImpl';
+import { OperationHandlerImpl } from './Impls/Operation/OperationHandlerImpl';
+import { ApiRequestHandlerImpl } from './Impls/Data/Api/Request/ApiRequestHandlerImpl';
+import { TestArticleDomainRepositoryImpl } from '../Test/Domains/Article/TestArticleDomainRepositoryImpl';
+import { TestTopicDomainRepositoryImpl } from '../Test/Domains/Topic/TestTopicDomainRepositoryImpl';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;

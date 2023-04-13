@@ -9,9 +9,9 @@ import {
   type ArticleDomainItemGetOperationOutput,
   type ArticleDomainListGetOperationOutput,
   type ApiResponseError,
-  ApiResponseErrorImpl,
   getModule
 } from '../../../../all';
+import { ApiResponseErrorImpl } from '../../../Module/Impls';
 
 export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
   private readonly items: ArticleDomainEntityForItem[] = [];
