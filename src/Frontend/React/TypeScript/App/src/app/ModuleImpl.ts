@@ -28,6 +28,7 @@ import {
   type StoreService,
   type ApiResponseErrorOptions,
   type AppNotificationViewHooks,
+  type TopicTreeViewHooks,
 } from '../all';
 
 import { ApiSetupOptionsImpl } from '../data/Api/Setup/ApiSetupOptionsImpl';
@@ -69,6 +70,7 @@ import { TestArticleDomainRepositoryImpl } from './Test/Domains/Article/TestArti
 import { TestTopicDomainRepositoryImpl } from './Test/Domains/Topic/TestTopicDomainRepositoryImpl';
 import { ApiResponseErrorImpl } from '../data/Api/Response/ApiResponseErrorImpl';
 import { createAppNotificationViewHooks } from '../views/App/Notification/AppNotificationViewSlice';
+import { createTopicTreeViewHooks } from '../views/Topic/Tree/TopicTreeViewSlice';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -129,6 +131,12 @@ class ModuleImpl implements Module {
 
   private readonly topicTreeStoreHooks: TopicTreeStoreHooks = createTopicTreeStoreHooks();
   getTopicTreeStoreHooks = () => this.topicTreeStoreHooks;
+
+  private readonly topicTreeViewHooks: TopicTreeViewHooks = createTopicTreeViewHooks(
+    this.getTopicTreeStoreHooks()
+  );
+
+  getTopicTreeViewHooks = () => this.topicTreeViewHooks;
 
   private readonly articleDomainRepository: ArticleDomainRepository = this.setupOptions.isTestModeEnabled
     ? new TestArticleDomainRepositoryImpl()

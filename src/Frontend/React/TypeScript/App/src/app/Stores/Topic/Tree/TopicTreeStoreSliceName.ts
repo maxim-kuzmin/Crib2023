@@ -1,3 +1,3 @@
 export enum TopicTreeStoreSliceName {
-  Global = 'global'
+  TopicTreeView = 'TopicTreeView'
 }

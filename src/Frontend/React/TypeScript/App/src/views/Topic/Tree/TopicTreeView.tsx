@@ -13,7 +13,7 @@ import {
 } from '../../../all';
 import styles from './TopicTreeView.module.css';
 import { getModule } from '../../../app/ModuleImpl';
-import { TopicItemStoreSliceName, TopicTreeStoreSliceName } from '../../../app/Stores';
+import { TopicItemStoreSliceName } from '../../../app/Stores';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,
@@ -45,7 +45,6 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
 }
 
 const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
-const topicTreeStoreSliceName = TopicTreeStoreSliceName.Global;
 
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView () {
@@ -58,7 +57,7 @@ function TopicTreeView () {
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const topicTreeStoreHooks = getModule().getTopicTreeStoreHooks();
+  const topicTreeStoreHooks = getModule().getTopicTreeViewHooks();
 
   const callbackOnTopicTreeLoad = useCallback((payload: TopicDomainTreeGetOperationResponse | null) => {
     console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:payload', payload);
@@ -72,27 +71,21 @@ function TopicTreeView () {
     [topicId]
   );
 
-  topicTreeStoreHooks.useDispatchToLoad(
-    topicTreeStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
-      callback: callbackOnTopicTreeLoad,
-      payload: payloadToTopicTreeLoad
-    }
-  );
+  topicTreeStoreHooks.useDispatchToLoad({
+    dispatchType: StoreDispatchType.MountOrUpdate,
+    isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
+    callback: callbackOnTopicTreeLoad,
+    payload: payloadToTopicTreeLoad
+  });
 
-  topicItemStoreHooks.useDispatchToClear(
-    topicItemStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.Unmount
-    }
-  );
+  topicTreeStoreHooks.useDispatchToClear({
+    dispatchType: StoreDispatchType.Unmount
+  });
 
   const {
     payloadFromSetAction: topicTreeResponse,
     status: topicTreeStatus
-  } = topicTreeStoreHooks.useState(topicTreeStoreSliceName);
+  } = topicTreeStoreHooks.useState();
 
   const entities = topicTreeResponse?.data?.nodes;
 
