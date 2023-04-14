@@ -8,7 +8,7 @@ import {
   NotFoundPage,
   TopicPage
 } from './pages';
-import { AppRootView } from './views/App';
+import { AppRootView } from './views';
 import { reportWebVitals } from './reportWebVitals';
 import './index.css';
 
