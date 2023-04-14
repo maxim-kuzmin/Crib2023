@@ -6,7 +6,7 @@ import {
   type TopicTreeStoreSetActionDispatch,
   type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreState
-} from '../../../app';
+} from '../../../app/Stores';
 
 type ClearActionDispatch = TopicTreeStoreClearActionDispatch;
 type ClearActionOptions = TopicTreeStoreClearActionOptions;

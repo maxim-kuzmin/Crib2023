@@ -13,7 +13,7 @@ import {
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionPayload,
   type ArticleItemStoreState
-} from '../../../app';
+} from '../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../common';
 import {
   type ArticleDomainItemGetOperationInput,

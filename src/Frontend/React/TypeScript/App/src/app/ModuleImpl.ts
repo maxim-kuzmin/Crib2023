@@ -38,10 +38,9 @@ import {
   type AppNotificationStoreHooks,
   type ArticleItemStoreHooks,
   type ArticleListStoreHooks,
-  type TestService,
   type TopicItemStoreHooks,
   type TopicTreeStoreHooks
-} from '.';
+} from './Stores';
 
 import { ApiSetupOptionsImpl } from '../data/Api/Setup/ApiSetupOptionsImpl';
 import { SetupOptionsImpl } from '../common/Setup/SetupOptionsImpl';
@@ -87,6 +86,7 @@ import { createArticleItemViewHooks } from '../views/Article/Item/ArticleItemVie
 import { createArticleTableViewHooks } from '../views/Article/Table/ArticleTableViewSlice';
 import { createTopicItemViewHooks } from '../views/Topic/Item/TopicItemViewSlice';
 import { type Module } from './Module';
+import { type TestService } from './Test';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;

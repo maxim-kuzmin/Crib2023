@@ -2,7 +2,7 @@ import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getModule } from '../../app/ModuleImpl';
 import { type ArticlePageProps } from './ArticlePageProps';
-import { type ArticleItemStoreSetActionPayload, type TopicItemStoreSetActionPayload } from '../../app';
+import { type ArticleItemStoreSetActionPayload, type TopicItemStoreSetActionPayload } from '../../app/Stores';
 import { type ArticleDomainItemGetOperationInput, type TopicDomainItemGetOperationInput } from '../../domains';
 import { OperationStatus, StoreDispatchType, TreeGetOperationAxisForItem } from '../../common';
 import { ArticlePageMode } from './ArticlePageMode';

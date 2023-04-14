@@ -1,4 +1,4 @@
-import { type AppNotificationStoreSetActionPayload } from '../../../../app';
+import { type AppNotificationStoreSetActionPayload } from '../../../../app/Stores';
 import { type StoreAction } from '../../../../common';
 import { type AppNotificationStoreActionType } from '../AppNotificationStoreActionType';
 

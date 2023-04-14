@@ -19,7 +19,7 @@ import {
   type ArticleListStoreSetActionOptions,
   type ArticleListStoreSetActionPayload,
   type ArticleListStoreState
-} from '../../../app';
+} from '../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../common';
 import {
   type ArticleDomainListGetOperationInput,

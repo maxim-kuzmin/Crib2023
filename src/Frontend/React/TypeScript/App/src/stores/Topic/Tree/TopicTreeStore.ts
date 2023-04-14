@@ -13,7 +13,7 @@ import {
   type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreSetActionPayload,
   type TopicTreeStoreState
-} from '../../../app';
+} from '../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../common';
 import {
   type TopicDomainTreeGetOperationInput,

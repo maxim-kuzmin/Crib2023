@@ -11,7 +11,7 @@ import {
   type AppNotificationStoreSetActionOptions,
   type AppNotificationStoreSetActionPayload,
   type AppNotificationStoreState
-} from '../../../app';
+} from '../../../app/Stores';
 import { AppNotificationStoreActionType } from './AppNotificationStoreActionType';
 import {
   useAppNotificationStoreDispatchContext,

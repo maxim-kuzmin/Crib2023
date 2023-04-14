@@ -23,10 +23,10 @@ import {
   type AppNotificationStoreHooks,
   type ArticleItemStoreHooks,
   type ArticleListStoreHooks,
-  type TestService,
   type TopicItemStoreHooks,
   type TopicTreeStoreHooks
-} from '.';
+} from './Stores';
+import { type TestService } from './Test';
 
 export interface Module {
   readonly createApiResponseError: (responseStatus: number, options?: ApiResponseErrorOptions) => ApiResponseError;

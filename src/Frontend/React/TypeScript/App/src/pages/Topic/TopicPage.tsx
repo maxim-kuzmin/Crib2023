@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getModule } from '../../app/ModuleImpl';
-import { type ArticleListStoreSetActionPayload, type TopicItemStoreSetActionPayload } from '../../app';
+import { type ArticleListStoreSetActionPayload, type TopicItemStoreSetActionPayload } from '../../app/Stores';
 import {
   OperationStatus,
   StoreDispatchType,

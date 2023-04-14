@@ -6,7 +6,7 @@ import {
   type ArticleItemStoreSetActionDispatch,
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreState
-} from '../../../app';
+} from '../../../app/Stores';
 
 type ClearActionDispatch = ArticleItemStoreClearActionDispatch;
 type ClearActionOptions = ArticleItemStoreClearActionOptions;
