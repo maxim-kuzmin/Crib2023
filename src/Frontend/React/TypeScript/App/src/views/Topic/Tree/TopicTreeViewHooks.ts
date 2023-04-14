@@ -1,12 +1,12 @@
 import {
   type TopicTreeStoreClearActionDispatch,
-  type TopicTreeStoreState,
-  type TopicTreeStoreSetActionDispatch,
-  type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreClearActionOptions,
   type TopicTreeStoreLoadActionDispatch,
-  type TopicTreeStoreLoadActionOptions
-} from '../../../all';
+  type TopicTreeStoreLoadActionOptions,
+  type TopicTreeStoreSetActionDispatch,
+  type TopicTreeStoreSetActionOptions,
+  type TopicTreeStoreState
+} from '../../../app';
 
 type ClearActionDispatch = TopicTreeStoreClearActionDispatch;
 type ClearActionOptions = TopicTreeStoreClearActionOptions;

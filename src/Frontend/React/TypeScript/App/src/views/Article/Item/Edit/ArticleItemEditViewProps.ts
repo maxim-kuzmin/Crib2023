@@ -1,4 +1,4 @@
-import { type ArticleItemViewProps } from '../../../../all';
+import { type ArticleItemViewProps } from '../ArticleItemViewProps';
 
 export interface ArticleItemEditViewProps extends ArticleItemViewProps {
   articleId: number;

@@ -1,9 +1,7 @@
-import {
-  type ApiRequest,
-  type ApiRequestWithInput,
-  type ApiOperationResponse,
-  type ShouldBeCanceled
-} from '../../../all';
+import { type ShouldBeCanceled } from '../../../common';
+import { type ApiOperationResponse } from '../Operation';
+import { type ApiRequest } from './ApiRequest';
+import { type ApiRequestWithInput } from './ApiRequestWithInput';
 
 export interface ApiRequestHandler {
   readonly handleWithInput: <

@@ -1,4 +1,4 @@
-import { type TreeControlNode } from '../../../all';
+import { type TreeControlNode } from './TreeControlNode';
 
 export interface TreeControlProps {
   getChildren: (key: string) => Promise<TreeControlNode[]>;

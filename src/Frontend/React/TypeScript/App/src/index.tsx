@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css';
+import { ContextProvider } from './app';
 import {
-  App,
   ArticlePage,
+  ArticlePageMode,
   NotFoundPage,
-  ContextProvider,
-  reportWebVitals,
-  TopicPage,
-  ArticlePageMode
-} from './all';
+  TopicPage
+} from './pages';
+import { AppRootView } from './views/App';
+import { reportWebVitals } from './reportWebVitals';
+import './index.css';
 
 const router = createBrowserRouter([{
   path: '/',
-  element: <App />,
+  element: <AppRootView />,
   children: [
     {
       path: '',

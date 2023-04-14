@@ -1,3 +1,3 @@
-import { type NotificationData } from '../../../../../../all';
+import { type NotificationData } from '../../../../../../common';
 
 export type AppNotificationStoreSetActionPayload = NotificationData | null;

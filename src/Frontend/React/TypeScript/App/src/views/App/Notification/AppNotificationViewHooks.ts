@@ -4,7 +4,7 @@ import {
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionOptions,
   type AppNotificationStoreState
-} from '../../../all';
+} from '../../../app';
 
 type ClearActionDispatch = AppNotificationStoreClearActionDispatch;
 type ClearActionOptions = AppNotificationStoreClearActionOptions;

@@ -1,11 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import {
-  NotificationType,
-  type OperationHandler,
-  type OperationInput,
-  type OperationResult,
-  type OperationHandlerOptions
-} from '../../all';
+import { NotificationType } from '../Notification';
+import { type OperationHandler } from './OperationHandler';
+import { type OperationHandlerOptions } from './OperationHandlerOptions';
+import { type OperationInput } from './OperationInput';
+import { type OperationResult } from './OperationResult';
 
 export class OperationHandlerImpl implements OperationHandler {
   private _operationCode = '';

@@ -1,13 +1,11 @@
-import {
-  type ArticleDomainListGetOperationOutput,
-  type ApiRequestHandler,
-  type ArticleDomainListGetOperationInput,
-  type ArticleDomainListGetOperationRequest,
-  type ArticleDomainListGetOperationRequestHandler,
-  type ArticleDomainListGetOperationResponse,
-  type ArticleDomainRepository,
-  type ShouldBeCanceled
-} from '../../../../../all';
+import { type ShouldBeCanceled } from '../../../../../common';
+import { type ApiRequestHandler } from '../../../../../data';
+import { type ArticleDomainRepository } from '../../../ArticleDomainRepository';
+import { type ArticleDomainListGetOperationInput } from './ArticleDomainListGetOperationInput';
+import { type ArticleDomainListGetOperationOutput } from './ArticleDomainListGetOperationOutput';
+import { type ArticleDomainListGetOperationRequest } from './ArticleDomainListGetOperationRequest';
+import { type ArticleDomainListGetOperationRequestHandler } from './ArticleDomainListGetOperationRequestHandler';
+import { type ArticleDomainListGetOperationResponse } from './ArticleDomainListGetOperationResponse';
 
 interface Options {
   apiRequestHandler: ApiRequestHandler;

@@ -1,27 +1,21 @@
 import React, {
-  type Dispatch,
   type PropsWithChildren,
-  createContext,
   memo,
-  useContext,
   useReducer,
 } from 'react';
-import {
-  ArticleListStoreActionType,
-  type ArticleListStoreActionUnion,
-  type ArticleListStoreState,
-  OperationStatus,
-  createOperationState
-} from '../../../all';
 import { getModule } from '../../../app/ModuleImpl';
-import { ArticleListStoreSliceName } from '../../../app/Stores';
+import { ArticleListStoreSliceName, type ArticleListStoreState } from '../../../app/Stores';
+import { OperationStatus, createOperationState } from '../../../common';
+import { ArticleListStoreActionType } from './ArticleListStoreActionType';
+import { type ArticleListStoreActionUnion } from './ArticleListStoreActionUnion';
+import {
+  ArticleListStoreDispatchContext,
+  ArticleListStoreStateContext
+} from './ArticleListStoreContext';
 
 type ActionUnion = ArticleListStoreActionUnion;
 type State = ArticleListStoreState;
 type StateMap = Map<string, State>;
-
-const DispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
-const StateContext = createContext<StateMap | null>(null);
 
 const initialState = getModule().getStoreService().createInitialState<State>(
   [ArticleListStoreSliceName.ArticleTableView],
@@ -50,23 +44,16 @@ function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
 
 export const ArticleListStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function ArticleListStoreContextProvider ({
-  children
-}: PropsWithChildren) {
+    children
+  }: PropsWithChildren
+) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <StateContext.Provider value={state}>
-      <DispatchContext.Provider value={dispatch}>
+    <ArticleListStoreStateContext.Provider value={state}>
+      <ArticleListStoreDispatchContext.Provider value={dispatch}>
         {children}
-      </DispatchContext.Provider>
-    </StateContext.Provider>
+      </ArticleListStoreDispatchContext.Provider>
+    </ArticleListStoreStateContext.Provider>
   );
 });
-
-export function useArticleListStoreStateContext (sliceName: string): State {
-  return useContext(StateContext)!.get(sliceName)!;
-}
-
-export function useArticleListStoreDispatchContext () {
-  return useContext(DispatchContext)!;
-}

@@ -1,4 +1,4 @@
-import { type ApiRequest } from '../../../all';
+import { type ApiRequest } from './ApiRequest';
 
 export interface ApiRequestWithInput<TInput> extends ApiRequest {
   input: TInput;

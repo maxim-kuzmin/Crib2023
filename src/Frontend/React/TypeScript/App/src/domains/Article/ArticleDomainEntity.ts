@@ -1,4 +1,4 @@
-import { type OptionValueObject } from '../../all';
+import { type OptionValueObject } from '../../common';
 
 export interface ArticleDomainEntity<TData> {
   data: TData;

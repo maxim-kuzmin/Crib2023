@@ -1,5 +1,5 @@
 import { type Key } from 'react';
-import { type FormControlFieldType } from '../../../../all';
+import { type FormControlFieldType } from './FormControlFieldType';
 
 export interface FormControlField {
   children?: FormControlField[];

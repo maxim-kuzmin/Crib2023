@@ -1,4 +1,5 @@
-import { type TopicTreeStoreClearActionCallback, type StoreActionOptions } from '../../../../../../all';
+import { type StoreActionOptions } from '../../../../../../common';
+import { type TopicTreeStoreClearActionCallback } from './TopicTreeStoreClearActionCallback';
 
 export interface TopicTreeStoreClearActionOptions extends StoreActionOptions {
   callback?: TopicTreeStoreClearActionCallback;

@@ -1,8 +1,8 @@
 import {
   type ArticleItemStoreClearAction,
   type ArticleItemStoreLoadAction,
-  type ArticleItemStoreSetAction,
-} from '../../../all';
+  type ArticleItemStoreSetAction
+} from './Actions';
 
 export type ArticleItemStoreActionUnion =
   | ArticleItemStoreClearAction

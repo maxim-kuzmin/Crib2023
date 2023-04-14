@@ -1,8 +1,5 @@
-import {
-  type TopicTreeStoreLoadActionPayload,
-  type TopicTreeStoreSetActionPayload,
-  type OperationState
-} from '../../../../all';
+import { type OperationState } from '../../../../common';
+import { type TopicTreeStoreLoadActionPayload, type TopicTreeStoreSetActionPayload } from './Actions';
 
 export interface TopicTreeStoreState extends OperationState {
   payloadFromLoadAction: TopicTreeStoreLoadActionPayload;

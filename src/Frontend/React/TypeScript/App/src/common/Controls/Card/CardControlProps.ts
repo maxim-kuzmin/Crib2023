@@ -1,9 +1,7 @@
 import { type PropsWithChildren } from 'react';
-import {
-  type CardControlExtra,
-  type CardControlAction,
-  type CardControlType
-} from '../../../all';
+import { type CardControlAction } from './CardControlAction';
+import { type CardControlExtra } from './CardControlExtra';
+import { type CardControlType } from './CardControlType';
 
 export interface CardControlProps extends PropsWithChildren {
   controlActions?: CardControlAction[];

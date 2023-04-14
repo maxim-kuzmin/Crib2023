@@ -1,4 +1,4 @@
-import { type ApiSetupOptions } from '../../../all';
+import { type ApiSetupOptions } from './ApiSetupOptions';
 
 interface Options {
   url: string;

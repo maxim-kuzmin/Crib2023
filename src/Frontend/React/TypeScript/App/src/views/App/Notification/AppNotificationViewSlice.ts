@@ -1,10 +1,10 @@
+import { type AppNotificationViewHooks } from '../..';
 import {
   type AppNotificationStoreClearActionOptions,
-  type AppNotificationViewHooks,
+  type AppNotificationStoreHooks,
   type AppNotificationStoreSetActionOptions,
-  type AppNotificationStoreHooks
-} from '../../../all';
-import { AppNotificationStoreSliceName } from '../../../app/Stores';
+  AppNotificationStoreSliceName
+} from '../../../app/Stores';
 
 type ClearActionOptions = AppNotificationStoreClearActionOptions;
 type SetActionOptions = AppNotificationStoreSetActionOptions;

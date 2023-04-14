@@ -1,4 +1,5 @@
-import { type ListGetOperationInput, type TreeGetOperationAxisForList } from '../../../../all';
+import { type ListGetOperationInput } from '../../List';
+import { type TreeGetOperationAxisForList } from './Axes';
 
 export interface TreeGetOperationInput extends ListGetOperationInput {
   axis: TreeGetOperationAxisForList;

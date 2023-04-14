@@ -1,9 +1,6 @@
-import {
-  type TopicPageUrlOptions,
-  type TableControlService,
-  type TopicPageService,
-  type TopicPageUrlSearch
-} from '../../all';
+import { type TableControlService } from '../../common';
+import { type TopicPageService } from './TopicPageService';
+import { type TopicPageUrlOptions, type TopicPageUrlSearch } from './Url';
 
 const paramNameForPageNumber = 'pn';
 

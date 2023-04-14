@@ -1,4 +1,4 @@
-import { type TopicDomainEntity } from '../../../all';
+import { type TopicDomainEntity } from '../TopicDomainEntity';
 
 export interface TopicDomainEntityForTree extends TopicDomainEntity {
   treeChildren: TopicDomainEntityForTree[];

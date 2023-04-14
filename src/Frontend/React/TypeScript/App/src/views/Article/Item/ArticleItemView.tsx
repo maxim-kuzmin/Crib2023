@@ -1,16 +1,12 @@
 import React, { memo, useMemo } from 'react';
-import {
-  type ArticleTypeEntity,
-  type ArticleDomainEntityForItem,
-  type ArticleItemViewProps,
-  CardControl,
-  type CardControlAction,
-  type CardControlExtra,
-  ArticlePageMode,
-  CardControlType
-} from '../../../all';
-import styles from './ArticleItemView.module.css';
 import { getModule } from '../../../app/ModuleImpl';
+import { type CardControlAction, type CardControlExtra, CardControlType } from '../../../common';
+import { CardControl } from '../../../controls';
+import { type ArticleTypeEntity } from '../../../data';
+import { type ArticleDomainEntityForItem } from '../../../domains';
+import { ArticlePageMode } from '../../../pages';
+import { type ArticleItemViewProps } from './ArticleItemViewProps';
+import styles from './ArticleItemView.module.css';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({

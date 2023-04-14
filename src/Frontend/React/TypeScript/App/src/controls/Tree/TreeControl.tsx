@@ -2,7 +2,7 @@ import React, { type Key, useMemo, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Tree } from 'antd';
 import { type DataNode } from 'antd/es/tree';
-import { type TreeControlNode, type TreeControlProps } from '../../all';
+import { type TreeControlNode, type TreeControlProps } from '../../common';
 
 interface Data {
   defaultExpandedKeys: Key[];

@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react';
-import { type NotificationData } from '../../all';
+import { type NotificationData } from './NotificationData';
 
 export interface NotificationComponent {
   content: ReactElement;

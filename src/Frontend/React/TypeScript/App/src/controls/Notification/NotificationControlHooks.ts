@@ -4,7 +4,7 @@ import {
   type NotificationComponent,
   type NotificationData,
   NotificationType
-} from '../../all';
+} from '../../common';
 
 function useComponent (): NotificationComponent {
     const [api, contextHolder] = notification.useNotification();

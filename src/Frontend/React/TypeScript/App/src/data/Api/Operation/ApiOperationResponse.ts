@@ -1,4 +1,4 @@
-import { type ApiResponseError } from '../../../all';
+import { type ApiResponseError } from '../Response';
 
 export interface ApiOperationResponse<TData> {
   readonly data?: TData | null;

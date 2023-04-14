@@ -1,4 +1,4 @@
-import { type NotificationData } from '../../all';
+import { type NotificationData } from '../Notification';
 
 export interface OperationHandlerOptions {
   functionToSetNotification: (data: NotificationData) => void;

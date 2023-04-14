@@ -1,8 +1,6 @@
-import {
-  type ArticleItemStoreSetActionCallback,
-  type StoreActionOptions,
-  type ArticleItemStoreSetActionPayload
-} from '../../../../../../all';
+import { type StoreActionOptions } from '../../../../../../common';
+import { type ArticleItemStoreSetActionCallback } from './ArticleItemStoreSetActionCallback';
+import { type ArticleItemStoreSetActionPayload } from './ArticleItemStoreSetActionPayload';
 
 export interface ArticleItemStoreSetActionOptions extends StoreActionOptions {
   callback?: ArticleItemStoreSetActionCallback;

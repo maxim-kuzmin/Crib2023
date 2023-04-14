@@ -1,13 +1,13 @@
+import { type ApiClient } from '../../data';
+import { type ArticleDomainRepository } from './ArticleDomainRepository';
 import {
+  type ArticleDomainListGetOperationRequest,
   type ArticleDomainItemGetOperationOutput,
-  type ApiClient,
   type ArticleDomainItemGetOperationRequest,
   type ArticleDomainItemGetOperationResponse,
-  type ArticleDomainListGetOperationRequest,
   type ArticleDomainListGetOperationResponse,
-  type ArticleDomainRepository,
   type ArticleDomainListGetOperationOutput
-} from '../../all';
+} from './Operations';
 
 const controller = 'CatalogArticle';
 
@@ -28,7 +28,7 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
     const { operationCode, operationName, input } = request;
 
     return await this.apiClient.get<ArticleDomainItemGetOperationOutput>(
-      `${controller}Item-${input.id ?? 0}`,
+      `${controller}Item-${Number(input.id ?? 0)}`,
       operationName,
       operationCode
     );

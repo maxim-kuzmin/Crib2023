@@ -1,9 +1,6 @@
-import {
-  type ApiResponseDataWithMessages,
-  type ApiResponseDataWithDetails,
-  type ApiResponseError,
-  type ApiResponseErrorOptions
-} from '../../../all';
+import { type ApiResponseError } from './ApiResponseError';
+import { type ApiResponseErrorOptions } from './ApiResponseErrorOptions';
+import { type ApiResponseDataWithDetails, type ApiResponseDataWithMessages } from './Data';
 
 export class ApiResponseErrorImpl extends Error implements ApiResponseError {
   readonly responseDataWithDetails: ApiResponseDataWithDetails | null = null;

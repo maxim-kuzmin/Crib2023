@@ -1,8 +1,6 @@
-import {
-  type StoreAction,
-  type TopicItemStoreActionType,
-  type TopicItemStoreSetActionPayload
-} from '../../../../all';
+import { type TopicItemStoreSetActionPayload } from '../../../../app';
+import { type StoreAction } from '../../../../common';
+import { type TopicItemStoreActionType } from '../TopicItemStoreActionType';
 
 export interface TopicItemStoreSetAction extends StoreAction {
   type: TopicItemStoreActionType.Set;

@@ -1,9 +1,6 @@
-import {
-  type ArticlePageUrlSearch,
-  type ArticlePageService,
-  type ArticlePageUrlOptions,
-  ArticlePageMode
-} from '../../all';
+import { ArticlePageMode } from './ArticlePageMode';
+import { type ArticlePageService } from './ArticlePageService';
+import { type ArticlePageUrlOptions, type ArticlePageUrlSearch } from './Url';
 
 const paramNameForTopicId = 'topicId';
 

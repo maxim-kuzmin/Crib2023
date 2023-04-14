@@ -1,4 +1,5 @@
-import { type ArticleDomainEntity, type ArticleTypeEntityForList } from '../../../all';
+import { type ArticleTypeEntityForList } from '../../../data';
+import { type ArticleDomainEntity } from '../ArticleDomainEntity';
 
 export interface ArticleDomainEntityForList extends ArticleDomainEntity<ArticleTypeEntityForList> {
 }

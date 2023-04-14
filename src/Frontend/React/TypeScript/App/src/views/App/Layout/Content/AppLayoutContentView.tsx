@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Outlet } from 'react-router-dom';
-import { type AppLayoutContentViewProps } from '../../../../all';
+import { type AppLayoutContentViewProps } from './AppLayoutContentViewProps';
 import styles from './AppLayoutContentView.module.css';
 
 export const AppLayoutContentView: React.FC<AppLayoutContentViewProps> = memo(

@@ -1,4 +1,4 @@
-import { type SetupOptions } from '../../all';
+import { type SetupOptions } from './SetupOptions';
 
 interface Options {
   isTestModeEnabled: boolean;

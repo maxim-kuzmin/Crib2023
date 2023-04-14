@@ -1,4 +1,4 @@
-import { type TopicTypeEntity } from '../../all';
+import { type TopicTypeEntity } from '../../data';
 
 export interface TopicDomainEntity {
   data: TopicTypeEntity;

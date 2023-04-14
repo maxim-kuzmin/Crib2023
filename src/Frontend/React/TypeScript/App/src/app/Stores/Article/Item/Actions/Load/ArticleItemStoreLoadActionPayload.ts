@@ -1,3 +1,3 @@
-import { type ArticleDomainItemGetOperationInput } from '../../../../../../all';
+import { type ArticleDomainItemGetOperationInput } from '../../../../../../domains';
 
 export type ArticleItemStoreLoadActionPayload = ArticleDomainItemGetOperationInput | null;

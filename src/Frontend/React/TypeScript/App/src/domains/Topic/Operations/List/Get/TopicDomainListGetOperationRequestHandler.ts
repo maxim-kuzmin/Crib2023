@@ -1,8 +1,6 @@
-import {
-  type ShouldBeCanceled,
-  type TopicDomainListGetOperationRequest,
-  type TopicDomainListGetOperationResponse
-} from '../../../../../all';
+import { type ShouldBeCanceled } from '../../../../../common';
+import { type TopicDomainListGetOperationRequest } from './TopicDomainListGetOperationRequest';
+import { type TopicDomainListGetOperationResponse } from './TopicDomainListGetOperationResponse';
 
 export interface TopicDomainListGetOperationRequestHandler {
   handle: (

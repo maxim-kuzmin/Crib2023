@@ -2,7 +2,7 @@ import React, { type Key, useMemo, memo } from 'react';
 import { Breadcrumb } from 'antd';
 import { type ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 import { Link } from 'react-router-dom';
-import { type BreadcrumbControlItem, type BreadcrumbControlProps } from '../../all';
+import { type BreadcrumbControlItem, type BreadcrumbControlProps } from '../../common';
 
 function convertToItems (controlItems: BreadcrumbControlItem[], currentItemKey?: Key): ItemType[] {
   return controlItems.map((controlItem) => {

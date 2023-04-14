@@ -1,4 +1,4 @@
-import { type TopicPageUrlSearch } from '../../../all';
+import { type TopicPageUrlSearch } from './TopicPageUrlSearch';
 
 export interface TopicPageUrlOptions {
   topicId?: number;

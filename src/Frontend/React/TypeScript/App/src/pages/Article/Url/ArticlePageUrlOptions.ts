@@ -1,4 +1,5 @@
-import { type ArticlePageMode, type ArticlePageUrlSearch } from '../../../all';
+import { type ArticlePageMode } from '../ArticlePageMode';
+import { type ArticlePageUrlSearch } from './ArticlePageUrlSearch';
 
 export interface ArticlePageUrlOptions {
   articleId?: number;

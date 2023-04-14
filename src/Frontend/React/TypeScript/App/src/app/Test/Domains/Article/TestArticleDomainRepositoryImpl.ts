@@ -1,16 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
+import { getModule } from '../../../ModuleImpl';
 import {
-  type ArticleDomainListGetOperationRequest,
-  type ArticleDomainListGetOperationResponse,
-  type ArticleDomainItemGetOperationRequest,
-  type ArticleDomainItemGetOperationResponse,
-  type ArticleDomainRepository,
   type ArticleDomainEntityForItem,
   type ArticleDomainItemGetOperationOutput,
+  type ArticleDomainItemGetOperationRequest,
+  type ArticleDomainItemGetOperationResponse,
   type ArticleDomainListGetOperationOutput,
-  type ApiResponseError,
-} from '../../../../all';
-import { getModule } from '../../../ModuleImpl';
+  type ArticleDomainListGetOperationRequest,
+  type ArticleDomainListGetOperationResponse,
+  type ArticleDomainRepository
+} from '../../../../domains';
+import { type ApiResponseError } from '../../../../data';
 
 export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
   private readonly items: ArticleDomainEntityForItem[] = [];

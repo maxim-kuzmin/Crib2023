@@ -1,8 +1,6 @@
 import { type PropsWithChildren } from 'react';
-import {
-  type TableControlPagination,
-  type ArticleDomainListGetOperationResponse
-} from '../../../all';
+import { type TableControlPagination } from '../../../common';
+import { type ArticleDomainListGetOperationResponse } from '../../../domains';
 
 export interface ArticleTableViewProps extends PropsWithChildren {
   loading: boolean;

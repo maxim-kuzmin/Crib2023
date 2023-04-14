@@ -1,31 +1,32 @@
+import { type StoreService, type TableControlService } from '../common';
+import { type NotificationControlHooks } from '../controls';
+import { type ApiResponseError, type ApiResponseErrorOptions } from '../data';
 import {
-  type AppNotificationStoreHooks,
-  type ArticleListStoreHooks,
-  type TopicItemStoreHooks,
-  type TopicTreeStoreHooks,
-  type NotificationControlHooks,
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository,
-  type TestService,
   type TopicDomainItemGetOperationRequestHandler,
   type TopicDomainListGetOperationRequestHandler,
   type TopicDomainRepository,
-  type TopicDomainTreeGetOperationRequestHandler,
-  type TableControlService,
-  type TopicPageService,
-  type ArticlePageService,
-  type ArticleItemEditViewService,
-  type ArticleItemStoreHooks,
-  type StoreService,
-  type ApiResponseError,
-  type ApiResponseErrorOptions,
+  type TopicDomainTreeGetOperationRequestHandler
+} from '../domains';
+import { type ArticlePageService, type TopicPageService } from '../pages';
+import {
   type AppNotificationViewHooks,
-  type TopicTreeViewHooks,
+  type ArticleItemEditViewService,
   type ArticleItemViewHooks,
   type ArticleTableViewHooks,
   type TopicItemViewHooks,
-} from '../all';
+  type TopicTreeViewHooks
+} from '../views';
+import {
+  type AppNotificationStoreHooks,
+  type ArticleItemStoreHooks,
+  type ArticleListStoreHooks,
+  type TestService,
+  type TopicItemStoreHooks,
+  type TopicTreeStoreHooks
+} from '.';
 
 export interface Module {
   readonly createApiResponseError: (responseStatus: number, options?: ApiResponseErrorOptions) => ApiResponseError;

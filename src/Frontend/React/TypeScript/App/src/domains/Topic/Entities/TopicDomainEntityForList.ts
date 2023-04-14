@@ -1,4 +1,5 @@
-import { type OptionValueObject, type TopicDomainEntity } from '../../../all';
+import { type OptionValueObject } from '../../../common';
+import { type TopicDomainEntity } from '../TopicDomainEntity';
 
 export interface TopicDomainEntityForList extends TopicDomainEntity {
   treeAncestors: OptionValueObject[];

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Layout, theme } from 'antd';
+import { type LayoutControlProps } from '../../common';
 import styles from './LayoutControl.module.css';
-import { type LayoutControlProps } from '../../all';
 
 const { Header, Content, Footer, Sider } = Layout;
 

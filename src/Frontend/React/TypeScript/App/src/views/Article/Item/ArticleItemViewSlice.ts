@@ -1,11 +1,11 @@
 import {
   type ArticleItemStoreClearActionOptions,
-  type ArticleItemViewHooks,
-  type ArticleItemStoreSetActionOptions,
+  type ArticleItemStoreHooks,
   type ArticleItemStoreLoadActionOptions,
-  type ArticleItemStoreHooks
-} from '../../../all';
-import { ArticleItemStoreSliceName } from '../../../app/Stores';
+  type ArticleItemStoreSetActionOptions,
+  ArticleItemStoreSliceName
+} from '../../../app/Stores';
+import { type ArticleItemViewHooks } from './ArticleItemViewHooks';
 
 type ClearActionOptions = ArticleItemStoreClearActionOptions;
 type LoadActionOptions = ArticleItemStoreLoadActionOptions;

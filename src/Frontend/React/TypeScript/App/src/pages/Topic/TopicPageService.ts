@@ -1,5 +1,5 @@
 import { type URLSearchParams } from 'url';
-import { type TopicPageUrlSearch, type TopicPageUrlOptions } from '../../all';
+import { type TopicPageUrlOptions, type TopicPageUrlSearch } from './Url';
 
 export interface TopicPageService {
   readonly createUrl: (options?: TopicPageUrlOptions) => string;

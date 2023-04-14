@@ -1,11 +1,11 @@
 import {
   type TopicItemStoreClearActionOptions,
-  type TopicItemViewHooks,
-  type TopicItemStoreSetActionOptions,
+  type TopicItemStoreHooks,
   type TopicItemStoreLoadActionOptions,
-  type TopicItemStoreHooks
-} from '../../../all';
-import { TopicItemStoreSliceName } from '../../../app/Stores';
+  type TopicItemStoreSetActionOptions,
+  TopicItemStoreSliceName
+} from '../../../app/Stores';
+import { type TopicItemViewHooks } from '../..';
 
 type ClearActionOptions = TopicItemStoreClearActionOptions;
 type LoadActionOptions = TopicItemStoreLoadActionOptions;

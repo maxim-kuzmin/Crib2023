@@ -1,8 +1,6 @@
-import {
-  type ShouldBeCanceled,
-  type ArticleDomainItemGetOperationRequest,
-  type ArticleDomainItemGetOperationResponse
-} from '../../../../../all';
+import { type ShouldBeCanceled } from '../../../../../common';
+import { type ArticleDomainItemGetOperationRequest } from './ArticleDomainItemGetOperationRequest';
+import { type ArticleDomainItemGetOperationResponse } from './ArticleDomainItemGetOperationResponse';
 
 export interface ArticleDomainItemGetOperationRequestHandler {
   handle: (

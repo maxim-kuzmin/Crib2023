@@ -1,9 +1,6 @@
 import queryString from 'query-string';
-import {
-  type HttpClient,
-  type HttpRequestConfig,
-  type HttpRequestResult
-} from '../../all';
+import { type HttpRequestConfig, type HttpRequestResult } from './Request';
+import { type HttpClient } from './HttpClient';
 
 function createRequestConfigValue (method: string, config?: HttpRequestConfig, body?: any) {
   const result: HttpRequestConfig = { ...config };

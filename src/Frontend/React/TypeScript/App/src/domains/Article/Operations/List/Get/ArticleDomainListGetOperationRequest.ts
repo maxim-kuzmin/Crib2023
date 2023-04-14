@@ -1,7 +1,5 @@
-import {
-  type ApiRequestWithInput,
-  type ArticleDomainListGetOperationInput,
-} from '../../../../../all';
+import { type ApiRequestWithInput } from '../../../../../data';
+import { type ArticleDomainListGetOperationInput } from './ArticleDomainListGetOperationInput';
 
 export interface ArticleDomainListGetOperationRequest
   extends ApiRequestWithInput<ArticleDomainListGetOperationInput> {}

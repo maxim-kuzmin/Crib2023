@@ -1,4 +1,4 @@
-import { OperationStatus } from '../../all';
+import { OperationStatus } from './OperationStatus';
 
 export interface OperationState {
   readonly status?: OperationStatus;

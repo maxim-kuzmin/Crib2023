@@ -1,3 +1,3 @@
-import { type TopicDomainTreeGetOperationInput } from '../../../../../../all';
+import { type TopicDomainTreeGetOperationInput } from '../../../../../../domains';
 
 export type TopicTreeStoreLoadActionPayload = TopicDomainTreeGetOperationInput | null;

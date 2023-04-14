@@ -1,19 +1,13 @@
 import React, { useMemo, type Key, memo } from 'react';
-import {
-  TableControl,
-  type ArticleDomainEntityForList,
-  type ArticleTableViewProps,
-  type TableControlColumn,
-  type TableControlPagination,
-  type BreadcrumbControlItem,
-  BreadcrumbControl,
-  type ArticleTableViewRow,
-  ArticlePageMode,
-  ButtonControl
-} from '../../../all';
-import styles from './ArticleTableView.module.css';
 import { Link } from 'react-router-dom';
 import { getModule } from '../../../app/ModuleImpl';
+import { type BreadcrumbControlItem, type TableControlColumn, type TableControlPagination } from '../../../common';
+import { BreadcrumbControl, ButtonControl, TableControl } from '../../../controls';
+import { type ArticleDomainEntityForList } from '../../../domains';
+import { ArticlePageMode } from '../../../pages';
+import { type ArticleTableViewRow } from './ArticleTableViewRow';
+import { type ArticleTableViewProps } from './ArticleTableViewProps';
+import styles from './ArticleTableView.module.css';
 
 function getRowKey (row: any): Key {
   const viewRow: ArticleTableViewRow = row;

@@ -1,11 +1,11 @@
 import {
-  type TopicDomainTreeGetOperationRequest,
   type TopicDomainItemGetOperationRequest,
   type TopicDomainItemGetOperationResponse,
   type TopicDomainListGetOperationRequest,
   type TopicDomainListGetOperationResponse,
+  type TopicDomainTreeGetOperationRequest,
   type TopicDomainTreeGetOperationResponse
-} from '../../all';
+} from './Operations';
 
 export interface TopicDomainRepository {
   getItem: (

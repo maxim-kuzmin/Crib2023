@@ -1,4 +1,4 @@
-import { type TestService } from '../../all';
+import { type TestService } from './TestService';
 
 export class TestServiceImpl implements TestService {
   async getDataAsync<TData> (functionToGet: () => TData): Promise<TData> {

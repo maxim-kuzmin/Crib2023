@@ -1,7 +1,5 @@
-import {
-  type OperationInput,
-  type OperationResult
-} from '../../all';
+import { type OperationInput } from './OperationInput';
+import { type OperationResult } from './OperationResult';
 
 export interface OperationHandler {
   readonly handleError: (error: any) => void;

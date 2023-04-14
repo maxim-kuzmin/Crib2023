@@ -1,38 +1,47 @@
 import {
-  AppNotificationStoreSliceName,
-  type AppNotificationStoreHooks,
-  type ArticleListStoreHooks,
-  type NotificationControlHooks,
-  type TopicItemStoreHooks,
-  type TopicTreeStoreHooks,
-  type HttpClient,
-  type ApiClient,
   type OperationHandler,
-  type ApiRequestHandler,
+  type HttpClient,
+  type SetupOptions,
+  type StoreService,
+  type TableControlService
+} from '../common';
+import { type NotificationControlHooks } from '../controls';
+import {
+  type ApiSetupOptions,
+  type ApiResponseErrorOptions,
+  type ApiClient,
+  type ApiRequestHandler
+} from '../data';
+import {
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository,
-  type TestService,
   type TopicDomainItemGetOperationRequestHandler,
   type TopicDomainListGetOperationRequestHandler,
   type TopicDomainRepository,
-  type TopicDomainTreeGetOperationRequestHandler,
-  type TopicPageService,
+  type TopicDomainTreeGetOperationRequestHandler
+} from '../domains';
+import {
   type ArticlePageService,
-  type ApiSetupOptions,
-  type SetupOptions,
-  type ArticleItemEditViewService,
-  type TableControlService,
-  type Module,
-  type ArticleItemStoreHooks,
-  type StoreService,
-  type ApiResponseErrorOptions,
+  type TopicPageService
+} from '../pages';
+import {
   type AppNotificationViewHooks,
-  type TopicTreeViewHooks,
+  type ArticleItemEditViewService,
   type ArticleItemViewHooks,
   type ArticleTableViewHooks,
   type TopicItemViewHooks,
-} from '../all';
+  type TopicTreeViewHooks
+} from '../views';
+import {
+  AppNotificationStoreSliceName,
+  type AppNotificationStoreHooks,
+  type ArticleItemStoreHooks,
+  type ArticleListStoreHooks,
+  type TestService,
+  type TopicItemStoreHooks,
+  type TopicTreeStoreHooks
+} from '.';
 
 import { ApiSetupOptionsImpl } from '../data/Api/Setup/ApiSetupOptionsImpl';
 import { SetupOptionsImpl } from '../common/Setup/SetupOptionsImpl';
@@ -77,6 +86,7 @@ import { createTopicTreeViewHooks } from '../views/Topic/Tree/TopicTreeViewSlice
 import { createArticleItemViewHooks } from '../views/Article/Item/ArticleItemViewSlice';
 import { createArticleTableViewHooks } from '../views/Article/Table/ArticleTableViewSlice';
 import { createTopicItemViewHooks } from '../views/Topic/Item/TopicItemViewSlice';
+import { type Module } from './Module';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;

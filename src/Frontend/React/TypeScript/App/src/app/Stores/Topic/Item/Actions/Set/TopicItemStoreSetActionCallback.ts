@@ -1,3 +1,3 @@
-import { type TopicItemStoreSetActionPayload } from '../../../../../../all';
+import { type TopicItemStoreSetActionPayload } from './TopicItemStoreSetActionPayload';
 
 export type TopicItemStoreSetActionCallback = (payload: TopicItemStoreSetActionPayload) => void;

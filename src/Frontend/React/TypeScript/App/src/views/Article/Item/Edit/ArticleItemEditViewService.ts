@@ -1,4 +1,4 @@
-import { type ArticleTypeEntity } from '../../../../all';
+import { type ArticleTypeEntity } from '../../../../data';
 
 export interface ArticleItemEditViewService {
   readonly convertToFormValues: (entity?: ArticleTypeEntity) => any;

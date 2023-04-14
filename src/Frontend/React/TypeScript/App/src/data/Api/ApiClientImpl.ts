@@ -1,19 +1,16 @@
+import { getModule } from '../../app/ModuleImpl';
+import { type HttpClient, type HttpRequestConfig, type HttpRequestResult } from '../../common';
+import { type ApiClient } from './ApiClient';
+import { type ApiOperationResponse } from './Operation';
 import {
-  type ApiClient,
-  type ApiSetupOptions,
-  type ApiResponseWithData,
-  type ApiResponseWithDetails,
-  type ApiResponseWithMessages,
-  type ApiOperationResponse,
-  type HttpClient,
-  type HttpRequestConfig,
-  type HttpRequestResult,
   type ApiResponse,
   type ApiResponseDataWithDetails,
   type ApiResponseDataWithMessages,
-  type ApiResponseError
-} from '../../all';
-import { getModule } from '../../app/ModuleImpl';
+  type ApiResponseError,
+  type ApiResponseWithData
+} from './Response';
+import { type ApiResponseWithDetails, type ApiResponseWithMessages } from './Responses';
+import { type ApiSetupOptions } from './Setup';
 
 function createRequestConfig (operaionCode: string, query?: any): HttpRequestConfig {
   return {

@@ -1,4 +1,4 @@
-import { type ArticleListStoreSetActionPayload } from '../../../../../../all';
+import { type ArticleListStoreSetActionPayload } from './ArticleListStoreSetActionPayload';
 
 export interface ArticleListStoreSetActionDispatch {
   run: (payload: ArticleListStoreSetActionPayload) => void;

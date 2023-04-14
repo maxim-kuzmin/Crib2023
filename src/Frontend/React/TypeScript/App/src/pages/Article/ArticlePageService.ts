@@ -1,4 +1,4 @@
-import { type ArticlePageUrlSearch, type ArticlePageUrlOptions } from '../../all';
+import { type ArticlePageUrlOptions, type ArticlePageUrlSearch } from './Url';
 
 export interface ArticlePageService {
   readonly createUrl: (options?: ArticlePageUrlOptions) => string;

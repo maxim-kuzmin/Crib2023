@@ -1,11 +1,11 @@
 import {
   type ArticleListStoreClearActionOptions,
-  type ArticleTableViewHooks,
-  type ArticleListStoreSetActionOptions,
+  type ArticleListStoreHooks,
   type ArticleListStoreLoadActionOptions,
-  type ArticleListStoreHooks
-} from '../../../all';
-import { ArticleListStoreSliceName } from '../../../app/Stores';
+  type ArticleListStoreSetActionOptions,
+  ArticleListStoreSliceName
+} from '../../../app/Stores';
+import { type ArticleTableViewHooks } from './ArticleTableViewHooks';
 
 type ClearActionOptions = ArticleListStoreClearActionOptions;
 type LoadActionOptions = ArticleListStoreLoadActionOptions;

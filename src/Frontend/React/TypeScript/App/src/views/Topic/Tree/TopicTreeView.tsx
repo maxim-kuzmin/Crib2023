@@ -1,18 +1,14 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
-import {
-  StoreDispatchType,
-  type TopicDomainTreeGetOperationResponse,
-  type TopicDomainTreeGetOperationInput,
-  TreeGetOperationAxisForList,
-  OperationStatus,
-  type TopicDomainEntityForTree,
-  SpinnerControl,
-  type TreeControlNode,
-  TreeControl,
-  createTopicDomainTreeGetOperationRequest
-} from '../../../all';
-import styles from './TopicTreeView.module.css';
 import { getModule } from '../../../app/ModuleImpl';
+import { OperationStatus, StoreDispatchType, type TreeControlNode, TreeGetOperationAxisForList } from '../../../common';
+import { SpinnerControl, TreeControl } from '../../../controls';
+import {
+  type TopicDomainEntityForTree,
+  type TopicDomainTreeGetOperationInput,
+  type TopicDomainTreeGetOperationResponse,
+  createTopicDomainTreeGetOperationRequest
+} from '../../../domains';
+import styles from './TopicTreeView.module.css';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,

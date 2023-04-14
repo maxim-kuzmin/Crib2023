@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Button } from 'antd';
-import { type ButtonControlProps } from '../../all';
+import { type ButtonControlProps } from '../../common';
 
 export const ButtonControl: React.FC<ButtonControlProps> = memo(
 function ButtonControl ({

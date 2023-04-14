@@ -1,5 +1,5 @@
 import { type Key } from 'react';
-import { type FormControlActionType } from '../../../../all';
+import { type FormControlActionType } from './FormControlActionType';
 
 export interface FormControlAction {
   className?: string;

@@ -1,4 +1,4 @@
-import { type ItemGetOperationInput } from '../../../../../all';
+import { type ItemGetOperationInput } from '../../../../../common';
 
 export interface ArticleDomainItemGetOperationInput extends ItemGetOperationInput {
   title?: string;

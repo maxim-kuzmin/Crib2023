@@ -1,7 +1,4 @@
-import {
-  type HttpRequestConfig,
-  type HttpRequestResult
-} from '../../all';
+import { type HttpRequestConfig, type HttpRequestResult } from './Request';
 
 export interface HttpClient {
   readonly delete: (url: string, config?: HttpRequestConfig) => Promise<HttpRequestResult>;

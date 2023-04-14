@@ -1,4 +1,4 @@
-import { type StoreService } from '../../all';
+import { type StoreService } from './StoreService';
 
 export class StoreServiceImpl implements StoreService {
   createInitialState<TState>(sliceNames: string[], functionToCreateState: () => TState): Map<string, TState> {

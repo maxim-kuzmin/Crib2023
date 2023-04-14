@@ -1,4 +1,4 @@
-import { type ArticlePageMode } from '../../all';
+import { type ArticlePageMode } from './ArticlePageMode';
 
 export interface ArticlePageProps {
   mode: ArticlePageMode;

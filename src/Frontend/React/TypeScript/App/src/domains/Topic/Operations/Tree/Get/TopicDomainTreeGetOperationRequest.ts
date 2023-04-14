@@ -1,7 +1,5 @@
-import {
-  type ApiRequestWithInput,
-  type TopicDomainTreeGetOperationInput
-} from '../../../../../all';
+import { type ApiRequestWithInput } from '../../../../../data';
+import { type TopicDomainTreeGetOperationInput } from './TopicDomainTreeGetOperationInput';
 
 export interface TopicDomainTreeGetOperationRequest
   extends ApiRequestWithInput<TopicDomainTreeGetOperationInput> {}

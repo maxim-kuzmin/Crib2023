@@ -1,12 +1,12 @@
 import {
-  type TopicItemStoreClearActionOptions,
   type TopicItemStoreClearActionDispatch,
-  type TopicItemStoreState,
+  type TopicItemStoreClearActionOptions,
   type TopicItemStoreLoadActionDispatch,
   type TopicItemStoreLoadActionOptions,
-  type TopicItemStoreSetActionOptions,
-  type TopicItemStoreSetActionDispatch
-} from '../../../../all';
+  type TopicItemStoreSetActionDispatch,
+  type TopicItemStoreSetActionOptions
+} from './Actions';
+import { type TopicItemStoreState } from './TopicItemStoreState';
 
 type ClearActionDispatch = TopicItemStoreClearActionDispatch;
 type ClearActionOptions = TopicItemStoreClearActionOptions;

@@ -1,4 +1,4 @@
-import { type TableControlService } from '../../../all';
+import { type TableControlService } from './TableControlService';
 
 interface Options {
   defaultPageSize: number;

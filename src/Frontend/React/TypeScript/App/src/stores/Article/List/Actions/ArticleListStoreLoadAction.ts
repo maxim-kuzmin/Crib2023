@@ -1,8 +1,6 @@
-import {
-  type ArticleListStoreLoadActionPayload,
-  type ArticleListStoreActionType,
-  type StoreAction
-} from '../../../../all';
+import { type ArticleListStoreLoadActionPayload } from '../../../../app';
+import { type StoreAction } from '../../../../common';
+import { type ArticleListStoreActionType } from '../ArticleListStoreActionType';
 
 export interface ArticleListStoreLoadAction extends StoreAction {
   type: ArticleListStoreActionType.Load;

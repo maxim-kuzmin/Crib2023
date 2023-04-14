@@ -1,7 +1,12 @@
 import React, { useMemo, type ReactNode, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card } from 'antd';
-import { type CardControlExtra, type CardControlAction, type CardControlProps, CardControlType } from '../../all';
+import {
+  type CardControlAction,
+  type CardControlExtra,
+  type CardControlProps,
+  CardControlType
+} from '../../common';
 
 function convertToActions (controlActions?: CardControlAction[]): ReactNode[] | undefined {
   return controlActions?.map((controlAction) => {

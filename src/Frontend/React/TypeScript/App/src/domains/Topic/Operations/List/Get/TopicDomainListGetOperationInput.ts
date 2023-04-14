@@ -1,4 +1,4 @@
-import { type TopicDomainTreeGetOperationInput } from '../../../../../all';
+import { type TopicDomainTreeGetOperationInput } from '../../Tree';
 
 export interface TopicDomainListGetOperationInput extends TopicDomainTreeGetOperationInput {
   ids?: number[];

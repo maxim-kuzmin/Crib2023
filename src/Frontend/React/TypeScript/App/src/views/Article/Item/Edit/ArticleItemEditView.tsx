@@ -1,15 +1,14 @@
 import React, { memo, useCallback, useMemo } from 'react';
+import { getModule } from '../../../../app/ModuleImpl';
 import {
-  FormControl,
   type FormControlAction,
   FormControlActionType,
-  SpinnerControl,
   type FormControlField,
-  FormControlFieldType,
-  type ArticleItemEditViewProps
-} from '../../../../all';
+  FormControlFieldType
+} from '../../../../common';
+import { FormControl, SpinnerControl } from '../../../../controls';
+import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
-import { getModule } from '../../../../app/ModuleImpl';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({

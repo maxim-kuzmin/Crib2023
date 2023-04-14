@@ -1,12 +1,12 @@
 import {
   type ArticleListStoreClearActionOptions,
   type ArticleListStoreClearActionDispatch,
-  type ArticleListStoreState,
   type ArticleListStoreLoadActionDispatch,
   type ArticleListStoreLoadActionOptions,
-  type ArticleListStoreSetActionOptions,
-  type ArticleListStoreSetActionDispatch
-} from '../../../../all';
+  type ArticleListStoreSetActionDispatch,
+  type ArticleListStoreSetActionOptions
+} from './Actions';
+import { type ArticleListStoreState } from './ArticleListStoreState';
 
 type ClearActionDispatch = ArticleListStoreClearActionDispatch;
 type ClearActionOptions = ArticleListStoreClearActionOptions;

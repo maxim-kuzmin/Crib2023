@@ -1,21 +1,21 @@
 import { v4 as uuidv4 } from 'uuid';
+import { getModule } from '../../../ModuleImpl';
 import {
+  type TopicDomainItemGetOperationRequest,
+  type TopicDomainEntityForItem,
+  type TopicDomainEntityForList,
+  type TopicDomainEntityForTree,
+  type TopicDomainRepository,
+  type TopicDomainItemGetOperationResponse,
+  type TopicDomainItemGetOperationOutput,
   type TopicDomainListGetOperationRequest,
   type TopicDomainListGetOperationResponse,
-  type TopicDomainItemGetOperationRequest,
-  type TopicDomainItemGetOperationResponse,
-  type TopicDomainRepository,
-  type TopicDomainItemGetOperationOutput,
   type TopicDomainListGetOperationOutput,
-  type ApiResponseError,
-  type TopicDomainEntityForList,
-  type TopicDomainEntityForItem,
-  type TopicDomainEntityForTree,
   type TopicDomainTreeGetOperationRequest,
   type TopicDomainTreeGetOperationResponse,
   type TopicDomainTreeGetOperationOutput
-} from '../../../../all';
-import { getModule } from '../../../ModuleImpl';
+} from '../../../../domains';
+import { type ApiResponseError } from '../../../../data';
 
 export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
   private readonly entitiesForItem: TopicDomainEntityForItem[] = [];

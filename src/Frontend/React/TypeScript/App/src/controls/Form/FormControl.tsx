@@ -2,12 +2,12 @@ import React, { type Attributes, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Form, type FormItemProps, Input } from 'antd';
 import {
+  FormControlFieldType,
+  type FormControlField,
   type FormControlAction,
   FormControlActionType,
-  type FormControlField,
-  FormControlFieldType,
   type FormControlProps
-} from '../../all';
+} from '../../common';
 import styles from './FormControl.module.css';
 
 function convertToFieldProps (controlField: FormControlField): FormItemProps<any> & Attributes {

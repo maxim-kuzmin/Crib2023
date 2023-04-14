@@ -1,4 +1,4 @@
-import { type AppNotificationStoreSetActionPayload } from '../../../../all';
+import { type AppNotificationStoreSetActionPayload } from './Actions';
 
 export interface AppNotificationStoreState {
   payloadFromSetAction: AppNotificationStoreSetActionPayload;

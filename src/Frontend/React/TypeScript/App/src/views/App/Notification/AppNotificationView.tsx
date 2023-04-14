@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
-import { StoreDispatchType } from '../../../all';
 import { getModule } from '../../../app/ModuleImpl';
+import { StoreDispatchType } from '../../../common';
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView () {

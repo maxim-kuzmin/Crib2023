@@ -1,4 +1,5 @@
-import { type ArticleItemEditViewService, type ArticleTypeEntity } from '../../../../all';
+import { type ArticleTypeEntity } from '../../../../data';
+import { type ArticleItemEditViewService } from './ArticleItemEditViewService';
 
 export class ArticleItemEditViewServiceImpl implements ArticleItemEditViewService {
   public readonly fieldNameForBody = 'body';

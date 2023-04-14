@@ -1,16 +1,16 @@
+import { type ApiClient } from '../../data';
 import {
+  type TopicDomainListGetOperationRequest,
   type TopicDomainItemGetOperationOutput,
-  type ApiClient,
   type TopicDomainItemGetOperationRequest,
   type TopicDomainItemGetOperationResponse,
-  type TopicDomainListGetOperationRequest,
   type TopicDomainListGetOperationResponse,
-  type TopicDomainRepository,
   type TopicDomainListGetOperationOutput,
   type TopicDomainTreeGetOperationRequest,
   type TopicDomainTreeGetOperationResponse,
   type TopicDomainTreeGetOperationOutput
-} from '../../all';
+} from './Operations';
+import { type TopicDomainRepository } from './TopicDomainRepository';
 
 const controller = 'CatalogTopic';
 
@@ -31,7 +31,7 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
     const { operationCode, operationName, input } = request;
 
     return await this.apiClient.get<TopicDomainItemGetOperationOutput>(
-      `${controller}Item-${input.id ?? 0}`,
+      `${controller}Item-${Number(input.id ?? 0)}`,
       operationName,
       operationCode
     );

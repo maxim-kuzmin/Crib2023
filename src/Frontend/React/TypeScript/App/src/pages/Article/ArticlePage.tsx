@@ -1,19 +1,12 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import {
-  StoreDispatchType,
-  OperationStatus,
-  type ArticleDomainItemGetOperationInput,
-  TreeGetOperationAxisForItem,
-  type TopicDomainItemGetOperationInput,
-  ArticleItemView,
-  type ArticlePageProps,
-  ArticleItemEditView,
-  ArticlePageMode,
-  type ArticleItemStoreSetActionPayload,
-  type TopicItemStoreSetActionPayload
-} from '../../all';
 import { getModule } from '../../app/ModuleImpl';
+import { type ArticlePageProps } from './ArticlePageProps';
+import { type ArticleItemStoreSetActionPayload, type TopicItemStoreSetActionPayload } from '../../app';
+import { type ArticleDomainItemGetOperationInput, type TopicDomainItemGetOperationInput } from '../../domains';
+import { OperationStatus, StoreDispatchType, TreeGetOperationAxisForItem } from '../../common';
+import { ArticlePageMode } from './ArticlePageMode';
+import { ArticleItemEditView, ArticleItemView } from '../../views';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({

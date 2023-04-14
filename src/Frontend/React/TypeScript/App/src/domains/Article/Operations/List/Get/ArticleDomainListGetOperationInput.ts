@@ -1,4 +1,4 @@
-import { type ListGetOperationInput } from '../../../../../all';
+import { type ListGetOperationInput } from '../../../../../common';
 
 export interface ArticleDomainListGetOperationInput extends ListGetOperationInput {
   ids?: number[];

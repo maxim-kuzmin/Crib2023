@@ -1,25 +1,20 @@
 import React, {
-  type Dispatch,
   type PropsWithChildren,
-  createContext,
   memo,
-  useContext,
   useReducer,
 } from 'react';
-import {
-  AppNotificationStoreActionType,
-  type AppNotificationStoreActionUnion,
-  type AppNotificationStoreState,
-} from '../../../all';
 import { getModule } from '../../../app/ModuleImpl';
-import { AppNotificationStoreSliceName } from '../../../app/Stores';
+import { AppNotificationStoreSliceName, type AppNotificationStoreState } from '../../../app/Stores';
+import { AppNotificationStoreActionType } from './AppNotificationStoreActionType';
+import { type AppNotificationStoreActionUnion } from './AppNotificationStoreActionUnion';
+import {
+  AppNotificationStoreDispatchContext,
+  AppNotificationStoreStateContext
+} from './AppNotificationStoreContext';
 
 type ActionUnion = AppNotificationStoreActionUnion;
 type State = AppNotificationStoreState;
 type StateMap = Map<string, State>;
-
-const DispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
-const StateContext = createContext<StateMap | null>(null);
 
 const initialState = getModule().getStoreService().createInitialState<State>(
   [AppNotificationStoreSliceName.AppNotificationView],
@@ -50,18 +45,10 @@ function AppNotificationStoreContextProvider ({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <StateContext.Provider value={state}>
-      <DispatchContext.Provider value={dispatch}>
+    <AppNotificationStoreStateContext.Provider value={state}>
+      <AppNotificationStoreDispatchContext.Provider value={dispatch}>
         {children}
-      </DispatchContext.Provider>
-    </StateContext.Provider>
+      </AppNotificationStoreDispatchContext.Provider>
+    </AppNotificationStoreStateContext.Provider>
   );
 });
-
-export function useAppNotificationStoreStateContext (sliceName: string): State {
-  return useContext(StateContext)!.get(sliceName)!;
-}
-
-export function useAppNotificationStoreDispatchContext () {
-  return useContext(DispatchContext)!;
-}

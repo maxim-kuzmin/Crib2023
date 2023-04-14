@@ -1,17 +1,15 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import {
-  ArticleTableView,
-  StoreDispatchType,
-  OperationStatus,
-  type ArticleDomainListGetOperationInput,
-  TreeGetOperationAxisForItem,
-  type TopicDomainItemGetOperationInput,
-  type TableControlPagination,
-  type ArticleListStoreSetActionPayload,
-  type TopicItemStoreSetActionPayload,
-} from '../../all';
 import { getModule } from '../../app/ModuleImpl';
+import { type ArticleListStoreSetActionPayload, type TopicItemStoreSetActionPayload } from '../../app';
+import {
+  OperationStatus,
+  StoreDispatchType,
+  type TableControlPagination,
+  TreeGetOperationAxisForItem
+} from '../../common';
+import { type ArticleDomainListGetOperationInput, type TopicDomainItemGetOperationInput } from '../../domains';
+import { ArticleTableView } from '../../views';
 
 export const TopicPage: React.FC = memo(
 function TopicPage () {

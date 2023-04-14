@@ -1,8 +1,8 @@
 import {
   type TopicTreeStoreClearAction,
   type TopicTreeStoreLoadAction,
-  type TopicTreeStoreSetAction,
-} from '../../../all';
+  type TopicTreeStoreSetAction
+} from './Actions';
 
 export type TopicTreeStoreActionUnion =
   | TopicTreeStoreClearAction

@@ -1,3 +1,3 @@
-import { type TopicDomainItemGetOperationResponse } from '../../../../../../all';
+import { type TopicDomainItemGetOperationResponse } from '../../../../../../domains';
 
 export type TopicItemStoreSetActionPayload = TopicDomainItemGetOperationResponse | null;

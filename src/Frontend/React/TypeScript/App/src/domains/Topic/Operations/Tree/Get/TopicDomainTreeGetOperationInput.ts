@@ -1,4 +1,4 @@
-import { type TreeGetOperationInput } from '../../../../../all';
+import { type TreeGetOperationInput } from '../../../../../common';
 
 export interface TopicDomainTreeGetOperationInput extends TreeGetOperationInput {
 }

@@ -1,7 +1,4 @@
-import {
-  type ApiResponseDataWithMessages,
-  type ApiResponseDataWithDetails
-} from '../../../all';
+import { type ApiResponseDataWithDetails, type ApiResponseDataWithMessages } from './Data';
 
 export interface ApiResponseError extends Error {
   readonly responseDataWithDetails: ApiResponseDataWithDetails | null;
