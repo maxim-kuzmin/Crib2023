@@ -12,7 +12,7 @@ import {
   createTopicDomainTreeGetOperationRequest
 } from '../../../all';
 import styles from './TopicTreeView.module.css';
-import { getModule } from '../../../app/Module/Impls';
+import { getModule } from '../../../app/ModuleImpl';
 import { TopicItemStoreSliceName, TopicTreeStoreSliceName } from '../../../app/Stores';
 
 const topicInput: TopicDomainTreeGetOperationInput = {

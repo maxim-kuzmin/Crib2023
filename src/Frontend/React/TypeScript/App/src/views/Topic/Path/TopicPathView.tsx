@@ -5,7 +5,7 @@ import {
   BreadcrumbControl
 } from '../../../all';
 import styles from './TopicPathView.module.css';
-import { getModule } from '../../../app/Module/Impls';
+import { getModule } from '../../../app/ModuleImpl';
 import { TopicItemStoreSliceName } from '../../../app/Stores';
 
 function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbControlItem[] {

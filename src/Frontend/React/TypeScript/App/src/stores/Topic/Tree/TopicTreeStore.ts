@@ -25,7 +25,7 @@ import {
   type TopicTreeStoreState,
   type TopicDomainTreeGetOperationInput
 } from '../../../all';
-import { getModule } from '../../../app/Module/Impls';
+import { getModule } from '../../../app/ModuleImpl';
 
 // ---Store---> //
 

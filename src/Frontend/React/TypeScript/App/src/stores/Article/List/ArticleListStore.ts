@@ -25,7 +25,7 @@ import {
   type ArticleListStoreState,
   type ArticleDomainListGetOperationInput
 } from '../../../all';
-import { getModule } from '../../../app/Module/Impls';
+import { getModule } from '../../../app/ModuleImpl';
 
 // ---Store---> //
 

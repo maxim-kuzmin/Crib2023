@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import { StoreDispatchType } from '../../../all';
-import { getModule } from '../../../app/Module/Impls';
+import { getModule } from '../../../app/ModuleImpl';
 import { AppNotificationStoreSliceName } from '../../../app/Stores';
 
 const appNotificationStoreSliceName = AppNotificationStoreSliceName.Global;

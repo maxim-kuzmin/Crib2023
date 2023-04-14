@@ -13,7 +13,7 @@ import {
 } from '../../../all';
 import styles from './ArticleTableView.module.css';
 import { Link } from 'react-router-dom';
-import { getModule } from '../../../app/Module/Impls';
+import { getModule } from '../../../app/ModuleImpl';
 
 function getRowKey (row: any): Key {
   const viewRow: ArticleTableViewRow = row;

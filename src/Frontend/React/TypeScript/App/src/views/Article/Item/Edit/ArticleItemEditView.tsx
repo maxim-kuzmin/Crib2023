@@ -9,7 +9,7 @@ import {
   type ArticleItemEditViewProps
 } from '../../../../all';
 import styles from './ArticleItemEditView.module.css';
-import { getModule } from '../../../../app/Module/Impls';
+import { getModule } from '../../../../app/ModuleImpl';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({

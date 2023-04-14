@@ -11,7 +11,7 @@ import {
   type ArticleListStoreSetActionPayload,
   type TopicItemStoreSetActionPayload,
 } from '../../all';
-import { getModule } from '../../app/Module/Impls';
+import { getModule } from '../../app/ModuleImpl';
 import { ArticleListStoreSliceName, TopicItemStoreSliceName } from '../../app/Stores';
 
 const articleListStoreSliceName = ArticleListStoreSliceName.Global;

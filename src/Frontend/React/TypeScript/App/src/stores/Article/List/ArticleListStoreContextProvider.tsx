@@ -13,7 +13,7 @@ import {
   OperationStatus,
   createOperationState
 } from '../../../all';
-import { getModule } from '../../../app/Module/Impls';
+import { getModule } from '../../../app/ModuleImpl';
 import { ArticleListStoreSliceName } from '../../../app/Stores';
 
 type ActionUnion = ArticleListStoreActionUnion;

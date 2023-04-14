@@ -16,7 +16,7 @@ import {
   type TableControlProps,
   type TableControlHeader
 } from '../../all';
-import { getModule } from '../../app/Module/Impls';
+import { getModule } from '../../app/ModuleImpl';
 
 function convertHeaderToTitle (header: TableControlHeader): ReactNode | undefined {
   const { render, title } = header;
