@@ -59,17 +59,21 @@ function ArticlePage ({
     [articleId]
   );
 
-  articleItemStoreHooks.useDispatchToLoad({
-    sliceName: articleItemStoreSliceName,
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    callback: callbackOnArticleItemLoad,
-    payload: payloadToArticleItemLoad
-  });
+  articleItemStoreHooks.useDispatchToLoad(
+    articleItemStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.MountOrUpdate,
+      callback: callbackOnArticleItemLoad,
+      payload: payloadToArticleItemLoad
+    }
+  );
 
-  articleItemStoreHooks.useDispatchToClear({
-    sliceName: articleItemStoreSliceName,
-    dispatchType: StoreDispatchType.Unmount
-  });
+  articleItemStoreHooks.useDispatchToClear(
+    articleItemStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.Unmount
+    }
+  );
 
   const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
 
@@ -85,18 +89,22 @@ function ArticlePage ({
     [topicId]
   );
 
-  topicItemStoreHooks.useDispatchToLoad({
-    sliceName: topicItemStoreSliceName,
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    isCanceled: !articleItemIsLoaded.current,
-    callback: callbackOnTopicItemLoad,
-    payload: payloadToTopicItemLoad
-  });
+  topicItemStoreHooks.useDispatchToLoad(
+    topicItemStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.MountOrUpdate,
+      isCanceled: !articleItemIsLoaded.current,
+      callback: callbackOnTopicItemLoad,
+      payload: payloadToTopicItemLoad
+    }
+  );
 
-  topicItemStoreHooks.useDispatchToClear({
-    sliceName: topicItemStoreSliceName,
-    dispatchType: StoreDispatchType.Unmount
-  });
+  topicItemStoreHooks.useDispatchToClear(
+    topicItemStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.Unmount
+    }
+  );
 
   const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
 

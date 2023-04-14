@@ -211,9 +211,10 @@ class ModuleImpl implements Module {
   private useOperationHandler (options: UseOperationHandlerOptions): OperationHandler {
     const { shouldBeLogged, shouldBeNotified } = options;
 
-    const { run } = this.getAppNotificationStoreHooks().useDispatchToSet({
-      sliceName: AppNotificationStoreSliceName.Global
-    });
+    const { run } = this.getAppNotificationStoreHooks().useDispatchToSet(
+      AppNotificationStoreSliceName.Global,
+      {}
+    );
 
     return new OperationHandlerImpl({
       functionToSetNotification: run,

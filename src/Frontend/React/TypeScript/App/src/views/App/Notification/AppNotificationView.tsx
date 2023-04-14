@@ -23,11 +23,13 @@ function AppNotificationView () {
     [component, data]
   );
 
-  appNotificationStoreHooks.useDispatchToClear({
-    sliceName: appNotificationStoreSliceName,
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    callback
-  });
+  appNotificationStoreHooks.useDispatchToClear(
+    appNotificationStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.MountOrUpdate,
+      callback
+    }
+  );
 
   return (
       <>

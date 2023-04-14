@@ -56,17 +56,21 @@ function TopicPage () {
     [pageNumber, pageSize, topicId]
   );
 
-  articleListStoreHooks.useDispatchToLoad({
-    sliceName: articleListStoreSliceName,
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    callback: callbackOnArticleListLoad,
-    payload: payloadToArticleListLoad
-  });
+  articleListStoreHooks.useDispatchToLoad(
+    articleListStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.MountOrUpdate,
+      callback: callbackOnArticleListLoad,
+      payload: payloadToArticleListLoad
+    }
+  );
 
-  articleListStoreHooks.useDispatchToClear({
-    sliceName: articleListStoreSliceName,
-    dispatchType: StoreDispatchType.Unmount
-  });
+  articleListStoreHooks.useDispatchToClear(
+    articleListStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.Unmount
+    }
+  );
 
   const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
 
@@ -82,12 +86,14 @@ function TopicPage () {
     [topicId]
   );
 
-  topicItemStoreHooks.useDispatchToLoad({
-    sliceName: topicItemStoreSliceName,
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    callback: callbackOnTopicItemLoad,
-    payload: payloadToTopicItemLoad
-  });
+  topicItemStoreHooks.useDispatchToLoad(
+    topicItemStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.MountOrUpdate,
+      callback: callbackOnTopicItemLoad,
+      payload: payloadToTopicItemLoad
+    }
+  );
 
   const callbackOnTopicItemClear = useCallback(() => {
     console.log('MAKC:TopicPage:callbackOnTopicItemClear:topicPageLastUrl', topicPageLastUrl);
@@ -95,11 +101,13 @@ function TopicPage () {
     topicPageService.lastUrl = topicPageLastUrl;
   }, [topicPageLastUrl, topicPageService]);
 
-  topicItemStoreHooks.useDispatchToClear({
-    sliceName: topicItemStoreSliceName,
-    callback: callbackOnTopicItemClear,
-    dispatchType: StoreDispatchType.Unmount
-  });
+  topicItemStoreHooks.useDispatchToClear(
+    topicItemStoreSliceName,
+    {
+      callback: callbackOnTopicItemClear,
+      dispatchType: StoreDispatchType.Unmount
+    }
+  );
 
   const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;

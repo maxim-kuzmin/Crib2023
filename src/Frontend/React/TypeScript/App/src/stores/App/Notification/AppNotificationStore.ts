@@ -98,11 +98,13 @@ function runDispatchToSet ({
   }
 }
 
-function useDispatchToClear ({
-  callback,
-  dispatchType,
-  sliceName
-}: ClearActionOptions): ClearActionDispatch {
+function useDispatchToClear (
+  sliceName: string,
+  {
+    callback,
+    dispatchType
+  }: ClearActionOptions
+): ClearActionDispatch {
   const dispatch = useDispatchContext();
 
   useEffect(() => {
@@ -124,12 +126,14 @@ function useDispatchToClear ({
   }).current;
 }
 
-function useDispatchToSet ({
-  callback,
-  dispatchType,
-  payload,
-  sliceName
-}: SetActionOptions): SetActionDispatch {
+function useDispatchToSet (
+  sliceName: string,
+  {
+    callback,
+    dispatchType,
+    payload
+  }: SetActionOptions
+): SetActionDispatch {
   const dispatch = useDispatchContext();
 
   const payloadInner = payload ?? null;

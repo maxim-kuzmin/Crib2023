@@ -167,11 +167,13 @@ async function runDispatchToLoad ({
   runDispatchToSet({ sliceName, dispatch, callback, payload: response });
 }
 
-function useDispatchToClear ({
-  callback,
-  dispatchType,
-  sliceName
-}: ClearActionOptions): ClearActionDispatch {
+function useDispatchToClear (
+  sliceName: string,
+  {
+    callback,
+    dispatchType
+  }: ClearActionOptions
+): ClearActionDispatch {
   const dispatch = useDispatchContext();
 
   useEffect(() => {
@@ -193,13 +195,15 @@ function useDispatchToClear ({
   }).current;
 }
 
-function useDispatchToLoad ({
-  callback,
-  dispatchType,
-  isCanceled,
-  payload,
-  sliceName
-}: LoadActionOptions): LoadActionDispatch {
+function useDispatchToLoad (
+  sliceName: string,
+  {
+    callback,
+    dispatchType,
+    isCanceled,
+    payload
+  }: LoadActionOptions
+): LoadActionDispatch {
   const dispatch = useDispatchContext();
 
   const requestHandler = useRef(useGetOperationRequestHandler()).current;
@@ -250,12 +254,14 @@ function useDispatchToLoad ({
   }).current;
 }
 
-function useDispatchToSet ({
-  callback,
-  dispatchType,
-  payload,
-  sliceName
-}: SetActionOptions): SetActionDispatch {
+function useDispatchToSet (
+  sliceName: string,
+  {
+    callback,
+    dispatchType,
+    payload
+  }: SetActionOptions
+): SetActionDispatch {
   const dispatch = useDispatchContext();
 
   const payloadInner = payload ?? null;

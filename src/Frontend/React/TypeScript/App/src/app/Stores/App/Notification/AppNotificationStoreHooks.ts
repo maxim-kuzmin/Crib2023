@@ -13,7 +13,7 @@ type SetActionDispatch = AppNotificationStoreSetActionDispatch;
 type SetActionOptions = AppNotificationStoreSetActionOptions;
 
 export interface AppNotificationStoreHooks {
-  readonly useDispatchToClear: (options: ClearActionOptions) => ClearActionDispatch;
-  readonly useDispatchToSet: (options: SetActionOptions) => SetActionDispatch;
+  readonly useDispatchToClear: (sliceName: string, options: ClearActionOptions) => ClearActionDispatch;
+  readonly useDispatchToSet: (sliceName: string, options: SetActionOptions) => SetActionDispatch;
   readonly useState: (sliceName: string) => AppNotificationStoreState;
 }

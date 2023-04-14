@@ -72,18 +72,22 @@ function TopicTreeView () {
     [topicId]
   );
 
-  topicTreeStoreHooks.useDispatchToLoad({
-    sliceName: topicTreeStoreSliceName,
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
-    callback: callbackOnTopicTreeLoad,
-    payload: payloadToTopicTreeLoad
-  });
+  topicTreeStoreHooks.useDispatchToLoad(
+    topicTreeStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.MountOrUpdate,
+      isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
+      callback: callbackOnTopicTreeLoad,
+      payload: payloadToTopicTreeLoad
+    }
+  );
 
-  topicItemStoreHooks.useDispatchToClear({
-    sliceName: topicItemStoreSliceName,
-    dispatchType: StoreDispatchType.Unmount
-  });
+  topicItemStoreHooks.useDispatchToClear(
+    topicItemStoreSliceName,
+    {
+      dispatchType: StoreDispatchType.Unmount
+    }
+  );
 
   const {
     payloadFromSetAction: topicTreeResponse,
