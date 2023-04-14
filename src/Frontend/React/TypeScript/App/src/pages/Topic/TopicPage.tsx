@@ -12,22 +12,18 @@ import {
   type TopicItemStoreSetActionPayload,
 } from '../../all';
 import { getModule } from '../../app/ModuleImpl';
-import { ArticleListStoreSliceName, TopicItemStoreSliceName } from '../../app/Stores';
-
-const articleListStoreSliceName = ArticleListStoreSliceName.Global;
-const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
 
 export const TopicPage: React.FC = memo(
 function TopicPage () {
   const urlParams = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const articleListStoreHooks = getModule().getArticleListStoreHooks();
+  const articleTableViewHooks = getModule().getArticleTableViewHooks();
 
   const {
     payloadFromSetAction: articleListResponse,
     status: articleListStatus
-  } = articleListStoreHooks.useState(articleListStoreSliceName);
+  } = articleTableViewHooks.useState();
 
   let topicId = Number(urlParams.topicId ?? 0);
 
@@ -56,23 +52,17 @@ function TopicPage () {
     [pageNumber, pageSize, topicId]
   );
 
-  articleListStoreHooks.useDispatchToLoad(
-    articleListStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      callback: callbackOnArticleListLoad,
-      payload: payloadToArticleListLoad
-    }
-  );
+  articleTableViewHooks.useDispatchToLoad({
+    dispatchType: StoreDispatchType.MountOrUpdate,
+    callback: callbackOnArticleListLoad,
+    payload: payloadToArticleListLoad
+  });
 
-  articleListStoreHooks.useDispatchToClear(
-    articleListStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.Unmount
-    }
-  );
+  articleTableViewHooks.useDispatchToClear({
+    dispatchType: StoreDispatchType.Unmount
+  });
 
-  const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
+  const topicItemViewHooks = getModule().getTopicItemViewHooks();
 
   const callbackOnTopicItemLoad = useCallback((payload: TopicItemStoreSetActionPayload) => {
     console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:payload', payload);
@@ -86,14 +76,11 @@ function TopicPage () {
     [topicId]
   );
 
-  topicItemStoreHooks.useDispatchToLoad(
-    topicItemStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      callback: callbackOnTopicItemLoad,
-      payload: payloadToTopicItemLoad
-    }
-  );
+  topicItemViewHooks.useDispatchToLoad({
+    dispatchType: StoreDispatchType.MountOrUpdate,
+    callback: callbackOnTopicItemLoad,
+    payload: payloadToTopicItemLoad
+  });
 
   const callbackOnTopicItemClear = useCallback(() => {
     console.log('MAKC:TopicPage:callbackOnTopicItemClear:topicPageLastUrl', topicPageLastUrl);
@@ -101,13 +88,10 @@ function TopicPage () {
     topicPageService.lastUrl = topicPageLastUrl;
   }, [topicPageLastUrl, topicPageService]);
 
-  topicItemStoreHooks.useDispatchToClear(
-    topicItemStoreSliceName,
-    {
-      callback: callbackOnTopicItemClear,
-      dispatchType: StoreDispatchType.Unmount
-    }
-  );
+  topicItemViewHooks.useDispatchToClear({
+    callback: callbackOnTopicItemClear,
+    dispatchType: StoreDispatchType.Unmount
+  });
 
   const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;

@@ -13,7 +13,6 @@ import {
 } from '../../../all';
 import styles from './TopicTreeView.module.css';
 import { getModule } from '../../../app/ModuleImpl';
-import { TopicItemStoreSliceName } from '../../../app/Stores';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,
@@ -44,20 +43,18 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
   : [];
 }
 
-const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
-
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView () {
-  const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
+  const topicItemStoreHooks = getModule().getTopicItemViewHooks();
 
   const {
     payloadFromSetAction: topicItemResponse,
     status: topicItemStatus
-  } = topicItemStoreHooks.useState(topicItemStoreSliceName);
+  } = topicItemStoreHooks.useState();
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const topicTreeStoreHooks = getModule().getTopicTreeViewHooks();
+  const topicTreeViewHooks = getModule().getTopicTreeViewHooks();
 
   const callbackOnTopicTreeLoad = useCallback((payload: TopicDomainTreeGetOperationResponse | null) => {
     console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:payload', payload);
@@ -71,21 +68,21 @@ function TopicTreeView () {
     [topicId]
   );
 
-  topicTreeStoreHooks.useDispatchToLoad({
+  topicTreeViewHooks.useDispatchToLoad({
     dispatchType: StoreDispatchType.MountOrUpdate,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
     callback: callbackOnTopicTreeLoad,
     payload: payloadToTopicTreeLoad
   });
 
-  topicTreeStoreHooks.useDispatchToClear({
+  topicTreeViewHooks.useDispatchToClear({
     dispatchType: StoreDispatchType.Unmount
   });
 
   const {
     payloadFromSetAction: topicTreeResponse,
     status: topicTreeStatus
-  } = topicTreeStoreHooks.useState();
+  } = topicTreeViewHooks.useState();
 
   const entities = topicTreeResponse?.data?.nodes;
 

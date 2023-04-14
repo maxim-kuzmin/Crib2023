@@ -29,6 +29,9 @@ import {
   type ApiResponseErrorOptions,
   type AppNotificationViewHooks,
   type TopicTreeViewHooks,
+  type ArticleItemViewHooks,
+  type ArticleTableViewHooks,
+  type TopicItemViewHooks,
 } from '../all';
 
 import { ApiSetupOptionsImpl } from '../data/Api/Setup/ApiSetupOptionsImpl';
@@ -71,6 +74,9 @@ import { TestTopicDomainRepositoryImpl } from './Test/Domains/Topic/TestTopicDom
 import { ApiResponseErrorImpl } from '../data/Api/Response/ApiResponseErrorImpl';
 import { createAppNotificationViewHooks } from '../views/App/Notification/AppNotificationViewSlice';
 import { createTopicTreeViewHooks } from '../views/Topic/Tree/TopicTreeViewSlice';
+import { createArticleItemViewHooks } from '../views/Article/Item/ArticleItemViewSlice';
+import { createArticleTableViewHooks } from '../views/Article/Table/ArticleTableViewSlice';
+import { createTopicItemViewHooks } from '../views/Topic/Item/TopicItemViewSlice';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -123,11 +129,29 @@ class ModuleImpl implements Module {
   private readonly articleItemStoreHooks: ArticleItemStoreHooks = createArticleItemStoreHooks();
   getArticleItemStoreHooks = () => this.articleItemStoreHooks;
 
+  private readonly articleItemViewHooks: ArticleItemViewHooks = createArticleItemViewHooks(
+    this.getArticleItemStoreHooks()
+  );
+
+  getArticleItemViewHooks = () => this.articleItemViewHooks;
+
   private readonly articleListStoreHooks: ArticleListStoreHooks = createArticleListStoreHooks();
   getArticleListStoreHooks = () => this.articleListStoreHooks;
 
+  private readonly articleTableViewHooks: ArticleTableViewHooks = createArticleTableViewHooks(
+    this.getArticleListStoreHooks()
+  );
+
+  getArticleTableViewHooks = () => this.articleTableViewHooks;
+
   private readonly topicItemStoreHooks: TopicItemStoreHooks = createTopicItemStoreHooks();
   getTopicItemStoreHooks = () => this.topicItemStoreHooks;
+
+  private readonly topicItemViewHooks: TopicItemViewHooks = createTopicItemViewHooks(
+    this.getTopicItemStoreHooks()
+  );
+
+  getTopicItemViewHooks = () => this.topicItemViewHooks;
 
   private readonly topicTreeStoreHooks: TopicTreeStoreHooks = createTopicTreeStoreHooks();
   getTopicTreeStoreHooks = () => this.topicTreeStoreHooks;

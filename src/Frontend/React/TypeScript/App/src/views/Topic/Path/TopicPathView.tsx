@@ -6,7 +6,6 @@ import {
 } from '../../../all';
 import styles from './TopicPathView.module.css';
 import { getModule } from '../../../app/ModuleImpl';
-import { TopicItemStoreSliceName } from '../../../app/Stores';
 
 function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbControlItem[] {
   const root: BreadcrumbControlItem = { title: '@@AllTopics', key: 0 };
@@ -42,13 +41,11 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
   return result;
 }
 
-const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
-
 export const TopicPathView: React.FC = memo(
 function TopicPathView () {
   const {
     payloadFromSetAction: topicItemResponse
-  } = getModule().getTopicItemStoreHooks().useState(topicItemStoreSliceName);
+  } = getModule().getTopicItemViewHooks().useState();
 
   const topic = topicItemResponse?.data?.item;
 

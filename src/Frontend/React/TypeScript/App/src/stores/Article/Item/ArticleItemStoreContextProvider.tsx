@@ -24,7 +24,7 @@ const DispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
 const StateContext = createContext<StateMap | null>(null);
 
 const initialState = getModule().getStoreService().createInitialState<State>(
-  [ArticleItemStoreSliceName.Global],
+  [ArticleItemStoreSliceName.ArticleItemView],
   () => createOperationState<State>({ payloadFromLoadAction: null, payloadFromSetAction: null })
 );
 

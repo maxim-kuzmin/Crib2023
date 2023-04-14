@@ -22,6 +22,9 @@ import {
   type ApiResponseErrorOptions,
   type AppNotificationViewHooks,
   type TopicTreeViewHooks,
+  type ArticleItemViewHooks,
+  type ArticleTableViewHooks,
+  type TopicItemViewHooks,
 } from '../all';
 
 export interface Module {
@@ -34,10 +37,13 @@ export interface Module {
   readonly getArticleItemStoreHooks: () => ArticleItemStoreHooks;
   readonly getArticleListStoreHooks: () => ArticleListStoreHooks;
   readonly getArticlePageService: () => ArticlePageService;
+  readonly getArticleItemViewHooks: () => ArticleItemViewHooks;
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
+  readonly getArticleTableViewHooks: () => ArticleTableViewHooks;
   readonly getTestService: () => TestService;
   readonly getTopicDomainRepository: () => TopicDomainRepository;
   readonly getTopicItemStoreHooks: () => TopicItemStoreHooks;
+  readonly getTopicItemViewHooks: () => TopicItemViewHooks;
   readonly getTopicTreeStoreHooks: () => TopicTreeStoreHooks;
   readonly getTopicTreeViewHooks: () => TopicTreeViewHooks;
   readonly getTopicPageService: () => TopicPageService;

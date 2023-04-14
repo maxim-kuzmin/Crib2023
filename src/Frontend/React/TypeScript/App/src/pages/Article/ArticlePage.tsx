@@ -14,10 +14,6 @@ import {
   type TopicItemStoreSetActionPayload
 } from '../../all';
 import { getModule } from '../../app/ModuleImpl';
-import { ArticleItemStoreSliceName, TopicItemStoreSliceName } from '../../app/Stores';
-
-const articleItemStoreSliceName = ArticleItemStoreSliceName.Global;
-const topicItemStoreSliceName = TopicItemStoreSliceName.Global;
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({
@@ -26,12 +22,12 @@ function ArticlePage ({
   const urlParams = useParams();
   const [searchParams] = useSearchParams();
 
-  const articleItemStoreHooks = getModule().getArticleItemStoreHooks();
+  const articleItemViewHooks = getModule().getArticleItemViewHooks();
 
   const {
     payloadFromSetAction: articleItemResponse,
     status: articleItemStatus
-  } = articleItemStoreHooks.useState(articleItemStoreSliceName);
+  } = articleItemViewHooks.useState();
 
   let topicId = articleItemResponse?.data?.item?.data.topicId ?? 0;
 
@@ -59,23 +55,17 @@ function ArticlePage ({
     [articleId]
   );
 
-  articleItemStoreHooks.useDispatchToLoad(
-    articleItemStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      callback: callbackOnArticleItemLoad,
-      payload: payloadToArticleItemLoad
-    }
-  );
+  articleItemViewHooks.useDispatchToLoad({
+    dispatchType: StoreDispatchType.MountOrUpdate,
+    callback: callbackOnArticleItemLoad,
+    payload: payloadToArticleItemLoad
+  });
 
-  articleItemStoreHooks.useDispatchToClear(
-    articleItemStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.Unmount
-    }
-  );
+  articleItemViewHooks.useDispatchToClear({
+    dispatchType: StoreDispatchType.Unmount
+  });
 
-  const topicItemStoreHooks = getModule().getTopicItemStoreHooks();
+  const topicItemViewHooks = getModule().getTopicItemViewHooks();
 
   const callbackOnTopicItemLoad = useCallback((payload: TopicItemStoreSetActionPayload) => {
     console.log('MAKC:ArticlePage:callbackOnTopicItemtLoad:payload', payload);
@@ -89,22 +79,16 @@ function ArticlePage ({
     [topicId]
   );
 
-  topicItemStoreHooks.useDispatchToLoad(
-    topicItemStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      isCanceled: !articleItemIsLoaded.current,
-      callback: callbackOnTopicItemLoad,
-      payload: payloadToTopicItemLoad
-    }
-  );
+  topicItemViewHooks.useDispatchToLoad({
+    dispatchType: StoreDispatchType.MountOrUpdate,
+    isCanceled: !articleItemIsLoaded.current,
+    callback: callbackOnTopicItemLoad,
+    payload: payloadToTopicItemLoad
+  });
 
-  topicItemStoreHooks.useDispatchToClear(
-    topicItemStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.Unmount
-    }
-  );
+  topicItemViewHooks.useDispatchToClear({
+    dispatchType: StoreDispatchType.Unmount
+  });
 
   const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
 

@@ -1,3 +1,3 @@
 export enum TopicItemStoreSliceName {
-  Global = 'global'
+  TopicItemView = 'TopicItemView'
 }
