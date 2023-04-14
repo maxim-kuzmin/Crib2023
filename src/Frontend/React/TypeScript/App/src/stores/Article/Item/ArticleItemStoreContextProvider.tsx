@@ -25,10 +25,7 @@ const StateContext = createContext<StateMap | null>(null);
 
 const initialState = getModule().getStoreService().createInitialState<State>(
   [ArticleItemStoreSliceName.Global],
-  () => createOperationState<State>({
-    payloadFromLoadAction: null,
-    payloadFromSetAction: null
-  })
+  () => createOperationState<State>({ payloadFromLoadAction: null, payloadFromSetAction: null })
 );
 
 function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
@@ -41,18 +38,10 @@ function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
       result.set(sliceName, initialState.get(sliceName)!);
       break;
     case ArticleItemStoreActionType.Load:
-      result.set(sliceName, {
-        ...state,
-        payloadFromLoadAction: action.payload,
-        status: OperationStatus.Pending
-      });
+      result.set(sliceName, { ...state, payloadFromLoadAction: action.payload, status: OperationStatus.Pending });
       break;
     case ArticleItemStoreActionType.Set:
-      result.set(sliceName, {
-        ...state,
-        payloadFromSetAction: action.payload,
-        status: OperationStatus.Fulfilled
-      });
+      result.set(sliceName, { ...state, payloadFromSetAction: action.payload, status: OperationStatus.Fulfilled });
       break;
   }
 

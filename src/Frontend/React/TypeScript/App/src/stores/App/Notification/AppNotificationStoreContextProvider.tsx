@@ -23,9 +23,7 @@ const StateContext = createContext<StateMap | null>(null);
 
 const initialState = getModule().getStoreService().createInitialState<State>(
   [AppNotificationStoreSliceName.Global],
-  () => ({
-    payloadFromSetAction: null
-  })
+  () => ({ payloadFromSetAction: null })
 );
 
 function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
@@ -38,10 +36,7 @@ function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
       result.set(sliceName, initialState.get(sliceName)!);
       break;
     case AppNotificationStoreActionType.Set:
-      result.set(sliceName, {
-        ...state,
-        payloadFromSetAction: action.payload,
-      });
+      result.set(sliceName, { ...state, payloadFromSetAction: action.payload });
       break;
   }
 
