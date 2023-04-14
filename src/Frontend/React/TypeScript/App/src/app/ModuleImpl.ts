@@ -27,6 +27,7 @@ import {
   type ArticleItemStoreHooks,
   type StoreService,
   type ApiResponseErrorOptions,
+  type AppNotificationViewHooks,
 } from '../all';
 
 import { ApiSetupOptionsImpl } from '../data/Api/Setup/ApiSetupOptionsImpl';
@@ -67,6 +68,7 @@ import { ApiRequestHandlerImpl } from '../data/Api/Request/ApiRequestHandlerImpl
 import { TestArticleDomainRepositoryImpl } from './Test/Domains/Article/TestArticleDomainRepositoryImpl';
 import { TestTopicDomainRepositoryImpl } from './Test/Domains/Topic/TestTopicDomainRepositoryImpl';
 import { ApiResponseErrorImpl } from '../data/Api/Response/ApiResponseErrorImpl';
+import { createAppNotificationViewHooks } from '../views/App/Notification/AppNotificationViewSlice';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -97,6 +99,12 @@ class ModuleImpl implements Module {
 
   private readonly appNotificationStoreHooks: AppNotificationStoreHooks = createAppNotificationStoreHooks();
   getAppNotificationStoreHooks = () => this.appNotificationStoreHooks;
+
+  private readonly appNotificationViewHooks: AppNotificationViewHooks = createAppNotificationViewHooks(
+    this.getAppNotificationStoreHooks()
+  );
+
+  getAppNotificationViewHooks = () => this.appNotificationViewHooks;
 
   private readonly notificationControlHooks: NotificationControlHooks = createNotificationControlHooks();
   getNotificationControlHooks = () => this.notificationControlHooks;
@@ -212,7 +220,7 @@ class ModuleImpl implements Module {
     const { shouldBeLogged, shouldBeNotified } = options;
 
     const { run } = this.getAppNotificationStoreHooks().useDispatchToSet(
-      AppNotificationStoreSliceName.Global,
+      AppNotificationStoreSliceName.AppNotificationView,
       {}
     );
 

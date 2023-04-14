@@ -1,3 +1,3 @@
 export enum AppNotificationStoreSliceName {
-  Global = 'global'
+  AppNotificationView = 'AppNotificationView'
 }

@@ -20,6 +20,7 @@ import {
   type StoreService,
   type ApiResponseError,
   type ApiResponseErrorOptions,
+  type AppNotificationViewHooks,
 } from '../all';
 
 export interface Module {
@@ -27,6 +28,7 @@ export interface Module {
   readonly getNotificationControlHooks: () => NotificationControlHooks;
   readonly getTableControlService: () => TableControlService;
   readonly getAppNotificationStoreHooks: () => AppNotificationStoreHooks;
+  readonly getAppNotificationViewHooks: () => AppNotificationViewHooks;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
   readonly getArticleItemStoreHooks: () => ArticleItemStoreHooks;
   readonly getArticleListStoreHooks: () => ArticleListStoreHooks;

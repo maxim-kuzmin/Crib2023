@@ -1,9 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import { StoreDispatchType } from '../../../all';
 import { getModule } from '../../../app/ModuleImpl';
-import { AppNotificationStoreSliceName } from '../../../app/Stores';
-
-const appNotificationStoreSliceName = AppNotificationStoreSliceName.Global;
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView () {
@@ -11,9 +8,9 @@ function AppNotificationView () {
 
   const component = notificationControlHooks.useComponent();
 
-  const appNotificationStoreHooks = getModule().getAppNotificationStoreHooks();
+  const appNotificationViewHooks = getModule().getAppNotificationViewHooks();
 
-  const { payloadFromSetAction: data } = appNotificationStoreHooks.useState(appNotificationStoreSliceName);
+  const { payloadFromSetAction: data } = appNotificationViewHooks.useState();
 
   const callback = useCallback(() => {
       if (data) {
@@ -23,13 +20,10 @@ function AppNotificationView () {
     [component, data]
   );
 
-  appNotificationStoreHooks.useDispatchToClear(
-    appNotificationStoreSliceName,
-    {
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      callback
-    }
-  );
+  appNotificationViewHooks.useDispatchToClear({
+    dispatchType: StoreDispatchType.MountOrUpdate,
+    callback
+  });
 
   return (
       <>
