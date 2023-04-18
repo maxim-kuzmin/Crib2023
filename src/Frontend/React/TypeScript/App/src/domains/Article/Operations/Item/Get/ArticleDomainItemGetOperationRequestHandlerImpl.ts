@@ -25,7 +25,7 @@ export class ArticleDomainItemGetOperationRequestHandlerImpl implements ArticleD
     request: ArticleDomainItemGetOperationRequest,
     shouldBeCanceled: ShouldBeCanceled
   ): Promise<ArticleDomainItemGetOperationResponse | null> {
-    return await this.apiRequestHandler.handleWithInput<
+    return await this.apiRequestHandler.handleWithInputAndOutput<
       ArticleDomainItemGetOperationInput,
       ArticleDomainItemGetOperationRequest,
       ArticleDomainItemGetOperationOutput,

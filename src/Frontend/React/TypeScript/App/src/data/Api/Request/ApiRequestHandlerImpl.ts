@@ -1,5 +1,5 @@
 import { type OperationHandler, type OperationInput, type ShouldBeCanceled } from '../../../common';
-import { type ApiOperationResponse } from '../Operation';
+import { type ApiOperationResponse, type ApiOperationResponseWithData } from '../Operation';
 import { type ApiRequest } from './ApiRequest';
 import { type ApiRequestHandler } from './ApiRequestHandler';
 import { type ApiRequestWithInput } from './ApiRequestWithInput';
@@ -18,8 +18,7 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
   async handleWithInput<
     TInput,
     TRequest extends ApiRequestWithInput<TInput>,
-    TOutput,
-    TResponse extends ApiOperationResponse<TOutput>
+    TResponse extends ApiOperationResponse
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
@@ -27,20 +26,46 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
   ): Promise<TResponse | null> {
     const { operationCode, operationName, input } = request;
 
-    return await this.handle({
-      operationCode,
-      operationName,
-      input
-    },
-    request,
-    getResult,
-    shouldBeCanceled);
+    return await this.handle(
+      {
+        operationCode,
+        operationName,
+        input
+      },
+      request,
+      getResult,
+      shouldBeCanceled
+    );
   }
 
-  async handleWithoutInput<
+  async handleWithInputAndOutput<
+    TInput,
+    TRequest extends ApiRequestWithInput<TInput>,
+    TOutput,
+    TResponse extends ApiOperationResponseWithData<TOutput>
+  > (
+    request: TRequest,
+    getResult: () => Promise<TResponse | null>,
+    shouldBeCanceled: ShouldBeCanceled
+  ): Promise<TResponse | null> {
+    const { operationCode, operationName, input } = request;
+
+    return await this.handle(
+      {
+        operationCode,
+        operationName,
+        input
+      },
+      request,
+      getResult,
+      shouldBeCanceled
+    );
+  }
+
+  async handleWithOutput<
     TRequest extends ApiRequest,
     TOutput,
-    TResponse extends ApiOperationResponse<TOutput>
+    TResponse extends ApiOperationResponseWithData<TOutput>
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
@@ -48,19 +73,42 @@ export class ApiRequestHandlerImpl implements ApiRequestHandler {
   ): Promise<TResponse | null> {
     const { operationCode, operationName } = request;
 
-    return await this.handle({
-      operationCode,
-      operationName
-    },
-    request,
-    getResult,
-    shouldBeCanceled);
+    return await this.handle(
+      {
+        operationCode,
+        operationName
+      },
+      request,
+      getResult,
+      shouldBeCanceled
+    );
+  }
+
+  async handleWithoutInputAndOutput<
+    TRequest extends ApiRequest,
+    TResponse extends ApiOperationResponse
+  > (
+    request: TRequest,
+    getResult: () => Promise<TResponse | null>,
+    shouldBeCanceled: ShouldBeCanceled
+  ): Promise<TResponse | null> {
+    const { operationCode, operationName } = request;
+
+    return await this.handle(
+      {
+        operationCode,
+        operationName
+      },
+      request,
+      getResult,
+      shouldBeCanceled
+    );
   }
 
   private async handle<
     TRequest extends ApiRequest,
     TOutput,
-    TResponse extends ApiOperationResponse<TOutput>
+    TResponse extends ApiOperationResponseWithData<TOutput>
   > (
     operationInput: OperationInput,
     request: TRequest,

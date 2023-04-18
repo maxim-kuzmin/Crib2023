@@ -1,4 +1,4 @@
-import { type ApiClient } from '../../data';
+import { type ApiOperationResponse, type ApiClient } from '../../data';
 import { type ArticleDomainRepository } from './ArticleDomainRepository';
 import {
   type ArticleDomainListGetOperationRequest,
@@ -6,7 +6,9 @@ import {
   type ArticleDomainItemGetOperationRequest,
   type ArticleDomainItemGetOperationResponse,
   type ArticleDomainListGetOperationResponse,
-  type ArticleDomainListGetOperationOutput
+  type ArticleDomainListGetOperationOutput,
+  type ArticleDomainItemDeleteOperationRequest,
+  type ArticleDomainItemSaveOperationRequest
 } from './Operations';
 
 const controller = 'CatalogArticle';
@@ -20,6 +22,18 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
 
   constructor (options: Options) {
     this.apiClient = options.apiClient;
+  }
+
+  async deleteItem (
+    request: ArticleDomainItemDeleteOperationRequest
+  ): Promise<ApiOperationResponse> {
+    const { operationCode, operationName, input } = request;
+
+    return await this.apiClient.delete(
+      `${controller}Item-${Number(input.id ?? 0)}`,
+      operationName,
+      operationCode
+    );
   }
 
   async getItem (
@@ -45,5 +59,27 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
       operationCode,
       input
     );
+  }
+
+  async saveItem (
+    request: ArticleDomainItemSaveOperationRequest
+  ): Promise<ArticleDomainItemGetOperationResponse> {
+    const { operationCode, operationName, input } = request;
+
+    const id = Number(input.id ?? 0);
+
+    return id > 0
+      ? await this.apiClient.put<ArticleDomainItemGetOperationOutput>(
+          `${controller}Item-${id}`,
+          operationName,
+          operationCode,
+          input
+        )
+      : await this.apiClient.post<ArticleDomainItemGetOperationOutput>(
+          `${controller}Item`,
+          operationName,
+          operationCode,
+          input
+        );
   }
 }

@@ -25,7 +25,7 @@ export class TopicDomainItemGetOperationRequestHandlerImpl implements TopicDomai
     request: TopicDomainItemGetOperationRequest,
     shouldBeCanceled: ShouldBeCanceled
   ): Promise<TopicDomainItemGetOperationResponse | null> {
-    return await this.apiRequestHandler.handleWithInput<
+    return await this.apiRequestHandler.handleWithInputAndOutput<
       TopicDomainItemGetOperationInput,
       TopicDomainItemGetOperationRequest,
       TopicDomainItemGetOperationOutput,

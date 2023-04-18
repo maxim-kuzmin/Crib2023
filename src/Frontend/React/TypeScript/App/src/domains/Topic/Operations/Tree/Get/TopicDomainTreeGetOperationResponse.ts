@@ -1,6 +1,6 @@
-import { type ApiOperationResponse } from '../../../../../data';
+import { type ApiOperationResponseWithData } from '../../../../../data';
 import { type TopicDomainTreeGetOperationOutput } from './TopicDomainTreeGetOperationOutput';
 
 export interface TopicDomainTreeGetOperationResponse
-  extends ApiOperationResponse<TopicDomainTreeGetOperationOutput> {
+  extends ApiOperationResponseWithData<TopicDomainTreeGetOperationOutput> {
 }

@@ -1,7 +1,7 @@
 import { getModule } from '../../app/ModuleImpl';
 import { type HttpClient, type HttpRequestConfig, type HttpRequestResult } from '../../common';
 import { type ApiClient } from './ApiClient';
-import { type ApiOperationResponse } from './Operation';
+import { type ApiOperationResponse, type ApiOperationResponseWithData } from './Operation';
 import {
   type ApiResponse,
   type ApiResponseDataWithDetails,
@@ -38,12 +38,12 @@ export class ApiClientImpl implements ApiClient {
     this.httpClient = options.httpClient;
   }
 
-  async delete<TData> (
+  async delete (
     endpoint: string,
     operationName: string,
     operationCode: string,
     query?: any
-  ): Promise<ApiOperationResponse<TData>> {
+  ): Promise<ApiOperationResponse> {
     return await this.request(
       async () => await this.httpClient.delete(
         this.createUrl(endpoint),
@@ -59,8 +59,8 @@ export class ApiClientImpl implements ApiClient {
     operationName: string,
     operationCode: string,
     query?: any
-  ): Promise<ApiOperationResponse<TData>> {
-    return await this.request(
+  ): Promise<ApiOperationResponseWithData<TData>> {
+    return await this.requestWithData(
       async () => await this.httpClient.get(
         this.createUrl(endpoint),
         createRequestConfig(operationCode, query)
@@ -76,8 +76,8 @@ export class ApiClientImpl implements ApiClient {
     operationCode: string,
     body: any,
     query?: any
-  ): Promise<ApiOperationResponse<TData>> {
-    return await this.request(
+  ): Promise<ApiOperationResponseWithData<TData>> {
+    return await this.requestWithData(
       async () => await this.httpClient.post(
         this.createUrl(endpoint),
         body,
@@ -94,8 +94,8 @@ export class ApiClientImpl implements ApiClient {
     operationCode: string,
     body: any,
     query?: any
-  ): Promise<ApiOperationResponse<TData>> {
-    return await this.request(
+  ): Promise<ApiOperationResponseWithData<TData>> {
+    return await this.requestWithData(
       async () => await this.httpClient.put(
         this.createUrl(endpoint),
         body,
@@ -110,11 +110,53 @@ export class ApiClientImpl implements ApiClient {
     return `${this.apiSetupOptions.url}/${endpoint}`;
   }
 
-  private async request<TData> (
+  private async request (
     getRequestResult: () => Promise<HttpRequestResult>,
     requestOperationName: string,
     requestOperationCode: string
-  ): Promise<ApiOperationResponse<TData>> {
+  ): Promise<ApiOperationResponse> {
+    const { ok, value, status } = await getRequestResult();
+
+    const response: ApiResponse = value;
+
+    let responseWithDetails: ApiResponseWithDetails | null = null;
+    let responseDataWithDetails: ApiResponseDataWithDetails | null = null;
+
+    let responseWithMessages: ApiResponseWithMessages | null = null;
+    let responseDataWithMessages: ApiResponseDataWithMessages | null = null;
+
+    let error: ApiResponseError | null = null;
+
+    if (!ok) {
+      if (status === 400) {
+          responseWithDetails = value;
+
+          if (responseWithDetails) {
+            responseDataWithDetails = responseWithDetails.data;
+          }
+      } else if (status === 500) {
+          responseWithMessages = value;
+
+          if (responseWithMessages) {
+            responseDataWithMessages = responseWithMessages.data;
+          }
+      }
+
+      error = getModule().createApiResponseError(status, { responseDataWithDetails, responseDataWithMessages });
+    }
+
+    return {
+      error,
+      operationCode: response.operationCode ?? requestOperationCode,
+      operationName: requestOperationName
+    };
+  }
+
+  private async requestWithData<TData> (
+    getRequestResult: () => Promise<HttpRequestResult>,
+    requestOperationName: string,
+    requestOperationCode: string
+  ): Promise<ApiOperationResponseWithData<TData>> {
     const { ok, value, status } = await getRequestResult();
 
     const response: ApiResponse = value;

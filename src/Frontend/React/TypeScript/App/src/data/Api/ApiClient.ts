@@ -1,19 +1,19 @@
-import { type ApiOperationResponse } from './Operation';
+import { type ApiOperationResponse, type ApiOperationResponseWithData } from './Operation';
 
 export interface ApiClient {
-  readonly delete: <TData>(
+  readonly delete: (
     endpoint: string,
     operationName: string,
     operationCode: string,
     query?: any
-  ) => Promise<ApiOperationResponse<TData>>;
+  ) => Promise<ApiOperationResponse>;
 
   readonly get: <TData>(
     endpoint: string,
     operationName: string,
     operationCode: string,
     query?: any
-  ) => Promise<ApiOperationResponse<TData>>;
+  ) => Promise<ApiOperationResponseWithData<TData>>;
 
   readonly post: <TData>(
     endpoint: string,
@@ -21,7 +21,7 @@ export interface ApiClient {
     operationCode: string,
     body: any,
     query?: any
-  ) => Promise<ApiOperationResponse<TData>>;
+  ) => Promise<ApiOperationResponseWithData<TData>>;
 
   readonly put: <TData>(
     endpoint: string,
@@ -29,5 +29,5 @@ export interface ApiClient {
     operationCode: string,
     body: any,
     query?: any
-  ) => Promise<ApiOperationResponse<TData>>;
+  ) => Promise<ApiOperationResponseWithData<TData>>;
 }
