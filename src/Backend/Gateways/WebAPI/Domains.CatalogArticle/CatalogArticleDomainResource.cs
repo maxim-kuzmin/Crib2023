@@ -29,9 +29,21 @@ public class CatalogArticleDomainResource : ICatalogArticleDomainResource
     #region Public methods
 
     /// <inheritdoc/>
+    public string GetItemDeleteOperationName()
+    {
+        return Localizer["@@ItemDeleteOperationName"];
+    }
+
+    /// <inheritdoc/>
     public string GetItemGetOperationName()
     {
         return Localizer["@@ItemGetOperationName"];
+    }
+
+    /// <inheritdoc/>
+    public string GetItemSaveOperationName()
+    {
+        return Localizer["@@ItemSaveOperationName"];
     }
 
     /// <inheritdoc/>

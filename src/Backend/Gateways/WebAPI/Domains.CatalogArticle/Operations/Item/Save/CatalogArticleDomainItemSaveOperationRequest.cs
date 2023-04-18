@@ -1,18 +1,18 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
+namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Save;
 
 /// <summary>
-/// Запрос операции получения элемента в домене "Статья в каталоге".
+/// Запрос операции сохранения элемента в домене "Статья в каталоге".
 /// </summary>
-public class CatalogArticleDomainItemGetOperationRequest : IRequest<CatalogArticleDomainItemGetOperationResponse>
+public class CatalogArticleDomainItemSaveOperationRequest : IRequest<CatalogArticleDomainItemSaveOperationResponse>
 {
     #region Properties
 
     /// <summary>
     /// Входные данные.
     /// </summary>
-    public CatalogArticleItemGetOperationInput Input { get; }
+    public CatalogArticleTypeEntity Input { get; }
 
     /// <summary>
     /// Код операции.
@@ -28,8 +28,8 @@ public class CatalogArticleDomainItemGetOperationRequest : IRequest<CatalogArtic
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public CatalogArticleDomainItemGetOperationRequest(
-        CatalogArticleItemGetOperationInput input,
+    public CatalogArticleDomainItemSaveOperationRequest(
+        CatalogArticleTypeEntity input,
         string operationCode = "")
     {
         Input = input;

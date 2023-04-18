@@ -104,7 +104,9 @@ public class SetupAppModule : AppModule
     {
         return new[]
             {
+                typeof(CatalogArticleDomainItemDeleteOperationRequestHandler),
                 typeof(CatalogArticleDomainItemGetOperationRequestHandler),
+                typeof(CatalogArticleDomainItemSaveOperationRequestHandler),
                 typeof(CatalogArticleDomainListGetOperationRequestHandler),
                 typeof(CatalogTopicDomainItemGetOperationRequestHandler),
                 typeof(CatalogTopicDomainListGetOperationRequestHandler),

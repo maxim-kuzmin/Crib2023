@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
-namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
+namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Delete;
 
 /// <summary>
-/// Запрос операции получения элемента в домене "Статья в каталоге".
+/// Запрос операции удаления элемента в домене "Статья в каталоге".
 /// </summary>
-public class CatalogArticleDomainItemGetOperationRequest : IRequest<CatalogArticleDomainItemGetOperationResponse>
+public class CatalogArticleDomainItemDeleteOperationRequest : IRequest<CatalogArticleDomainItemDeleteOperationResponse>
 {
     #region Properties
 
@@ -28,7 +28,7 @@ public class CatalogArticleDomainItemGetOperationRequest : IRequest<CatalogArtic
     /// </summary>
     /// <param name="input">Входные данные.</param>
     /// <param name="operationCode">Код операции.</param>
-    public CatalogArticleDomainItemGetOperationRequest(
+    public CatalogArticleDomainItemDeleteOperationRequest(
         CatalogArticleItemGetOperationInput input,
         string operationCode = "")
     {

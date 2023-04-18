@@ -15,10 +15,22 @@ public class CatalogArticleDomainSetupAppModule : AppModule
         services.AddSingleton<ICatalogArticleDomainResource>(x => new CatalogArticleDomainResource(
             x.GetRequiredService<IStringLocalizer<CatalogArticleDomainResource>>()));
 
+        services.AddTransient<ICatalogArticleDomainItemDeleteOperationHandler>(x => new CatalogArticleDomainItemDeleteOperationHandler(
+            x.GetRequiredService<ICatalogArticleDomainResource>(),
+            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<ILogger<CatalogArticleDomainItemDeleteOperationHandler>>(),
+            x.GetRequiredService<IOptionsMonitor<SetupOptions>>()));
+
         services.AddTransient<ICatalogArticleDomainItemGetOperationHandler>(x => new CatalogArticleDomainItemGetOperationHandler(
             x.GetRequiredService<ICatalogArticleDomainResource>(),
             x.GetRequiredService<IOperationResource>(),
             x.GetRequiredService<ILogger<CatalogArticleDomainItemGetOperationHandler>>(),
+            x.GetRequiredService<IOptionsMonitor<SetupOptions>>()));
+
+        services.AddTransient<ICatalogArticleDomainItemSaveOperationHandler>(x => new CatalogArticleDomainItemSaveOperationHandler(
+            x.GetRequiredService<ICatalogArticleDomainResource>(),
+            x.GetRequiredService<IOperationResource>(),
+            x.GetRequiredService<ILogger<CatalogArticleDomainItemSaveOperationHandler>>(),
             x.GetRequiredService<IOptionsMonitor<SetupOptions>>()));
 
         services.AddTransient<ICatalogArticleDomainListGetOperationHandler>(x => new CatalogArticleDomainListGetOperationHandler(
@@ -33,7 +45,9 @@ public class CatalogArticleDomainSetupAppModule : AppModule
     {
         return new[]
             {
+                typeof(CatalogArticleDomainItemDeleteOperationRequestHandler),
                 typeof(CatalogArticleDomainItemGetOperationRequestHandler),
+                typeof(CatalogArticleDomainItemSaveOperationRequestHandler),
                 typeof(CatalogArticleDomainListGetOperationRequestHandler),
                 typeof(ICatalogArticleDomainItemGetOperationHandler),
                 typeof(ICatalogArticleDomainListGetOperationHandler),            

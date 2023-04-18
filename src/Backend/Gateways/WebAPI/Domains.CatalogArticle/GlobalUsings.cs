@@ -1,8 +1,12 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Delete;
 global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Get;
+global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.Item.Save;
 global using Crib2023.Backend.Gateways.WebAPI.Domain.Operations.CatalogArticle.List.Get;
+global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Delete;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Get;
+global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.Item.Save;
 global using Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle.Operations.List.Get;
 global using Crib2023.Grpc.Backend.Services.Catalog;
 global using Makc2023.Backend.Common.Core;

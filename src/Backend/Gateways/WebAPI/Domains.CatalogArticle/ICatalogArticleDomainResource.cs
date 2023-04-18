@@ -10,10 +10,22 @@ namespace Crib2023.Backend.Gateways.WebAPI.Domains.CatalogArticle
         #region Methods
 
         /// <summary>
+        /// Получить имя операции удаления элемента.
+        /// </summary>
+        /// <returns>Имя операции.</returns>
+        string GetItemDeleteOperationName();
+
+        /// <summary>
         /// Получить имя операции получения элемента.
         /// </summary>
         /// <returns>Имя операции.</returns>
         string GetItemGetOperationName();
+
+        /// <summary>
+        /// Получить имя операции сохранения элемента.
+        /// </summary>
+        /// <returns>Имя операции.</returns>
+        string GetItemSaveOperationName();
 
         /// <summary>
         /// Получить имя операции получения списка.

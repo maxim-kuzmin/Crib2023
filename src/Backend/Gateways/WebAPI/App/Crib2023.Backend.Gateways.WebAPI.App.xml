@@ -15,11 +15,36 @@
             </summary>
             <param name="mediator">Посредник.</param>
         </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog.CatalogArticleController.DeleteItem(System.Int64,System.String)">
+            <summary>
+            Удалить элемент.
+            </summary>
+            <param name="id">Идентификатор.</param>
+            <param name="operationCode">Код операции.</param>
+            <returns>Задача на получение элемента.</returns>
+        </member>
         <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog.CatalogArticleController.GetItem(System.Int64,System.String)">
             <summary>
             Получить элемент.
             </summary>
             <param name="id">Идентификатор.</param>
+            <param name="operationCode">Код операции.</param>
+            <returns>Задача на получение элемента.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog.CatalogArticleController.InsertItem(Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleTypeEntity,System.String)">
+            <summary>
+            Обновить элемент.
+            </summary>
+            <param name="input">Входные данные</param>
+            <param name="operationCode">Код операции.</param>
+            <returns>Задача на получение элемента.</returns>
+        </member>
+        <member name="M:Crib2023.Backend.Gateways.WebAPI.App.Controllers.Catalog.CatalogArticleController.UpdateItem(System.Int64,Crib2023.Grpc.Backend.Services.Catalog.CatalogArticleTypeEntity,System.String)">
+            <summary>
+            Обновить элемент.
+            </summary>
+            <param name="id">Идентификатор.</param>
+            <param name="input">Входные данные</param>
             <param name="operationCode">Код операции.</param>
             <returns>Задача на получение элемента.</returns>
         </member>

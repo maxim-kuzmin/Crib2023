@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="@@ItemDeleteOperationName" xml:space="preserve">
+    <value>The operation to delete an item</value>
+  </data>
   <data name="@@ItemGetOperationName" xml:space="preserve">
     <value>The operation to get an item</value>
+  </data>
+  <data name="@@ItemSaveOperationName" xml:space="preserve">
+    <value>The operation to save an item</value>
   </data>
   <data name="@@ListGetOperationName" xml:space="preserve">
     <value>The operation to get a list</value>
