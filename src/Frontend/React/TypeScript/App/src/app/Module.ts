@@ -2,7 +2,9 @@ import { type StoreService, type TableControlService } from '../common';
 import { type NotificationControlHooks } from '../controls';
 import { type ApiResponseError, type ApiResponseErrorOptions } from '../data';
 import {
+  type ArticleDomainItemDeleteOperationRequestHandler,
   type ArticleDomainItemGetOperationRequestHandler,
+  type ArticleDomainItemSaveOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository,
   type TopicDomainItemGetOperationRequestHandler,
@@ -49,7 +51,9 @@ export interface Module {
   readonly getTopicTreeViewHooks: () => TopicTreeViewHooks;
   readonly getTopicPageService: () => TopicPageService;
   readonly getStoreService: () => StoreService;
+  readonly useArticleDomainItemDeleteOperationRequestHandler: () => ArticleDomainItemDeleteOperationRequestHandler;
   readonly useArticleDomainItemGetOperationRequestHandler: () => ArticleDomainItemGetOperationRequestHandler;
+  readonly useArticleDomainItemSaveOperationRequestHandler: () => ArticleDomainItemSaveOperationRequestHandler;
   readonly useArticleDomainListGetOperationRequestHandler: () => ArticleDomainListGetOperationRequestHandler;
   readonly useTopicDomainItemGetOperationRequestHandler: () => TopicDomainItemGetOperationRequestHandler;
   readonly useTopicDomainListGetOperationRequestHandler: () => TopicDomainListGetOperationRequestHandler;

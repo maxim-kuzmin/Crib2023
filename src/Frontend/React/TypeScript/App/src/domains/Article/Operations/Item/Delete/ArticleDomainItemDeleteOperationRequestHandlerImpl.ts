@@ -35,7 +35,11 @@ export class ArticleDomainItemDeleteOperationRequestHandlerImpl
 
         const isInputValid = Number(id ?? 0) > 0 || (title && Number(topicId ?? 0) > 0);
 
-        return isInputValid ? await this.repository.deleteItem(request) : null;
+        if (isInputValid) {
+          return await this.repository.deleteItem(request);
+        }
+
+        return null;
       },
       shouldBeCanceled
     );

@@ -37,7 +37,11 @@ export class TopicDomainItemGetOperationRequestHandlerImpl implements TopicDomai
 
         const isInputValid = Number(id ?? 0) > 0 || (name && Number(parentId ?? 0) > 0);
 
-        return isInputValid ? await this.repository.getItem(request) : null;
+        if (isInputValid) {
+          return await this.repository.getItem(request);
+        }
+
+        return null;
       },
       shouldBeCanceled
     );

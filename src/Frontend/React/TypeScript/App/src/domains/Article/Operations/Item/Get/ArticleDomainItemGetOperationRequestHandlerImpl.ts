@@ -37,7 +37,11 @@ export class ArticleDomainItemGetOperationRequestHandlerImpl implements ArticleD
 
         const isInputValid = Number(id ?? 0) > 0 || (title && Number(topicId ?? 0) > 0);
 
-        return isInputValid ? await this.repository.getItem(request) : null;
+        if (isInputValid) {
+          return await this.repository.getItem(request);
+        }
+
+        return null;
       },
       shouldBeCanceled
     );

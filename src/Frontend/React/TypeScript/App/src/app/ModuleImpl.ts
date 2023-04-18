@@ -13,6 +13,8 @@ import {
   type ApiRequestHandler
 } from '../data';
 import {
+  type ArticleDomainItemDeleteOperationRequestHandler,
+  type ArticleDomainItemSaveOperationRequestHandler,
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository,
@@ -61,8 +63,14 @@ import { ArticlePageServiceImpl } from '../pages/Article/ArticlePageServiceImpl'
 import { TopicPageServiceImpl } from '../pages/Topic/TopicPageServiceImpl';
 import { ArticleItemEditViewServiceImpl } from '../views/Article/Item/Edit/ArticleItemEditViewServiceImpl';
 import {
+  ArticleDomainItemDeleteOperationRequestHandlerImpl
+} from '../domains/Article/Operations/Item/Delete/ArticleDomainItemDeleteOperationRequestHandlerImpl';
+import {
   ArticleDomainItemGetOperationRequestHandlerImpl
 } from '../domains/Article/Operations/Item/Get/ArticleDomainItemGetOperationRequestHandlerImpl';
+import {
+  ArticleDomainItemSaveOperationRequestHandlerImpl
+} from '../domains/Article/Operations/Item/Save/ArticleDomainItemSaveOperationRequestHandlerImpl';
 import {
   ArticleDomainListGetOperationRequestHandlerImpl
 } from '../domains/Article/Operations/List/Get/ArticleDomainListGetOperationRequestHandlerImpl';
@@ -208,8 +216,28 @@ class ModuleImpl implements Module {
     return this.articleItemEditViewService;
   }
 
+  useArticleDomainItemDeleteOperationRequestHandler (): ArticleDomainItemDeleteOperationRequestHandler {
+    return new ArticleDomainItemDeleteOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: false
+      }),
+      repository: this.getArticleDomainRepository()
+    });
+  }
+
   useArticleDomainItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {
     return new ArticleDomainItemGetOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: false
+      }),
+      repository: this.getArticleDomainRepository()
+    });
+  }
+
+  useArticleDomainItemSaveOperationRequestHandler (): ArticleDomainItemSaveOperationRequestHandler {
+    return new ArticleDomainItemSaveOperationRequestHandlerImpl({
       apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
         shouldBeNotified: false

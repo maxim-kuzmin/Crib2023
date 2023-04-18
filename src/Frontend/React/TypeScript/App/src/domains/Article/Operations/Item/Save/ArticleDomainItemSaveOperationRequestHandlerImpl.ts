@@ -35,7 +35,11 @@ export class ArticleDomainItemSaveOperationRequestHandlerImpl implements Article
 
         const isInputValid = title && Number(topicId ?? 0) > 0;
 
-        return isInputValid ? await this.repository.saveItem(request) : null;
+        if (isInputValid) {
+          return await this.repository.saveItem(request);
+        }
+
+        return null;
       },
       shouldBeCanceled
     );
