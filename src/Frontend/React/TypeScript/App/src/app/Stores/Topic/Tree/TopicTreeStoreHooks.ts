@@ -17,11 +17,11 @@ type LoadActionOptions = TopicTreeStoreLoadActionOptions;
 type SetActionDispatch = TopicTreeStoreSetActionDispatch;
 type SetActionOptions = TopicTreeStoreSetActionOptions;
 
-type State = TopicTreeStoreState;
+type StoreState = TopicTreeStoreState;
 
 export interface TopicTreeStoreHooks {
-  readonly useDispatchToClear: (sliceName: string, options: ClearActionOptions) => ClearActionDispatch;
-  readonly useDispatchToLoad: (sliceName: string, options: LoadActionOptions) => LoadActionDispatch;
-  readonly useDispatchToSet: (sliceName: string, options: SetActionOptions) => SetActionDispatch;
-  readonly useState: (sliceName: string) => State;
+  readonly useClearActionDispatch: (sliceName: string, options: ClearActionOptions) => ClearActionDispatch;
+  readonly useLoadActionDispatch: (sliceName: string, options: LoadActionOptions) => LoadActionDispatch;
+  readonly useSetActionDispatch: (sliceName: string, options: SetActionOptions) => SetActionDispatch;
+  readonly useStoreState: (sliceName: string) => StoreState;
 }

@@ -12,10 +12,10 @@ type ClearActionOptions = AppNotificationStoreClearActionOptions;
 type SetActionDispatch = AppNotificationStoreSetActionDispatch;
 type SetActionOptions = AppNotificationStoreSetActionOptions;
 
-type State = AppNotificationStoreState;
+type StoreState = AppNotificationStoreState;
 
 export interface AppNotificationViewHooks {
-  readonly useDispatchToClear: (options: ClearActionOptions) => ClearActionDispatch;
-  readonly useDispatchToSet: (options: SetActionOptions) => SetActionDispatch;
-  readonly useState: () => State;
+  readonly useClearActionDispatch: (options: ClearActionOptions) => ClearActionDispatch;
+  readonly useSetActionDispatch: (options: SetActionOptions) => SetActionDispatch;
+  readonly useStoreState: () => StoreState;
 }

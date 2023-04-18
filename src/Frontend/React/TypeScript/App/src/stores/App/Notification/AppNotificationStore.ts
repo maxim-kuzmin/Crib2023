@@ -34,7 +34,7 @@ type SetActionDispatch = AppNotificationStoreSetActionDispatch;
 type SetActionOptions = AppNotificationStoreSetActionOptions;
 type SetActionPayload = AppNotificationStoreSetActionPayload;
 
-type State = AppNotificationStoreState;
+type StoreState = AppNotificationStoreState;
 
 function createClearAction (sliceName: string): ClearAction {
   return {
@@ -55,7 +55,7 @@ function useDispatchContext (): Dispatch<ActionUnion> {
   return useAppNotificationStoreDispatchContext();
 }
 
-function useState (sliceName: string): State {
+function useStoreState (sliceName: string): StoreState {
   return useAppNotificationStoreStateContext(sliceName);
 }
 
@@ -99,7 +99,7 @@ function runDispatchToSet ({
   }
 }
 
-function useDispatchToClear (
+function useClearActionDispatch (
   sliceName: string,
   {
     callback,
@@ -127,7 +127,7 @@ function useDispatchToClear (
   }).current;
 }
 
-function useDispatchToSet (
+function useSetActionDispatch (
   sliceName: string,
   {
     callback,
@@ -160,8 +160,8 @@ function useDispatchToSet (
 
 export function createAppNotificationStoreHooks (): AppNotificationStoreHooks {
   return {
-    useDispatchToClear,
-    useDispatchToSet,
-    useState
+    useClearActionDispatch,
+    useSetActionDispatch,
+    useStoreState
   };
 }

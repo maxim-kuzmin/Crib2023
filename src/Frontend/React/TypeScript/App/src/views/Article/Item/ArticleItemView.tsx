@@ -7,17 +7,19 @@ import {
 } from '../../../common';
 import { CardControl } from '../../../controls';
 import { ArticlePageMode } from '../../../pages';
-import { useArticleItemViewLoad } from './ArticleItemViewHooks';
 import { type ArticleItemViewProps } from './ArticleItemViewProps';
 import styles from './ArticleItemView.module.css';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({
   articleId,
-  onArticleLoaded,
+  onArticleItemLoaded,
   topicPageLastUrl
 }: ArticleItemViewProps) {
-  const { loading, payload } = useArticleItemViewLoad({ articleId, onArticleLoaded });
+  const { loading, payload } = getModule().getArticleItemViewHooks().useLoadActionOutput({
+    articleId,
+    onArticleItemLoaded
+  });
 
   const entity = payload?.data?.item.data;
 

@@ -7,7 +7,6 @@ import {
   type TopicDomainTreeGetOperationInput,
   createTopicDomainTreeGetOperationRequest
 } from '../../../domains';
-import { useTopicTreeViewLoad } from './TopicTreeViewHooks';
 import styles from './TopicTreeView.module.css';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
@@ -46,11 +45,11 @@ function TopicTreeView () {
   const {
     payloadFromSetAction: topicItemResponse,
     status: topicItemStatus
-  } = topicItemStoreHooks.useState();
+  } = topicItemStoreHooks.useStoreState();
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const { loading, payload } = useTopicTreeViewLoad({
+  const { loading, payload } = getModule().getTopicTreeViewHooks().useLoadActionOutput({
     ...topicInput,
     topicId,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled

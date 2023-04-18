@@ -4,7 +4,6 @@ import { getModule } from '../../app/ModuleImpl';
 import { type ArticlePageProps } from './ArticlePageProps';
 import { type ArticleItemStoreSetActionPayload } from '../../app/Stores';
 import { ArticleItemEditView, ArticleItemView } from '../../views';
-import { useTopicItemViewLoad } from '../../views/Topic/Item/TopicItemViewHooks';
 import { ArticlePageMode } from './ArticlePageMode';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
@@ -19,7 +18,7 @@ function ArticlePage ({
 
   const [topicId, setTopicId] = useState(getModule().getArticlePageService().getUrlSearch(searchParams).topicId);
 
-  const handleArticleLoaded = useCallback((payload: ArticleItemStoreSetActionPayload) => {
+  const handleArticleItemLoaded = useCallback((payload: ArticleItemStoreSetActionPayload) => {
       if (mode !== ArticlePageMode.New) {
         setTopicId(payload?.data?.item?.data.topicId ?? 0);
       }
@@ -35,7 +34,7 @@ function ArticlePage ({
     articleId = 0;
   }
 
-  useTopicItemViewLoad({ topicId, isCanceled: !articleItemIsLoaded.current });
+  getModule().getTopicItemViewHooks().useLoadActionOutput({ topicId, isCanceled: !articleItemIsLoaded.current });
 
   const topicPageLastUrl = getModule().getTopicPageService().lastUrl;
 
@@ -43,12 +42,12 @@ function ArticlePage ({
     mode === ArticlePageMode.Display
       ? <ArticleItemView
           articleId={articleId}
-          onArticleLoaded={handleArticleLoaded}
+          onArticleItemLoaded={handleArticleItemLoaded}
           topicPageLastUrl={topicPageLastUrl}
         />
       : <ArticleItemEditView
           articleId={articleId}
-          onArticleLoaded={handleArticleLoaded}
+          onArticleItemLoaded={handleArticleItemLoaded}
           topicId={topicId}
           topicPageLastUrl={topicPageLastUrl}
         />

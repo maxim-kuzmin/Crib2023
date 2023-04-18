@@ -10,7 +10,7 @@ function AppNotificationView () {
 
   const appNotificationViewHooks = getModule().getAppNotificationViewHooks();
 
-  const { payloadFromSetAction: data } = appNotificationViewHooks.useState();
+  const { payloadFromSetAction: data } = appNotificationViewHooks.useStoreState();
 
   const callback = useCallback(() => {
       if (data) {
@@ -20,7 +20,7 @@ function AppNotificationView () {
     [component, data]
   );
 
-  appNotificationViewHooks.useDispatchToClear({
+  appNotificationViewHooks.useClearActionDispatch({
     dispatchType: StoreDispatchType.MountOrUpdate,
     callback
   });

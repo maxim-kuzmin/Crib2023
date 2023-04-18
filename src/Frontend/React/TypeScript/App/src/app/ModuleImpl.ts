@@ -261,7 +261,7 @@ class ModuleImpl implements Module {
   private useOperationHandler (options: UseOperationHandlerOptions): OperationHandler {
     const { shouldBeLogged, shouldBeNotified } = options;
 
-    const { run } = this.getAppNotificationStoreHooks().useDispatchToSet(
+    const { run } = this.getAppNotificationStoreHooks().useSetActionDispatch(
       AppNotificationStoreSliceName.AppNotificationView,
       {}
     );

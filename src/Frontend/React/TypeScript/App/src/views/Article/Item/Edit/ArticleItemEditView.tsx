@@ -7,17 +7,19 @@ import {
   FormControlFieldType,
 } from '../../../../common';
 import { FormControl, SpinnerControl } from '../../../../controls';
-import { useArticleItemViewLoad } from '../ArticleItemViewHooks';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({
   articleId,
-  onArticleLoaded,
+  onArticleItemLoaded,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
-  const { loading, payload } = useArticleItemViewLoad({ articleId, onArticleLoaded });
+  const { loading, payload } = getModule().getArticleItemViewHooks().useLoadActionOutput({
+    articleId,
+    onArticleItemLoaded
+  });
 
   const entity = payload?.data?.item.data;
 

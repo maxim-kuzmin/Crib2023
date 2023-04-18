@@ -292,9 +292,9 @@ function useDispatchToSet (
 
 export function createArticleListStoreHooks (): ArticleListStoreHooks {
   return {
-    useDispatchToClear,
-    useDispatchToLoad,
-    useDispatchToSet,
-    useState
+    useClearActionDispatch: useDispatchToClear,
+    useLoadActionDispatch: useDispatchToLoad,
+    useSetActionDispatch: useDispatchToSet,
+    useStoreState: useState
   };
 }

@@ -5,7 +5,6 @@ import { type BreadcrumbControlItem, type TableControlColumn, type TableControlP
 import { BreadcrumbControl, ButtonControl, TableControl } from '../../../controls';
 import { type ArticleDomainEntityForList } from '../../../domains';
 import { ArticlePageMode } from '../../../pages';
-import { useArticleTableViewLoad } from './ArticleTableViewHooks';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
@@ -27,7 +26,11 @@ function ArticleTableView ({
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];
 
-  const { loading, payload } = useArticleTableViewLoad({ topicId, pageNumber, pageSize });
+  const { loading, payload } = getModule().getArticleTableViewHooks().useLoadActionOutput({
+    pageNumber,
+    pageSize,
+    topicId
+  });
 
   if (payload?.data) {
     const { data } = payload;

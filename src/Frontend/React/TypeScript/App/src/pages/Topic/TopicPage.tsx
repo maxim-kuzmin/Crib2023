@@ -3,7 +3,6 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { getModule } from '../../app/ModuleImpl';
 import { type TableControlPagination } from '../../common';
 import { ArticleTableView } from '../../views';
-import { useTopicItemViewLoad } from '../../views/Topic/Item/TopicItemViewHooks';
 
 export const TopicPage: React.FC = memo(
 function TopicPage () {
@@ -33,7 +32,7 @@ function TopicPage () {
 
   const { pageNumber, pageSize } = topicPageSearch;
 
-  useTopicItemViewLoad({ topicId });
+  getModule().getTopicItemViewHooks().useLoadActionOutput({ topicId });
 
   const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;

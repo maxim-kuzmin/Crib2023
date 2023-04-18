@@ -43,7 +43,7 @@ export const TopicPathView: React.FC = memo(
 function TopicPathView () {
   const {
     payloadFromSetAction: topicItemResponse
-  } = getModule().getTopicItemViewHooks().useState();
+  } = getModule().getTopicItemViewHooks().useStoreState();
 
   const topic = topicItemResponse?.data?.item;
 

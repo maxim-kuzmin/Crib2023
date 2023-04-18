@@ -54,7 +54,7 @@ type SetActionDispatch = ArticleItemStoreSetActionDispatch;
 type SetActionOptions = ArticleItemStoreSetActionOptions;
 type SetActionPayload = ArticleItemStoreSetActionPayload;
 
-type State = ArticleItemStoreState;
+type StoreState = ArticleItemStoreState;
 
 function createClearAction (sliceName: string): ClearAction {
   return {
@@ -94,7 +94,7 @@ function useGetOperationRequestHandler (): GetOperationRequestHandler {
   return getModule().useArticleDomainItemGetOperationRequestHandler();
 }
 
-function useState (sliceName: string): State {
+function useStoreState (sliceName: string): StoreState {
   return useArticleItemStoreStateContext(sliceName);
 }
 
@@ -172,7 +172,7 @@ async function runDispatchToLoad ({
   runDispatchToSet({ sliceName, dispatch, callback, payload: response });
 }
 
-function useDispatchToClear (
+function useClearActionDispatch (
   sliceName: string,
   {
     callback,
@@ -200,7 +200,7 @@ function useDispatchToClear (
   }).current;
 }
 
-function useDispatchToLoad (
+function useLoadActionDispatch (
   sliceName: string,
   {
     callback,
@@ -259,7 +259,7 @@ function useDispatchToLoad (
   }).current;
 }
 
-function useDispatchToSet (
+function useSetActionDispatch (
   sliceName: string,
   {
     callback,
@@ -292,9 +292,9 @@ function useDispatchToSet (
 
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   return {
-    useDispatchToClear,
-    useDispatchToLoad,
-    useDispatchToSet,
-    useState
+    useClearActionDispatch,
+    useLoadActionDispatch,
+    useSetActionDispatch,
+    useStoreState
   };
 }
