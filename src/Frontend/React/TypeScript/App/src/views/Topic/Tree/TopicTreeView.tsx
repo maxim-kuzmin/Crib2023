@@ -1,13 +1,13 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { getModule } from '../../../app/ModuleImpl';
-import { OperationStatus, StoreDispatchType, type TreeControlNode, TreeGetOperationAxisForList } from '../../../common';
+import { OperationStatus, type TreeControlNode, TreeGetOperationAxisForList } from '../../../common';
 import { SpinnerControl, TreeControl } from '../../../controls';
 import {
   type TopicDomainEntityForTree,
   type TopicDomainTreeGetOperationInput,
-  type TopicDomainTreeGetOperationResponse,
   createTopicDomainTreeGetOperationRequest
 } from '../../../domains';
+import { useTopicTreeViewLoad } from './TopicTreeViewHooks';
 import styles from './TopicTreeView.module.css';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
@@ -50,37 +50,13 @@ function TopicTreeView () {
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const topicTreeViewHooks = getModule().getTopicTreeViewHooks();
-
-  const callbackOnTopicTreeLoad = useCallback((payload: TopicDomainTreeGetOperationResponse | null) => {
-    console.log('MAKC:TopicTreeView:callbackOnTopicTreeLoad:payload', payload);
-  }, []);
-
-  const payloadToTopicTreeLoad: TopicDomainTreeGetOperationInput = useMemo(
-    () => ({
-      ...topicInput,
-      expandedNodeId: topicId
-    }),
-    [topicId]
-  );
-
-  topicTreeViewHooks.useDispatchToLoad({
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    isCanceled: topicItemStatus !== OperationStatus.Fulfilled,
-    callback: callbackOnTopicTreeLoad,
-    payload: payloadToTopicTreeLoad
+  const { loading, payload } = useTopicTreeViewLoad({
+    ...topicInput,
+    topicId,
+    isCanceled: topicItemStatus !== OperationStatus.Fulfilled
   });
 
-  topicTreeViewHooks.useDispatchToClear({
-    dispatchType: StoreDispatchType.Unmount
-  });
-
-  const {
-    payloadFromSetAction: topicTreeResponse,
-    status: topicTreeStatus
-  } = topicTreeViewHooks.useState();
-
-  const entities = topicTreeResponse?.data?.nodes;
+  const entities = payload?.data?.nodes;
 
   const controlNodes = useMemo(
     () => convertToControlNodes(topicId, entities),
@@ -104,7 +80,7 @@ function TopicTreeView () {
   return (
     <div className={styles.root}>
       {
-        topicTreeStatus === OperationStatus.Pending
+        loading
           ? <SpinnerControl/>
           : <TreeControl controlNodes={controlNodes} getChildren={getChildren} />
       }

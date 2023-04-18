@@ -1,27 +1,15 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getModule } from '../../app/ModuleImpl';
-import { type ArticleListStoreSetActionPayload, type TopicItemStoreSetActionPayload } from '../../app/Stores';
-import {
-  OperationStatus,
-  StoreDispatchType,
-  type TableControlPagination,
-  TreeGetOperationAxisForItem
-} from '../../common';
-import { type ArticleDomainListGetOperationInput, type TopicDomainItemGetOperationInput } from '../../domains';
+import { type TableControlPagination } from '../../common';
 import { ArticleTableView } from '../../views';
+import { useTopicItemViewLoad } from '../../views/Topic/Item/TopicItemViewHooks';
 
 export const TopicPage: React.FC = memo(
 function TopicPage () {
   const urlParams = useParams();
+
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const articleTableViewHooks = getModule().getArticleTableViewHooks();
-
-  const {
-    payloadFromSetAction: articleListResponse,
-    status: articleListStatus
-  } = articleTableViewHooks.useState();
 
   let topicId = Number(urlParams.topicId ?? 0);
 
@@ -35,61 +23,17 @@ function TopicPage () {
 
   const topicPageLastUrl = topicPageService.createUrl({ topicId, search: topicPageSearch });
 
+  useEffect(() => {
+      return () => {
+        topicPageService.lastUrl = topicPageLastUrl;
+      };
+    },
+    [topicPageLastUrl, topicPageService]
+  );
+
   const { pageNumber, pageSize } = topicPageSearch;
 
-  const callbackOnArticleListLoad = useCallback((payload: ArticleListStoreSetActionPayload) => {
-    console.log('MAKC:TopicPage:callbackOnArticleListLoad:payload', payload);
-  }, []);
-
-  const payloadToArticleListLoad: ArticleDomainListGetOperationInput = useMemo(
-    () => ({
-      topicId,
-      pageNumber,
-      pageSize
-    }),
-    [pageNumber, pageSize, topicId]
-  );
-
-  articleTableViewHooks.useDispatchToLoad({
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    callback: callbackOnArticleListLoad,
-    payload: payloadToArticleListLoad
-  });
-
-  articleTableViewHooks.useDispatchToClear({
-    dispatchType: StoreDispatchType.Unmount
-  });
-
-  const topicItemViewHooks = getModule().getTopicItemViewHooks();
-
-  const callbackOnTopicItemLoad = useCallback((payload: TopicItemStoreSetActionPayload) => {
-    console.log('MAKC:TopicPage:callbackOnTopicItemtLoad:payload', payload);
-  }, []);
-
-  const payloadToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(
-    () => ({
-      axis: TreeGetOperationAxisForItem.Self,
-      id: topicId
-    }),
-    [topicId]
-  );
-
-  topicItemViewHooks.useDispatchToLoad({
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    callback: callbackOnTopicItemLoad,
-    payload: payloadToTopicItemLoad
-  });
-
-  const callbackOnTopicItemClear = useCallback(() => {
-    console.log('MAKC:TopicPage:callbackOnTopicItemClear:topicPageLastUrl', topicPageLastUrl);
-
-    topicPageService.lastUrl = topicPageLastUrl;
-  }, [topicPageLastUrl, topicPageService]);
-
-  topicItemViewHooks.useDispatchToClear({
-    callback: callbackOnTopicItemClear,
-    dispatchType: StoreDispatchType.Unmount
-  });
+  useTopicItemViewLoad({ topicId });
 
   const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;
@@ -102,12 +46,8 @@ function TopicPage () {
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
 
-  const articleListLoading = (articleListStatus === OperationStatus.Pending);
-
   return (
     <ArticleTableView
-      loading={articleListLoading}
-      response={articleListResponse}
       onTableChange={onTableChange}
       pageNumber={pageNumber}
       pageSize={pageSize}

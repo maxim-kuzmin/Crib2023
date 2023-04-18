@@ -1,30 +1,25 @@
 import React, { memo, useMemo } from 'react';
 import { getModule } from '../../../app/ModuleImpl';
-import { type CardControlAction, type CardControlExtra, CardControlType } from '../../../common';
+import {
+  type CardControlAction,
+  type CardControlExtra,
+  CardControlType
+} from '../../../common';
 import { CardControl } from '../../../controls';
-import { type ArticleTypeEntity } from '../../../data';
-import { type ArticleDomainEntityForItem } from '../../../domains';
 import { ArticlePageMode } from '../../../pages';
+import { useArticleItemViewLoad } from './ArticleItemViewHooks';
 import { type ArticleItemViewProps } from './ArticleItemViewProps';
 import styles from './ArticleItemView.module.css';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({
-  loading,
-  response,
+  articleId,
+  onArticleLoaded,
   topicPageLastUrl
 }: ArticleItemViewProps) {
-  let item: ArticleDomainEntityForItem | null = null;
-  let data: ArticleTypeEntity | null = null;
+  const { loading, payload } = useArticleItemViewLoad({ articleId, onArticleLoaded });
 
-  if (response?.data) {
-    item = response.data.item;
-    if (item) {
-      data = item.data;
-    }
-  }
-
-  const id = data?.id ?? 0;
+  const entity = payload?.data?.item.data;
 
   const controlActions: CardControlAction[] = useMemo(
     () => {
@@ -41,7 +36,7 @@ function ArticleItemView ({
       }
 
       const actionToEdit: CardControlAction = {
-        href: getModule().getArticlePageService().createUrl({ articleId: id, mode: ArticlePageMode.Edit }),
+        href: getModule().getArticlePageService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
         key: 'edit',
         title: '@@Edit'
       };
@@ -49,7 +44,7 @@ function ArticleItemView ({
       result.push(actionToEdit);
 
       const actionToDelete: CardControlAction = {
-        onClick: () => { console.log('MAKC:ArticleItemView:delete', id) },
+        onClick: () => { console.log('MAKC:ArticleItemView:delete', articleId) },
         key: 'delete',
         title: '@@Delete'
       };
@@ -58,26 +53,26 @@ function ArticleItemView ({
 
       return result;
     },
-    [id, topicPageLastUrl]
+    [articleId, topicPageLastUrl]
   );
 
   const controlExtra: CardControlExtra = {
-    title: `@@ID: ${id}`
+    title: `@@ID: ${articleId}`
   };
 
   return (
     <div className={styles.root}>
       <h2>@@Article</h2>
       {
-        data
+        entity
           ? <CardControl
               controlActions={controlActions}
               controlExtra={controlExtra}
               loading={loading}
-              title={data.title}
+              title={entity.title}
               type={CardControlType.Main}
             >
-                { data.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
+                { entity.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
             </CardControl>
           : null
       }

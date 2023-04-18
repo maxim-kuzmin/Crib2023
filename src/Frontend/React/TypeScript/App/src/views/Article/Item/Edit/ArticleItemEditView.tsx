@@ -4,21 +4,22 @@ import {
   type FormControlAction,
   FormControlActionType,
   type FormControlField,
-  FormControlFieldType
+  FormControlFieldType,
 } from '../../../../common';
 import { FormControl, SpinnerControl } from '../../../../controls';
+import { useArticleItemViewLoad } from '../ArticleItemViewHooks';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({
   articleId,
-  loading,
-  response,
-  topicId,
+  onArticleLoaded,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
-  const entity = response?.data?.item.data;
+  const { loading, payload } = useArticleItemViewLoad({ articleId, onArticleLoaded });
+
+  const entity = payload?.data?.item.data;
 
   const formValues = useMemo(
     () => getModule().getArticleItemEditViewService().convertToFormValues(entity),

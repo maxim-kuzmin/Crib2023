@@ -5,6 +5,7 @@ import { type BreadcrumbControlItem, type TableControlColumn, type TableControlP
 import { BreadcrumbControl, ButtonControl, TableControl } from '../../../controls';
 import { type ArticleDomainEntityForList } from '../../../domains';
 import { ArticlePageMode } from '../../../pages';
+import { useArticleTableViewLoad } from './ArticleTableViewHooks';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
@@ -17,19 +18,19 @@ function getRowKey (row: any): Key {
 
 export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(
 function ArticleTableView ({
-  loading,
   onTableChange,
   pageNumber,
   pageSize,
-  response,
   topicId
 }: ArticleTableViewProps) {
   let items: ArticleDomainEntityForList[];
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];
 
-  if (response?.data) {
-    const { data } = response;
+  const { loading, payload } = useArticleTableViewLoad({ topicId, pageNumber, pageSize });
+
+  if (payload?.data) {
+    const { data } = payload;
 
     items = data.items;
     totalCount = data.totalCount;

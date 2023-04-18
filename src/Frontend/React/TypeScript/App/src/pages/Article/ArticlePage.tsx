@@ -1,32 +1,33 @@
-import React, { memo, useCallback, useMemo, useRef } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getModule } from '../../app/ModuleImpl';
 import { type ArticlePageProps } from './ArticlePageProps';
-import { type ArticleItemStoreSetActionPayload, type TopicItemStoreSetActionPayload } from '../../app/Stores';
-import { type ArticleDomainItemGetOperationInput, type TopicDomainItemGetOperationInput } from '../../domains';
-import { OperationStatus, StoreDispatchType, TreeGetOperationAxisForItem } from '../../common';
-import { ArticlePageMode } from './ArticlePageMode';
+import { type ArticleItemStoreSetActionPayload } from '../../app/Stores';
 import { ArticleItemEditView, ArticleItemView } from '../../views';
+import { useTopicItemViewLoad } from '../../views/Topic/Item/TopicItemViewHooks';
+import { ArticlePageMode } from './ArticlePageMode';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({
   mode
 }: ArticlePageProps) {
   const urlParams = useParams();
+
   const [searchParams] = useSearchParams();
 
-  const articleItemViewHooks = getModule().getArticleItemViewHooks();
+  const articleItemIsLoaded = useRef(false);
 
-  const {
-    payloadFromSetAction: articleItemResponse,
-    status: articleItemStatus
-  } = articleItemViewHooks.useState();
+  const [topicId, setTopicId] = useState(getModule().getArticlePageService().getUrlSearch(searchParams).topicId);
 
-  let topicId = articleItemResponse?.data?.item?.data.topicId ?? 0;
+  const handleArticleLoaded = useCallback((payload: ArticleItemStoreSetActionPayload) => {
+      if (mode !== ArticlePageMode.New) {
+        setTopicId(payload?.data?.item?.data.topicId ?? 0);
+      }
 
-  if (topicId === 0) {
-    topicId = getModule().getArticlePageService().getUrlSearch(searchParams).topicId;
-  }
+      articleItemIsLoaded.current = true;
+    },
+    [mode]
+  );
 
   let articleId = Number(urlParams.articleId ?? 0);
 
@@ -34,70 +35,20 @@ function ArticlePage ({
     articleId = 0;
   }
 
-  const articleItemIsLoaded = useRef(false);
-
-  const callbackOnArticleItemLoad = useCallback((payload: ArticleItemStoreSetActionPayload) => {
-    console.log('MAKC:ArticlePage:callbackOnArticleItemLoad:payload', payload);
-    articleItemIsLoaded.current = true;
-  }, []);
-
-  const payloadToArticleItemLoad: ArticleDomainItemGetOperationInput = useMemo(
-    () => ({
-      id: articleId
-    }),
-    [articleId]
-  );
-
-  articleItemViewHooks.useDispatchToLoad({
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    callback: callbackOnArticleItemLoad,
-    payload: payloadToArticleItemLoad
-  });
-
-  articleItemViewHooks.useDispatchToClear({
-    dispatchType: StoreDispatchType.Unmount
-  });
-
-  const topicItemViewHooks = getModule().getTopicItemViewHooks();
-
-  const callbackOnTopicItemLoad = useCallback((payload: TopicItemStoreSetActionPayload) => {
-    console.log('MAKC:ArticlePage:callbackOnTopicItemtLoad:payload', payload);
-  }, []);
-
-  const payloadToTopicItemLoad: TopicDomainItemGetOperationInput = useMemo(
-    () => ({
-      axis: TreeGetOperationAxisForItem.Self,
-      id: topicId
-    }),
-    [topicId]
-  );
-
-  topicItemViewHooks.useDispatchToLoad({
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    isCanceled: !articleItemIsLoaded.current,
-    callback: callbackOnTopicItemLoad,
-    payload: payloadToTopicItemLoad
-  });
-
-  topicItemViewHooks.useDispatchToClear({
-    dispatchType: StoreDispatchType.Unmount
-  });
-
-  const articleItemLoading = (articleItemStatus === OperationStatus.Pending);
+  useTopicItemViewLoad({ topicId, isCanceled: !articleItemIsLoaded.current });
 
   const topicPageLastUrl = getModule().getTopicPageService().lastUrl;
 
   return (
     mode === ArticlePageMode.Display
       ? <ArticleItemView
-          loading={articleItemLoading}
-          response={articleItemResponse}
+          articleId={articleId}
+          onArticleLoaded={handleArticleLoaded}
           topicPageLastUrl={topicPageLastUrl}
         />
       : <ArticleItemEditView
           articleId={articleId}
-          loading={articleItemLoading}
-          response={articleItemResponse}
+          onArticleLoaded={handleArticleLoaded}
           topicId={topicId}
           topicPageLastUrl={topicPageLastUrl}
         />
