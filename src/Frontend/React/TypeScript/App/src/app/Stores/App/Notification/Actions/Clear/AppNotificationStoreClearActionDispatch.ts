@@ -1,3 +1,3 @@
 export interface AppNotificationStoreClearActionDispatch {
-  run: () => void;
+  readonly run: () => void;
 }
