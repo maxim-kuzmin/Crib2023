@@ -54,7 +54,7 @@ type SetActionDispatch = ArticleListStoreSetActionDispatch;
 type SetActionOptions = ArticleListStoreSetActionOptions;
 type SetActionPayload = ArticleListStoreSetActionPayload;
 
-type State = ArticleListStoreState;
+type StoreState = ArticleListStoreState;
 
 function createClearAction (sliceName: string): ClearAction {
   return {
@@ -94,7 +94,7 @@ function useGetOperationRequestHandler (): GetOperationRequestHandler {
   return getModule().useArticleDomainListGetOperationRequestHandler();
 }
 
-function useState (sliceName: string): State {
+function useState (sliceName: string): StoreState {
   return useArticleListStoreStateContext(sliceName);
 }
 

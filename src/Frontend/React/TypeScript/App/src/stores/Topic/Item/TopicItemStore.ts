@@ -54,7 +54,7 @@ type SetActionDispatch = TopicItemStoreSetActionDispatch;
 type SetActionOptions = TopicItemStoreSetActionOptions;
 type SetActionPayload = TopicItemStoreSetActionPayload;
 
-type State = TopicItemStoreState;
+type StoreState = TopicItemStoreState;
 
 function createClearAction (sliceName: string): ClearAction {
   return {
@@ -94,7 +94,7 @@ function useGetOperationRequestHandler (): GetOperationRequestHandler {
   return getModule().useTopicDomainItemGetOperationRequestHandler();
 }
 
-function useState (sliceName: string): State {
+function useState (sliceName: string): StoreState {
   return useTopicItemStoreStateContext(sliceName);
 }
 

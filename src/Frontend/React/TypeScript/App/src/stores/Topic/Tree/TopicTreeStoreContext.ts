@@ -7,15 +7,15 @@ import { type TopicTreeStoreState } from '../../../app/Stores';
 import { type TopicTreeStoreActionUnion } from './TopicTreeStoreActionUnion';
 
 type ActionUnion = TopicTreeStoreActionUnion;
-type State = TopicTreeStoreState;
-type StateMap = Map<string, State>;
+type StoreState = TopicTreeStoreState;
+type StoreStateMap = Map<string, StoreState>;
 
 export const TopicTreeStoreDispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
-export const TopicTreeStoreStateContext = createContext<StateMap | null>(null);
+export const TopicTreeStoreStateContext = createContext<StoreStateMap | null>(null);
 
 export function useTopicTreeStoreDispatchContext () {
   return useContext(TopicTreeStoreDispatchContext)!;
 }
-export function useTopicTreeStoreStateContext (sliceName: string): State {
+export function useTopicTreeStoreStateContext (sliceName: string): StoreState {
   return useContext(TopicTreeStoreStateContext)!.get(sliceName)!;
 }

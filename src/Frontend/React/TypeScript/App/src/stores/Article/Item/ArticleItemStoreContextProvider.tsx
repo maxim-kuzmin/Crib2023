@@ -14,16 +14,22 @@ import {
 } from './ArticleItemStoreContext';
 
 type ActionUnion = ArticleItemStoreActionUnion;
-type State = ArticleItemStoreState;
-type StateMap = Map<string, State>;
+type StoreState = ArticleItemStoreState;
+type StoreStateMap = Map<string, StoreState>;
 
-const initialState = getModule().getStoreService().createInitialState<State>(
+const initialState = getModule().getStoreService().createInitialState<StoreState>(
   [ArticleItemStoreSliceName.ArticleItemView],
-  () => createOperationState<State>({ payloadFromLoadAction: null, payloadFromSetAction: null })
+  () => createOperationState<StoreState>({
+    payloadFromDeleteAction: null,
+    payloadFromDeleteCompletedAction: null,
+    payloadFromLoadAction: null,
+    payloadFromSaveAction: null,
+    payloadFromSetAction: null
+  })
 );
 
-function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
-  const result = new Map<string, State>(stateMap);
+function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
+  const result = new Map<string, StoreState>(stateMap);
   const { sliceName, type } = action;
   const state = result.get(sliceName)!;
 
@@ -31,10 +37,26 @@ function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
     case ArticleItemStoreActionType.Clear:
       result.set(sliceName, initialState.get(sliceName)!);
       break;
-    case ArticleItemStoreActionType.Load:
+    case ArticleItemStoreActionType.Delete:
+      result.set(sliceName, { ...state, payloadFromDeleteAction: action.payload, status: OperationStatus.Pending });
+      break;
+      case ArticleItemStoreActionType.DeleteCompleted:
+        result.set(
+          sliceName,
+          {
+            ...state,
+            payloadFromDeleteCompletedAction: action.payload,
+            status: OperationStatus.Fulfilled
+          }
+        );
+        break;
+      case ArticleItemStoreActionType.Load:
       result.set(sliceName, { ...state, payloadFromLoadAction: action.payload, status: OperationStatus.Pending });
       break;
-    case ArticleItemStoreActionType.Set:
+    case ArticleItemStoreActionType.Save:
+      result.set(sliceName, { ...state, payloadFromSaveAction: action.payload, status: OperationStatus.Pending });
+      break;
+      case ArticleItemStoreActionType.Set:
       result.set(sliceName, { ...state, payloadFromSetAction: action.payload, status: OperationStatus.Fulfilled });
       break;
   }

@@ -13,16 +13,16 @@ import {
 } from './AppNotificationStoreContext';
 
 type ActionUnion = AppNotificationStoreActionUnion;
-type State = AppNotificationStoreState;
-type StateMap = Map<string, State>;
+type StoreState = AppNotificationStoreState;
+type StoreStateMap = Map<string, StoreState>;
 
-const initialState = getModule().getStoreService().createInitialState<State>(
+const initialState = getModule().getStoreService().createInitialState<StoreState>(
   [AppNotificationStoreSliceName.AppNotificationView],
   () => ({ payloadFromSetAction: null })
 );
 
-function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
-  const result = new Map<string, State>(stateMap);
+function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
+  const result = new Map<string, StoreState>(stateMap);
   const { sliceName, type } = action;
   const state = result.get(sliceName)!;
 

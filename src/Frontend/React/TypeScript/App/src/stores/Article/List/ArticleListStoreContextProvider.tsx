@@ -14,16 +14,16 @@ import {
 } from './ArticleListStoreContext';
 
 type ActionUnion = ArticleListStoreActionUnion;
-type State = ArticleListStoreState;
-type StateMap = Map<string, State>;
+type StoreState = ArticleListStoreState;
+type StoreStateMap = Map<string, StoreState>;
 
-const initialState = getModule().getStoreService().createInitialState<State>(
+const initialState = getModule().getStoreService().createInitialState<StoreState>(
   [ArticleListStoreSliceName.ArticleTableView],
-  () => createOperationState<State>({ payloadFromLoadAction: null, payloadFromSetAction: null })
+  () => createOperationState<StoreState>({ payloadFromLoadAction: null, payloadFromSetAction: null })
 );
 
-function reducer (stateMap: StateMap, action: ActionUnion): StateMap {
-  const result = new Map<string, State>(stateMap);
+function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
+  const result = new Map<string, StoreState>(stateMap);
   const { sliceName, type } = action;
   const state = result.get(sliceName)!;
 
