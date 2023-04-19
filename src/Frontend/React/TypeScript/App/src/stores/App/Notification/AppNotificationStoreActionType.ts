@@ -1,4 +1,4 @@
 export enum AppNotificationStoreActionType {
-  Clear = 1,
-  Set = 2
+  Clear = 'Clear',
+  Set = 'Set'
 }

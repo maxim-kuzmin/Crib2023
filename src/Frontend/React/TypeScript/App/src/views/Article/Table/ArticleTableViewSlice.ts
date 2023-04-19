@@ -51,10 +51,8 @@ export function createArticleTableViewHooks (
     return hooks.useStoreState(sliceName);
   }
 
-  function useLoadActionOutput (options: LoadActionInput): LoadActionOutput {
-    const { topicId, pageNumber, pageSize, isCanceled, onActionCompleted } = options;
-
-    const { payloadFromSetAction, status } = useStoreState();
+  function useLoadActionOutput (input: LoadActionInput): LoadActionOutput {
+    const { topicId, pageNumber, pageSize, isCanceled, onActionCompleted } = input;
 
     const callback = useCallback((payload: ArticleListStoreSetActionPayload) => {
         console.log('MAKC:createArticleTableViewHooks:useLoadActionOutput:callback:payload', payload);
@@ -86,9 +84,11 @@ export function createArticleTableViewHooks (
       dispatchType: StoreDispatchType.Unmount
     });
 
+    const { payloadOfSetAction, statusOfLoadAction } = useStoreState();
+
     return {
-      loading: status === OperationStatus.Pending,
-      payload: payloadFromSetAction
+      loading: statusOfLoadAction === OperationStatus.Pending,
+      payload: payloadOfSetAction
     };
   }
 

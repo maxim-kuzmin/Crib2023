@@ -15,14 +15,22 @@ import {
   type ArticleItemStoreLoadActionDispatch,
   type ArticleItemStoreLoadActionOptions,
   type ArticleItemStoreLoadActionPayload,
+  type ArticleItemStoreLoadCompletedActionCallback,
+  type ArticleItemStoreLoadCompletedActionDispatch,
+  type ArticleItemStoreLoadCompletedActionOptions,
+  type ArticleItemStoreLoadCompletedActionPayload,
+  type ArticleItemStoreSaveActionDispatch,
+  type ArticleItemStoreSaveActionOptions,
+  type ArticleItemStoreSaveActionPayload,
+  type ArticleItemStoreSaveCompletedActionCallback,
+  type ArticleItemStoreSaveCompletedActionDispatch,
+  type ArticleItemStoreSaveCompletedActionOptions,
+  type ArticleItemStoreSaveCompletedActionPayload,
   type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreSetActionDispatch,
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionPayload,
-  type ArticleItemStoreState,
-  type ArticleItemStoreSaveActionDispatch,
-  type ArticleItemStoreSaveActionOptions,
-  type ArticleItemStoreSaveActionPayload
+  type ArticleItemStoreState
 } from '../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../common';
 import {
@@ -35,11 +43,13 @@ import {
   createArticleDomainItemSaveOperationRequest
 } from '../../../domains';
 import {
+  type ArticleItemStoreClearAction,
   type ArticleItemStoreDeleteAction,
   type ArticleItemStoreDeleteCompletedAction,
-  type ArticleItemStoreClearAction,
   type ArticleItemStoreLoadAction,
+  type ArticleItemStoreLoadCompletedAction,
   type ArticleItemStoreSaveAction,
+  type ArticleItemStoreSaveCompletedAction,
   type ArticleItemStoreSetAction
 } from './Actions';
 import { ArticleItemStoreActionType } from './ArticleItemStoreActionType';
@@ -79,10 +89,22 @@ type LoadActionDispatch = ArticleItemStoreLoadActionDispatch;
 type LoadActionOptions = ArticleItemStoreLoadActionOptions;
 type LoadActionPayload = ArticleItemStoreLoadActionPayload;
 
+type LoadCompletedAction = ArticleItemStoreLoadCompletedAction;
+type LoadCompletedActionCallback = ArticleItemStoreLoadCompletedActionCallback;
+type LoadCompletedActionDispatch = ArticleItemStoreLoadCompletedActionDispatch;
+type LoadCompletedActionOptions = ArticleItemStoreLoadCompletedActionOptions;
+type LoadCompletedActionPayload = ArticleItemStoreLoadCompletedActionPayload;
+
 type SaveAction = ArticleItemStoreSaveAction;
 type SaveActionDispatch = ArticleItemStoreSaveActionDispatch;
 type SaveActionOptions = ArticleItemStoreSaveActionOptions;
 type SaveActionPayload = ArticleItemStoreSaveActionPayload;
+
+type SaveCompletedAction = ArticleItemStoreSaveCompletedAction;
+type SaveCompletedActionCallback = ArticleItemStoreSaveCompletedActionCallback;
+type SaveCompletedActionDispatch = ArticleItemStoreSaveCompletedActionDispatch;
+type SaveCompletedActionOptions = ArticleItemStoreSaveCompletedActionOptions;
+type SaveCompletedActionPayload = ArticleItemStoreSaveCompletedActionPayload;
 
 type SaveOperationRequestHandler = ArticleDomainItemSaveOperationRequestHandler;
 
@@ -142,9 +164,31 @@ function createLoadAction (sliceName: string, payload: LoadActionPayload): LoadA
   };
 };
 
+function createLoadCompletedAction (
+  sliceName: string,
+  payload: LoadCompletedActionPayload
+): LoadCompletedAction {
+  return {
+    type: ArticleItemStoreActionType.LoadCompleted,
+    payload,
+    sliceName
+  };
+};
+
 function createSaveAction (sliceName: string, payload: SaveActionPayload): SaveAction {
   return {
     type: ArticleItemStoreActionType.Save,
+    payload,
+    sliceName
+  };
+};
+
+function createSaveCompletedAction (
+  sliceName: string,
+  payload: SaveCompletedActionPayload
+): SaveCompletedAction {
+  return {
+    type: ArticleItemStoreActionType.SaveCompleted,
     payload,
     sliceName
   };
@@ -219,6 +263,46 @@ function runDeleteCompletedAction ({
   sliceName
 }: RunDeleteCompletedActionOptions) {
   dispatch(createDeleteCompletedAction(sliceName, payload));
+
+  if (callback) {
+    callback(payload);
+  }
+}
+
+interface RunLoadCompletedActionOptions {
+  readonly callback?: LoadCompletedActionCallback;
+  readonly dispatch: Dispatch<ActionUnion>;
+  readonly payload: LoadCompletedActionPayload;
+  readonly sliceName: string;
+}
+
+function runLoadCompletedAction ({
+  callback,
+  dispatch,
+  payload,
+  sliceName
+}: RunLoadCompletedActionOptions) {
+  dispatch(createLoadCompletedAction(sliceName, payload));
+
+  if (callback) {
+    callback(payload);
+  }
+}
+
+interface RunSaveCompletedActionOptions {
+  readonly callback?: SaveCompletedActionCallback;
+  readonly dispatch: Dispatch<ActionUnion>;
+  readonly payload: SaveCompletedActionPayload;
+  readonly sliceName: string;
+}
+
+function runSaveCompletedAction ({
+  callback,
+  dispatch,
+  payload,
+  sliceName
+}: RunSaveCompletedActionOptions) {
+  dispatch(createSaveCompletedAction(sliceName, payload));
 
   if (callback) {
     callback(payload);
@@ -310,7 +394,7 @@ async function runLoadAction ({
     return;
   }
 
-  runSetAction({ sliceName, dispatch, callback, payload: response });
+  runLoadCompletedAction({ sliceName, dispatch, callback, payload: response });
 }
 
 interface RunSaveActionOptions {
@@ -344,7 +428,7 @@ async function runSaveAction ({
     return;
   }
 
-  runSetAction({ sliceName, dispatch, callback, payload: response });
+  runSaveCompletedAction({ sliceName, dispatch, callback, payload: response });
 }
 
 function useClearActionDispatch (
@@ -352,7 +436,7 @@ function useClearActionDispatch (
   {
     callback,
     dispatchType
-  }: ClearActionOptions
+  }: ClearActionOptions = {}
 ): ClearActionDispatch {
   const dispatch = useDispatchContext();
 
@@ -382,7 +466,7 @@ function useDeleteActionDispatch (
     dispatchType,
     isCanceled,
     payload
-  }: DeleteActionOptions
+  }: DeleteActionOptions = {}
 ): DeleteActionDispatch {
   const dispatch = useDispatchContext();
 
@@ -440,7 +524,7 @@ function useDeleteCompletedActionDispatch (
     callback,
     dispatchType,
     payload
-  }: DeleteCompletedActionOptions
+  }: DeleteCompletedActionOptions = {}
 ): DeleteCompletedActionDispatch {
   const dispatch = useDispatchContext();
 
@@ -472,7 +556,7 @@ function useLoadActionDispatch (
     dispatchType,
     isCanceled,
     payload
-  }: LoadActionOptions
+  }: LoadActionOptions = {}
 ): LoadActionDispatch {
   const dispatch = useDispatchContext();
 
@@ -520,6 +604,37 @@ function useLoadActionDispatch (
         shouldBeCanceled,
         payload
       });
+    }
+  }).current;
+}
+
+function useLoadCompletedActionDispatch (
+  sliceName: string,
+  {
+    callback,
+    dispatchType,
+    payload
+  }: LoadCompletedActionOptions = {}
+): LoadCompletedActionDispatch {
+  const dispatch = useDispatchContext();
+
+  const payloadInner = payload ?? null;
+
+  useEffect(() => {
+    if (dispatchType === StoreDispatchType.MountOrUpdate) {
+      runLoadCompletedAction({ sliceName, dispatch, callback, payload: payloadInner });
+    };
+
+    return () => {
+      if (dispatchType === StoreDispatchType.Unmount) {
+        runLoadCompletedAction({ sliceName, dispatch, callback, payload: payloadInner });
+      }
+    };
+  }, [sliceName, dispatch, dispatchType, callback, payloadInner]);
+
+  return useRef({
+    run: (payload: LoadCompletedActionPayload) => {
+      runLoadCompletedAction({ sliceName, dispatch, callback, payload });
     }
   }).current;
 }
@@ -583,6 +698,37 @@ function useSaveActionDispatch (
   }).current;
 }
 
+function useSaveCompletedActionDispatch (
+  sliceName: string,
+  {
+    callback,
+    dispatchType,
+    payload
+  }: SaveCompletedActionOptions = {}
+): SaveCompletedActionDispatch {
+  const dispatch = useDispatchContext();
+
+  const payloadInner = payload ?? null;
+
+  useEffect(() => {
+    if (dispatchType === StoreDispatchType.MountOrUpdate) {
+      runSaveCompletedAction({ sliceName, dispatch, callback, payload: payloadInner });
+    };
+
+    return () => {
+      if (dispatchType === StoreDispatchType.Unmount) {
+        runSaveCompletedAction({ sliceName, dispatch, callback, payload: payloadInner });
+      }
+    };
+  }, [sliceName, dispatch, dispatchType, callback, payloadInner]);
+
+  return useRef({
+    run: (payload: SaveCompletedActionPayload) => {
+      runSaveCompletedAction({ sliceName, dispatch, callback, payload });
+    }
+  }).current;
+}
+
 function useSetActionDispatch (
   sliceName: string,
   {
@@ -620,7 +766,9 @@ export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
     useDeleteActionDispatch,
     useDeleteCompletedActionDispatch,
     useLoadActionDispatch,
+    useLoadCompletedActionDispatch,
     useSaveActionDispatch,
+    useSaveCompletedActionDispatch,
     useSetActionDispatch,
     useStoreState
   };

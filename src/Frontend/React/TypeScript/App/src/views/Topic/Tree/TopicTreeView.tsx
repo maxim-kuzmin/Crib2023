@@ -43,8 +43,8 @@ function TopicTreeView () {
   const topicItemStoreHooks = getModule().getTopicItemViewHooks();
 
   const {
-    payloadFromSetAction: topicItemResponse,
-    status: topicItemStatus
+    payloadOfSetAction: topicItemResponse,
+    statusOfLoadAction: topicItemStatus
   } = topicItemStoreHooks.useStoreState();
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;

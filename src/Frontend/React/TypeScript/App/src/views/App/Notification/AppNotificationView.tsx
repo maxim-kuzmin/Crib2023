@@ -10,7 +10,7 @@ function AppNotificationView () {
 
   const appNotificationViewHooks = getModule().getAppNotificationViewHooks();
 
-  const { payloadFromSetAction: data } = appNotificationViewHooks.useStoreState();
+  const { payloadOfSetAction: data } = appNotificationViewHooks.useStoreState();
 
   const callback = useCallback(() => {
       if (data) {

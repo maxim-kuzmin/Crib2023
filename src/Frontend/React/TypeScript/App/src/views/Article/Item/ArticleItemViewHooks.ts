@@ -2,9 +2,9 @@ import {
   type ArticleItemStoreClearActionDispatch,
   type ArticleItemStoreClearActionOptions,
   type ArticleItemStoreDeleteActionDispatch,
-  type ArticleItemStoreDeleteActionInput,
+  // //makc//type ArticleItemStoreDeleteActionInput,
   type ArticleItemStoreDeleteActionOptions,
-  type ArticleItemStoreDeleteActionOutput,
+  // //makc//type ArticleItemStoreDeleteActionOutput,
   type ArticleItemStoreDeleteCompletedActionDispatch,
   type ArticleItemStoreDeleteCompletedActionOptions,
   type ArticleItemStoreLoadActionDispatch,
@@ -12,9 +12,9 @@ import {
   type ArticleItemStoreLoadActionOptions,
   type ArticleItemStoreLoadActionOutput,
   type ArticleItemStoreSaveActionDispatch,
-  type ArticleItemStoreSaveActionInput,
+  // //makc//type ArticleItemStoreSaveActionInput,
   type ArticleItemStoreSaveActionOptions,
-  type ArticleItemStoreSaveActionOutput,
+  // //makc//type ArticleItemStoreSaveActionOutput,
   type ArticleItemStoreSetActionDispatch,
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreState
@@ -24,9 +24,9 @@ type ClearActionDispatch = ArticleItemStoreClearActionDispatch;
 type ClearActionOptions = ArticleItemStoreClearActionOptions;
 
 type DeleteActionDispatch = ArticleItemStoreDeleteActionDispatch;
-type DeleteActionInput = ArticleItemStoreDeleteActionInput;
+// //makc//type DeleteActionInput = ArticleItemStoreDeleteActionInput;
 type DeleteActionOptions = ArticleItemStoreDeleteActionOptions;
-type DeleteActionOutput = ArticleItemStoreDeleteActionOutput;
+// //makc//type DeleteActionOutput = ArticleItemStoreDeleteActionOutput;
 
 type DeleteCompletedActionDispatch = ArticleItemStoreDeleteCompletedActionDispatch;
 type DeleteCompletedActionOptions = ArticleItemStoreDeleteCompletedActionOptions;
@@ -37,9 +37,9 @@ type LoadActionOptions = ArticleItemStoreLoadActionOptions;
 type LoadActionOutput = ArticleItemStoreLoadActionOutput;
 
 type SaveActionDispatch = ArticleItemStoreSaveActionDispatch;
-type SaveActionInput = ArticleItemStoreSaveActionInput;
+// //makc//type SaveActionInput = ArticleItemStoreSaveActionInput;
 type SaveActionOptions = ArticleItemStoreSaveActionOptions;
-type SaveActionOutput = ArticleItemStoreSaveActionOutput;
+// //makc//type SaveActionOutput = ArticleItemStoreSaveActionOutput;
 
 type SetActionDispatch = ArticleItemStoreSetActionDispatch;
 type SetActionOptions = ArticleItemStoreSetActionOptions;
@@ -49,10 +49,10 @@ type StoreState = ArticleItemStoreState;
 export interface ArticleItemViewHooks {
   readonly useClearActionDispatch: (options: ClearActionOptions) => ClearActionDispatch;
   readonly useDeleteActionDispatch: (options: DeleteActionOptions) => DeleteActionDispatch;
-  readonly useDeleteActionOutput: (input: DeleteActionInput) => DeleteActionOutput;
+  // //makc//readonly useDeleteActionOutput: (input: DeleteActionInput) => DeleteActionOutput;
   readonly useDeleteCompletedActionDispatch: (options: DeleteCompletedActionOptions) => DeleteCompletedActionDispatch;
   readonly useSaveActionDispatch: (options: SaveActionOptions) => SaveActionDispatch;
-  readonly useSaveActionOutput: (input: SaveActionInput) => SaveActionOutput;
+  // //makc//readonly useSaveActionOutput: (input: SaveActionInput) => SaveActionOutput;
   readonly useLoadActionDispatch: (options: LoadActionOptions) => LoadActionDispatch;
   readonly useLoadActionOutput: (input: LoadActionInput) => LoadActionOutput;
   readonly useSetActionDispatch: (options: SetActionOptions) => SetActionDispatch;

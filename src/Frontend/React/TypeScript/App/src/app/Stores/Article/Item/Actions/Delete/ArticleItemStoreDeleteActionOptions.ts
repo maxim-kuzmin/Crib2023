@@ -4,5 +4,5 @@ import { type ArticleItemStoreDeleteActionPayload } from './ArticleItemStoreDele
 
 export interface ArticleItemStoreDeleteActionOptions extends StoreActionOptions {
   readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
-  readonly payload: ArticleItemStoreDeleteActionPayload;
+  readonly payload?: ArticleItemStoreDeleteActionPayload;
 }

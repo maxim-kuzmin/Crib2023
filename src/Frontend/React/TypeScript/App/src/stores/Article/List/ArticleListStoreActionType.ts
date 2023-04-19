@@ -1,5 +1,5 @@
 export enum ArticleListStoreActionType {
-  Clear = 1,
-  Load = 2,
-  Set = 3
+  Clear = 'Clear',
+  Load = 'Load',
+  Set = 'Set'
 }

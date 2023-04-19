@@ -51,10 +51,8 @@ export function createTopicTreeViewHooks (
     return hooks.useStoreState(sliceName);
   }
 
-  function useLoadActionOutput (options: LoadActionInput): LoadActionOutput {
-    const { axis, sortField, sortDirection, topicId, isCanceled, onActionCompleted } = options;
-
-    const { payloadFromSetAction, status } = useStoreState();
+  function useLoadActionOutput (input: LoadActionInput): LoadActionOutput {
+    const { axis, sortField, sortDirection, topicId, isCanceled, onActionCompleted } = input;
 
     const callback = useCallback((payload: TopicTreeStoreSetActionPayload) => {
         console.log('MAKC:createTopicTreeViewHooks:useLoadActionOutput:callback:payload', payload);
@@ -87,9 +85,11 @@ export function createTopicTreeViewHooks (
       dispatchType: StoreDispatchType.Unmount
     });
 
+    const { payloadOfSetAction, statusOfLoadAction } = useStoreState();
+
     return {
-      loading: status === OperationStatus.Pending,
-      payload: payloadFromSetAction
+      loading: statusOfLoadAction === OperationStatus.Pending,
+      payload: payloadOfSetAction
     };
   }
 

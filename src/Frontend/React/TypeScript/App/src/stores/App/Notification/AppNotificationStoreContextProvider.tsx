@@ -18,7 +18,7 @@ type StoreStateMap = Map<string, StoreState>;
 
 const initialState = getModule().getStoreService().createInitialState<StoreState>(
   [AppNotificationStoreSliceName.AppNotificationView],
-  () => ({ payloadFromSetAction: null })
+  () => ({ payloadOfSetAction: null })
 );
 
 function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
@@ -31,7 +31,7 @@ function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
       result.set(sliceName, initialState.get(sliceName)!);
       break;
     case AppNotificationStoreActionType.Set:
-      result.set(sliceName, { ...state, payloadFromSetAction: action.payload });
+      result.set(sliceName, { ...state, payloadOfSetAction: action.payload });
       break;
   }
 

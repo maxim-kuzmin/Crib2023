@@ -1,6 +1,6 @@
 export enum OperationStatus {
-    Initial = 1,
-    Fulfilled = 2,
-    Pending = 3,
-    Rejected = 4
+    Initial = 'Initial',
+    Fulfilled = 'Fulfilled',
+    Pending = 'Pending',
+    Rejected = 'Rejected'
 }

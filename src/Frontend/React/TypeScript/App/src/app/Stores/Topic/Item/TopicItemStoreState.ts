@@ -1,7 +1,8 @@
-import { type OperationState } from '../../../../common';
+import { type OperationStatus } from '../../../../common';
 import { type TopicItemStoreLoadActionPayload, type TopicItemStoreSetActionPayload } from './Actions';
 
-export interface TopicItemStoreState extends OperationState {
-  payloadFromLoadAction: TopicItemStoreLoadActionPayload;
-  payloadFromSetAction: TopicItemStoreSetActionPayload;
+export interface TopicItemStoreState {
+  payloadOfLoadAction: TopicItemStoreLoadActionPayload;
+  payloadOfSetAction: TopicItemStoreSetActionPayload;
+  statusOfLoadAction: OperationStatus;
 }

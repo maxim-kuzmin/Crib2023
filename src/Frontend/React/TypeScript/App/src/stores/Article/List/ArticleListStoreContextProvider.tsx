@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import { getModule } from '../../../app/ModuleImpl';
 import { ArticleListStoreSliceName, type ArticleListStoreState } from '../../../app/Stores';
-import { OperationStatus, createOperationState } from '../../../common';
+import { OperationStatus } from '../../../common';
 import { ArticleListStoreActionType } from './ArticleListStoreActionType';
 import { type ArticleListStoreActionUnion } from './ArticleListStoreActionUnion';
 import {
@@ -19,7 +19,11 @@ type StoreStateMap = Map<string, StoreState>;
 
 const initialState = getModule().getStoreService().createInitialState<StoreState>(
   [ArticleListStoreSliceName.ArticleTableView],
-  () => createOperationState<StoreState>({ payloadFromLoadAction: null, payloadFromSetAction: null })
+  () => ({
+    payloadOfLoadAction: null,
+    payloadOfSetAction: null,
+    statusOfLoadAction: OperationStatus.Initial
+  })
 );
 
 function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
@@ -32,10 +36,24 @@ function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
       result.set(sliceName, initialState.get(sliceName)!);
       break;
     case ArticleListStoreActionType.Load:
-      result.set(sliceName, { ...state, payloadFromLoadAction: action.payload, status: OperationStatus.Pending });
+      result.set(
+        sliceName,
+        {
+          ...state,
+          payloadOfLoadAction: action.payload,
+          statusOfLoadAction: OperationStatus.Pending
+        }
+      );
       break;
     case ArticleListStoreActionType.Set:
-      result.set(sliceName, { ...state, payloadFromSetAction: action.payload, status: OperationStatus.Fulfilled });
+      result.set(
+        sliceName,
+        {
+          ...state,
+          payloadOfSetAction: action.payload,
+          statusOfLoadAction: OperationStatus.Fulfilled
+        }
+      );
       break;
   }
 

@@ -3,6 +3,6 @@ import { type ArticleItemStoreDeleteCompletedActionCallback } from './ArticleIte
 import { type ArticleItemStoreDeleteCompletedActionPayload } from './ArticleItemStoreDeleteCompletedActionPayload';
 
 export interface ArticleItemStoreDeleteCompletedActionOptions extends StoreActionOptions {
-  callback?: ArticleItemStoreDeleteCompletedActionCallback;
-  payload?: ArticleItemStoreDeleteCompletedActionPayload;
+  readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
+  readonly payload?: ArticleItemStoreDeleteCompletedActionPayload;
 }
