@@ -1,26 +1,34 @@
-import { type Dispatch, useEffect, useRef } from 'react';
+import { type Dispatch, useEffect, useRef, useCallback, useMemo } from 'react';
 import { getModule } from '../../../app/ModuleImpl';
 import {
+  type ArticleItemStoreClearActionCallback,
+  type ArticleItemStoreClearActionDispatch,
+  type ArticleItemStoreClearActionInput,
+  type ArticleItemStoreClearActionOptions,
+  type ArticleItemStoreClearActionOutput,
   type ArticleItemStoreDeleteActionDispatch,
+  type ArticleItemStoreDeleteActionInput,
   type ArticleItemStoreDeleteActionOptions,
+  type ArticleItemStoreDeleteActionOutput,
   type ArticleItemStoreDeleteActionPayload,
   type ArticleItemStoreDeleteCompletedActionCallback,
   type ArticleItemStoreDeleteCompletedActionDispatch,
   type ArticleItemStoreDeleteCompletedActionOptions,
   type ArticleItemStoreDeleteCompletedActionPayload,
-  type ArticleItemStoreClearActionCallback,
-  type ArticleItemStoreClearActionDispatch,
-  type ArticleItemStoreClearActionOptions,
   type ArticleItemStoreHooks,
   type ArticleItemStoreLoadActionDispatch,
+  type ArticleItemStoreLoadActionInput,
   type ArticleItemStoreLoadActionOptions,
+  type ArticleItemStoreLoadActionOutput,
   type ArticleItemStoreLoadActionPayload,
   type ArticleItemStoreLoadCompletedActionCallback,
   type ArticleItemStoreLoadCompletedActionDispatch,
   type ArticleItemStoreLoadCompletedActionOptions,
   type ArticleItemStoreLoadCompletedActionPayload,
   type ArticleItemStoreSaveActionDispatch,
+  type ArticleItemStoreSaveActionInput,
   type ArticleItemStoreSaveActionOptions,
+  type ArticleItemStoreSaveActionOutput,
   type ArticleItemStoreSaveActionPayload,
   type ArticleItemStoreSaveCompletedActionCallback,
   type ArticleItemStoreSaveCompletedActionDispatch,
@@ -28,11 +36,13 @@ import {
   type ArticleItemStoreSaveCompletedActionPayload,
   type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreSetActionDispatch,
+  type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOptions,
+  type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreSetActionPayload,
   type ArticleItemStoreState
 } from '../../../app/Stores';
-import { type ShouldBeCanceled, StoreDispatchType } from '../../../common';
+import { type ShouldBeCanceled, StoreDispatchType, OperationStatus } from '../../../common';
 import {
   type ArticleDomainItemGetOperationInput,
   type ArticleDomainItemGetOperationRequestHandler,
@@ -67,11 +77,15 @@ type ActionUnion = ArticleItemStoreActionUnion;
 type ClearAction = ArticleItemStoreClearAction;
 type ClearActionCallback = ArticleItemStoreClearActionCallback;
 type ClearActionDispatch = ArticleItemStoreClearActionDispatch;
+type ClearActionInput = ArticleItemStoreClearActionInput;
 type ClearActionOptions = ArticleItemStoreClearActionOptions;
+type ClearActionOutput = ArticleItemStoreClearActionOutput;
 
 type DeleteAction = ArticleItemStoreDeleteAction;
 type DeleteActionDispatch = ArticleItemStoreDeleteActionDispatch;
+type DeleteActionInput = ArticleItemStoreDeleteActionInput;
 type DeleteActionOptions = ArticleItemStoreDeleteActionOptions;
+type DeleteActionOutput = ArticleItemStoreDeleteActionOutput;
 type DeleteActionPayload = ArticleItemStoreDeleteActionPayload;
 
 type DeleteCompletedAction = ArticleItemStoreDeleteCompletedAction;
@@ -86,7 +100,9 @@ type GetOperationRequestHandler = ArticleDomainItemGetOperationRequestHandler;
 
 type LoadAction = ArticleItemStoreLoadAction;
 type LoadActionDispatch = ArticleItemStoreLoadActionDispatch;
+type LoadActionInput = ArticleItemStoreLoadActionInput;
 type LoadActionOptions = ArticleItemStoreLoadActionOptions;
+type LoadActionOutput = ArticleItemStoreLoadActionOutput;
 type LoadActionPayload = ArticleItemStoreLoadActionPayload;
 
 type LoadCompletedAction = ArticleItemStoreLoadCompletedAction;
@@ -97,7 +113,9 @@ type LoadCompletedActionPayload = ArticleItemStoreLoadCompletedActionPayload;
 
 type SaveAction = ArticleItemStoreSaveAction;
 type SaveActionDispatch = ArticleItemStoreSaveActionDispatch;
+type SaveActionInput = ArticleItemStoreSaveActionInput;
 type SaveActionOptions = ArticleItemStoreSaveActionOptions;
+type SaveActionOutput = ArticleItemStoreSaveActionOutput;
 type SaveActionPayload = ArticleItemStoreSaveActionPayload;
 
 type SaveCompletedAction = ArticleItemStoreSaveCompletedAction;
@@ -111,7 +129,9 @@ type SaveOperationRequestHandler = ArticleDomainItemSaveOperationRequestHandler;
 type SetAction = ArticleItemStoreSetAction;
 type SetActionCallback = ArticleItemStoreSetActionCallback;
 type SetActionDispatch = ArticleItemStoreSetActionDispatch;
+type SetActionInput = ArticleItemStoreSetActionInput;
 type SetActionOptions = ArticleItemStoreSetActionOptions;
+type SetActionOutput = ArticleItemStoreSetActionOutput;
 type SetActionPayload = ArticleItemStoreSetActionPayload;
 
 type StoreState = ArticleItemStoreState;
@@ -760,16 +780,145 @@ function useSetActionDispatch (
   }).current;
 }
 
+function useClearActionOutput (sliceName: string, input: ClearActionInput): ClearActionOutput {
+  const { onActionCompleted } = input;
+
+  const callback = useCallback(() => {
+      if (onActionCompleted) {
+        onActionCompleted();
+      }
+    },
+    [onActionCompleted]
+  );
+
+  const dispatchOfClearAction = useClearActionDispatch(
+    sliceName,
+    {
+      callback,
+      dispatchType: StoreDispatchType.Unmount
+    }
+  );
+
+  return { dispatchOfClearAction };
+}
+
+function useDeleteActionOutput (sliceName: string, input: DeleteActionInput): DeleteActionOutput {
+  const { onActionCompleted } = input;
+
+  const callback = useCallback((payload: DeleteCompletedActionPayload) => {
+      if (onActionCompleted) {
+        onActionCompleted(payload);
+      }
+    },
+    [onActionCompleted]
+  );
+
+  const dispatchOfDeleteAction = useDeleteActionDispatch(sliceName, { callback });
+
+  const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(sliceName);
+
+  return {
+    dispatchOfDeleteAction,
+    payloadOfDeleteCompletedAction,
+    pendingOfDeleteAction: statusOfDeleteAction === OperationStatus.Pending
+  };
+}
+
+function useLoadActionOutput (sliceName: string, input: LoadActionInput): LoadActionOutput {
+  const { articleId, isCanceled, onActionCompleted } = input;
+
+  const callback = useCallback((payload: LoadCompletedActionPayload) => {
+      if (onActionCompleted) {
+        onActionCompleted(payload);
+      }
+    },
+    [onActionCompleted]
+  );
+
+  const payload: ArticleDomainItemGetOperationInput = useMemo(
+    () => ({
+      id: articleId
+    }),
+    [articleId]
+  );
+
+  const dispatchOfLoadAction = useLoadActionDispatch(
+    sliceName,
+    {
+      dispatchType: StoreDispatchType.MountOrUpdate,
+      callback,
+      isCanceled,
+      payload
+    }
+  );
+
+  const { payloadOfLoadCompletedAction, statusOfLoadAction } = useStoreState(sliceName);
+
+  return {
+    dispatchOfLoadAction,
+    payloadOfLoadCompletedAction,
+    pendingOfLoadAction: statusOfLoadAction === OperationStatus.Pending
+  };
+}
+
+function useSaveActionOutput (sliceName: string, input: SaveActionInput): SaveActionOutput {
+  const { onActionCompleted } = input;
+
+  const callback = useCallback((payload: SaveCompletedActionPayload) => {
+      if (onActionCompleted) {
+        onActionCompleted(payload);
+      }
+    },
+    [onActionCompleted]
+  );
+
+  const dispatchOfSaveAction = useSaveActionDispatch(sliceName, { callback });
+
+  const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(sliceName);
+
+  return {
+    dispatchOfSaveAction,
+    payloadOfSaveCompletedAction,
+    pendingOfSaveAction: statusOfSaveAction === OperationStatus.Pending
+  };
+}
+
+function useSetActionOutput (sliceName: string, input: SetActionInput): SetActionOutput {
+  const { onActionCompleted } = input;
+
+  const callback = useCallback((payload: SetActionPayload) => {
+      if (onActionCompleted) {
+        onActionCompleted(payload);
+      }
+    },
+    [onActionCompleted]
+  );
+
+  const dispatchOfSetAction = useSetActionDispatch(sliceName, { callback });
+
+  const { payloadOfSetAction } = useStoreState(sliceName);
+
+  return {
+    dispatchOfSetAction,
+    payloadOfSetAction
+  };
+}
+
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   return {
     useClearActionDispatch,
+    useClearActionOutput,
     useDeleteActionDispatch,
+    useDeleteActionOutput,
     useDeleteCompletedActionDispatch,
     useLoadActionDispatch,
+    useLoadActionOutput,
     useLoadCompletedActionDispatch,
     useSaveActionDispatch,
+    useSaveActionOutput,
     useSaveCompletedActionDispatch,
     useSetActionDispatch,
+    useSetActionOutput,
     useStoreState
   };
 }
