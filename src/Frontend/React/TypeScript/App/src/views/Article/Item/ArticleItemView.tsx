@@ -13,15 +13,22 @@ import styles from './ArticleItemView.module.css';
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({
   articleId,
+  onArticleItemClearActionCompleted,
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps) {
-  const { loading, payload } = getModule().getArticleItemViewHooks().useLoadActionOutput({
+  const hooks = getModule().getArticleItemViewHooks();
+
+  hooks.useClearActionOutput({
+    onActionCompleted: onArticleItemClearActionCompleted
+  });
+
+  const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooks.useLoadActionOutput({
     articleId,
     onActionCompleted: onArticleItemLoadActionCompleted
   });
 
-  const entity = payload?.data?.item.data;
+  const entity = payloadOfLoadCompletedAction?.data?.item.data;
 
   const controlActions: CardControlAction[] = useMemo(
     () => {
@@ -70,7 +77,7 @@ function ArticleItemView ({
           ? <CardControl
               controlActions={controlActions}
               controlExtra={controlExtra}
-              loading={loading}
+              loading={pendingOfLoadAction}
               title={entity.title}
               type={CardControlType.Main}
             >

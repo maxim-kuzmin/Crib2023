@@ -1,8 +1,12 @@
 import { type PropsWithChildren } from 'react';
-import { type ArticleItemStoreSetActionPayload } from '../../../app/Stores';
+import {
+  type ArticleItemStoreClearActionCallback,
+  type ArticleItemStoreLoadCompletedActionCallback
+} from '../../../app/Stores';
 
 export interface ArticleItemViewProps extends PropsWithChildren {
   articleId: number;
-  onArticleItemLoadActionCompleted: (payload: ArticleItemStoreSetActionPayload) => void;
+  onArticleItemClearActionCompleted?: ArticleItemStoreClearActionCallback;
+  onArticleItemLoadActionCompleted?: ArticleItemStoreLoadCompletedActionCallback;
   topicPageLastUrl?: string;
 }

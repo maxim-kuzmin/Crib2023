@@ -172,19 +172,13 @@ export class ApiClientImpl implements ApiClient {
 
     let error: ApiResponseError | null = null;
 
-    if (ok) {
-      responseWithData = value;
-
-      if (responseWithData) {
-        data = responseWithData.data;
-      }
-    } else {
+    if (!ok) {
       if (status === 400) {
-          responseWithDetails = value;
+        responseWithDetails = value;
 
-          if (responseWithDetails) {
-            responseDataWithDetails = responseWithDetails.data;
-          }
+        if (responseWithDetails) {
+          responseDataWithDetails = responseWithDetails.data;
+        }
       } else if (status === 500) {
           responseWithMessages = value;
 
@@ -194,6 +188,12 @@ export class ApiClientImpl implements ApiClient {
       }
 
       error = getModule().createApiResponseError(status, { responseDataWithDetails, responseDataWithMessages });
+    } else {
+      responseWithData = value;
+
+      if (responseWithData) {
+        data = responseWithData.data;
+      }
     }
 
     return {

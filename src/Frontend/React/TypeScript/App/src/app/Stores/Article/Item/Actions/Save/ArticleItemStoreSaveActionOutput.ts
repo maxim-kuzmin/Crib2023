@@ -1,6 +1,8 @@
-import { type ArticleItemStoreSetActionPayload } from '../Set';
+import { type ArticleItemStoreSaveCompletedActionPayload } from '../SaveCompleted';
+import { type ArticleItemStoreSaveActionDispatch } from './ArticleItemStoreSaveActionDispatch';
 
 export interface ArticleItemStoreSaveActionOutput {
-  readonly loading: boolean;
-  readonly payload: ArticleItemStoreSetActionPayload;
+  readonly dispatchOfSaveAction: ArticleItemStoreSaveActionDispatch;
+  readonly payloadOfSaveCompletedAction: ArticleItemStoreSaveCompletedActionPayload;
+  readonly pendingOfSaveAction: boolean;
 }

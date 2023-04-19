@@ -18,7 +18,7 @@ function ArticlePage ({
 
   const [topicId, setTopicId] = useState(getModule().getArticlePageService().getUrlSearch(searchParams).topicId);
 
-  const handleArticleItemLoaded = useCallback((payload: ArticleItemStoreSetActionPayload) => {
+  const handleArticleItemLoadActionCompleted = useCallback((payload: ArticleItemStoreSetActionPayload) => {
       if (mode !== ArticlePageMode.New) {
         setTopicId(payload?.data?.item?.data.topicId ?? 0);
       }
@@ -42,12 +42,12 @@ function ArticlePage ({
     mode === ArticlePageMode.Display
       ? <ArticleItemView
           articleId={articleId}
-          onArticleItemLoadActionCompleted={handleArticleItemLoaded}
+          onArticleItemLoadActionCompleted={handleArticleItemLoadActionCompleted}
           topicPageLastUrl={topicPageLastUrl}
         />
       : <ArticleItemEditView
           articleId={articleId}
-          onArticleItemLoadActionCompleted={handleArticleItemLoaded}
+          onArticleItemLoadActionCompleted={handleArticleItemLoadActionCompleted}
           topicId={topicId}
           topicPageLastUrl={topicPageLastUrl}
         />

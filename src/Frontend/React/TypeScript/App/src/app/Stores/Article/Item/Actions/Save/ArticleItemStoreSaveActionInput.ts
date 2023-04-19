@@ -1,8 +1,5 @@
-import { type ArticleTypeEntity } from '../../../../../../data';
-import { type ArticleItemStoreSetActionPayload } from '../Set';
+import { type ArticleItemStoreSaveCompletedActionCallback } from '../SaveCompleted';
 
 export interface ArticleItemStoreSaveActionInput {
-  readonly entity: ArticleTypeEntity;
-  readonly isCanceled?: boolean;
-  readonly onActionCompleted?: (payload: ArticleItemStoreSetActionPayload) => void;
+  readonly onActionCompleted?: ArticleItemStoreSaveCompletedActionCallback;
 }

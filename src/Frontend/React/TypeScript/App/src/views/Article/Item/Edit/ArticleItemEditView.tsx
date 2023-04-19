@@ -13,15 +13,22 @@ import styles from './ArticleItemEditView.module.css';
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({
   articleId,
+  onArticleItemClearActionCompleted,
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
-  const { loading, payload } = getModule().getArticleItemViewHooks().useLoadActionOutput({
+  const hooks = getModule().getArticleItemViewHooks();
+
+  hooks.useClearActionOutput({
+    onActionCompleted: onArticleItemClearActionCompleted
+  });
+
+  const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooks.useLoadActionOutput({
     articleId,
     onActionCompleted: onArticleItemLoadActionCompleted
   });
 
-  const entity = payload?.data?.item.data;
+  const entity = payloadOfLoadCompletedAction?.data?.item.data;
 
   const formValues = useMemo(
     () => getModule().getArticleItemEditViewService().convertToFormValues(entity),
@@ -124,7 +131,7 @@ function ArticleItemEditView ({
     <div className={styles.root}>
       <h2>{ articleId > 0 ? '@@ArticleEdit' : '@@ArticleNew' }</h2>
       {
-        loading
+        pendingOfLoadAction
           ? <SpinnerControl/>
           : <FormControl
               controlActions={controlActions}

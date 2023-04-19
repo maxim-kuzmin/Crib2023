@@ -1,60 +1,35 @@
 import {
-  type ArticleItemStoreClearActionDispatch,
-  type ArticleItemStoreClearActionOptions,
-  type ArticleItemStoreDeleteActionDispatch,
-  // //makc//type ArticleItemStoreDeleteActionInput,
-  type ArticleItemStoreDeleteActionOptions,
-  // //makc//type ArticleItemStoreDeleteActionOutput,
-  type ArticleItemStoreDeleteCompletedActionDispatch,
-  type ArticleItemStoreDeleteCompletedActionOptions,
-  type ArticleItemStoreLoadActionDispatch,
+  type ArticleItemStoreClearActionInput,
+  type ArticleItemStoreClearActionOutput,
+  type ArticleItemStoreDeleteActionInput,
+  type ArticleItemStoreDeleteActionOutput,
   type ArticleItemStoreLoadActionInput,
-  type ArticleItemStoreLoadActionOptions,
   type ArticleItemStoreLoadActionOutput,
-  type ArticleItemStoreSaveActionDispatch,
-  // //makc//type ArticleItemStoreSaveActionInput,
-  type ArticleItemStoreSaveActionOptions,
-  // //makc//type ArticleItemStoreSaveActionOutput,
-  type ArticleItemStoreSetActionDispatch,
-  type ArticleItemStoreSetActionOptions,
-  type ArticleItemStoreState
+  type ArticleItemStoreSaveActionInput,
+  type ArticleItemStoreSaveActionOutput,
+  type ArticleItemStoreSetActionInput,
+  type ArticleItemStoreSetActionOutput
 } from '../../../app/Stores';
 
-type ClearActionDispatch = ArticleItemStoreClearActionDispatch;
-type ClearActionOptions = ArticleItemStoreClearActionOptions;
+type ClearActionInput = ArticleItemStoreClearActionInput;
+type ClearActionOutput = ArticleItemStoreClearActionOutput;
 
-type DeleteActionDispatch = ArticleItemStoreDeleteActionDispatch;
-// //makc//type DeleteActionInput = ArticleItemStoreDeleteActionInput;
-type DeleteActionOptions = ArticleItemStoreDeleteActionOptions;
-// //makc//type DeleteActionOutput = ArticleItemStoreDeleteActionOutput;
+type DeleteActionInput = ArticleItemStoreDeleteActionInput;
+type DeleteActionOutput = ArticleItemStoreDeleteActionOutput;
 
-type DeleteCompletedActionDispatch = ArticleItemStoreDeleteCompletedActionDispatch;
-type DeleteCompletedActionOptions = ArticleItemStoreDeleteCompletedActionOptions;
-
-type LoadActionDispatch = ArticleItemStoreLoadActionDispatch;
 type LoadActionInput = ArticleItemStoreLoadActionInput;
-type LoadActionOptions = ArticleItemStoreLoadActionOptions;
 type LoadActionOutput = ArticleItemStoreLoadActionOutput;
 
-type SaveActionDispatch = ArticleItemStoreSaveActionDispatch;
-// //makc//type SaveActionInput = ArticleItemStoreSaveActionInput;
-type SaveActionOptions = ArticleItemStoreSaveActionOptions;
-// //makc//type SaveActionOutput = ArticleItemStoreSaveActionOutput;
+type SaveActionInput = ArticleItemStoreSaveActionInput;
+type SaveActionOutput = ArticleItemStoreSaveActionOutput;
 
-type SetActionDispatch = ArticleItemStoreSetActionDispatch;
-type SetActionOptions = ArticleItemStoreSetActionOptions;
-
-type StoreState = ArticleItemStoreState;
+type SetActionInput = ArticleItemStoreSetActionInput;
+type SetActionOutput = ArticleItemStoreSetActionOutput;
 
 export interface ArticleItemViewHooks {
-  readonly useClearActionDispatch: (options: ClearActionOptions) => ClearActionDispatch;
-  readonly useDeleteActionDispatch: (options: DeleteActionOptions) => DeleteActionDispatch;
-  // //makc//readonly useDeleteActionOutput: (input: DeleteActionInput) => DeleteActionOutput;
-  readonly useDeleteCompletedActionDispatch: (options: DeleteCompletedActionOptions) => DeleteCompletedActionDispatch;
-  readonly useSaveActionDispatch: (options: SaveActionOptions) => SaveActionDispatch;
-  // //makc//readonly useSaveActionOutput: (input: SaveActionInput) => SaveActionOutput;
-  readonly useLoadActionDispatch: (options: LoadActionOptions) => LoadActionDispatch;
+  readonly useClearActionOutput: (input: ClearActionInput) => ClearActionOutput;
+  readonly useDeleteActionOutput: (input: DeleteActionInput) => DeleteActionOutput;
   readonly useLoadActionOutput: (input: LoadActionInput) => LoadActionOutput;
-  readonly useSetActionDispatch: (options: SetActionOptions) => SetActionDispatch;
-  readonly useStoreState: () => StoreState;
+  readonly useSaveActionOutput: (input: SaveActionInput) => SaveActionOutput;
+  readonly useSetActionOutput: (input: SetActionInput) => SetActionOutput;
 }
