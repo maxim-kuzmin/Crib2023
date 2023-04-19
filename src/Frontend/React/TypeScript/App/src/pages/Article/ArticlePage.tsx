@@ -42,12 +42,12 @@ function ArticlePage ({
     mode === ArticlePageMode.Display
       ? <ArticleItemView
           articleId={articleId}
-          onArticleItemLoaded={handleArticleItemLoaded}
+          onArticleItemLoadActionCompleted={handleArticleItemLoaded}
           topicPageLastUrl={topicPageLastUrl}
         />
       : <ArticleItemEditView
           articleId={articleId}
-          onArticleItemLoaded={handleArticleItemLoaded}
+          onArticleItemLoadActionCompleted={handleArticleItemLoaded}
           topicId={topicId}
           topicPageLastUrl={topicPageLastUrl}
         />

@@ -52,18 +52,18 @@ export function createArticleItemViewHooks (
   }
 
   function useLoadActionOutput (options: LoadActionInput): LoadActionOutput {
-    const { articleId, isCanceled, onArticleItemLoaded } = options;
+    const { articleId, isCanceled, onActionCompleted } = options;
 
     const { payloadFromSetAction, status } = useStoreState();
 
     const callback = useCallback((payload: ArticleItemStoreSetActionPayload) => {
         console.log('MAKC:createArticleItemViewHooks:useLoadActionOutput:callback:payload', payload);
 
-        if (onArticleItemLoaded) {
-          onArticleItemLoaded(payload);
+        if (onActionCompleted) {
+          onActionCompleted(payload);
         }
       },
-      [onArticleItemLoaded]
+      [onActionCompleted]
     );
 
     const payload: ArticleDomainItemGetOperationInput = useMemo(

@@ -52,18 +52,18 @@ export function createTopicTreeViewHooks (
   }
 
   function useLoadActionOutput (options: LoadActionInput): LoadActionOutput {
-    const { axis, sortField, sortDirection, topicId, isCanceled, onTopicTreeLoaded } = options;
+    const { axis, sortField, sortDirection, topicId, isCanceled, onActionCompleted } = options;
 
     const { payloadFromSetAction, status } = useStoreState();
 
     const callback = useCallback((payload: TopicTreeStoreSetActionPayload) => {
         console.log('MAKC:createTopicTreeViewHooks:useLoadActionOutput:callback:payload', payload);
 
-        if (onTopicTreeLoaded) {
-          onTopicTreeLoaded(payload);
+        if (onActionCompleted) {
+          onActionCompleted(payload);
         }
       },
-      [onTopicTreeLoaded]
+      [onActionCompleted]
     );
 
     const payload: TopicDomainTreeGetOperationInput = useMemo(

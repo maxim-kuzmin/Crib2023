@@ -1,7 +1,8 @@
+import { type ArticleTypeEntity } from '../../../../../../data';
 import { type ArticleItemStoreSetActionPayload } from '../Set';
 
-export interface ArticleItemStoreLoadActionInput {
-  readonly articleId: number;
+export interface ArticleItemStoreSaveActionInput {
+  readonly entity: ArticleTypeEntity;
   readonly isCanceled?: boolean;
   readonly onActionCompleted?: (payload: ArticleItemStoreSetActionPayload) => void;
 }

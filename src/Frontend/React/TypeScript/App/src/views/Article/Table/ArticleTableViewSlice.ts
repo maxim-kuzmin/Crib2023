@@ -52,18 +52,18 @@ export function createArticleTableViewHooks (
   }
 
   function useLoadActionOutput (options: LoadActionInput): LoadActionOutput {
-    const { topicId, pageNumber, pageSize, isCanceled, onArticleListLoaded } = options;
+    const { topicId, pageNumber, pageSize, isCanceled, onActionCompleted } = options;
 
     const { payloadFromSetAction, status } = useStoreState();
 
     const callback = useCallback((payload: ArticleListStoreSetActionPayload) => {
         console.log('MAKC:createArticleTableViewHooks:useLoadActionOutput:callback:payload', payload);
 
-        if (onArticleListLoaded) {
-          onArticleListLoaded(payload);
+        if (onActionCompleted) {
+          onActionCompleted(payload);
         }
       },
-      [onArticleListLoaded]
+      [onActionCompleted]
     );
 
     const payload: ArticleDomainListGetOperationInput = useMemo(

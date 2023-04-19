@@ -13,12 +13,12 @@ import styles from './ArticleItemView.module.css';
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({
   articleId,
-  onArticleItemLoaded,
+  onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps) {
   const { loading, payload } = getModule().getArticleItemViewHooks().useLoadActionOutput({
     articleId,
-    onArticleItemLoaded
+    onActionCompleted: onArticleItemLoadActionCompleted
   });
 
   const entity = payload?.data?.item.data;

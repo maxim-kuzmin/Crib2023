@@ -7,5 +7,5 @@ export interface TopicTreeStoreLoadActionInput {
   readonly sortDirection?: 'asc' | 'desc';
   readonly topicId: number;
   readonly isCanceled?: boolean;
-  readonly onTopicTreeLoaded?: (payload: TopicTreeStoreSetActionPayload) => void;
+  readonly onActionCompleted?: (payload: TopicTreeStoreSetActionPayload) => void;
 }

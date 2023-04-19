@@ -52,18 +52,18 @@ export function createTopicItemViewHooks (
   }
 
   function useLoadActionOutput (options: LoadActionInput): LoadActionOutput {
-    const { topicId, isCanceled, onTopicItemLoaded } = options;
+    const { topicId, isCanceled, onActionCompleted } = options;
 
     const { payloadFromSetAction, status } = useStoreState();
 
     const callback = useCallback((payload: TopicItemStoreSetActionPayload) => {
         console.log('MAKC:createTopicItemViewHooks:useLoadActionOutput:callback:payload', payload);
 
-        if (onTopicItemLoaded) {
-          onTopicItemLoaded(payload);
+        if (onActionCompleted) {
+          onActionCompleted(payload);
         }
       },
-      [onTopicItemLoaded]
+      [onActionCompleted]
     );
 
     const payload: TopicDomainItemGetOperationInput = useMemo(

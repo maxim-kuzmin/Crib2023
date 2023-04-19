@@ -3,6 +3,6 @@ import { type ArticleItemStoreSetActionPayload } from '../../../app/Stores';
 
 export interface ArticleItemViewProps extends PropsWithChildren {
   articleId: number;
-  onArticleItemLoaded: (payload: ArticleItemStoreSetActionPayload) => void;
+  onArticleItemLoadActionCompleted: (payload: ArticleItemStoreSetActionPayload) => void;
   topicPageLastUrl?: string;
 }
