@@ -10,7 +10,7 @@ import { useStoreState } from '../../ArticleItemStoreStateHook';
 
 export function useSaveActionOutput (
   sliceName: string,
-  input: ArticleItemStoreSaveActionInput
+  input: ArticleItemStoreSaveActionInput = {}
 ): ArticleItemStoreSaveActionOutput {
   const { onActionCompleted } = input;
 

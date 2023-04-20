@@ -123,7 +123,7 @@ export function useLoadActionDispatch (
   async function run (
     payload: ArticleItemStoreLoadActionPayload,
     shouldBeCanceled: ShouldBeCanceled = () => false
-  ) {
+  ): Promise<void> {
     runLoadAction({
       callback,
       dispatch,
@@ -132,9 +132,11 @@ export function useLoadActionDispatch (
       shouldBeCanceled,
       sliceName
     });
+  }
+
+  const result: ArticleItemStoreLoadActionDispatch = {
+    run
   };
 
-  return useRef({
-    run
-  }).current;
+  return useRef(result).current;
 }

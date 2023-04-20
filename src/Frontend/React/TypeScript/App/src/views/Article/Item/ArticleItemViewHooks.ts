@@ -13,8 +13,8 @@ import {
 
 export interface ArticleItemViewHooks {
   readonly useClearActionOutput: (input: ArticleItemStoreClearActionInput) => ArticleItemStoreClearActionOutput;
-  readonly useDeleteActionOutput: (input: ArticleItemStoreDeleteActionInput) => ArticleItemStoreDeleteActionOutput;
+  readonly useDeleteActionOutput: (input?: ArticleItemStoreDeleteActionInput) => ArticleItemStoreDeleteActionOutput;
   readonly useLoadActionOutput: (input: ArticleItemStoreLoadActionInput) => ArticleItemStoreLoadActionOutput;
-  readonly useSaveActionOutput: (input: ArticleItemStoreSaveActionInput) => ArticleItemStoreSaveActionOutput;
+  readonly useSaveActionOutput: (input?: ArticleItemStoreSaveActionInput) => ArticleItemStoreSaveActionOutput;
   readonly useSetActionOutput: (input: ArticleItemStoreSetActionInput) => ArticleItemStoreSetActionOutput;
 }

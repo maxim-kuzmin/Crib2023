@@ -32,7 +32,7 @@ async function runSaveAction ({
   sliceName,
   payload,
   requestHandler
-}: RunOptions) {
+}: RunOptions): Promise<void> {
   if (shouldBeCanceled()) {
     return;
   }
@@ -123,7 +123,7 @@ export function useSaveActionDispatch (
   async function run (
     payload: ArticleItemStoreSaveActionPayload,
     shouldBeCanceled: ShouldBeCanceled = () => false
-  ) {
+  ): Promise<void> {
     runSaveAction({
       callback,
       dispatch,
@@ -134,7 +134,9 @@ export function useSaveActionDispatch (
     });
   }
 
-  return useRef({
+  const result: ArticleItemStoreSaveActionDispatch = {
     run
-  }).current;
+  };
+
+  return useRef(result).current;
 }

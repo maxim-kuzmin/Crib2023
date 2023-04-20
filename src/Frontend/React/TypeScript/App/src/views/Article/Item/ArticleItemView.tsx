@@ -38,7 +38,7 @@ function ArticleItemView ({
 
   const entity = payloadOfLoadCompletedAction?.data?.item.data;
 
-  // hooks.useDeleteActionOutput();
+  const { dispatchOfDeleteAction } = hooks.useDeleteActionOutput();
 
   const controlActions: CardControlAction[] = useMemo(
     () => {
@@ -63,7 +63,9 @@ function ArticleItemView ({
       result.push(actionToEdit);
 
       const actionToDelete: CardControlAction = {
-        onClick: () => { console.log('MAKC:ArticleItemView:delete', articleId) },
+        onClick: () => {
+          dispatchOfDeleteAction.run({ id: articleId });
+        },
         key: 'delete',
         title: '@@Delete'
       };
@@ -72,7 +74,11 @@ function ArticleItemView ({
 
       return result;
     },
-    [articleId, topicPageLastUrl]
+    [
+      articleId,
+      dispatchOfDeleteAction,
+      topicPageLastUrl
+    ]
   );
 
   const controlExtra: CardControlExtra = {

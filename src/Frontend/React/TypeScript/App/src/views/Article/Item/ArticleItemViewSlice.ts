@@ -21,7 +21,7 @@ export function createArticleItemViewHooks (hooks: ArticleItemStoreHooks): Artic
     return hooks.useClearActionOutput(sliceName, input);
   }
 
-  function useDeleteActionOutput (input: ArticleItemStoreDeleteActionInput): ArticleItemStoreDeleteActionOutput {
+  function useDeleteActionOutput (input?: ArticleItemStoreDeleteActionInput): ArticleItemStoreDeleteActionOutput {
     return hooks.useDeleteActionOutput(sliceName, input);
   }
 
@@ -29,7 +29,7 @@ export function createArticleItemViewHooks (hooks: ArticleItemStoreHooks): Artic
     return hooks.useLoadActionOutput(sliceName, input);
   }
 
-  function useSaveActionOutput (input: ArticleItemStoreSaveActionInput): ArticleItemStoreSaveActionOutput {
+  function useSaveActionOutput (input?: ArticleItemStoreSaveActionInput): ArticleItemStoreSaveActionOutput {
     return hooks.useSaveActionOutput(sliceName, input);
   }
 

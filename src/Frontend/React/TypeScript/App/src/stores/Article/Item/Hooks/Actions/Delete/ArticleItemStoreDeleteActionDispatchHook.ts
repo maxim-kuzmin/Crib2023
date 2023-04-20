@@ -123,18 +123,20 @@ export function useDeleteActionDispatch (
   async function run (
     payload: ArticleItemStoreDeleteActionPayload,
     shouldBeCanceled: ShouldBeCanceled = () => false
-  ) {
-      runDeleteAction({
-        callback,
-        dispatch,
-        payload,
-        requestHandler,
-        shouldBeCanceled,
-        sliceName
-      });
+  ): Promise<void> {
+    runDeleteAction({
+      callback,
+      dispatch,
+      payload,
+      requestHandler,
+      shouldBeCanceled,
+      sliceName
+    });
   }
 
-  return useRef({
+  const result: ArticleItemStoreDeleteActionDispatch = {
     run
-  }).current;
+  };
+
+  return useRef(result).current;
 }

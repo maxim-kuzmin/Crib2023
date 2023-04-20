@@ -38,6 +38,8 @@ function ArticleItemEditView ({
 
   const entity = payloadOfLoadCompletedAction?.data?.item.data;
 
+  const { dispatchOfSaveAction } = hooks.useSaveActionOutput();
+
   const formValues = useMemo(
     () => getModule().getArticleItemEditViewService().convertToFormValues(entity),
     [entity]
@@ -83,7 +85,10 @@ function ArticleItemEditView ({
 
       return result;
     },
-    [articleId, topicPageLastUrl]
+    [
+      articleId,
+      topicPageLastUrl
+    ]
   );
 
   const controlFields = useMemo(
@@ -118,7 +123,12 @@ function ArticleItemEditView ({
 
       return result;
     },
-    [articleId, fieldNameForBody, fieldNameForId, fieldNameForTitle]
+    [
+      articleId,
+      fieldNameForBody,
+      fieldNameForId,
+      fieldNameForTitle
+    ]
   );
 
   const onSubmitFailed = useCallback(
@@ -130,9 +140,11 @@ function ArticleItemEditView ({
 
   const onSubmitSuccess = useCallback(
     (values: any) => {
-      console.log('MAKC:onSubmitSuccess:values', values);
+      const entity = getModule().getArticleItemEditViewService().convertToEntity(values);
+
+      dispatchOfSaveAction.run(entity);
     },
-    []
+    [dispatchOfSaveAction]
   );
 
   return (

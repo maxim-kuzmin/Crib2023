@@ -46,7 +46,7 @@ export interface ArticleItemStoreHooks {
 
   readonly useDeleteActionOutput: (
     sliceName: string,
-    input: ArticleItemStoreDeleteActionInput
+    input?: ArticleItemStoreDeleteActionInput
   ) => ArticleItemStoreDeleteActionOutput;
 
   readonly useDeleteCompletedActionDispatch: (
@@ -76,7 +76,7 @@ export interface ArticleItemStoreHooks {
 
   readonly useSaveActionOutput: (
     sliceName: string,
-    input: ArticleItemStoreSaveActionInput
+    input?: ArticleItemStoreSaveActionInput
   ) => ArticleItemStoreSaveActionOutput;
 
   readonly useSaveCompletedActionDispatch: (

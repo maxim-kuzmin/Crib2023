@@ -10,7 +10,7 @@ import { useDeleteActionDispatch } from './ArticleItemStoreDeleteActionDispatchH
 
 export function useDeleteActionOutput (
   sliceName: string,
-  input: ArticleItemStoreDeleteActionInput
+  input: ArticleItemStoreDeleteActionInput = {}
 ): ArticleItemStoreDeleteActionOutput {
   const { onActionCompleted } = input;
 

@@ -1,6 +1,6 @@
 export interface ArticleTypeEntityForList {
   id: number;
-  rowGuid: string;
+  rowGuid?: string;
   title: string;
   topicId: number;
 }
