@@ -1,7 +1,8 @@
 import { type ArticleItemStoreLoadCompletedActionCallback } from '../LoadCompleted';
+import { type ArticleItemStoreLoadActionPayload } from './ArticleItemStoreLoadActionPayload';
 
 export interface ArticleItemStoreLoadActionInput {
-  readonly articleId: number;
   readonly isCanceled?: boolean;
   readonly onActionCompleted?: ArticleItemStoreLoadCompletedActionCallback;
+  readonly payloadOfLoadAction: ArticleItemStoreLoadActionPayload;
 }

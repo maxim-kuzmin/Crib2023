@@ -7,18 +7,14 @@ import {
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useSetActionDispatch } from './ArticleItemStoreSetActionDispatchHook';
 
-// ---Store---> //
-
-type SetActionInput = ArticleItemStoreSetActionInput;
-type SetActionOutput = ArticleItemStoreSetActionOutput;
-type SetActionPayload = ArticleItemStoreSetActionPayload;
-
-// <---Store--- //
-
-export function useSetActionOutput (sliceName: string, input: SetActionInput): SetActionOutput {
+export function useSetActionOutput (
+  sliceName: string,
+  input: ArticleItemStoreSetActionInput
+): ArticleItemStoreSetActionOutput {
   const { onActionCompleted } = input;
 
-  const callback = useCallback((payload: SetActionPayload) => {
+  const callback = useCallback(
+    (payload: ArticleItemStoreSetActionPayload) => {
       if (onActionCompleted) {
         onActionCompleted(payload);
       }

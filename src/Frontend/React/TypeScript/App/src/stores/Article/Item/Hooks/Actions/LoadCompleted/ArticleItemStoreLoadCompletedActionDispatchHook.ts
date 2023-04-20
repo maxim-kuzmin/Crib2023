@@ -6,42 +6,14 @@ import {
   type ArticleItemStoreLoadCompletedActionPayload,
 } from '../../../../../../app/Stores';
 import { StoreDispatchType } from '../../../../../../common';
-import { type ArticleItemStoreLoadCompletedAction } from '../../../Actions';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
-import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
+import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 
-// ---Store---> //
-
-type ActionUnion = ArticleItemStoreActionUnion;
-
-type LoadCompletedAction = ArticleItemStoreLoadCompletedAction;
-type LoadCompletedActionCallback = ArticleItemStoreLoadCompletedActionCallback;
-type LoadCompletedActionDispatch = ArticleItemStoreLoadCompletedActionDispatch;
-type LoadCompletedActionOptions = ArticleItemStoreLoadCompletedActionOptions;
-type LoadCompletedActionPayload = ArticleItemStoreLoadCompletedActionPayload;
-
-function createLoadCompletedAction (
-  sliceName: string,
-  payload: LoadCompletedActionPayload
-): LoadCompletedAction {
-  return {
-    type: ArticleItemStoreActionType.LoadCompleted,
-    payload,
-    sliceName
-  };
-};
-
-function useDispatchContext (): Dispatch<ActionUnion> {
-  return useArticleItemStoreDispatchContext();
-}
-
-// <---Store--- //
-
-interface RunLoadCompletedActionOptions {
-  readonly callback?: LoadCompletedActionCallback;
-  readonly dispatch: Dispatch<ActionUnion>;
-  readonly payload: LoadCompletedActionPayload;
+interface RunOptions {
+  readonly callback?: ArticleItemStoreLoadCompletedActionCallback;
+  readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
+  readonly payload: ArticleItemStoreLoadCompletedActionPayload;
   readonly sliceName: string;
 }
 
@@ -50,8 +22,12 @@ export function runLoadCompletedAction ({
   dispatch,
   payload,
   sliceName
-}: RunLoadCompletedActionOptions) {
-  dispatch(createLoadCompletedAction(sliceName, payload));
+}: RunOptions) {
+  dispatch({
+    payload,
+    sliceName,
+    type: ArticleItemStoreActionType.LoadCompleted
+  });
 
   if (callback) {
     callback(payload);
@@ -63,28 +39,52 @@ export function useLoadCompletedActionDispatch (
   {
     callback,
     dispatchType,
-    payload
-  }: LoadCompletedActionOptions = {}
-): LoadCompletedActionDispatch {
-  const dispatch = useDispatchContext();
+    payloadOfLoadCompletedAction
+  }: ArticleItemStoreLoadCompletedActionOptions = {}
+): ArticleItemStoreLoadCompletedActionDispatch {
+  const dispatch = useArticleItemStoreDispatchContext();
 
-  const payloadInner = payload ?? null;
+  useEffect(
+    () => {
+      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadCompletedAction) {
+        runLoadCompletedAction({
+          callback,
+          dispatch,
+          payload: payloadOfLoadCompletedAction,
+          sliceName
+        });
+      };
 
-  useEffect(() => {
-    if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runLoadCompletedAction({ sliceName, dispatch, callback, payload: payloadInner });
-    };
+      return () => {
+        if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadCompletedAction) {
+          runLoadCompletedAction({
+            callback,
+            dispatch,
+            payload: payloadOfLoadCompletedAction,
+            sliceName
+          });
+        }
+      };
+    },
+    [
+      callback,
+      dispatch,
+      dispatchType,
+      payloadOfLoadCompletedAction,
+      sliceName
+    ]
+  );
 
-    return () => {
-      if (dispatchType === StoreDispatchType.Unmount) {
-        runLoadCompletedAction({ sliceName, dispatch, callback, payload: payloadInner });
-      }
-    };
-  }, [sliceName, dispatch, dispatchType, callback, payloadInner]);
+  function run (payload: ArticleItemStoreLoadCompletedActionPayload) {
+    runLoadCompletedAction({
+      callback,
+      dispatch,
+      payload,
+      sliceName
+    });
+  }
 
   return useRef({
-    run: (payload: LoadCompletedActionPayload) => {
-      runLoadCompletedAction({ sliceName, dispatch, callback, payload });
-    }
+    run
   }).current;
 }

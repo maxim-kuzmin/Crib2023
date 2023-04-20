@@ -6,39 +6,14 @@ import {
   type ArticleItemStoreSetActionPayload,
 } from '../../../../../../app/Stores';
 import { StoreDispatchType } from '../../../../../../common';
-import { type ArticleItemStoreSetAction } from '../../../Actions';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
-import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
+import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 
-// ---Store---> //
-
-type ActionUnion = ArticleItemStoreActionUnion;
-
-type SetAction = ArticleItemStoreSetAction;
-type SetActionCallback = ArticleItemStoreSetActionCallback;
-type SetActionDispatch = ArticleItemStoreSetActionDispatch;
-type SetActionOptions = ArticleItemStoreSetActionOptions;
-type SetActionPayload = ArticleItemStoreSetActionPayload;
-
-function createSetAction (sliceName: string, payload: SetActionPayload): SetAction {
-  return {
-    type: ArticleItemStoreActionType.Set,
-    payload,
-    sliceName
-  };
-};
-
-function useDispatchContext (): Dispatch<ActionUnion> {
-  return useArticleItemStoreDispatchContext();
-}
-
-// <---Store--- //
-
-interface RunSetActionOptions {
-  readonly callback?: SetActionCallback;
-  readonly dispatch: Dispatch<ActionUnion>;
-  readonly payload: SetActionPayload;
+interface RunOptions {
+  readonly callback?: ArticleItemStoreSetActionCallback;
+  readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
+  readonly payload: ArticleItemStoreSetActionPayload;
   readonly sliceName: string;
 }
 
@@ -47,8 +22,12 @@ function runSetAction ({
   dispatch,
   payload,
   sliceName
-}: RunSetActionOptions) {
-  dispatch(createSetAction(sliceName, payload));
+}: RunOptions) {
+  dispatch({
+    payload,
+    sliceName,
+    type: ArticleItemStoreActionType.Set
+  });
 
   if (callback) {
     callback(payload);
@@ -60,28 +39,52 @@ export function useSetActionDispatch (
   {
     callback,
     dispatchType,
-    payload
-  }: SetActionOptions
-): SetActionDispatch {
-  const dispatch = useDispatchContext();
+    payloadOfSetAction
+  }: ArticleItemStoreSetActionOptions
+): ArticleItemStoreSetActionDispatch {
+  const dispatch = useArticleItemStoreDispatchContext();
 
-  const payloadInner = payload ?? null;
+  useEffect(
+    () => {
+      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSetAction) {
+        runSetAction({
+          callback,
+          dispatch,
+          payload: payloadOfSetAction,
+          sliceName
+        });
+      };
 
-  useEffect(() => {
-    if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runSetAction({ sliceName, dispatch, callback, payload: payloadInner });
-    };
+      return () => {
+        if (dispatchType === StoreDispatchType.Unmount && payloadOfSetAction) {
+          runSetAction({
+            callback,
+            dispatch,
+            payload: payloadOfSetAction,
+            sliceName
+          });
+        }
+      };
+    },
+    [
+      callback,
+      dispatch,
+      dispatchType,
+      payloadOfSetAction,
+      sliceName
+    ]
+  );
 
-    return () => {
-      if (dispatchType === StoreDispatchType.Unmount) {
-        runSetAction({ sliceName, dispatch, callback, payload: payloadInner });
-      }
-    };
-  }, [sliceName, dispatch, dispatchType, callback, payloadInner]);
+  function run (payload: ArticleItemStoreSetActionPayload) {
+    runSetAction({
+      callback,
+      dispatch,
+      payload,
+      sliceName
+    });
+  }
 
   return useRef({
-    run: (payload: SetActionPayload) => {
-      runSetAction({ sliceName, dispatch, callback, payload });
-    }
+    run
   }).current;
 }

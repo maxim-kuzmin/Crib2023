@@ -5,22 +5,17 @@ import {
   type ArticleItemStoreSaveCompletedActionPayload,
 } from '../../../../../../app/Stores';
 import { OperationStatus } from '../../../../../../common';
-import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useSaveActionDispatch } from './ArticleItemStoreSaveActionDispatchHook';
+import { useStoreState } from '../../ArticleItemStoreStateHook';
 
-// ---Store---> //
-
-type SaveActionInput = ArticleItemStoreSaveActionInput;
-type SaveActionOutput = ArticleItemStoreSaveActionOutput;
-
-type SaveCompletedActionPayload = ArticleItemStoreSaveCompletedActionPayload;
-
-// <---Store--- //
-
-export function useSaveActionOutput (sliceName: string, input: SaveActionInput): SaveActionOutput {
+export function useSaveActionOutput (
+  sliceName: string,
+  input: ArticleItemStoreSaveActionInput
+): ArticleItemStoreSaveActionOutput {
   const { onActionCompleted } = input;
 
-  const callback = useCallback((payload: SaveCompletedActionPayload) => {
+  const callback = useCallback(
+    (payload: ArticleItemStoreSaveCompletedActionPayload) => {
       if (onActionCompleted) {
         onActionCompleted(payload);
       }

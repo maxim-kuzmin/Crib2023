@@ -1,5 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { getModule } from '../../../app/ModuleImpl';
+import { type ArticleItemStoreLoadActionPayload } from '../../../app/Stores';
 import {
   type CardControlAction,
   type CardControlExtra,
@@ -23,9 +24,16 @@ function ArticleItemView ({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
+  const payloadOfLoadAction: ArticleItemStoreLoadActionPayload = useMemo(
+    () => ({
+      id: articleId
+    }),
+    [articleId]
+  );
+
   const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooks.useLoadActionOutput({
-    articleId,
-    onActionCompleted: onArticleItemLoadActionCompleted
+    onActionCompleted: onArticleItemLoadActionCompleted,
+    payloadOfLoadAction
   });
 
   const entity = payloadOfLoadCompletedAction?.data?.item.data;

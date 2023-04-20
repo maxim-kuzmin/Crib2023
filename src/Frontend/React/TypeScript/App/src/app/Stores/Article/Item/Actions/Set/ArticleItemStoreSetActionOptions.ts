@@ -4,5 +4,5 @@ import { type ArticleItemStoreSetActionPayload } from './ArticleItemStoreSetActi
 
 export interface ArticleItemStoreSetActionOptions extends StoreActionOptions {
   readonly callback?: ArticleItemStoreSetActionCallback;
-  readonly payload?: ArticleItemStoreSetActionPayload;
+  readonly payloadOfSetAction?: ArticleItemStoreSetActionPayload;
 }

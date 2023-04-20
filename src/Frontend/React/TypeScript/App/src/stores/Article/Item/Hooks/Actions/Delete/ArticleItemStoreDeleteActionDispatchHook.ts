@@ -1,66 +1,26 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { getModule } from '../../../../../../app/ModuleImpl';
 import {
+  type ArticleItemStoreDeleteCompletedActionCallback,
   type ArticleItemStoreDeleteActionDispatch,
   type ArticleItemStoreDeleteActionOptions,
   type ArticleItemStoreDeleteActionPayload,
-  type ArticleItemStoreDeleteCompletedActionCallback,
 } from '../../../../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleDomainItemGetOperationInput,
   type ArticleDomainItemDeleteOperationRequestHandler,
   createArticleDomainItemDeleteOperationRequest,
 } from '../../../../../../domains';
-import { type ArticleItemStoreDeleteAction } from '../../../Actions';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
-import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
+import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { runDeleteCompletedAction } from '../DeleteCompleted/ArticleItemStoreDeleteCompletedActionDispatchHook';
 
-// ---Store---> //
-
-type ActionUnion = ArticleItemStoreActionUnion;
-
-type DeleteAction = ArticleItemStoreDeleteAction;
-type DeleteActionDispatch = ArticleItemStoreDeleteActionDispatch;
-type DeleteActionOptions = ArticleItemStoreDeleteActionOptions;
-type DeleteActionPayload = ArticleItemStoreDeleteActionPayload;
-
-type DeleteCompletedActionCallback = ArticleItemStoreDeleteCompletedActionCallback;
-
-type DeleteOperationRequestHandler = ArticleDomainItemDeleteOperationRequestHandler;
-
-function createDeleteAction (sliceName: string, payload: DeleteActionPayload): DeleteAction {
-  return {
-    type: ArticleItemStoreActionType.Delete,
-    payload,
-    sliceName
-  };
-};
-
-function createDeleteOperationRequest (
-  input: ArticleDomainItemGetOperationInput,
-  operationCode?: string
-) {
-  return createArticleDomainItemDeleteOperationRequest(input, operationCode);
-}
-
-function useDispatchContext (): Dispatch<ActionUnion> {
-  return useArticleItemStoreDispatchContext();
-}
-
-function useDeleteOperationRequestHandler (): DeleteOperationRequestHandler {
-  return getModule().useArticleDomainItemDeleteOperationRequestHandler();
-}
-
-// <---Store--- //
-
-interface RunDeleteActionOptions {
-  readonly callback?: DeleteCompletedActionCallback;
-  readonly dispatch: Dispatch<ActionUnion>;
-  readonly payload: DeleteActionPayload;
-  readonly requestHandler: DeleteOperationRequestHandler;
+interface RunOptions {
+  readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
+  readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
+  readonly payload: ArticleItemStoreDeleteActionPayload;
+  readonly requestHandler: ArticleDomainItemDeleteOperationRequestHandler;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -72,22 +32,34 @@ async function runDeleteAction ({
   sliceName,
   payload,
   requestHandler
-}: RunDeleteActionOptions) {
+}: RunOptions) {
   if (shouldBeCanceled()) {
     return;
   }
 
-  dispatch(createDeleteAction(sliceName, payload));
+  dispatch({
+    payload,
+    sliceName,
+    type: ArticleItemStoreActionType.Delete
+  });
 
   const response = payload
-    ? await requestHandler.handle(createDeleteOperationRequest(payload), shouldBeCanceled)
+    ? await requestHandler.handle(
+        createArticleDomainItemDeleteOperationRequest(payload),
+        shouldBeCanceled
+      )
     : null;
 
   if (shouldBeCanceled()) {
     return;
   }
 
-  runDeleteCompletedAction({ sliceName, dispatch, callback, payload: response });
+  runDeleteCompletedAction({
+    callback,
+    dispatch,
+    payload: response,
+    sliceName
+  });
 }
 
 export function useDeleteActionDispatch (
@@ -96,55 +68,73 @@ export function useDeleteActionDispatch (
     callback,
     dispatchType,
     isCanceled,
-    payload
-  }: DeleteActionOptions = {}
-): DeleteActionDispatch {
-  const dispatch = useDispatchContext();
+    payloadOfDeleteAction
+  }: ArticleItemStoreDeleteActionOptions = {}
+): ArticleItemStoreDeleteActionDispatch {
+  const dispatch = useArticleItemStoreDispatchContext();
 
-  const requestHandler = useRef(useDeleteOperationRequestHandler()).current;
+  const requestHandler = useRef(
+    getModule().useArticleDomainItemDeleteOperationRequestHandler()
+  ).current;
 
-  useEffect(() => {
-    let isCanceledInner = isCanceled ?? false;
+  useEffect(
+    () => {
+      let isCanceledInner = isCanceled ?? false;
 
-    const shouldBeCanceledInner = () => isCanceledInner;
+      const shouldBeCanceledInner = () => isCanceledInner;
 
-    if (dispatchType === StoreDispatchType.MountOrUpdate && payload) {
-      runDeleteAction({
-        sliceName,
-        requestHandler,
-        dispatch,
-        callback,
-        shouldBeCanceled: shouldBeCanceledInner,
-        payload
-      });
-    }
-
-    return () => {
-      if (dispatchType === StoreDispatchType.Unmount && payload) {
+      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfDeleteAction) {
         runDeleteAction({
-          sliceName,
-          requestHandler,
-          dispatch,
           callback,
+          dispatch,
+          payload: payloadOfDeleteAction,
+          requestHandler,
           shouldBeCanceled: shouldBeCanceledInner,
-          payload
-        });
-      } else {
-        isCanceledInner = true;
+          sliceName
+      });
       }
-    };
-  }, [sliceName, requestHandler, dispatch, dispatchType, isCanceled, callback, payload]);
+
+      return () => {
+        if (dispatchType === StoreDispatchType.Unmount && payloadOfDeleteAction) {
+          runDeleteAction({
+            callback,
+            dispatch,
+            payload: payloadOfDeleteAction,
+            requestHandler,
+            shouldBeCanceled: shouldBeCanceledInner,
+            sliceName
+          });
+        } else {
+          isCanceledInner = true;
+        }
+      };
+    },
+    [
+      callback,
+      dispatch,
+      dispatchType,
+      isCanceled,
+      payloadOfDeleteAction,
+      requestHandler,
+      sliceName
+    ]
+  );
+
+  async function run (
+    payload: ArticleItemStoreDeleteActionPayload,
+    shouldBeCanceled: ShouldBeCanceled = () => false
+  ) {
+      runDeleteAction({
+        callback,
+        dispatch,
+        payload,
+        requestHandler,
+        shouldBeCanceled,
+        sliceName
+      });
+  }
 
   return useRef({
-    run: async (payload: DeleteActionPayload, shouldBeCanceled: ShouldBeCanceled = () => false) => {
-      runDeleteAction({
-        sliceName,
-        requestHandler,
-        dispatch,
-        callback,
-        shouldBeCanceled,
-        payload
-      });
-    }
+    run
   }).current;
 }

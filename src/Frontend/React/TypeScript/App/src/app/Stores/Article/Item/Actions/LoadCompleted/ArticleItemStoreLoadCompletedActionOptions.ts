@@ -4,5 +4,5 @@ import { type ArticleItemStoreLoadCompletedActionPayload } from './ArticleItemSt
 
 export interface ArticleItemStoreLoadCompletedActionOptions extends StoreActionOptions {
   readonly callback?: ArticleItemStoreLoadCompletedActionCallback;
-  readonly payload?: ArticleItemStoreLoadCompletedActionPayload;
+  readonly payloadOfLoadCompletedAction?: ArticleItemStoreLoadCompletedActionPayload;
 }

@@ -5,36 +5,13 @@ import {
   type ArticleItemStoreClearActionOptions,
 } from '../../../../../../app/Stores';
 import { StoreDispatchType } from '../../../../../../common';
-import { type ArticleItemStoreClearAction } from '../../../Actions';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
-import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
+import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 
-// ---Store---> //
-
-type ActionUnion = ArticleItemStoreActionUnion;
-
-type ClearAction = ArticleItemStoreClearAction;
-type ClearActionCallback = ArticleItemStoreClearActionCallback;
-type ClearActionDispatch = ArticleItemStoreClearActionDispatch;
-type ClearActionOptions = ArticleItemStoreClearActionOptions;
-
-function createClearAction (sliceName: string): ClearAction {
-  return {
-    type: ArticleItemStoreActionType.Clear,
-    sliceName
-  };
-};
-
-function useDispatchContext (): Dispatch<ActionUnion> {
-  return useArticleItemStoreDispatchContext();
-}
-
-// <---Store--- //
-
-interface RunClearActionOptions {
-  readonly callback?: ClearActionCallback;
-  readonly dispatch: Dispatch<ActionUnion>;
+interface RunOptions {
+  readonly callback?: ArticleItemStoreClearActionCallback;
+  readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly sliceName: string;
 }
 
@@ -42,8 +19,11 @@ function runClearAction ({
   callback,
   dispatch,
   sliceName
-}: RunClearActionOptions) {
-  dispatch(createClearAction(sliceName));
+}: RunOptions) {
+  dispatch({
+    sliceName,
+    type: ArticleItemStoreActionType.Clear
+  });
 
   if (callback) {
     callback();
@@ -55,25 +35,47 @@ export function useClearActionDispatch (
   {
     callback,
     dispatchType
-  }: ClearActionOptions = {}
-): ClearActionDispatch {
-  const dispatch = useDispatchContext();
+  }: ArticleItemStoreClearActionOptions = {}
+): ArticleItemStoreClearActionDispatch {
+  const dispatch = useArticleItemStoreDispatchContext();
 
-  useEffect(() => {
-    if (dispatchType === StoreDispatchType.MountOrUpdate) {
-      runClearAction({ sliceName, dispatch, callback });
-    };
+  useEffect(
+    () => {
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
+        runClearAction({
+          callback,
+          dispatch,
+          sliceName
+        });
+      };
 
-    return () => {
-      if (dispatchType === StoreDispatchType.Unmount) {
-        runClearAction({ sliceName, dispatch, callback });
-      }
-    };
-  }, [sliceName, dispatch, dispatchType, callback]);
+      return () => {
+        if (dispatchType === StoreDispatchType.Unmount) {
+          runClearAction({
+            callback,
+            dispatch,
+            sliceName
+          });
+        }
+      };
+    },
+    [
+      callback,
+      dispatch,
+      dispatchType,
+      sliceName
+    ]
+  );
+
+  function run () {
+    runClearAction({
+      callback,
+      dispatch,
+      sliceName
+    });
+  }
 
   return useRef({
-    run: () => {
-      runClearAction({ sliceName, dispatch, callback });
-    }
+    run
   }).current;
 }

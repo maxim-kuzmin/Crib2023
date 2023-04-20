@@ -6,17 +6,14 @@ import {
 import { StoreDispatchType } from '../../../../../../common';
 import { useClearActionDispatch } from './ArticleItemStoreClearActionDispatchHook';
 
-// ---Store---> //
-
-type ClearActionInput = ArticleItemStoreClearActionInput;
-type ClearActionOutput = ArticleItemStoreClearActionOutput;
-
-// <---Store--- //
-
-export function useClearActionOutput (sliceName: string, input: ClearActionInput): ClearActionOutput {
+export function useClearActionOutput (
+  sliceName: string,
+  input: ArticleItemStoreClearActionInput
+): ArticleItemStoreClearActionOutput {
   const { onActionCompleted } = input;
 
-  const callback = useCallback(() => {
+  const callback = useCallback(
+    () => {
       if (onActionCompleted) {
         onActionCompleted();
       }
@@ -32,5 +29,7 @@ export function useClearActionOutput (sliceName: string, input: ClearActionInput
     }
   );
 
-  return { dispatchOfClearAction };
+  return {
+    dispatchOfClearAction
+  };
 }

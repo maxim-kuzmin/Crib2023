@@ -1,66 +1,26 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { getModule } from '../../../../../../app/ModuleImpl';
 import {
+  type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreSaveActionDispatch,
   type ArticleItemStoreSaveActionOptions,
   type ArticleItemStoreSaveActionPayload,
-  type ArticleItemStoreSetActionCallback,
 } from '../../../../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ArticleTypeEntity } from '../../../../../../data';
 import {
   type ArticleDomainItemSaveOperationRequestHandler,
   createArticleDomainItemSaveOperationRequest
 } from '../../../../../../domains';
-import { type ArticleItemStoreSaveAction } from '../../../Actions';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
-import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
+import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { runSaveCompletedAction } from '../SaveCompleted/ArticleItemStoreSaveCompletedActionDispatchHook';
 
-// ---Store---> //
-
-type ActionUnion = ArticleItemStoreActionUnion;
-
-type SaveAction = ArticleItemStoreSaveAction;
-type SaveActionDispatch = ArticleItemStoreSaveActionDispatch;
-type SaveActionOptions = ArticleItemStoreSaveActionOptions;
-type SaveActionPayload = ArticleItemStoreSaveActionPayload;
-
-type SaveOperationRequestHandler = ArticleDomainItemSaveOperationRequestHandler;
-
-type SetActionCallback = ArticleItemStoreSetActionCallback;
-
-function createSaveAction (sliceName: string, payload: SaveActionPayload): SaveAction {
-  return {
-    type: ArticleItemStoreActionType.Save,
-    payload,
-    sliceName
-  };
-};
-
-function createSaveOperationRequest (
-  input: ArticleTypeEntity,
-  operationCode?: string
-) {
-  return createArticleDomainItemSaveOperationRequest(input, operationCode);
-}
-
-function useDispatchContext (): Dispatch<ActionUnion> {
-  return useArticleItemStoreDispatchContext();
-}
-
-function useSaveOperationRequestHandler (): SaveOperationRequestHandler {
-  return getModule().useArticleDomainItemSaveOperationRequestHandler();
-}
-
-// <---Store--- //
-
-interface RunSaveActionOptions {
-  readonly callback?: SetActionCallback;
-  readonly dispatch: Dispatch<ActionUnion>;
-  readonly payload: SaveActionPayload;
-  readonly requestHandler: SaveOperationRequestHandler;
+interface RunOptions {
+  readonly callback?: ArticleItemStoreSetActionCallback;
+  readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
+  readonly payload: ArticleItemStoreSaveActionPayload;
+  readonly requestHandler: ArticleDomainItemSaveOperationRequestHandler;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -72,22 +32,34 @@ async function runSaveAction ({
   sliceName,
   payload,
   requestHandler
-}: RunSaveActionOptions) {
+}: RunOptions) {
   if (shouldBeCanceled()) {
     return;
   }
 
-  dispatch(createSaveAction(sliceName, payload));
+  dispatch({
+    type: ArticleItemStoreActionType.Save,
+    payload,
+    sliceName
+  });
 
   const response = payload
-    ? await requestHandler.handle(createSaveOperationRequest(payload), shouldBeCanceled)
+    ? await requestHandler.handle(
+        createArticleDomainItemSaveOperationRequest(payload),
+        shouldBeCanceled
+      )
     : null;
 
   if (shouldBeCanceled()) {
     return;
   }
 
-  runSaveCompletedAction({ sliceName, dispatch, callback, payload: response });
+  runSaveCompletedAction({
+    callback,
+    dispatch,
+    payload: response,
+    sliceName
+  });
 }
 
 export function useSaveActionDispatch (
@@ -96,55 +68,73 @@ export function useSaveActionDispatch (
     callback,
     dispatchType,
     isCanceled,
-    payload
-  }: SaveActionOptions
-): SaveActionDispatch {
-  const dispatch = useDispatchContext();
+    payloadOfSaveAction
+  }: ArticleItemStoreSaveActionOptions
+): ArticleItemStoreSaveActionDispatch {
+  const dispatch = useArticleItemStoreDispatchContext();
 
-  const requestHandler = useRef(useSaveOperationRequestHandler()).current;
+  const requestHandler = useRef(
+    getModule().useArticleDomainItemSaveOperationRequestHandler()
+  ).current;
 
-  useEffect(() => {
-    let isCanceledInner = isCanceled ?? false;
+  useEffect(
+    () => {
+      let isCanceledInner = isCanceled ?? false;
 
-    const shouldBeCanceledInner = () => isCanceledInner;
+      const shouldBeCanceledInner = () => isCanceledInner;
 
-    if (dispatchType === StoreDispatchType.MountOrUpdate && payload) {
-      runSaveAction({
-        sliceName,
-        requestHandler,
-        dispatch,
-        callback,
-        shouldBeCanceled: shouldBeCanceledInner,
-        payload
-      });
-    }
-
-    return () => {
-      if (dispatchType === StoreDispatchType.Unmount && payload) {
+      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSaveAction) {
         runSaveAction({
-          sliceName,
-          requestHandler,
-          dispatch,
           callback,
+          dispatch,
+          payload: payloadOfSaveAction,
+          requestHandler,
           shouldBeCanceled: shouldBeCanceledInner,
-          payload
+          sliceName
         });
-      } else {
-        isCanceledInner = true;
       }
-    };
-  }, [sliceName, requestHandler, dispatch, dispatchType, isCanceled, callback, payload]);
+
+      return () => {
+        if (dispatchType === StoreDispatchType.Unmount && payloadOfSaveAction) {
+          runSaveAction({
+            callback,
+            dispatch,
+            payload: payloadOfSaveAction,
+            requestHandler,
+            shouldBeCanceled: shouldBeCanceledInner,
+            sliceName
+            });
+        } else {
+          isCanceledInner = true;
+        }
+      };
+    },
+    [
+      callback,
+      dispatch,
+      dispatchType,
+      isCanceled,
+      payloadOfSaveAction,
+      requestHandler,
+      sliceName
+    ]
+  );
+
+  async function run (
+    payload: ArticleItemStoreSaveActionPayload,
+    shouldBeCanceled: ShouldBeCanceled = () => false
+  ) {
+    runSaveAction({
+      callback,
+      dispatch,
+      payload,
+      requestHandler,
+      shouldBeCanceled,
+      sliceName
+    });
+  }
 
   return useRef({
-    run: async (payload: SaveActionPayload, shouldBeCanceled: ShouldBeCanceled = () => false) => {
-      runSaveAction({
-        sliceName,
-        requestHandler,
-        dispatch,
-        callback,
-        shouldBeCanceled,
-        payload
-      });
-    }
+    run
   }).current;
 }

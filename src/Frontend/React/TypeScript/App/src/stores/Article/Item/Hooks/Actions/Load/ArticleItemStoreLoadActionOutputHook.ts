@@ -1,27 +1,21 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import {
   type ArticleItemStoreLoadActionInput,
   type ArticleItemStoreLoadActionOutput,
   type ArticleItemStoreLoadCompletedActionPayload,
 } from '../../../../../../app/Stores';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
-import { type ArticleDomainItemGetOperationInput } from '../../../../../../domains';
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useLoadActionDispatch } from './ArticleItemStoreLoadActionDispatchHook';
 
-// ---Store---> //
+export function useLoadActionOutput (
+  sliceName: string,
+  input: ArticleItemStoreLoadActionInput
+): ArticleItemStoreLoadActionOutput {
+  const { isCanceled, onActionCompleted, payloadOfLoadAction } = input;
 
-type LoadActionInput = ArticleItemStoreLoadActionInput;
-type LoadActionOutput = ArticleItemStoreLoadActionOutput;
-
-type LoadCompletedActionPayload = ArticleItemStoreLoadCompletedActionPayload;
-
-// <---Store--- //
-
-export function useLoadActionOutput (sliceName: string, input: LoadActionInput): LoadActionOutput {
-  const { articleId, isCanceled, onActionCompleted } = input;
-
-  const callback = useCallback((payload: LoadCompletedActionPayload) => {
+  const callback = useCallback(
+    (payload: ArticleItemStoreLoadCompletedActionPayload) => {
       if (onActionCompleted) {
         onActionCompleted(payload);
       }
@@ -29,20 +23,13 @@ export function useLoadActionOutput (sliceName: string, input: LoadActionInput):
     [onActionCompleted]
   );
 
-  const payload: ArticleDomainItemGetOperationInput = useMemo(
-    () => ({
-      id: articleId
-    }),
-    [articleId]
-  );
-
   const dispatchOfLoadAction = useLoadActionDispatch(
     sliceName,
     {
-      dispatchType: StoreDispatchType.MountOrUpdate,
       callback,
+      dispatchType: StoreDispatchType.MountOrUpdate,
       isCanceled,
-      payload
+      payloadOfLoadAction
     }
   );
 

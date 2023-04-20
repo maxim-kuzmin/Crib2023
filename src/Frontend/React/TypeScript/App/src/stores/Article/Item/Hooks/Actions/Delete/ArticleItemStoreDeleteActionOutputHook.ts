@@ -8,19 +8,14 @@ import { OperationStatus } from '../../../../../../common';
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useDeleteActionDispatch } from './ArticleItemStoreDeleteActionDispatchHook';
 
-// ---Store---> //
-
-type DeleteActionInput = ArticleItemStoreDeleteActionInput;
-type DeleteActionOutput = ArticleItemStoreDeleteActionOutput;
-
-type DeleteCompletedActionPayload = ArticleItemStoreDeleteCompletedActionPayload;
-
-// <---Store--- //
-
-export function useDeleteActionOutput (sliceName: string, input: DeleteActionInput): DeleteActionOutput {
+export function useDeleteActionOutput (
+  sliceName: string,
+  input: ArticleItemStoreDeleteActionInput
+): ArticleItemStoreDeleteActionOutput {
   const { onActionCompleted } = input;
 
-  const callback = useCallback((payload: DeleteCompletedActionPayload) => {
+  const callback = useCallback(
+    (payload: ArticleItemStoreDeleteCompletedActionPayload) => {
       if (onActionCompleted) {
         onActionCompleted(payload);
       }
