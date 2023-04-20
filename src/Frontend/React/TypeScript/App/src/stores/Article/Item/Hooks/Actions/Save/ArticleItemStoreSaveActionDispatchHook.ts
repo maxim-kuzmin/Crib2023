@@ -1,23 +1,22 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../app/ModuleImpl';
+import { getModule } from '../../../../../../app/ModuleImpl';
 import {
   type ArticleItemStoreSaveActionDispatch,
   type ArticleItemStoreSaveActionOptions,
   type ArticleItemStoreSaveActionPayload,
   type ArticleItemStoreSetActionCallback,
-} from '../../../../app/Stores';
-import { type ShouldBeCanceled, StoreDispatchType } from '../../../../common';
-import { type ArticleTypeEntity } from '../../../../data';
+} from '../../../../../../app/Stores';
+import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ArticleTypeEntity } from '../../../../../../data';
 import {
   type ArticleDomainItemSaveOperationRequestHandler,
   createArticleDomainItemSaveOperationRequest
-} from '../../../../domains';
-import { type ArticleItemStoreSaveAction } from '../Actions';
-import { ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
-import { useArticleItemStoreDispatchContext } from '../ArticleItemStoreContext';
-import { type ArticleItemStoreActionUnion } from '../ArticleItemStoreActionUnion';
-
-import { runSaveCompletedAction } from './ArticleItemStoreSaveCompletedActionDispatchHook';
+} from '../../../../../../domains';
+import { type ArticleItemStoreSaveAction } from '../../../Actions';
+import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
+import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
+import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
+import { runSaveCompletedAction } from '../SaveCompleted/ArticleItemStoreSaveCompletedActionDispatchHook';
 
 // ---Store---> //
 

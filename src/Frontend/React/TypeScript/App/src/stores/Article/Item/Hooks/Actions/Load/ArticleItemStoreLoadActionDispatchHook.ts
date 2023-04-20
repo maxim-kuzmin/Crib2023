@@ -1,22 +1,22 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../app/ModuleImpl';
+import { getModule } from '../../../../../../app/ModuleImpl';
 import {
   type ArticleItemStoreLoadActionDispatch,
   type ArticleItemStoreLoadActionOptions,
   type ArticleItemStoreLoadActionPayload,
   type ArticleItemStoreSetActionCallback,
-} from '../../../../app/Stores';
-import { type ShouldBeCanceled, StoreDispatchType } from '../../../../common';
+} from '../../../../../../app/Stores';
+import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import {
   type ArticleDomainItemGetOperationInput,
   type ArticleDomainItemGetOperationRequestHandler,
   createArticleDomainItemGetOperationRequest
-} from '../../../../domains';
-import { type ArticleItemStoreLoadAction } from '../Actions';
-import { ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
-import { useArticleItemStoreDispatchContext } from '../ArticleItemStoreContext';
-import { type ArticleItemStoreActionUnion } from '../ArticleItemStoreActionUnion';
-import { runLoadCompletedAction } from './ArticleItemStoreLoadCompletedActionDispatchHook';
+} from '../../../../../../domains';
+import { type ArticleItemStoreLoadAction } from '../../../Actions';
+import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
+import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
+import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
+import { runLoadCompletedAction } from '../LoadCompleted/ArticleItemStoreLoadCompletedActionDispatchHook';
 
 // ---Store---> //
 

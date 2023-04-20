@@ -1,22 +1,22 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../app/ModuleImpl';
+import { getModule } from '../../../../../../app/ModuleImpl';
 import {
   type ArticleItemStoreDeleteActionDispatch,
   type ArticleItemStoreDeleteActionOptions,
   type ArticleItemStoreDeleteActionPayload,
   type ArticleItemStoreDeleteCompletedActionCallback,
-} from '../../../../app/Stores';
-import { type ShouldBeCanceled, StoreDispatchType } from '../../../../common';
+} from '../../../../../../app/Stores';
+import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import {
   type ArticleDomainItemGetOperationInput,
   type ArticleDomainItemDeleteOperationRequestHandler,
   createArticleDomainItemDeleteOperationRequest,
-} from '../../../../domains';
-import { type ArticleItemStoreDeleteAction } from '../Actions';
-import { ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
-import { useArticleItemStoreDispatchContext } from '../ArticleItemStoreContext';
-import { type ArticleItemStoreActionUnion } from '../ArticleItemStoreActionUnion';
-import { runDeleteCompletedAction } from './ArticleItemStoreDeleteCompletedActionDispatchHook';
+} from '../../../../../../domains';
+import { type ArticleItemStoreDeleteAction } from '../../../Actions';
+import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
+import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
+import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
+import { runDeleteCompletedAction } from '../DeleteCompleted/ArticleItemStoreDeleteCompletedActionDispatchHook';
 
 // ---Store---> //
 

@@ -3,8 +3,8 @@ import {
   type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreSetActionPayload,
-} from '../../../../app/Stores';
-import { useStoreState } from './ArticleItemStoreStateHook';
+} from '../../../../../../app/Stores';
+import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useSetActionDispatch } from './ArticleItemStoreSetActionDispatchHook';
 
 // ---Store---> //

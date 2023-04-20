@@ -1,18 +1,24 @@
 import { type ArticleItemStoreHooks } from '../../../app/Stores';
-import { useClearActionDispatch } from './Hooks/ArticleItemStoreClearActionDispatchHook';
-import { useClearActionOutput } from './Hooks/ArticleItemStoreClearActionOutputHook';
-import { useDeleteActionDispatch } from './Hooks/ArticleItemStoreDeleteActionDispatchHook';
-import { useDeleteCompletedActionDispatch } from './Hooks/ArticleItemStoreDeleteCompletedActionDispatchHook';
+import { useClearActionDispatch } from './Hooks/Actions/Clear/ArticleItemStoreClearActionDispatchHook';
+import { useClearActionOutput } from './Hooks/Actions/Clear/ArticleItemStoreClearActionOutputHook';
+import { useDeleteActionDispatch } from './Hooks/Actions/Delete/ArticleItemStoreDeleteActionDispatchHook';
+import {
+  useDeleteCompletedActionDispatch
+} from './Hooks/Actions/DeleteCompleted/ArticleItemStoreDeleteCompletedActionDispatchHook';
 import { useStoreState } from './Hooks/ArticleItemStoreStateHook';
-import { useLoadCompletedActionDispatch } from './Hooks/ArticleItemStoreLoadCompletedActionDispatchHook';
-import { useLoadActionDispatch } from './Hooks/ArticleItemStoreLoadActionDispatchHook';
-import { useLoadActionOutput } from './Hooks/ArticleItemStoreLoadActionOutputHook';
-import { useSaveCompletedActionDispatch } from './Hooks/ArticleItemStoreSaveCompletedActionDispatchHook';
-import { useSaveActionDispatch } from './Hooks/ArticleItemStoreSaveActionDispatchHook';
-import { useSaveActionOutput } from './Hooks/ArticleItemStoreSaveActionOutputHook';
-import { useSetActionDispatch } from './Hooks/ArticleItemStoreSetActionDispatchHook';
-import { useDeleteActionOutput } from './Hooks/ArticleItemStoreDeleteActionOutputHook';
-import { useSetActionOutput } from './Hooks/ArticleItemStoreSetActionOutputHook';
+import {
+  useLoadCompletedActionDispatch
+} from './Hooks/Actions/LoadCompleted/ArticleItemStoreLoadCompletedActionDispatchHook';
+import { useLoadActionDispatch } from './Hooks/Actions/Load/ArticleItemStoreLoadActionDispatchHook';
+import { useLoadActionOutput } from './Hooks/Actions/Load/ArticleItemStoreLoadActionOutputHook';
+import {
+  useSaveCompletedActionDispatch
+} from './Hooks/Actions/SaveCompleted/ArticleItemStoreSaveCompletedActionDispatchHook';
+import { useSaveActionDispatch } from './Hooks/Actions/Save/ArticleItemStoreSaveActionDispatchHook';
+import { useSaveActionOutput } from './Hooks/Actions/Save/ArticleItemStoreSaveActionOutputHook';
+import { useSetActionDispatch } from './Hooks/Actions/Set/ArticleItemStoreSetActionDispatchHook';
+import { useDeleteActionOutput } from './Hooks/Actions/Delete/ArticleItemStoreDeleteActionOutputHook';
+import { useSetActionOutput } from './Hooks/Actions/Set/ArticleItemStoreSetActionOutputHook';
 
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   return {

@@ -4,16 +4,16 @@ import {
   type ArticleItemStoreDeleteCompletedActionDispatch,
   type ArticleItemStoreDeleteCompletedActionOptions,
   type ArticleItemStoreDeleteCompletedActionPayload,
-} from '../../../../app/Stores';
-import { StoreDispatchType } from '../../../../common';
+} from '../../../../../../app/Stores';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type ArticleItemStoreDeleteCompletedAction,
-} from '../Actions';
-import { ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
+} from '../../../Actions';
+import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import {
   useArticleItemStoreDispatchContext,
-} from '../ArticleItemStoreContext';
-import { type ArticleItemStoreActionUnion } from '../ArticleItemStoreActionUnion';
+} from '../../../ArticleItemStoreContext';
+import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
 
 // ---Store---> //
 

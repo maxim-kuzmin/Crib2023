@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 import {
   type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput
-} from '../../../../app/Stores';
-import { StoreDispatchType } from '../../../../common';
+} from '../../../../../../app/Stores';
+import { StoreDispatchType } from '../../../../../../common';
 import { useClearActionDispatch } from './ArticleItemStoreClearActionDispatchHook';
 
 // ---Store---> //
