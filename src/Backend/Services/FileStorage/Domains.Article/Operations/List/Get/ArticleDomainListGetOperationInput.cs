@@ -119,7 +119,7 @@ public class ArticleDomainListGetOperationInput : ListGetOperationInput
 
         if (string.IsNullOrWhiteSpace(SortDirection))
         {
-            SortDirection = OperationOptions.SORT_DIRECTION_DESC;
+            SortDirection = OperationSortDirection.DESC;
         }
 
         if (!string.IsNullOrWhiteSpace(IdsString) && !Ids.Any())

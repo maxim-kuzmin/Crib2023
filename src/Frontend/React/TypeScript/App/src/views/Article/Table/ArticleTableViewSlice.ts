@@ -55,8 +55,6 @@ export function createArticleTableViewHooks (
     const { topicId, pageNumber, pageSize, isCanceled, onActionCompleted } = input;
 
     const callback = useCallback((payload: ArticleListStoreSetActionPayload) => {
-        console.log('MAKC:createArticleTableViewHooks:useLoadActionOutput:callback:payload', payload);
-
         if (onActionCompleted) {
           onActionCompleted(payload);
         }

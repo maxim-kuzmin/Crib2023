@@ -35,33 +35,33 @@ public static class TopicDomainExtension
     {
         if (input.SortField.Equals(nameof(TopicTypeEntity.Id), StringComparison.OrdinalIgnoreCase))
         {
-            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
+            if (input.SortDirection.Equals(OperationSortDirection.ASC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderBy(x => x.Id);
             }
-            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            else if (input.SortDirection.Equals(OperationSortDirection.DESC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderByDescending(x => x.Id);
             }
         }
         else if (input.SortField.Equals(nameof(TopicTypeEntity.Name), StringComparison.OrdinalIgnoreCase))
         {
-            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
+            if (input.SortDirection.Equals(OperationSortDirection.ASC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderBy(x => x.Name);
             }
-            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            else if (input.SortDirection.Equals(OperationSortDirection.DESC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderByDescending(x => x.Name);
             }
         }
         else if (input.SortField.Equals(nameof(TopicDomainEntityForItem.TreePath), StringComparison.OrdinalIgnoreCase))
         {
-            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
+            if (input.SortDirection.Equals(OperationSortDirection.ASC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderBy(x => x.TreePath);
             }
-            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            else if (input.SortDirection.Equals(OperationSortDirection.DESC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderByDescending(x => x.TreePath);
             }

@@ -98,8 +98,6 @@ function TableControl ({
     sorter: SorterResult<any> | Array<SorterResult<any>>,
     extra: TableCurrentDataSource<any>
   ) {
-    console.log('MAKC:TableControl:handleTableChange:pagination', pagination);
-
     onChange({
       pageNumber: pagination.current ?? 1,
       pageSize: pagination.pageSize ?? 10,

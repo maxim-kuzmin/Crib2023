@@ -55,8 +55,6 @@ export function createTopicItemViewHooks (
     const { topicId, isCanceled, onActionCompleted } = input;
 
     const callback = useCallback((payload: TopicItemStoreSetActionPayload) => {
-        console.log('MAKC:createTopicItemViewHooks:useLoadActionOutput:callback:payload', payload);
-
         if (onActionCompleted) {
           onActionCompleted(payload);
         }

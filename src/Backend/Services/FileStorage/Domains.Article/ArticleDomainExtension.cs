@@ -22,33 +22,33 @@ public static class ArticleDomainExtension
     {
         if (input.SortField.Equals(nameof(ArticleTypeEntity.Id), StringComparison.OrdinalIgnoreCase))
         {
-            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
+            if (input.SortDirection.Equals(OperationSortDirection.ASC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderBy(x => x.Id);
             }
-            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            else if (input.SortDirection.Equals(OperationSortDirection.DESC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderByDescending(x => x.Id);
             }
         }
         else if (input.SortField.Equals(nameof(ArticleTypeEntity.Title), StringComparison.OrdinalIgnoreCase))
         {
-            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
+            if (input.SortDirection.Equals(OperationSortDirection.ASC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderBy(x => x.Title);
             }
-            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            else if (input.SortDirection.Equals(OperationSortDirection.DESC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderByDescending(x => x.Title);
             }
         }
         else if (input.SortField.Equals($"{typeof(TopicTypeEntity).Name}.{nameof(TopicTypeEntity.Name)}", StringComparison.OrdinalIgnoreCase))
         {
-            if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_ASC, StringComparison.OrdinalIgnoreCase))
+            if (input.SortDirection.Equals(OperationSortDirection.ASC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderBy(x => x.Topic.Name);
             }
-            else if (input.SortDirection.Equals(OperationOptions.SORT_DIRECTION_DESC, StringComparison.OrdinalIgnoreCase))
+            else if (input.SortDirection.Equals(OperationSortDirection.DESC, StringComparison.OrdinalIgnoreCase))
             {
                 query = query.OrderByDescending(x => x.Topic.Name);
             }

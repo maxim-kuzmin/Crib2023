@@ -18,7 +18,6 @@ function ButtonControl ({
     onClick,
     title
   };
-console.log('MAKC:buttonProps', buttonProps);
   return (
     <Button {...buttonProps}>{children}</Button>
   );

@@ -23,14 +23,14 @@ public class TopicDomainTreeGetOperationInput : TreeGetOperationInputWithInt64No
 
             if (string.IsNullOrWhiteSpace(SortDirection))
             {
-                SortDirection = OperationOptions.SORT_DIRECTION_DESC;
+                SortDirection = OperationSortDirection.DESC;
             }
         }
         else
         {
             SortField = nameof(ClientMapperTopicTypeEntity.TreePath);
 
-            SortDirection = OperationOptions.SORT_DIRECTION_ASC;
+            SortDirection = OperationSortDirection.ASC;
         }
     }
 
