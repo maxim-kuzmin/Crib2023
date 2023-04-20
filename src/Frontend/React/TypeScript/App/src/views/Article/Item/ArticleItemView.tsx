@@ -44,8 +44,6 @@ function ArticleItemView ({
     [loadedEntity]
   );
 
-  const { dispatchOfDeleteAction } = hooksOfArticleItemView.useDeleteActionOutput();
-
   const controlActions: CardControlAction[] = useMemo(
     () => {
       const result: CardControlAction[] = [];
@@ -68,23 +66,9 @@ function ArticleItemView ({
 
       result.push(actionToEdit);
 
-      const actionToDelete: CardControlAction = {
-        onClick: () => {
-          dispatchOfDeleteAction.run({ id: articleId });
-        },
-        key: 'delete',
-        title: '@@Delete'
-      };
-
-      result.push(actionToDelete);
-
       return result;
     },
-    [
-      articleId,
-      dispatchOfDeleteAction,
-      topicPageLastUrl
-    ]
+    [articleId, topicPageLastUrl]
   );
 
   const controlExtra: CardControlExtra = {

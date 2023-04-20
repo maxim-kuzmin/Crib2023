@@ -8,6 +8,7 @@ import { ArticlePageMode } from '../../../pages';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
+import { type ArticleListStoreLoadActionInput } from '../../../app/Stores';
 
 function getRowKey (row: any): Key {
   const viewRow: ArticleTableViewRow = row;
@@ -26,11 +27,26 @@ function ArticleTableView ({
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];
 
-  const { loading, payload } = getModule().getArticleTableViewHooks().useLoadActionOutput({
-    pageNumber,
-    pageSize,
-    topicId
-  });
+  const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
+
+  const { dispatchOfDeleteAction } = hooksOfArticleItemView.useDeleteActionOutput();
+
+  const hooksOfArticleTableView = getModule().getArticleTableViewHooks();
+
+  const input: ArticleListStoreLoadActionInput = useMemo(
+    () => ({
+      pageNumber,
+      pageSize,
+      topicId
+    }),
+    [
+      pageNumber,
+      pageSize,
+      topicId
+    ]
+  );
+
+  const { dispatchOfLoadAction, loading, payload } = hooksOfArticleTableView.useLoadActionOutput(input);
 
   if (payload?.data) {
     const { data } = payload;
@@ -143,14 +159,18 @@ function ArticleTableView ({
                 >
                   @@Edit
                 </Link>
-                <ButtonControl>@@Delete</ButtonControl>
+                <ButtonControl onClick={() => {
+                  dispatchOfDeleteAction.run({ id }).then(() => {
+                    dispatchOfLoadAction.run(input)
+                  });
+                }}>@@Delete</ButtonControl>
               </div>
             );
           }
         }
       ];
     },
-    [topicId]
+    [dispatchOfDeleteAction, dispatchOfLoadAction, input, topicId]
   );
 
   return (

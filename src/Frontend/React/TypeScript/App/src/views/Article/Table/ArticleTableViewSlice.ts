@@ -73,7 +73,7 @@ export function createArticleTableViewHooks (
       [pageNumber, pageSize, topicId]
     );
 
-    useLoadActionDispatch({
+    const dispatchOfLoadAction = useLoadActionDispatch({
       dispatchType: StoreDispatchType.MountOrUpdate,
       callback,
       isCanceled,
@@ -87,6 +87,7 @@ export function createArticleTableViewHooks (
     const { payloadOfSetAction, statusOfLoadAction } = useStoreState();
 
     return {
+      dispatchOfLoadAction,
       loading: statusOfLoadAction === OperationStatus.Pending,
       payload: payloadOfSetAction
     };
