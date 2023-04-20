@@ -10,7 +10,7 @@ import {
 import { FormControl, SpinnerControl } from '../../../../controls';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
-import { type ArticleTypeEntity } from '../../../../data';
+import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({
@@ -20,9 +20,9 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
-  const hooks = getModule().getArticleItemViewHooks();
+  const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
 
-  hooks.useClearActionOutput({
+  hooksOfArticleItemView.useClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
@@ -33,24 +33,19 @@ function ArticleItemEditView ({
     [articleId]
   );
 
-  const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooks.useLoadActionOutput({
+  const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooksOfArticleItemView.useLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
 
-  const data = payloadOfLoadCompletedAction?.data?.item.data;
+  const loadedEntity = payloadOfLoadCompletedAction?.data?.item.data;
 
   const entity: ArticleTypeEntity = useMemo(
-    () => (data ?? {
-      id: 0,
-      title: '',
-      body: '',
-      topicId
-    }),
-    [data, topicId]
+    () => loadedEntity ?? createArticleTypeEntity({ topicId }),
+    [loadedEntity, topicId]
   );
 
-  const { dispatchOfSaveAction } = hooks.useSaveActionOutput();
+  const { dispatchOfSaveAction } = hooksOfArticleItemView.useSaveActionOutput();
 
   const formValues = useMemo(
     () => getModule().getArticleItemEditViewService().convertToFormValues(entity),

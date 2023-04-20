@@ -220,7 +220,7 @@ class ModuleImpl implements Module {
     return new ArticleDomainItemDeleteOperationRequestHandlerImpl({
       apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
-        shouldBeNotified: false
+        shouldBeNotified: true
       }),
       repository: this.getArticleDomainRepository()
     });
@@ -240,7 +240,7 @@ class ModuleImpl implements Module {
     return new ArticleDomainItemSaveOperationRequestHandlerImpl({
       apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
-        shouldBeNotified: false
+        shouldBeNotified: true
       }),
       repository: this.getArticleDomainRepository()
     });

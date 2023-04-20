@@ -1,4 +1,4 @@
-import { type ArticleTypeEntity } from '../../../../data';
+import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
 import { type ArticleItemEditViewService } from './ArticleItemEditViewService';
 
 export class ArticleItemEditViewServiceImpl implements ArticleItemEditViewService {
@@ -8,12 +8,12 @@ export class ArticleItemEditViewServiceImpl implements ArticleItemEditViewServic
   public readonly fieldNameForTopicId = 'topicId';
 
   convertToEntity (formValues: any): ArticleTypeEntity {
-    return {
+    return createArticleTypeEntity({
       body: formValues[this.fieldNameForBody],
       id: formValues[this.fieldNameForId],
       title: formValues[this.fieldNameForTitle],
       topicId: formValues[this.fieldNameForTopicId]
-    };
+    });
   }
 
   convertToFormValues (entity: ArticleTypeEntity): any {

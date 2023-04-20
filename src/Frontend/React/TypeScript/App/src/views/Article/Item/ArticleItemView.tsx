@@ -10,6 +10,7 @@ import { CardControl } from '../../../controls';
 import { ArticlePageMode } from '../../../pages';
 import { type ArticleItemViewProps } from './ArticleItemViewProps';
 import styles from './ArticleItemView.module.css';
+import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../data';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({
@@ -18,9 +19,9 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps) {
-  const hooks = getModule().getArticleItemViewHooks();
+  const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
 
-  hooks.useClearActionOutput({
+  hooksOfArticleItemView.useClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
@@ -31,14 +32,19 @@ function ArticleItemView ({
     [articleId]
   );
 
-  const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooks.useLoadActionOutput({
+  const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooksOfArticleItemView.useLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
 
-  const entity = payloadOfLoadCompletedAction?.data?.item.data;
+  const loadedEntity = payloadOfLoadCompletedAction?.data?.item.data;
 
-  const { dispatchOfDeleteAction } = hooks.useDeleteActionOutput();
+  const entity: ArticleTypeEntity = useMemo(
+    () => loadedEntity ?? createArticleTypeEntity(),
+    [loadedEntity]
+  );
+
+  const { dispatchOfDeleteAction } = hooksOfArticleItemView.useDeleteActionOutput();
 
   const controlActions: CardControlAction[] = useMemo(
     () => {
@@ -89,7 +95,7 @@ function ArticleItemView ({
     <div className={styles.root}>
       <h2>@@Article</h2>
       {
-        entity
+        entity.id > 0
           ? <CardControl
               controlActions={controlActions}
               controlExtra={controlExtra}
