@@ -45,7 +45,7 @@ async function runLoadAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createArticleDomainItemGetOperationRequest(payload),
+        createArticleDomainItemGetOperationRequest(payload, { operationName: '@@ArticleDomainItemGet' }),
         shouldBeCanceled
       )
     : null;

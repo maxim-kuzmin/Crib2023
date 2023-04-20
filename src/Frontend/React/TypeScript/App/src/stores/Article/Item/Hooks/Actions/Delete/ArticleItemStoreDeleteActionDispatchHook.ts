@@ -45,7 +45,7 @@ async function runDeleteAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createArticleDomainItemDeleteOperationRequest(payload),
+        createArticleDomainItemDeleteOperationRequest(payload, { operationName: '@@ArticleDomainItemDelete' }),
         shouldBeCanceled
       )
     : null;

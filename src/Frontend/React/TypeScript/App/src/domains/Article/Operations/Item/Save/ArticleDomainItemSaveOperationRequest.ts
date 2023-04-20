@@ -1,14 +1,15 @@
-import { type ArticleTypeEntity, type ApiRequestWithInput } from '../../../../../data';
+import {
+  type ApiRequest,
+  type ApiRequestWithInput,
+  type ArticleTypeEntity,
+  createApiRequestWithInput
+} from '../../../../../data';
 
 export interface ArticleDomainItemSaveOperationRequest extends ApiRequestWithInput<ArticleTypeEntity> {}
 
 export function createArticleDomainItemSaveOperationRequest (
   input: ArticleTypeEntity,
-  operationCode: string = ''
+  options?: Partial<ApiRequest>
 ): ArticleDomainItemSaveOperationRequest {
-  return {
-    operationName: '@@ArticleDomainItemSave',
-    operationCode,
-    input
-  };
+  return createApiRequestWithInput(input, options);
 }

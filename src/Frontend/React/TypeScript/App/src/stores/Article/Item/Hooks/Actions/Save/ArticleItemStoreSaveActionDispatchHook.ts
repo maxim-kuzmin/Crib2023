@@ -45,7 +45,7 @@ async function runSaveAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createArticleDomainItemSaveOperationRequest(payload),
+        createArticleDomainItemSaveOperationRequest(payload, { operationName: '@@ArticleDomainItemSave' }),
         shouldBeCanceled
       )
     : null;

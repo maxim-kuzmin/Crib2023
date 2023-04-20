@@ -1,4 +1,8 @@
-import { type ApiRequestWithInput } from '../../../../../data';
+import {
+  type ApiRequest,
+  type ApiRequestWithInput,
+  createApiRequestWithInput
+} from '../../../../../data';
 import { type ArticleDomainItemGetOperationInput } from '../Get';
 
 export interface ArticleDomainItemDeleteOperationRequest
@@ -6,11 +10,7 @@ export interface ArticleDomainItemDeleteOperationRequest
 
 export function createArticleDomainItemDeleteOperationRequest (
   input: ArticleDomainItemGetOperationInput,
-  operationCode: string = ''
+  options?: Partial<ApiRequest>
 ): ArticleDomainItemDeleteOperationRequest {
-  return {
-    operationName: '@@ArticleDomainItemDelete',
-    operationCode,
-    input
-  };
+  return createApiRequestWithInput(input, options);
 }

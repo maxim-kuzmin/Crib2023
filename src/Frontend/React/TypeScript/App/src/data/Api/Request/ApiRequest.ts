@@ -1,11 +1,11 @@
 export interface ApiRequest {
   operationCode: string;
-  readonly operationName: string;
+  operationName: string;
 }
 
-export function createApiRequest (operationName: string, operationCode: string): ApiRequest {
+export function createApiRequest (options?: Partial<ApiRequest>): ApiRequest {
   return {
-    operationCode,
-    operationName
+    operationCode: options?.operationCode ?? '',
+    operationName: options?.operationName ?? ''
   };
 }

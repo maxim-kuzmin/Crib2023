@@ -22,7 +22,6 @@ import {
 } from '../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../common';
 import {
-  type ArticleDomainListGetOperationInput,
   type ArticleDomainListGetOperationRequestHandler,
   createArticleDomainListGetOperationRequest
 } from '../../../domains';
@@ -62,13 +61,6 @@ function createClearAction (sliceName: string): ClearAction {
     sliceName
   };
 };
-
-function createGetOperationRequest (
-  input: ArticleDomainListGetOperationInput,
-  operationCode?: string
-) {
-  return createArticleDomainListGetOperationRequest(input, operationCode);
-}
 
 function createSetAction (sliceName: string, payload: SetActionPayload): SetAction {
   return {
@@ -162,7 +154,10 @@ async function runLoadAction ({
   dispatch(createLoadAction(sliceName, payload));
 
   const response = payload
-    ? await requestHandler.handle(createGetOperationRequest(payload), shouldBeCanceled)
+    ? await requestHandler.handle(
+        createArticleDomainListGetOperationRequest(payload, { operationName: '@@ArticleDomainListGet' }),
+        shouldBeCanceled
+      )
     : null;
 
   if (shouldBeCanceled()) {

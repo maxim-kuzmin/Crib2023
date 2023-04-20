@@ -1,4 +1,8 @@
-import { type ApiRequestWithInput } from '../../../../../data';
+import {
+  type ApiRequest,
+  type ApiRequestWithInput,
+  createApiRequestWithInput
+} from '../../../../../data';
 import { type ArticleDomainListGetOperationInput } from './ArticleDomainListGetOperationInput';
 
 export interface ArticleDomainListGetOperationRequest
@@ -6,11 +10,7 @@ export interface ArticleDomainListGetOperationRequest
 
 export function createArticleDomainListGetOperationRequest (
   input: ArticleDomainListGetOperationInput,
-  operationCode: string = ''
+  options?: Partial<ApiRequest>
 ): ArticleDomainListGetOperationRequest {
-  return {
-    operationName: '@@ArticleDomainListGet',
-    operationCode,
-    input
-  };
+  return createApiRequestWithInput(input, options);
 }
