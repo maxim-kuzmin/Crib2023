@@ -14,43 +14,26 @@ import {
 } from '../../../app/Stores';
 import { type ArticleItemViewHooks } from './ArticleItemViewHooks';
 
-type ClearActionInput = ArticleItemStoreClearActionInput;
-type ClearActionOutput = ArticleItemStoreClearActionOutput;
-
-type DeleteActionInput = ArticleItemStoreDeleteActionInput;
-type DeleteActionOutput = ArticleItemStoreDeleteActionOutput;
-
-type LoadActionInput = ArticleItemStoreLoadActionInput;
-type LoadActionOutput = ArticleItemStoreLoadActionOutput;
-
-type SaveActionInput = ArticleItemStoreSaveActionInput;
-type SaveActionOutput = ArticleItemStoreSaveActionOutput;
-
-type SetActionInput = ArticleItemStoreSetActionInput;
-type SetActionOutput = ArticleItemStoreSetActionOutput;
-
-export function createArticleItemViewHooks (
-  hooks: ArticleItemStoreHooks
-): ArticleItemViewHooks {
+export function createArticleItemViewHooks (hooks: ArticleItemStoreHooks): ArticleItemViewHooks {
   const sliceName = ArticleItemStoreSliceName.ArticleItemView;
 
-  function useClearActionOutput (input: ClearActionInput): ClearActionOutput {
+  function useClearActionOutput (input: ArticleItemStoreClearActionInput): ArticleItemStoreClearActionOutput {
     return hooks.useClearActionOutput(sliceName, input);
   }
 
-  function useDeleteActionOutput (input: DeleteActionInput): DeleteActionOutput {
+  function useDeleteActionOutput (input: ArticleItemStoreDeleteActionInput): ArticleItemStoreDeleteActionOutput {
     return hooks.useDeleteActionOutput(sliceName, input);
   }
 
-  function useLoadActionOutput (input: LoadActionInput): LoadActionOutput {
+  function useLoadActionOutput (input: ArticleItemStoreLoadActionInput): ArticleItemStoreLoadActionOutput {
     return hooks.useLoadActionOutput(sliceName, input);
   }
 
-  function useSaveActionOutput (input: SaveActionInput): SaveActionOutput {
+  function useSaveActionOutput (input: ArticleItemStoreSaveActionInput): ArticleItemStoreSaveActionOutput {
     return hooks.useSaveActionOutput(sliceName, input);
   }
 
-  function useSetActionOutput (input: SetActionInput): SetActionOutput {
+  function useSetActionOutput (input: ArticleItemStoreSetActionInput): ArticleItemStoreSetActionOutput {
     return hooks.useSetActionOutput(sliceName, input);
   }
 

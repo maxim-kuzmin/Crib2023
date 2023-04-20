@@ -38,6 +38,8 @@ function ArticleItemView ({
 
   const entity = payloadOfLoadCompletedAction?.data?.item.data;
 
+  // hooks.useDeleteActionOutput();
+
   const controlActions: CardControlAction[] = useMemo(
     () => {
       const result: CardControlAction[] = [];

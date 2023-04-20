@@ -11,25 +11,10 @@ import {
   type ArticleItemStoreSetActionOutput
 } from '../../../app/Stores';
 
-type ClearActionInput = ArticleItemStoreClearActionInput;
-type ClearActionOutput = ArticleItemStoreClearActionOutput;
-
-type DeleteActionInput = ArticleItemStoreDeleteActionInput;
-type DeleteActionOutput = ArticleItemStoreDeleteActionOutput;
-
-type LoadActionInput = ArticleItemStoreLoadActionInput;
-type LoadActionOutput = ArticleItemStoreLoadActionOutput;
-
-type SaveActionInput = ArticleItemStoreSaveActionInput;
-type SaveActionOutput = ArticleItemStoreSaveActionOutput;
-
-type SetActionInput = ArticleItemStoreSetActionInput;
-type SetActionOutput = ArticleItemStoreSetActionOutput;
-
 export interface ArticleItemViewHooks {
-  readonly useClearActionOutput: (input: ClearActionInput) => ClearActionOutput;
-  readonly useDeleteActionOutput: (input: DeleteActionInput) => DeleteActionOutput;
-  readonly useLoadActionOutput: (input: LoadActionInput) => LoadActionOutput;
-  readonly useSaveActionOutput: (input: SaveActionInput) => SaveActionOutput;
-  readonly useSetActionOutput: (input: SetActionInput) => SetActionOutput;
+  readonly useClearActionOutput: (input: ArticleItemStoreClearActionInput) => ArticleItemStoreClearActionOutput;
+  readonly useDeleteActionOutput: (input: ArticleItemStoreDeleteActionInput) => ArticleItemStoreDeleteActionOutput;
+  readonly useLoadActionOutput: (input: ArticleItemStoreLoadActionInput) => ArticleItemStoreLoadActionOutput;
+  readonly useSaveActionOutput: (input: ArticleItemStoreSaveActionInput) => ArticleItemStoreSaveActionOutput;
+  readonly useSetActionOutput: (input: ArticleItemStoreSetActionInput) => ArticleItemStoreSetActionOutput;
 }
