@@ -16,19 +16,15 @@ export class ArticleItemEditViewServiceImpl implements ArticleItemEditViewServic
     };
   }
 
-  convertToFormValues (entity?: ArticleTypeEntity): any {
-    if (entity) {
-      const { body, id, title, topicId } = entity;
+  convertToFormValues (entity: ArticleTypeEntity): any {
+    const { body, id, title, topicId } = entity;
 
-      return {
-        [this.fieldNameForBody]: body,
-        [this.fieldNameForId]: id,
-        [this.fieldNameForTitle]: title,
-        [this.fieldNameForTopicId]: topicId
-      };
-    } else {
-      return {};
-    }
+    return {
+      [this.fieldNameForBody]: body,
+      [this.fieldNameForId]: id,
+      [this.fieldNameForTitle]: title,
+      [this.fieldNameForTopicId]: topicId
+    };
   }
 
   updateEntity (entity: ArticleTypeEntity, formValues: any): void {

@@ -33,6 +33,12 @@ function convertToFieldMarkup (controlField: FormControlField) {
           { children?.map((child) => convertToFieldMarkup(child)) }
         </Form.Item>
       );
+    case FormControlFieldType.Hidden:
+      return (
+        <Form.Item {...props} hidden={true}>
+          <Input readOnly/>
+        </Form.Item>
+      );
     case FormControlFieldType.Readonly:
       return (
         <Form.Item {...props}>

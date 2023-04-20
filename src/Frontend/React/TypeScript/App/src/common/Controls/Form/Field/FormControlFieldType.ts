@@ -1,6 +1,7 @@
 export enum FormControlFieldType {
-  Container = 1,
-  Readonly = 2,
-  TextArea = 3,
-  TextInput = 4
+  Container = 'Container',
+  Hidden = 'Hidden',
+  Readonly = 'Readonly',
+  TextArea = 'TextArea',
+  TextInput = 'TextInput'
 }

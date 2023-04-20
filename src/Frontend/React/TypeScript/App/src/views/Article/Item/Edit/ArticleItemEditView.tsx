@@ -10,12 +10,14 @@ import {
 import { FormControl, SpinnerControl } from '../../../../controls';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
+import { type ArticleTypeEntity } from '../../../../data';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({
   articleId,
   onArticleItemClearActionCompleted,
   onArticleItemLoadActionCompleted,
+  topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
   const hooks = getModule().getArticleItemViewHooks();
@@ -36,7 +38,17 @@ function ArticleItemEditView ({
     payloadOfLoadAction
   });
 
-  const entity = payloadOfLoadCompletedAction?.data?.item.data;
+  const data = payloadOfLoadCompletedAction?.data?.item.data;
+
+  const entity: ArticleTypeEntity = useMemo(
+    () => (data ?? {
+      id: 0,
+      title: '',
+      body: '',
+      topicId
+    }),
+    [data, topicId]
+  );
 
   const { dispatchOfSaveAction } = hooks.useSaveActionOutput();
 
@@ -45,7 +57,12 @@ function ArticleItemEditView ({
     [entity]
   );
 
-  const { fieldNameForBody, fieldNameForId, fieldNameForTitle } = getModule().getArticleItemEditViewService();
+  const {
+    fieldNameForBody,
+    fieldNameForId,
+    fieldNameForTitle,
+    fieldNameForTopicId
+  } = getModule().getArticleItemEditViewService();
 
   const controlActions = useMemo(
     () => {
@@ -91,19 +108,13 @@ function ArticleItemEditView ({
     ]
   );
 
-  const controlFields = useMemo(
+  const controlFields: FormControlField[] = useMemo(
     () => {
-      const result: FormControlField[] = [];
-
-      if (articleId > 0) {
-        const fieldForId: FormControlField = {
-          label: '@@ID',
-          name: fieldNameForId,
-          type: FormControlFieldType.Readonly
-        };
-
-        result.push(fieldForId);
-      }
+      const fieldForId: FormControlField = {
+        label: '@@ID',
+        name: fieldNameForId,
+        type: articleId > 0 ? FormControlFieldType.Readonly : FormControlFieldType.Hidden
+      };
 
       const fieldForTitle: FormControlField = {
         name: fieldNameForTitle,
@@ -111,23 +122,31 @@ function ArticleItemEditView ({
         type: FormControlFieldType.TextInput
       };
 
-      result.push(fieldForTitle);
-
       const fieldForBody: FormControlField = {
         label: '@@Body',
         name: fieldNameForBody,
         type: FormControlFieldType.TextArea
       };
 
-      result.push(fieldForBody);
+      const fieldForTopicId: FormControlField = {
+        label: '@@Topic',
+        name: fieldNameForTopicId,
+        type: FormControlFieldType.Hidden
+      };
 
-      return result;
+      return [
+        fieldForId,
+        fieldForTitle,
+        fieldForBody,
+        fieldForTopicId
+      ];
     },
     [
       articleId,
       fieldNameForBody,
       fieldNameForId,
-      fieldNameForTitle
+      fieldNameForTitle,
+      fieldNameForTopicId
     ]
   );
 

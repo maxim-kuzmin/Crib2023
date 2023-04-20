@@ -95,15 +95,6 @@ public static class ArticleDomainExtension
     {
         OperationInputInvalidProperties result = new();
 
-        if (entity.Id < 1L)
-        {
-            var values = result.GetOrAdd(nameof(entity.Id));
-
-            string value = operationsResource.GetOperationInputValidValueForId();
-
-            values.Add(value);
-        }
-
         bool isBodyInvalid = string.IsNullOrWhiteSpace(entity.Body);
         bool isTitleInvalid = string.IsNullOrWhiteSpace(entity.Title);
         bool isTopicIdInvalid = entity.TopicId < 1;
