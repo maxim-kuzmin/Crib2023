@@ -124,7 +124,7 @@ export function useDeleteActionDispatch (
     payload: ArticleItemStoreDeleteActionPayload,
     shouldBeCanceled: ShouldBeCanceled = () => false
   ): Promise<void> {
-    runDeleteAction({
+    await runDeleteAction({
       callback,
       dispatch,
       payload,

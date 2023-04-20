@@ -124,7 +124,7 @@ export function useSaveActionDispatch (
     payload: ArticleItemStoreSaveActionPayload,
     shouldBeCanceled: ShouldBeCanceled = () => false
   ): Promise<void> {
-    runSaveAction({
+    await runSaveAction({
       callback,
       dispatch,
       payload,

@@ -124,7 +124,7 @@ export function useLoadActionDispatch (
     payload: ArticleItemStoreLoadActionPayload,
     shouldBeCanceled: ShouldBeCanceled = () => false
   ): Promise<void> {
-    runLoadAction({
+    await runLoadAction({
       callback,
       dispatch,
       payload,

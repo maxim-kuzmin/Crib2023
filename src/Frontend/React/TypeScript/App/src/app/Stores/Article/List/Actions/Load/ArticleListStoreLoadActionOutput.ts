@@ -3,6 +3,6 @@ import { type ArticleListStoreLoadActionDispatch } from './ArticleListStoreLoadA
 
 export interface ArticleListStoreLoadActionOutput {
   readonly dispatchOfLoadAction: ArticleListStoreLoadActionDispatch;
-  readonly loading: boolean;
-  readonly payload: ArticleListStoreSetActionPayload;
+  readonly payloadOfLoadAction: ArticleListStoreSetActionPayload;
+  readonly pendingOfLoadAction: boolean;
 }

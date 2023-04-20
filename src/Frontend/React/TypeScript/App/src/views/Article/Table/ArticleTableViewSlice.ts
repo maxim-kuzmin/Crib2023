@@ -88,8 +88,8 @@ export function createArticleTableViewHooks (
 
     return {
       dispatchOfLoadAction,
-      loading: statusOfLoadAction === OperationStatus.Pending,
-      payload: payloadOfSetAction
+      pendingOfLoadAction: statusOfLoadAction === OperationStatus.Pending,
+      payloadOfLoadAction: payloadOfSetAction
     };
   }
 

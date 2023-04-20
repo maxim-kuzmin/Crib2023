@@ -45,7 +45,7 @@ function ArticleItemEditView ({
     [loadedEntity, topicId]
   );
 
-  const { dispatchOfSaveAction } = hooksOfArticleItemView.useSaveActionOutput();
+  const { dispatchOfSaveAction, pendingOfSaveAction } = hooksOfArticleItemView.useSaveActionOutput();
 
   const formValues = useMemo(
     () => getModule().getArticleItemEditViewService().convertToFormValues(entity),
@@ -68,6 +68,7 @@ function ArticleItemEditView ({
       const actionToSave: FormControlAction = {
         key: 'save',
         title: '@@Save',
+        loading: pendingOfSaveAction,
         type: FormControlActionType.Submit
       };
 
@@ -97,10 +98,7 @@ function ArticleItemEditView ({
 
       return result;
     },
-    [
-      articleId,
-      topicPageLastUrl
-    ]
+    [articleId, pendingOfSaveAction, topicPageLastUrl]
   );
 
   const controlFields: FormControlField[] = useMemo(

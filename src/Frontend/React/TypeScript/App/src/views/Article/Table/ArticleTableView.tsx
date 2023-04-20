@@ -1,4 +1,4 @@
-import React, { useMemo, type Key, memo } from 'react';
+import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getModule } from '../../../app/ModuleImpl';
 import { type BreadcrumbControlItem, type TableControlColumn, type TableControlPagination } from '../../../common';
@@ -27,9 +27,14 @@ function ArticleTableView ({
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];
 
+  const deletingId = useRef(0);
+
   const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
 
-  const { dispatchOfDeleteAction } = hooksOfArticleItemView.useDeleteActionOutput();
+  const {
+    dispatchOfDeleteAction,
+    pendingOfDeleteAction
+  } = hooksOfArticleItemView.useDeleteActionOutput();
 
   const hooksOfArticleTableView = getModule().getArticleTableViewHooks();
 
@@ -46,10 +51,14 @@ function ArticleTableView ({
     ]
   );
 
-  const { dispatchOfLoadAction, loading, payload } = hooksOfArticleTableView.useLoadActionOutput(input);
+  const {
+    dispatchOfLoadAction,
+    payloadOfLoadAction,
+    pendingOfLoadAction
+  } = hooksOfArticleTableView.useLoadActionOutput(input);
 
-  if (payload?.data) {
-    const { data } = payload;
+  if (payloadOfLoadAction?.data) {
+    const { data } = payloadOfLoadAction;
 
     items = data.items;
     totalCount = data.totalCount;
@@ -159,18 +168,36 @@ function ArticleTableView ({
                 >
                   @@Edit
                 </Link>
-                <ButtonControl onClick={() => {
-                  dispatchOfDeleteAction.run({ id }).then(() => {
-                    dispatchOfLoadAction.run(input)
-                  });
-                }}>@@Delete</ButtonControl>
+                <ButtonControl
+                  disabled={id !== deletingId.current && pendingOfDeleteAction}
+                  loading={id === deletingId.current && pendingOfDeleteAction}
+                  onClick={
+                    () => {
+                      deletingId.current = id;
+
+                      dispatchOfDeleteAction.run({ id })
+                        .then(() => {
+                          deletingId.current = 0;
+                          dispatchOfLoadAction.run(input);
+                        });
+                  }}
+                  title={`@@Delete ${id}`}
+                >
+                  @@Delete
+                </ButtonControl>
               </div>
             );
           }
         }
       ];
     },
-    [dispatchOfDeleteAction, dispatchOfLoadAction, input, topicId]
+    [
+      dispatchOfDeleteAction,
+      dispatchOfLoadAction,
+      input,
+      pendingOfDeleteAction,
+      topicId
+    ]
   );
 
   return (
@@ -182,7 +209,7 @@ function ArticleTableView ({
         controlRows={controlRows}
         controlPagination={controlPagination}
         getRowKey={getRowKey}
-        loading={loading}
+        loading={pendingOfLoadAction}
         onChange={onTableChange}
       />
     </div>
