@@ -1,6 +1,11 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { getModule } from '../../../app/ModuleImpl';
-import { OperationStatus, type TreeControlNode, TreeGetOperationAxisForList } from '../../../common';
+import {
+  OperationSortDirection,
+  OperationStatus,
+  type TreeControlNode,
+  TreeGetOperationAxisForList
+} from '../../../common';
 import { SpinnerControl, TreeControl } from '../../../controls';
 import {
   type TopicDomainEntityForTree,
@@ -12,7 +17,7 @@ import styles from './TopicTreeView.module.css';
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,
   sortField: 'Name',
-  sortDirection: 'asc',
+  sortDirection: OperationSortDirection.Asc,
 };
 
 function convertToControlNodes (topicId: number, entities?: TopicDomainEntityForTree[]): TreeControlNode[] {
