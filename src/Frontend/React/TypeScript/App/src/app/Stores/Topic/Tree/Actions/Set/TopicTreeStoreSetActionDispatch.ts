@@ -1,5 +1,5 @@
 import { type TopicTreeStoreSetActionPayload } from './TopicTreeStoreSetActionPayload';
 
 export interface TopicTreeStoreSetActionDispatch {
-  run: (payload: TopicTreeStoreSetActionPayload) => void;
+  readonly run: (payload: TopicTreeStoreSetActionPayload) => void;
 }

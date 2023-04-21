@@ -6,16 +6,12 @@ import {
 import { type ArticleListStoreState } from '../../../app/Stores';
 import { type ArticleListStoreActionUnion } from './ArticleListStoreActionUnion';
 
-type ActionUnion = ArticleListStoreActionUnion;
-type StoreState = ArticleListStoreState;
-type StoreStateMap = Map<string, StoreState>;
-
-export const ArticleListStoreDispatchContext = createContext<Dispatch<ActionUnion> | null>(null);
-export const ArticleListStoreStateContext = createContext<StoreStateMap | null>(null);
+export const ArticleListStoreDispatchContext = createContext<Dispatch<ArticleListStoreActionUnion> | null>(null);
+export const ArticleListStoreStateContext = createContext<Map<string, ArticleListStoreState> | null>(null);
 
 export function useArticleListStoreDispatchContext () {
   return useContext(ArticleListStoreDispatchContext)!;
 }
-export function useArticleListStoreStateContext (sliceName: string): StoreState {
+export function useArticleListStoreStateContext (sliceName: string): ArticleListStoreState {
   return useContext(ArticleListStoreStateContext)!.get(sliceName)!;
 }

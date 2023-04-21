@@ -3,6 +3,6 @@ import { type TopicTreeStoreSetActionCallback } from './TopicTreeStoreSetActionC
 import { type TopicTreeStoreSetActionPayload } from './TopicTreeStoreSetActionPayload';
 
 export interface TopicTreeStoreSetActionOptions extends StoreActionOptions {
-  callback?: TopicTreeStoreSetActionCallback;
-  payload?: TopicTreeStoreSetActionPayload;
+  readonly callback?: TopicTreeStoreSetActionCallback;
+  readonly payloadOfSetAction?: TopicTreeStoreSetActionPayload;
 }

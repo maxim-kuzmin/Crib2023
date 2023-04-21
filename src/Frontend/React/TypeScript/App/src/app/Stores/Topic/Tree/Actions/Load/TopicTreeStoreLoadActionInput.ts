@@ -1,11 +1,8 @@
-import { type OperationSortDirection, type TreeGetOperationAxisForList } from '../../../../../../common';
-import { type TopicTreeStoreSetActionPayload } from '../Set';
+import { type TopicTreeStoreLoadCompletedActionCallback } from '../LoadCompleted';
+import { type TopicTreeStoreLoadActionPayload } from './TopicTreeStoreLoadActionPayload';
 
 export interface TopicTreeStoreLoadActionInput {
-  readonly axis: TreeGetOperationAxisForList;
-  readonly sortDirection?: OperationSortDirection;
-  readonly sortField?: string;
-  readonly topicId: number;
   readonly isCanceled?: boolean;
-  readonly onActionCompleted?: (payload: TopicTreeStoreSetActionPayload) => void;
+  readonly onActionCompleted?: TopicTreeStoreLoadCompletedActionCallback;
+  readonly payloadOfLoadAction: TopicTreeStoreLoadActionPayload;
 }

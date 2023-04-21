@@ -13,21 +13,21 @@ import {
   TopicTreeStoreStateContext
 } from './TopicTreeStoreContext';
 
-type ActionUnion = TopicTreeStoreActionUnion;
-type StoreState = TopicTreeStoreState;
-type StoreStateMap = Map<string, StoreState>;
-
-const initialState = getModule().getStoreService().createInitialState<StoreState>(
+const initialState = getModule().getStoreService().createInitialState<TopicTreeStoreState>(
   [TopicTreeStoreSliceName.TopicTreeView],
   () => ({
     payloadOfLoadAction: null,
+    payloadOfLoadCompletedAction: null,
     payloadOfSetAction: null,
     statusOfLoadAction: OperationStatus.Initial
   })
 );
 
-function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
-  const result = new Map<string, StoreState>(stateMap);
+function reducer (
+  stateMap: Map<string, TopicTreeStoreState>,
+  action: TopicTreeStoreActionUnion
+): Map<string, TopicTreeStoreState> {
+  const result = new Map<string, TopicTreeStoreState>(stateMap);
   const { sliceName, type } = action;
   const state = result.get(sliceName)!;
 
@@ -45,13 +45,23 @@ function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
         }
       );
       break;
+    case TopicTreeStoreActionType.LoadCompleted:
+      result.set(
+        sliceName,
+        {
+          ...state,
+          payloadOfLoadCompletedAction: action.payload,
+          statusOfLoadAction: OperationStatus.Fulfilled,
+          payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+        }
+      );
+      break;
     case TopicTreeStoreActionType.Set:
       result.set(
         sliceName,
         {
           ...state,
-          payloadOfSetAction: action.payload,
-          statusOfLoadAction: OperationStatus.Fulfilled
+          payloadOfSetAction: action.payload
         }
       );
       break;

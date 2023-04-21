@@ -9,7 +9,5 @@ export interface ArticleListStoreState {
   payloadOfLoadAction: ArticleListStoreLoadActionPayload;
   payloadOfLoadCompletedAction: ArticleListStoreLoadCompletedActionPayload;
   payloadOfSetAction: ArticleListStoreSetActionPayload;
-  statusOfDeleteAction: OperationStatus;
   statusOfLoadAction: OperationStatus;
-  statusOfSaveAction: OperationStatus;
 }

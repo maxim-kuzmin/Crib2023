@@ -1,101 +1,39 @@
-import { useCallback, useMemo } from 'react';
 import {
-  type TopicTreeStoreClearActionDispatch,
-  type TopicTreeStoreClearActionOptions,
-  type TopicTreeStoreHooks,
-  type TopicTreeStoreLoadActionDispatch,
+  type TopicTreeStoreClearActionInput,
+  type TopicTreeStoreClearActionOutput,
   type TopicTreeStoreLoadActionInput,
-  type TopicTreeStoreLoadActionOptions,
   type TopicTreeStoreLoadActionOutput,
-  type TopicTreeStoreSetActionDispatch,
-  type TopicTreeStoreSetActionOptions,
-  type TopicTreeStoreSetActionPayload,
+  type TopicTreeStoreSetActionInput,
+  type TopicTreeStoreSetActionOutput,
+  type TopicTreeStoreHooks,
   TopicTreeStoreSliceName,
-  type TopicTreeStoreState
+  type TopicTreeStoreState,
 } from '../../../app/Stores';
-import { OperationStatus, StoreDispatchType } from '../../../common';
-import { type TopicDomainTreeGetOperationInput } from '../../../domains';
 import { type TopicTreeViewHooks } from './TopicTreeViewHooks';
 
-type ClearActionDispatch = TopicTreeStoreClearActionDispatch;
-type ClearActionOptions = TopicTreeStoreClearActionOptions;
-
-type LoadActionDispatch = TopicTreeStoreLoadActionDispatch;
-type LoadActionInput = TopicTreeStoreLoadActionInput;
-type LoadActionOptions = TopicTreeStoreLoadActionOptions;
-type LoadActionOutput = TopicTreeStoreLoadActionOutput;
-
-type SetActionDispatch = TopicTreeStoreSetActionDispatch;
-type SetActionOptions = TopicTreeStoreSetActionOptions;
-
-type StoreState = TopicTreeStoreState;
-
-export function createTopicTreeViewHooks (
-  hooks: TopicTreeStoreHooks
-): TopicTreeViewHooks {
+export function createTopicTreeViewHooks (hooks: TopicTreeStoreHooks): TopicTreeViewHooks {
   const sliceName = TopicTreeStoreSliceName.TopicTreeView;
 
-  function useClearActionDispatch (options: ClearActionOptions): ClearActionDispatch {
-    return hooks.useClearActionDispatch(sliceName, options);
+  function useClearActionOutput (input: TopicTreeStoreClearActionInput): TopicTreeStoreClearActionOutput {
+    return hooks.useClearActionOutput(sliceName, input);
   }
 
-  function useLoadActionDispatch (options: LoadActionOptions): LoadActionDispatch {
-    return hooks.useLoadActionDispatch(sliceName, options);
+  function useLoadActionOutput (input: TopicTreeStoreLoadActionInput): TopicTreeStoreLoadActionOutput {
+    return hooks.useLoadActionOutput(sliceName, input);
   }
 
-  function useSetActionDispatch (options: SetActionOptions): SetActionDispatch {
-    return hooks.useSetActionDispatch(sliceName, options);
+  function useSetActionOutput (input: TopicTreeStoreSetActionInput): TopicTreeStoreSetActionOutput {
+    return hooks.useSetActionOutput(sliceName, input);
   }
 
-  function useStoreState (): StoreState {
+  function useStoreState (): TopicTreeStoreState {
     return hooks.useStoreState(sliceName);
   }
 
-  function useLoadActionOutput (input: LoadActionInput): LoadActionOutput {
-    const { axis, sortField, sortDirection, topicId, isCanceled, onActionCompleted } = input;
-
-    const callback = useCallback((payload: TopicTreeStoreSetActionPayload) => {
-        if (onActionCompleted) {
-          onActionCompleted(payload);
-        }
-      },
-      [onActionCompleted]
-    );
-
-    const payload: TopicDomainTreeGetOperationInput = useMemo(
-      () => ({
-        axis,
-        sortField,
-        sortDirection,
-        expandedNodeId: topicId
-      }),
-      [axis, sortDirection, sortField, topicId]
-    );
-
-    useLoadActionDispatch({
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      callback,
-      isCanceled,
-      payload
-    });
-
-    useClearActionDispatch({
-      dispatchType: StoreDispatchType.Unmount
-    });
-
-    const { payloadOfSetAction, statusOfLoadAction } = useStoreState();
-
-    return {
-      loading: statusOfLoadAction === OperationStatus.Pending,
-      payload: payloadOfSetAction
-    };
-  }
-
   return {
-    useClearActionDispatch,
-    useLoadActionDispatch,
+    useClearActionOutput,
     useLoadActionOutput,
-    useSetActionDispatch,
+    useSetActionOutput,
     useStoreState
   };
 }

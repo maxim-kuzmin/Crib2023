@@ -13,11 +13,7 @@ import {
   ArticleItemStoreStateContext
 } from './ArticleItemStoreContext';
 
-type ActionUnion = ArticleItemStoreActionUnion;
-type StoreState = ArticleItemStoreState;
-type StoreStateMap = Map<string, StoreState>;
-
-const initialState = getModule().getStoreService().createInitialState<StoreState>(
+const initialState = getModule().getStoreService().createInitialState<ArticleItemStoreState>(
   [ArticleItemStoreSliceName.ArticleItemView],
   () => ({
     payloadOfDeleteAction: null,
@@ -33,8 +29,11 @@ const initialState = getModule().getStoreService().createInitialState<StoreState
   })
 );
 
-function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
-  const result = new Map<string, StoreState>(stateMap);
+function reducer (
+  stateMap: Map<string, ArticleItemStoreState>,
+  action: ArticleItemStoreActionUnion
+): Map<string, ArticleItemStoreState> {
+  const result = new Map<string, ArticleItemStoreState>(stateMap);
   const { sliceName, type } = action;
   const state = result.get(sliceName)!;
 

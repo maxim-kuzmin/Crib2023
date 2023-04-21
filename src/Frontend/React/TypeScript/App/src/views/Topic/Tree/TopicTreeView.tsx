@@ -13,6 +13,7 @@ import {
   createTopicDomainTreeGetOperationRequest
 } from '../../../domains';
 import styles from './TopicTreeView.module.css';
+import { type TopicTreeStoreLoadActionPayload } from '../../../app/Stores';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,
@@ -54,13 +55,22 @@ function TopicTreeView () {
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const { loading, payload } = getModule().getTopicTreeViewHooks().useLoadActionOutput({
-    ...topicInput,
-    topicId,
+  const payloadOfLoadAction: TopicTreeStoreLoadActionPayload = useMemo(
+    () => ({
+      ...topicInput,
+      expandedNodeId: topicId
+    }),
+    [topicId]
+  )
+  const {
+    payloadOfLoadCompletedAction,
+    pendingOfLoadAction
+  } = getModule().getTopicTreeViewHooks().useLoadActionOutput({
+    payloadOfLoadAction,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled
   });
 
-  const entities = payload?.data?.nodes;
+  const entities = payloadOfLoadCompletedAction?.data?.nodes;
 
   const controlNodes = useMemo(
     () => convertToControlNodes(topicId, entities),
@@ -84,7 +94,7 @@ function TopicTreeView () {
   return (
     <div className={styles.root}>
       {
-        loading
+        pendingOfLoadAction
           ? <SpinnerControl/>
           : <TreeControl controlNodes={controlNodes} getChildren={getChildren} />
       }

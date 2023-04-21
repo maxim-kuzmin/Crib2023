@@ -13,28 +13,21 @@ import {
   ArticleListStoreStateContext
 } from './ArticleListStoreContext';
 
-type ActionUnion = ArticleListStoreActionUnion;
-type StoreState = ArticleListStoreState;
-type StoreStateMap = Map<string, StoreState>;
-
-const initialState = getModule().getStoreService().createInitialState<StoreState>(
+const initialState = getModule().getStoreService().createInitialState<ArticleListStoreState>(
   [ArticleListStoreSliceName.ArticleTableView],
   () => ({
-    payloadOfDeleteAction: null,
-    payloadOfDeleteCompletedAction: null,
     payloadOfLoadAction: null,
     payloadOfLoadCompletedAction: null,
-    payloadOfSaveAction: null,
-    payloadOfSaveCompletedAction: null,
     payloadOfSetAction: null,
-    statusOfDeleteAction: OperationStatus.Initial,
-    statusOfLoadAction: OperationStatus.Initial,
-    statusOfSaveAction: OperationStatus.Initial
+    statusOfLoadAction: OperationStatus.Initial
   })
 );
 
-function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
-  const result = new Map<string, StoreState>(stateMap);
+function reducer (
+  stateMap: Map<string, ArticleListStoreState>,
+  action: ArticleListStoreActionUnion
+): Map<string, ArticleListStoreState> {
+  const result = new Map<string, ArticleListStoreState>(stateMap);
   const { sliceName, type } = action;
   const state = result.get(sliceName)!;
 

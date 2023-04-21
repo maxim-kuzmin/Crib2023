@@ -4,5 +4,5 @@ import { type TopicTreeStoreLoadActionPayload } from './TopicTreeStoreLoadAction
 
 export interface TopicTreeStoreLoadActionOptions extends StoreActionOptions {
   readonly callback?: TopicTreeStoreSetActionCallback;
-  readonly payload: TopicTreeStoreLoadActionPayload;
+  readonly payloadOfLoadAction?: TopicTreeStoreLoadActionPayload;
 }
