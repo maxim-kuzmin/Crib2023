@@ -1,3 +1,3 @@
-import { type NotificationData } from '../../../../../../common';
+import { type NotificationControlProps } from '../../../../../../common';
 
-export type AppNotificationStoreSetActionPayload = NotificationData | null;
+export type AppNotificationStoreSetActionPayload = NotificationControlProps | null;

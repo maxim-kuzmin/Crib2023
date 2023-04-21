@@ -1,7 +1,7 @@
-import { type NotificationData } from '../Notification';
+import { type NotificationControlProps } from '../Controls';
 
 export interface OperationHandlerOptions {
-  functionToSetNotification: (data: NotificationData) => void;
+  functionToSetNotification: (data: NotificationControlProps) => void;
   shouldBeLogged: boolean;
   shouldBeNotified: boolean;
 }

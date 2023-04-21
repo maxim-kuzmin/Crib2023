@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { NotificationType } from '../Notification';
+import { NotificationControlType } from '../Controls';
 import { type OperationHandler } from './OperationHandler';
 import { type OperationHandlerOptions } from './OperationHandlerOptions';
 import { type OperationInput } from './OperationInput';
@@ -31,7 +31,7 @@ export class OperationHandlerImpl implements OperationHandler {
 
     if (shouldBeNotified) {
       functionToSetNotification({
-        type: NotificationType.Error,
+        type: NotificationControlType.Error,
         message: title,
         description: error.message
       });
@@ -69,7 +69,7 @@ export class OperationHandlerImpl implements OperationHandler {
 
     if (shouldBeNotified) {
       functionToSetNotification({
-        type: NotificationType.Success,
+        type: NotificationControlType.Success,
         message: title,
       });
     }

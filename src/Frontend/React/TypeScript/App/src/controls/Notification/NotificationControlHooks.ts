@@ -1,30 +1,30 @@
 import { useRef } from 'react';
 import { notification } from 'antd';
 import {
-  type NotificationComponent,
-  type NotificationData,
-  NotificationType
+  type NotificationControlComponent,
+  type NotificationControlProps,
+  NotificationControlType
 } from '../../common';
 
-function useComponent (): NotificationComponent {
+function useComponent (): NotificationControlComponent {
     const [api, contextHolder] = notification.useNotification();
 
     return useRef({
       content: contextHolder,
-      show: (input: NotificationData) => {
-        const { type, message, description } = input;
+      show: (props: NotificationControlProps) => {
+        const { type, message, description } = props;
 
         switch (type) {
-            case NotificationType.Error:
+            case NotificationControlType.Error:
                 api.error({ message, description });
                 break;
-            case NotificationType.Info:
+            case NotificationControlType.Info:
                 api.info({ message, description });
                 break;
-            case NotificationType.Success:
+            case NotificationControlType.Success:
                 api.success({ message, description });
                 break;
-            case NotificationType.Waring:
+            case NotificationControlType.Waring:
                 api.warning({ message, description });
                 break;
         }
@@ -33,7 +33,7 @@ function useComponent (): NotificationComponent {
   }
 
 export interface NotificationControlHooks {
-  readonly useComponent: () => NotificationComponent;
+  readonly useComponent: () => NotificationControlComponent;
 };
 
 export function createNotificationControlHooks (): NotificationControlHooks {
