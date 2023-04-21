@@ -2,8 +2,9 @@ import { useRef } from 'react';
 import { notification } from 'antd';
 import {
   type NotificationControlComponent,
+  type NotificationControlHooks,
   type NotificationControlProps,
-  NotificationControlType
+  NotificationControlType,
 } from '../../common';
 
 function useComponent (): NotificationControlComponent {
@@ -31,10 +32,6 @@ function useComponent (): NotificationControlComponent {
       },
     }).current;
   }
-
-export interface NotificationControlHooks {
-  readonly useComponent: () => NotificationControlComponent;
-};
 
 export function createNotificationControlHooks (): NotificationControlHooks {
   return {

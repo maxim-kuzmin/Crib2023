@@ -3,9 +3,9 @@ import {
   type HttpClient,
   type SetupOptions,
   type StoreService,
-  type TableControlService
+  type TableControlService,
+  type NotificationControlHooks
 } from '../common';
-import { type NotificationControlHooks } from '../controls';
 import {
   type ApiSetupOptions,
   type ApiResponseErrorOptions,
@@ -52,13 +52,13 @@ import { HttpClientImpl } from '../common/Http/HttpClientImpl';
 import { ApiClientImpl } from '../data/Api/ApiClientImpl';
 import { TestServiceImpl } from './Test/TestServiceImpl';
 import { StoreServiceImpl } from '../common/Store/StoreServiceImpl';
-import { createAppNotificationStoreHooks } from '../stores/App/Notification/AppNotificationStore';
-import { createNotificationControlHooks } from '../controls/Notification/NotificationControlHooks';
+import { createAppNotificationStoreHooks } from '../stores/App/Notification/AppNotificationStoreFactory';
+import { createNotificationControlHooks } from '../controls/Notification/NotificationControlFactory';
 import { TableControlServiceImpl } from '../common/Controls/Table/TableControlServiceImpl';
-import { createArticleItemStoreHooks } from '../stores/Article/Item/ArticleItemStore';
-import { createArticleListStoreHooks } from '../stores/Article/List/ArticleListStore';
-import { createTopicItemStoreHooks } from '../stores/Topic/Item/TopicItemStore';
-import { createTopicTreeStoreHooks } from '../stores/Topic/Tree/TopicTreeStore';
+import { createArticleItemStoreHooks } from '../stores/Article/Item/ArticleItemStoreFactory';
+import { createArticleListStoreHooks } from '../stores/Article/List/ArticleListStoreFactory';
+import { createTopicItemStoreHooks } from '../stores/Topic/Item/TopicItemStoreFactory';
+import { createTopicTreeStoreHooks } from '../stores/Topic/Tree/TopicTreeStoreFactory';
 import { ArticleDomainRepositoryImpl } from '../domains/Article/ArticleDomainRepositoryImpl';
 import { TopicDomainRepositoryImpl } from '../domains/Topic/TopicDomainRepositoryImpl';
 import { ArticlePageServiceImpl } from '../pages/Article/ArticlePageServiceImpl';

@@ -1,6 +1,12 @@
-import { type StoreService, type TableControlService } from '../common';
-import { type NotificationControlHooks } from '../controls';
-import { type ApiResponseError, type ApiResponseErrorOptions } from '../data';
+import {
+  type NotificationControlHooks,
+  type StoreService,
+  type TableControlService
+} from '../common';
+import {
+  type ApiResponseError,
+  type ApiResponseErrorOptions
+} from '../data';
 import {
   type ArticleDomainItemDeleteOperationRequestHandler,
   type ArticleDomainItemGetOperationRequestHandler,
@@ -15,7 +21,10 @@ import {
   type TopicDomainTreeGetOperationRequestHandler,
 
 } from '../domains';
-import { type ArticlePageService, type TopicPageService } from '../pages';
+import {
+  type ArticlePageService,
+  type TopicPageService
+} from '../pages';
 import {
   type AppNotificationViewHooks,
   type ArticleItemEditViewService,
