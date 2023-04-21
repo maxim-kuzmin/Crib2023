@@ -2,7 +2,12 @@ import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getModule } from '../../../app/ModuleImpl';
 import { type ArticleListStoreLoadActionPayload } from '../../../app/Stores';
-import { type BreadcrumbControlItem, type TableControlColumn, type TableControlPagination } from '../../../common';
+import {
+  ConfirmControlType,
+  type BreadcrumbControlItem,
+  type TableControlColumn,
+  type TableControlPagination
+} from '../../../common';
 import { BreadcrumbControl, ButtonControl, TableControl } from '../../../controls';
 import { type ArticleDomainEntityForList } from '../../../domains';
 import { ArticlePageMode } from '../../../pages';
@@ -11,9 +16,7 @@ import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
 
 function getRowKey (row: any): Key {
-  const viewRow: ArticleTableViewRow = row;
-
-  return viewRow.id;
+  return (row as ArticleTableViewRow).id;
 }
 
 export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(
@@ -181,11 +184,17 @@ function ArticleTableView ({
                     () => {
                       deletingId.current = id;
 
-                      dispatchOfDeleteAction.run({ id })
-                        .then(() => {
-                          deletingId.current = 0;
-                          dispatchOfLoadAction.run(payloadOfLoadAction);
-                        });
+                      getModule().getConfirmControlComponent().show({
+                        onOk: () => {
+                          dispatchOfDeleteAction.run({ id })
+                          .then(() => {
+                            deletingId.current = 0;
+                            dispatchOfLoadAction.run(payloadOfLoadAction);
+                          });
+                        },
+                        title: '@@AreYouSureDelete',
+                        type: ConfirmControlType.Delete,
+                      });
                   }}
                   title={`@@Delete ${id}`}
                 >

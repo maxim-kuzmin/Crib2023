@@ -20,7 +20,10 @@ function show ({ onCancel, onOk, title, type }: ConfirmControlProps) {
     case ConfirmControlType.Delete:
       confirm({
         ...commonProps,
-        icon: <ExclamationCircleFilled />
+        icon: <ExclamationCircleFilled />,
+        okText: '@@Yes',
+        okType: 'danger',
+        cancelText: '@@No',
       });
       break;
   }
