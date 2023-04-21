@@ -12,9 +12,7 @@ function useComponent (): NotificationControlComponent {
 
     return useRef({
       content: contextHolder,
-      show: (props: NotificationControlProps) => {
-        const { type, message, description } = props;
-
+      show: ({ type, message, description }: NotificationControlProps) => {
         switch (type) {
             case NotificationControlType.Error:
                 api.error({ message, description });

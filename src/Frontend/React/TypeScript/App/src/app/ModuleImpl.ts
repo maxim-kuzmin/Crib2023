@@ -4,7 +4,8 @@ import {
   type SetupOptions,
   type StoreService,
   type TableControlService,
-  type NotificationControlHooks
+  type NotificationControlHooks,
+  type ConfirmControlComponent
 } from '../common';
 import {
   type ApiSetupOptions,
@@ -103,6 +104,7 @@ import { createArticleTableViewHooks } from '../views/Article/Table/ArticleTable
 import { createTopicItemViewHooks } from '../views/Topic/Item/TopicItemViewSlice';
 import { type Module } from './Module';
 import { type TestService } from './Test';
+import { createConfirmControlComponent } from '../controls/Confirm/ConfirmControlFactory';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -142,6 +144,9 @@ class ModuleImpl implements Module {
 
   private readonly notificationControlHooks: NotificationControlHooks = createNotificationControlHooks();
   getNotificationControlHooks = () => this.notificationControlHooks;
+
+  private readonly confirmControlComponent: ConfirmControlComponent = createConfirmControlComponent();
+  getConfirmControlComponent = () => this.confirmControlComponent;
 
   private readonly tableControlService: TableControlService = new TableControlServiceImpl({
     defaultPageSize: 10

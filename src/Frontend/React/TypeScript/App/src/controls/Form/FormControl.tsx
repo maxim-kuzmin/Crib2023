@@ -65,26 +65,26 @@ function convertToFieldMarkup (controlField: FormControlField) {
 function convertToActionMarkup (controlAction: FormControlAction, isLast: boolean) {
   const { className, disabled, href, key, loading, onClick, title, type } = controlAction;
 
-  const baseProps = {
+  const commonProps = {
     className: isLast ? className : `${(className ?? '')} ${styles.action}`,
     key
   };
 
   const buttonProps = {
-    ...baseProps,
+    ...commonProps,
     disabled,
     loading
   };
 
   return href
-    ? <Link to={href} {...baseProps}>{title}</Link>
+    ? <Link to={href} {...commonProps}>{title}</Link>
     : (
         onClick
           ? <Button htmlType="button" onClick={onClick} {...buttonProps}>{title}</Button>
           : (
               type === FormControlActionType.Submit
                 ? <Button htmlType="submit" {...buttonProps}>{title}</Button>
-                : <span {...baseProps}>{title}</span>
+                : <span {...commonProps}>{title}</span>
             )
       )
 }

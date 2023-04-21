@@ -1,4 +1,5 @@
 import {
+  type ConfirmControlComponent,
   type NotificationControlHooks,
   type StoreService,
   type TableControlService
@@ -44,8 +45,6 @@ import { type TestService } from './Test';
 
 export interface Module {
   readonly createApiResponseError: (responseStatus: number, options?: ApiResponseErrorOptions) => ApiResponseError;
-  readonly getNotificationControlHooks: () => NotificationControlHooks;
-  readonly getTableControlService: () => TableControlService;
   readonly getAppNotificationStoreHooks: () => AppNotificationStoreHooks;
   readonly getAppNotificationViewHooks: () => AppNotificationViewHooks;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
@@ -55,6 +54,9 @@ export interface Module {
   readonly getArticleItemViewHooks: () => ArticleItemViewHooks;
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
   readonly getArticleTableViewHooks: () => ArticleTableViewHooks;
+  readonly getConfirmControlComponent: () => ConfirmControlComponent;
+  readonly getNotificationControlHooks: () => NotificationControlHooks;
+  readonly getTableControlService: () => TableControlService;
   readonly getTestService: () => TestService;
   readonly getTopicDomainRepository: () => TopicDomainRepository;
   readonly getTopicItemStoreHooks: () => TopicItemStoreHooks;
