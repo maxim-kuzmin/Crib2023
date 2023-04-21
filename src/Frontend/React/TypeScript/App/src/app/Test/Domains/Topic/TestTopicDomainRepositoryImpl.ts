@@ -13,12 +13,15 @@ import {
   type TopicDomainListGetOperationOutput,
   type TopicDomainTreeGetOperationRequest,
   type TopicDomainTreeGetOperationResponse,
-  type TopicDomainTreeGetOperationOutput
+  type TopicDomainTreeGetOperationOutput,
+  type TopicDomainItemSaveOperationRequest
 } from '../../../../domains';
-import { type ApiResponseError } from '../../../../data';
+import { type ApiOperationResponse, type ApiResponseError } from '../../../../data';
+
+let maxId = 0;
 
 export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
-  private readonly entitiesForItem: TopicDomainEntityForItem[] = [];
+  private entitiesForItem: TopicDomainEntityForItem[] = [];
   private readonly entitiesForList: TopicDomainEntityForList[] = [];
   private readonly entitiesForTree: TopicDomainEntityForTree[] = [];
 
@@ -73,6 +76,21 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
 
       this.entitiesForTree.push(entity);
     }
+  }
+
+  async deleteItem (
+    request: TopicDomainItemGetOperationRequest
+  ): Promise<ApiOperationResponse> {
+    const { operationCode, operationName, input } = request;
+
+    this.entitiesForItem = this.entitiesForItem.filter(x => x.data.id === input.id);
+
+    const result: ApiOperationResponse = {
+      operationCode,
+      operationName
+    };
+
+    return await getModule().getTestService().getDataAsync(() => result);
   }
 
   async getItem (
@@ -133,6 +151,49 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
 
     const result: TopicDomainTreeGetOperationResponse = {
       data,
+      operationCode,
+      operationName
+    };
+
+    return await getModule().getTestService().getDataAsync(() => result);
+  }
+
+  async saveItem (
+    request: TopicDomainItemSaveOperationRequest
+  ): Promise<TopicDomainItemGetOperationResponse> {
+    const { operationCode, operationName, input } = request;
+
+    let item: TopicDomainEntityForItem | undefined;
+
+    if (input.id > 0) {
+      const item = this.entitiesForItem.find(x => x.data.id === input.id);
+
+      if (item) {
+        item.data = input;
+      }
+    } else {
+      input.id = ++maxId;
+
+      item = {
+        data: input,
+        treeAncestors: [],
+        treePath: `${input.id}`
+      }
+    }
+
+    const data: TopicDomainItemGetOperationOutput | null = item ? { item } : null;
+
+    const status = data ? 200 : 404;
+
+    let error: ApiResponseError | null = null;
+
+    if (status === 404) {
+      error = getModule().createApiResponseError(status);
+    }
+
+    const result: TopicDomainItemGetOperationResponse = {
+      data,
+      error,
       operationCode,
       operationName
     };

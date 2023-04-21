@@ -1,6 +1,8 @@
-import { type TopicItemStoreSetActionPayload } from '../Set';
+import { type TopicItemStoreLoadCompletedActionPayload } from '../LoadCompleted';
+import { type TopicItemStoreLoadActionDispatch } from './TopicItemStoreLoadActionDispatch';
 
 export interface TopicItemStoreLoadActionOutput {
-  readonly loading: boolean;
-  readonly payload: TopicItemStoreSetActionPayload;
+  readonly dispatchOfLoadAction: TopicItemStoreLoadActionDispatch;
+  readonly payloadOfLoadCompletedAction: TopicItemStoreLoadCompletedActionPayload;
+  readonly pendingOfLoadAction: boolean;
 }

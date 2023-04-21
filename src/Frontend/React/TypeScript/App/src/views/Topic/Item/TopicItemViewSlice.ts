@@ -1,99 +1,53 @@
-import { useCallback, useMemo } from 'react';
 import {
-  type TopicItemStoreClearActionDispatch,
-  type TopicItemStoreClearActionOptions,
-  type TopicItemStoreHooks,
-  type TopicItemStoreLoadActionDispatch,
+  type TopicItemStoreClearActionInput,
+  type TopicItemStoreClearActionOutput,
+  type TopicItemStoreDeleteActionInput,
+  type TopicItemStoreDeleteActionOutput,
   type TopicItemStoreLoadActionInput,
-  type TopicItemStoreLoadActionOptions,
   type TopicItemStoreLoadActionOutput,
-  type TopicItemStoreSetActionDispatch,
-  type TopicItemStoreSetActionOptions,
-  type TopicItemStoreSetActionPayload,
+  type TopicItemStoreSaveActionInput,
+  type TopicItemStoreSaveActionOutput,
+  type TopicItemStoreSetActionInput,
+  type TopicItemStoreSetActionOutput,
+  type TopicItemStoreHooks,
   TopicItemStoreSliceName,
-  type TopicItemStoreState
+  type TopicItemStoreState,
 } from '../../../app/Stores';
-import { OperationStatus, StoreDispatchType, TreeGetOperationAxisForItem } from '../../../common';
-import { type TopicDomainItemGetOperationInput } from '../../../domains';
 import { type TopicItemViewHooks } from './TopicItemViewHooks';
 
-type ClearActionDispatch = TopicItemStoreClearActionDispatch;
-type ClearActionOptions = TopicItemStoreClearActionOptions;
-
-type LoadActionDispatch = TopicItemStoreLoadActionDispatch;
-type LoadActionInput = TopicItemStoreLoadActionInput;
-type LoadActionOptions = TopicItemStoreLoadActionOptions;
-type LoadActionOutput = TopicItemStoreLoadActionOutput;
-
-type SetActionDispatch = TopicItemStoreSetActionDispatch;
-type SetActionOptions = TopicItemStoreSetActionOptions;
-
-type StoreState = TopicItemStoreState;
-
-export function createTopicItemViewHooks (
-  hooks: TopicItemStoreHooks
-): TopicItemViewHooks {
+export function createTopicItemViewHooks (hooks: TopicItemStoreHooks): TopicItemViewHooks {
   const sliceName = TopicItemStoreSliceName.TopicItemView;
 
-  function useClearActionDispatch (options: ClearActionOptions): ClearActionDispatch {
-    return hooks.useClearActionDispatch(sliceName, options);
+  function useClearActionOutput (input: TopicItemStoreClearActionInput): TopicItemStoreClearActionOutput {
+    return hooks.useClearActionOutput(sliceName, input);
   }
 
-  function useLoadActionDispatch (options: LoadActionOptions): LoadActionDispatch {
-    return hooks.useLoadActionDispatch(sliceName, options);
+  function useDeleteActionOutput (input?: TopicItemStoreDeleteActionInput): TopicItemStoreDeleteActionOutput {
+    return hooks.useDeleteActionOutput(sliceName, input);
   }
 
-  function useSetActionDispatch (options: SetActionOptions): SetActionDispatch {
-    return hooks.useSetActionDispatch(sliceName, options);
+  function useLoadActionOutput (input: TopicItemStoreLoadActionInput): TopicItemStoreLoadActionOutput {
+    return hooks.useLoadActionOutput(sliceName, input);
   }
 
-  function useStoreState (): StoreState {
+  function useSaveActionOutput (input?: TopicItemStoreSaveActionInput): TopicItemStoreSaveActionOutput {
+    return hooks.useSaveActionOutput(sliceName, input);
+  }
+
+  function useSetActionOutput (input: TopicItemStoreSetActionInput): TopicItemStoreSetActionOutput {
+    return hooks.useSetActionOutput(sliceName, input);
+  }
+
+  function useStoreState (): TopicItemStoreState {
     return hooks.useStoreState(sliceName);
   }
 
-  function useLoadActionOutput (input: LoadActionInput): LoadActionOutput {
-    const { topicId, isCanceled, onActionCompleted } = input;
-
-    const callback = useCallback((payload: TopicItemStoreSetActionPayload) => {
-        if (onActionCompleted) {
-          onActionCompleted(payload);
-        }
-      },
-      [onActionCompleted]
-    );
-
-    const payload: TopicDomainItemGetOperationInput = useMemo(
-      () => ({
-        axis: TreeGetOperationAxisForItem.Self,
-        id: topicId
-      }),
-      [topicId]
-    );
-
-    useLoadActionDispatch({
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      callback,
-      isCanceled,
-      payload
-    });
-
-    useClearActionDispatch({
-      dispatchType: StoreDispatchType.Unmount
-    });
-
-    const { payloadOfSetAction, statusOfLoadAction } = useStoreState();
-
-    return {
-      loading: statusOfLoadAction === OperationStatus.Pending,
-      payload: payloadOfSetAction
-    };
-  }
-
   return {
-    useClearActionDispatch,
-    useLoadActionDispatch,
+    useClearActionOutput,
+    useDeleteActionOutput,
     useLoadActionOutput,
-    useSetActionDispatch,
+    useSaveActionOutput,
+    useSetActionOutput,
     useStoreState
   };
 }

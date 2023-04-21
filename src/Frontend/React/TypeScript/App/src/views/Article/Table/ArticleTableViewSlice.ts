@@ -1,101 +1,39 @@
-import { useCallback, useMemo } from 'react';
 import {
-  type ArticleListStoreClearActionDispatch,
-  type ArticleListStoreClearActionOptions,
-  type ArticleListStoreHooks,
-  type ArticleListStoreLoadActionDispatch,
+  type ArticleListStoreClearActionInput,
+  type ArticleListStoreClearActionOutput,
   type ArticleListStoreLoadActionInput,
-  type ArticleListStoreLoadActionOptions,
   type ArticleListStoreLoadActionOutput,
-  type ArticleListStoreSetActionDispatch,
-  type ArticleListStoreSetActionOptions,
-  type ArticleListStoreSetActionPayload,
+  type ArticleListStoreSetActionInput,
+  type ArticleListStoreSetActionOutput,
+  type ArticleListStoreHooks,
   ArticleListStoreSliceName,
-  type ArticleListStoreState
+  type ArticleListStoreState,
 } from '../../../app/Stores';
-import { OperationStatus, StoreDispatchType } from '../../../common';
-import { type ArticleDomainListGetOperationInput } from '../../../domains';
 import { type ArticleTableViewHooks } from './ArticleTableViewHooks';
 
-type ClearActionDispatch = ArticleListStoreClearActionDispatch;
-type ClearActionOptions = ArticleListStoreClearActionOptions;
-
-type LoadActionDispatch = ArticleListStoreLoadActionDispatch;
-type LoadActionInput = ArticleListStoreLoadActionInput;
-type LoadActionOptions = ArticleListStoreLoadActionOptions;
-type LoadActionOutput = ArticleListStoreLoadActionOutput;
-
-type SetActionDispatch = ArticleListStoreSetActionDispatch;
-type SetActionOptions = ArticleListStoreSetActionOptions;
-
-type StoreState = ArticleListStoreState;
-
-export function createArticleTableViewHooks (
-  hooks: ArticleListStoreHooks
-): ArticleTableViewHooks {
+export function createArticleTableViewHooks (hooks: ArticleListStoreHooks): ArticleTableViewHooks {
   const sliceName = ArticleListStoreSliceName.ArticleTableView;
 
-  function useClearActionDispatch (options: ClearActionOptions): ClearActionDispatch {
-    return hooks.useClearActionDispatch(sliceName, options);
+  function useClearActionOutput (input: ArticleListStoreClearActionInput): ArticleListStoreClearActionOutput {
+    return hooks.useClearActionOutput(sliceName, input);
   }
 
-  function useLoadActionDispatch (options: LoadActionOptions): LoadActionDispatch {
-    return hooks.useLoadActionDispatch(sliceName, options);
+  function useLoadActionOutput (input: ArticleListStoreLoadActionInput): ArticleListStoreLoadActionOutput {
+    return hooks.useLoadActionOutput(sliceName, input);
   }
 
-  function useSetActionDispatch (options: SetActionOptions): SetActionDispatch {
-    return hooks.useSetActionDispatch(sliceName, options);
+  function useSetActionOutput (input: ArticleListStoreSetActionInput): ArticleListStoreSetActionOutput {
+    return hooks.useSetActionOutput(sliceName, input);
   }
 
-  function useStoreState (): StoreState {
+  function useStoreState (): ArticleListStoreState {
     return hooks.useStoreState(sliceName);
   }
 
-  function useLoadActionOutput (input: LoadActionInput): LoadActionOutput {
-    const { topicId, pageNumber, pageSize, isCanceled, onActionCompleted } = input;
-
-    const callback = useCallback((payload: ArticleListStoreSetActionPayload) => {
-        if (onActionCompleted) {
-          onActionCompleted(payload);
-        }
-      },
-      [onActionCompleted]
-    );
-
-    const payload: ArticleDomainListGetOperationInput = useMemo(
-      () => ({
-        topicId,
-        pageNumber,
-        pageSize
-      }),
-      [pageNumber, pageSize, topicId]
-    );
-
-    const dispatchOfLoadAction = useLoadActionDispatch({
-      dispatchType: StoreDispatchType.MountOrUpdate,
-      callback,
-      isCanceled,
-      payload
-    });
-
-    useClearActionDispatch({
-      dispatchType: StoreDispatchType.Unmount
-    });
-
-    const { payloadOfSetAction, statusOfLoadAction } = useStoreState();
-
-    return {
-      dispatchOfLoadAction,
-      pendingOfLoadAction: statusOfLoadAction === OperationStatus.Pending,
-      payloadOfLoadAction: payloadOfSetAction
-    };
-  }
-
   return {
-    useClearActionDispatch,
-    useLoadActionDispatch,
+    useClearActionOutput,
     useLoadActionOutput,
-    useSetActionDispatch,
+    useSetActionOutput,
     useStoreState
   };
 }

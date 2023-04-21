@@ -1,8 +1,9 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getModule } from '../../app/ModuleImpl';
-import { type TableControlPagination } from '../../common';
+import { TreeGetOperationAxisForItem, type TableControlPagination } from '../../common';
 import { ArticleTableView } from '../../views';
+import { type TopicItemStoreLoadActionPayload } from '../../app/Stores';
 
 export const TopicPage: React.FC = memo(
 function TopicPage () {
@@ -32,7 +33,17 @@ function TopicPage () {
 
   const { pageNumber, pageSize } = topicPageSearch;
 
-  getModule().getTopicItemViewHooks().useLoadActionOutput({ topicId });
+  const payloadOfLoadActionForTreeItem: TopicItemStoreLoadActionPayload = useMemo(
+    () => ({
+      id: topicId,
+      axis: TreeGetOperationAxisForItem.Self
+    }),
+    [topicId]
+  );
+
+  getModule().getTopicItemViewHooks().useLoadActionOutput({
+    payloadOfLoadAction: payloadOfLoadActionForTreeItem
+  });
 
   const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;

@@ -1,32 +1,16 @@
 import {
-  type ArticleListStoreClearActionDispatch,
-  type ArticleListStoreClearActionOptions,
-  type ArticleListStoreLoadActionDispatch,
+  type ArticleListStoreClearActionInput,
+  type ArticleListStoreClearActionOutput,
   type ArticleListStoreLoadActionInput,
-  type ArticleListStoreLoadActionOptions,
   type ArticleListStoreLoadActionOutput,
-  type ArticleListStoreSetActionDispatch,
-  type ArticleListStoreSetActionOptions,
-  type ArticleListStoreState
+  type ArticleListStoreSetActionInput,
+  type ArticleListStoreSetActionOutput,
+  type ArticleListStoreState,
 } from '../../../app/Stores';
 
-type ClearActionDispatch = ArticleListStoreClearActionDispatch;
-type ClearActionOptions = ArticleListStoreClearActionOptions;
-
-type LoadActionDispatch = ArticleListStoreLoadActionDispatch;
-type LoadActionInput = ArticleListStoreLoadActionInput;
-type LoadActionOptions = ArticleListStoreLoadActionOptions;
-type LoadActionOutput = ArticleListStoreLoadActionOutput;
-
-type SetActionDispatch = ArticleListStoreSetActionDispatch;
-type SetActionOptions = ArticleListStoreSetActionOptions;
-
-type StoreState = ArticleListStoreState;
-
 export interface ArticleTableViewHooks {
-  readonly useClearActionDispatch: (options: ClearActionOptions) => ClearActionDispatch;
-  readonly useLoadActionDispatch: (options: LoadActionOptions) => LoadActionDispatch;
-  readonly useLoadActionOutput: (input: LoadActionInput) => LoadActionOutput;
-  readonly useSetActionDispatch: (options: SetActionOptions) => SetActionDispatch;
-  readonly useStoreState: () => StoreState;
+  readonly useClearActionOutput: (input: ArticleListStoreClearActionInput) => ArticleListStoreClearActionOutput;
+  readonly useLoadActionOutput: (input: ArticleListStoreLoadActionInput) => ArticleListStoreLoadActionOutput;
+  readonly useSetActionOutput: (input: ArticleListStoreSetActionInput) => ArticleListStoreSetActionOutput;
+  readonly useStoreState: () => ArticleListStoreState;
 }

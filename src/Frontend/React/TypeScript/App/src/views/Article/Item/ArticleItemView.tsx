@@ -32,7 +32,10 @@ function ArticleItemView ({
     [articleId]
   );
 
-  const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooksOfArticleItemView.useLoadActionOutput({
+  const {
+    payloadOfLoadCompletedAction,
+    pendingOfLoadAction
+  } = hooksOfArticleItemView.useLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });

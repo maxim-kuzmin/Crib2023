@@ -1,7 +1,8 @@
-import { type TopicItemStoreSetActionPayload } from '../Set';
+import { type TopicItemStoreLoadCompletedActionCallback } from '../LoadCompleted';
+import { type TopicItemStoreLoadActionPayload } from './TopicItemStoreLoadActionPayload';
 
 export interface TopicItemStoreLoadActionInput {
   readonly isCanceled?: boolean;
-  readonly onActionCompleted?: (payload: TopicItemStoreSetActionPayload) => void;
-  readonly topicId: number;
+  readonly onActionCompleted?: TopicItemStoreLoadCompletedActionCallback;
+  readonly payloadOfLoadAction: TopicItemStoreLoadActionPayload;
 }

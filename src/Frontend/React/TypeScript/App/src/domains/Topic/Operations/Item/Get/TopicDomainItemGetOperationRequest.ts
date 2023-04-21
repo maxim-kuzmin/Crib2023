@@ -1,4 +1,8 @@
-import { type ApiRequestWithInput } from '../../../../../data';
+import {
+  type ApiRequest,
+  type ApiRequestWithInput,
+  createApiRequestWithInput
+} from '../../../../../data';
 import { type TopicDomainItemGetOperationInput } from './TopicDomainItemGetOperationInput';
 
 export interface TopicDomainItemGetOperationRequest
@@ -6,11 +10,7 @@ export interface TopicDomainItemGetOperationRequest
 
 export function createTopicDomainItemGetOperationRequest (
   input: TopicDomainItemGetOperationInput,
-  operationCode: string = ''
+  options?: Partial<ApiRequest>
 ): TopicDomainItemGetOperationRequest {
-  return {
-    operationName: '@@TopicDomainItemGet',
-    operationCode,
-    input
-  };
+  return createApiRequestWithInput(input, options);
 }

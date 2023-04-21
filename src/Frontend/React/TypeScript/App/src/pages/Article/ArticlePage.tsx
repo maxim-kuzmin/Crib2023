@@ -1,10 +1,11 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getModule } from '../../app/ModuleImpl';
 import { type ArticlePageProps } from './ArticlePageProps';
-import { type ArticleItemStoreSetActionPayload } from '../../app/Stores';
+import { type TopicItemStoreLoadActionPayload, type ArticleItemStoreSetActionPayload } from '../../app/Stores';
 import { ArticleItemEditView, ArticleItemView } from '../../views';
 import { ArticlePageMode } from './ArticlePageMode';
+import { TreeGetOperationAxisForItem } from '../../common';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({
@@ -34,7 +35,18 @@ function ArticlePage ({
     articleId = 0;
   }
 
-  getModule().getTopicItemViewHooks().useLoadActionOutput({ topicId, isCanceled: !articleItemIsLoaded.current });
+  const payloadOfLoadActionForTreeItem: TopicItemStoreLoadActionPayload = useMemo(
+    () => ({
+      id: topicId,
+      axis: TreeGetOperationAxisForItem.Self
+    }),
+    [topicId]
+  );
+
+  getModule().getTopicItemViewHooks().useLoadActionOutput({
+    payloadOfLoadAction: payloadOfLoadActionForTreeItem,
+    isCanceled: !articleItemIsLoaded.current
+  });
 
   const topicPageLastUrl = getModule().getTopicPageService().lastUrl;
 

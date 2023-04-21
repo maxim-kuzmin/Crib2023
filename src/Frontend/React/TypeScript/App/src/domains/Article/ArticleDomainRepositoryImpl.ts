@@ -1,14 +1,14 @@
 import { type ApiOperationResponse, type ApiClient } from '../../data';
 import { type ArticleDomainRepository } from './ArticleDomainRepository';
 import {
-  type ArticleDomainListGetOperationRequest,
+  type ArticleDomainItemDeleteOperationRequest,
   type ArticleDomainItemGetOperationOutput,
   type ArticleDomainItemGetOperationRequest,
   type ArticleDomainItemGetOperationResponse,
+  type ArticleDomainItemSaveOperationRequest,
+  type ArticleDomainListGetOperationRequest,
   type ArticleDomainListGetOperationResponse,
   type ArticleDomainListGetOperationOutput,
-  type ArticleDomainItemDeleteOperationRequest,
-  type ArticleDomainItemSaveOperationRequest
 } from './Operations';
 
 const controller = 'CatalogArticle';

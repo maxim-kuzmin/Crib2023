@@ -1,32 +1,22 @@
 import {
-  type TopicItemStoreClearActionDispatch,
-  type TopicItemStoreClearActionOptions,
-  type TopicItemStoreLoadActionDispatch,
+  type TopicItemStoreClearActionInput,
+  type TopicItemStoreClearActionOutput,
+  type TopicItemStoreDeleteActionInput,
+  type TopicItemStoreDeleteActionOutput,
   type TopicItemStoreLoadActionInput,
-  type TopicItemStoreLoadActionOptions,
   type TopicItemStoreLoadActionOutput,
-  type TopicItemStoreSetActionDispatch,
-  type TopicItemStoreSetActionOptions,
+  type TopicItemStoreSaveActionInput,
+  type TopicItemStoreSaveActionOutput,
+  type TopicItemStoreSetActionInput,
+  type TopicItemStoreSetActionOutput,
   type TopicItemStoreState,
 } from '../../../app/Stores';
 
-type ClearActionDispatch = TopicItemStoreClearActionDispatch;
-type ClearActionOptions = TopicItemStoreClearActionOptions;
-
-type LoadActionDispatch = TopicItemStoreLoadActionDispatch;
-type LoadActionInput = TopicItemStoreLoadActionInput;
-type LoadActionOptions = TopicItemStoreLoadActionOptions;
-type LoadActionOutput = TopicItemStoreLoadActionOutput;
-
-type SetActionDispatch = TopicItemStoreSetActionDispatch;
-type SetActionOptions = TopicItemStoreSetActionOptions;
-
-type StoreState = TopicItemStoreState;
-
 export interface TopicItemViewHooks {
-  readonly useClearActionDispatch: (options: ClearActionOptions) => ClearActionDispatch;
-  readonly useLoadActionDispatch: (options: LoadActionOptions) => LoadActionDispatch;
-  readonly useLoadActionOutput: (input: LoadActionInput) => LoadActionOutput;
-  readonly useSetActionDispatch: (options: SetActionOptions) => SetActionDispatch;
-  readonly useStoreState: () => StoreState;
+  readonly useClearActionOutput: (input: TopicItemStoreClearActionInput) => TopicItemStoreClearActionOutput;
+  readonly useDeleteActionOutput: (input?: TopicItemStoreDeleteActionInput) => TopicItemStoreDeleteActionOutput;
+  readonly useLoadActionOutput: (input: TopicItemStoreLoadActionInput) => TopicItemStoreLoadActionOutput;
+  readonly useSaveActionOutput: (input?: TopicItemStoreSaveActionInput) => TopicItemStoreSaveActionOutput;
+  readonly useSetActionOutput: (input: TopicItemStoreSetActionInput) => TopicItemStoreSetActionOutput;
+  readonly useStoreState: () => TopicItemStoreState;
 }

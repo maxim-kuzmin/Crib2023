@@ -11,6 +11,7 @@ import {
   type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreHooks,
   ArticleItemStoreSliceName,
+  type ArticleItemStoreState,
 } from '../../../app/Stores';
 import { type ArticleItemViewHooks } from './ArticleItemViewHooks';
 
@@ -37,11 +38,16 @@ export function createArticleItemViewHooks (hooks: ArticleItemStoreHooks): Artic
     return hooks.useSetActionOutput(sliceName, input);
   }
 
+  function useStoreState (): ArticleItemStoreState {
+    return hooks.useStoreState(sliceName);
+  }
+
   return {
     useClearActionOutput,
     useDeleteActionOutput,
     useLoadActionOutput,
     useSaveActionOutput,
-    useSetActionOutput
+    useSetActionOutput,
+    useStoreState
   };
 }

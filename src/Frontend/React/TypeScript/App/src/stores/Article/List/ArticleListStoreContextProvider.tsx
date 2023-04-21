@@ -20,9 +20,16 @@ type StoreStateMap = Map<string, StoreState>;
 const initialState = getModule().getStoreService().createInitialState<StoreState>(
   [ArticleListStoreSliceName.ArticleTableView],
   () => ({
+    payloadOfDeleteAction: null,
+    payloadOfDeleteCompletedAction: null,
     payloadOfLoadAction: null,
+    payloadOfLoadCompletedAction: null,
+    payloadOfSaveAction: null,
+    payloadOfSaveCompletedAction: null,
     payloadOfSetAction: null,
-    statusOfLoadAction: OperationStatus.Initial
+    statusOfDeleteAction: OperationStatus.Initial,
+    statusOfLoadAction: OperationStatus.Initial,
+    statusOfSaveAction: OperationStatus.Initial
   })
 );
 
@@ -45,13 +52,23 @@ function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
         }
       );
       break;
+    case ArticleListStoreActionType.LoadCompleted:
+      result.set(
+        sliceName,
+        {
+          ...state,
+          payloadOfLoadCompletedAction: action.payload,
+          statusOfLoadAction: OperationStatus.Fulfilled,
+          payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+        }
+      );
+      break;
     case ArticleListStoreActionType.Set:
       result.set(
         sliceName,
         {
           ...state,
-          payloadOfSetAction: action.payload,
-          statusOfLoadAction: OperationStatus.Fulfilled
+          payloadOfSetAction: action.payload
         }
       );
       break;

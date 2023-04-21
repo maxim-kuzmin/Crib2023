@@ -8,7 +8,8 @@ import {
   type ArticleItemStoreSaveActionInput,
   type ArticleItemStoreSaveActionOutput,
   type ArticleItemStoreSetActionInput,
-  type ArticleItemStoreSetActionOutput
+  type ArticleItemStoreSetActionOutput,
+  type ArticleItemStoreState,
 } from '../../../app/Stores';
 
 export interface ArticleItemViewHooks {
@@ -17,4 +18,5 @@ export interface ArticleItemViewHooks {
   readonly useLoadActionOutput: (input: ArticleItemStoreLoadActionInput) => ArticleItemStoreLoadActionOutput;
   readonly useSaveActionOutput: (input?: ArticleItemStoreSaveActionInput) => ArticleItemStoreSaveActionOutput;
   readonly useSetActionOutput: (input: ArticleItemStoreSetActionInput) => ArticleItemStoreSetActionOutput;
+  readonly useStoreState: () => ArticleItemStoreState;
 }

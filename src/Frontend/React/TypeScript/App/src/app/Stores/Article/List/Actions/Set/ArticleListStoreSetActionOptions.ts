@@ -3,6 +3,6 @@ import { type ArticleListStoreSetActionCallback } from './ArticleListStoreSetAct
 import { type ArticleListStoreSetActionPayload } from './ArticleListStoreSetActionPayload';
 
 export interface ArticleListStoreSetActionOptions extends StoreActionOptions {
-  callback?: ArticleListStoreSetActionCallback;
-  payload?: ArticleListStoreSetActionPayload;
+  readonly callback?: ArticleListStoreSetActionCallback;
+  readonly payloadOfSetAction?: ArticleListStoreSetActionPayload;
 }

@@ -21,7 +21,9 @@ import {
   type TopicDomainItemGetOperationRequestHandler,
   type TopicDomainListGetOperationRequestHandler,
   type TopicDomainRepository,
-  type TopicDomainTreeGetOperationRequestHandler
+  type TopicDomainTreeGetOperationRequestHandler,
+  type TopicDomainItemSaveOperationRequestHandler,
+  type TopicDomainItemDeleteOperationRequestHandler
 } from '../domains';
 import {
   type ArticlePageService,
@@ -75,14 +77,20 @@ import {
   ArticleDomainListGetOperationRequestHandlerImpl
 } from '../domains/Article/Operations/List/Get/ArticleDomainListGetOperationRequestHandlerImpl';
 import {
-  TopicDomainTreeGetOperationRequestHandlerImpl
-} from '../domains/Topic/Operations/Tree/Get/TopicDomainTreeGetOperationRequestHandlerImpl';
+  TopicDomainItemDeleteOperationRequestHandlerImpl
+} from '../domains/Topic/Operations/Item/Delete/TopicDomainItemDeleteOperationRequestHandlerImpl';
 import {
   TopicDomainItemGetOperationRequestHandlerImpl
 } from '../domains/Topic/Operations/Item/Get/TopicDomainItemGetOperationRequestHandlerImpl';
 import {
+  TopicDomainItemSaveOperationRequestHandlerImpl
+} from '../domains/Topic/Operations/Item/Save/TopicDomainItemSaveOperationRequestHandlerImpl';
+import {
   TopicDomainListGetOperationRequestHandlerImpl
 } from '../domains/Topic/Operations/List/Get/TopicDomainListGetOperationRequestHandlerImpl';
+import {
+  TopicDomainTreeGetOperationRequestHandlerImpl
+} from '../domains/Topic/Operations/Tree/Get/TopicDomainTreeGetOperationRequestHandlerImpl';
 import { OperationHandlerImpl } from '../common/Operation/OperationHandlerImpl';
 import { ApiRequestHandlerImpl } from '../data/Api/Request/ApiRequestHandlerImpl';
 import { TestArticleDomainRepositoryImpl } from './Test/Domains/Article/TestArticleDomainRepositoryImpl';
@@ -256,11 +264,31 @@ class ModuleImpl implements Module {
     });
   }
 
+  useTopicDomainItemDeleteOperationRequestHandler (): TopicDomainItemDeleteOperationRequestHandler {
+    return new TopicDomainItemDeleteOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: true
+      }),
+      repository: this.getTopicDomainRepository()
+    });
+  }
+
   useTopicDomainItemGetOperationRequestHandler (): TopicDomainItemGetOperationRequestHandler {
     return new TopicDomainItemGetOperationRequestHandlerImpl({
       apiRequestHandler: this.useApiRequestHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
+      }),
+      repository: this.getTopicDomainRepository()
+    });
+  }
+
+  useTopicDomainItemSaveOperationRequestHandler (): TopicDomainItemSaveOperationRequestHandler {
+    return new TopicDomainItemSaveOperationRequestHandlerImpl({
+      apiRequestHandler: this.useApiRequestHandler({
+        shouldBeLogged: true,
+        shouldBeNotified: true
       }),
       repository: this.getTopicDomainRepository()
     });

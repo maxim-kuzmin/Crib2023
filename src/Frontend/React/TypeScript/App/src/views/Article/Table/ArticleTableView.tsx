@@ -1,6 +1,7 @@
 import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getModule } from '../../../app/ModuleImpl';
+import { type ArticleListStoreLoadActionPayload } from '../../../app/Stores';
 import { type BreadcrumbControlItem, type TableControlColumn, type TableControlPagination } from '../../../common';
 import { BreadcrumbControl, ButtonControl, TableControl } from '../../../controls';
 import { type ArticleDomainEntityForList } from '../../../domains';
@@ -8,7 +9,6 @@ import { ArticlePageMode } from '../../../pages';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
-import { type ArticleListStoreLoadActionInput } from '../../../app/Stores';
 
 function getRowKey (row: any): Key {
   const viewRow: ArticleTableViewRow = row;
@@ -38,7 +38,7 @@ function ArticleTableView ({
 
   const hooksOfArticleTableView = getModule().getArticleTableViewHooks();
 
-  const input: ArticleListStoreLoadActionInput = useMemo(
+  const payloadOfLoadAction: ArticleListStoreLoadActionPayload = useMemo(
     () => ({
       pageNumber,
       pageSize,
@@ -53,12 +53,14 @@ function ArticleTableView ({
 
   const {
     dispatchOfLoadAction,
-    payloadOfLoadAction,
+    payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooksOfArticleTableView.useLoadActionOutput(input);
+  } = hooksOfArticleTableView.useLoadActionOutput({
+    payloadOfLoadAction
+  });
 
-  if (payloadOfLoadAction?.data) {
-    const { data } = payloadOfLoadAction;
+  if (payloadOfLoadCompletedAction?.data) {
+    const { data } = payloadOfLoadCompletedAction;
 
     items = data.items;
     totalCount = data.totalCount;
@@ -83,7 +85,11 @@ function ArticleTableView ({
       pageSize,
       totalCount
     }),
-    [pageNumber, pageSize, totalCount]
+    [
+      pageNumber,
+      pageSize,
+      totalCount
+    ]
   );
 
   const controlColumns: TableControlColumn[] = useMemo(
@@ -178,7 +184,7 @@ function ArticleTableView ({
                       dispatchOfDeleteAction.run({ id })
                         .then(() => {
                           deletingId.current = 0;
-                          dispatchOfLoadAction.run(input);
+                          dispatchOfLoadAction.run(payloadOfLoadAction);
                         });
                   }}
                   title={`@@Delete ${id}`}
@@ -194,7 +200,7 @@ function ArticleTableView ({
     [
       dispatchOfDeleteAction,
       dispatchOfLoadAction,
-      input,
+      payloadOfLoadAction,
       pendingOfDeleteAction,
       topicId
     ]

@@ -7,10 +7,13 @@ import {
   type ArticleDomainItemSaveOperationRequestHandler,
   type ArticleDomainListGetOperationRequestHandler,
   type ArticleDomainRepository,
+  type TopicDomainItemDeleteOperationRequestHandler,
   type TopicDomainItemGetOperationRequestHandler,
+  type TopicDomainItemSaveOperationRequestHandler,
   type TopicDomainListGetOperationRequestHandler,
   type TopicDomainRepository,
-  type TopicDomainTreeGetOperationRequestHandler
+  type TopicDomainTreeGetOperationRequestHandler,
+
 } from '../domains';
 import { type ArticlePageService, type TopicPageService } from '../pages';
 import {
@@ -55,7 +58,9 @@ export interface Module {
   readonly useArticleDomainItemGetOperationRequestHandler: () => ArticleDomainItemGetOperationRequestHandler;
   readonly useArticleDomainItemSaveOperationRequestHandler: () => ArticleDomainItemSaveOperationRequestHandler;
   readonly useArticleDomainListGetOperationRequestHandler: () => ArticleDomainListGetOperationRequestHandler;
+  readonly useTopicDomainItemDeleteOperationRequestHandler: () => TopicDomainItemDeleteOperationRequestHandler;
   readonly useTopicDomainItemGetOperationRequestHandler: () => TopicDomainItemGetOperationRequestHandler;
+  readonly useTopicDomainItemSaveOperationRequestHandler: () => TopicDomainItemSaveOperationRequestHandler;
   readonly useTopicDomainListGetOperationRequestHandler: () => TopicDomainListGetOperationRequestHandler;
   readonly useTopicDomainTreeGetOperationRequestHandler: () => TopicDomainTreeGetOperationRequestHandler;
 }
