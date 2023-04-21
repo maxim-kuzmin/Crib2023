@@ -1,42 +1,32 @@
-import { type AppNotificationViewHooks } from '../..';
 import {
-  type AppNotificationStoreClearActionOptions,
-  type AppNotificationStoreClearActionDispatch,
+  type AppNotificationStoreClearActionInput,
+  type AppNotificationStoreClearActionOutput,
+  type AppNotificationStoreSetActionInput,
+  type AppNotificationStoreSetActionOutput,
   type AppNotificationStoreHooks,
   AppNotificationStoreSliceName,
-  type AppNotificationStoreSetActionDispatch,
-  type AppNotificationStoreSetActionOptions,
-  type AppNotificationStoreState
+  type AppNotificationStoreState,
 } from '../../../app/Stores';
+import { type AppNotificationViewHooks } from './AppNotificationViewHooks';
 
-type ClearActionDispatch = AppNotificationStoreClearActionDispatch;
-type ClearActionOptions = AppNotificationStoreClearActionOptions;
-
-type SetActionDispatch = AppNotificationStoreSetActionDispatch;
-type SetActionOptions = AppNotificationStoreSetActionOptions;
-
-type StoreState = AppNotificationStoreState;
-
-export function createAppNotificationViewHooks (
-  hooks: AppNotificationStoreHooks
-): AppNotificationViewHooks {
+export function createAppNotificationViewHooks (hooks: AppNotificationStoreHooks): AppNotificationViewHooks {
   const sliceName = AppNotificationStoreSliceName.AppNotificationView;
 
-  function useClearActionDispatch (options: ClearActionOptions): ClearActionDispatch {
-    return hooks.useClearActionDispatch(sliceName, options);
+  function useClearActionOutput (input: AppNotificationStoreClearActionInput): AppNotificationStoreClearActionOutput {
+    return hooks.useClearActionOutput(sliceName, input);
   }
 
-  function useSetActionDispatch (options: SetActionOptions): SetActionDispatch {
-    return hooks.useSetActionDispatch(sliceName, options);
+  function useSetActionOutput (input: AppNotificationStoreSetActionInput): AppNotificationStoreSetActionOutput {
+    return hooks.useSetActionOutput(sliceName, input);
   }
 
-  function useStoreState (): StoreState {
+  function useStoreState (): AppNotificationStoreState {
     return hooks.useStoreState(sliceName);
   }
 
   return {
-    useClearActionDispatch,
-    useSetActionDispatch,
+    useClearActionOutput,
+    useSetActionOutput,
     useStoreState
   };
 }

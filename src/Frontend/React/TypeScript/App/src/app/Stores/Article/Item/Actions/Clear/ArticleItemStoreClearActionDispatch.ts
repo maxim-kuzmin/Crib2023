@@ -1,3 +1,3 @@
 export interface ArticleItemStoreClearActionDispatch {
-  run: () => void;
+  readonly run: () => void;
 }

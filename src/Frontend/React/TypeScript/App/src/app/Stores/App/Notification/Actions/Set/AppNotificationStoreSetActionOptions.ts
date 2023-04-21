@@ -3,6 +3,6 @@ import { type AppNotificationStoreSetActionCallback } from './AppNotificationSto
 import { type AppNotificationStoreSetActionPayload } from './AppNotificationStoreSetActionPayload';
 
 export interface AppNotificationStoreSetActionOptions extends StoreActionOptions {
-  callback?: AppNotificationStoreSetActionCallback;
-  payload?: AppNotificationStoreSetActionPayload;
+  readonly callback?: AppNotificationStoreSetActionCallback;
+  readonly payloadOfSetAction?: AppNotificationStoreSetActionPayload;
 }

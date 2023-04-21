@@ -1,3 +1,3 @@
 export interface TopicItemStoreClearActionDispatch {
-  run: () => void;
+  readonly run: () => void;
 }

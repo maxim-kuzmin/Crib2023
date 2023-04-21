@@ -1,0 +1,81 @@
+import { type Dispatch, useEffect, useRef } from 'react';
+import {
+  type AppNotificationStoreClearActionCallback,
+  type AppNotificationStoreClearActionDispatch,
+  type AppNotificationStoreClearActionOptions,
+} from '../../../../../../app/Stores';
+import { StoreDispatchType } from '../../../../../../common';
+import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
+import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';
+import { useAppNotificationStoreDispatchContext } from '../../../AppNotificationStoreContext';
+
+interface RunOptions {
+  readonly callback?: AppNotificationStoreClearActionCallback;
+  readonly dispatch: Dispatch<AppNotificationStoreActionUnion>;
+  readonly sliceName: string;
+}
+
+function runClearAction ({
+  callback,
+  dispatch,
+  sliceName
+}: RunOptions) {
+  dispatch({
+    sliceName,
+    type: AppNotificationStoreActionType.Clear
+  });
+
+  if (callback) {
+    callback();
+  }
+}
+
+export function useClearActionDispatch (
+  sliceName: string,
+  {
+    callback,
+    dispatchType
+  }: AppNotificationStoreClearActionOptions = {}
+): AppNotificationStoreClearActionDispatch {
+  const dispatch = useAppNotificationStoreDispatchContext();
+
+  useEffect(
+    () => {
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
+        runClearAction({
+          callback,
+          dispatch,
+          sliceName
+        });
+      };
+
+      return () => {
+        if (dispatchType === StoreDispatchType.Unmount) {
+          runClearAction({
+            callback,
+            dispatch,
+            sliceName
+          });
+        }
+      };
+    },
+    [
+      callback,
+      dispatch,
+      dispatchType,
+      sliceName
+    ]
+  );
+
+  function run () {
+    runClearAction({
+      callback,
+      dispatch,
+      sliceName
+    });
+  }
+
+  return useRef({
+    run
+  }).current;
+}

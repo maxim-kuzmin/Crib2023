@@ -1,6 +1,5 @@
 import React, { memo, useCallback } from 'react';
 import { getModule } from '../../../app/ModuleImpl';
-import { StoreDispatchType } from '../../../common';
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView () {
@@ -12,7 +11,7 @@ function AppNotificationView () {
 
   const { payloadOfSetAction: data } = appNotificationViewHooks.useStoreState();
 
-  const callback = useCallback(() => {
+  const onActionCompleted = useCallback(() => {
       if (data) {
         component.show(data);
       }
@@ -20,9 +19,8 @@ function AppNotificationView () {
     [component, data]
   );
 
-  appNotificationViewHooks.useClearActionDispatch({
-    dispatchType: StoreDispatchType.MountOrUpdate,
-    callback
+  appNotificationViewHooks.useClearActionOutput({
+    onActionCompleted
   });
 
   return (

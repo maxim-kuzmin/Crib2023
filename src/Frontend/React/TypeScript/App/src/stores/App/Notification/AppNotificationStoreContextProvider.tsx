@@ -12,17 +12,18 @@ import {
   AppNotificationStoreStateContext
 } from './AppNotificationStoreContext';
 
-type ActionUnion = AppNotificationStoreActionUnion;
-type StoreState = AppNotificationStoreState;
-type StoreStateMap = Map<string, StoreState>;
-
-const initialState = getModule().getStoreService().createInitialState<StoreState>(
+const initialState = getModule().getStoreService().createInitialState<AppNotificationStoreState>(
   [AppNotificationStoreSliceName.AppNotificationView],
-  () => ({ payloadOfSetAction: null })
+  () => ({
+    payloadOfSetAction: null
+  })
 );
 
-function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
-  const result = new Map<string, StoreState>(stateMap);
+function reducer (
+  stateMap: Map<string, AppNotificationStoreState>,
+  action: AppNotificationStoreActionUnion
+): Map<string, AppNotificationStoreState> {
+  const result = new Map<string, AppNotificationStoreState>(stateMap);
   const { sliceName, type } = action;
   const state = result.get(sliceName)!;
 
@@ -31,7 +32,13 @@ function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
       result.set(sliceName, initialState.get(sliceName)!);
       break;
     case AppNotificationStoreActionType.Set:
-      result.set(sliceName, { ...state, payloadOfSetAction: action.payload });
+      result.set(
+        sliceName,
+        {
+          ...state,
+          payloadOfSetAction: action.payload
+        }
+      );
       break;
   }
 
@@ -40,8 +47,9 @@ function reducer (stateMap: StoreStateMap, action: ActionUnion): StoreStateMap {
 
 export const AppNotificationStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function AppNotificationStoreContextProvider ({
-  children
-}: PropsWithChildren) {
+    children
+  }: PropsWithChildren
+) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
