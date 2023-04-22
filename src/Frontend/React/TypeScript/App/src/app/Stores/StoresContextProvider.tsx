@@ -7,7 +7,7 @@ import {
   TopicTreeStoreContextProvider
 } from '../../stores';
 
-export const ContextProvider: React.FC<PropsWithChildren> = memo(
+export const StoresContextProvider: React.FC<PropsWithChildren> = memo(
 function ContextProvider ({
   children
 }: PropsWithChildren) {

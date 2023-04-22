@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ContextProvider } from './app/Context/ContextProvider';
+import { StoresContextProvider } from './app/Stores/StoresContextProvider';
 import {
   ArticlePage,
   ArticlePageMode,
@@ -49,9 +49,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <ContextProvider>
+      <StoresContextProvider>
         <RouterProvider router={router} />
-      </ContextProvider>
+      </StoresContextProvider>
   </React.StrictMode>
 );
 
