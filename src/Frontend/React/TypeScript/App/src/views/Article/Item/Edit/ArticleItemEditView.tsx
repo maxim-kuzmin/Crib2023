@@ -211,8 +211,7 @@ function ArticleItemEditView ({
       {
         pendingOfLoadAction
           ? <SpinnerControl/>
-          : <>
-            <FormControl
+          : <FormControl
               controlActions={controlActions}
               controlFields={controlFields}
               formValues={formValues}
@@ -222,12 +221,6 @@ function ArticleItemEditView ({
               onSubmitFailed={handleSubmitFailed}
               onSubmitSuccess={handleSubmitSuccess}
             />
-            <ButtonControl onClick={() => {
-              if (form.current.reset) {
-                form.current.reset();
-              }
-            }}>Reset</ButtonControl>
-            </>
       }
     </div>
   );
