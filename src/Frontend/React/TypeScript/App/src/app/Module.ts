@@ -34,6 +34,7 @@ import {
   type TopicItemViewHooks,
   type TopicTreeViewHooks
 } from '../views';
+import { type Hooks } from './Hooks';
 import {
   type AppNotificationStoreHooks,
   type ArticleItemStoreHooks,
@@ -55,6 +56,7 @@ export interface Module {
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
   readonly getArticleTableViewHooks: () => ArticleTableViewHooks;
   readonly getConfirmControlComponent: () => ConfirmControlComponent;
+  readonly getHooks: () => Hooks;
   readonly getNotificationControlHooks: () => NotificationControlHooks;
   readonly getTableControlService: () => TableControlService;
   readonly getTestService: () => TestService;

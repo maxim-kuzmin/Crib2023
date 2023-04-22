@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from 'antd';
+import { Modal, type ModalFuncProps } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import {
   type ConfirmControlComponent,
@@ -9,28 +9,40 @@ import {
 
 const { confirm } = Modal;
 
-function show ({ onCancel, onOk, title, type }: ConfirmControlProps) {
-  const commonProps = {
+function show ({ content, onCancel, onOk, title, type }: ConfirmControlProps) {
+  const props: ModalFuncProps = {
+    content,
+    icon: <ExclamationCircleFilled />,
     onCancel,
     onOk,
-    title
+    title,
+    okText: '@@Yes',
+    cancelText: '@@No',
   };
 
   switch (type) {
     case ConfirmControlType.Delete:
-      confirm({
-        ...commonProps,
-        icon: <ExclamationCircleFilled />,
-        okText: '@@Yes',
-        okType: 'danger',
-        cancelText: '@@No',
-      });
+      if (!content) {
+        props.content = '@@DataWillBePermanentlyDeleted';
+      }
+      if (!title) {
+        props.title = '@@AreYouSureYouWantToDeleteTheData';
+      }
+      props.okType = 'danger';
       break;
-  }
+    case ConfirmControlType.LeaveForm:
+      if (!content) {
+        props.content = '@@FormDataWillBeLost';
+      }
+      if (!title) {
+        props.title = '@@AreYouSureYouWantToLeaveTheForm';
+      }
+      break;
+    }
+
+    confirm(props);
 }
 
 export function createConfirmControlComponent (): ConfirmControlComponent {
-  return {
-    show
-  };
+  return { show };
 }

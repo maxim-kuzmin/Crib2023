@@ -1,3 +1,4 @@
 export enum ConfirmControlType {
-  Delete = 'Delete'
+  Delete = 'Delete',
+  LeaveForm = 'Leave'
 }

@@ -105,6 +105,8 @@ import { createTopicItemViewHooks } from '../views/Topic/Item/TopicItemViewSlice
 import { type Module } from './Module';
 import { type TestService } from './Test';
 import { createConfirmControlComponent } from '../controls/Confirm/ConfirmControlFactory';
+import { createHooks } from './Factory';
+import { type Hooks } from './Hooks';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -174,6 +176,9 @@ class ModuleImpl implements Module {
   );
 
   getArticleTableViewHooks = () => this.articleTableViewHooks;
+
+  private readonly hooks: Hooks = createHooks(this.getConfirmControlComponent());
+  getHooks = () => this.hooks;
 
   private readonly topicItemStoreHooks: TopicItemStoreHooks = createTopicItemStoreHooks();
   getTopicItemStoreHooks = () => this.topicItemStoreHooks;

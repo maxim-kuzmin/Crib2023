@@ -5,7 +5,7 @@ import {
   type FormControlAction,
   FormControlActionType,
   type FormControlField,
-  FormControlFieldType,
+  FormControlFieldType
 } from '../../../../common';
 import { FormControl, SpinnerControl } from '../../../../controls';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
@@ -158,6 +158,8 @@ function ArticleItemEditView ({
     },
     [dispatchOfSaveAction]
   );
+
+  getModule().getHooks().useLeaveFormBlocker(true);
 
   return (
     <div className={styles.root}>

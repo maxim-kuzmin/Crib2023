@@ -192,8 +192,7 @@ function ArticleTableView ({
                             dispatchOfLoadAction.run(payloadOfLoadAction);
                           });
                         },
-                        title: '@@AreYouSureDelete',
-                        type: ConfirmControlType.Delete,
+                        type: ConfirmControlType.Delete
                       });
                   }}
                   title={`@@Delete ${id}`}
