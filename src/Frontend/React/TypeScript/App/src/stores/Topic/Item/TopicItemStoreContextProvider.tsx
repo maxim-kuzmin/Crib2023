@@ -3,7 +3,7 @@ import React, {
   memo,
   useReducer,
 } from 'react';
-import { getModule } from '../../../app/ModuleImpl';
+import { getModule } from '../../../app';
 import { TopicItemStoreSliceName, type TopicItemStoreState } from '../../../app/Stores';
 import { OperationStatus } from '../../../common';
 import { TopicItemStoreActionType } from './TopicItemStoreActionType';

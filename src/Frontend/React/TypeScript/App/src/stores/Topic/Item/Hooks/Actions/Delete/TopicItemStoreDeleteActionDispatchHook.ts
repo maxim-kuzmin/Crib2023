@@ -1,5 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../../../app/ModuleImpl';
+import { getModule } from '../../../../../../app';
 import {
   type TopicItemStoreDeleteCompletedActionCallback,
   type TopicItemStoreDeleteActionDispatch,

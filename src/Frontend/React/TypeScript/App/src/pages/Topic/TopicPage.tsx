@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { getModule } from '../../app/ModuleImpl';
+import { getModule } from '../../app';
 import { TreeGetOperationAxisForItem, type TableControlPagination } from '../../common';
 import { ArticleTableView } from '../../views';
 import { type TopicItemStoreLoadActionPayload } from '../../app/Stores';

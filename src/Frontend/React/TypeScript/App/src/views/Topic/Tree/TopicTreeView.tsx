@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
-import { getModule } from '../../../app/ModuleImpl';
+import { getModule } from '../../../app';
 import {
   OperationSortDirection,
   OperationStatus,

@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { getModule } from '../../app/ModuleImpl';
+import { getModule } from '../../app';
 import { type ArticlePageProps } from './ArticlePageProps';
 import { type TopicItemStoreLoadActionPayload, type ArticleItemStoreSetActionPayload } from '../../app/Stores';
 import { ArticleItemEditView, ArticleItemView } from '../../views';

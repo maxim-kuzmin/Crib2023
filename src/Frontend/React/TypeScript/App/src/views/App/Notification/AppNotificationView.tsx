@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { getModule } from '../../../app/ModuleImpl';
+import { getModule } from '../../../app';
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView () {

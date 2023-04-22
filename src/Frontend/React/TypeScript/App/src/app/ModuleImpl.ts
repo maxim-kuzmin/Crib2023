@@ -113,7 +113,7 @@ interface UseOperationHandlerOptions {
   shouldBeNotified: boolean;
 }
 
-class ModuleImpl implements Module {
+export class ModuleImpl implements Module {
   private readonly apiSetupOptions: ApiSetupOptions = new ApiSetupOptionsImpl({
     url: process.env.REACT_APP_API_URL ?? ''
   });
@@ -344,10 +344,4 @@ class ModuleImpl implements Module {
       operationHandler: this.useOperationHandler(options)
     });
   }
-}
-
-const module = new ModuleImpl();
-
-export function getModule (): Module {
-  return module;
 }

@@ -1,4 +1,4 @@
-import { getModule } from '../../app/ModuleImpl';
+import { getModule } from '../../app';
 import { type HttpClient, type HttpRequestConfig, type HttpRequestResult } from '../../common';
 import { type ApiClient } from './ApiClient';
 import { type ApiOperationResponse, type ApiOperationResponseWithData } from './Operation';

@@ -10,7 +10,7 @@ import {
   type SorterResult,
   type ColumnType
 } from 'antd/es/table/interface';
-import { getModule } from '../../app/ModuleImpl';
+import { getModule } from '../../app';
 import {
   type TableControlColumn,
   type TableControlHeader,

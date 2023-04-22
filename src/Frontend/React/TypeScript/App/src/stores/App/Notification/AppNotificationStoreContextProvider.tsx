@@ -3,7 +3,7 @@ import React, {
   memo,
   useReducer,
 } from 'react';
-import { getModule } from '../../../app/ModuleImpl';
+import { getModule } from '../../../app';
 import { AppNotificationStoreSliceName, type AppNotificationStoreState } from '../../../app/Stores';
 import { AppNotificationStoreActionType } from './AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from './AppNotificationStoreActionUnion';

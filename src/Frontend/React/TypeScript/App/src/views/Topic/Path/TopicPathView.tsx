@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { getModule } from '../../../app/ModuleImpl';
+import { getModule } from '../../../app';
 import { type BreadcrumbControlItem } from '../../../common';
 import { BreadcrumbControl } from '../../../controls';
 import { type TopicDomainEntityForItem } from '../../../domains';

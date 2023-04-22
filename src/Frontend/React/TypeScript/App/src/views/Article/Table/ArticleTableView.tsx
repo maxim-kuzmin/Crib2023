@@ -1,6 +1,6 @@
 import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { getModule } from '../../../app/ModuleImpl';
+import { getModule } from '../../../app';
 import { type ArticleListStoreLoadActionPayload } from '../../../app/Stores';
 import {
   ConfirmControlType,

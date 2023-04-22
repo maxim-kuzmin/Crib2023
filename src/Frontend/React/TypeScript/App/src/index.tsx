@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ContextProvider } from './app/ContextProvider';
+import { ContextProvider } from './app/Context/ContextProvider';
 import {
   ArticlePage,
   ArticlePageMode,
