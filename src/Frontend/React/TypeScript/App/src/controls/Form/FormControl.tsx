@@ -1,6 +1,6 @@
-import React, { type Attributes, memo } from 'react';
+import React, { type Attributes, memo, useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Form, type FormItemProps, Input } from 'antd';
+import { Button, Form, type FormItemProps, Input, type FormInstance } from 'antd';
 import {
   FormControlFieldType,
   type FormControlField,
@@ -62,7 +62,7 @@ function convertToFieldMarkup (controlField: FormControlField) {
   }
 }
 
-function convertToActionMarkup (controlAction: FormControlAction, isLast: boolean) {
+function convertToActionMarkup (controlAction: FormControlAction, isLast: boolean, form: FormInstance<any>) {
   const { className, disabled, href, key, loading, onClick, title, type } = controlAction;
 
   const commonProps = {
@@ -76,17 +76,25 @@ function convertToActionMarkup (controlAction: FormControlAction, isLast: boolea
     loading
   };
 
-  return href
-    ? <Link to={href} {...commonProps}>{title}</Link>
-    : (
-        onClick
-          ? <Button htmlType="button" onClick={onClick} {...buttonProps}>{title}</Button>
-          : (
-              type === FormControlActionType.Submit
-                ? <Button htmlType="submit" {...buttonProps}>{title}</Button>
-                : <span {...commonProps}>{title}</span>
-            )
-      )
+  if (!disabled && type === FormControlActionType.Submit) {
+    buttonProps.disabled = !form.isFieldsTouched() ||
+      !!form.getFieldsError().filter(({ errors }) => errors.length).length;
+  }
+
+  if (href) {
+    return (<Link to={href} {...commonProps}>{title}</Link>);
+  } else if (onClick) {
+    return (<Button htmlType="button" onClick={onClick} {...buttonProps}>{title}</Button>);
+  } else {
+    switch (type) {
+      case FormControlActionType.Submit:
+        return (<Button htmlType="submit" {...buttonProps}>{title}</Button>);
+      case FormControlActionType.Reset:
+        return (<Button htmlType="button" onClick={() => { form.resetFields(); }} {...buttonProps}>{title}</Button>);
+      default:
+        return (<span {...commonProps}>{title}</span>);
+    }
+  }
 }
 
 export const FormControl: React.FC<FormControlProps> = memo(
@@ -98,10 +106,21 @@ function FormControl ({
   formValues,
   keyForActions,
   name,
+  onFieldsTouched,
+  onGetFunctionToResetFields,
   onSubmitFailed,
   onSubmitSuccess
 }: FormControlProps) {
   const [form] = Form.useForm();
+
+  const [, forceUpdate] = useState({});
+
+  // To disable submit button at the beginning.
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
+
+  const isFieldsTouched = useRef(false);
 
   return (
     <Form
@@ -123,12 +142,27 @@ function FormControl ({
                 className={classNameForActions}
                 key={keyForActions ?? 'actions'}
                 wrapperCol={{ offset: 2, span: 22 }}
+                shouldUpdate
               >
                 {
-                  controlActions.map((controlAction, index) => convertToActionMarkup(
-                    controlAction,
-                    index === controlActions.length - 1
-                  ))
+                  () => {
+                    if (onGetFunctionToResetFields) {
+                      onGetFunctionToResetFields(form.resetFields);
+                    }
+
+                    const isFieldsTouchedCurrent = form.isFieldsTouched();
+
+                    if (onFieldsTouched && isFieldsTouchedCurrent !== isFieldsTouched.current) {
+                      isFieldsTouched.current = isFieldsTouchedCurrent;
+                      onFieldsTouched(isFieldsTouchedCurrent);
+                    }
+
+                    return controlActions.map((controlAction, index) => convertToActionMarkup(
+                      controlAction,
+                      index === controlActions.length - 1,
+                      form
+                    ));
+                  }
                 }
               </Form.Item>
             )

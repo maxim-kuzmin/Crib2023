@@ -10,6 +10,8 @@ export interface FormControlProps {
   formValues?: any;
   keyForActions?: Key;
   name?: string;
+  onFieldsTouched?: (isFieldsTouched: boolean) => void;
+  onGetFunctionToResetFields?: (functionToResetFields: () => void) => void;
   onSubmitFailed?: (error: any) => void;
   onSubmitSuccess?: (values: any) => void;
 }

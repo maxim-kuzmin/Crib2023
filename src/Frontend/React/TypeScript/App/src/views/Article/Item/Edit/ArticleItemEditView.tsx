@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getModule } from '../../../../app';
 import { type ArticleItemStoreLoadActionPayload } from '../../../../app/Stores';
 import {
@@ -7,7 +7,7 @@ import {
   type FormControlField,
   FormControlFieldType
 } from '../../../../common';
-import { FormControl, SpinnerControl } from '../../../../controls';
+import { ButtonControl, FormControl, SpinnerControl } from '../../../../controls';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
@@ -33,19 +33,28 @@ function ArticleItemEditView ({
     [articleId]
   );
 
-  const { payloadOfLoadCompletedAction, pendingOfLoadAction } = hooksOfArticleItemView.useLoadActionOutput({
+  const {
+    payloadOfLoadCompletedAction,
+    pendingOfLoadAction
+  } = hooksOfArticleItemView.useLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
 
   const loadedEntity = payloadOfLoadCompletedAction?.data?.item.data;
 
-  const entity: ArticleTypeEntity = useMemo(
-    () => loadedEntity ?? createArticleTypeEntity({ topicId }),
-    [loadedEntity, topicId]
-  );
+  const {
+    dispatchOfSaveAction,
+    payloadOfSaveCompletedAction,
+    pendingOfSaveAction
+  } = hooksOfArticleItemView.useSaveActionOutput();
 
-  const { dispatchOfSaveAction, pendingOfSaveAction } = hooksOfArticleItemView.useSaveActionOutput();
+  const savedEntity = payloadOfSaveCompletedAction?.data?.item.data;
+
+  const entity: ArticleTypeEntity = useMemo(
+    () => savedEntity ?? loadedEntity ?? createArticleTypeEntity({ topicId }),
+    [loadedEntity, savedEntity, topicId]
+  );
 
   const formValues = useMemo(
     () => getModule().getArticleItemEditViewService().convertToFormValues(entity),
@@ -68,11 +77,21 @@ function ArticleItemEditView ({
       const actionToSave: FormControlAction = {
         key: 'save',
         title: '@@Save',
+        disabled: pendingOfLoadAction,
         loading: pendingOfSaveAction,
         type: FormControlActionType.Submit
       };
 
       result.push(actionToSave);
+
+      const actionToReset: FormControlAction = {
+        key: 'reset',
+        title: '@@Reset',
+        disabled: pendingOfLoadAction || pendingOfSaveAction,
+        type: FormControlActionType.Reset
+      };
+
+      result.push(actionToReset);
 
       if (articleId > 0) {
         const actionToDisplay: FormControlAction = {
@@ -98,7 +117,7 @@ function ArticleItemEditView ({
 
       return result;
     },
-    [articleId, pendingOfSaveAction, topicPageLastUrl]
+    [articleId, pendingOfLoadAction, pendingOfSaveAction, topicPageLastUrl]
   );
 
   const controlFields: FormControlField[] = useMemo(
@@ -143,23 +162,48 @@ function ArticleItemEditView ({
     ]
   );
 
-  const onSubmitFailed = useCallback(
+  const [isFormFieldsTouched, setIsFormFieldsTouched] = useState(false);
+
+  getModule().getHooks().useLeaveFormBlocker(isFormFieldsTouched);
+
+  const handleFieldsTouched = useCallback(
+    (isFieldsTouched: boolean) => {
+      if (isFieldsTouched !== isFormFieldsTouched) {
+        setTimeout(() => {
+          setIsFormFieldsTouched(isFieldsTouched);
+        }, 0);
+      }
+    },
+    [isFormFieldsTouched]
+  );
+
+  const form = useRef<{ reset?: () => void; }>({});
+
+  const handleGetFunctionToResetFields = useCallback(
+    (functionToResetFields: () => void) => {
+      form.current.reset = functionToResetFields;
+    },
+    []
+  )
+  const handleSubmitFailed = useCallback(
     (error: any) => {
       console.log('MAKC:onSubmitFailed:error', error);
     },
     []
   );
 
-  const onSubmitSuccess = useCallback(
+  const handleSubmitSuccess = useCallback(
     (values: any) => {
       const entity = getModule().getArticleItemEditViewService().convertToEntity(values);
 
-      dispatchOfSaveAction.run(entity);
+      dispatchOfSaveAction.run(entity).then(() => {
+          if (form.current.reset) {
+            form.current.reset();
+          }
+      });
     },
     [dispatchOfSaveAction]
   );
-
-  getModule().getHooks().useLeaveFormBlocker(true);
 
   return (
     <div className={styles.root}>
@@ -167,14 +211,23 @@ function ArticleItemEditView ({
       {
         pendingOfLoadAction
           ? <SpinnerControl/>
-          : <FormControl
+          : <>
+            <FormControl
               controlActions={controlActions}
               controlFields={controlFields}
               formValues={formValues}
               name="article"
-              onSubmitFailed={onSubmitFailed}
-              onSubmitSuccess={onSubmitSuccess}
+              onFieldsTouched={handleFieldsTouched}
+              onGetFunctionToResetFields={handleGetFunctionToResetFields}
+              onSubmitFailed={handleSubmitFailed}
+              onSubmitSuccess={handleSubmitSuccess}
             />
+            <ButtonControl onClick={() => {
+              if (form.current.reset) {
+                form.current.reset();
+              }
+            }}>Reset</ButtonControl>
+            </>
       }
     </div>
   );

@@ -3,7 +3,7 @@ import { unstable_useBlocker as useBlocker } from 'react-router-dom';
 import { type ConfirmControlComponent, ConfirmControlType } from '../../common';
 
 export function useLeaveFormBlocker (confirmControlComponent: ConfirmControlComponent, shouldBlock: boolean) {
-  const blocker = useBlocker(true);
+  const blocker = useBlocker(shouldBlock);
 
   useEffect(
     () => {
