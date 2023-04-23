@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { getModule } from '../../../../app';
 import { type ArticleItemStoreLoadActionPayload } from '../../../../app/Stores';
 import {
@@ -7,7 +7,7 @@ import {
   type FormControlField,
   FormControlFieldType
 } from '../../../../common';
-import { ButtonControl, FormControl, SpinnerControl } from '../../../../controls';
+import { FormControl, SpinnerControl } from '../../../../controls';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
