@@ -14,6 +14,7 @@ import { ArticlePageMode } from '../../../pages';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
+import { useTranslation } from 'react-i18next';
 
 function getRowKey (row: any): Key {
   return (row as ArticleTableViewRow).id;
@@ -26,6 +27,18 @@ function ArticleTableView ({
   pageSize,
   topicId
 }: ArticleTableViewProps) {
+  const { t } = useTranslation('views/Article/Table/ArticleTableView');
+
+  const tArticles: string = t('@@Articles');
+  const tActions: string = t('@@Actions');
+  const tDelete: string = t('@@Delete');
+  const tDisplay: string = t('@@Display');
+  const tEdit: string = t('@@Edit');
+  const tId: string = t('@@Id');
+  const tNew: string = t('@@New');
+  const tPath: string = t('@@Path');
+  const tTitle: string = t('@@Title');
+
   let items: ArticleDomainEntityForList[];
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];
@@ -102,11 +115,11 @@ function ArticleTableView ({
       return [
         {
           field: 'id',
-          header: { title: '@@Id' }
+          header: { title: tId }
         },
         {
           field: 'title',
-          header: { title: '@@Title' },
+          header: { title: tTitle },
           render: (row: any) => {
             const viewRow: ArticleTableViewRow = row;
 
@@ -119,7 +132,7 @@ function ArticleTableView ({
         },
         {
           field: 'path',
-          header: { title: '@@Path' },
+          header: { title: tPath },
           render: (row: any) => {
             const viewRow: ArticleTableViewRow = row;
 
@@ -144,14 +157,14 @@ function ArticleTableView ({
         },
         {
           header: {
-            title: '@@Actions',
+            title: tActions,
             render: (title?: string) => {
               return (
                 <div className={styles.actions}>
                   <span className={styles.action}>{title}</span>
                   {
                     topicId > 0
-                      ? <Link to={atriclePageService.createUrl({ search: { topicId } })}>@@New</Link>
+                      ? <Link to={atriclePageService.createUrl({ search: { topicId } })}>{tNew}</Link>
                       : null
                   }
                 </div>
@@ -169,13 +182,13 @@ function ArticleTableView ({
                   className={styles.action}
                   to={atriclePageService.createUrl({ articleId: Number(id) })}
                 >
-                  @@Display
+                  {tDisplay}
                 </Link>
                 <Link
                   className={styles.action}
                   to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticlePageMode.Edit })}
                 >
-                  @@Edit
+                  {tEdit}
                 </Link>
                 <ButtonControl
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
@@ -195,9 +208,9 @@ function ArticleTableView ({
                         type: ConfirmControlType.Delete
                       });
                   }}
-                  title={`@@Delete ${id}`}
+                  title={`${tDelete} ${id}`}
                 >
-                  @@Delete
+                  {tDelete}
                 </ButtonControl>
               </div>
             );
@@ -210,13 +223,21 @@ function ArticleTableView ({
       dispatchOfLoadAction,
       payloadOfLoadAction,
       pendingOfDeleteAction,
+      tActions,
+      tDelete,
+      tDisplay,
+      tEdit,
+      tId,
+      tNew,
+      tPath,
+      tTitle,
       topicId
     ]
   );
 
   return (
     <div className={styles.root}>
-      <h2>@@Articles</h2>
+      <h2>{tArticles}</h2>
       <TableControl
         className={styles.root}
         controlColumns={controlColumns}

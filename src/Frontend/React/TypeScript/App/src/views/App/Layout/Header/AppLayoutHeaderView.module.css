@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  width: 100%;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select {
+  margin-left: 1em;
+  width: 7em;
+}

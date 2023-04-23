@@ -1,3 +1,3 @@
-export interface TextAreaControlProps {
-  className?: string;
-}
+import { type ControlProps } from '../..';
+
+export interface TextAreaControlProps extends ControlProps {}

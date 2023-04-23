@@ -1,3 +1,3 @@
-export interface TextInputControlProps {
-  className?: string;
-}
+import { type ControlProps } from '../..';
+
+export interface TextInputControlProps extends ControlProps {}

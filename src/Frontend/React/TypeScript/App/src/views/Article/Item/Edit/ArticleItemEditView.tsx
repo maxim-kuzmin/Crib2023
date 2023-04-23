@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getModule } from '../../../../app';
 import { type ArticleItemStoreLoadActionPayload } from '../../../../app/Stores';
 import {
@@ -20,6 +21,10 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
+  const { t } = useTranslation('views/Article/Item/Edit/ArticleItemEditView');
+
+  const tArticleEdit: string = t('@@Article_edit');
+
   const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
 
   hooksOfArticleItemView.useClearActionOutput({
@@ -207,7 +212,7 @@ function ArticleItemEditView ({
 
   return (
     <div className={styles.root}>
-      <h2>{ articleId > 0 ? '@@ArticleEdit' : '@@ArticleNew' }</h2>
+      <h2>{ articleId > 0 ? tArticleEdit : '@@ArticleNew' }</h2>
       {
         pendingOfLoadAction
           ? <SpinnerControl/>

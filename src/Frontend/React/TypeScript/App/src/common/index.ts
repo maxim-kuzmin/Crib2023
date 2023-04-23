@@ -1,4 +1,5 @@
 export * from './Functions';
+export * from './Control';
 export * from './Controls';
 export * from './Http';
 export * from './Operation';

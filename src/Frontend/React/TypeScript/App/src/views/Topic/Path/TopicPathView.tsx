@@ -1,12 +1,20 @@
 import React, { memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getModule } from '../../../app';
 import { type BreadcrumbControlItem } from '../../../common';
 import { BreadcrumbControl } from '../../../controls';
 import { type TopicDomainEntityForItem } from '../../../domains';
 import styles from './TopicPathView.module.css';
 
-function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbControlItem[] {
-  const root: BreadcrumbControlItem = { title: '@@AllTopics', key: 0 };
+interface ConvertToControlItemsOptions {
+  entity?: TopicDomainEntityForItem;
+  title: string;
+}
+
+function convertToControlItems (options: ConvertToControlItemsOptions): BreadcrumbControlItem[] {
+  const { entity, title } = options;
+
+  const root: BreadcrumbControlItem = { title, key: 0 };
 
   const result: BreadcrumbControlItem[] = [root];
 
@@ -41,18 +49,22 @@ function convertToControlItems (entity?: TopicDomainEntityForItem): BreadcrumbCo
 
 export const TopicPathView: React.FC = memo(
 function TopicPathView () {
+  const { t } = useTranslation('views/Topic/Path/TopicPathView');
+
+  const tAllTopics: string = t('@@All_topics');
+
   const {
     payloadOfSetAction: topicItemResponse
   } = getModule().getTopicItemViewHooks().useStoreState();
 
-  const topic = topicItemResponse?.data?.item;
+  const entity = topicItemResponse?.data?.item;
 
   const controlItems = useMemo(
-    () => convertToControlItems(topic),
-    [topic]
+    () => convertToControlItems({ entity, title: tAllTopics }),
+    [entity, tAllTopics]
   );
 
-  const currentItemKey = topic?.data.id ?? 0;
+  const currentItemKey = entity?.data.id ?? 0;
 
   return (
     <div className={styles.root}>

@@ -1,0 +1,11 @@
+{
+  "@@Actions": "Actions",
+  "@@Articles": "Articles",
+  "@@Delete": "Delete",
+  "@@Display": "View",
+  "@@Edit": "Edit",
+  "@@Id": "ID",
+  "@@New": "Create",
+  "@@Path": "Path",
+  "@@Title": "Title"
+}

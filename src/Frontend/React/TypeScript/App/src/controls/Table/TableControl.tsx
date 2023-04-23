@@ -1,4 +1,5 @@
 import React, { type ReactNode, useMemo, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Table } from 'antd';
 import {
   type TablePaginationConfig,
@@ -72,6 +73,19 @@ function TableControl ({
   onChange,
   loading
 }: TableControlProps) {
+  const { t } = useTranslation('controls/Table/TableControl');
+
+  const tFrom: string = t('@@from');
+  const tJumpTo: string = t('@@Jump_to');
+  const tNext3Pages: string = t('@@Next_3_pages');
+  const tNext5Pages: string = t('@@Next_5_pages');
+  const tNextPage: string = t('@@Next_page');
+  const tPageTo: string = t('@@page_to');
+  const tPerPage: string = t('@@per_page');
+  const tPrev3Pages: string = t('@@Prev_3_pages');
+  const tPrev5Pages: string = t('@@Prev_5_pages');
+  const tPrevPage: string = t('@@Prev_page');
+
   const columns = useMemo(
     () => convertToColumns(controlColumns),
     [controlColumns]
@@ -82,14 +96,39 @@ function TableControl ({
   const paginationConfig: TablePaginationConfig = useMemo(
     () => ({
       defaultPageSize,
-      showTotal: (total, range) => `${range[0]}-${range[1]} @@From ${total}`,
+      showTotal: (total, range) => `${range[0]}-${range[1]} ${tFrom} ${total}`,
       pageSizeOptions: [10, 20, 50, 100, 1000000],
       position: ['bottomLeft', 'topLeft'],
+      showQuickJumper: true,
+      showSizeChanger: true,
       size: 'small',
       hideOnSinglePage: false,
-      locale: { items_per_page: '@@PerPage' },
+      locale: {
+        items_per_page: tPerPage,
+        jump_to: tJumpTo,
+        // jump_to_confirm?: string;
+        page: tPageTo,
+        prev_page: tPrevPage,
+        next_page: tNextPage,
+        prev_5: tPrev5Pages,
+        next_5: tNext5Pages,
+        prev_3: tPrev3Pages,
+        next_3: tNext3Pages
+      },
     }),
-    [defaultPageSize]
+    [
+      defaultPageSize,
+      tFrom,
+      tJumpTo,
+      tNext3Pages,
+      tNext5Pages,
+      tNextPage,
+      tPageTo,
+      tPerPage,
+      tPrev3Pages,
+      tPrev5Pages,
+      tPrevPage
+    ]
   );
 
   function handleTableChange (

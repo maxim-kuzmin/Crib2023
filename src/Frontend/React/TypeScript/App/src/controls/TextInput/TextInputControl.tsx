@@ -6,7 +6,9 @@ export const TextInputControl: React.FC<TextInputControlProps> = memo(
 function TextInputControl ({
   className
 }: TextInputControlProps) {
-  return (
-    <Input className={className} />
-  );
+  const props = {
+    className
+  };
+
+  return (<Input {...props} />);
 });

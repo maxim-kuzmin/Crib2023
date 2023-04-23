@@ -1,4 +1,5 @@
 import React, { memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getModule } from '../../../app';
 import { type ArticleItemStoreLoadActionPayload } from '../../../app/Stores';
 import {
@@ -19,6 +20,13 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps) {
+  const { t } = useTranslation('views/Article/Item/ArticleItemView');
+
+  const tArticle: string = t('@@Article');
+  const tBackToList: string = t('@@Back_to_list');
+  const tEdit: string = t('@@Edit');
+  const tId: string = t('@@Id');
+
   const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
 
   hooksOfArticleItemView.useClearActionOutput({
@@ -55,7 +63,7 @@ function ArticleItemView ({
         const actionToBackToList: CardControlAction = {
           href: topicPageLastUrl,
           key: 'goToList',
-          title: '@@BackToList'
+          title: tBackToList
         };
 
         result.push(actionToBackToList);
@@ -64,23 +72,23 @@ function ArticleItemView ({
       const actionToEdit: CardControlAction = {
         href: getModule().getArticlePageService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
         key: 'edit',
-        title: '@@Edit'
+        title: tEdit
       };
 
       result.push(actionToEdit);
 
       return result;
     },
-    [articleId, topicPageLastUrl]
+    [articleId, topicPageLastUrl, tBackToList, tEdit]
   );
 
   const controlExtra: CardControlExtra = {
-    title: `@@ID: ${articleId}`
+    title: `${tId}: ${articleId}`
   };
 
   return (
     <div className={styles.root}>
-      <h2>@@Article</h2>
+      <h2>{tArticle}</h2>
       {
         entity.id > 0
           ? <CardControl

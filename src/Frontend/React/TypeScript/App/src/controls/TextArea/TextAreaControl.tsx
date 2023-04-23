@@ -6,7 +6,11 @@ export const TextAreaControl: React.FC<TextAreaControlProps> = memo(
 function TextAreaControl ({
   className
 }: TextAreaControlProps) {
+  const props = {
+    className
+  };
+
   return (
-    <Input.TextArea className={className} />
+    <Input.TextArea {...props} />
   );
 });
