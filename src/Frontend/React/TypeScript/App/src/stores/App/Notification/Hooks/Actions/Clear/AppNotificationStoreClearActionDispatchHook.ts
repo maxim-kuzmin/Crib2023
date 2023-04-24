@@ -9,7 +9,7 @@ import { AppNotificationStoreActionType } from '../../../AppNotificationStoreAct
 import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';
 import { useAppNotificationStoreDispatchContext } from '../../../AppNotificationStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: AppNotificationStoreClearActionCallback;
   readonly dispatch: Dispatch<AppNotificationStoreActionUnion>;
   readonly sliceName: string;
@@ -19,7 +19,7 @@ function runClearAction ({
   callback,
   dispatch,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     sliceName,
     type: AppNotificationStoreActionType.Clear

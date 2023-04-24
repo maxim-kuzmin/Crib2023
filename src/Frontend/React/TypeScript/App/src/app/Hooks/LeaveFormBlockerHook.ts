@@ -1,14 +1,28 @@
 import { useEffect } from 'react';
 import { unstable_useBlocker as useBlocker } from 'react-router-dom';
 import { type ConfirmControlComponent, ConfirmControlType } from '../../common';
+import { type ConfirmControlHooks } from '../../controls';
 
-export function useLeaveFormBlocker (confirmControlComponent: ConfirmControlComponent, shouldBlock: boolean) {
+interface Options {
+  readonly componentOfConfirmControl: ConfirmControlComponent;
+  readonly hooksOfConfirmControl: ConfirmControlHooks;
+  readonly shouldBlock: boolean;
+}
+
+export function useLeaveFormBlocker ({
+  componentOfConfirmControl,
+  hooksOfConfirmControl,
+  shouldBlock
+}: Options) {
+  const resourceOfConfirmControl = hooksOfConfirmControl.useResource();
+
   const blocker = useBlocker(shouldBlock);
 
   useEffect(
     () => {
       if (blocker.state === 'blocked') {
-        confirmControlComponent.show({
+        componentOfConfirmControl.show({
+          resourceOfConfirmControl,
           onCancel: () => {
             blocker.reset();
           },
@@ -19,6 +33,10 @@ export function useLeaveFormBlocker (confirmControlComponent: ConfirmControlComp
         })
       }
     },
-    [blocker, confirmControlComponent]
+    [
+      blocker,
+      componentOfConfirmControl,
+      resourceOfConfirmControl
+    ]
   );
 }

@@ -16,7 +16,7 @@ import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUni
 import { useTopicItemStoreDispatchContext } from '../../../TopicItemStoreContext';
 import { runSaveCompletedAction } from '../SaveCompleted/TopicItemStoreSaveCompletedActionDispatchHook';
 
-interface RunOptions {
+interface Options {
   readonly callback?: TopicItemStoreSetActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreSaveActionPayload;
@@ -32,7 +32,7 @@ async function runSaveAction ({
   sliceName,
   payload,
   requestHandler
-}: RunOptions): Promise<void> {
+}: Options): Promise<void> {
   if (shouldBeCanceled()) {
     return;
   }

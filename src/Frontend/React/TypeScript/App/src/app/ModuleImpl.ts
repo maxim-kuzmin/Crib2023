@@ -107,11 +107,11 @@ import { createArticleTableViewHooks } from '../views/Article/Table/ArticleTable
 import { createTopicItemViewHooks } from '../views/Topic/Item/TopicItemViewFactory';
 import { type Module } from './Module';
 import { type TestService } from './Test';
-import { createConfirmControlComponent } from '../controls/Confirm/ConfirmControlFactory';
+import { createConfirmControlComponent, createConfirmControlHooks } from '../controls/Confirm/ConfirmControlFactory';
 import { createHooks } from './Factory';
 import { type Hooks } from './Hooks';
 import { createTopicPathViewHooks } from '../views/Topic/Path/TopicPathViewFactory';
-import { type TableControlHooks } from '../controls';
+import { type ConfirmControlHooks, type TableControlHooks } from '../controls';
 import { createTableControlHooks } from '../controls/Table/TableControlFactory';
 
 interface UseOperationHandlerOptions {
@@ -156,6 +156,9 @@ export class ModuleImpl implements Module {
   private readonly confirmControlComponent: ConfirmControlComponent = createConfirmControlComponent();
   getConfirmControlComponent = () => this.confirmControlComponent;
 
+  private readonly confirmControlHooks: ConfirmControlHooks = createConfirmControlHooks();
+  getConfirmControlHooks = () => this.confirmControlHooks;
+
   private readonly tableControlService: TableControlService = new TableControlServiceImpl({
     defaultPageSize: 10
   });
@@ -189,7 +192,11 @@ export class ModuleImpl implements Module {
 
   getArticleTableViewHooks = () => this.articleTableViewHooks;
 
-  private readonly hooks: Hooks = createHooks(this.getConfirmControlComponent());
+  private readonly hooks: Hooks = createHooks({
+    componentOfConfirmControl: this.getConfirmControlComponent(),
+    hooksOfConfirmControl: this.getConfirmControlHooks()
+  });
+
   getHooks = () => this.hooks;
 
   private readonly topicItemStoreHooks: TopicItemStoreHooks = createTopicItemStoreHooks();

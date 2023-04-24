@@ -16,7 +16,7 @@ import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActio
 import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { runDeleteCompletedAction } from '../DeleteCompleted/ArticleItemStoreDeleteCompletedActionDispatchHook';
 
-interface RunOptions {
+interface Options {
   readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreDeleteActionPayload;
@@ -32,7 +32,7 @@ async function runDeleteAction ({
   sliceName,
   payload,
   requestHandler
-}: RunOptions) {
+}: Options) {
   if (shouldBeCanceled()) {
     return;
   }

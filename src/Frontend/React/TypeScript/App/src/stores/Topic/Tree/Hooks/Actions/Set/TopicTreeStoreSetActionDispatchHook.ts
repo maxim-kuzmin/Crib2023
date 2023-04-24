@@ -10,7 +10,7 @@ import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
 import { useTopicTreeStoreDispatchContext } from '../../../TopicTreeStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: TopicTreeStoreSetActionCallback;
   readonly dispatch: Dispatch<TopicTreeStoreActionUnion>;
   readonly payload: TopicTreeStoreSetActionPayload;
@@ -22,7 +22,7 @@ function runSetAction ({
   dispatch,
   payload,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     payload,
     sliceName,

@@ -1,0 +1,8 @@
+{
+  "@@CancelButtonText": "No",
+  "@@DeleteConfirmContent": "The data will be permanently deleted",
+  "@@DeleteConfirmTitle": "Are you sure you want to delete the data?",
+  "@@LeaveFormConfirmContent": "The form data will be lost",
+  "@@LeaveFormConfirmTitle": "Are you sure you want to leave the form?",
+  "@@OkButtonText": "Yes"
+}

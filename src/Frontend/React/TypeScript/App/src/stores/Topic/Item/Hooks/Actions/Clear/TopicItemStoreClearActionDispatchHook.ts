@@ -9,7 +9,7 @@ import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
 import { useTopicItemStoreDispatchContext } from '../../../TopicItemStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: TopicItemStoreClearActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly sliceName: string;
@@ -19,7 +19,7 @@ function runClearAction ({
   callback,
   dispatch,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     sliceName,
     type: TopicItemStoreActionType.Clear

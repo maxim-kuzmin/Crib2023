@@ -10,7 +10,7 @@ import { AppNotificationStoreActionType } from '../../../AppNotificationStoreAct
 import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';
 import { useAppNotificationStoreDispatchContext } from '../../../AppNotificationStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: AppNotificationStoreSetActionCallback;
   readonly dispatch: Dispatch<AppNotificationStoreActionUnion>;
   readonly payload: AppNotificationStoreSetActionPayload;
@@ -22,7 +22,7 @@ function runSetAction ({
   dispatch,
   payload,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     payload,
     sliceName,

@@ -7,7 +7,7 @@ export class ApiResponseErrorImpl extends Error implements ApiResponseError {
   readonly responseDataWithMessages: ApiResponseDataWithMessages | null = null;
 
   constructor (public responseStatus: number, options?: ApiResponseErrorOptions) {
-    let message = 'Unknown';
+    let message = '@@UnknownError';
 
     switch (responseStatus) {
       case 400:

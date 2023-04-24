@@ -16,7 +16,7 @@ import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActio
 import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 import { runLoadCompletedAction } from '../LoadCompleted/ArticleItemStoreLoadCompletedActionDispatchHook';
 
-interface RunOptions {
+interface Options {
   readonly callback?: ArticleItemStoreSetActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreLoadActionPayload;
@@ -32,7 +32,7 @@ async function runLoadAction ({
   sliceName,
   payload,
   requestHandler
-}: RunOptions) {
+}: Options) {
   if (shouldBeCanceled()) {
     return;
   }

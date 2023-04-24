@@ -1,0 +1,8 @@
+{
+  "@@CancelButtonText": "Нет",
+  "@@DeleteConfirmContent": "Данные будут удалены безвозвратно",
+  "@@DeleteConfirmTitle": "Вы уверены, что хотите удалить данные?",
+  "@@LeaveFormConfirmContent": "Данные формы будут потеряны",
+  "@@LeaveFormConfirmTitle": "Вы уверены, что хотите закрыть форму?",
+  "@@OkButtonText": "Да"
+}

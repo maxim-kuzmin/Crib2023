@@ -4,7 +4,7 @@ import {
   type StoreService,
   type TableControlService
 } from '../common';
-import { type TableControlHooks } from '../controls';
+import { type ConfirmControlHooks, type TableControlHooks } from '../controls';
 import {
   type ApiResponseError,
   type ApiResponseErrorOptions
@@ -60,6 +60,7 @@ export interface Module {
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
   readonly getArticleTableViewHooks: () => ArticleTableViewHooks;
   readonly getConfirmControlComponent: () => ConfirmControlComponent;
+  readonly getConfirmControlHooks: () => ConfirmControlHooks;
   readonly getHooks: () => Hooks;
   readonly getNotificationControlHooks: () => NotificationControlHooks;
   readonly getTableControlHooks: () => TableControlHooks;

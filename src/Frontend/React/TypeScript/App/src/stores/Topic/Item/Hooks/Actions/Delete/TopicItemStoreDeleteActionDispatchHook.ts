@@ -16,7 +16,7 @@ import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUni
 import { useTopicItemStoreDispatchContext } from '../../../TopicItemStoreContext';
 import { runDeleteCompletedAction } from '../DeleteCompleted/TopicItemStoreDeleteCompletedActionDispatchHook';
 
-interface RunOptions {
+interface Options {
   readonly callback?: TopicItemStoreDeleteCompletedActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreDeleteActionPayload;
@@ -32,7 +32,7 @@ async function runDeleteAction ({
   sliceName,
   payload,
   requestHandler
-}: RunOptions) {
+}: Options) {
   if (shouldBeCanceled()) {
     return;
   }

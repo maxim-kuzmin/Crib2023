@@ -16,7 +16,7 @@ import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUni
 import { useTopicTreeStoreDispatchContext } from '../../../TopicTreeStoreContext';
 import { runLoadCompletedAction } from '../LoadCompleted/TopicTreeStoreLoadCompletedActionDispatchHook';
 
-interface RunOptions {
+interface Options {
   readonly callback?: TopicTreeStoreSetActionCallback;
   readonly dispatch: Dispatch<TopicTreeStoreActionUnion>;
   readonly payload: TopicTreeStoreLoadActionPayload;
@@ -32,7 +32,7 @@ async function runLoadAction ({
   sliceName,
   payload,
   requestHandler
-}: RunOptions) {
+}: Options) {
   if (shouldBeCanceled()) {
     return;
   }

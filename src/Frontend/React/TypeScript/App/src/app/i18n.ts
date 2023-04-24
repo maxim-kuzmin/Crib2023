@@ -23,6 +23,7 @@ i18n
       loadPath: '/i18n/{{ns}}.{{lng}}.json',
     },
     ns: [
+      'controls/Confirm/ConfirmControl',
       'controls/Table/TableControl',
       'views/Article/Item/ArticleItemView',
       'views/Article/Item/Edit/ArticleItemEditView',

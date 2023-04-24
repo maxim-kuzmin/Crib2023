@@ -9,7 +9,7 @@ import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
 import { useTopicTreeStoreDispatchContext } from '../../../TopicTreeStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: TopicTreeStoreClearActionCallback;
   readonly dispatch: Dispatch<TopicTreeStoreActionUnion>;
   readonly sliceName: string;
@@ -19,7 +19,7 @@ function runClearAction ({
   callback,
   dispatch,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     sliceName,
     type: TopicTreeStoreActionType.Clear

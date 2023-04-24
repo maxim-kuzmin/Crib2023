@@ -10,7 +10,7 @@ import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType'
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
 import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: ArticleItemStoreSaveCompletedActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreSaveCompletedActionPayload;
@@ -22,7 +22,7 @@ export function runSaveCompletedAction ({
   dispatch,
   payload,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     payload,
     sliceName,

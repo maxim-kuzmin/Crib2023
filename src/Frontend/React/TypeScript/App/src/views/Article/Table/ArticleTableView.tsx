@@ -32,6 +32,10 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
+  const hooksOfConfirmControl = getModule().getConfirmControlHooks();
+
+  const resourceOfConfirmControl = hooksOfConfirmControl.useResource();
+
   const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
 
   const {
@@ -199,6 +203,7 @@ function ArticleTableView ({
                       deletingId.current = id;
 
                       getModule().getConfirmControlComponent().show({
+                        resourceOfConfirmControl,
                         onOk: () => {
                           dispatchOfDeleteAction.run({ id })
                           .then(() => {
@@ -225,6 +230,7 @@ function ArticleTableView ({
       payloadOfLoadAction,
       pendingOfDeleteAction,
       resourceOfArticleTableView,
+      resourceOfConfirmControl,
       topicId
     ]
   );

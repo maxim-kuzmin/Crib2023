@@ -10,7 +10,7 @@ import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType'
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
 import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreDeleteCompletedActionPayload;
@@ -22,7 +22,7 @@ export function runDeleteCompletedAction ({
   dispatch,
   payload,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     payload,
     sliceName,

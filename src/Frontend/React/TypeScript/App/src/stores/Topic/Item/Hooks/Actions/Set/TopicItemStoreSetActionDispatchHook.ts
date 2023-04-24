@@ -10,7 +10,7 @@ import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
 import { useTopicItemStoreDispatchContext } from '../../../TopicItemStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: TopicItemStoreSetActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreSetActionPayload;
@@ -22,7 +22,7 @@ function runSetAction ({
   dispatch,
   payload,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     payload,
     sliceName,

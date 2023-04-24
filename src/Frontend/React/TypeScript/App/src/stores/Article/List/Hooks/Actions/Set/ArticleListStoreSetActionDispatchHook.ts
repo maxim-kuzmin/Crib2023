@@ -10,7 +10,7 @@ import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType'
 import { type ArticleListStoreActionUnion } from '../../../ArticleListStoreActionUnion';
 import { useArticleListStoreDispatchContext } from '../../../ArticleListStoreContext';
 
-interface RunOptions {
+interface Options {
   readonly callback?: ArticleListStoreSetActionCallback;
   readonly dispatch: Dispatch<ArticleListStoreActionUnion>;
   readonly payload: ArticleListStoreSetActionPayload;
@@ -22,7 +22,7 @@ function runSetAction ({
   dispatch,
   payload,
   sliceName
-}: RunOptions) {
+}: Options) {
   dispatch({
     payload,
     sliceName,
