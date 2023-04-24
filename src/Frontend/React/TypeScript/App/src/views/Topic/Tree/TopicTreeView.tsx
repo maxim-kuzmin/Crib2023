@@ -48,6 +48,10 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
 
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView () {
+  const hooksOfTopicTreeStore = getModule().getTopicTreeStoreHooks();
+
+  const resourceOfTopicTreeStore = hooksOfTopicTreeStore.useResource();
+
   const hooksOfApiResponse = getModule().getApiResponseHooks();
 
   const resourceOfApiResponse = hooksOfApiResponse.useResource();
@@ -97,7 +101,7 @@ function TopicTreeView () {
             rootNodeId: Number(key)
           },
           {
-            operationName: '@@TopicDomainTreeGetChildren',
+            operationName: resourceOfTopicTreeStore.getGetChildrenOperationName(),
             resourceOfApiResponse
           }
         ),
@@ -109,6 +113,7 @@ function TopicTreeView () {
     [
       requestHandler,
       resourceOfApiResponse,
+      resourceOfTopicTreeStore,
       topicId
     ]
   );

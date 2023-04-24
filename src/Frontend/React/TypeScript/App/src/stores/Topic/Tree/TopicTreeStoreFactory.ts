@@ -21,17 +21,20 @@ export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
     const { t } = useTranslation(LocalizationNamespace.TopicTreeStore);
 
     const tGetOperationName = t('@@GetOperationName');
+    const tGetChildrenOperationName = t('@@GetChildrenOperationName');
 
     return useMemo(
       () => {
         const result: TopicTreeStoreResource = {
           getGetOperationName: () => tGetOperationName,
+          getGetChildrenOperationName: () => tGetChildrenOperationName
         };
 
         return result;
       },
       [
         tGetOperationName,
+        tGetChildrenOperationName
       ]
     );
   }

@@ -1,3 +1,4 @@
 {
-  "@@GetOperationName": "Тема. Дерево. Получение"
+  "@@GetOperationName": "Тема. Дерево. Получение",
+  "@@GetChildrenOperationName": "Тема. Дерево. Получение детей"
 }
