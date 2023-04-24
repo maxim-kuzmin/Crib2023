@@ -1,23 +1,24 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { LocalizationNamespace } from '../../../app';
+import { getModule, LocalizationNamespace } from '../../../app';
 import { type TopicPathViewHooks } from './TopicPathViewHooks';
 import { type TopicPathViewResource } from './TopicPathViewResource';
 
 export function createTopicPathViewHooks (): TopicPathViewHooks {
   function useResource (): TopicPathViewResource {
-    const { t } = useTranslation(LocalizationNamespace.TopicPathView);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tAllTopics: string = t('@@All_topics');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.TopicPathView);
+
+    const valueOfTitleForRoot: string = localizer.getValue('@@TitleForRoot');
 
     return useMemo(() => {
         const result: TopicPathViewResource = {
-          getAllTopics: () => tAllTopics,
+          getTitleForRoot: () => valueOfTitleForRoot,
         };
 
         return result;
       },
-      [tAllTopics]
+      [valueOfTitleForRoot]
     );
   }
 

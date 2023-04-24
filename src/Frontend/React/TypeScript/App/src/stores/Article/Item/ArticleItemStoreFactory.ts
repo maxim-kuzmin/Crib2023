@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
+  getModule,
   type ArticleItemStoreResource,
   type ArticleItemStoreHooks,
   LocalizationNamespace
@@ -28,26 +28,28 @@ import { useStoreState } from './Hooks/ArticleItemStoreStateHook';
 
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   function useResource (): ArticleItemStoreResource {
-    const { t } = useTranslation(LocalizationNamespace.ArticleItemStore);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tOperationNameForDelete = t('@@OperationNameForDelete');
-    const tOperationNameForGet = t('@@OperationNameForGet');
-    const tOperationNameForSave = t('@@OperationNameForSave');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleItemStore);
+
+    const valueOfOperationNameForDelete = localizer.getValue('@@OperationNameForDelete');
+    const valueOfOperationNameForGet = localizer.getValue('@@OperationNameForGet');
+    const valueOfOperationNameForSave = localizer.getValue('@@OperationNameForSave');
 
     return useMemo(
       () => {
         const result: ArticleItemStoreResource = {
-          getOperationNameForDelete: () => tOperationNameForDelete,
-          getOperationNameForGet: () => tOperationNameForGet,
-          getOperationNameForSave: () => tOperationNameForSave
+          getOperationNameForDelete: () => valueOfOperationNameForDelete,
+          getOperationNameForGet: () => valueOfOperationNameForGet,
+          getOperationNameForSave: () => valueOfOperationNameForSave
         };
 
         return result;
       },
       [
-        tOperationNameForDelete,
-        tOperationNameForGet,
-        tOperationNameForSave
+        valueOfOperationNameForDelete,
+        valueOfOperationNameForGet,
+        valueOfOperationNameForSave
       ]
     );
   }

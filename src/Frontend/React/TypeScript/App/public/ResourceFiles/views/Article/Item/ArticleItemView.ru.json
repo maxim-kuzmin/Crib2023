@@ -1,6 +1,6 @@
 {
-  "@@Article": "Статья",
-  "@@Back_to_list": "Вернуться к списку",
-  "@@Edit": "Изменить",
-  "@@Id": "ID"
+  "@@ActionForBackToList": "Вернуться к списку",
+  "@@ActionForEdit": "Изменить",
+  "@@LabelForId": "ID",
+  "@@Title": "Статья"
 }

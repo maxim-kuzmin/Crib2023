@@ -1,11 +1,11 @@
 {
-  "@@Actions": "Действия",
-  "@@Articles": "Статьи",
-  "@@Delete": "Удалить",
-  "@@Display": "Показать",
-  "@@Edit": "Изменить",
-  "@@Id": "ID",
-  "@@New": "Создать",
-  "@@Path": "Путь",
-  "@@Title": "Заголовок"
+  "@@ActionForDelete": "Удалить",
+  "@@ActionForDisplay": "Показать",
+  "@@ActionForEdit": "Изменить",
+  "@@ActionForNew": "Создать",
+  "@@LabelForActions": "Действия",
+  "@@LabelForId": "ID",
+  "@@LabelForPath": "Путь",
+  "@@LabelForTitle": "Заголовок",
+  "@@Title": "Статьи"
 }

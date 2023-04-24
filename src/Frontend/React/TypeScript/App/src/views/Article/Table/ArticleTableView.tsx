@@ -118,11 +118,11 @@ function ArticleTableView ({
       return [
         {
           field: 'id',
-          header: { title: resourceOfArticleTableView.getId() }
+          header: { title: resourceOfArticleTableView.getLabelForId() }
         },
         {
           field: 'title',
-          header: { title: resourceOfArticleTableView.getTitle() },
+          header: { title: resourceOfArticleTableView.getLabelForTitle() },
           render: (row: any) => {
             const viewRow: ArticleTableViewRow = row;
 
@@ -135,7 +135,7 @@ function ArticleTableView ({
         },
         {
           field: 'path',
-          header: { title: resourceOfArticleTableView.getPath() },
+          header: { title: resourceOfArticleTableView.getLabelForPath() },
           render: (row: any) => {
             const viewRow: ArticleTableViewRow = row;
 
@@ -160,7 +160,7 @@ function ArticleTableView ({
         },
         {
           header: {
-            title: resourceOfArticleTableView.getActions(),
+            title: resourceOfArticleTableView.getLabelForActions(),
             render: (title?: string) => {
               return (
                 <div className={styles.actions}>
@@ -170,7 +170,7 @@ function ArticleTableView ({
                       ? <Link
                           to={atriclePageService.createUrl({ search: { topicId } })}
                         >
-                          {resourceOfArticleTableView.getNew()}
+                          {resourceOfArticleTableView.getActionForNew()}
                         </Link>
                       : null
                   }
@@ -183,19 +183,21 @@ function ArticleTableView ({
 
             const { id } = viewRow;
 
+            const valueOfActionForDelete: string = resourceOfArticleTableView.getActionForDelete();
+
             return (
               <div className={styles.actions}>
                 <Link
                   className={styles.action}
                   to={atriclePageService.createUrl({ articleId: Number(id) })}
                 >
-                  {resourceOfArticleTableView.getDisplay()}
+                  {resourceOfArticleTableView.getActionForDisplay()}
                 </Link>
                 <Link
                   className={styles.action}
                   to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticlePageMode.Edit })}
                 >
-                  {resourceOfArticleTableView.getEdit()}
+                  {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
                 <ButtonControl
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
@@ -216,9 +218,9 @@ function ArticleTableView ({
                         type: ConfirmControlType.Delete
                       });
                   }}
-                  title={`${resourceOfArticleTableView.getDelete()} ${id}`}
+                  title={`${valueOfActionForDelete} ${id}`}
                 >
-                  {resourceOfArticleTableView.getDelete()}
+                  {resourceOfArticleTableView.getActionForDelete()}
                 </ButtonControl>
               </div>
             );
@@ -239,7 +241,7 @@ function ArticleTableView ({
 
   return (
     <div className={styles.root}>
-      <h2>{resourceOfArticleTableView.getArticles()}</h2>
+      <h2>{resourceOfArticleTableView.getTitle()}</h2>
       <TableControl
         className={styles.root}
         controlColumns={controlColumns}

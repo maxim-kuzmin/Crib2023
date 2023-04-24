@@ -1,6 +1,6 @@
 export interface ApiResponseResource {
   getErrorMessageForDefault: () => string;
-  getErrorMessageForHttp400BadRequest: () => string;
-  getErrorMessageForHttp404NotFound: () => string;
-  getErrorMessageForHttp500InternalServerError: () => string;
+  getErrorMessageForHttp400: () => string;
+  getErrorMessageForHttp404: () => string;
+  getErrorMessageForHttp500: () => string;
 }

@@ -63,7 +63,7 @@ function ArticleItemView ({
         const actionToBackToList: CardControlAction = {
           href: topicPageLastUrl,
           key: 'backToList',
-          title: resourceOfArticleItemView.getBackToList()
+          title: resourceOfArticleItemView.getActionForBackToList()
         };
 
         result.push(actionToBackToList);
@@ -72,7 +72,7 @@ function ArticleItemView ({
       const actionToEdit: CardControlAction = {
         href: getModule().getArticlePageService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
         key: 'edit',
-        title: resourceOfArticleItemView.getEdit()
+        title: resourceOfArticleItemView.getActionForEdit()
       };
 
       result.push(actionToEdit);
@@ -82,13 +82,15 @@ function ArticleItemView ({
     [articleId, topicPageLastUrl, resourceOfArticleItemView]
   );
 
+  const valueOfLabelForId: string = resourceOfArticleItemView.getLabelForId();
+
   const controlExtra: CardControlExtra = {
-    title: `${resourceOfArticleItemView.getId()}: ${articleId}`
+    title: `${valueOfLabelForId}: ${articleId}`
   };
 
   return (
     <div className={styles.root}>
-      <h2>{resourceOfArticleItemView.getArticle()}</h2>
+      <h2>{resourceOfArticleItemView.getTitle()}</h2>
       {
         entity.id > 0
           ? <CardControl

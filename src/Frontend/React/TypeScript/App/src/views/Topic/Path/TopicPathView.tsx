@@ -7,13 +7,13 @@ import styles from './TopicPathView.module.css';
 
 interface ConvertToControlItemsOptions {
   entity?: TopicDomainEntityForItem;
-  title: string;
+  titleForRoot: string;
 }
 
 function convertToControlItems (options: ConvertToControlItemsOptions): BreadcrumbControlItem[] {
-  const { entity, title } = options;
+  const { entity, titleForRoot } = options;
 
-  const root: BreadcrumbControlItem = { title, key: 0 };
+  const root: BreadcrumbControlItem = { title: titleForRoot, key: 0 };
 
   const result: BreadcrumbControlItem[] = [root];
 
@@ -61,7 +61,7 @@ function TopicPathView () {
   const entity = topicItemResponse?.data?.item;
 
   const controlItems = useMemo(
-    () => convertToControlItems({ entity, title: topicPathViewResource.getAllTopics() }),
+    () => convertToControlItems({ entity, titleForRoot: topicPathViewResource.getTitleForRoot() }),
     [entity, topicPathViewResource]
   );
 

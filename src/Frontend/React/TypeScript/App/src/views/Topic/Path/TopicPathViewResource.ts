@@ -1,3 +1,3 @@
 export interface TopicPathViewResource {
-  readonly getAllTopics: () => string;
+  readonly getTitleForRoot: () => string;
 }

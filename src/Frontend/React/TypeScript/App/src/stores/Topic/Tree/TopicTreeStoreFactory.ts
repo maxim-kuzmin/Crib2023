@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
+  getModule,
   type TopicTreeStoreHooks,
   type TopicTreeStoreResource,
   LocalizationNamespace
@@ -18,23 +18,25 @@ import { useStoreState } from './Hooks/TopicTreeStoreStateHook';
 
 export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {
-    const { t } = useTranslation(LocalizationNamespace.TopicTreeStore);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tOperationNameForGet = t('@@OperationNameForGet');
-    const tOperationNameForGetChildren = t('@@OperationNameForGetChildren');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.TopicTreeStore);
+
+    const valueOfOperationNameForGet = localizer.getValue('@@OperationNameForGet');
+    const valueOfOperationNameForGetChildren = localizer.getValue('@@OperationNameForGetChildren');
 
     return useMemo(
       () => {
         const result: TopicTreeStoreResource = {
-          getOperationNameForGet: () => tOperationNameForGet,
-          getOperationNameForGetChildren: () => tOperationNameForGetChildren
+          getOperationNameForGet: () => valueOfOperationNameForGet,
+          getOperationNameForGetChildren: () => valueOfOperationNameForGetChildren
         };
 
         return result;
       },
       [
-        tOperationNameForGet,
-        tOperationNameForGetChildren
+        valueOfOperationNameForGet,
+        valueOfOperationNameForGetChildren
       ]
     );
   }

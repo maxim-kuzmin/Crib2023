@@ -1,51 +1,52 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { LocalizationNamespace } from '../../app';
+import { getModule, LocalizationNamespace } from '../../app';
 import { type TableControlHooks } from './TableControlHooks';
 import { type TableControlResource } from './TableControlResource';
 
 export function createTableControlHooks (): TableControlHooks {
   function useResource (): TableControlResource {
-    const { t } = useTranslation(LocalizationNamespace.TableControl);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tFrom: string = t('@@from');
-    const tJumpTo: string = t('@@Jump_to');
-    const tNext3Pages: string = t('@@Next_3_pages');
-    const tNext5Pages: string = t('@@Next_5_pages');
-    const tNextPage: string = t('@@Next_page');
-    const tPageTo: string = t('@@page_to');
-    const tPerPage: string = t('@@per_page');
-    const tPrev3Pages: string = t('@@Prev_3_pages');
-    const tPrev5Pages: string = t('@@Prev_5_pages');
-    const tPrevPage: string = t('@@Prev_page');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.TableControl);
+
+    const valueOfPaginationPartForFrom: string = localizer.getValue('@@PaginationPartForFrom');
+    const valueOfPaginationPartForJumpTo: string = localizer.getValue('@@PaginationPartForJumpTo');
+    const valueOfPaginationPartForNext3Pages: string = localizer.getValue('@@PaginationPartForNext3Pages');
+    const valueOfPaginationPartForNext5Pages: string = localizer.getValue('@@PaginationPartForNext5Pages');
+    const valueOfPaginationPartForNextPage: string = localizer.getValue('@@PaginationPartForNextPage');
+    const valueOfPaginationPartForPageTo: string = localizer.getValue('@@PaginationPartForPageTo');
+    const valueOfPaginationPartForPerPage: string = localizer.getValue('@@PaginationPartForPerPage');
+    const valueOfPaginationPartForPrev3Pages: string = localizer.getValue('@@PaginationPartForPrev3Pages');
+    const valueOfPaginationPartForPrev5Pages: string = localizer.getValue('@@PaginationPartForPrev5Pages');
+    const valueOfPaginationPartForPrevPage: string = localizer.getValue('@@PaginationPartForPrevPage');
 
     return useMemo(() => {
         const result: TableControlResource = {
-          getFrom: () => tFrom,
-          getJumpTo: () => tJumpTo,
-          getNext3Pages: () => tNext3Pages,
-          getNext5Pages: () => tNext5Pages,
-          getNextPage: () => tNextPage,
-          getPageTo: () => tPageTo,
-          getPerPage: () => tPerPage,
-          getPrev3Pages: () => tPrev3Pages,
-          getPrev5Pages: () => tPrev5Pages,
-          getPrevPage: () => tPrevPage,
+          getPaginationPartForFrom: () => valueOfPaginationPartForFrom,
+          getPaginationPartForJumpTo: () => valueOfPaginationPartForJumpTo,
+          getPaginationPartForNext3Pages: () => valueOfPaginationPartForNext3Pages,
+          getPaginationPartForNext5Pages: () => valueOfPaginationPartForNext5Pages,
+          getPaginationPartForNextPage: () => valueOfPaginationPartForNextPage,
+          getPaginationPartForPageTo: () => valueOfPaginationPartForPageTo,
+          getPaginationPartForPerPage: () => valueOfPaginationPartForPerPage,
+          getPaginationPartForPrev3Pages: () => valueOfPaginationPartForPrev3Pages,
+          getPaginationPartForPrev5Pages: () => valueOfPaginationPartForPrev5Pages,
+          getPaginationPartForPrevPage: () => valueOfPaginationPartForPrevPage,
         };
 
         return result;
       },
       [
-        tFrom,
-        tJumpTo,
-        tNext3Pages,
-        tNext5Pages,
-        tNextPage,
-        tPageTo,
-        tPerPage,
-        tPrev3Pages,
-        tPrev5Pages,
-        tPrevPage,
+        valueOfPaginationPartForFrom,
+        valueOfPaginationPartForJumpTo,
+        valueOfPaginationPartForNext3Pages,
+        valueOfPaginationPartForNext5Pages,
+        valueOfPaginationPartForNextPage,
+        valueOfPaginationPartForPageTo,
+        valueOfPaginationPartForPerPage,
+        valueOfPaginationPartForPrev3Pages,
+        valueOfPaginationPartForPrev5Pages,
+        valueOfPaginationPartForPrevPage,
       ]
     );
   }

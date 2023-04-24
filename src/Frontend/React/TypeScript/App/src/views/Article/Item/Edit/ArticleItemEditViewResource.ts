@@ -1,12 +1,12 @@
 export interface ArticleItemEditViewResource {
-  readonly getArticleEdit: () => string;
-  readonly getArticleNew: () => string;
-  readonly getBackToList: () => string;
-  readonly getBody: () => string;
-  readonly getDisplay: () => string;
-  readonly getId: () => string;
-  readonly getReset: () => string;
-  readonly getSave: () => string;
-  readonly getTitle: () => string;
-  readonly getTopic: () => string;
+  readonly getTitleForEdit: () => string;
+  readonly getTitleForNew: () => string;
+  readonly getActionForBackToList: () => string;
+  readonly getLabelForBody: () => string;
+  readonly getActionForDisplay: () => string;
+  readonly getLabelForId: () => string;
+  readonly getActionForReset: () => string;
+  readonly getActionForSave: () => string;
+  readonly getLabelForTitle: () => string;
+  readonly getLabelForTopic: () => string;
 }

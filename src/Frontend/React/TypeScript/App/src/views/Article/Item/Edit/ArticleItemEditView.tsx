@@ -86,7 +86,7 @@ function ArticleItemEditView ({
 
       const actionToSave: FormControlAction = {
         key: 'save',
-        title: resourceOfArticleItemEditView.getSave(),
+        title: resourceOfArticleItemEditView.getActionForSave(),
         disabled: pendingOfLoadAction,
         loading: pendingOfSaveAction,
         type: FormControlActionType.Submit
@@ -96,7 +96,7 @@ function ArticleItemEditView ({
 
       const actionToReset: FormControlAction = {
         key: 'reset',
-        title: resourceOfArticleItemEditView.getReset(),
+        title: resourceOfArticleItemEditView.getActionForReset(),
         disabled: pendingOfLoadAction || pendingOfSaveAction,
         type: FormControlActionType.Reset
       };
@@ -107,7 +107,7 @@ function ArticleItemEditView ({
         const actionToDisplay: FormControlAction = {
           href: articlePageService.createUrl({ articleId }),
           key: 'display',
-          title: resourceOfArticleItemEditView.getDisplay(),
+          title: resourceOfArticleItemEditView.getActionForDisplay(),
           type: FormControlActionType.None
         };
 
@@ -118,7 +118,7 @@ function ArticleItemEditView ({
         const actionToBackToList: FormControlAction = {
           href: topicPageLastUrl,
           key: 'backToList',
-          title: resourceOfArticleItemEditView.getBackToList(),
+          title: resourceOfArticleItemEditView.getActionForBackToList(),
           type: FormControlActionType.None
         };
 
@@ -139,25 +139,25 @@ function ArticleItemEditView ({
   const controlFields: FormControlField[] = useMemo(
     () => {
       const fieldForId: FormControlField = {
-        label: resourceOfArticleItemEditView.getId(),
+        label: resourceOfArticleItemEditView.getLabelForId(),
         name: fieldNameForId,
         type: articleId > 0 ? FormControlFieldType.Readonly : FormControlFieldType.Hidden
       };
 
       const fieldForTitle: FormControlField = {
         name: fieldNameForTitle,
-        label: resourceOfArticleItemEditView.getTitle(),
+        label: resourceOfArticleItemEditView.getLabelForTitle(),
         type: FormControlFieldType.TextInput
       };
 
       const fieldForBody: FormControlField = {
-        label: resourceOfArticleItemEditView.getBody(),
+        label: resourceOfArticleItemEditView.getLabelForBody(),
         name: fieldNameForBody,
         type: FormControlFieldType.TextArea
       };
 
       const fieldForTopicId: FormControlField = {
-        label: resourceOfArticleItemEditView.getTopic(),
+        label: resourceOfArticleItemEditView.getLabelForTopic(),
         name: fieldNameForTopicId,
         type: FormControlFieldType.Hidden
       };
@@ -227,8 +227,8 @@ function ArticleItemEditView ({
       <h2>
         {
           articleId > 0
-            ? resourceOfArticleItemEditView.getArticleEdit()
-            : resourceOfArticleItemEditView.getArticleNew()
+            ? resourceOfArticleItemEditView.getTitleForEdit()
+            : resourceOfArticleItemEditView.getTitleForNew()
         }
       </h2>
       {

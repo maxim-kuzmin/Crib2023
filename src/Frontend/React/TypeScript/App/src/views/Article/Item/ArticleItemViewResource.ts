@@ -1,6 +1,6 @@
 export interface ArticleItemViewResource {
-  readonly getArticle: () => string;
-  readonly getBackToList: () => string;
-  readonly getEdit: () => string;
-  readonly getId: () => string;
+  readonly getActionForBackToList: () => string;
+  readonly getActionForEdit: () => string;
+  readonly getLabelForId: () => string;
+  readonly getTitle: () => string;
 }

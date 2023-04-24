@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
+  getModule,
   type ArticleListStoreClearActionInput,
   type ArticleListStoreClearActionOutput,
   type ArticleListStoreLoadActionInput,
@@ -17,43 +17,45 @@ import { type ArticleTableViewResource } from './ArticleTableViewResource';
 
 export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks): ArticleTableViewHooks {
   function useResource (): ArticleTableViewResource {
-    const { t } = useTranslation(LocalizationNamespace.ArticleTableView);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tArticles: string = t('@@Articles');
-    const tActions: string = t('@@Actions');
-    const tDelete: string = t('@@Delete');
-    const tDisplay: string = t('@@Display');
-    const tEdit: string = t('@@Edit');
-    const tId: string = t('@@Id');
-    const tNew: string = t('@@New');
-    const tPath: string = t('@@Path');
-    const tTitle: string = t('@@Title');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleTableView);
+
+    const valueOfTitle: string = localizer.getValue('@@Title');
+    const valueOfLabelForActions: string = localizer.getValue('@@LabelForActions');
+    const valueOfActionForDelete: string = localizer.getValue('@@ActionForDelete');
+    const valueOfActionForDisplay: string = localizer.getValue('@@ActionForDisplay');
+    const valueOfActionForEdit: string = localizer.getValue('@@ActionForEdit');
+    const valueOfLabelForId: string = localizer.getValue('@@LabelForId');
+    const valueOfActionForNew: string = localizer.getValue('@@ActionForNew');
+    const valueOfLabelForPath: string = localizer.getValue('@@LabelForPath');
+    const valueOfLabelForTitle: string = localizer.getValue('@@LabelForTitle');
 
     return useMemo(() => {
         const result: ArticleTableViewResource = {
-          getArticles: () => tArticles,
-          getActions: () => tActions,
-          getDelete: () => tDelete,
-          getDisplay: () => tDisplay,
-          getEdit: () => tEdit,
-          getId: () => tId,
-          getNew: () => tNew,
-          getPath: () => tPath,
-          getTitle: () => tTitle
+          getTitle: () => valueOfTitle,
+          getLabelForActions: () => valueOfLabelForActions,
+          getActionForDelete: () => valueOfActionForDelete,
+          getActionForDisplay: () => valueOfActionForDisplay,
+          getActionForEdit: () => valueOfActionForEdit,
+          getLabelForId: () => valueOfLabelForId,
+          getActionForNew: () => valueOfActionForNew,
+          getLabelForPath: () => valueOfLabelForPath,
+          getLabelForTitle: () => valueOfLabelForTitle
         };
 
         return result;
       },
       [
-        tArticles,
-        tActions,
-        tDelete,
-        tDisplay,
-        tEdit,
-        tId,
-        tNew,
-        tPath,
-        tTitle
+        valueOfTitle,
+        valueOfLabelForActions,
+        valueOfActionForDelete,
+        valueOfActionForDisplay,
+        valueOfActionForEdit,
+        valueOfLabelForId,
+        valueOfActionForNew,
+        valueOfLabelForPath,
+        valueOfLabelForTitle
     ]
     );
   }

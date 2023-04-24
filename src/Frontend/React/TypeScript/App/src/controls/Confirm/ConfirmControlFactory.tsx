@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Modal, type ModalFuncProps } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
-import { LocalizationNamespace } from '../../app';
+import { getModule, LocalizationNamespace } from '../../app';
 import {
   type ConfirmControlComponent,
   type ConfirmControlProps,
@@ -13,35 +12,37 @@ import { type ConfirmControlResource } from './ConfirmControlResource';
 
 export function createConfirmControlHooks (): ConfirmControlHooks {
   function useResource (): ConfirmControlResource {
-    const { t } = useTranslation(LocalizationNamespace.ConfirmControl);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tCancelButtonText = t('@@CancelButtonText');
-    const tDeleteConfirmContent = t('@@DeleteConfirmContent');
-    const tDeleteConfirmTitle = t('@@DeleteConfirmTitle');
-    const tLeaveFormConfirmContent = t('@@LeaveFormConfirmContent');
-    const tLeaveFormConfirmTitle = t('@@LeaveFormConfirmTitle');
-    const tOkButtonText = t('@@OkButtonText');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ConfirmControl);
+
+    const valueOfCancelButtonText = localizer.getValue('@@CancelButtonText');
+    const valueOfDeleteConfirmContent = localizer.getValue('@@DeleteConfirmContent');
+    const valueOfDeleteConfirmTitle = localizer.getValue('@@DeleteConfirmTitle');
+    const valueOfFormConfirmContent = localizer.getValue('@@LeaveFormConfirmContent');
+    const valueOfLeaveFormConfirmTitle = localizer.getValue('@@LeaveFormConfirmTitle');
+    const valueOfOkButtonText = localizer.getValue('@@OkButtonText');
 
     return useMemo(
       () => {
         const result: ConfirmControlResource = {
-          getCancelButtonText: () => tCancelButtonText,
-          getDeleteConfirmContent: () => tDeleteConfirmContent,
-          getDeleteConfirmTitle: () => tDeleteConfirmTitle,
-          getLeaveFormConfirmContent: () => tLeaveFormConfirmContent,
-          getLeaveFormConfirmTitle: () => tLeaveFormConfirmTitle,
-          getOkButtonText: () => tOkButtonText,
+          getCancelButtonText: () => valueOfCancelButtonText,
+          getDeleteConfirmContent: () => valueOfDeleteConfirmContent,
+          getDeleteConfirmTitle: () => valueOfDeleteConfirmTitle,
+          getLeaveFormConfirmContent: () => valueOfFormConfirmContent,
+          getLeaveFormConfirmTitle: () => valueOfLeaveFormConfirmTitle,
+          getOkButtonText: () => valueOfOkButtonText,
         }
 
         return result;
       },
       [
-        tCancelButtonText,
-        tDeleteConfirmContent,
-        tDeleteConfirmTitle,
-        tLeaveFormConfirmContent,
-        tLeaveFormConfirmTitle,
-        tOkButtonText,
+        valueOfCancelButtonText,
+        valueOfDeleteConfirmContent,
+        valueOfDeleteConfirmTitle,
+        valueOfFormConfirmContent,
+        valueOfLeaveFormConfirmTitle,
+        valueOfOkButtonText,
       ]
     );
   }

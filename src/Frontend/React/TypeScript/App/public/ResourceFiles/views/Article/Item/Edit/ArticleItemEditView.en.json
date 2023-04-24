@@ -1,12 +1,12 @@
 {
-  "@@Article_edit": "Article edit",
-  "@@Article_new": "New article",
-  "@@Back_to_list": "Back to tist",
-  "@@Body": "Body",
-  "@@Display": "View",
-  "@@Id": "ID",
-  "@@Reset": "Reset",
-  "@@Save": "Save",
-  "@@Title": "Title",
-  "@@Topic": "Topic"
+  "@@ActionForBackToList": "Back to tist",
+  "@@ActionForDisplay": "View",
+  "@@ActionForReset": "Reset",
+  "@@ActionForSave": "Save",
+  "@@LabelForBody": "Body",
+  "@@LabelForId": "ID",
+  "@@LabelForTitle": "Title",
+  "@@LabelForTopic": "Topic",
+  "@@TitleForEdit": "Article edit",
+  "@@TitleForNew": "New article"
 }

@@ -1,12 +1,12 @@
 {
-  "@@Article_edit": "Редактирование статьи",
-  "@@Article_new": "Новая статья",
-  "@@Back_to_list": "Вернуться к списку",
-  "@@Body": "Тело",
-  "@@Display": "Показать",
-  "@@Id": "ID",
-  "@@Reset": "Сбросить",
-  "@@Save": "Сохранить",
-  "@@Title": "Заголовок",
-  "@@Topic": "Тема"
+  "@@ActionForBackToList": "Вернуться к списку",
+  "@@ActionForDisplay": "Показать",
+  "@@ActionForReset": "Сбросить",
+  "@@ActionForSave": "Сохранить",
+  "@@LabelForBody": "Тело",
+  "@@LabelForId": "ID",
+  "@@LabelForTitle": "Заголовок",
+  "@@LabelForTopic": "Тема",
+  "@@TitleForEdit": "Редактирование статьи",
+  "@@TitleForNew": "Новая статья"
 }

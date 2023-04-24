@@ -1,6 +1,6 @@
 {
-  "@@Article": "Article",
-  "@@Back_to_list": "Back to tist",
-  "@@Edit": "Edit",
-  "@@Id": "ID"
+  "@@ActionForBackToList": "Back to tist",
+  "@@ActionForEdit": "Edit",
+  "@@LabelForId": "ID",
+  "@@Title": "Article"
 }

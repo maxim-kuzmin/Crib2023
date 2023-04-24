@@ -1,51 +1,52 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { LocalizationNamespace } from '../../../../app';
+import { getModule, LocalizationNamespace } from '../../../../app';
 import { type ArticleItemEditViewHooks } from './ArticleItemEditViewHooks';
 import { type ArticleItemEditViewResource } from './ArticleItemEditViewResource';
 
 export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
-    const { t } = useTranslation(LocalizationNamespace.ArticleItemEditView);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tArticleEdit: string = t('@@Article_edit');
-    const tArticleNew = t('@@Article_new');
-    const tBackToList: string = t('@@Back_to_list');
-    const tBody: string = t('@@Body');
-    const tDisplay: string = t('@@Display');
-    const tId: string = t('@@Id');
-    const tReset: string = t('@@Reset');
-    const tSave: string = t('@@Save');
-    const tTitle: string = t('@@Title');
-    const tTopic = t('@@Topic');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleItemEditView);
+
+    const valueOfActionForBackToList: string = localizer.getValue('@@ActionForBackToList');
+    const valueOfActionForDisplay: string = localizer.getValue('@@ActionForDisplay');
+    const valueOfActionForReset: string = localizer.getValue('@@ActionForReset');
+    const valueOfActionForSave: string = localizer.getValue('@@ActionForSave');
+    const valueOfLabelForBody: string = localizer.getValue('@@LabelForBody');
+    const valueOfLabelForId: string = localizer.getValue('@@LabelForId');
+    const valueOfLabelForTitle: string = localizer.getValue('@@LabelForTitle');
+    const valueOfLabelForTopic = localizer.getValue('@@LabelForTopic');
+    const valueOfTitleForEdit: string = localizer.getValue('@@TitleForEdit');
+    const valueOfTitleForNew = localizer.getValue('@@TitleForNew');
 
     return useMemo(() => {
         const result: ArticleItemEditViewResource = {
-          getArticleEdit: () => tArticleEdit,
-          getArticleNew: () => tArticleNew,
-          getBackToList: () => tBackToList,
-          getBody: () => tBody,
-          getDisplay: () => tDisplay,
-          getId: () => tId,
-          getReset: () => tReset,
-          getSave: () => tSave,
-          getTitle: () => tTitle,
-          getTopic: () => tTopic,
+          getActionForBackToList: () => valueOfActionForBackToList,
+          getActionForDisplay: () => valueOfActionForDisplay,
+          getActionForReset: () => valueOfActionForReset,
+          getActionForSave: () => valueOfActionForSave,
+          getLabelForBody: () => valueOfLabelForBody,
+          getLabelForId: () => valueOfLabelForId,
+          getLabelForTitle: () => valueOfLabelForTitle,
+          getLabelForTopic: () => valueOfLabelForTopic,
+          getTitleForEdit: () => valueOfTitleForEdit,
+          getTitleForNew: () => valueOfTitleForNew,
         };
 
         return result;
       },
       [
-        tArticleEdit,
-        tArticleNew,
-        tBackToList,
-        tBody,
-        tDisplay,
-        tId,
-        tReset,
-        tSave,
-        tTitle,
-        tTopic
+        valueOfTitleForEdit,
+        valueOfTitleForNew,
+        valueOfActionForBackToList,
+        valueOfLabelForBody,
+        valueOfActionForDisplay,
+        valueOfLabelForId,
+        valueOfActionForReset,
+        valueOfActionForSave,
+        valueOfLabelForTitle,
+        valueOfLabelForTopic
       ]
     );
   }

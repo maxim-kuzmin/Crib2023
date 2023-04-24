@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
+  getModule,
   type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput,
   type ArticleItemStoreDeleteActionInput,
@@ -21,28 +21,30 @@ import { type ArticleItemViewResource } from './ArticleItemViewResource';
 
 export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): ArticleItemViewHooks {
   function useResource (): ArticleItemViewResource {
-    const { t } = useTranslation(LocalizationNamespace.ArticleItemView);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tArticle: string = t('@@Article');
-    const tBackToList: string = t('@@Back_to_list');
-    const tEdit: string = t('@@Edit');
-    const tId: string = t('@@Id');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleItemView);
+
+    const valueOfActionForBackToList: string = localizer.getValue('@@ActionForBackToList');
+    const valueOfActionForEdit: string = localizer.getValue('@@ActionForEdit');
+    const valueOfLabelForId: string = localizer.getValue('@@LabelForId');
+    const valueOfTitle: string = localizer.getValue('@@Title');
 
     return useMemo(() => {
         const result: ArticleItemViewResource = {
-          getArticle: () => tArticle,
-          getBackToList: () => tBackToList,
-          getEdit: () => tEdit,
-          getId: () => tId
+          getActionForBackToList: () => valueOfActionForBackToList,
+          getActionForEdit: () => valueOfActionForEdit,
+          getLabelForId: () => valueOfLabelForId,
+          getTitle: () => valueOfTitle
         };
 
         return result;
       },
       [
-        tArticle,
-        tBackToList,
-        tEdit,
-        tId
+        valueOfTitle,
+        valueOfActionForBackToList,
+        valueOfActionForEdit,
+        valueOfLabelForId
       ]
     );
   }

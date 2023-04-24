@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
+  getModule,
   type ArticleListStoreResource,
   type ArticleListStoreHooks,
   LocalizationNamespace
@@ -18,20 +18,22 @@ import { useStoreState } from './Hooks/ArticleListStoreStateHook';
 
 export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
-    const { t } = useTranslation(LocalizationNamespace.ArticleListStore);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tOperationNameForGet = t('@@OperationNameForGet');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleListStore);
+
+    const valueOfOperationNameForGet = localizer.getValue('@@OperationNameForGet');
 
     return useMemo(
       () => {
         const result: ArticleListStoreResource = {
-          getOperationNameForGet: () => tOperationNameForGet,
+          getOperationNameForGet: () => valueOfOperationNameForGet,
         };
 
         return result;
       },
       [
-        tOperationNameForGet,
+        valueOfOperationNameForGet,
       ]
     );
   }

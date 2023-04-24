@@ -115,6 +115,8 @@ import { createTopicPathViewHooks } from '../views/Topic/Path/TopicPathViewFacto
 import { type ConfirmControlHooks, type TableControlHooks } from '../controls';
 import { createTableControlHooks } from '../controls/Table/TableControlFactory';
 import { createApiResponseHooks } from '../data/Api/Response/ApiResponseFactory';
+import { type LocalizationHooks } from './Localization';
+import { createLocalizationHooks } from './Localization/LocalizationFactory';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -202,6 +204,9 @@ export class ModuleImpl implements Module {
   });
 
   getHooks = () => this.hooks;
+
+  private readonly localizationHooks: LocalizationHooks = createLocalizationHooks();
+  getLocalizationHooks = () => this.localizationHooks;
 
   private readonly topicItemStoreHooks: TopicItemStoreHooks = createTopicItemStoreHooks();
   getTopicItemStoreHooks = () => this.topicItemStoreHooks;

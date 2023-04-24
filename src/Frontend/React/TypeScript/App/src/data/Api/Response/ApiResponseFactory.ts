@@ -1,34 +1,35 @@
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { LocalizationNamespace } from '../../../app';
+import { getModule, LocalizationNamespace } from '../../../app';
 import { type ApiResponseHooks } from './ApiResponseHooks';
 import { type ApiResponseResource } from './ApiResponseResource';
 
 export function createApiResponseHooks (): ApiResponseHooks {
   function useResource (): ApiResponseResource {
-    const { t } = useTranslation(LocalizationNamespace.ApiResponse);
+    const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const tErrorMessageForDefault = t('@@ErrorMessageForDefault');
-    const tErrorMessageForHttp400BadRequest = t('@@ErrorMessageForHttp400BadRequest');
-    const tErrorMessageForHttp404NotFound = t('@@ErrorMessageForHttp404NotFound');
-    const tErrorMessageHttp500InternalServerError = t('@@ErrorMessageForHttp500InternalServerError');
+    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ApiResponse);
+
+    const valueOfErrorMessageForDefault = localizer.getValue('@@ErrorMessageForDefault');
+    const valueOfErrorMessageForHttp400 = localizer.getValue('@@ErrorMessageForHttp400');
+    const valueOfErrorMessageForHttp404 = localizer.getValue('@@ErrorMessageForHttp404');
+    const valueOfErrorMessageForHttp500 = localizer.getValue('@@ErrorMessageForHttp500');
 
     return useMemo(
       () => {
         const result: ApiResponseResource = {
-          getErrorMessageForDefault: () => tErrorMessageForDefault,
-          getErrorMessageForHttp400BadRequest: () => tErrorMessageForHttp400BadRequest,
-          getErrorMessageForHttp404NotFound: () => tErrorMessageForHttp404NotFound,
-          getErrorMessageForHttp500InternalServerError: () => tErrorMessageHttp500InternalServerError,
+          getErrorMessageForDefault: () => valueOfErrorMessageForDefault,
+          getErrorMessageForHttp400: () => valueOfErrorMessageForHttp400,
+          getErrorMessageForHttp404: () => valueOfErrorMessageForHttp404,
+          getErrorMessageForHttp500: () => valueOfErrorMessageForHttp500,
         };
 
         return result;
       },
       [
-        tErrorMessageForDefault,
-        tErrorMessageForHttp400BadRequest,
-        tErrorMessageForHttp404NotFound,
-        tErrorMessageHttp500InternalServerError,
+        valueOfErrorMessageForDefault,
+        valueOfErrorMessageForHttp400,
+        valueOfErrorMessageForHttp404,
+        valueOfErrorMessageForHttp500,
       ]
     );
   }

@@ -20,7 +20,7 @@ export class ApiResponseErrorImpl extends Error implements ApiResponseError {
 
     switch (responseStatus) {
       case 400:
-        message = resourceOfApiResponse.getErrorMessageForHttp400BadRequest();
+        message = resourceOfApiResponse.getErrorMessageForHttp400();
         if (responseDataWithDetails) {
           const { summary } = responseDataWithDetails;
           if (summary) {
@@ -29,10 +29,10 @@ export class ApiResponseErrorImpl extends Error implements ApiResponseError {
         }
         break;
       case 404:
-        message = resourceOfApiResponse.getErrorMessageForHttp404NotFound();
+        message = resourceOfApiResponse.getErrorMessageForHttp404();
         break;
       case 500:
-        message = resourceOfApiResponse.getErrorMessageForHttp500InternalServerError();
+        message = resourceOfApiResponse.getErrorMessageForHttp500();
         if (responseDataWithMessages) {
           const { messages } = responseDataWithMessages;
           if (messages?.length > 0) {

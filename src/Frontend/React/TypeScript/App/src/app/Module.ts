@@ -39,6 +39,7 @@ import {
   type TopicTreeViewHooks
 } from '../views';
 import { type Hooks } from './Hooks';
+import { type LocalizationHooks } from './Localization';
 import {
   type AppNotificationStoreHooks,
   type ArticleItemStoreHooks,
@@ -65,6 +66,7 @@ export interface Module {
   readonly getConfirmControlHooks: () => ConfirmControlHooks;
   readonly getHooks: () => Hooks;
   readonly getNotificationControlHooks: () => NotificationControlHooks;
+  readonly getLocalizationHooks: () => LocalizationHooks;
   readonly getTableControlHooks: () => TableControlHooks;
   readonly getTableControlService: () => TableControlService;
   readonly getTestService: () => TestService;

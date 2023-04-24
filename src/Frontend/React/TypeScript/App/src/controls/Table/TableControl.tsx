@@ -85,9 +85,11 @@ function TableControl ({
 
   const paginationConfig: TablePaginationConfig = useMemo(
     () => {
+      const valueOfPaginationPartForFrom = resourceOfTableControl.getPaginationPartForFrom();
+
       const result: TablePaginationConfig = {
         defaultPageSize,
-        showTotal: (total, range) => `${range[0]}-${range[1]} ${resourceOfTableControl.getFrom()} ${total}`,
+        showTotal: (total, range) => `${range[0]}-${range[1]} ${valueOfPaginationPartForFrom} ${total}`,
         pageSizeOptions: [10, 20, 50, 100, 1000000],
         position: ['bottomLeft', 'topLeft'],
         showQuickJumper: true,
@@ -95,16 +97,16 @@ function TableControl ({
         size: 'small',
         hideOnSinglePage: false,
         locale: {
-          items_per_page: resourceOfTableControl.getPerPage(),
-          jump_to: resourceOfTableControl.getJumpTo(),
+          items_per_page: resourceOfTableControl.getPaginationPartForPerPage(),
+          jump_to: resourceOfTableControl.getPaginationPartForJumpTo(),
           // jump_to_confirm?: string;
-          page: resourceOfTableControl.getPageTo(),
-          prev_page: resourceOfTableControl.getPrevPage(),
-          next_page: resourceOfTableControl.getNextPage(),
-          prev_5: resourceOfTableControl.getPrev5Pages(),
-          next_5: resourceOfTableControl.getNext5Pages(),
-          prev_3: resourceOfTableControl.getPrev3Pages(),
-          next_3: resourceOfTableControl.getNext3Pages()
+          page: resourceOfTableControl.getPaginationPartForPageTo(),
+          prev_page: resourceOfTableControl.getPaginationPartForPrevPage(),
+          next_page: resourceOfTableControl.getPaginationPartForNextPage(),
+          prev_5: resourceOfTableControl.getPaginationPartForPrev5Pages(),
+          next_5: resourceOfTableControl.getPaginationPartForNext5Pages(),
+          prev_3: resourceOfTableControl.getPaginationPartForPrev3Pages(),
+          next_3: resourceOfTableControl.getPaginationPartForNext3Pages()
         },
       };
 
