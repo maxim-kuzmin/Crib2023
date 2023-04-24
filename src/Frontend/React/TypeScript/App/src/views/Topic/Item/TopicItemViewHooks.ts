@@ -10,7 +10,7 @@ import {
   type TopicItemStoreSetActionInput,
   type TopicItemStoreSetActionOutput,
   type TopicItemStoreState,
-} from '../../../app/Stores';
+} from '../../../app';
 
 export interface TopicItemViewHooks {
   readonly useStoreClearActionOutput: (

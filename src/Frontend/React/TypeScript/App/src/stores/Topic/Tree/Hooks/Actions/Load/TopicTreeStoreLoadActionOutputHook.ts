@@ -3,7 +3,7 @@ import {
   type TopicTreeStoreLoadActionInput,
   type TopicTreeStoreLoadActionOutput,
   type TopicTreeStoreLoadCompletedActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import { useStoreState } from '../../TopicTreeStoreStateHook';
 import { useStoreLoadActionDispatch } from './TopicTreeStoreLoadActionDispatchHook';

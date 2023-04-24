@@ -12,7 +12,7 @@ import {
   type TopicItemStoreHooks,
   TopicItemStoreSliceName,
   type TopicItemStoreState,
-} from '../../../app/Stores';
+} from '../../../app';
 import { type TopicItemViewHooks } from './TopicItemViewHooks';
 
 export function createTopicItemViewHooks (storeHooks: TopicItemStoreHooks): TopicItemViewHooks {

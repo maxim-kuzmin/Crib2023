@@ -3,8 +3,11 @@ import React, {
   memo,
   useReducer,
 } from 'react';
-import { getModule } from '../../../app';
-import { TopicTreeStoreSliceName, type TopicTreeStoreState } from '../../../app/Stores';
+import {
+  getModule,
+  TopicTreeStoreSliceName,
+  type TopicTreeStoreState
+} from '../../../app';
 import { OperationStatus } from '../../../common';
 import { TopicTreeStoreActionType } from './TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from './TopicTreeStoreActionUnion';

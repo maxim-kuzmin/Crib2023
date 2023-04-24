@@ -1,5 +1,8 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
-import { getModule } from '../../../app';
+import {
+  getModule,
+  type TopicTreeStoreLoadActionPayload
+} from '../../../app';
 import {
   OperationSortDirection,
   OperationStatus,
@@ -13,7 +16,6 @@ import {
   createTopicDomainTreeGetOperationRequest
 } from '../../../domains';
 import styles from './TopicTreeView.module.css';
-import { type TopicTreeStoreLoadActionPayload } from '../../../app/Stores';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,

@@ -4,7 +4,7 @@ import {
   type TopicItemStoreSetActionDispatch,
   type TopicItemStoreSetActionOptions,
   type TopicItemStoreSetActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';

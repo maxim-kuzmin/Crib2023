@@ -3,7 +3,7 @@ import {
   type TopicTreeStoreClearActionCallback,
   type TopicTreeStoreClearActionDispatch,
   type TopicTreeStoreClearActionOptions,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';

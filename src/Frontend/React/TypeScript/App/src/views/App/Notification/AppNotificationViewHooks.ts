@@ -4,7 +4,7 @@ import {
   type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput,
   type AppNotificationStoreState,
-} from '../../../app/Stores';
+} from '../../../app';
 
 export interface AppNotificationViewHooks {
   readonly useStoreClearActionOutput: (

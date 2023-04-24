@@ -4,7 +4,7 @@ import {
   type TopicItemStoreDeleteCompletedActionDispatch,
   type TopicItemStoreDeleteCompletedActionOptions,
   type TopicItemStoreDeleteCompletedActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';

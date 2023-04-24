@@ -4,7 +4,7 @@ import {
   type TopicTreeStoreLoadCompletedActionDispatch,
   type TopicTreeStoreLoadCompletedActionOptions,
   type TopicTreeStoreLoadCompletedActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';

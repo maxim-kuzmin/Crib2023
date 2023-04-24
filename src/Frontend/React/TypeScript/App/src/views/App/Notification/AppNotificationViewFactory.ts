@@ -6,7 +6,7 @@ import {
   type AppNotificationStoreHooks,
   AppNotificationStoreSliceName,
   type AppNotificationStoreState,
-} from '../../../app/Stores';
+} from '../../../app';
 import { type AppNotificationViewHooks } from './AppNotificationViewHooks';
 
 export function createAppNotificationViewHooks (storeHooks: AppNotificationStoreHooks): AppNotificationViewHooks {

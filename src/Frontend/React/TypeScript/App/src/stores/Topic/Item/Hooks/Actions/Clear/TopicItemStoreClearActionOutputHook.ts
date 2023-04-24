@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import {
   type TopicItemStoreClearActionInput,
   type TopicItemStoreClearActionOutput
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { useStoreClearActionDispatch } from './TopicItemStoreClearActionDispatchHook';
 

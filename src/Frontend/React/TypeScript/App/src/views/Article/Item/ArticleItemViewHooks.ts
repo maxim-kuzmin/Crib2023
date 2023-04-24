@@ -10,7 +10,7 @@ import {
   type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreState,
-} from '../../../app/Stores';
+} from '../../../app';
 import { type ArticleItemViewResource } from './ArticleItemViewResource';
 
 export interface ArticleItemViewHooks {

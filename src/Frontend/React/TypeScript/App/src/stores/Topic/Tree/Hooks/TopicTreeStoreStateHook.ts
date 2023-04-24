@@ -1,4 +1,4 @@
-import { type TopicTreeStoreState } from '../../../../app/Stores';
+import { type TopicTreeStoreState } from '../../../../app';
 import { useTopicTreeStoreStateContext } from '../TopicTreeStoreContext';
 
 export function useStoreState (sliceName: string): TopicTreeStoreState {

@@ -6,7 +6,7 @@ import {
   type ArticleListStoreSetActionInput,
   type ArticleListStoreSetActionOutput,
   type ArticleListStoreState,
-} from '../../../app/Stores';
+} from '../../../app';
 import { type ArticleTableViewResource } from './ArticleTableViewResource';
 
 export interface ArticleTableViewHooks {

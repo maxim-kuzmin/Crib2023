@@ -8,7 +8,7 @@ import {
   type TopicTreeStoreHooks,
   TopicTreeStoreSliceName,
   type TopicTreeStoreState,
-} from '../../../app/Stores';
+} from '../../../app';
 import { type TopicTreeViewHooks } from './TopicTreeViewHooks';
 
 export function createTopicTreeViewHooks (storeHooks: TopicTreeStoreHooks): TopicTreeViewHooks {

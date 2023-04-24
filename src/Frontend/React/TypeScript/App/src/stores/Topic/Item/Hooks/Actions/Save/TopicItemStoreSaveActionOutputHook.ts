@@ -3,7 +3,7 @@ import {
   type TopicItemStoreSaveActionInput,
   type TopicItemStoreSaveActionOutput,
   type TopicItemStoreSaveCompletedActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { OperationStatus } from '../../../../../../common';
 import { useStoreSaveActionDispatch } from './TopicItemStoreSaveActionDispatchHook';
 import { useStoreState } from '../../TopicItemStoreStateHook';

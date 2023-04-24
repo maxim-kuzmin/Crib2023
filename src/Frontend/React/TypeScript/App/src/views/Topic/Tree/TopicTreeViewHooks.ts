@@ -6,7 +6,7 @@ import {
   type TopicTreeStoreSetActionInput,
   type TopicTreeStoreSetActionOutput,
   type TopicTreeStoreState,
-} from '../../../app/Stores';
+} from '../../../app';
 
 export interface TopicTreeViewHooks {
   readonly useStoreClearActionOutput: (

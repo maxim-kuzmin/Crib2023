@@ -1,6 +1,8 @@
 import React, { memo, useMemo } from 'react';
-import { getModule } from '../../../app';
-import { type ArticleItemStoreLoadActionPayload } from '../../../app/Stores';
+import {
+  getModule,
+  type ArticleItemStoreLoadActionPayload
+} from '../../../app';
 import {
   type CardControlAction,
   type CardControlExtra,

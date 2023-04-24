@@ -1,6 +1,8 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
-import { getModule } from '../../../../app';
-import { type ArticleItemStoreLoadActionPayload } from '../../../../app/Stores';
+import {
+  getModule,
+  type ArticleItemStoreLoadActionPayload
+} from '../../../../app';
 import {
   type FormControlAction,
   FormControlActionType,
