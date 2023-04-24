@@ -3,7 +3,7 @@ import {
   type AppNotificationStoreClearActionCallback,
   type AppNotificationStoreClearActionDispatch,
   type AppNotificationStoreClearActionOptions,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';

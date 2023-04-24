@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { LocalizationNamespace } from '../../app';
 import { type TableControlHooks } from './TableControlHooks';
 import { type TableControlResource } from './TableControlResource';
 
 export function createTableControlHooks (): TableControlHooks {
   function useResource (): TableControlResource {
-    const { t } = useTranslation('controls/Table/TableControl');
+    const { t } = useTranslation(LocalizationNamespace.TableControl);
 
     const tFrom: string = t('@@from');
     const tJumpTo: string = t('@@Jump_to');

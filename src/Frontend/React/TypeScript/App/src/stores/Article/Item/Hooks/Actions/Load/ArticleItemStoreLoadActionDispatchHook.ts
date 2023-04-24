@@ -1,12 +1,14 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../../../app';
 import {
+  getModule,
   type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreLoadActionDispatch,
   type ArticleItemStoreLoadActionOptions,
   type ArticleItemStoreLoadActionPayload,
-} from '../../../../../../app/Stores';
+  type ArticleItemStoreResource,
+} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainItemGetOperationRequestHandler,
   createArticleDomainItemGetOperationRequest
@@ -21,6 +23,8 @@ interface Options {
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreLoadActionPayload;
   readonly requestHandler: ArticleDomainItemGetOperationRequestHandler;
+  readonly resourceOfApiResponse: ApiResponseResource;
+  readonly resourceOfArticleItemStore: ArticleItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -28,10 +32,12 @@ interface Options {
 async function runLoadAction ({
   callback,
   dispatch,
+  payload,
+  requestHandler,
+  resourceOfApiResponse,
+  resourceOfArticleItemStore,
   shouldBeCanceled,
   sliceName,
-  payload,
-  requestHandler
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -45,7 +51,13 @@ async function runLoadAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createArticleDomainItemGetOperationRequest(payload, { operationName: '@@ArticleDomainItemGet' }),
+        createArticleDomainItemGetOperationRequest(
+          payload,
+          {
+            operationName: resourceOfArticleItemStore.getGetOperationName(),
+            resourceOfApiResponse
+          }
+        ),
         shouldBeCanceled
       )
     : null;
@@ -71,6 +83,14 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: ArticleItemStoreLoadActionOptions = {}
 ): ArticleItemStoreLoadActionDispatch {
+  const hooksOfApiResponse = getModule().getApiResponseHooks();
+
+  const resourceOfApiResponse = hooksOfApiResponse.useResource();
+
+  const hooksOfArticleItemStore = getModule().getArticleItemStoreHooks();
+
+  const resourceOfArticleItemStore = hooksOfArticleItemStore.useResource();
+
   const dispatch = useArticleItemStoreDispatchContext();
 
   const requestHandler = useRef(
@@ -87,8 +107,10 @@ export function useStoreLoadActionDispatch (
         runLoadAction({
           callback,
           dispatch,
-          requestHandler,
           payload: payloadOfLoadAction,
+          requestHandler,
+          resourceOfApiResponse,
+          resourceOfArticleItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
           sliceName
         });
@@ -99,8 +121,10 @@ export function useStoreLoadActionDispatch (
           runLoadAction({
             callback,
             dispatch,
-            requestHandler,
             payload: payloadOfLoadAction,
+            requestHandler,
+            resourceOfApiResponse,
+            resourceOfArticleItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
             sliceName
             });
@@ -116,6 +140,8 @@ export function useStoreLoadActionDispatch (
       isCanceled,
       payloadOfLoadAction,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
       sliceName
     ]
   );
@@ -129,6 +155,8 @@ export function useStoreLoadActionDispatch (
       dispatch,
       payload,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
       shouldBeCanceled,
       sliceName
     });

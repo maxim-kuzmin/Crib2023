@@ -1,0 +1,1 @@
+export { LocalizationNamespace } from './LocalizationNamespace';

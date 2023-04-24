@@ -1,0 +1,5 @@
+{
+  "@@DeleteOperationName": "Тема. Элемент. Удаление",
+  "@@GetOperationName": "Тема. Элемент. Получение",
+  "@@SaveOperationName": "Тема. Элемент. Сохранение"
+}

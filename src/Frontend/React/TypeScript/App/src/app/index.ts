@@ -8,4 +8,6 @@ export function getModule (): Module {
 }
 
 export { type Hooks } from './Hooks';
+export * from './Localization';
 export { type Module } from './Module';
+export * from './Stores';

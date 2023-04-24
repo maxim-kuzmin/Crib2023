@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, type ModalFuncProps } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
+import { LocalizationNamespace } from '../../app';
 import {
   type ConfirmControlComponent,
   type ConfirmControlProps,
@@ -12,7 +13,7 @@ import { type ConfirmControlResource } from './ConfirmControlResource';
 
 export function createConfirmControlHooks (): ConfirmControlHooks {
   function useResource (): ConfirmControlResource {
-    const { t } = useTranslation('controls/Confirm/ConfirmControl');
+    const { t } = useTranslation(LocalizationNamespace.ConfirmControl);
 
     const tCancelButtonText = t('@@CancelButtonText');
     const tDeleteConfirmContent = t('@@DeleteConfirmContent');

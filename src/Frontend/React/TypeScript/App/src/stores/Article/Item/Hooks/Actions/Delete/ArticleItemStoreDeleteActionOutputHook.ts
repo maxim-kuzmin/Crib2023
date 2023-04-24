@@ -3,7 +3,7 @@ import {
   type ArticleItemStoreDeleteActionInput,
   type ArticleItemStoreDeleteActionOutput,
   type ArticleItemStoreDeleteCompletedActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { OperationStatus } from '../../../../../../common';
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreDeleteActionDispatch } from './ArticleItemStoreDeleteActionDispatchHook';

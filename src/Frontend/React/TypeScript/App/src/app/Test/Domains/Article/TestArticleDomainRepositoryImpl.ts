@@ -55,7 +55,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, operationName, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const item = this.items.find(x => x.data.id === input.id);
 
@@ -66,7 +66,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = getModule().createApiResponseError(status);
+      error = getModule().createApiResponseError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
@@ -101,7 +101,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
   async saveItem (
     request: ArticleDomainItemSaveOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, operationName, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     let item: ArticleDomainEntityForItem | undefined;
 
@@ -127,7 +127,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = getModule().createApiResponseError(status);
+      error = getModule().createApiResponseError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: ArticleDomainItemGetOperationResponse = {

@@ -1,0 +1,5 @@
+{
+  "@@DeleteOperationName": "Article. Item. Delete",
+  "@@GetOperationName": "Article. Item. Get",
+  "@@SaveOperationName": "Article. Item. Save"
+}

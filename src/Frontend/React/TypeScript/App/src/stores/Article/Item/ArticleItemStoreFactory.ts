@@ -1,4 +1,10 @@
-import { type ArticleItemStoreHooks } from '../../../app/Stores';
+import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  type ArticleItemStoreResource,
+  type ArticleItemStoreHooks,
+  LocalizationNamespace
+} from '../../../app';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/ArticleItemStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/ArticleItemStoreClearActionOutputHook';
 import { useStoreDeleteActionDispatch } from './Hooks/Actions/Delete/ArticleItemStoreDeleteActionDispatchHook';
@@ -21,7 +27,33 @@ import { useStoreSetActionOutput } from './Hooks/Actions/Set/ArticleItemStoreSet
 import { useStoreState } from './Hooks/ArticleItemStoreStateHook';
 
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
+  function useResource (): ArticleItemStoreResource {
+    const { t } = useTranslation(LocalizationNamespace.ArticleItemStore);
+
+    const tDeleteOperationName = t('@@DeleteOperationName');
+    const tGetOperationName = t('@@GetOperationName');
+    const tSaveOperationName = t('@@SaveOperationName');
+
+    return useMemo(
+      () => {
+        const result: ArticleItemStoreResource = {
+          getDeleteOperationName: () => tDeleteOperationName,
+          getGetOperationName: () => tGetOperationName,
+          getSaveOperationName: () => tSaveOperationName
+        };
+
+        return result;
+      },
+      [
+        tDeleteOperationName,
+        tGetOperationName,
+        tSaveOperationName
+      ]
+    );
+  }
+
   return {
+    useResource,
     useStoreClearActionDispatch,
     useStoreClearActionOutput,
     useStoreDeleteActionDispatch,

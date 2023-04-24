@@ -4,7 +4,7 @@ import {
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionOptions,
   type AppNotificationStoreSetActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';

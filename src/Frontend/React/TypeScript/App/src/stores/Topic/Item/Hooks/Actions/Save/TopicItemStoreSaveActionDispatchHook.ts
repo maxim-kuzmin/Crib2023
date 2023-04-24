@@ -1,12 +1,14 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../../../app';
 import {
+  getModule,
   type TopicItemStoreSetActionCallback,
   type TopicItemStoreSaveActionDispatch,
   type TopicItemStoreSaveActionOptions,
   type TopicItemStoreSaveActionPayload,
-} from '../../../../../../app/Stores';
+  type TopicItemStoreResource
+} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainItemSaveOperationRequestHandler,
   createTopicDomainItemSaveOperationRequest
@@ -21,6 +23,8 @@ interface Options {
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreSaveActionPayload;
   readonly requestHandler: TopicDomainItemSaveOperationRequestHandler;
+  readonly resourceOfApiResponse: ApiResponseResource;
+  readonly resourceOfTopicItemStore: TopicItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -28,10 +32,12 @@ interface Options {
 async function runSaveAction ({
   callback,
   dispatch,
+  payload,
+  requestHandler,
+  resourceOfApiResponse,
+  resourceOfTopicItemStore,
   shouldBeCanceled,
   sliceName,
-  payload,
-  requestHandler
 }: Options): Promise<void> {
   if (shouldBeCanceled()) {
     return;
@@ -45,7 +51,13 @@ async function runSaveAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createTopicDomainItemSaveOperationRequest(payload, { operationName: '@@TopicDomainItemSave' }),
+        createTopicDomainItemSaveOperationRequest(
+          payload,
+          {
+            operationName: resourceOfTopicItemStore.getSaveOperationName(),
+            resourceOfApiResponse
+          }
+        ),
         shouldBeCanceled
       )
     : null;
@@ -71,6 +83,14 @@ export function useStoreSaveActionDispatch (
     payloadOfSaveAction
   }: TopicItemStoreSaveActionOptions
 ): TopicItemStoreSaveActionDispatch {
+  const hooksOfApiResponse = getModule().getApiResponseHooks();
+
+  const resourceOfApiResponse = hooksOfApiResponse.useResource();
+
+  const hooksOfTopicItemStore = getModule().getTopicItemStoreHooks();
+
+  const resourceOfTopicItemStore = hooksOfTopicItemStore.useResource();
+
   const dispatch = useTopicItemStoreDispatchContext();
 
   const requestHandler = useRef(
@@ -89,6 +109,8 @@ export function useStoreSaveActionDispatch (
           dispatch,
           payload: payloadOfSaveAction,
           requestHandler,
+          resourceOfApiResponse,
+          resourceOfTopicItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
           sliceName
         });
@@ -101,6 +123,8 @@ export function useStoreSaveActionDispatch (
             dispatch,
             payload: payloadOfSaveAction,
             requestHandler,
+            resourceOfApiResponse,
+            resourceOfTopicItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
             sliceName
             });
@@ -116,6 +140,8 @@ export function useStoreSaveActionDispatch (
       isCanceled,
       payloadOfSaveAction,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfTopicItemStore,
       sliceName
     ]
   );
@@ -129,6 +155,8 @@ export function useStoreSaveActionDispatch (
       dispatch,
       payload,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfTopicItemStore,
       shouldBeCanceled,
       sliceName
     });

@@ -5,27 +5,36 @@ import { type ApiResponseDataWithDetails, type ApiResponseDataWithMessages } fro
 export class ApiResponseErrorImpl extends Error implements ApiResponseError {
   readonly responseDataWithDetails: ApiResponseDataWithDetails | null = null;
   readonly responseDataWithMessages: ApiResponseDataWithMessages | null = null;
+  public readonly responseStatus: number;
 
-  constructor (public responseStatus: number, options?: ApiResponseErrorOptions) {
-    let message = '@@UnknownError';
+  constructor (options: ApiResponseErrorOptions) {
+    const {
+      cause,
+      resourceOfApiResponse,
+      responseDataWithDetails,
+      responseDataWithMessages,
+      responseStatus,
+    } = options;
+
+    let message = resourceOfApiResponse.getErrorMessageForDefault();
 
     switch (responseStatus) {
       case 400:
-        message = '@@HttpError400';
-        if (options?.responseDataWithDetails) {
-          const { summary } = options?.responseDataWithDetails;
+        message = resourceOfApiResponse.getErrorMessageForHttp400BadRequest();
+        if (responseDataWithDetails) {
+          const { summary } = responseDataWithDetails;
           if (summary) {
             message = summary;
           }
         }
         break;
       case 404:
-        message = '@@HttpError404';
+        message = resourceOfApiResponse.getErrorMessageForHttp404NotFound();
         break;
       case 500:
-        message = '@@HttpError500';
-        if (options?.responseDataWithMessages) {
-          const { messages } = options?.responseDataWithMessages;
+        message = resourceOfApiResponse.getErrorMessageForHttp500InternalServerError();
+        if (responseDataWithMessages) {
+          const { messages } = responseDataWithMessages;
           if (messages?.length > 0) {
             message = messages.join('. ');
           }
@@ -33,18 +42,16 @@ export class ApiResponseErrorImpl extends Error implements ApiResponseError {
         break;
     }
 
-    super(message, options);
+    super(message, { cause });
 
-    if (options) {
-      const { responseDataWithDetails: responseDetailsData, responseDataWithMessages: responseErrorsData } = options;
+    this.responseStatus = responseStatus;
 
-      if (responseDetailsData) {
-        this.responseDataWithDetails = responseDetailsData;
-      }
+    if (responseDataWithDetails) {
+      this.responseDataWithDetails = responseDataWithDetails;
+    }
 
-      if (responseErrorsData) {
-        this.responseDataWithMessages = responseErrorsData;
-      }
+    if (responseDataWithMessages) {
+      this.responseDataWithMessages = responseDataWithMessages;
     }
   }
 }

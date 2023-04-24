@@ -1,12 +1,14 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../../../app';
 import {
+  getModule,
   type ArticleItemStoreDeleteCompletedActionCallback,
   type ArticleItemStoreDeleteActionDispatch,
   type ArticleItemStoreDeleteActionOptions,
   type ArticleItemStoreDeleteActionPayload,
-} from '../../../../../../app/Stores';
+  type ArticleItemStoreResource,
+} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainItemDeleteOperationRequestHandler,
   createArticleDomainItemDeleteOperationRequest,
@@ -21,6 +23,8 @@ interface Options {
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreDeleteActionPayload;
   readonly requestHandler: ArticleDomainItemDeleteOperationRequestHandler;
+  readonly resourceOfApiResponse: ApiResponseResource;
+  readonly resourceOfArticleItemStore: ArticleItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -28,10 +32,12 @@ interface Options {
 async function runDeleteAction ({
   callback,
   dispatch,
+  payload,
+  requestHandler,
+  resourceOfApiResponse,
+  resourceOfArticleItemStore,
   shouldBeCanceled,
   sliceName,
-  payload,
-  requestHandler
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -45,7 +51,13 @@ async function runDeleteAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createArticleDomainItemDeleteOperationRequest(payload, { operationName: '@@ArticleDomainItemDelete' }),
+        createArticleDomainItemDeleteOperationRequest(
+          payload,
+          {
+            operationName: resourceOfArticleItemStore.getDeleteOperationName(),
+            resourceOfApiResponse
+          }
+        ),
         shouldBeCanceled
       )
     : null;
@@ -71,6 +83,14 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: ArticleItemStoreDeleteActionOptions = {}
 ): ArticleItemStoreDeleteActionDispatch {
+  const hooksOfApiResponse = getModule().getApiResponseHooks();
+
+  const resourceOfApiResponse = hooksOfApiResponse.useResource();
+
+  const hooksOfArticleItemStore = getModule().getArticleItemStoreHooks();
+
+  const resourceOfArticleItemStore = hooksOfArticleItemStore.useResource();
+
   const dispatch = useArticleItemStoreDispatchContext();
 
   const requestHandler = useRef(
@@ -89,6 +109,8 @@ export function useStoreDeleteActionDispatch (
           dispatch,
           payload: payloadOfDeleteAction,
           requestHandler,
+          resourceOfApiResponse,
+          resourceOfArticleItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
           sliceName
       });
@@ -101,6 +123,8 @@ export function useStoreDeleteActionDispatch (
             dispatch,
             payload: payloadOfDeleteAction,
             requestHandler,
+            resourceOfApiResponse,
+            resourceOfArticleItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
             sliceName
           });
@@ -116,6 +140,8 @@ export function useStoreDeleteActionDispatch (
       isCanceled,
       payloadOfDeleteAction,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
       sliceName
     ]
   );
@@ -129,6 +155,8 @@ export function useStoreDeleteActionDispatch (
       dispatch,
       payload,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
       shouldBeCanceled,
       sliceName
     });

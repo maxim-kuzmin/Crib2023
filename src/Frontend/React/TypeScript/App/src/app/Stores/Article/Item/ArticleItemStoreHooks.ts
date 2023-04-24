@@ -26,9 +26,12 @@ import {
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionOutput
 } from './Actions';
+import { type ArticleItemStoreResource } from './ArticleItemStoreResource';
 import { type ArticleItemStoreState } from './ArticleItemStoreState';
 
 export interface ArticleItemStoreHooks {
+  readonly useResource: () => ArticleItemStoreResource;
+
   readonly useStoreClearActionDispatch: (
     sliceName: string,
     options: ArticleItemStoreClearActionOptions

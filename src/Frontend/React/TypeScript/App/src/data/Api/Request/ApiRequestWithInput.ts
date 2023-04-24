@@ -1,4 +1,5 @@
 import { createApiRequest, type ApiRequest } from './ApiRequest';
+import { type ApiRequestCreationOptions } from './ApiRequestCreationOptions';
 
 export interface ApiRequestWithInput<TInput> extends ApiRequest {
   input: TInput;
@@ -6,7 +7,7 @@ export interface ApiRequestWithInput<TInput> extends ApiRequest {
 
 export function createApiRequestWithInput<TInput> (
   input: TInput,
-  options?: Partial<ApiRequest>
+  options: ApiRequestCreationOptions
 ): ApiRequestWithInput<TInput> {
   const apiRequest = createApiRequest(options);
 

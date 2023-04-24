@@ -1,5 +1,5 @@
 import {
-  type ApiRequest,
+  type ApiRequestCreationOptions,
   type ApiRequestWithInput,
   createApiRequestWithInput
 } from '../../../../../data';
@@ -10,7 +10,7 @@ export interface ArticleDomainListGetOperationRequest
 
 export function createArticleDomainListGetOperationRequest (
   input: ArticleDomainListGetOperationInput,
-  options?: Partial<ApiRequest>
+  options: ApiRequestCreationOptions
 ): ArticleDomainListGetOperationRequest {
   return createApiRequestWithInput(input, options);
 }

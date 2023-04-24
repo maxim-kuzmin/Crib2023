@@ -1,12 +1,14 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../../../app';
 import {
+  getModule,
   type TopicItemStoreDeleteCompletedActionCallback,
   type TopicItemStoreDeleteActionDispatch,
   type TopicItemStoreDeleteActionOptions,
   type TopicItemStoreDeleteActionPayload,
-} from '../../../../../../app/Stores';
+  type TopicItemStoreResource,
+} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainItemDeleteOperationRequestHandler,
   createTopicDomainItemDeleteOperationRequest,
@@ -21,6 +23,8 @@ interface Options {
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreDeleteActionPayload;
   readonly requestHandler: TopicDomainItemDeleteOperationRequestHandler;
+  readonly resourceOfApiResponse: ApiResponseResource;
+  readonly resourceOfTopicItemStore: TopicItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -28,10 +32,12 @@ interface Options {
 async function runDeleteAction ({
   callback,
   dispatch,
+  payload,
+  requestHandler,
+  resourceOfApiResponse,
+  resourceOfTopicItemStore,
   shouldBeCanceled,
   sliceName,
-  payload,
-  requestHandler
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -45,7 +51,13 @@ async function runDeleteAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createTopicDomainItemDeleteOperationRequest(payload, { operationName: '@@TopicDomainItemDelete' }),
+        createTopicDomainItemDeleteOperationRequest(
+          payload,
+          {
+            operationName: resourceOfTopicItemStore.getDeleteOperationName(),
+            resourceOfApiResponse
+          }
+        ),
         shouldBeCanceled
       )
     : null;
@@ -71,6 +83,14 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: TopicItemStoreDeleteActionOptions = {}
 ): TopicItemStoreDeleteActionDispatch {
+  const hooksOfApiResponse = getModule().getApiResponseHooks();
+
+  const resourceOfApiResponse = hooksOfApiResponse.useResource();
+
+  const hooksOfTopicItemStore = getModule().getTopicItemStoreHooks();
+
+  const resourceOfTopicItemStore = hooksOfTopicItemStore.useResource();
+
   const dispatch = useTopicItemStoreDispatchContext();
 
   const requestHandler = useRef(
@@ -89,6 +109,8 @@ export function useStoreDeleteActionDispatch (
           dispatch,
           payload: payloadOfDeleteAction,
           requestHandler,
+          resourceOfApiResponse,
+          resourceOfTopicItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
           sliceName
       });
@@ -101,6 +123,8 @@ export function useStoreDeleteActionDispatch (
             dispatch,
             payload: payloadOfDeleteAction,
             requestHandler,
+            resourceOfApiResponse,
+            resourceOfTopicItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
             sliceName
           });
@@ -116,6 +140,8 @@ export function useStoreDeleteActionDispatch (
       isCanceled,
       payloadOfDeleteAction,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfTopicItemStore,
       sliceName
     ]
   );
@@ -129,6 +155,8 @@ export function useStoreDeleteActionDispatch (
       dispatch,
       payload,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfTopicItemStore,
       shouldBeCanceled,
       sliceName
     });

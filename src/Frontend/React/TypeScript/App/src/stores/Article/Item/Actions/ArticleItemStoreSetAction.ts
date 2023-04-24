@@ -1,4 +1,4 @@
-import { type ArticleItemStoreSetActionPayload } from '../../../../app/Stores';
+import { type ArticleItemStoreSetActionPayload } from '../../../../app';
 import { type StoreAction } from '../../../../common';
 import { type ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
 

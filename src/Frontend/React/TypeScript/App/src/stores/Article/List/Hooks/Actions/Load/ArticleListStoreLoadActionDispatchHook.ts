@@ -5,8 +5,10 @@ import {
   type ArticleListStoreLoadActionDispatch,
   type ArticleListStoreLoadActionOptions,
   type ArticleListStoreLoadActionPayload,
+  type ArticleListStoreResource,
 } from '../../../../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainListGetOperationRequestHandler,
   createArticleDomainListGetOperationRequest
@@ -21,6 +23,8 @@ interface Options {
   readonly dispatch: Dispatch<ArticleListStoreActionUnion>;
   readonly payload: ArticleListStoreLoadActionPayload;
   readonly requestHandler: ArticleDomainListGetOperationRequestHandler;
+  readonly resourceOfApiResponse: ApiResponseResource;
+  readonly resourceOfArticleListStore: ArticleListStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -28,10 +32,12 @@ interface Options {
 async function runLoadAction ({
   callback,
   dispatch,
+  payload,
+  requestHandler,
+  resourceOfApiResponse,
+  resourceOfArticleListStore,
   shouldBeCanceled,
   sliceName,
-  payload,
-  requestHandler
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -45,7 +51,13 @@ async function runLoadAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createArticleDomainListGetOperationRequest(payload, { operationName: '@@ArticleDomainListGet' }),
+        createArticleDomainListGetOperationRequest(
+          payload,
+          {
+            operationName: resourceOfArticleListStore.getGetOperationName(),
+            resourceOfApiResponse
+          }
+        ),
         shouldBeCanceled
       )
     : null;
@@ -71,6 +83,14 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: ArticleListStoreLoadActionOptions = {}
 ): ArticleListStoreLoadActionDispatch {
+  const hooksOfApiResponse = getModule().getApiResponseHooks();
+
+  const resourceOfApiResponse = hooksOfApiResponse.useResource();
+
+  const hooksOfArticleListStore = getModule().getArticleListStoreHooks();
+
+  const resourceOfArticleListStore = hooksOfArticleListStore.useResource();
+
   const dispatch = useArticleListStoreDispatchContext();
 
   const requestHandler = useRef(
@@ -87,8 +107,10 @@ export function useStoreLoadActionDispatch (
         runLoadAction({
           callback,
           dispatch,
-          requestHandler,
           payload: payloadOfLoadAction,
+          requestHandler,
+          resourceOfApiResponse,
+          resourceOfArticleListStore,
           shouldBeCanceled: shouldBeCanceledInner,
           sliceName
         });
@@ -99,8 +121,10 @@ export function useStoreLoadActionDispatch (
           runLoadAction({
             callback,
             dispatch,
-            requestHandler,
             payload: payloadOfLoadAction,
+            requestHandler,
+            resourceOfApiResponse,
+            resourceOfArticleListStore,
             shouldBeCanceled: shouldBeCanceledInner,
             sliceName
             });
@@ -116,6 +140,8 @@ export function useStoreLoadActionDispatch (
       isCanceled,
       payloadOfLoadAction,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleListStore,
       sliceName
     ]
   );
@@ -129,6 +155,8 @@ export function useStoreLoadActionDispatch (
       dispatch,
       payload,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleListStore,
       shouldBeCanceled,
       sliceName
     });

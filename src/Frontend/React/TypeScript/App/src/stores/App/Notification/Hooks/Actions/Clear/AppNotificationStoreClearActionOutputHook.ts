@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import {
   type AppNotificationStoreClearActionInput,
   type AppNotificationStoreClearActionOutput
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { useStoreClearActionDispatch } from './AppNotificationStoreClearActionDispatchHook';
 

@@ -6,6 +6,7 @@ import {
 } from '../common';
 import { type ConfirmControlHooks, type TableControlHooks } from '../controls';
 import {
+  type ApiResponseHooks,
   type ApiResponseError,
   type ApiResponseErrorOptions
 } from '../data';
@@ -48,7 +49,8 @@ import {
 import { type TestService } from './Test';
 
 export interface Module {
-  readonly createApiResponseError: (responseStatus: number, options?: ApiResponseErrorOptions) => ApiResponseError;
+  readonly createApiResponseError: (options: ApiResponseErrorOptions) => ApiResponseError;
+  readonly getApiResponseHooks: () => ApiResponseHooks;
   readonly getAppNotificationStoreHooks: () => AppNotificationStoreHooks;
   readonly getAppNotificationViewHooks: () => AppNotificationViewHooks;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;

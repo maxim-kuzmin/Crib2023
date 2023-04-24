@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { LocalizationNamespace } from '../../../../app';
 import { type ArticleItemEditViewHooks } from './ArticleItemEditViewHooks';
 import { type ArticleItemEditViewResource } from './ArticleItemEditViewResource';
 
 export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
-    const { t } = useTranslation('views/Article/Item/Edit/ArticleItemEditView');
+    const { t } = useTranslation(LocalizationNamespace.ArticleItemEditView);
 
     const tArticleEdit: string = t('@@Article_edit');
     const tArticleNew = t('@@Article_new');

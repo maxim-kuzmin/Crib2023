@@ -14,9 +14,12 @@ import {
   type ArticleListStoreSetActionOptions,
   type ArticleListStoreSetActionOutput
 } from './Actions';
+import { type ArticleListStoreResource } from './ArticleListStoreResource';
 import { type ArticleListStoreState } from './ArticleListStoreState';
 
 export interface ArticleListStoreHooks {
+  readonly useResource: () => ArticleListStoreResource;
+
   readonly useStoreClearActionDispatch: (
     sliceName: string,
     options: ArticleListStoreClearActionOptions

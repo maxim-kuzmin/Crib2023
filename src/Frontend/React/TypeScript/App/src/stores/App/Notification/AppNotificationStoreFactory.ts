@@ -1,4 +1,4 @@
-import { type AppNotificationStoreHooks } from '../../../app/Stores';
+import { type AppNotificationStoreHooks } from '../../../app';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/AppNotificationStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/AppNotificationStoreClearActionOutputHook';
 import { useStoreSetActionDispatch } from './Hooks/Actions/Set/AppNotificationStoreSetActionDispatchHook';

@@ -27,35 +27,37 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   async deleteItem (
     request: ArticleDomainItemDeleteOperationRequest
   ): Promise<ApiOperationResponse> {
-    const { operationCode, operationName, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
     return await this.apiClient.delete({
       endpoint,
       operationName,
-      operationCode
+      operationCode,
+      resourceOfApiResponse
     });
   }
 
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, operationName, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
     return await this.apiClient.get<ArticleDomainItemGetOperationOutput>({
       endpoint,
       operationName,
-      operationCode
+      operationCode,
+      resourceOfApiResponse
     });
   }
 
   async getList (
     request: ArticleDomainListGetOperationRequest
   ): Promise<ArticleDomainListGetOperationResponse> {
-    const { operationCode, operationName, input: query } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
     const endpoint = `${controller}List`;
 
@@ -63,14 +65,15 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
       endpoint,
       operationName,
       operationCode,
-      query
+      query,
+      resourceOfApiResponse
     });
   }
 
   async saveItem (
     request: ArticleDomainItemSaveOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, operationName, input: body } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input: body } = request;
 
     const id = Number(body.id ?? 0);
 
@@ -80,7 +83,8 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
       body,
       endpoint,
       operationName,
-      operationCode
+      operationCode,
+      resourceOfApiResponse
     };
 
     return id > 0

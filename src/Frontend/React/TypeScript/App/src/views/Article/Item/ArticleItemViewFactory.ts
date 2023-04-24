@@ -14,13 +14,14 @@ import {
   type ArticleItemStoreHooks,
   ArticleItemStoreSliceName,
   type ArticleItemStoreState,
-} from '../../../app/Stores';
+  LocalizationNamespace
+} from '../../../app';
 import { type ArticleItemViewHooks } from './ArticleItemViewHooks';
 import { type ArticleItemViewResource } from './ArticleItemViewResource';
 
 export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): ArticleItemViewHooks {
   function useResource (): ArticleItemViewResource {
-    const { t } = useTranslation('views/Article/Item/ArticleItemView');
+    const { t } = useTranslation(LocalizationNamespace.ArticleItemView);
 
     const tArticle: string = t('@@Article');
     const tBackToList: string = t('@@Back_to_list');

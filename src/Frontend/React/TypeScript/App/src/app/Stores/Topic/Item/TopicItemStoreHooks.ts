@@ -26,9 +26,12 @@ import {
   type TopicItemStoreSetActionOptions,
   type TopicItemStoreSetActionOutput
 } from './Actions';
+import { type TopicItemStoreResource } from './TopicItemStoreResource';
 import { type TopicItemStoreState } from './TopicItemStoreState';
 
 export interface TopicItemStoreHooks {
+  readonly useResource: () => TopicItemStoreResource;
+
   readonly useStoreClearActionDispatch: (
     sliceName: string,
     options: TopicItemStoreClearActionOptions

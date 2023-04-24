@@ -1,5 +1,5 @@
 import {
-  type ApiRequest,
+  type ApiRequestCreationOptions,
   type ApiRequestWithInput,
   type ArticleTypeEntity,
   createApiRequestWithInput
@@ -9,7 +9,7 @@ export interface ArticleDomainItemSaveOperationRequest extends ApiRequestWithInp
 
 export function createArticleDomainItemSaveOperationRequest (
   input: ArticleTypeEntity,
-  options?: Partial<ApiRequest>
+  options: ApiRequestCreationOptions
 ): ArticleDomainItemSaveOperationRequest {
   return createApiRequestWithInput(input, options);
 }

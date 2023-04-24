@@ -1,4 +1,8 @@
-import { type ApiRequestWithInput } from '../../../../../data';
+import {
+  createApiRequestWithInput,
+  type ApiRequestCreationOptions,
+  type ApiRequestWithInput
+} from '../../../../../data';
 import { type TopicDomainListGetOperationInput } from './TopicDomainListGetOperationInput';
 
 export interface TopicDomainListGetOperationRequest
@@ -6,11 +10,7 @@ export interface TopicDomainListGetOperationRequest
 
 export function createTopicDomainListGetOperationRequest (
   input: TopicDomainListGetOperationInput,
-  operationCode: string = ''
+  options: ApiRequestCreationOptions
 ): TopicDomainListGetOperationRequest {
-  return {
-    operationName: '@@TopicDomainListGet',
-    operationCode,
-    input
-  };
+  return createApiRequestWithInput(input, options);
 }

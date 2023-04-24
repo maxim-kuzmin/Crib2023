@@ -10,13 +10,14 @@ import {
   type ArticleListStoreHooks,
   ArticleListStoreSliceName,
   type ArticleListStoreState,
-} from '../../../app/Stores';
+  LocalizationNamespace
+} from '../../../app';
 import { type ArticleTableViewHooks } from './ArticleTableViewHooks';
 import { type ArticleTableViewResource } from './ArticleTableViewResource';
 
 export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks): ArticleTableViewHooks {
   function useResource (): ArticleTableViewResource {
-    const { t } = useTranslation('views/Article/Table/ArticleTableView');
+    const { t } = useTranslation(LocalizationNamespace.ArticleTableView);
 
     const tArticles: string = t('@@Articles');
     const tActions: string = t('@@Actions');

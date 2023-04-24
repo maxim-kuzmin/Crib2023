@@ -1,8 +1,11 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { getModule } from '../../app';
+import {
+  getModule,
+  type TopicItemStoreLoadActionPayload,
+  type ArticleItemStoreSetActionPayload
+} from '../../app';
 import { type ArticlePageProps } from './ArticlePageProps';
-import { type TopicItemStoreLoadActionPayload, type ArticleItemStoreSetActionPayload } from '../../app/Stores';
 import { ArticleItemEditView, ArticleItemView } from '../../views';
 import { ArticlePageMode } from './ArticlePageMode';
 import { TreeGetOperationAxisForItem } from '../../common';

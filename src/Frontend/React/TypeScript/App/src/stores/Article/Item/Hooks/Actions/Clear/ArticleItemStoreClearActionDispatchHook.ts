@@ -3,7 +3,7 @@ import {
   type ArticleItemStoreClearActionCallback,
   type ArticleItemStoreClearActionDispatch,
   type ArticleItemStoreClearActionOptions,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';

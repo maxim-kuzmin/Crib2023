@@ -11,7 +11,8 @@ import {
   type ApiSetupOptions,
   type ApiResponseErrorOptions,
   type ApiClient,
-  type ApiRequestHandler
+  type ApiRequestHandler,
+  type ApiResponseHooks
 } from '../data';
 import {
   type ArticleDomainItemDeleteOperationRequestHandler,
@@ -113,6 +114,7 @@ import { type Hooks } from './Hooks';
 import { createTopicPathViewHooks } from '../views/Topic/Path/TopicPathViewFactory';
 import { type ConfirmControlHooks, type TableControlHooks } from '../controls';
 import { createTableControlHooks } from '../controls/Table/TableControlFactory';
+import { createApiResponseHooks } from '../data/Api/Response/ApiResponseFactory';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -141,6 +143,9 @@ export class ModuleImpl implements Module {
   private readonly storeService: StoreService = new StoreServiceImpl();
   getStoreService = () => this.storeService;
 
+  private readonly apiResponseHooks: ApiResponseHooks = createApiResponseHooks();
+  getApiResponseHooks = () => this.apiResponseHooks;
+
   private readonly appNotificationStoreHooks: AppNotificationStoreHooks = createAppNotificationStoreHooks();
   getAppNotificationStoreHooks = () => this.appNotificationStoreHooks;
 
@@ -168,8 +173,7 @@ export class ModuleImpl implements Module {
   private readonly tableControlHooks: TableControlHooks = createTableControlHooks();
   getTableControlHooks = () => this.tableControlHooks;
 
-  createApiResponseError = (responseStatus: number, options?: ApiResponseErrorOptions) =>
-    new ApiResponseErrorImpl(responseStatus, options);
+  createApiResponseError = (options: ApiResponseErrorOptions) => new ApiResponseErrorImpl(options);
 
   private readonly articleItemStoreHooks: ArticleItemStoreHooks = createArticleItemStoreHooks();
   getArticleItemStoreHooks = () => this.articleItemStoreHooks;

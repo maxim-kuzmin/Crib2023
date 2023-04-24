@@ -14,9 +14,12 @@ import {
   type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreSetActionOutput
 } from './Actions';
+import { type TopicTreeStoreResource } from './TopicTreeStoreResource';
 import { type TopicTreeStoreState } from './TopicTreeStoreState';
 
 export interface TopicTreeStoreHooks {
+  readonly useResource: () => TopicTreeStoreResource;
+
   readonly useStoreClearActionDispatch: (
     sliceName: string,
     options: TopicTreeStoreClearActionOptions

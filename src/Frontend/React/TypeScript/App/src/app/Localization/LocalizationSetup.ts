@@ -1,7 +1,8 @@
-import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import Backend from 'i18next-http-backend';
+import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import Backend from 'i18next-http-backend';
+import { LocalizationNamespace } from './LocalizationNamespace';
 
 i18n
   .use(Backend)
@@ -23,11 +24,16 @@ i18n
       loadPath: '/i18n/{{ns}}.{{lng}}.json',
     },
     ns: [
-      'controls/Confirm/ConfirmControl',
-      'controls/Table/TableControl',
-      'views/Article/Item/ArticleItemView',
-      'views/Article/Item/Edit/ArticleItemEditView',
-      'views/Article/Table/ArticleTableView',
-      'views/Topic/Path/TopicPathView',
+      LocalizationNamespace.ApiResponse,
+      LocalizationNamespace.ArticleItemStore,
+      LocalizationNamespace.ArticleItemView,
+      LocalizationNamespace.ArticleItemEditView,
+      LocalizationNamespace.ArticleListStore,
+      LocalizationNamespace.ArticleTableView,
+      LocalizationNamespace.ConfirmControl,
+      LocalizationNamespace.TableControl,
+      LocalizationNamespace.TopicItemStore,
+      LocalizationNamespace.TopicPathView,
+      LocalizationNamespace.TopicTreeStore,
     ],
   });

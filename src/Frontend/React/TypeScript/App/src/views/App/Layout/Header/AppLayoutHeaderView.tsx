@@ -5,7 +5,7 @@ import { SelectControl } from '../../../../controls';
 import { TopicPathView } from '../../..';
 import styles from './AppLayoutHeaderView.module.css';
 import { type SelectControlOption } from '../../../../common';
-import '../../../../app/i18n';
+import '../../../../app/Localization/LocalizationSetup';
 
 export const AppLayoutHeaderView: React.FC = memo(
 function AppLayoutHeaderView () {

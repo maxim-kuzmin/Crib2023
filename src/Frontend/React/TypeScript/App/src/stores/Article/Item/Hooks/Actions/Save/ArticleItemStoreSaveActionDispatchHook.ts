@@ -5,8 +5,10 @@ import {
   type ArticleItemStoreSaveActionDispatch,
   type ArticleItemStoreSaveActionOptions,
   type ArticleItemStoreSaveActionPayload,
+  type ArticleItemStoreResource,
 } from '../../../../../../app/Stores';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainItemSaveOperationRequestHandler,
   createArticleDomainItemSaveOperationRequest
@@ -21,6 +23,8 @@ interface Options {
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreSaveActionPayload;
   readonly requestHandler: ArticleDomainItemSaveOperationRequestHandler;
+  readonly resourceOfApiResponse: ApiResponseResource;
+  readonly resourceOfArticleItemStore: ArticleItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -28,10 +32,12 @@ interface Options {
 async function runSaveAction ({
   callback,
   dispatch,
+  payload,
+  requestHandler,
+  resourceOfApiResponse,
+  resourceOfArticleItemStore,
   shouldBeCanceled,
   sliceName,
-  payload,
-  requestHandler
 }: Options): Promise<void> {
   if (shouldBeCanceled()) {
     return;
@@ -45,7 +51,13 @@ async function runSaveAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createArticleDomainItemSaveOperationRequest(payload, { operationName: '@@ArticleDomainItemSave' }),
+        createArticleDomainItemSaveOperationRequest(
+          payload,
+          {
+            operationName: resourceOfArticleItemStore.getSaveOperationName(),
+            resourceOfApiResponse
+          }
+        ),
         shouldBeCanceled
       )
     : null;
@@ -71,6 +83,14 @@ export function useStoreSaveActionDispatch (
     payloadOfSaveAction
   }: ArticleItemStoreSaveActionOptions
 ): ArticleItemStoreSaveActionDispatch {
+  const hooksOfApiResponse = getModule().getApiResponseHooks();
+
+  const resourceOfApiResponse = hooksOfApiResponse.useResource();
+
+  const hooksOfArticleItemStore = getModule().getArticleItemStoreHooks();
+
+  const resourceOfArticleItemStore = hooksOfArticleItemStore.useResource();
+
   const dispatch = useArticleItemStoreDispatchContext();
 
   const requestHandler = useRef(
@@ -89,6 +109,8 @@ export function useStoreSaveActionDispatch (
           dispatch,
           payload: payloadOfSaveAction,
           requestHandler,
+          resourceOfApiResponse,
+          resourceOfArticleItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
           sliceName
         });
@@ -101,6 +123,8 @@ export function useStoreSaveActionDispatch (
             dispatch,
             payload: payloadOfSaveAction,
             requestHandler,
+            resourceOfApiResponse,
+            resourceOfArticleItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
             sliceName
             });
@@ -116,6 +140,8 @@ export function useStoreSaveActionDispatch (
       isCanceled,
       payloadOfSaveAction,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
       sliceName
     ]
   );
@@ -129,6 +155,8 @@ export function useStoreSaveActionDispatch (
       dispatch,
       payload,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
       shouldBeCanceled,
       sliceName
     });

@@ -1,12 +1,14 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../../../app';
 import {
+  getModule,
   type TopicItemStoreSetActionCallback,
   type TopicItemStoreLoadActionDispatch,
   type TopicItemStoreLoadActionOptions,
   type TopicItemStoreLoadActionPayload,
-} from '../../../../../../app/Stores';
+  type TopicItemStoreResource,
+} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainItemGetOperationRequestHandler,
   createTopicDomainItemGetOperationRequest
@@ -21,6 +23,8 @@ interface Options {
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreLoadActionPayload;
   readonly requestHandler: TopicDomainItemGetOperationRequestHandler;
+  readonly resourceOfApiResponse: ApiResponseResource;
+  readonly resourceOfTopicItemStore: TopicItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
   readonly sliceName: string;
 }
@@ -28,10 +32,12 @@ interface Options {
 async function runLoadAction ({
   callback,
   dispatch,
+  payload,
+  requestHandler,
+  resourceOfApiResponse,
+  resourceOfTopicItemStore,
   shouldBeCanceled,
   sliceName,
-  payload,
-  requestHandler
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -45,7 +51,13 @@ async function runLoadAction ({
 
   const response = payload
     ? await requestHandler.handle(
-        createTopicDomainItemGetOperationRequest(payload, { operationName: '@@TopicDomainItemGet' }),
+        createTopicDomainItemGetOperationRequest(
+          payload,
+          {
+            operationName: resourceOfTopicItemStore.getGetOperationName(),
+            resourceOfApiResponse
+          }
+        ),
         shouldBeCanceled
       )
     : null;
@@ -71,6 +83,14 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicItemStoreLoadActionOptions = {}
 ): TopicItemStoreLoadActionDispatch {
+  const hooksOfApiResponse = getModule().getApiResponseHooks();
+
+  const resourceOfApiResponse = hooksOfApiResponse.useResource();
+
+  const hooksOfTopicItemStore = getModule().getTopicItemStoreHooks();
+
+  const resourceOfTopicItemStore = hooksOfTopicItemStore.useResource();
+
   const dispatch = useTopicItemStoreDispatchContext();
 
   const requestHandler = useRef(
@@ -87,8 +107,10 @@ export function useStoreLoadActionDispatch (
         runLoadAction({
           callback,
           dispatch,
-          requestHandler,
           payload: payloadOfLoadAction,
+          requestHandler,
+          resourceOfApiResponse,
+          resourceOfTopicItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
           sliceName
         });
@@ -99,8 +121,10 @@ export function useStoreLoadActionDispatch (
           runLoadAction({
             callback,
             dispatch,
-            requestHandler,
             payload: payloadOfLoadAction,
+            requestHandler,
+            resourceOfApiResponse,
+            resourceOfTopicItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
             sliceName
             });
@@ -116,6 +140,8 @@ export function useStoreLoadActionDispatch (
       isCanceled,
       payloadOfLoadAction,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfTopicItemStore,
       sliceName
     ]
   );
@@ -129,6 +155,8 @@ export function useStoreLoadActionDispatch (
       dispatch,
       payload,
       requestHandler,
+      resourceOfApiResponse,
+      resourceOfTopicItemStore,
       shouldBeCanceled,
       sliceName
     });

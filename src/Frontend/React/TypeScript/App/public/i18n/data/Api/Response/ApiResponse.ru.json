@@ -1,0 +1,6 @@
+{
+  "@@ErrorMessageForDefault": "Неизвестная ошибка",
+  "@@ErrorMessageForHttp400BadRequest": "Плохой запрос",
+  "@@ErrorMessageForHttp404NotFound": "Не найдено",
+  "@@ErrorMessageForHttp500InternalServerError": "Внутренняя ошибка сервера"
+}

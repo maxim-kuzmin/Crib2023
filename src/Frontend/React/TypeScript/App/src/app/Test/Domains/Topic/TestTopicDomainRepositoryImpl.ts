@@ -96,7 +96,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
   async getItem (
     request: TopicDomainItemGetOperationRequest
   ): Promise<TopicDomainItemGetOperationResponse> {
-    const { operationCode, operationName, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const item = this.entitiesForItem.find(x => x.data.id === input.id);
 
@@ -107,7 +107,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = getModule().createApiResponseError(status);
+      error = getModule().createApiResponseError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {
@@ -161,7 +161,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
   async saveItem (
     request: TopicDomainItemSaveOperationRequest
   ): Promise<TopicDomainItemGetOperationResponse> {
-    const { operationCode, operationName, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     let item: TopicDomainEntityForItem | undefined;
 
@@ -188,7 +188,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = getModule().createApiResponseError(status);
+      error = getModule().createApiResponseError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {

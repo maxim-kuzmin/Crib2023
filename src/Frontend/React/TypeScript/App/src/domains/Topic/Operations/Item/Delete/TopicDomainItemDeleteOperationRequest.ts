@@ -1,5 +1,5 @@
 import {
-  type ApiRequest,
+  type ApiRequestCreationOptions,
   type ApiRequestWithInput,
   createApiRequestWithInput
 } from '../../../../../data';
@@ -10,7 +10,7 @@ export interface TopicDomainItemDeleteOperationRequest
 
 export function createTopicDomainItemDeleteOperationRequest (
   input: TopicDomainItemGetOperationInput,
-  options?: Partial<ApiRequest>
+  options: ApiRequestCreationOptions
 ): TopicDomainItemDeleteOperationRequest {
   return createApiRequestWithInput(input, options);
 }
