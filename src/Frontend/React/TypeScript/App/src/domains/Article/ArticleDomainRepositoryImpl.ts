@@ -1,4 +1,4 @@
-import { type ApiOperationResponse, type ApiClient } from '../../data';
+import { type ApiOperationResponse, type ApiClient, type ApiRequestOptionsWithBody } from '../../data';
 import { type ArticleDomainRepository } from './ArticleDomainRepository';
 import {
   type ArticleDomainItemDeleteOperationRequest,
@@ -29,11 +29,13 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   ): Promise<ApiOperationResponse> {
     const { operationCode, operationName, input } = request;
 
-    return await this.apiClient.delete(
-      `${controller}Item-${Number(input.id ?? 0)}`,
+    const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
+
+    return await this.apiClient.delete({
+      endpoint,
       operationName,
       operationCode
-    );
+    });
   }
 
   async getItem (
@@ -41,45 +43,48 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   ): Promise<ArticleDomainItemGetOperationResponse> {
     const { operationCode, operationName, input } = request;
 
-    return await this.apiClient.get<ArticleDomainItemGetOperationOutput>(
-      `${controller}Item-${Number(input.id ?? 0)}`,
+    const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
+
+    return await this.apiClient.get<ArticleDomainItemGetOperationOutput>({
+      endpoint,
       operationName,
       operationCode
-    );
+    });
   }
 
   async getList (
     request: ArticleDomainListGetOperationRequest
   ): Promise<ArticleDomainListGetOperationResponse> {
-    const { operationCode, operationName, input } = request;
+    const { operationCode, operationName, input: query } = request;
 
-    return await this.apiClient.get<ArticleDomainListGetOperationOutput>(
-      `${controller}List`,
+    const endpoint = `${controller}List`;
+
+    return await this.apiClient.get<ArticleDomainListGetOperationOutput>({
+      endpoint,
       operationName,
       operationCode,
-      input
-    );
+      query
+    });
   }
 
   async saveItem (
     request: ArticleDomainItemSaveOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, operationName, input } = request;
+    const { operationCode, operationName, input: body } = request;
 
-    const id = Number(input.id ?? 0);
+    const id = Number(body.id ?? 0);
+
+    const endpoint = id > 0 ? `${controller}Item-${id}` : `${controller}Item`;
+
+    const options: ApiRequestOptionsWithBody = {
+      body,
+      endpoint,
+      operationName,
+      operationCode
+    };
 
     return id > 0
-      ? await this.apiClient.put<ArticleDomainItemGetOperationOutput>(
-          `${controller}Item-${id}`,
-          operationName,
-          operationCode,
-          input
-        )
-      : await this.apiClient.post<ArticleDomainItemGetOperationOutput>(
-          `${controller}Item`,
-          operationName,
-          operationCode,
-          input
-        );
+      ? await this.apiClient.put<ArticleDomainItemGetOperationOutput>(options)
+      : await this.apiClient.post<ArticleDomainItemGetOperationOutput>(options);
   }
 }

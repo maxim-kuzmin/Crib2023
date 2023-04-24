@@ -2,6 +2,7 @@ import { getModule } from '../../app';
 import { type HttpClient, type HttpRequestConfig, type HttpRequestResult } from '../../common';
 import { type ApiClient } from './ApiClient';
 import { type ApiOperationResponse, type ApiOperationResponseWithData } from './Operation';
+import { type ApiRequestOptionsWithBody, type ApiRequestOptions } from './Request';
 import {
   type ApiResponse,
   type ApiResponseDataWithDetails,
@@ -25,8 +26,8 @@ function createRequestConfig (operaionCode: string, query?: any): HttpRequestCon
 };
 
 interface Options {
-  apiSetupOptions: ApiSetupOptions;
-  httpClient: HttpClient;
+  readonly apiSetupOptions: ApiSetupOptions;
+  readonly httpClient: HttpClient;
 }
 
 export class ApiClientImpl implements ApiClient {
@@ -38,12 +39,12 @@ export class ApiClientImpl implements ApiClient {
     this.httpClient = options.httpClient;
   }
 
-  async delete (
-    endpoint: string,
-    operationName: string,
-    operationCode: string,
-    query?: any
-  ): Promise<ApiOperationResponse> {
+  async delete ({
+    endpoint,
+    operationName,
+    operationCode,
+    query
+  }: ApiRequestOptions): Promise<ApiOperationResponse> {
     return await this.request(
       async () => await this.httpClient.delete(
         this.createUrl(endpoint),
@@ -54,12 +55,12 @@ export class ApiClientImpl implements ApiClient {
     );
   }
 
-  async get<TData> (
-    endpoint: string,
-    operationName: string,
-    operationCode: string,
-    query?: any
-  ): Promise<ApiOperationResponseWithData<TData>> {
+  async get<TData> ({
+    endpoint,
+    operationName,
+    operationCode,
+    query
+  }: ApiRequestOptions): Promise<ApiOperationResponseWithData<TData>> {
     return await this.requestWithData(
       async () => await this.httpClient.get(
         this.createUrl(endpoint),
@@ -70,13 +71,13 @@ export class ApiClientImpl implements ApiClient {
     );
   }
 
-  async post<TData> (
-    endpoint: string,
-    operationName: string,
-    operationCode: string,
-    body: any,
-    query?: any
-  ): Promise<ApiOperationResponseWithData<TData>> {
+  async post<TData> ({
+    body,
+    endpoint,
+    operationName,
+    operationCode,
+    query
+  }: ApiRequestOptionsWithBody): Promise<ApiOperationResponseWithData<TData>> {
     return await this.requestWithData(
       async () => await this.httpClient.post(
         this.createUrl(endpoint),
@@ -88,13 +89,13 @@ export class ApiClientImpl implements ApiClient {
     );
   }
 
-  async put<TData> (
-    endpoint: string,
-    operationName: string,
-    operationCode: string,
-    body: any,
-    query?: any
-  ): Promise<ApiOperationResponseWithData<TData>> {
+  async put<TData> ({
+    body,
+    endpoint,
+    operationName,
+    operationCode,
+    query
+  }: ApiRequestOptionsWithBody): Promise<ApiOperationResponseWithData<TData>> {
     return await this.requestWithData(
       async () => await this.httpClient.put(
         this.createUrl(endpoint),
