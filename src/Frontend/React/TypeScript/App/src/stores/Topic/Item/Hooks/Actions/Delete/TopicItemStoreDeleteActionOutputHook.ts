@@ -6,9 +6,9 @@ import {
 } from '../../../../../../app/Stores';
 import { OperationStatus } from '../../../../../../common';
 import { useStoreState } from '../../TopicItemStoreStateHook';
-import { useDeleteActionDispatch } from './TopicItemStoreDeleteActionDispatchHook';
+import { useStoreDeleteActionDispatch } from './TopicItemStoreDeleteActionDispatchHook';
 
-export function useDeleteActionOutput (
+export function useStoreDeleteActionOutput (
   sliceName: string,
   input: TopicItemStoreDeleteActionInput = {}
 ): TopicItemStoreDeleteActionOutput {
@@ -23,7 +23,7 @@ export function useDeleteActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfDeleteAction = useDeleteActionDispatch(sliceName, { callback });
+  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(sliceName, { callback });
 
   const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(sliceName);
 

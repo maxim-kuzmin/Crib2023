@@ -1,5 +1,4 @@
 import React, { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { getModule } from '../../../app';
 import { type BreadcrumbControlItem } from '../../../common';
 import { BreadcrumbControl } from '../../../controls';
@@ -49,19 +48,21 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 
 export const TopicPathView: React.FC = memo(
 function TopicPathView () {
-  const { t } = useTranslation('views/Topic/Path/TopicPathView');
+  const topicPathViewHooks = getModule().getTopicPathViewHooks();
 
-  const tAllTopics: string = t('@@All_topics');
+  const topicPathViewResource = topicPathViewHooks.useResource();
+
+  const topicItemViewHooks = getModule().getTopicItemViewHooks();
 
   const {
     payloadOfSetAction: topicItemResponse
-  } = getModule().getTopicItemViewHooks().useStoreState();
+  } = topicItemViewHooks.useStoreState();
 
   const entity = topicItemResponse?.data?.item;
 
   const controlItems = useMemo(
-    () => convertToControlItems({ entity, title: tAllTopics }),
-    [entity, tAllTopics]
+    () => convertToControlItems({ entity, title: topicPathViewResource.getAllTopics() }),
+    [entity, topicPathViewResource]
   );
 
   const currentItemKey = entity?.data.id ?? 0;

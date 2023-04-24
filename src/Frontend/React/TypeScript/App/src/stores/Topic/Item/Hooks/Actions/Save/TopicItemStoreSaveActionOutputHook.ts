@@ -5,10 +5,10 @@ import {
   type TopicItemStoreSaveCompletedActionPayload,
 } from '../../../../../../app/Stores';
 import { OperationStatus } from '../../../../../../common';
-import { useSaveActionDispatch } from './TopicItemStoreSaveActionDispatchHook';
+import { useStoreSaveActionDispatch } from './TopicItemStoreSaveActionDispatchHook';
 import { useStoreState } from '../../TopicItemStoreStateHook';
 
-export function useSaveActionOutput (
+export function useStoreSaveActionOutput (
   sliceName: string,
   input: TopicItemStoreSaveActionInput = {}
 ): TopicItemStoreSaveActionOutput {
@@ -23,7 +23,7 @@ export function useSaveActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSaveAction = useSaveActionDispatch(sliceName, { callback });
+  const dispatchOfSaveAction = useStoreSaveActionDispatch(sliceName, { callback });
 
   const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(sliceName);
 

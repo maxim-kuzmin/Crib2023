@@ -5,9 +5,9 @@ import {
   type TopicTreeStoreSetActionPayload,
 } from '../../../../../../app/Stores';
 import { useStoreState } from '../../TopicTreeStoreStateHook';
-import { useSetActionDispatch } from './TopicTreeStoreSetActionDispatchHook';
+import { useStoreSetActionDispatch } from './TopicTreeStoreSetActionDispatchHook';
 
-export function useSetActionOutput (
+export function useStoreSetActionOutput (
   sliceName: string,
   input: TopicTreeStoreSetActionInput
 ): TopicTreeStoreSetActionOutput {
@@ -22,7 +22,7 @@ export function useSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useSetActionDispatch(sliceName, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
 
   const { payloadOfSetAction } = useStoreState(sliceName);
 

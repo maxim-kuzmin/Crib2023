@@ -62,7 +62,7 @@ async function runDeleteAction ({
   });
 }
 
-export function useDeleteActionDispatch (
+export function useStoreDeleteActionDispatch (
   sliceName: string,
   {
     callback,

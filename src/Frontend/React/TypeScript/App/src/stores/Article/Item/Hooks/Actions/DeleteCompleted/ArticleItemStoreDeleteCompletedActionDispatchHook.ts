@@ -34,7 +34,7 @@ export function runDeleteCompletedAction ({
   }
 }
 
-export function useDeleteCompletedActionDispatch (
+export function useStoreDeleteCompletedActionDispatch (
   sliceName: string,
   {
     callback,

@@ -34,7 +34,7 @@ function runSetAction ({
   }
 }
 
-export function useSetActionDispatch (
+export function useStoreSetActionDispatch (
   sliceName: string,
   {
     callback,

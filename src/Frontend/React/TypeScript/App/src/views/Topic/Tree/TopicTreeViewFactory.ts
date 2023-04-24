@@ -14,16 +14,16 @@ import { type TopicTreeViewHooks } from './TopicTreeViewHooks';
 export function createTopicTreeViewHooks (hooks: TopicTreeStoreHooks): TopicTreeViewHooks {
   const sliceName = TopicTreeStoreSliceName.TopicTreeView;
 
-  function useClearActionOutput (input: TopicTreeStoreClearActionInput): TopicTreeStoreClearActionOutput {
-    return hooks.useClearActionOutput(sliceName, input);
+  function useStoreClearActionOutput (input: TopicTreeStoreClearActionInput): TopicTreeStoreClearActionOutput {
+    return hooks.useStoreClearActionOutput(sliceName, input);
   }
 
-  function useLoadActionOutput (input: TopicTreeStoreLoadActionInput): TopicTreeStoreLoadActionOutput {
-    return hooks.useLoadActionOutput(sliceName, input);
+  function useStoreLoadActionOutput (input: TopicTreeStoreLoadActionInput): TopicTreeStoreLoadActionOutput {
+    return hooks.useStoreLoadActionOutput(sliceName, input);
   }
 
-  function useSetActionOutput (input: TopicTreeStoreSetActionInput): TopicTreeStoreSetActionOutput {
-    return hooks.useSetActionOutput(sliceName, input);
+  function useStoreSetActionOutput (input: TopicTreeStoreSetActionInput): TopicTreeStoreSetActionOutput {
+    return hooks.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): TopicTreeStoreState {
@@ -31,9 +31,9 @@ export function createTopicTreeViewHooks (hooks: TopicTreeStoreHooks): TopicTree
   }
 
   return {
-    useClearActionOutput,
-    useLoadActionOutput,
-    useSetActionOutput,
+    useStoreClearActionOutput,
+    useStoreLoadActionOutput,
+    useStoreSetActionOutput,
     useStoreState
   };
 }

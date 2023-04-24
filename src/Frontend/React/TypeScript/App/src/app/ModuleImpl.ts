@@ -31,12 +31,14 @@ import {
   type TopicPageService
 } from '../pages';
 import {
+  type ArticleItemEditViewHooks,
   type AppNotificationViewHooks,
   type ArticleItemEditViewService,
   type ArticleItemViewHooks,
   type ArticleTableViewHooks,
   type TopicItemViewHooks,
-  type TopicTreeViewHooks
+  type TopicTreeViewHooks,
+  type TopicPathViewHooks
 } from '../views';
 import {
   AppNotificationStoreSliceName,
@@ -97,16 +99,20 @@ import { ApiRequestHandlerImpl } from '../data/Api/Request/ApiRequestHandlerImpl
 import { TestArticleDomainRepositoryImpl } from './Test/Domains/Article/TestArticleDomainRepositoryImpl';
 import { TestTopicDomainRepositoryImpl } from './Test/Domains/Topic/TestTopicDomainRepositoryImpl';
 import { ApiResponseErrorImpl } from '../data/Api/Response/ApiResponseErrorImpl';
-import { createAppNotificationViewHooks } from '../views/App/Notification/AppNotificationViewSlice';
-import { createTopicTreeViewHooks } from '../views/Topic/Tree/TopicTreeViewSlice';
-import { createArticleItemViewHooks } from '../views/Article/Item/ArticleItemViewSlice';
-import { createArticleTableViewHooks } from '../views/Article/Table/ArticleTableViewSlice';
-import { createTopicItemViewHooks } from '../views/Topic/Item/TopicItemViewSlice';
+import { createAppNotificationViewHooks } from '../views/App/Notification/AppNotificationViewFactory';
+import { createTopicTreeViewHooks } from '../views/Topic/Tree/TopicTreeViewFactory';
+import { createArticleItemViewHooks } from '../views/Article/Item/ArticleItemViewFactory';
+import { createArticleItemEditViewHooks } from '../views/Article/Item/Edit/ArticleItemEditViewFactory';
+import { createArticleTableViewHooks } from '../views/Article/Table/ArticleTableViewFactory';
+import { createTopicItemViewHooks } from '../views/Topic/Item/TopicItemViewFactory';
 import { type Module } from './Module';
 import { type TestService } from './Test';
 import { createConfirmControlComponent } from '../controls/Confirm/ConfirmControlFactory';
 import { createHooks } from './Factory';
 import { type Hooks } from './Hooks';
+import { createTopicPathViewHooks } from '../views/Topic/Path/TopicPathViewFactory';
+import { type TableControlHooks } from '../controls';
+import { createTableControlHooks } from '../controls/Table/TableControlFactory';
 
 interface UseOperationHandlerOptions {
   shouldBeLogged: boolean;
@@ -154,10 +160,13 @@ export class ModuleImpl implements Module {
     defaultPageSize: 10
   });
 
+  getTableControlService = () => this.tableControlService;
+
+  private readonly tableControlHooks: TableControlHooks = createTableControlHooks();
+  getTableControlHooks = () => this.tableControlHooks;
+
   createApiResponseError = (responseStatus: number, options?: ApiResponseErrorOptions) =>
     new ApiResponseErrorImpl(responseStatus, options);
-
-  getTableControlService = () => this.tableControlService;
 
   private readonly articleItemStoreHooks: ArticleItemStoreHooks = createArticleItemStoreHooks();
   getArticleItemStoreHooks = () => this.articleItemStoreHooks;
@@ -167,6 +176,9 @@ export class ModuleImpl implements Module {
   );
 
   getArticleItemViewHooks = () => this.articleItemViewHooks;
+
+  private readonly articleItemEditViewHooks: ArticleItemEditViewHooks = createArticleItemEditViewHooks();
+  getArticleItemEditViewHooks = () => this.articleItemEditViewHooks;
 
   private readonly articleListStoreHooks: ArticleListStoreHooks = createArticleListStoreHooks();
   getArticleListStoreHooks = () => this.articleListStoreHooks;
@@ -188,6 +200,9 @@ export class ModuleImpl implements Module {
   );
 
   getTopicItemViewHooks = () => this.topicItemViewHooks;
+
+  private readonly topicPathViewHooks: TopicPathViewHooks = createTopicPathViewHooks();
+  getTopicPathViewHooks = () => this.topicPathViewHooks;
 
   private readonly topicTreeStoreHooks: TopicTreeStoreHooks = createTopicTreeStoreHooks();
   getTopicTreeStoreHooks = () => this.topicTreeStoreHooks;
@@ -327,7 +342,7 @@ export class ModuleImpl implements Module {
   private useOperationHandler (options: UseOperationHandlerOptions): OperationHandler {
     const { shouldBeLogged, shouldBeNotified } = options;
 
-    const { run } = this.getAppNotificationStoreHooks().useSetActionDispatch(
+    const { run } = this.getAppNotificationStoreHooks().useStoreSetActionDispatch(
       AppNotificationStoreSliceName.AppNotificationView,
       {}
     );

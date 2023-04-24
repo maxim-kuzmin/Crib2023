@@ -5,9 +5,9 @@ import {
   type TopicItemStoreSetActionPayload,
 } from '../../../../../../app/Stores';
 import { useStoreState } from '../../TopicItemStoreStateHook';
-import { useSetActionDispatch } from './TopicItemStoreSetActionDispatchHook';
+import { useStoreSetActionDispatch } from './TopicItemStoreSetActionDispatchHook';
 
-export function useSetActionOutput (
+export function useStoreSetActionOutput (
   sliceName: string,
   input: TopicItemStoreSetActionInput
 ): TopicItemStoreSetActionOutput {
@@ -22,7 +22,7 @@ export function useSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useSetActionDispatch(sliceName, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
 
   const { payloadOfSetAction } = useStoreState(sliceName);
 

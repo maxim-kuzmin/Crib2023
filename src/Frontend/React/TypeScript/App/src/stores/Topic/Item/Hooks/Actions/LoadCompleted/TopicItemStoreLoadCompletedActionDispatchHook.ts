@@ -34,7 +34,7 @@ export function runLoadCompletedAction ({
   }
 }
 
-export function useLoadCompletedActionDispatch (
+export function useStoreLoadCompletedActionDispatch (
   sliceName: string,
   {
     callback,

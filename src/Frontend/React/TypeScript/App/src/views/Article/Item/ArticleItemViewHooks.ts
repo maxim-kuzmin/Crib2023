@@ -11,12 +11,30 @@ import {
   type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreState,
 } from '../../../app/Stores';
+import { type ArticleItemViewResource } from './ArticleItemViewResource';
 
 export interface ArticleItemViewHooks {
-  readonly useClearActionOutput: (input: ArticleItemStoreClearActionInput) => ArticleItemStoreClearActionOutput;
-  readonly useDeleteActionOutput: (input?: ArticleItemStoreDeleteActionInput) => ArticleItemStoreDeleteActionOutput;
-  readonly useLoadActionOutput: (input: ArticleItemStoreLoadActionInput) => ArticleItemStoreLoadActionOutput;
-  readonly useSaveActionOutput: (input?: ArticleItemStoreSaveActionInput) => ArticleItemStoreSaveActionOutput;
-  readonly useSetActionOutput: (input: ArticleItemStoreSetActionInput) => ArticleItemStoreSetActionOutput;
+  readonly useResource: () => ArticleItemViewResource;
+
+  readonly useStoreClearActionOutput: (
+    input: ArticleItemStoreClearActionInput
+  ) => ArticleItemStoreClearActionOutput;
+
+  readonly useStoreDeleteActionOutput: (
+    input?: ArticleItemStoreDeleteActionInput
+  ) => ArticleItemStoreDeleteActionOutput;
+
+  readonly useStoreLoadActionOutput: (
+    input: ArticleItemStoreLoadActionInput
+  ) => ArticleItemStoreLoadActionOutput;
+
+  readonly useStoreSaveActionOutput: (
+    input?: ArticleItemStoreSaveActionInput
+  ) => ArticleItemStoreSaveActionOutput;
+
+  readonly useStoreSetActionOutput: (
+    input: ArticleItemStoreSetActionInput
+  ) => ArticleItemStoreSetActionOutput;
+
   readonly useStoreState: () => ArticleItemStoreState;
 }

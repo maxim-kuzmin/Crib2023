@@ -36,14 +36,18 @@ function ArticlePage ({
   }
 
   const payloadOfLoadActionForTreeItem: TopicItemStoreLoadActionPayload = useMemo(
-    () => ({
-      id: topicId,
-      axis: TreeGetOperationAxisForItem.Self
-    }),
+    () => {
+      const result: TopicItemStoreLoadActionPayload = {
+        id: topicId,
+        axis: TreeGetOperationAxisForItem.Self
+      };
+
+      return result;
+    },
     [topicId]
   );
 
-  getModule().getTopicItemViewHooks().useLoadActionOutput({
+  getModule().getTopicItemViewHooks().useStoreLoadActionOutput({
     payloadOfLoadAction: payloadOfLoadActionForTreeItem,
     isCanceled: !articleItemIsLoaded.current
   });

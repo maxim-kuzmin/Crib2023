@@ -1,3 +1,12 @@
 {
-  "@@Article_edit": "Article edit"
+  "@@Article_edit": "Article edit",
+  "@@Article_new": "New article",
+  "@@Back_to_list": "Back to tist",
+  "@@Body": "Body",
+  "@@Display": "View",
+  "@@Id": "ID",
+  "@@Reset": "Reset",
+  "@@Save": "Save",
+  "@@Title": "Title",
+  "@@Topic": "Topic"
 }

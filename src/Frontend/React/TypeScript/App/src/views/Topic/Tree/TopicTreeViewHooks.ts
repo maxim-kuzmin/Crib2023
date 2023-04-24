@@ -9,8 +9,17 @@ import {
 } from '../../../app/Stores';
 
 export interface TopicTreeViewHooks {
-  readonly useClearActionOutput: (input: TopicTreeStoreClearActionInput) => TopicTreeStoreClearActionOutput;
-  readonly useLoadActionOutput: (input: TopicTreeStoreLoadActionInput) => TopicTreeStoreLoadActionOutput;
-  readonly useSetActionOutput: (input: TopicTreeStoreSetActionInput) => TopicTreeStoreSetActionOutput;
+  readonly useStoreClearActionOutput: (
+    input: TopicTreeStoreClearActionInput
+  ) => TopicTreeStoreClearActionOutput;
+
+  readonly useStoreLoadActionOutput: (
+    input: TopicTreeStoreLoadActionInput
+  ) => TopicTreeStoreLoadActionOutput;
+
+  readonly useStoreSetActionOutput: (
+    input: TopicTreeStoreSetActionInput
+  ) => TopicTreeStoreSetActionOutput;
+
   readonly useStoreState: () => TopicTreeStoreState;
 }

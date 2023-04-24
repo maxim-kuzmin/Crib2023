@@ -7,10 +7,22 @@ import {
   type ArticleListStoreSetActionOutput,
   type ArticleListStoreState,
 } from '../../../app/Stores';
+import { type ArticleTableViewResource } from './ArticleTableViewResource';
 
 export interface ArticleTableViewHooks {
-  readonly useClearActionOutput: (input: ArticleListStoreClearActionInput) => ArticleListStoreClearActionOutput;
-  readonly useLoadActionOutput: (input: ArticleListStoreLoadActionInput) => ArticleListStoreLoadActionOutput;
-  readonly useSetActionOutput: (input: ArticleListStoreSetActionInput) => ArticleListStoreSetActionOutput;
+  readonly useResource: () => ArticleTableViewResource;
+
+  readonly useStoreClearActionOutput: (
+    input: ArticleListStoreClearActionInput
+  ) => ArticleListStoreClearActionOutput;
+
+  readonly useStoreLoadActionOutput: (
+    input: ArticleListStoreLoadActionInput
+  ) => ArticleListStoreLoadActionOutput;
+
+  readonly useStoreSetActionOutput: (
+    input: ArticleListStoreSetActionInput
+  ) => ArticleListStoreSetActionOutput;
+
   readonly useStoreState: () => ArticleListStoreState;
 }

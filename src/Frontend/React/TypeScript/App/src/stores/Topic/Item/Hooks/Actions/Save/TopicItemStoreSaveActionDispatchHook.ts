@@ -62,7 +62,7 @@ async function runSaveAction ({
   });
 }
 
-export function useSaveActionDispatch (
+export function useStoreSaveActionDispatch (
   sliceName: string,
   {
     callback,

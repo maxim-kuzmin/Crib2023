@@ -5,9 +5,9 @@ import {
   type AppNotificationStoreSetActionPayload,
 } from '../../../../../../app/Stores';
 import { useStoreState } from '../../AppNotificationStoreStateHook';
-import { useSetActionDispatch } from './AppNotificationStoreSetActionDispatchHook';
+import { useStoreSetActionDispatch } from './AppNotificationStoreSetActionDispatchHook';
 
-export function useSetActionOutput (
+export function useStoreSetActionOutput (
   sliceName: string,
   input: AppNotificationStoreSetActionInput
 ): AppNotificationStoreSetActionOutput {
@@ -22,7 +22,7 @@ export function useSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useSetActionDispatch(sliceName, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
 
   const { payloadOfSetAction } = useStoreState(sliceName);
 

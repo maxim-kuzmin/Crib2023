@@ -14,9 +14,13 @@ import {
 
 const initialState = getModule().getStoreService().createInitialState<AppNotificationStoreState>(
   [AppNotificationStoreSliceName.AppNotificationView],
-  () => ({
-    payloadOfSetAction: null
-  })
+  () => {
+    const result: AppNotificationStoreState = {
+      payloadOfSetAction: null
+    };
+
+    return result;
+  }
 );
 
 function reducer (

@@ -15,18 +15,22 @@ import {
 
 const initialState = getModule().getStoreService().createInitialState<TopicItemStoreState>(
   [TopicItemStoreSliceName.TopicItemView],
-  () => ({
-    payloadOfDeleteAction: null,
-    payloadOfDeleteCompletedAction: null,
-    payloadOfLoadAction: null,
-    payloadOfLoadCompletedAction: null,
-    payloadOfSaveAction: null,
-    payloadOfSaveCompletedAction: null,
-    payloadOfSetAction: null,
-    statusOfDeleteAction: OperationStatus.Initial,
-    statusOfLoadAction: OperationStatus.Initial,
-    statusOfSaveAction: OperationStatus.Initial
-  })
+  () => {
+    const result: TopicItemStoreState = {
+      payloadOfDeleteAction: null,
+      payloadOfDeleteCompletedAction: null,
+      payloadOfLoadAction: null,
+      payloadOfLoadCompletedAction: null,
+      payloadOfSaveAction: null,
+      payloadOfSaveCompletedAction: null,
+      payloadOfSetAction: null,
+      statusOfDeleteAction: OperationStatus.Initial,
+      statusOfLoadAction: OperationStatus.Initial,
+      statusOfSaveAction: OperationStatus.Initial
+    };
+
+    return result;
+  }
 );
 
 function reducer (

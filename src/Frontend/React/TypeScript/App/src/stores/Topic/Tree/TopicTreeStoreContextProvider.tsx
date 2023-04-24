@@ -15,12 +15,16 @@ import {
 
 const initialState = getModule().getStoreService().createInitialState<TopicTreeStoreState>(
   [TopicTreeStoreSliceName.TopicTreeView],
-  () => ({
-    payloadOfLoadAction: null,
-    payloadOfLoadCompletedAction: null,
-    payloadOfSetAction: null,
-    statusOfLoadAction: OperationStatus.Initial
-  })
+  () => {
+    const result: TopicTreeStoreState = {
+      payloadOfLoadAction: null,
+      payloadOfLoadCompletedAction: null,
+      payloadOfSetAction: null,
+      statusOfLoadAction: OperationStatus.Initial
+    };
+
+    return result;
+  }
 );
 
 function reducer (

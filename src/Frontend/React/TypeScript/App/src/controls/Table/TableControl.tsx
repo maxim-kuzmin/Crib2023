@@ -1,5 +1,4 @@
 import React, { type ReactNode, useMemo, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Table } from 'antd';
 import {
   type TablePaginationConfig,
@@ -73,18 +72,9 @@ function TableControl ({
   onChange,
   loading
 }: TableControlProps) {
-  const { t } = useTranslation('controls/Table/TableControl');
+  const hooksOfTableControl = getModule().getTableControlHooks();
 
-  const tFrom: string = t('@@from');
-  const tJumpTo: string = t('@@Jump_to');
-  const tNext3Pages: string = t('@@Next_3_pages');
-  const tNext5Pages: string = t('@@Next_5_pages');
-  const tNextPage: string = t('@@Next_page');
-  const tPageTo: string = t('@@page_to');
-  const tPerPage: string = t('@@per_page');
-  const tPrev3Pages: string = t('@@Prev_3_pages');
-  const tPrev5Pages: string = t('@@Prev_5_pages');
-  const tPrevPage: string = t('@@Prev_page');
+  const resourceOfTableControl = hooksOfTableControl.useResource();
 
   const columns = useMemo(
     () => convertToColumns(controlColumns),
@@ -94,40 +84,35 @@ function TableControl ({
   const { defaultPageSize } = getModule().getTableControlService();
 
   const paginationConfig: TablePaginationConfig = useMemo(
-    () => ({
-      defaultPageSize,
-      showTotal: (total, range) => `${range[0]}-${range[1]} ${tFrom} ${total}`,
-      pageSizeOptions: [10, 20, 50, 100, 1000000],
-      position: ['bottomLeft', 'topLeft'],
-      showQuickJumper: true,
-      showSizeChanger: true,
-      size: 'small',
-      hideOnSinglePage: false,
-      locale: {
-        items_per_page: tPerPage,
-        jump_to: tJumpTo,
-        // jump_to_confirm?: string;
-        page: tPageTo,
-        prev_page: tPrevPage,
-        next_page: tNextPage,
-        prev_5: tPrev5Pages,
-        next_5: tNext5Pages,
-        prev_3: tPrev3Pages,
-        next_3: tNext3Pages
-      },
-    }),
+    () => {
+      const result: TablePaginationConfig = {
+        defaultPageSize,
+        showTotal: (total, range) => `${range[0]}-${range[1]} ${resourceOfTableControl.getFrom()} ${total}`,
+        pageSizeOptions: [10, 20, 50, 100, 1000000],
+        position: ['bottomLeft', 'topLeft'],
+        showQuickJumper: true,
+        showSizeChanger: true,
+        size: 'small',
+        hideOnSinglePage: false,
+        locale: {
+          items_per_page: resourceOfTableControl.getPerPage(),
+          jump_to: resourceOfTableControl.getJumpTo(),
+          // jump_to_confirm?: string;
+          page: resourceOfTableControl.getPageTo(),
+          prev_page: resourceOfTableControl.getPrevPage(),
+          next_page: resourceOfTableControl.getNextPage(),
+          prev_5: resourceOfTableControl.getPrev5Pages(),
+          next_5: resourceOfTableControl.getNext5Pages(),
+          prev_3: resourceOfTableControl.getPrev3Pages(),
+          next_3: resourceOfTableControl.getNext3Pages()
+        },
+      };
+
+      return result;
+    },
     [
       defaultPageSize,
-      tFrom,
-      tJumpTo,
-      tNext3Pages,
-      tNext5Pages,
-      tNextPage,
-      tPageTo,
-      tPerPage,
-      tPrev3Pages,
-      tPrev5Pages,
-      tPrevPage
+      resourceOfTableControl,
     ]
   );
 

@@ -1,5 +1,4 @@
 import React, { memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { getModule } from '../../../app';
 import { type ArticleItemStoreLoadActionPayload } from '../../../app/Stores';
 import {
@@ -8,10 +7,10 @@ import {
   CardControlType
 } from '../../../common';
 import { CardControl } from '../../../controls';
+import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../data';
 import { ArticlePageMode } from '../../../pages';
 import { type ArticleItemViewProps } from './ArticleItemViewProps';
 import styles from './ArticleItemView.module.css';
-import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../data';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({
@@ -20,30 +19,29 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps) {
-  const { t } = useTranslation('views/Article/Item/ArticleItemView');
-
-  const tArticle: string = t('@@Article');
-  const tBackToList: string = t('@@Back_to_list');
-  const tEdit: string = t('@@Edit');
-  const tId: string = t('@@Id');
-
   const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
 
-  hooksOfArticleItemView.useClearActionOutput({
+  const resourceOfArticleItemView = hooksOfArticleItemView.useResource();
+
+  hooksOfArticleItemView.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
   const payloadOfLoadAction: ArticleItemStoreLoadActionPayload = useMemo(
-    () => ({
-      id: articleId
-    }),
+    () => {
+      const result: ArticleItemStoreLoadActionPayload = {
+        id: articleId
+      };
+
+      return result;
+    },
     [articleId]
   );
 
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooksOfArticleItemView.useLoadActionOutput({
+  } = hooksOfArticleItemView.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
@@ -62,8 +60,8 @@ function ArticleItemView ({
       if (topicPageLastUrl) {
         const actionToBackToList: CardControlAction = {
           href: topicPageLastUrl,
-          key: 'goToList',
-          title: tBackToList
+          key: 'backToList',
+          title: resourceOfArticleItemView.getBackToList()
         };
 
         result.push(actionToBackToList);
@@ -72,23 +70,23 @@ function ArticleItemView ({
       const actionToEdit: CardControlAction = {
         href: getModule().getArticlePageService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
         key: 'edit',
-        title: tEdit
+        title: resourceOfArticleItemView.getEdit()
       };
 
       result.push(actionToEdit);
 
       return result;
     },
-    [articleId, topicPageLastUrl, tBackToList, tEdit]
+    [articleId, topicPageLastUrl, resourceOfArticleItemView]
   );
 
   const controlExtra: CardControlExtra = {
-    title: `${tId}: ${articleId}`
+    title: `${resourceOfArticleItemView.getId()}: ${articleId}`
   };
 
   return (
     <div className={styles.root}>
-      <h2>{tArticle}</h2>
+      <h2>{resourceOfArticleItemView.getArticle()}</h2>
       {
         entity.id > 0
           ? <CardControl

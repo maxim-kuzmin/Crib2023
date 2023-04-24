@@ -4,6 +4,7 @@ import {
   type StoreService,
   type TableControlService
 } from '../common';
+import { type TableControlHooks } from '../controls';
 import {
   type ApiResponseError,
   type ApiResponseErrorOptions
@@ -27,7 +28,9 @@ import {
   type TopicPageService
 } from '../pages';
 import {
+  type TopicPathViewHooks,
   type AppNotificationViewHooks,
+  type ArticleItemEditViewHooks,
   type ArticleItemEditViewService,
   type ArticleItemViewHooks,
   type ArticleTableViewHooks,
@@ -53,16 +56,19 @@ export interface Module {
   readonly getArticleListStoreHooks: () => ArticleListStoreHooks;
   readonly getArticlePageService: () => ArticlePageService;
   readonly getArticleItemViewHooks: () => ArticleItemViewHooks;
+  readonly getArticleItemEditViewHooks: () => ArticleItemEditViewHooks;
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
   readonly getArticleTableViewHooks: () => ArticleTableViewHooks;
   readonly getConfirmControlComponent: () => ConfirmControlComponent;
   readonly getHooks: () => Hooks;
   readonly getNotificationControlHooks: () => NotificationControlHooks;
+  readonly getTableControlHooks: () => TableControlHooks;
   readonly getTableControlService: () => TableControlService;
   readonly getTestService: () => TestService;
   readonly getTopicDomainRepository: () => TopicDomainRepository;
   readonly getTopicItemStoreHooks: () => TopicItemStoreHooks;
   readonly getTopicItemViewHooks: () => TopicItemViewHooks;
+  readonly getTopicPathViewHooks: () => TopicPathViewHooks;
   readonly getTopicTreeStoreHooks: () => TopicTreeStoreHooks;
   readonly getTopicTreeViewHooks: () => TopicTreeViewHooks;
   readonly getTopicPageService: () => TopicPageService;

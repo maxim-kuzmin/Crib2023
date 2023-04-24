@@ -34,7 +34,7 @@ export function runSaveCompletedAction ({
   }
 }
 
-export function useSaveCompletedActionDispatch (
+export function useStoreSaveCompletedActionDispatch (
   sliceName: string,
   {
     callback,

@@ -1,5 +1,4 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { getModule } from '../../../../app';
 import { type ArticleItemStoreLoadActionPayload } from '../../../../app/Stores';
 import {
@@ -9,9 +8,9 @@ import {
   FormControlFieldType
 } from '../../../../common';
 import { FormControl, SpinnerControl } from '../../../../controls';
+import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
-import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
 
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({
@@ -21,27 +20,31 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
-  const { t } = useTranslation('views/Article/Item/Edit/ArticleItemEditView');
+  const hooksOfArticleItemEditView = getModule().getArticleItemEditViewHooks();
 
-  const tArticleEdit: string = t('@@Article_edit');
+  const resourceOfArticleItemEditView = hooksOfArticleItemEditView.useResource();
 
   const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
 
-  hooksOfArticleItemView.useClearActionOutput({
+  hooksOfArticleItemView.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
   const payloadOfLoadAction: ArticleItemStoreLoadActionPayload = useMemo(
-    () => ({
-      id: articleId
-    }),
+    () => {
+      const result: ArticleItemStoreLoadActionPayload = {
+        id: articleId
+      };
+
+      return result;
+    },
     [articleId]
   );
 
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooksOfArticleItemView.useLoadActionOutput({
+  } = hooksOfArticleItemView.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
@@ -52,7 +55,7 @@ function ArticleItemEditView ({
     dispatchOfSaveAction,
     payloadOfSaveCompletedAction,
     pendingOfSaveAction
-  } = hooksOfArticleItemView.useSaveActionOutput();
+  } = hooksOfArticleItemView.useStoreSaveActionOutput();
 
   const savedEntity = payloadOfSaveCompletedAction?.data?.item.data;
 
@@ -81,7 +84,7 @@ function ArticleItemEditView ({
 
       const actionToSave: FormControlAction = {
         key: 'save',
-        title: '@@Save',
+        title: resourceOfArticleItemEditView.getSave(),
         disabled: pendingOfLoadAction,
         loading: pendingOfSaveAction,
         type: FormControlActionType.Submit
@@ -91,7 +94,7 @@ function ArticleItemEditView ({
 
       const actionToReset: FormControlAction = {
         key: 'reset',
-        title: '@@Reset',
+        title: resourceOfArticleItemEditView.getReset(),
         disabled: pendingOfLoadAction || pendingOfSaveAction,
         type: FormControlActionType.Reset
       };
@@ -102,7 +105,7 @@ function ArticleItemEditView ({
         const actionToDisplay: FormControlAction = {
           href: articlePageService.createUrl({ articleId }),
           key: 'display',
-          title: '@@Display',
+          title: resourceOfArticleItemEditView.getDisplay(),
           type: FormControlActionType.None
         };
 
@@ -112,8 +115,8 @@ function ArticleItemEditView ({
       if (topicPageLastUrl) {
         const actionToBackToList: FormControlAction = {
           href: topicPageLastUrl,
-          key: 'goToList',
-          title: '@@BackToList',
+          key: 'backToList',
+          title: resourceOfArticleItemEditView.getBackToList(),
           type: FormControlActionType.None
         };
 
@@ -122,31 +125,37 @@ function ArticleItemEditView ({
 
       return result;
     },
-    [articleId, pendingOfLoadAction, pendingOfSaveAction, topicPageLastUrl]
+    [
+      articleId,
+      pendingOfLoadAction,
+      pendingOfSaveAction,
+      topicPageLastUrl,
+      resourceOfArticleItemEditView,
+    ]
   );
 
   const controlFields: FormControlField[] = useMemo(
     () => {
       const fieldForId: FormControlField = {
-        label: '@@ID',
+        label: resourceOfArticleItemEditView.getId(),
         name: fieldNameForId,
         type: articleId > 0 ? FormControlFieldType.Readonly : FormControlFieldType.Hidden
       };
 
       const fieldForTitle: FormControlField = {
         name: fieldNameForTitle,
-        label: '@@Title',
+        label: resourceOfArticleItemEditView.getTitle(),
         type: FormControlFieldType.TextInput
       };
 
       const fieldForBody: FormControlField = {
-        label: '@@Body',
+        label: resourceOfArticleItemEditView.getBody(),
         name: fieldNameForBody,
         type: FormControlFieldType.TextArea
       };
 
       const fieldForTopicId: FormControlField = {
-        label: '@@Topic',
+        label: resourceOfArticleItemEditView.getTopic(),
         name: fieldNameForTopicId,
         type: FormControlFieldType.Hidden
       };
@@ -163,7 +172,8 @@ function ArticleItemEditView ({
       fieldNameForBody,
       fieldNameForId,
       fieldNameForTitle,
-      fieldNameForTopicId
+      fieldNameForTopicId,
+      resourceOfArticleItemEditView,
     ]
   );
 
@@ -212,7 +222,13 @@ function ArticleItemEditView ({
 
   return (
     <div className={styles.root}>
-      <h2>{ articleId > 0 ? tArticleEdit : '@@ArticleNew' }</h2>
+      <h2>
+        {
+          articleId > 0
+            ? resourceOfArticleItemEditView.getArticleEdit()
+            : resourceOfArticleItemEditView.getArticleNew()
+        }
+      </h2>
       {
         pendingOfLoadAction
           ? <SpinnerControl/>

@@ -9,7 +9,7 @@ import '../../../../app/i18n';
 
 export const AppLayoutHeaderView: React.FC = memo(
 function AppLayoutHeaderView () {
-  const { i18n } = useTranslation(['App']);
+  const { i18n } = useTranslation();
 
   const [searchParams, setSearchParams] = useSearchParams();
 

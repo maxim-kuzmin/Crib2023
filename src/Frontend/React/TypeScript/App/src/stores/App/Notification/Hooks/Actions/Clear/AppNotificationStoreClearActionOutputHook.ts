@@ -4,9 +4,9 @@ import {
   type AppNotificationStoreClearActionOutput
 } from '../../../../../../app/Stores';
 import { StoreDispatchType } from '../../../../../../common';
-import { useClearActionDispatch } from './AppNotificationStoreClearActionDispatchHook';
+import { useStoreClearActionDispatch } from './AppNotificationStoreClearActionDispatchHook';
 
-export function useClearActionOutput (
+export function useStoreClearActionOutput (
   sliceName: string,
   input: AppNotificationStoreClearActionInput
 ): AppNotificationStoreClearActionOutput {
@@ -21,7 +21,7 @@ export function useClearActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfClearAction = useClearActionDispatch(
+  const dispatchOfClearAction = useStoreClearActionDispatch(
     sliceName,
     {
       callback,

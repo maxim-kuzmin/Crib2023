@@ -19,7 +19,7 @@ function AppNotificationView () {
     [component, data]
   );
 
-  appNotificationViewHooks.useClearActionOutput({
+  appNotificationViewHooks.useStoreClearActionOutput({
     onActionCompleted
   });
 

@@ -7,7 +7,13 @@ import {
 } from '../../../app/Stores';
 
 export interface AppNotificationViewHooks {
-  readonly useClearActionOutput: (input: AppNotificationStoreClearActionInput) => AppNotificationStoreClearActionOutput;
-  readonly useSetActionOutput: (input: AppNotificationStoreSetActionInput) => AppNotificationStoreSetActionOutput;
+  readonly useStoreClearActionOutput: (
+    input: AppNotificationStoreClearActionInput
+  ) => AppNotificationStoreClearActionOutput;
+
+  readonly useStoreSetActionOutput: (
+    input: AppNotificationStoreSetActionInput
+  ) => AppNotificationStoreSetActionOutput;
+
   readonly useStoreState: () => AppNotificationStoreState;
 }

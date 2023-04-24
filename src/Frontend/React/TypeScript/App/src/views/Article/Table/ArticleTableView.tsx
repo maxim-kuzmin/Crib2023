@@ -14,7 +14,6 @@ import { ArticlePageMode } from '../../../pages';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
-import { useTranslation } from 'react-i18next';
 
 function getRowKey (row: any): Key {
   return (row as ArticleTableViewRow).id;
@@ -27,18 +26,6 @@ function ArticleTableView ({
   pageSize,
   topicId
 }: ArticleTableViewProps) {
-  const { t } = useTranslation('views/Article/Table/ArticleTableView');
-
-  const tArticles: string = t('@@Articles');
-  const tActions: string = t('@@Actions');
-  const tDelete: string = t('@@Delete');
-  const tDisplay: string = t('@@Display');
-  const tEdit: string = t('@@Edit');
-  const tId: string = t('@@Id');
-  const tNew: string = t('@@New');
-  const tPath: string = t('@@Path');
-  const tTitle: string = t('@@Title');
-
   let items: ArticleDomainEntityForList[];
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];
@@ -50,16 +37,22 @@ function ArticleTableView ({
   const {
     dispatchOfDeleteAction,
     pendingOfDeleteAction
-  } = hooksOfArticleItemView.useDeleteActionOutput();
+  } = hooksOfArticleItemView.useStoreDeleteActionOutput();
 
   const hooksOfArticleTableView = getModule().getArticleTableViewHooks();
 
+  const resourceOfArticleTableView = hooksOfArticleTableView.useResource();
+
   const payloadOfLoadAction: ArticleListStoreLoadActionPayload = useMemo(
-    () => ({
-      pageNumber,
-      pageSize,
-      topicId
-    }),
+    () => {
+      const result: ArticleListStoreLoadActionPayload = {
+        pageNumber,
+        pageSize,
+        topicId
+      };
+
+      return result;
+    },
     [
       pageNumber,
       pageSize,
@@ -71,7 +64,7 @@ function ArticleTableView ({
     dispatchOfLoadAction,
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooksOfArticleTableView.useLoadActionOutput({
+  } = hooksOfArticleTableView.useStoreLoadActionOutput({
     payloadOfLoadAction
   });
 
@@ -96,11 +89,15 @@ function ArticleTableView ({
   }
 
   const controlPagination: TableControlPagination = useMemo(
-    () => ({
-      pageNumber,
-      pageSize,
-      totalCount
-    }),
+    () => {
+      const result: TableControlPagination = {
+        pageNumber,
+        pageSize,
+        totalCount
+      };
+
+      return result;
+    },
     [
       pageNumber,
       pageSize,
@@ -115,11 +112,11 @@ function ArticleTableView ({
       return [
         {
           field: 'id',
-          header: { title: tId }
+          header: { title: resourceOfArticleTableView.getId() }
         },
         {
           field: 'title',
-          header: { title: tTitle },
+          header: { title: resourceOfArticleTableView.getTitle() },
           render: (row: any) => {
             const viewRow: ArticleTableViewRow = row;
 
@@ -132,7 +129,7 @@ function ArticleTableView ({
         },
         {
           field: 'path',
-          header: { title: tPath },
+          header: { title: resourceOfArticleTableView.getPath() },
           render: (row: any) => {
             const viewRow: ArticleTableViewRow = row;
 
@@ -157,14 +154,18 @@ function ArticleTableView ({
         },
         {
           header: {
-            title: tActions,
+            title: resourceOfArticleTableView.getActions(),
             render: (title?: string) => {
               return (
                 <div className={styles.actions}>
                   <span className={styles.action}>{title}</span>
                   {
                     topicId > 0
-                      ? <Link to={atriclePageService.createUrl({ search: { topicId } })}>{tNew}</Link>
+                      ? <Link
+                          to={atriclePageService.createUrl({ search: { topicId } })}
+                        >
+                          {resourceOfArticleTableView.getNew()}
+                        </Link>
                       : null
                   }
                 </div>
@@ -182,13 +183,13 @@ function ArticleTableView ({
                   className={styles.action}
                   to={atriclePageService.createUrl({ articleId: Number(id) })}
                 >
-                  {tDisplay}
+                  {resourceOfArticleTableView.getDisplay()}
                 </Link>
                 <Link
                   className={styles.action}
                   to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticlePageMode.Edit })}
                 >
-                  {tEdit}
+                  {resourceOfArticleTableView.getEdit()}
                 </Link>
                 <ButtonControl
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
@@ -208,9 +209,9 @@ function ArticleTableView ({
                         type: ConfirmControlType.Delete
                       });
                   }}
-                  title={`${tDelete} ${id}`}
+                  title={`${resourceOfArticleTableView.getDelete()} ${id}`}
                 >
-                  {tDelete}
+                  {resourceOfArticleTableView.getDelete()}
                 </ButtonControl>
               </div>
             );
@@ -223,21 +224,14 @@ function ArticleTableView ({
       dispatchOfLoadAction,
       payloadOfLoadAction,
       pendingOfDeleteAction,
-      tActions,
-      tDelete,
-      tDisplay,
-      tEdit,
-      tId,
-      tNew,
-      tPath,
-      tTitle,
+      resourceOfArticleTableView,
       topicId
     ]
   );
 
   return (
     <div className={styles.root}>
-      <h2>{tArticles}</h2>
+      <h2>{resourceOfArticleTableView.getArticles()}</h2>
       <TableControl
         className={styles.root}
         controlColumns={controlColumns}

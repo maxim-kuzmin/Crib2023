@@ -56,16 +56,20 @@ function TopicTreeView () {
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
   const payloadOfLoadAction: TopicTreeStoreLoadActionPayload = useMemo(
-    () => ({
-      ...topicInput,
-      expandedNodeId: topicId
-    }),
+    () => {
+      const result: TopicTreeStoreLoadActionPayload = {
+        ...topicInput,
+        expandedNodeId: topicId
+      };
+
+      return result;
+    },
     [topicId]
   )
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = getModule().getTopicTreeViewHooks().useLoadActionOutput({
+  } = getModule().getTopicTreeViewHooks().useStoreLoadActionOutput({
     payloadOfLoadAction,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled
   });

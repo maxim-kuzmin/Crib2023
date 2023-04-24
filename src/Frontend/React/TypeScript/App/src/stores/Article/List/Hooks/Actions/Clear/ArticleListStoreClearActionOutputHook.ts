@@ -4,9 +4,9 @@ import {
   type ArticleListStoreClearActionOutput
 } from '../../../../../../app/Stores';
 import { StoreDispatchType } from '../../../../../../common';
-import { useClearActionDispatch } from './ArticleListStoreClearActionDispatchHook';
+import { useStoreClearActionDispatch } from './ArticleListStoreClearActionDispatchHook';
 
-export function useClearActionOutput (
+export function useStoreClearActionOutput (
   sliceName: string,
   input: ArticleListStoreClearActionInput
 ): ArticleListStoreClearActionOutput {
@@ -21,7 +21,7 @@ export function useClearActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfClearAction = useClearActionDispatch(
+  const dispatchOfClearAction = useStoreClearActionDispatch(
     sliceName,
     {
       callback,

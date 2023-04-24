@@ -30,7 +30,7 @@ function runClearAction ({
   }
 }
 
-export function useClearActionDispatch (
+export function useStoreClearActionDispatch (
   sliceName: string,
   {
     callback,

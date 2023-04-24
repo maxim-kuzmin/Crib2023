@@ -11,22 +11,22 @@ import {
 import { type AppNotificationStoreState } from './AppNotificationStoreState';
 
 export interface AppNotificationStoreHooks {
-  readonly useClearActionDispatch: (
+  readonly useStoreClearActionDispatch: (
     sliceName: string,
     options: AppNotificationStoreClearActionOptions
   ) => AppNotificationStoreClearActionDispatch;
 
-  readonly useClearActionOutput: (
+  readonly useStoreClearActionOutput: (
     sliceName: string,
     input: AppNotificationStoreClearActionInput
   ) => AppNotificationStoreClearActionOutput;
 
-  readonly useSetActionDispatch: (
+  readonly useStoreSetActionDispatch: (
     sliceName: string,
     options: AppNotificationStoreSetActionOptions
   ) => AppNotificationStoreSetActionDispatch;
 
-  readonly useSetActionOutput: (
+  readonly useStoreSetActionOutput: (
     sliceName: string,
     input: AppNotificationStoreSetActionInput
   ) => AppNotificationStoreSetActionOutput;

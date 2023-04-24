@@ -12,12 +12,16 @@ import { type AppNotificationViewHooks } from './AppNotificationViewHooks';
 export function createAppNotificationViewHooks (hooks: AppNotificationStoreHooks): AppNotificationViewHooks {
   const sliceName = AppNotificationStoreSliceName.AppNotificationView;
 
-  function useClearActionOutput (input: AppNotificationStoreClearActionInput): AppNotificationStoreClearActionOutput {
-    return hooks.useClearActionOutput(sliceName, input);
+  function useStoreClearActionOutput (
+    input: AppNotificationStoreClearActionInput
+  ): AppNotificationStoreClearActionOutput {
+    return hooks.useStoreClearActionOutput(sliceName, input);
   }
 
-  function useSetActionOutput (input: AppNotificationStoreSetActionInput): AppNotificationStoreSetActionOutput {
-    return hooks.useSetActionOutput(sliceName, input);
+  function useStoreSetActionOutput (
+    input: AppNotificationStoreSetActionInput
+  ): AppNotificationStoreSetActionOutput {
+    return hooks.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): AppNotificationStoreState {
@@ -25,8 +29,8 @@ export function createAppNotificationViewHooks (hooks: AppNotificationStoreHooks
   }
 
   return {
-    useClearActionOutput,
-    useSetActionOutput,
+    useStoreClearActionOutput,
+    useStoreSetActionOutput,
     useStoreState
   };
 }

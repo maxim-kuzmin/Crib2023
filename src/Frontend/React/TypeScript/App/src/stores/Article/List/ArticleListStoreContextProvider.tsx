@@ -15,12 +15,16 @@ import {
 
 const initialState = getModule().getStoreService().createInitialState<ArticleListStoreState>(
   [ArticleListStoreSliceName.ArticleTableView],
-  () => ({
-    payloadOfLoadAction: null,
-    payloadOfLoadCompletedAction: null,
-    payloadOfSetAction: null,
-    statusOfLoadAction: OperationStatus.Initial
-  })
+  () => {
+    const result: ArticleListStoreState = {
+      payloadOfLoadAction: null,
+      payloadOfLoadCompletedAction: null,
+      payloadOfSetAction: null,
+      statusOfLoadAction: OperationStatus.Initial
+    };
+
+    return result;
+  }
 );
 
 function reducer (

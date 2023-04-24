@@ -62,7 +62,7 @@ async function runLoadAction ({
   });
 }
 
-export function useLoadActionDispatch (
+export function useStoreLoadActionDispatch (
   sliceName: string,
   {
     callback,

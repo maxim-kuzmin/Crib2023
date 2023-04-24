@@ -6,9 +6,9 @@ import {
 } from '../../../../../../app/Stores';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import { useStoreState } from '../../TopicItemStoreStateHook';
-import { useLoadActionDispatch } from './TopicItemStoreLoadActionDispatchHook';
+import { useStoreLoadActionDispatch } from './TopicItemStoreLoadActionDispatchHook';
 
-export function useLoadActionOutput (
+export function useStoreLoadActionOutput (
   sliceName: string,
   input: TopicItemStoreLoadActionInput
 ): TopicItemStoreLoadActionOutput {
@@ -23,7 +23,7 @@ export function useLoadActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfLoadAction = useLoadActionDispatch(
+  const dispatchOfLoadAction = useStoreLoadActionDispatch(
     sliceName,
     {
       callback,

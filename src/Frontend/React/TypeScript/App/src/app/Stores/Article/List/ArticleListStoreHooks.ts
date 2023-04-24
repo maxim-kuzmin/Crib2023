@@ -17,37 +17,37 @@ import {
 import { type ArticleListStoreState } from './ArticleListStoreState';
 
 export interface ArticleListStoreHooks {
-  readonly useClearActionDispatch: (
+  readonly useStoreClearActionDispatch: (
     sliceName: string,
     options: ArticleListStoreClearActionOptions
   ) => ArticleListStoreClearActionDispatch;
 
-  readonly useClearActionOutput: (
+  readonly useStoreClearActionOutput: (
     sliceName: string,
     input: ArticleListStoreClearActionInput
   ) => ArticleListStoreClearActionOutput;
 
-  readonly useLoadActionDispatch: (
+  readonly useStoreLoadActionDispatch: (
     sliceName: string,
     options: ArticleListStoreLoadActionOptions
   ) => ArticleListStoreLoadActionDispatch;
 
-  readonly useLoadActionOutput: (
+  readonly useStoreLoadActionOutput: (
     sliceName: string,
     input: ArticleListStoreLoadActionInput
   ) => ArticleListStoreLoadActionOutput;
 
-  readonly useLoadCompletedActionDispatch: (
+  readonly useStoreLoadCompletedActionDispatch: (
     sliceName: string,
     options: ArticleListStoreLoadCompletedActionOptions
   ) => ArticleListStoreLoadCompletedActionDispatch;
 
-  readonly useSetActionDispatch: (
+  readonly useStoreSetActionDispatch: (
     sliceName: string,
     options: ArticleListStoreSetActionOptions
   ) => ArticleListStoreSetActionDispatch;
 
-  readonly useSetActionOutput: (
+  readonly useStoreSetActionOutput: (
     sliceName: string,
     input: ArticleListStoreSetActionInput
   ) => ArticleListStoreSetActionOutput;

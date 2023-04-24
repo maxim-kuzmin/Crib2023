@@ -17,37 +17,37 @@ import {
 import { type TopicTreeStoreState } from './TopicTreeStoreState';
 
 export interface TopicTreeStoreHooks {
-  readonly useClearActionDispatch: (
+  readonly useStoreClearActionDispatch: (
     sliceName: string,
     options: TopicTreeStoreClearActionOptions
   ) => TopicTreeStoreClearActionDispatch;
 
-  readonly useClearActionOutput: (
+  readonly useStoreClearActionOutput: (
     sliceName: string,
     input: TopicTreeStoreClearActionInput
   ) => TopicTreeStoreClearActionOutput;
 
-  readonly useLoadActionDispatch: (
+  readonly useStoreLoadActionDispatch: (
     sliceName: string,
     options: TopicTreeStoreLoadActionOptions
   ) => TopicTreeStoreLoadActionDispatch;
 
-  readonly useLoadActionOutput: (
+  readonly useStoreLoadActionOutput: (
     sliceName: string,
     input: TopicTreeStoreLoadActionInput
   ) => TopicTreeStoreLoadActionOutput;
 
-  readonly useLoadCompletedActionDispatch: (
+  readonly useStoreLoadCompletedActionDispatch: (
     sliceName: string,
     options: TopicTreeStoreLoadCompletedActionOptions
   ) => TopicTreeStoreLoadCompletedActionDispatch;
 
-  readonly useSetActionDispatch: (
+  readonly useStoreSetActionDispatch: (
     sliceName: string,
     options: TopicTreeStoreSetActionOptions
   ) => TopicTreeStoreSetActionDispatch;
 
-  readonly useSetActionOutput: (
+  readonly useStoreSetActionOutput: (
     sliceName: string,
     input: TopicTreeStoreSetActionInput
   ) => TopicTreeStoreSetActionOutput;
