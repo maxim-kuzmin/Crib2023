@@ -1,5 +1,5 @@
 {
-  "@@DeleteOperationName": "Topic. Item. Delete",
-  "@@GetOperationName": "Topic. Item. Get",
-  "@@SaveOperationName": "Topic. Item. Save"
+  "@@OperationNameForDelete": "Topic. Item. Delete",
+  "@@OperationNameForGet": "Topic. Item. Get",
+  "@@OperationNameForSave": "Topic. Item. Save"
 }

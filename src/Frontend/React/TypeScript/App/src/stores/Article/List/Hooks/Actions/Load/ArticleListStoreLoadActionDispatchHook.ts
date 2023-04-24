@@ -54,7 +54,7 @@ async function runLoadAction ({
         createArticleDomainListGetOperationRequest(
           payload,
           {
-            operationName: resourceOfArticleListStore.getGetOperationName(),
+            operationName: resourceOfArticleListStore.getOperationNameForGet(),
             resourceOfApiResponse
           }
         ),

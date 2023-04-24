@@ -54,7 +54,7 @@ async function runLoadAction ({
         createTopicDomainItemGetOperationRequest(
           payload,
           {
-            operationName: resourceOfTopicItemStore.getGetOperationName(),
+            operationName: resourceOfTopicItemStore.getOperationNameForGet(),
             resourceOfApiResponse
           }
         ),

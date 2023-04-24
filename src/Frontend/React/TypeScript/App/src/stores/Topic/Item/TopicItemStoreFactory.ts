@@ -30,24 +30,24 @@ export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
     const { t } = useTranslation(LocalizationNamespace.TopicItemStore);
 
-    const tDeleteOperationName = t('@@DeleteOperationName');
-    const tGetOperationName = t('@@GetOperationName');
-    const tSaveOperationName = t('@@SaveOperationName');
+    const tOperationNameForDelete = t('@@OperationNameForDelete');
+    const tOperationNameForGet = t('@@OperationNameForGet');
+    const tOperationNameForSave = t('@@OperationNameForSave');
 
     return useMemo(
       () => {
         const result: TopicItemStoreResource = {
-          getDeleteOperationName: () => tDeleteOperationName,
-          getGetOperationName: () => tGetOperationName,
-          getSaveOperationName: () => tSaveOperationName
+          getOperationNameForDelete: () => tOperationNameForDelete,
+          getOperationNameForGet: () => tOperationNameForGet,
+          getOperationNameForSave: () => tOperationNameForSave
         };
 
         return result;
       },
       [
-        tDeleteOperationName,
-        tGetOperationName,
-        tSaveOperationName
+        tOperationNameForDelete,
+        tOperationNameForGet,
+        tOperationNameForSave
       ]
     );
   }

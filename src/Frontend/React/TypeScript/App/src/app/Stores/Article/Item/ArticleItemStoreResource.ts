@@ -1,5 +1,5 @@
 export interface ArticleItemStoreResource {
-  readonly getDeleteOperationName: () => string;
-  readonly getGetOperationName: () => string;
-  readonly getSaveOperationName: () => string;
+  readonly getOperationNameForDelete: () => string;
+  readonly getOperationNameForGet: () => string;
+  readonly getOperationNameForSave: () => string;
 }

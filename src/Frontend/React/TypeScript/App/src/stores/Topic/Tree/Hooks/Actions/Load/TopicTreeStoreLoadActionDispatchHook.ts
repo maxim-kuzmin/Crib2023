@@ -54,7 +54,7 @@ async function runLoadAction ({
         createTopicDomainTreeGetOperationRequest(
           payload,
           {
-            operationName: resourceOfTopicTreeStore.getGetOperationName(),
+            operationName: resourceOfTopicTreeStore.getOperationNameForGet(),
             resourceOfApiResponse
           }),
         shouldBeCanceled

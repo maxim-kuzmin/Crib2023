@@ -1,5 +1,5 @@
 {
-  "@@DeleteOperationName": "Статья. Элемент. Удаление",
-  "@@GetOperationName": "Статья. Элемент. Получение",
-  "@@SaveOperationName": "Статья. Элемент. Сохранение"
+  "@@OperationNameForDelete": "Статья. Элемент. Удаление",
+  "@@OperationNameForGet": "Статья. Элемент. Получение",
+  "@@OperationNameForSave": "Статья. Элемент. Сохранение"
 }

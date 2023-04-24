@@ -1,4 +1,4 @@
 {
-  "@@GetOperationName": "Topic. Tree. Get",
-  "@@GetChildrenOperationName": "Topic. Tree. Get children"
+  "@@OperationNameForGet": "Topic. Tree. Get",
+  "@@OperationNameForGetChildren": "Topic. Tree. Get children"
 }

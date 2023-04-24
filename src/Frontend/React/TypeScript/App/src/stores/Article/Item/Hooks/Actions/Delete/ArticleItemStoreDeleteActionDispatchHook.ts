@@ -54,7 +54,7 @@ async function runDeleteAction ({
         createArticleDomainItemDeleteOperationRequest(
           payload,
           {
-            operationName: resourceOfArticleItemStore.getDeleteOperationName(),
+            operationName: resourceOfArticleItemStore.getOperationNameForDelete(),
             resourceOfApiResponse
           }
         ),

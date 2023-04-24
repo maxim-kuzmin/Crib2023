@@ -20,18 +20,18 @@ export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
     const { t } = useTranslation(LocalizationNamespace.ArticleListStore);
 
-    const tGetOperationName = t('@@GetOperationName');
+    const tOperationNameForGet = t('@@OperationNameForGet');
 
     return useMemo(
       () => {
         const result: ArticleListStoreResource = {
-          getGetOperationName: () => tGetOperationName,
+          getOperationNameForGet: () => tOperationNameForGet,
         };
 
         return result;
       },
       [
-        tGetOperationName,
+        tOperationNameForGet,
       ]
     );
   }

@@ -101,7 +101,7 @@ function TopicTreeView () {
             rootNodeId: Number(key)
           },
           {
-            operationName: resourceOfTopicTreeStore.getGetChildrenOperationName(),
+            operationName: resourceOfTopicTreeStore.getOperationNameForGetChildren(),
             resourceOfApiResponse
           }
         ),

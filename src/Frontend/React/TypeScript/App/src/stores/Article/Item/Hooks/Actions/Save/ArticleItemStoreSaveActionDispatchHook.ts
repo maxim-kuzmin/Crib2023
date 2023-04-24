@@ -54,7 +54,7 @@ async function runSaveAction ({
         createArticleDomainItemSaveOperationRequest(
           payload,
           {
-            operationName: resourceOfArticleItemStore.getSaveOperationName(),
+            operationName: resourceOfArticleItemStore.getOperationNameForSave(),
             resourceOfApiResponse
           }
         ),

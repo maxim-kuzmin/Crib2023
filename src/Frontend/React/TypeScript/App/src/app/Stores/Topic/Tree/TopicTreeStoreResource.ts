@@ -1,4 +1,4 @@
 export interface TopicTreeStoreResource {
-  readonly getGetOperationName: () => string;
-  readonly getGetChildrenOperationName: () => string;
+  readonly getOperationNameForGet: () => string;
+  readonly getOperationNameForGetChildren: () => string;
 }

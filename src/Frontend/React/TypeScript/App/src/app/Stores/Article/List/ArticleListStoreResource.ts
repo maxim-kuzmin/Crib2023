@@ -1,3 +1,3 @@
 export interface ArticleListStoreResource {
-  readonly getGetOperationName: () => string;
+  readonly getOperationNameForGet: () => string;
 }

@@ -54,7 +54,7 @@ async function runSaveAction ({
         createTopicDomainItemSaveOperationRequest(
           payload,
           {
-            operationName: resourceOfTopicItemStore.getSaveOperationName(),
+            operationName: resourceOfTopicItemStore.getOperationNameForSave(),
             resourceOfApiResponse
           }
         ),
