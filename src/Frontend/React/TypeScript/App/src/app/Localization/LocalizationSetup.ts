@@ -1,10 +1,10 @@
 import { initReactI18next } from 'react-i18next';
-import i18n from 'i18next';
+import Localization from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 import { LocalizationNamespace } from './LocalizationNamespace';
 
-i18n
+Localization
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -21,7 +21,7 @@ i18n
       escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
     backend: {
-      loadPath: '/i18n/{{ns}}.{{lng}}.json',
+      loadPath: '/ResourceFiles/{{ns}}.{{lng}}.json',
     },
     ns: [
       LocalizationNamespace.ApiResponse,
