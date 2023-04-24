@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import {
   type ArticleListStoreClearActionInput,
   type ArticleListStoreClearActionOutput
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { useStoreClearActionDispatch } from './ArticleListStoreClearActionDispatchHook';
 

@@ -4,7 +4,7 @@ import {
   type ArticleItemStoreLoadCompletedActionDispatch,
   type ArticleItemStoreLoadCompletedActionOptions,
   type ArticleItemStoreLoadCompletedActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';

@@ -1,12 +1,12 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { getModule } from '../../../../../../app';
 import {
+  getModule,
   type ArticleListStoreSetActionCallback,
   type ArticleListStoreLoadActionDispatch,
   type ArticleListStoreLoadActionOptions,
   type ArticleListStoreLoadActionPayload,
   type ArticleListStoreResource,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {

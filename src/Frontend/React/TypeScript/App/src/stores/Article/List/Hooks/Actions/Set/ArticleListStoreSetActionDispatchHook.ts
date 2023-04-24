@@ -4,7 +4,7 @@ import {
   type ArticleListStoreSetActionDispatch,
   type ArticleListStoreSetActionOptions,
   type ArticleListStoreSetActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
 import { type ArticleListStoreActionUnion } from '../../../ArticleListStoreActionUnion';

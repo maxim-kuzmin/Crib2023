@@ -3,7 +3,7 @@ import {
   type ArticleItemStoreLoadActionInput,
   type ArticleItemStoreLoadActionOutput,
   type ArticleItemStoreLoadCompletedActionPayload,
-} from '../../../../../../app/Stores';
+} from '../../../../../../app';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreLoadActionDispatch } from './ArticleItemStoreLoadActionDispatchHook';

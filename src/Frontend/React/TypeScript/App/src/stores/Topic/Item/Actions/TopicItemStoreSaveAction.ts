@@ -1,4 +1,4 @@
-import { type TopicItemStoreSaveActionPayload } from '../../../../app/Stores';
+import { type TopicItemStoreSaveActionPayload } from '../../../../app';
 import { type StoreAction } from '../../../../common';
 import { type TopicItemStoreActionType } from '../TopicItemStoreActionType';
 
