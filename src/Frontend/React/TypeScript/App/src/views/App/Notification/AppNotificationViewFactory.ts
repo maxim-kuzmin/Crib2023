@@ -9,23 +9,23 @@ import {
 } from '../../../app/Stores';
 import { type AppNotificationViewHooks } from './AppNotificationViewHooks';
 
-export function createAppNotificationViewHooks (hooks: AppNotificationStoreHooks): AppNotificationViewHooks {
+export function createAppNotificationViewHooks (storeHooks: AppNotificationStoreHooks): AppNotificationViewHooks {
   const sliceName = AppNotificationStoreSliceName.AppNotificationView;
 
   function useStoreClearActionOutput (
     input: AppNotificationStoreClearActionInput
   ): AppNotificationStoreClearActionOutput {
-    return hooks.useStoreClearActionOutput(sliceName, input);
+    return storeHooks.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (
     input: AppNotificationStoreSetActionInput
   ): AppNotificationStoreSetActionOutput {
-    return hooks.useStoreSetActionOutput(sliceName, input);
+    return storeHooks.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): AppNotificationStoreState {
-    return hooks.useStoreState(sliceName);
+    return storeHooks.useStoreState(sliceName);
   }
 
   return {

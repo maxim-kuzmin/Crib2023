@@ -11,23 +11,23 @@ import {
 } from '../../../app/Stores';
 import { type TopicTreeViewHooks } from './TopicTreeViewHooks';
 
-export function createTopicTreeViewHooks (hooks: TopicTreeStoreHooks): TopicTreeViewHooks {
+export function createTopicTreeViewHooks (storeHooks: TopicTreeStoreHooks): TopicTreeViewHooks {
   const sliceName = TopicTreeStoreSliceName.TopicTreeView;
 
   function useStoreClearActionOutput (input: TopicTreeStoreClearActionInput): TopicTreeStoreClearActionOutput {
-    return hooks.useStoreClearActionOutput(sliceName, input);
+    return storeHooks.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreLoadActionOutput (input: TopicTreeStoreLoadActionInput): TopicTreeStoreLoadActionOutput {
-    return hooks.useStoreLoadActionOutput(sliceName, input);
+    return storeHooks.useStoreLoadActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (input: TopicTreeStoreSetActionInput): TopicTreeStoreSetActionOutput {
-    return hooks.useStoreSetActionOutput(sliceName, input);
+    return storeHooks.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): TopicTreeStoreState {
-    return hooks.useStoreState(sliceName);
+    return storeHooks.useStoreState(sliceName);
   }
 
   return {
