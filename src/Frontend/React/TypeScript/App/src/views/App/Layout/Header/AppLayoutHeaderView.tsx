@@ -3,7 +3,6 @@ import { SelectControl } from '../../../../controls';
 import { TopicPathView } from '../../..';
 import { getModule } from '../../../../app';
 import { type SelectControlOption } from '../../../../common';
-import '../../../../app/Localization/LocalizationSetup';
 import styles from './AppLayoutHeaderView.module.css';
 
 export const AppLayoutHeaderView: React.FC = memo(
