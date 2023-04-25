@@ -14,9 +14,9 @@ export function useLeaveFormBlocker ({
   hooksOfConfirmControl,
   shouldBlock
 }: Options) {
-  const resourceOfConfirmControl = hooksOfConfirmControl.useResource();
-
   const blocker = useBlocker(shouldBlock);
+
+  const resourceOfConfirmControl = hooksOfConfirmControl.useResource();
 
   useEffect(
     () => {

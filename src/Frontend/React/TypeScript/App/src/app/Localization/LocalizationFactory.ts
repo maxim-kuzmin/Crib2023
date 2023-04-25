@@ -5,7 +5,7 @@ import { type LocalizationTarget } from './LocalizationTarget';
 import { type LocalizationTranslator } from './LocalizationTranslator';
 import { LocalizationTranslatorImpl } from './LocalizationTranslatorImpl';
 import { LocalizationServiceImpl } from './LocalizationServiceImpl';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export function createLocalizationHooks (): LocalizationHooks {
   function useService (): LocalizationService {
@@ -13,7 +13,9 @@ export function createLocalizationHooks (): LocalizationHooks {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    return new LocalizationServiceImpl(i18n, searchParams, setSearchParams);
+    const navigate = useNavigate();
+
+    return new LocalizationServiceImpl({ i18n, searchParams, setSearchParams, navigate });
   }
 
   function useTranslator (target: LocalizationTarget): LocalizationTranslator {

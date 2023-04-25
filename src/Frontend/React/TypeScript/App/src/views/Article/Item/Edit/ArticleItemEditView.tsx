@@ -181,7 +181,9 @@ function ArticleItemEditView ({
 
   const [isFormFieldsTouched, setIsFormFieldsTouched] = useState(false);
 
-  getModule().getHooks().useLeaveFormBlocker(isFormFieldsTouched);
+  const hooks = getModule().getHooks();
+
+  hooks.useLeaveFormBlocker(isFormFieldsTouched);
 
   const handleFieldsTouched = useCallback(
     (isFieldsTouched: boolean) => {

@@ -1,14 +1,27 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
+import { getModule } from '../../../app';
+import { LayoutControl } from '../../../controls';
 import { AppLayoutAsideView } from '../Layout/Aside';
 import { AppLayoutContentView } from '../Layout/Content';
 import { AppLayoutFooterView } from '../Layout/Footer';
 import { AppLayoutHeaderView } from '../Layout/Header';
 import { AppNotificationView } from '../Notification';
 import logo from './logo.svg';
-import { LayoutControl } from '../../../controls';
 
 export const AppRootView: React.FC = memo(
 function AppRootView () {
+  const hooksOfLocalization = getModule().getLocalizationHooks();
+
+  const serviceOfLocalization = hooksOfLocalization.useService();
+
+  useEffect(
+    () => {
+      if (serviceOfLocalization.isLanguageFoundBySearchParam()) {
+        serviceOfLocalization.removeSearchParamForLanguage();
+      }
+    }
+  );
+
   return (
     <>
       <AppNotificationView/>
