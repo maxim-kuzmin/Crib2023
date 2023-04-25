@@ -39,12 +39,8 @@ export class LocalizationServiceImpl implements LocalizationService {
     return this.i18n.options.supportedLngs as string[];
   }
 
-  isLanguageFoundBySearchParam (): boolean {
-    return this.searchParams.has(this.searchParamForLanguage)
-  }
-
-  removeSearchParamForLanguage () {
-    if (this.isLanguageFoundBySearchParam()) {
+  removeLanguageFromSearchParams () {
+    if (this.searchParams.has(this.searchParamForLanguage)) {
       this.searchParams.delete(this.searchParamForLanguage);
 
       this.setSearchParams(this.searchParams);

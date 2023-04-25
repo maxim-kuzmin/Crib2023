@@ -16,9 +16,7 @@ function AppRootView () {
 
   useEffect(
     () => {
-      if (serviceOfLocalization.isLanguageFoundBySearchParam()) {
-        serviceOfLocalization.removeSearchParamForLanguage();
-      }
+      serviceOfLocalization.removeLanguageFromSearchParams();
     }
   );
 
