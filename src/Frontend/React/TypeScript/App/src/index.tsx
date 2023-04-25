@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './app/Localization/LocalizationSetup';
 import { StoresContextProvider } from './app/Stores/StoresContextProvider';
 import {
   ArticlePage,
@@ -12,6 +11,8 @@ import {
 import { AppRootView } from './views';
 import { reportWebVitals } from './reportWebVitals';
 import './index.css';
+
+import './app/Localization/LocalizationSetup';
 
 const router = createBrowserRouter([{
   path: '/',
