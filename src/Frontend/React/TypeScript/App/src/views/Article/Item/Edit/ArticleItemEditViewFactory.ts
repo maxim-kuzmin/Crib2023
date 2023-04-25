@@ -19,6 +19,7 @@ export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
     const tLabelForTopic = localizer.translate('@@LabelForTopic');
     const tTitleForEdit: string = localizer.translate('@@TitleForEdit');
     const tTitleForNew = localizer.translate('@@TitleForNew');
+    const tValidationMessageForTitleRequired = localizer.translate('@@ValidationMessageForTitleRequired');
 
     return useMemo(() => {
         const result: ArticleItemEditViewResource = {
@@ -32,6 +33,7 @@ export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
           getLabelForTopic: () => tLabelForTopic,
           getTitleForEdit: () => tTitleForEdit,
           getTitleForNew: () => tTitleForNew,
+          getValidationMessageForTitleRequired: () => tValidationMessageForTitleRequired,
         };
 
         return result;
@@ -46,7 +48,8 @@ export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
         tActionForReset,
         tActionForSave,
         tLabelForTitle,
-        tLabelForTopic
+        tLabelForTopic,
+        tValidationMessageForTitleRequired,
       ]
     );
   }

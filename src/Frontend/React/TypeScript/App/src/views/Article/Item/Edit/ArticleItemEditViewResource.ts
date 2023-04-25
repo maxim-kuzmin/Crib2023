@@ -9,4 +9,5 @@ export interface ArticleItemEditViewResource {
   readonly getActionForSave: () => string;
   readonly getLabelForTitle: () => string;
   readonly getLabelForTopic: () => string;
+  readonly getValidationMessageForTitleRequired: () => string;
 }

@@ -7,7 +7,8 @@ import {
   type FormControlAction,
   FormControlActionType,
   type FormControlField,
-  FormControlFieldType
+  FormControlFieldType,
+  FormControlValidationRuleType
 } from '../../../../common';
 import { FormControl, SpinnerControl } from '../../../../controls';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
@@ -147,7 +148,12 @@ function ArticleItemEditView ({
       const fieldForTitle: FormControlField = {
         name: fieldNameForTitle,
         label: resourceOfArticleItemEditView.getLabelForTitle(),
-        type: FormControlFieldType.TextInput
+        type: FormControlFieldType.TextInput,
+        validationRules: [{
+          message: resourceOfArticleItemEditView.getValidationMessageForTitleRequired(),
+          type: FormControlValidationRuleType.Required,
+          whitespace: true
+        }]
       };
 
       const fieldForBody: FormControlField = {

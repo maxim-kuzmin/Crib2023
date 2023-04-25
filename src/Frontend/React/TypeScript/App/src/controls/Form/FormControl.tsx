@@ -6,18 +6,46 @@ import {
   type FormControlField,
   type FormControlAction,
   FormControlActionType,
-  type FormControlProps
+  type FormControlProps,
+  FormControlValidationRuleType
 } from '../../common';
 import styles from './FormControl.module.css';
+import { type Rule } from 'antd/es/form';
 
 function convertToFieldProps (controlField: FormControlField): FormItemProps<any> & Attributes {
-  const { className, key, label, name } = controlField;
+  const { className, key, label, name, validationRules } = controlField;
+
+  const rules = validationRules?.map((validationRule) => {
+    const { message, type } = validationRule;
+
+    const result: Rule = { message };
+
+    switch (type) {
+      case FormControlValidationRuleType.Length:
+        result.len = validationRule.length;
+        break;
+      case FormControlValidationRuleType.Range:
+        result.max = validationRule.max;
+        result.min = validationRule.min;
+        break;
+      case FormControlValidationRuleType.Regex:
+        result.pattern = validationRule.pattern;
+        break;
+      case FormControlValidationRuleType.Required:
+        result.required = true;
+        result.whitespace = validationRule.whitespace;
+        break;
+    }
+
+    return result;
+  });
 
   return {
     className,
     key: key ?? name,
     label,
-    name
+    name,
+    rules
   };
 }
 

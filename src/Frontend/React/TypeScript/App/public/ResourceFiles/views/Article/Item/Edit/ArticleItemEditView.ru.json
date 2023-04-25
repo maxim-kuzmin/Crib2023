@@ -8,5 +8,6 @@
   "@@LabelForTitle": "Заголовок",
   "@@LabelForTopic": "Тема",
   "@@TitleForEdit": "Редактирование статьи",
-  "@@TitleForNew": "Новая статья"
+  "@@TitleForNew": "Новая статья",
+  "@@ValidationMessageForTitleRequired": "Заголовок не должен быть пустым"
 }

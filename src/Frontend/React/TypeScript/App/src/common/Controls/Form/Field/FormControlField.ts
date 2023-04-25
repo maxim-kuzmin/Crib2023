@@ -1,4 +1,5 @@
 import { type Key } from 'react';
+import { type FormControlValidationRuleUnion } from '../Validation';
 import { type FormControlFieldType } from './FormControlFieldType';
 
 export interface FormControlField {
@@ -8,4 +9,5 @@ export interface FormControlField {
   label?: string;
   name?: string;
   type: FormControlFieldType;
+  validationRules?: FormControlValidationRuleUnion[];
 }

@@ -8,5 +8,6 @@
   "@@LabelForTitle": "Title",
   "@@LabelForTopic": "Topic",
   "@@TitleForEdit": "Article edit",
-  "@@TitleForNew": "New article"
+  "@@TitleForNew": "New article",
+  "@@ValidationMessageForTitleRequired": "Title is required"
 }
