@@ -10,6 +10,7 @@ import {
 } from './pages';
 import { AppRootView } from './views';
 import { reportWebVitals } from './reportWebVitals';
+
 import './index.css';
 
 import './app/Localization/LocalizationSetup';
