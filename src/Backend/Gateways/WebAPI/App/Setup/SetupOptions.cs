@@ -19,5 +19,15 @@ public class SetupOptions
     /// </summary>
     public string[] CorsPolicyOrigins { get; set; } = Array.Empty<string>();
 
+    /// <summary>
+    /// Ключ строки запроса для культуры.
+    /// </summary>
+    public string QueryStringKeyForCulture { get; set; } = "";
+
+    /// <summary>
+    /// Ключ строки запроса для культуры пользовательского интерфейса.
+    /// </summary>
+    public string QueryStringKeyForUICulture { get; set; } = "";
+
     #endregion Properties
 }

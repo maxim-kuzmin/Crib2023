@@ -1,4 +1,4 @@
-import { type LocalizationResource } from '../../app';
+import { type LocalizationResource } from '../../common';
 
 export interface ConfirmControlResource extends LocalizationResource {
   readonly getCancelButtonText: () => string;

@@ -1,6 +1,6 @@
 import { type i18n } from 'i18next';
 import { type NavigateFunction } from 'react-router-dom';
-import { type LocalizationService } from './LocalizationService';
+import { type LocalizationService } from '../../common';
 
 interface Options {
   readonly i18n: i18n;

@@ -1,4 +1,4 @@
-import { type LocalizationResource } from '../../../Localization';
+import { type LocalizationResource } from '../../../../common';
 
 export interface TopicTreeStoreResource extends LocalizationResource {
   readonly getOperationNameForGet: () => string;

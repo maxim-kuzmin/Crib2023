@@ -1,8 +1,18 @@
 import { getModule } from '../../app';
-import { type HttpClient, type HttpRequestConfig, type HttpRequestResult } from '../../common';
+import {
+  type HttpClient,
+  type HttpRequestConfig,
+  type HttpRequestResult
+} from '../../common';
 import { type ApiClient } from './ApiClient';
-import { type ApiOperationResponse, type ApiOperationResponseWithData } from './Operation';
-import { type ApiRequestOptionsWithBody, type ApiRequestOptions } from './Request';
+import {
+  type ApiOperationResponse,
+  type ApiOperationResponseWithData
+} from './Operation';
+import {
+  type ApiRequestOptionsWithBody,
+  type ApiRequestOptions
+} from './Request';
 import {
   type ApiResponseResource,
   type ApiResponse,
@@ -11,20 +21,11 @@ import {
   type ApiResponseError,
   type ApiResponseWithData
 } from './Response';
-import { type ApiResponseWithDetails, type ApiResponseWithMessages } from './Responses';
+import {
+  type ApiResponseWithDetails,
+  type ApiResponseWithMessages
+} from './Responses';
 import { type ApiSetupOptions } from './Setup';
-
-function createRequestConfig (operaionCode: string, query?: any): HttpRequestConfig {
-  return {
-    query,
-    init: {
-      headers: {
-        'Content-Type': 'application/json',
-        OperationCode: operaionCode
-      }
-    }
-  }
-};
 
 interface Options {
   readonly apiSetupOptions: ApiSetupOptions;
@@ -37,6 +38,38 @@ interface RequestOptions {
   readonly operationCode: string;
   readonly resourceOfApiResponse: ApiResponseResource;
 }
+
+interface RequestConfigOptions {
+  readonly language: string;
+  readonly operationCode: string;
+  readonly query?: any;
+  readonly apiSetupOptions: ApiSetupOptions;
+}
+
+function createRequestConfig ({
+  language,
+  operationCode,
+  query,
+  apiSetupOptions:
+  {
+    queryStringKeyForCulture,
+    queryStringKeyForUICulture
+  }
+}: RequestConfigOptions): HttpRequestConfig {
+  return {
+    query: {
+      ...query,
+      [queryStringKeyForCulture]: language,
+      [queryStringKeyForUICulture]: language
+    },
+    init: {
+      headers: {
+        'Content-Type': 'application/json',
+        OperationCode: operationCode
+      }
+    }
+  }
+};
 
 export class ApiClientImpl implements ApiClient {
   private readonly apiSetupOptions: ApiSetupOptions;
@@ -54,10 +87,17 @@ export class ApiClientImpl implements ApiClient {
     query,
     resourceOfApiResponse
   }: ApiRequestOptions): Promise<ApiOperationResponse> {
+    const { language } = resourceOfApiResponse;
+
     return await this.request({
       getRequestResult: async () => await this.httpClient.delete(
         this.createUrl(endpoint),
-        createRequestConfig(operationCode, query)
+        createRequestConfig({
+          language,
+          operationCode,
+          query,
+          apiSetupOptions: this.apiSetupOptions
+        })
       ),
       operationName,
       operationCode,
@@ -72,10 +112,17 @@ export class ApiClientImpl implements ApiClient {
     query,
     resourceOfApiResponse
   }: ApiRequestOptions): Promise<ApiOperationResponseWithData<TData>> {
+    const { language } = resourceOfApiResponse;
+
     return await this.requestWithData({
       getRequestResult: async () => await this.httpClient.get(
         this.createUrl(endpoint),
-        createRequestConfig(operationCode, query)
+        createRequestConfig({
+          language,
+          operationCode,
+          query,
+          apiSetupOptions: this.apiSetupOptions
+        })
       ),
       operationName,
       operationCode,
@@ -91,11 +138,18 @@ export class ApiClientImpl implements ApiClient {
     query,
     resourceOfApiResponse
   }: ApiRequestOptionsWithBody): Promise<ApiOperationResponseWithData<TData>> {
+    const { language } = resourceOfApiResponse;
+
     return await this.requestWithData({
       getRequestResult: async () => await this.httpClient.post(
         this.createUrl(endpoint),
         body,
-        createRequestConfig(operationCode, query)
+        createRequestConfig({
+          language,
+          operationCode,
+          query,
+          apiSetupOptions: this.apiSetupOptions
+        })
       ),
       operationName,
       operationCode,
@@ -111,11 +165,18 @@ export class ApiClientImpl implements ApiClient {
     query,
     resourceOfApiResponse
   }: ApiRequestOptionsWithBody): Promise<ApiOperationResponseWithData<TData>> {
+    const { language } = resourceOfApiResponse;
+
     return await this.requestWithData({
       getRequestResult: async () => await this.httpClient.put(
         this.createUrl(endpoint),
         body,
-        createRequestConfig(operationCode, query)
+        createRequestConfig({
+          language,
+          operationCode,
+          query,
+          apiSetupOptions: this.apiSetupOptions
+        })
       ),
       operationName,
       operationCode,

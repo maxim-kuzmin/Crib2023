@@ -1,5 +1,5 @@
 import { type TFunction } from 'i18next';
-import { type LocalizationTranslator } from './LocalizationTranslator';
+import { type LocalizationTranslator } from '../../common';
 
 interface Options {
   readonly functionToTranslate: TFunction;

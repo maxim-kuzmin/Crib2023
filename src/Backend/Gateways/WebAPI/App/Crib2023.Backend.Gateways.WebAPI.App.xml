@@ -187,5 +187,15 @@
             Список URL, на которые действует политика CORS.
             </summary>
         </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions.QueryStringKeyForCulture">
+            <summary>
+            Ключ строки запроса для культуры.
+            </summary>
+        </member>
+        <member name="P:Crib2023.Backend.Gateways.WebAPI.App.Setup.SetupOptions.QueryStringKeyForUICulture">
+            <summary>
+            Ключ строки запроса для культуры пользовательского интерфейса.
+            </summary>
+        </member>
     </members>
 </doc>

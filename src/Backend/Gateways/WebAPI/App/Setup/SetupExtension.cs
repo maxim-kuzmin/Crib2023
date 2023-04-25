@@ -1,5 +1,6 @@
 ﻿// Copyright (c) 2023 Maxim Kuzmin. All rights reserved. Licensed under the MIT License.
 
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 
 namespace Crib2023.Backend.Gateways.WebAPI.App.Setup;
@@ -40,13 +41,39 @@ public static class SetupExtension
     /// <returns>Задача на использование.</returns>
     public static Task UseAppModules(this WebApplication app, IAppEnvironment appEnvironment)
     {
-        app.UseRequestLocalization(x => x.SetDefaultCulture(appEnvironment.DefaultCulture)
-            .AddSupportedCultures(appEnvironment.SupportedCultures)
-            .AddSupportedUICultures(appEnvironment.SupportedCultures));
-
-        app.UseRouting();
-
         var setupOptions = app.Services.GetRequiredService<IOptions<SetupOptions>>().Value;
+
+        app.UseRequestLocalization(x =>
+        {
+            x.SetDefaultCulture(appEnvironment.DefaultCulture)
+                .AddSupportedCultures(appEnvironment.SupportedCultures)
+                .AddSupportedUICultures(appEnvironment.SupportedCultures);
+
+            bool isQueryStringKeyForCultureSpecified = !string.IsNullOrWhiteSpace(setupOptions.QueryStringKeyForCulture);
+
+            bool isQueryStringKeyForUICultureSpecified = !string.IsNullOrWhiteSpace(setupOptions.QueryStringKeyForUICulture);
+
+            if (isQueryStringKeyForCultureSpecified || isQueryStringKeyForUICultureSpecified)
+            {
+                foreach (var provider in x.RequestCultureProviders)
+                {
+                    if (provider is QueryStringRequestCultureProvider queryStringProvider)
+                    {
+                        if (isQueryStringKeyForCultureSpecified)
+                        {
+                            queryStringProvider.QueryStringKey = setupOptions.QueryStringKeyForCulture;
+                        }
+                        
+                        if (isQueryStringKeyForUICultureSpecified)
+                        {
+                            queryStringProvider.UIQueryStringKey = setupOptions.QueryStringKeyForUICulture;
+                        }                        
+                    }
+                }
+            }
+        });
+
+        app.UseRouting();        
 
         if (setupOptions.CorsPolicyIsEnabled)
         {

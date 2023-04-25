@@ -2,6 +2,7 @@ export * from './Functions';
 export * from './Control';
 export * from './Controls';
 export * from './Http';
+export * from './Localization';
 export * from './Operation';
 export * from './Operations';
 export * from './Setup';

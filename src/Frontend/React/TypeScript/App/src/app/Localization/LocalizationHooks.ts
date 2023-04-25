@@ -1,6 +1,5 @@
-import { type LocalizationService } from './LocalizationService';
+import { type LocalizationService, type LocalizationTranslator } from '../../common';
 import { type LocalizationTarget } from './LocalizationTarget';
-import { type LocalizationTranslator } from './LocalizationTranslator';
 
 export interface LocalizationHooks {
   readonly useService: () => LocalizationService;

@@ -125,6 +125,8 @@ interface UseOperationHandlerOptions {
 
 export class ModuleImpl implements Module {
   private readonly apiSetupOptions: ApiSetupOptions = new ApiSetupOptionsImpl({
+    queryStringKeyForCulture: process.env.REACT_APP_API_QUERY_STRING_KEY_FOR_CULTURE ?? 'lng',
+    queryStringKeyForUICulture: process.env.REACT_APP_API_QUERY_STRING_KEY_FOR_UI_CULTURE ?? 'ui-lng',
     url: process.env.REACT_APP_API_URL ?? ''
   });
 
