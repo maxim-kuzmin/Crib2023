@@ -1,23 +1,22 @@
 import React, { memo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
 import { SelectControl } from '../../../../controls';
 import { TopicPathView } from '../../..';
-import styles from './AppLayoutHeaderView.module.css';
+import { getModule } from '../../../../app';
 import { type SelectControlOption } from '../../../../common';
 import '../../../../app/Localization/LocalizationSetup';
+import styles from './AppLayoutHeaderView.module.css';
 
 export const AppLayoutHeaderView: React.FC = memo(
 function AppLayoutHeaderView () {
-  const { i18n } = useTranslation();
+  const hooksOfLocalization = getModule().getLocalizationHooks();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const serviceOfLocalization = hooksOfLocalization.useService();
 
   const languages: Array<{ label: string; value: string; }> = [];
 
-  const supportedLngs = i18n.options.supportedLngs as string[];
+  const supportedLanguages = serviceOfLocalization.getSupportedLanguages();
 
-  supportedLngs.forEach((value) => {
+  supportedLanguages.forEach((value) => {
     let label = '';
 
     switch (value) {
@@ -35,19 +34,7 @@ function AppLayoutHeaderView () {
   });
 
   function handleLanguageChange (value: string): void {
-    if (value !== i18n.language) {
-      i18n.changeLanguage(value).then(() => {
-        const { lookupQuerystring } = i18n.options.detection!;
-
-        const languageKey = lookupQuerystring!;
-
-        if (searchParams.has(languageKey)) {
-          searchParams.delete(languageKey);
-
-          setSearchParams(searchParams);
-        }
-      });
-    }
+    serviceOfLocalization.setCurrentLanguage(value);
   }
 
   const languageOptions: SelectControlOption[] = languages.map((language) => {
@@ -61,7 +48,7 @@ function AppLayoutHeaderView () {
       <TopicPathView/>
       <SelectControl
         className={styles.select}
-        defaultValue={i18n.language}
+        defaultValue={serviceOfLocalization.getCurrentLanguage()}
         onChange={handleLanguageChange}
         options={languageOptions}
       />
