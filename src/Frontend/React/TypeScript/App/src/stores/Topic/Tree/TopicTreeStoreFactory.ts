@@ -20,23 +20,27 @@ export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.TopicTreeStore);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TopicTreeStore);
 
-    const tOperationNameForGet = localizer.translate('@@OperationNameForGet');
-    const tOperationNameForGetChildren = localizer.translate('@@OperationNameForGetChildren');
+    const tOperationNameForGet = translator.translate('@@OperationNameForGet');
+    const tOperationNameForGetChildren = translator.translate('@@OperationNameForGetChildren');
+
+    const { language } = translator;
 
     return useMemo(
       () => {
         const result: TopicTreeStoreResource = {
           getOperationNameForGet: () => tOperationNameForGet,
-          getOperationNameForGetChildren: () => tOperationNameForGetChildren
+          getOperationNameForGetChildren: () => tOperationNameForGetChildren,
+          language
         };
 
         return result;
       },
       [
         tOperationNameForGet,
-        tOperationNameForGetChildren
+        tOperationNameForGetChildren,
+        language
       ]
     );
   }

@@ -1,10 +1,24 @@
 import { type TFunction } from 'i18next';
 import { type LocalizationTranslator } from './LocalizationTranslator';
 
+interface Options {
+  readonly functionToTranslate: TFunction;
+  readonly language: string;
+}
+
 export class LocalizationTranslatorImpl implements LocalizationTranslator {
-  constructor (private readonly t: TFunction) { }
+  private readonly functionToTranslate: TFunction;
+  public readonly language: string;
+
+  constructor ({
+    language,
+    functionToTranslate
+  }: Options) {
+    this.functionToTranslate = functionToTranslate;
+    this.language = language;
+  }
 
   translate (name: string): string {
-    return this.t(name);
+    return this.functionToTranslate(name);
   }
 }

@@ -20,20 +20,24 @@ export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleListStore);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleListStore);
 
-    const tOperationNameForGet = localizer.translate('@@OperationNameForGet');
+    const tOperationNameForGet = translator.translate('@@OperationNameForGet');
+
+    const { language } = translator;
 
     return useMemo(
       () => {
         const result: ArticleListStoreResource = {
           getOperationNameForGet: () => tOperationNameForGet,
+          language
         };
 
         return result;
       },
       [
         tOperationNameForGet,
+        language
       ]
     );
   }

@@ -7,18 +7,24 @@ export function createTopicPathViewHooks (): TopicPathViewHooks {
   function useResource (): TopicPathViewResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.TopicPathView);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TopicPathView);
 
-    const tTitleForRoot: string = localizer.translate('@@TitleForRoot');
+    const tTitleForRoot: string = translator.translate('@@TitleForRoot');
+
+    const { language } = translator;
 
     return useMemo(() => {
         const result: TopicPathViewResource = {
           getTitleForRoot: () => tTitleForRoot,
+          language
         };
 
         return result;
       },
-      [tTitleForRoot]
+      [
+        tTitleForRoot,
+        language
+      ]
     );
   }
 

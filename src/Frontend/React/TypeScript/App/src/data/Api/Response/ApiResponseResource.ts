@@ -1,6 +1,8 @@
-export interface ApiResponseResource {
-  getErrorMessageForDefault: () => string;
-  getErrorMessageForHttp400: () => string;
-  getErrorMessageForHttp404: () => string;
-  getErrorMessageForHttp500: () => string;
+import { type LocalizationResource } from '../../../app';
+
+export interface ApiResponseResource extends LocalizationResource {
+  readonly getErrorMessageForDefault: () => string;
+  readonly getErrorMessageForHttp400: () => string;
+  readonly getErrorMessageForHttp404: () => string;
+  readonly getErrorMessageForHttp500: () => string;
 }

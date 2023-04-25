@@ -1,4 +1,6 @@
-export interface ArticleItemEditViewResource {
+import { type LocalizationResource } from '../../../../app';
+
+export interface ArticleItemEditViewResource extends LocalizationResource {
   readonly getTitleForEdit: () => string;
   readonly getTitleForNew: () => string;
   readonly getActionForBackToList: () => string;

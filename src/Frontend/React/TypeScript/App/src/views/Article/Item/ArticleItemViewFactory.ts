@@ -23,19 +23,22 @@ export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): 
   function useResource (): ArticleItemViewResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemView);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemView);
 
-    const tActionForBackToList: string = localizer.translate('@@ActionForBackToList');
-    const tActionForEdit: string = localizer.translate('@@ActionForEdit');
-    const tLabelForId: string = localizer.translate('@@LabelForId');
-    const tTitle: string = localizer.translate('@@Title');
+    const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
+    const tActionForEdit: string = translator.translate('@@ActionForEdit');
+    const tLabelForId: string = translator.translate('@@LabelForId');
+    const tTitle: string = translator.translate('@@Title');
+
+    const { language } = translator;
 
     return useMemo(() => {
         const result: ArticleItemViewResource = {
           getActionForBackToList: () => tActionForBackToList,
           getActionForEdit: () => tActionForEdit,
           getLabelForId: () => tLabelForId,
-          getTitle: () => tTitle
+          getTitle: () => tTitle,
+          language
         };
 
         return result;
@@ -44,7 +47,8 @@ export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): 
         tTitle,
         tActionForBackToList,
         tActionForEdit,
-        tLabelForId
+        tLabelForId,
+        language
       ]
     );
   }

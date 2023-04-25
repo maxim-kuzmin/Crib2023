@@ -19,17 +19,19 @@ export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks):
   function useResource (): ArticleTableViewResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleTableView);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleTableView);
 
-    const tTitle: string = localizer.translate('@@Title');
-    const tLabelForActions: string = localizer.translate('@@LabelForActions');
-    const tActionForDelete: string = localizer.translate('@@ActionForDelete');
-    const tActionForDisplay: string = localizer.translate('@@ActionForDisplay');
-    const tActionForEdit: string = localizer.translate('@@ActionForEdit');
-    const tLabelForId: string = localizer.translate('@@LabelForId');
-    const tActionForNew: string = localizer.translate('@@ActionForNew');
-    const tLabelForPath: string = localizer.translate('@@LabelForPath');
-    const tLabelForTitle: string = localizer.translate('@@LabelForTitle');
+    const tTitle: string = translator.translate('@@Title');
+    const tLabelForActions: string = translator.translate('@@LabelForActions');
+    const tActionForDelete: string = translator.translate('@@ActionForDelete');
+    const tActionForDisplay: string = translator.translate('@@ActionForDisplay');
+    const tActionForEdit: string = translator.translate('@@ActionForEdit');
+    const tLabelForId: string = translator.translate('@@LabelForId');
+    const tActionForNew: string = translator.translate('@@ActionForNew');
+    const tLabelForPath: string = translator.translate('@@LabelForPath');
+    const tLabelForTitle: string = translator.translate('@@LabelForTitle');
+
+    const { language } = translator;
 
     return useMemo(() => {
         const result: ArticleTableViewResource = {
@@ -41,7 +43,8 @@ export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks):
           getLabelForId: () => tLabelForId,
           getActionForNew: () => tActionForNew,
           getLabelForPath: () => tLabelForPath,
-          getLabelForTitle: () => tLabelForTitle
+          getLabelForTitle: () => tLabelForTitle,
+          language
         };
 
         return result;
@@ -55,7 +58,8 @@ export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks):
         tLabelForId,
         tActionForNew,
         tLabelForPath,
-        tLabelForTitle
+        tLabelForTitle,
+        language
     ]
     );
   }

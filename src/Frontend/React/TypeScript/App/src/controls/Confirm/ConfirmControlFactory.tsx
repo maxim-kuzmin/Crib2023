@@ -23,6 +23,8 @@ export function createConfirmControlHooks (): ConfirmControlHooks {
     const tLeaveFormConfirmTitle = translator.translate('@@LeaveFormConfirmTitle');
     const tOkButtonText = translator.translate('@@OkButtonText');
 
+    const { language } = translator;
+
     return useMemo(
       () => {
         const result: ConfirmControlResource = {
@@ -32,6 +34,7 @@ export function createConfirmControlHooks (): ConfirmControlHooks {
           getLeaveFormConfirmContent: () => tFormConfirmContent,
           getLeaveFormConfirmTitle: () => tLeaveFormConfirmTitle,
           getOkButtonText: () => tOkButtonText,
+          language
         }
 
         return result;
@@ -43,6 +46,7 @@ export function createConfirmControlHooks (): ConfirmControlHooks {
         tFormConfirmContent,
         tLeaveFormConfirmTitle,
         tOkButtonText,
+        language
       ]
     );
   }

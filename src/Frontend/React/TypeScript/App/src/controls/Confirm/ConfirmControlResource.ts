@@ -1,8 +1,10 @@
-export interface ConfirmControlResource {
-  getCancelButtonText: () => string;
-  getDeleteConfirmContent: () => string;
-  getDeleteConfirmTitle: () => string;
-  getLeaveFormConfirmContent: () => string;
-  getLeaveFormConfirmTitle: () => string;
-  getOkButtonText: () => string;
+import { type LocalizationResource } from '../../app';
+
+export interface ConfirmControlResource extends LocalizationResource {
+  readonly getCancelButtonText: () => string;
+  readonly getDeleteConfirmContent: () => string;
+  readonly getDeleteConfirmTitle: () => string;
+  readonly getLeaveFormConfirmContent: () => string;
+  readonly getLeaveFormConfirmTitle: () => string;
+  readonly getOkButtonText: () => string;
 }

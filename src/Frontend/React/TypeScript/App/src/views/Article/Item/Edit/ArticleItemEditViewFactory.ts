@@ -7,19 +7,21 @@ export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemEditView);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemEditView);
 
-    const tActionForBackToList: string = localizer.translate('@@ActionForBackToList');
-    const tActionForDisplay: string = localizer.translate('@@ActionForDisplay');
-    const tActionForReset: string = localizer.translate('@@ActionForReset');
-    const tActionForSave: string = localizer.translate('@@ActionForSave');
-    const tLabelForBody: string = localizer.translate('@@LabelForBody');
-    const tLabelForId: string = localizer.translate('@@LabelForId');
-    const tLabelForTitle: string = localizer.translate('@@LabelForTitle');
-    const tLabelForTopic = localizer.translate('@@LabelForTopic');
-    const tTitleForEdit: string = localizer.translate('@@TitleForEdit');
-    const tTitleForNew = localizer.translate('@@TitleForNew');
-    const tValidationMessageForTitleRequired = localizer.translate('@@ValidationMessageForTitleRequired');
+    const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
+    const tActionForDisplay: string = translator.translate('@@ActionForDisplay');
+    const tActionForReset: string = translator.translate('@@ActionForReset');
+    const tActionForSave: string = translator.translate('@@ActionForSave');
+    const tLabelForBody: string = translator.translate('@@LabelForBody');
+    const tLabelForId: string = translator.translate('@@LabelForId');
+    const tLabelForTitle: string = translator.translate('@@LabelForTitle');
+    const tLabelForTopic = translator.translate('@@LabelForTopic');
+    const tTitleForEdit: string = translator.translate('@@TitleForEdit');
+    const tTitleForNew = translator.translate('@@TitleForNew');
+    const tValidationMessageForTitleRequired = translator.translate('@@ValidationMessageForTitleRequired');
+
+    const { language } = translator;
 
     return useMemo(() => {
         const result: ArticleItemEditViewResource = {
@@ -34,6 +36,7 @@ export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
           getTitleForEdit: () => tTitleForEdit,
           getTitleForNew: () => tTitleForNew,
           getValidationMessageForTitleRequired: () => tValidationMessageForTitleRequired,
+          language
         };
 
         return result;
@@ -50,6 +53,7 @@ export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
         tLabelForTitle,
         tLabelForTopic,
         tValidationMessageForTitleRequired,
+        language
       ]
     );
   }

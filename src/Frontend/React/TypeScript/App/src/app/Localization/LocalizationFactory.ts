@@ -19,9 +19,12 @@ export function createLocalizationHooks (): LocalizationHooks {
   }
 
   function useTranslator (target: LocalizationTarget): LocalizationTranslator {
-    const { t } = useTranslation(target);
+    const { i18n, t } = useTranslation(target);
 
-    return new LocalizationTranslatorImpl(t);
+    return new LocalizationTranslatorImpl({
+      functionToTranslate: t,
+      language: i18n.language
+    });
   }
 
   return { useService, useTranslator };

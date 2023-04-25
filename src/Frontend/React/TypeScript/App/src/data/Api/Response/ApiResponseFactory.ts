@@ -7,12 +7,14 @@ export function createApiResponseHooks (): ApiResponseHooks {
   function useResource (): ApiResponseResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ApiResponse);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ApiResponse);
 
-    const tErrorMessageForDefault = localizer.translate('@@ErrorMessageForDefault');
-    const tErrorMessageForHttp400 = localizer.translate('@@ErrorMessageForHttp400');
-    const tErrorMessageForHttp404 = localizer.translate('@@ErrorMessageForHttp404');
-    const tErrorMessageForHttp500 = localizer.translate('@@ErrorMessageForHttp500');
+    const tErrorMessageForDefault = translator.translate('@@ErrorMessageForDefault');
+    const tErrorMessageForHttp400 = translator.translate('@@ErrorMessageForHttp400');
+    const tErrorMessageForHttp404 = translator.translate('@@ErrorMessageForHttp404');
+    const tErrorMessageForHttp500 = translator.translate('@@ErrorMessageForHttp500');
+
+    const { language } = translator;
 
     return useMemo(
       () => {
@@ -21,6 +23,7 @@ export function createApiResponseHooks (): ApiResponseHooks {
           getErrorMessageForHttp400: () => tErrorMessageForHttp400,
           getErrorMessageForHttp404: () => tErrorMessageForHttp404,
           getErrorMessageForHttp500: () => tErrorMessageForHttp500,
+          language
         };
 
         return result;
@@ -30,6 +33,7 @@ export function createApiResponseHooks (): ApiResponseHooks {
         tErrorMessageForHttp400,
         tErrorMessageForHttp404,
         tErrorMessageForHttp500,
+        language
       ]
     );
   }

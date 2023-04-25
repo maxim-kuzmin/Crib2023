@@ -7,18 +7,20 @@ export function createTableControlHooks (): TableControlHooks {
   function useResource (): TableControlResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.TableControl);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TableControl);
 
-    const tPaginationPartForFrom: string = localizer.translate('@@PaginationPartForFrom');
-    const tPaginationPartForJumpTo: string = localizer.translate('@@PaginationPartForJumpTo');
-    const tPaginationPartForNext3Pages: string = localizer.translate('@@PaginationPartForNext3Pages');
-    const tPaginationPartForNext5Pages: string = localizer.translate('@@PaginationPartForNext5Pages');
-    const tPaginationPartForNextPage: string = localizer.translate('@@PaginationPartForNextPage');
-    const tPaginationPartForPageTo: string = localizer.translate('@@PaginationPartForPageTo');
-    const tPaginationPartForPerPage: string = localizer.translate('@@PaginationPartForPerPage');
-    const tPaginationPartForPrev3Pages: string = localizer.translate('@@PaginationPartForPrev3Pages');
-    const tPaginationPartForPrev5Pages: string = localizer.translate('@@PaginationPartForPrev5Pages');
-    const tPaginationPartForPrevPage: string = localizer.translate('@@PaginationPartForPrevPage');
+    const tPaginationPartForFrom: string = translator.translate('@@PaginationPartForFrom');
+    const tPaginationPartForJumpTo: string = translator.translate('@@PaginationPartForJumpTo');
+    const tPaginationPartForNext3Pages: string = translator.translate('@@PaginationPartForNext3Pages');
+    const tPaginationPartForNext5Pages: string = translator.translate('@@PaginationPartForNext5Pages');
+    const tPaginationPartForNextPage: string = translator.translate('@@PaginationPartForNextPage');
+    const tPaginationPartForPageTo: string = translator.translate('@@PaginationPartForPageTo');
+    const tPaginationPartForPerPage: string = translator.translate('@@PaginationPartForPerPage');
+    const tPaginationPartForPrev3Pages: string = translator.translate('@@PaginationPartForPrev3Pages');
+    const tPaginationPartForPrev5Pages: string = translator.translate('@@PaginationPartForPrev5Pages');
+    const tPaginationPartForPrevPage: string = translator.translate('@@PaginationPartForPrevPage');
+
+    const { language } = translator;
 
     return useMemo(() => {
         const result: TableControlResource = {
@@ -32,6 +34,7 @@ export function createTableControlHooks (): TableControlHooks {
           getPaginationPartForPrev3Pages: () => tPaginationPartForPrev3Pages,
           getPaginationPartForPrev5Pages: () => tPaginationPartForPrev5Pages,
           getPaginationPartForPrevPage: () => tPaginationPartForPrevPage,
+          language
         };
 
         return result;
@@ -47,6 +50,7 @@ export function createTableControlHooks (): TableControlHooks {
         tPaginationPartForPrev3Pages,
         tPaginationPartForPrev5Pages,
         tPaginationPartForPrevPage,
+        language
       ]
     );
   }

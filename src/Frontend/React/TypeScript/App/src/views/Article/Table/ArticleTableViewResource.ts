@@ -1,4 +1,6 @@
-export interface ArticleTableViewResource {
+import { type LocalizationResource } from '../../../app';
+
+export interface ArticleTableViewResource extends LocalizationResource {
   readonly getTitle: () => string;
   readonly getLabelForActions: () => string;
   readonly getActionForDelete: () => string;

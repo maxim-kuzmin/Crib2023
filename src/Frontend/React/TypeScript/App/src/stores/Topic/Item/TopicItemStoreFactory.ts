@@ -30,18 +30,21 @@ export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.TopicItemStore);
+    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TopicItemStore);
 
-    const tOperationNameForDelete = localizer.translate('@@OperationNameForDelete');
-    const tOperationNameForGet = localizer.translate('@@OperationNameForGet');
-    const tOperationNameForSave = localizer.translate('@@OperationNameForSave');
+    const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
+    const tOperationNameForGet = translator.translate('@@OperationNameForGet');
+    const tOperationNameForSave = translator.translate('@@OperationNameForSave');
+
+    const { language } = translator;
 
     return useMemo(
       () => {
         const result: TopicItemStoreResource = {
           getOperationNameForDelete: () => tOperationNameForDelete,
           getOperationNameForGet: () => tOperationNameForGet,
-          getOperationNameForSave: () => tOperationNameForSave
+          getOperationNameForSave: () => tOperationNameForSave,
+          language
         };
 
         return result;
@@ -49,7 +52,8 @@ export function createTopicItemStoreHooks (): TopicItemStoreHooks {
       [
         tOperationNameForDelete,
         tOperationNameForGet,
-        tOperationNameForSave
+        tOperationNameForSave,
+        language
       ]
     );
   }

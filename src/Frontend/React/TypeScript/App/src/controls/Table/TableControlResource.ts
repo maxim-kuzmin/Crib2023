@@ -1,4 +1,6 @@
-export interface TableControlResource {
+import { type LocalizationResource } from '../../app';
+
+export interface TableControlResource extends LocalizationResource {
   readonly getPaginationPartForFrom: () => string;
   readonly getPaginationPartForJumpTo: () => string;
   readonly getPaginationPartForNext3Pages: () => string;
