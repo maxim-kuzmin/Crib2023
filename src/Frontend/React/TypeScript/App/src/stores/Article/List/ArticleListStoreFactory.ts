@@ -3,7 +3,7 @@ import {
   getModule,
   type ArticleListStoreResource,
   type ArticleListStoreHooks,
-  LocalizationNamespace
+  LocalizationTarget
 } from '../../../app';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/ArticleListStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/ArticleListStoreClearActionOutputHook';
@@ -20,20 +20,20 @@ export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleListStore);
+    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleListStore);
 
-    const valueOfOperationNameForGet = localizer.getValue('@@OperationNameForGet');
+    const tOperationNameForGet = localizer.translate('@@OperationNameForGet');
 
     return useMemo(
       () => {
         const result: ArticleListStoreResource = {
-          getOperationNameForGet: () => valueOfOperationNameForGet,
+          getOperationNameForGet: () => tOperationNameForGet,
         };
 
         return result;
       },
       [
-        valueOfOperationNameForGet,
+        tOperationNameForGet,
       ]
     );
   }

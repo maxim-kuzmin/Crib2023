@@ -1,4 +1,4 @@
-export enum LocalizationNamespace {
+export enum LocalizationTarget {
   ApiResponse = 'data/Api/Response/ApiResponse',
   ArticleItemStore = 'app/Stores/Article/Item/ArticleItemStore',
   ArticleItemView = 'views/Article/Item/ArticleItemView',

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { getModule, LocalizationNamespace } from '../../../../app';
+import { getModule, LocalizationTarget } from '../../../../app';
 import { type ArticleItemEditViewHooks } from './ArticleItemEditViewHooks';
 import { type ArticleItemEditViewResource } from './ArticleItemEditViewResource';
 
@@ -7,46 +7,46 @@ export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleItemEditView);
+    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemEditView);
 
-    const valueOfActionForBackToList: string = localizer.getValue('@@ActionForBackToList');
-    const valueOfActionForDisplay: string = localizer.getValue('@@ActionForDisplay');
-    const valueOfActionForReset: string = localizer.getValue('@@ActionForReset');
-    const valueOfActionForSave: string = localizer.getValue('@@ActionForSave');
-    const valueOfLabelForBody: string = localizer.getValue('@@LabelForBody');
-    const valueOfLabelForId: string = localizer.getValue('@@LabelForId');
-    const valueOfLabelForTitle: string = localizer.getValue('@@LabelForTitle');
-    const valueOfLabelForTopic = localizer.getValue('@@LabelForTopic');
-    const valueOfTitleForEdit: string = localizer.getValue('@@TitleForEdit');
-    const valueOfTitleForNew = localizer.getValue('@@TitleForNew');
+    const tActionForBackToList: string = localizer.translate('@@ActionForBackToList');
+    const tActionForDisplay: string = localizer.translate('@@ActionForDisplay');
+    const tActionForReset: string = localizer.translate('@@ActionForReset');
+    const tActionForSave: string = localizer.translate('@@ActionForSave');
+    const tLabelForBody: string = localizer.translate('@@LabelForBody');
+    const tLabelForId: string = localizer.translate('@@LabelForId');
+    const tLabelForTitle: string = localizer.translate('@@LabelForTitle');
+    const tLabelForTopic = localizer.translate('@@LabelForTopic');
+    const tTitleForEdit: string = localizer.translate('@@TitleForEdit');
+    const tTitleForNew = localizer.translate('@@TitleForNew');
 
     return useMemo(() => {
         const result: ArticleItemEditViewResource = {
-          getActionForBackToList: () => valueOfActionForBackToList,
-          getActionForDisplay: () => valueOfActionForDisplay,
-          getActionForReset: () => valueOfActionForReset,
-          getActionForSave: () => valueOfActionForSave,
-          getLabelForBody: () => valueOfLabelForBody,
-          getLabelForId: () => valueOfLabelForId,
-          getLabelForTitle: () => valueOfLabelForTitle,
-          getLabelForTopic: () => valueOfLabelForTopic,
-          getTitleForEdit: () => valueOfTitleForEdit,
-          getTitleForNew: () => valueOfTitleForNew,
+          getActionForBackToList: () => tActionForBackToList,
+          getActionForDisplay: () => tActionForDisplay,
+          getActionForReset: () => tActionForReset,
+          getActionForSave: () => tActionForSave,
+          getLabelForBody: () => tLabelForBody,
+          getLabelForId: () => tLabelForId,
+          getLabelForTitle: () => tLabelForTitle,
+          getLabelForTopic: () => tLabelForTopic,
+          getTitleForEdit: () => tTitleForEdit,
+          getTitleForNew: () => tTitleForNew,
         };
 
         return result;
       },
       [
-        valueOfTitleForEdit,
-        valueOfTitleForNew,
-        valueOfActionForBackToList,
-        valueOfLabelForBody,
-        valueOfActionForDisplay,
-        valueOfLabelForId,
-        valueOfActionForReset,
-        valueOfActionForSave,
-        valueOfLabelForTitle,
-        valueOfLabelForTopic
+        tTitleForEdit,
+        tTitleForNew,
+        tActionForBackToList,
+        tLabelForBody,
+        tActionForDisplay,
+        tLabelForId,
+        tActionForReset,
+        tActionForSave,
+        tLabelForTitle,
+        tLabelForTopic
       ]
     );
   }

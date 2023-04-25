@@ -82,10 +82,10 @@ function ArticleItemView ({
     [articleId, topicPageLastUrl, resourceOfArticleItemView]
   );
 
-  const valueOfLabelForId: string = resourceOfArticleItemView.getLabelForId();
+  const tLabelForId: string = resourceOfArticleItemView.getLabelForId();
 
   const controlExtra: CardControlExtra = {
-    title: `${valueOfLabelForId}: ${articleId}`
+    title: `${tLabelForId}: ${articleId}`
   };
 
   return (

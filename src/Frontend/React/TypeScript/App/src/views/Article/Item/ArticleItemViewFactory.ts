@@ -14,7 +14,7 @@ import {
   type ArticleItemStoreHooks,
   ArticleItemStoreSliceName,
   type ArticleItemStoreState,
-  LocalizationNamespace
+  LocalizationTarget
 } from '../../../app';
 import { type ArticleItemViewHooks } from './ArticleItemViewHooks';
 import { type ArticleItemViewResource } from './ArticleItemViewResource';
@@ -23,28 +23,28 @@ export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): 
   function useResource (): ArticleItemViewResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleItemView);
+    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemView);
 
-    const valueOfActionForBackToList: string = localizer.getValue('@@ActionForBackToList');
-    const valueOfActionForEdit: string = localizer.getValue('@@ActionForEdit');
-    const valueOfLabelForId: string = localizer.getValue('@@LabelForId');
-    const valueOfTitle: string = localizer.getValue('@@Title');
+    const tActionForBackToList: string = localizer.translate('@@ActionForBackToList');
+    const tActionForEdit: string = localizer.translate('@@ActionForEdit');
+    const tLabelForId: string = localizer.translate('@@LabelForId');
+    const tTitle: string = localizer.translate('@@Title');
 
     return useMemo(() => {
         const result: ArticleItemViewResource = {
-          getActionForBackToList: () => valueOfActionForBackToList,
-          getActionForEdit: () => valueOfActionForEdit,
-          getLabelForId: () => valueOfLabelForId,
-          getTitle: () => valueOfTitle
+          getActionForBackToList: () => tActionForBackToList,
+          getActionForEdit: () => tActionForEdit,
+          getLabelForId: () => tLabelForId,
+          getTitle: () => tTitle
         };
 
         return result;
       },
       [
-        valueOfTitle,
-        valueOfActionForBackToList,
-        valueOfActionForEdit,
-        valueOfLabelForId
+        tTitle,
+        tActionForBackToList,
+        tActionForEdit,
+        tLabelForId
       ]
     );
   }

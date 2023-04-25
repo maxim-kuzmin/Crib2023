@@ -2,7 +2,7 @@ import { initReactI18next } from 'react-i18next';
 import Localization from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
-import { LocalizationNamespace } from './LocalizationNamespace';
+import { LocalizationTarget } from './LocalizationTarget';
 
 Localization
   .use(Backend)
@@ -24,16 +24,16 @@ Localization
       loadPath: '/ResourceFiles/{{ns}}.{{lng}}.json',
     },
     ns: [
-      LocalizationNamespace.ApiResponse,
-      LocalizationNamespace.ArticleItemStore,
-      LocalizationNamespace.ArticleItemView,
-      LocalizationNamespace.ArticleItemEditView,
-      LocalizationNamespace.ArticleListStore,
-      LocalizationNamespace.ArticleTableView,
-      LocalizationNamespace.ConfirmControl,
-      LocalizationNamespace.TableControl,
-      LocalizationNamespace.TopicItemStore,
-      LocalizationNamespace.TopicPathView,
-      LocalizationNamespace.TopicTreeStore,
+      LocalizationTarget.ApiResponse,
+      LocalizationTarget.ArticleItemStore,
+      LocalizationTarget.ArticleItemView,
+      LocalizationTarget.ArticleItemEditView,
+      LocalizationTarget.ArticleListStore,
+      LocalizationTarget.ArticleTableView,
+      LocalizationTarget.ConfirmControl,
+      LocalizationTarget.TableControl,
+      LocalizationTarget.TopicItemStore,
+      LocalizationTarget.TopicPathView,
+      LocalizationTarget.TopicTreeStore,
     ],
   });

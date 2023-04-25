@@ -3,7 +3,7 @@ import {
   getModule,
   type TopicTreeStoreHooks,
   type TopicTreeStoreResource,
-  LocalizationNamespace
+  LocalizationTarget
 } from '../../../app';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/TopicTreeStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/TopicTreeStoreClearActionOutputHook';
@@ -20,23 +20,23 @@ export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.TopicTreeStore);
+    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.TopicTreeStore);
 
-    const valueOfOperationNameForGet = localizer.getValue('@@OperationNameForGet');
-    const valueOfOperationNameForGetChildren = localizer.getValue('@@OperationNameForGetChildren');
+    const tOperationNameForGet = localizer.translate('@@OperationNameForGet');
+    const tOperationNameForGetChildren = localizer.translate('@@OperationNameForGetChildren');
 
     return useMemo(
       () => {
         const result: TopicTreeStoreResource = {
-          getOperationNameForGet: () => valueOfOperationNameForGet,
-          getOperationNameForGetChildren: () => valueOfOperationNameForGetChildren
+          getOperationNameForGet: () => tOperationNameForGet,
+          getOperationNameForGetChildren: () => tOperationNameForGetChildren
         };
 
         return result;
       },
       [
-        valueOfOperationNameForGet,
-        valueOfOperationNameForGetChildren
+        tOperationNameForGet,
+        tOperationNameForGetChildren
       ]
     );
   }

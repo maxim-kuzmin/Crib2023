@@ -39,9 +39,13 @@ function AppLayoutHeaderView () {
       i18n.changeLanguage(value).then(() => {
         const { lookupQuerystring } = i18n.options.detection!;
 
-        searchParams.set(lookupQuerystring!, value);
+        const languageKey = lookupQuerystring!;
 
-        setSearchParams(searchParams);
+        if (searchParams.has(languageKey)) {
+          searchParams.delete(languageKey);
+
+          setSearchParams(searchParams);
+        }
       });
     }
   }

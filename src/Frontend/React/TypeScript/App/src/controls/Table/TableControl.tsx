@@ -85,11 +85,11 @@ function TableControl ({
 
   const paginationConfig: TablePaginationConfig = useMemo(
     () => {
-      const valueOfPaginationPartForFrom = resourceOfTableControl.getPaginationPartForFrom();
+      const tPaginationPartForFrom = resourceOfTableControl.getPaginationPartForFrom();
 
       const result: TablePaginationConfig = {
         defaultPageSize,
-        showTotal: (total, range) => `${range[0]}-${range[1]} ${valueOfPaginationPartForFrom} ${total}`,
+        showTotal: (total, range) => `${range[0]}-${range[1]} ${tPaginationPartForFrom} ${total}`,
         pageSizeOptions: [10, 20, 50, 100, 1000000],
         position: ['bottomLeft', 'topLeft'],
         showQuickJumper: true,

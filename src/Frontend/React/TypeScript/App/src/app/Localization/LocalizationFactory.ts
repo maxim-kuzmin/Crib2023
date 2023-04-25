@@ -1,15 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { type LocalizationHooks } from './LocalizationHooks';
-import { type LocalizationNamespace } from './LocalizationNamespace';
-import { type LocalizationService } from './LocalizationService';
-import { LocalizationServiceImpl } from './LocalizationServiceImpl';
+import { type LocalizationTarget } from './LocalizationTarget';
+import { type LocalizationTranslator } from './LocalizationTranslator';
+import { LocalizationTranslatorImpl } from './LocalizationTranslatorImpl';
 
 export function createLocalizationHooks (): LocalizationHooks {
-  function useLocalizer (namespace: LocalizationNamespace): LocalizationService {
-    const { t } = useTranslation(namespace);
+  function useTranslator (target: LocalizationTarget): LocalizationTranslator {
+    const { t } = useTranslation(target);
 
-    return new LocalizationServiceImpl(t);
+    return new LocalizationTranslatorImpl(t);
   }
 
-  return { useLocalizer };
+  return { useTranslator };
 }

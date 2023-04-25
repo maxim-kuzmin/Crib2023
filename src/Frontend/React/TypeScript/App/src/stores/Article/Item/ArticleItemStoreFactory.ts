@@ -3,7 +3,7 @@ import {
   getModule,
   type ArticleItemStoreResource,
   type ArticleItemStoreHooks,
-  LocalizationNamespace
+  LocalizationTarget
 } from '../../../app';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/ArticleItemStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/ArticleItemStoreClearActionOutputHook';
@@ -30,26 +30,26 @@ export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   function useResource (): ArticleItemStoreResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.ArticleItemStore);
+    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemStore);
 
-    const valueOfOperationNameForDelete = localizer.getValue('@@OperationNameForDelete');
-    const valueOfOperationNameForGet = localizer.getValue('@@OperationNameForGet');
-    const valueOfOperationNameForSave = localizer.getValue('@@OperationNameForSave');
+    const tOperationNameForDelete = localizer.translate('@@OperationNameForDelete');
+    const tOperationNameForGet = localizer.translate('@@OperationNameForGet');
+    const tOperationNameForSave = localizer.translate('@@OperationNameForSave');
 
     return useMemo(
       () => {
         const result: ArticleItemStoreResource = {
-          getOperationNameForDelete: () => valueOfOperationNameForDelete,
-          getOperationNameForGet: () => valueOfOperationNameForGet,
-          getOperationNameForSave: () => valueOfOperationNameForSave
+          getOperationNameForDelete: () => tOperationNameForDelete,
+          getOperationNameForGet: () => tOperationNameForGet,
+          getOperationNameForSave: () => tOperationNameForSave
         };
 
         return result;
       },
       [
-        valueOfOperationNameForDelete,
-        valueOfOperationNameForGet,
-        valueOfOperationNameForSave
+        tOperationNameForDelete,
+        tOperationNameForGet,
+        tOperationNameForSave
       ]
     );
   }

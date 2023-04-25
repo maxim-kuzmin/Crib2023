@@ -183,7 +183,7 @@ function ArticleTableView ({
 
             const { id } = viewRow;
 
-            const valueOfActionForDelete: string = resourceOfArticleTableView.getActionForDelete();
+            const tActionForDelete: string = resourceOfArticleTableView.getActionForDelete();
 
             return (
               <div className={styles.actions}>
@@ -218,7 +218,7 @@ function ArticleTableView ({
                         type: ConfirmControlType.Delete
                       });
                   }}
-                  title={`${valueOfActionForDelete} ${id}`}
+                  title={`${tActionForDelete} ${id}`}
                 >
                   {resourceOfArticleTableView.getActionForDelete()}
                 </ButtonControl>

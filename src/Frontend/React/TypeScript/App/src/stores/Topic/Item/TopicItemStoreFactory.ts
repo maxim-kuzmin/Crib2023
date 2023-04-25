@@ -3,7 +3,7 @@ import {
   getModule,
   type TopicItemStoreHooks,
   type TopicItemStoreResource,
-  LocalizationNamespace,
+  LocalizationTarget,
 } from '../../../app';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/TopicItemStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/TopicItemStoreClearActionOutputHook';
@@ -30,26 +30,26 @@ export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
     const hooksOfLocalization = getModule().getLocalizationHooks();
 
-    const localizer = hooksOfLocalization.useLocalizer(LocalizationNamespace.TopicItemStore);
+    const localizer = hooksOfLocalization.useTranslator(LocalizationTarget.TopicItemStore);
 
-    const valueOfOperationNameForDelete = localizer.getValue('@@OperationNameForDelete');
-    const valueOfOperationNameForGet = localizer.getValue('@@OperationNameForGet');
-    const valueOfOperationNameForSave = localizer.getValue('@@OperationNameForSave');
+    const tOperationNameForDelete = localizer.translate('@@OperationNameForDelete');
+    const tOperationNameForGet = localizer.translate('@@OperationNameForGet');
+    const tOperationNameForSave = localizer.translate('@@OperationNameForSave');
 
     return useMemo(
       () => {
         const result: TopicItemStoreResource = {
-          getOperationNameForDelete: () => valueOfOperationNameForDelete,
-          getOperationNameForGet: () => valueOfOperationNameForGet,
-          getOperationNameForSave: () => valueOfOperationNameForSave
+          getOperationNameForDelete: () => tOperationNameForDelete,
+          getOperationNameForGet: () => tOperationNameForGet,
+          getOperationNameForSave: () => tOperationNameForSave
         };
 
         return result;
       },
       [
-        valueOfOperationNameForDelete,
-        valueOfOperationNameForGet,
-        valueOfOperationNameForSave
+        tOperationNameForDelete,
+        tOperationNameForGet,
+        tOperationNameForSave
       ]
     );
   }

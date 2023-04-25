@@ -1,6 +1,6 @@
-import { type LocalizationNamespace } from './LocalizationNamespace';
-import { type LocalizationService } from './LocalizationService';
+import { type LocalizationTarget } from './LocalizationTarget';
+import { type LocalizationTranslator } from './LocalizationTranslator';
 
 export interface LocalizationHooks {
-  readonly useLocalizer: (namespace: LocalizationNamespace) => LocalizationService;
+  readonly useTranslator: (target: LocalizationTarget) => LocalizationTranslator;
 }

@@ -1,3 +1,3 @@
 export { type LocalizationHooks } from './LocalizationHooks';
-export { LocalizationNamespace } from './LocalizationNamespace';
-export { type LocalizationService } from './LocalizationService';
+export { LocalizationTarget } from './LocalizationTarget';
+export { type LocalizationTranslator } from './LocalizationTranslator';
