@@ -66,7 +66,7 @@ function ArticleItemView ({
       }
 
       const actionToEdit: CardControlAction = {
-        href: app.module.getArticlePageService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
+        href: app.modules.Pages.Article.getService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
         key: 'edit',
         title: resourceOfArticleItemView.getActionForEdit()
       };

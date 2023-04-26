@@ -22,7 +22,7 @@ const topicInput: TopicDomainTreeGetOperationInput = {
 };
 
 function convertToControlNodes (topicId: number, entities?: TopicDomainEntityForTree[]): TreeControlNode[] {
-  const topicPageService = app.module.getTopicPageService();
+  const topicPageService = app.modules.Pages.Topic.getService();
 
   return entities
     ? entities.map((entity) => {

@@ -49,7 +49,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.getTestService().getDataAsync(() => result);
+    return await app.modules.Test.getService().getDataAsync(() => result);
   }
 
   async getItem (
@@ -66,7 +66,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.module.createApiResponseError({ responseStatus: status, resourceOfApiResponse });
+      error = app.factories.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
@@ -76,7 +76,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.getTestService().getDataAsync(() => result);
+    return await app.modules.Test.getService().getDataAsync(() => result);
   }
 
   async getList (
@@ -95,7 +95,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.getTestService().getDataAsync(() => result);
+    return await app.modules.Test.getService().getDataAsync(() => result);
   }
 
   async saveItem (
@@ -127,7 +127,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.module.createApiResponseError({ responseStatus: status, resourceOfApiResponse });
+      error = app.factories.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
@@ -137,6 +137,6 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.getTestService().getDataAsync(() => result);
+    return await app.modules.Test.getService().getDataAsync(() => result);
   }
 }

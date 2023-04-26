@@ -1,4 +1,4 @@
-import { type ApiRequestHooks } from '../../data/Api/ApiRequestHooks';
+import { type ApiRequestHooks } from '../../data';
 import { type TopicDomainHooks } from './TopicDomainHooks';
 import { type TopicDomainRepository } from './TopicDomainRepository';
 import {

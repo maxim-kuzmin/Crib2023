@@ -79,7 +79,7 @@ function TableControl ({
     [controlColumns]
   );
 
-  const { defaultPageSize } = app.module.getTableControlService();
+  const { defaultPageSize } = app.modules.Controls.Table.getService();
 
   const tPaginationPartForFrom = resourceOfTableControl.getPaginationPartForFrom();
   const tPaginationPartForPerPage = resourceOfTableControl.getPaginationPartForPerPage();

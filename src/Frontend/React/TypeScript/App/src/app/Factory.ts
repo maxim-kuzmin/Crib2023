@@ -1,4 +1,3 @@
-import { type StoreService, type TableControlService } from '../common';
 import {
   BreadcrumbControl,
   ButtonControl,
@@ -12,12 +11,7 @@ import {
   TextInputControl,
   TreeControl,
 } from '../controls';
-import { type ApiSetupOptions } from '../data';
-import { type ArticleDomainRepository, type TopicDomainRepository } from '../domains';
-import { type ArticlePageService, type TopicPageService } from '../pages';
-import { type ArticleItemEditViewService } from '../views';
-import { type TestService } from './Test';
-import { type App, type Controls, type Components, type Hooks, type Module } from '.';
+import { type App, type Controls, type Components, type Hooks } from '.';
 
 import { createOperationHooks } from '../common/Operation/OperationFactory';
 
@@ -26,7 +20,7 @@ import { createNotificationControlHooks } from '../controls/Notification/Notific
 import { createTableControlHooks } from '../controls/Table/TableControlFactory';
 
 import { createApiRequestHooks } from '../data/Api/Request/ApiRequestFactory';
-import { createApiResponseError, createApiResponseHooks } from '../data/Api/Response/ApiResponseFactory';
+import { createApiResponseFactory } from '../data/Api/Response/ApiResponseFactory';
 
 import { createArticleDomainHooks } from '../domains/Article/ArticleDomainFactory';
 import { createTopicDomainHooks } from '../domains/Topic/TopicDomainFactory';
@@ -47,27 +41,20 @@ import { createTopicTreeViewHooks } from '../views/Topic/Tree/TopicTreeViewFacto
 
 import { createLocalizationHooks } from './Localization/LocalizationFactory';
 
-import { TableControlServiceImpl } from '../common/Controls/Table/TableControlServiceImpl';
-import { HttpClientImpl } from '../common/Http/HttpClientImpl';
-import { SetupOptionsImpl } from '../common/Setup/SetupOptionsImpl';
-import { StoreServiceImpl } from '../common/Store/StoreServiceImpl';
-
-import { ApiSetupOptionsImpl } from '../data/Api/Setup/ApiSetupOptionsImpl';
-import { ApiClientImpl } from '../data/Api/ApiClientImpl';
-
-import { ArticleDomainRepositoryImpl } from '../domains/Article/ArticleDomainRepositoryImpl';
-import { TopicDomainRepositoryImpl } from '../domains/Topic/TopicDomainRepositoryImpl';
-
-import { ArticlePageServiceImpl } from '../pages/Article/ArticlePageServiceImpl';
-import { TopicPageServiceImpl } from '../pages/Topic/TopicPageServiceImpl';
-
-import { ArticleItemEditViewServiceImpl } from '../views/Article/Item/Edit/ArticleItemEditViewServiceImpl';
-
-import { TestArticleDomainRepositoryImpl } from './Test/Domains/Article/TestArticleDomainRepositoryImpl';
-import { TestTopicDomainRepositoryImpl } from './Test/Domains/Topic/TestTopicDomainRepositoryImpl';
-import { TestServiceImpl } from './Test/TestServiceImpl';
-
 import { useLeaveFormBlocker as useLeaveFormBlockerInner } from './Hooks/LeaveFormBlockerHook';
+import { type Factories } from './Factories';
+import { type Modules } from './Modules';
+import { createArticleDomainModule } from '../domains/Article/ArticleDomainModule';
+import { createApiModule } from '../data/Api/ApiModule';
+import { createSetupModule } from '../common/Setup/SetupModule';
+import { createHttpModule } from '../common/Http/HttpModule';
+import { createTopicDomainModule } from '../domains/Topic/TopicDomainModule';
+import { createArticlePageModule } from '../pages/Article/ArticlePageModule';
+import { createTableControlModule } from '../common/Controls/Table/TableControlModule';
+import { createTopicPageModule } from '../pages/Topic/TopicPageModule';
+import { createArticleItemEditViewModule } from '../views/Article/Item/Edit/ArticleItemEditViewModule';
+import { createTestModule } from './Test/TestModule';
+import { createStoreModule } from '../common/Store/StoreModule';
 
 export function createControls (): Controls {
   return {
@@ -82,7 +69,7 @@ export function createControls (): Controls {
     TextArea: TextAreaControl,
     TextInput: TextInputControl,
     Tree: TreeControl,
-  }
+  };
 }
 
 function createComponents (): Components {
@@ -95,19 +82,28 @@ function createComponents (): Components {
   };
 }
 
-interface HooksOptions {
-  readonly components: Components;
-  readonly module: Module;
+function createFactories (): Factories {
+  const factoryOfApiResponse = createApiResponseFactory();
+
+  return {
+    Api: {
+      Response: factoryOfApiResponse
+    }
+  };
 }
 
-export function createHooks ({
+interface HooksOptions {
+  readonly components: Components;
+  readonly factories: Factories;
+  readonly modules: Modules;
+}
+
+function createHooks ({
   components,
-  module: {
-    getArticleDomainRepository,
-    getTopicDomainRepository,
-  }
+  factories,
+  modules
 }: HooksOptions): Hooks {
-  const hooksOfApiResponse = createApiResponseHooks();
+  const hooksOfApiResponse = factories.Api.Response.createHooks();
   const hooksOfConfirmControl = createConfirmControlHooks();
   const hooksOfNotificationControl = createNotificationControlHooks();
   const hooksOfTableControl = createTableControlHooks();
@@ -128,20 +124,18 @@ export function createHooks ({
   const hooksOfApiRequest = createApiRequestHooks({ hooksOfOperation });
 
   const hooksOfArticleDomain = createArticleDomainHooks({
-    getArticleDomainRepository,
-    hooksOfApiRequest,
+    getArticleDomainRepository: modules.Domains.Article.getRepository,
+    hooksOfApiRequest
   });
 
   const hooksOfTopicDomain = createTopicDomainHooks({
-    getTopicDomainRepository,
-    hooksOfApiRequest,
+    getTopicDomainRepository: modules.Domains.Topic.getRepository,
+    hooksOfApiRequest
   });
-
-  const componentOfConfirmControl = components.Controls.Confirm;
 
   function useLeaveFormBlocker (shouldBlock: boolean) {
     useLeaveFormBlockerInner({
-      componentOfConfirmControl,
+      componentOfConfirmControl: components.Controls.Confirm,
       hooksOfConfirmControl,
       shouldBlock
     });
@@ -193,93 +187,64 @@ export function createHooks ({
   };
 }
 
-function createModule (): Module {
-  const apiSetupOptions: ApiSetupOptions = new ApiSetupOptionsImpl({
-    queryStringKeyForCulture: process.env.REACT_APP_API_QUERY_STRING_KEY_FOR_CULTURE ?? 'lng',
-    queryStringKeyForUICulture: process.env.REACT_APP_API_QUERY_STRING_KEY_FOR_UI_CULTURE ?? 'ui-lng',
-    url: process.env.REACT_APP_API_URL ?? ''
+function createModules (): Modules {
+  const moduleOfSetup = createSetupModule();
+  const moduleOfHttp = createHttpModule();
+  const moduleOfArticlePage = createArticlePageModule();
+  const moduleOfTableControl = createTableControlModule();
+  const moduleOfArticleItemEditView = createArticleItemEditViewModule();
+  const moduleOfTest = createTestModule();
+  const moduleOfStore = createStoreModule();
+
+  const moduleOfApi = createApiModule({
+    httpClient: moduleOfHttp.getClient()
   });
 
-  const implOfSetupOptions = new SetupOptionsImpl({
-    isTestModeEnabled: process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true'
+  const moduleOfArticleDomain = createArticleDomainModule({
+    apiClient: moduleOfApi.getClient(),
+    setupOptions: moduleOfSetup.getOptions()
   });
 
-  const implOfHttpClient = new HttpClientImpl();
-
-  const implOfApiClient = new ApiClientImpl({ apiSetupOptions, httpClient: implOfHttpClient });
-
-  const implOfTestService = new TestServiceImpl();
-
-  function getTestService (): TestService {
-    return implOfTestService;
-  }
-
-  const implOfStoreService = new StoreServiceImpl();
-
-  function getStoreService (): StoreService {
-    return implOfStoreService;
-  }
-
-  const implOfTableControlService = new TableControlServiceImpl({ defaultPageSize: 10 });
-
-  function getTableControlService (): TableControlService {
-    return implOfTableControlService;
-  }
-
-  const implOfArticleDomainRepository = implOfSetupOptions.isTestModeEnabled
-    ? new TestArticleDomainRepositoryImpl()
-    : new ArticleDomainRepositoryImpl({ apiClient: implOfApiClient });
-
-  function getArticleDomainRepository (): ArticleDomainRepository {
-    return implOfArticleDomainRepository;
-  }
-
-  const implOfTopicDomainRepository = implOfSetupOptions.isTestModeEnabled
-    ? new TestTopicDomainRepositoryImpl()
-    : new TopicDomainRepositoryImpl({ apiClient: implOfApiClient });
-
-  function getTopicDomainRepository (): TopicDomainRepository {
-    return implOfTopicDomainRepository;
-  }
-
-  const implOfArticlePageService = new ArticlePageServiceImpl();
-
-  function getArticlePageService (): ArticlePageService {
-    return implOfArticlePageService;
-  }
-
-  const implOfTopicPageService = new TopicPageServiceImpl({
-    tableControlService: getTableControlService()
+  const moduleOfTopicDomain = createTopicDomainModule({
+    apiClient: moduleOfApi.getClient(),
+    setupOptions: moduleOfSetup.getOptions()
   });
 
-  function getTopicPageService (): TopicPageService {
-    return implOfTopicPageService;
-  }
-
-  const implOfArticleItemEditViewService = new ArticleItemEditViewServiceImpl();
-
-  function getArticleItemEditViewService (): ArticleItemEditViewService {
-    return implOfArticleItemEditViewService;
-  }
+  const moduleOfTopicPage = createTopicPageModule({
+    tableControlService: moduleOfTableControl.getService()
+  });
 
   return {
-    createApiResponseError,
-    getArticleDomainRepository,
-    getArticlePageService,
-    getArticleItemEditViewService,
-    getTableControlService,
-    getTestService,
-    getTopicDomainRepository,
-    getTopicPageService,
-    getStoreService,
+    Api: moduleOfApi,
+    Controls: {
+      Table: moduleOfTableControl,
+    },
+    Domains: {
+      Article: moduleOfArticleDomain,
+      Topic: moduleOfTopicDomain,
+    },
+    Http: moduleOfHttp,
+    Pages: {
+      Article: moduleOfArticlePage,
+      Topic: moduleOfTopicPage,
+    },
+    Setup: moduleOfSetup,
+    Store: moduleOfStore,
+    Test: moduleOfTest,
+    Views: {
+      Article: {
+        ItemEdit: moduleOfArticleItemEditView,
+      }
+    }
   };
 }
 
 export function createApp (): App {
-  const module = createModule();
+  const factories = createFactories();
+  const modules = createModules();
   const components = createComponents();
   const controls = createControls();
-  const hooks = createHooks({ components, module });
+  const hooks = createHooks({ components, factories, modules });
 
-  return { components, controls, hooks, module };
+  return { components, controls, factories, hooks, modules };
 };

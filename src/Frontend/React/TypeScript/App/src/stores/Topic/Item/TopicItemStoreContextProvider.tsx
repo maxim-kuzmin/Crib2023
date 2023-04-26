@@ -15,7 +15,7 @@ import {
   TopicItemStoreStateContext
 } from './TopicItemStoreContext';
 
-const initialState = app.module.getStoreService().createInitialState<TopicItemStoreState>(
+const initialState = app.modules.Store.getService().createInitialState<TopicItemStoreState>(
   [TopicItemStoreSliceName.TopicItemView],
   () => {
     const result: TopicItemStoreState = {

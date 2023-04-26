@@ -105,7 +105,7 @@ function ArticleTableView ({
 
   const controlColumns: TableControlColumn[] = useMemo(
     () => {
-      const atriclePageService = app.module.getArticlePageService();
+      const atriclePageService = app.modules.Pages.Article.getService();
 
       return [
         {
@@ -133,7 +133,7 @@ function ArticleTableView ({
 
             const { path } = viewRow;
 
-            const topicPageService = app.module.getTopicPageService();
+            const topicPageService = app.modules.Pages.Topic.getService();
 
             const controlItems: BreadcrumbControlItem[] = path.map((item) => {
               const { id, name } = item;

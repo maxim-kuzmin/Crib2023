@@ -16,7 +16,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 
   const result: BreadcrumbControlItem[] = [root];
 
-  const topicPageService = app.module.getTopicPageService();
+  const topicPageService = app.modules.Pages.Topic.getService();
 
   if (entity) {
     root.href = '/';

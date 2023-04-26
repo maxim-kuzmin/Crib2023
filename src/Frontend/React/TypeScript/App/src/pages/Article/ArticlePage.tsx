@@ -19,7 +19,7 @@ function ArticlePage ({
 
   const articleItemIsLoaded = useRef(false);
 
-  const [topicId, setTopicId] = useState(app.module.getArticlePageService().getUrlSearch(searchParams).topicId);
+  const [topicId, setTopicId] = useState(app.modules.Pages.Article.getService().getUrlSearch(searchParams).topicId);
 
   const handleArticleItemLoadActionCompleted = useCallback((payload: ArticleItemStoreSetActionPayload) => {
       if (mode !== ArticlePageMode.New) {
@@ -54,7 +54,7 @@ function ArticlePage ({
     isCanceled: !articleItemIsLoaded.current
   });
 
-  const topicPageLastUrl = app.module.getTopicPageService().lastUrl;
+  const topicPageLastUrl = app.modules.Pages.Topic.getService().lastUrl;
 
   return (
     mode === ArticlePageMode.Display

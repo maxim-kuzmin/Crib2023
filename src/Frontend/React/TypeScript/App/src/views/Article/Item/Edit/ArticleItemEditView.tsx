@@ -62,7 +62,7 @@ function ArticleItemEditView ({
   );
 
   const formValues = useMemo(
-    () => app.module.getArticleItemEditViewService().convertToFormValues(entity),
+    () => app.modules.Views.Article.ItemEdit.getService().convertToFormValues(entity),
     [entity]
   );
 
@@ -71,13 +71,13 @@ function ArticleItemEditView ({
     fieldNameForId,
     fieldNameForTitle,
     fieldNameForTopicId
-  } = app.module.getArticleItemEditViewService();
+  } = app.modules.Views.Article.ItemEdit.getService();
 
   const controlActions = useMemo(
     () => {
       const result: FormControlAction[] = [];
 
-      const articlePageService = app.module.getArticlePageService();
+      const articlePageService = app.modules.Pages.Article.getService();
 
       const actionToSave: FormControlAction = {
         key: 'save',
@@ -211,7 +211,7 @@ function ArticleItemEditView ({
 
   const handleSubmitSuccess = useCallback(
     (values: any) => {
-      const entity = app.module.getArticleItemEditViewService().convertToEntity(values);
+      const entity = app.modules.Views.Article.ItemEdit.getService().convertToEntity(values);
 
       dispatchOfSaveAction.run(entity).then(() => {
           if (form.current.reset) {
