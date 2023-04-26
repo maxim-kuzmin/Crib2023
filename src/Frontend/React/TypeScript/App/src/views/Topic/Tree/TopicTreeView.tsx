@@ -83,7 +83,7 @@ function TopicTreeView () {
     [topicId, entities]
   );
 
-  const requestHandler = useRef(app.module.useTopicDomainTreeGetOperationRequestHandler()).current;
+  const requestHandler = useRef(app.hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
 
   const getChildren = useCallback(
     async (key: string) => {

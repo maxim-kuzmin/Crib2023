@@ -1,7 +1,6 @@
 import { type NotificationControlProps } from '../Controls';
+import { type OperationHandlerConfig } from './OperationHandlerConfig';
 
-export interface OperationHandlerOptions {
+export interface OperationHandlerOptions extends OperationHandlerConfig {
   functionToSetNotification: (data: NotificationControlProps) => void;
-  shouldBeLogged: boolean;
-  shouldBeNotified: boolean;
 }

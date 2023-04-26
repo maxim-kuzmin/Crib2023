@@ -88,9 +88,7 @@ export function useStoreLoadActionDispatch (
 
   const dispatch = useArticleItemStoreDispatchContext();
 
-  const requestHandler = useRef(
-    app.module.useArticleDomainItemGetOperationRequestHandler()
-  ).current;
+  const requestHandler = useRef(app.hooks.Domains.Article.useItemGetOperationRequestHandler()).current;
 
   useEffect(
     () => {

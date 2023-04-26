@@ -87,9 +87,7 @@ export function useStoreLoadActionDispatch (
 
   const dispatch = useTopicTreeStoreDispatchContext();
 
-  const requestHandler = useRef(
-    app.module.useTopicDomainTreeGetOperationRequestHandler()
-  ).current;
+  const requestHandler = useRef(app.hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
 
   useEffect(
     () => {

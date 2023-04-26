@@ -88,9 +88,7 @@ export function useStoreSaveActionDispatch (
 
   const dispatch = useArticleItemStoreDispatchContext();
 
-  const requestHandler = useRef(
-    app.module.useArticleDomainItemSaveOperationRequestHandler()
-  ).current;
+  const requestHandler = useRef(app.hooks.Domains.Article.useItemSaveOperationRequestHandler()).current;
 
   useEffect(
     () => {

@@ -88,9 +88,7 @@ export function useStoreDeleteActionDispatch (
 
   const dispatch = useTopicItemStoreDispatchContext();
 
-  const requestHandler = useRef(
-    app.module.useTopicDomainItemDeleteOperationRequestHandler()
-  ).current;
+  const requestHandler = useRef(app.hooks.Domains.Topic.useItemDeleteOperationRequestHandler()).current;
 
   useEffect(
     () => {

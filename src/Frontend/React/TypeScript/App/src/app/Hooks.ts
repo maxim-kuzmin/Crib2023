@@ -4,6 +4,7 @@ import {
   type TableControlHooks,
 } from '../common';
 import { type ApiResponseHooks } from '../data';
+import { type TopicDomainHooks, type ArticleDomainHooks } from '../domains';
 import {
   type AppNotificationViewHooks,
   type ArticleItemViewHooks,
@@ -27,9 +28,13 @@ export interface Hooks {
     readonly Response: ApiResponseHooks;
   };
   readonly Controls: {
-      readonly Confirm: ConfirmControlHooks;
-      readonly Notification: NotificationControlHooks;
-      readonly Table: TableControlHooks;
+    readonly Confirm: ConfirmControlHooks;
+    readonly Notification: NotificationControlHooks;
+    readonly Table: TableControlHooks;
+  };
+  readonly Domains: {
+    Article: ArticleDomainHooks;
+    Topic: TopicDomainHooks;
   };
   readonly Localization: LocalizationHooks;
   readonly Stores: {

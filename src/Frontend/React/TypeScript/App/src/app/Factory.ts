@@ -1,5 +1,8 @@
-import { type ConfirmControlComponent } from '../common';
 import { useLeaveFormBlocker as useLeaveFormBlockerInner } from './Hooks/LeaveFormBlockerHook';
+import {
+  type StoreService,
+  type TableControlService
+} from '../common';
 import {
   BreadcrumbControl,
   ButtonControl,
@@ -13,13 +16,22 @@ import {
   TextInputControl,
   TreeControl,
 } from '../controls';
-import { ModuleImpl } from './ModuleImpl';
 import {
-  type App,
-  type Controls,
-  type Components,
-  type Hooks,
-} from '.';
+  type ApiResponseError,
+  type ApiResponseErrorOptions,
+  type ApiSetupOptions
+} from '../data';
+import {
+  type ArticleDomainRepository,
+  type TopicDomainRepository
+} from '../domains';
+import {
+  type ArticlePageService,
+  type TopicPageService
+} from '../pages';
+import {
+  type ArticleItemEditViewService
+} from '../views';
 
 import { createConfirmControlComponent, createConfirmControlHooks } from '../controls/Confirm/ConfirmControlFactory';
 import { createNotificationControlHooks } from '../controls/Notification/NotificationControlFactory';
@@ -42,6 +54,36 @@ import { createTopicPathViewHooks } from '../views/Topic/Path/TopicPathViewFacto
 import { createTopicTreeViewHooks } from '../views/Topic/Tree/TopicTreeViewFactory';
 
 import { createLocalizationHooks } from './Localization/LocalizationFactory';
+import { createArticleDomainHooks } from '../domains/Article/ArticleDomainFactory';
+import { createApiRequestHooks } from '../data/Api/Request/ApiRequestFactory';
+import { createOperationHooks } from '../common/Operation/OperationFactory';
+import { createTopicDomainHooks } from '../domains/Topic/TopicDomainFactory';
+
+import { ApiSetupOptionsImpl } from '../data/Api/Setup/ApiSetupOptionsImpl';
+import { SetupOptionsImpl } from '../common/Setup/SetupOptionsImpl';
+import { HttpClientImpl } from '../common/Http/HttpClientImpl';
+import { ApiClientImpl } from '../data/Api/ApiClientImpl';
+import { TestServiceImpl } from './Test/TestServiceImpl';
+import { StoreServiceImpl } from '../common/Store/StoreServiceImpl';
+import { TableControlServiceImpl } from '../common/Controls/Table/TableControlServiceImpl';
+import { ArticleDomainRepositoryImpl } from '../domains/Article/ArticleDomainRepositoryImpl';
+import { TopicDomainRepositoryImpl } from '../domains/Topic/TopicDomainRepositoryImpl';
+import { ArticlePageServiceImpl } from '../pages/Article/ArticlePageServiceImpl';
+import { TopicPageServiceImpl } from '../pages/Topic/TopicPageServiceImpl';
+import { ArticleItemEditViewServiceImpl } from '../views/Article/Item/Edit/ArticleItemEditViewServiceImpl';
+import { TestArticleDomainRepositoryImpl } from './Test/Domains/Article/TestArticleDomainRepositoryImpl';
+import { TestTopicDomainRepositoryImpl } from './Test/Domains/Topic/TestTopicDomainRepositoryImpl';
+import { ApiResponseErrorImpl } from '../data/Api/Response/ApiResponseErrorImpl';
+
+import { type TestService } from './Test';
+
+import {
+  type App,
+  type Controls,
+  type Components,
+  type Hooks,
+  type Module,
+} from '.';
 
 export function createControls (): Controls {
   return {
@@ -70,11 +112,16 @@ function createComponents (): Components {
 }
 
 interface HooksOptions {
-  readonly componentOfConfirmControl: ConfirmControlComponent;
+  readonly components: Components;
+  readonly module: Module;
 }
 
 export function createHooks ({
-  componentOfConfirmControl
+  components,
+  module: {
+    getArticleDomainRepository,
+    getTopicDomainRepository,
+  }
 }: HooksOptions): Hooks {
   const hooksOfApiResponse = createApiResponseHooks();
   const hooksOfConfirmControl = createConfirmControlHooks();
@@ -93,6 +140,20 @@ export function createHooks ({
   const hooksOfTopicPathView = createTopicPathViewHooks();
   const hooksOfTopicTreeStore = createTopicTreeStoreHooks();
   const hooksOfTopicTreeView = createTopicTreeViewHooks(hooksOfTopicTreeStore);
+  const hooksOfOperation = createOperationHooks({ hooksOfAppNotificationStore });
+  const hooksOfApiRequest = createApiRequestHooks({ hooksOfOperation });
+
+  const hooksOfArticleDomain = createArticleDomainHooks({
+    getArticleDomainRepository,
+    hooksOfApiRequest,
+  });
+
+  const hooksOfTopicDomain = createTopicDomainHooks({
+    getTopicDomainRepository,
+    hooksOfApiRequest,
+  });
+
+  const componentOfConfirmControl = components.Controls.Confirm;
 
   function useLeaveFormBlocker (shouldBlock: boolean) {
     useLeaveFormBlockerInner({
@@ -110,6 +171,10 @@ export function createHooks ({
       Confirm: hooksOfConfirmControl,
       Notification: hooksOfNotificationControl,
       Table: hooksOfTableControl
+    },
+    Domains: {
+      Article: hooksOfArticleDomain,
+      Topic: hooksOfTopicDomain,
     },
     Localization: hooksOfLocalization,
     Stores: {
@@ -144,21 +209,97 @@ export function createHooks ({
   };
 }
 
-export function createApp (): App {
-  const components = createComponents();
-
-  const controls = createControls();
-
-  const hooks = createHooks({
-    componentOfConfirmControl: components.Controls.Confirm
+function createModule (): Module {
+  const apiSetupOptions: ApiSetupOptions = new ApiSetupOptionsImpl({
+    queryStringKeyForCulture: process.env.REACT_APP_API_QUERY_STRING_KEY_FOR_CULTURE ?? 'lng',
+    queryStringKeyForUICulture: process.env.REACT_APP_API_QUERY_STRING_KEY_FOR_UI_CULTURE ?? 'ui-lng',
+    url: process.env.REACT_APP_API_URL ?? ''
   });
 
-  const module = new ModuleImpl(hooks);
+  const implOfSetupOptions = new SetupOptionsImpl({
+    isTestModeEnabled: process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true'
+  });
+
+  const implOfHttpClient = new HttpClientImpl();
+
+  const implOfApiClient = new ApiClientImpl({ apiSetupOptions, httpClient: implOfHttpClient });
+
+  const implOfTestService = new TestServiceImpl();
+
+  function getTestService (): TestService {
+    return implOfTestService;
+  }
+
+  const implOfStoreService = new StoreServiceImpl();
+
+  function getStoreService (): StoreService {
+    return implOfStoreService;
+  }
+
+  const implOfTableControlService = new TableControlServiceImpl({ defaultPageSize: 10 });
+
+  function getTableControlService (): TableControlService {
+    return implOfTableControlService;
+  }
+
+  function createApiResponseError (options: ApiResponseErrorOptions): ApiResponseError {
+    return new ApiResponseErrorImpl(options);
+  }
+
+  const implOfArticleDomainRepository = implOfSetupOptions.isTestModeEnabled
+    ? new TestArticleDomainRepositoryImpl()
+    : new ArticleDomainRepositoryImpl({ apiClient: implOfApiClient });
+
+  function getArticleDomainRepository (): ArticleDomainRepository {
+    return implOfArticleDomainRepository;
+  }
+
+  const implOfTopicDomainRepository = implOfSetupOptions.isTestModeEnabled
+    ? new TestTopicDomainRepositoryImpl()
+    : new TopicDomainRepositoryImpl({ apiClient: implOfApiClient });
+
+  function getTopicDomainRepository (): TopicDomainRepository {
+    return implOfTopicDomainRepository;
+  }
+
+  const implOfArticlePageService = new ArticlePageServiceImpl();
+
+  function getArticlePageService (): ArticlePageService {
+    return implOfArticlePageService;
+  }
+
+  const implOfTopicPageService = new TopicPageServiceImpl({
+    tableControlService: getTableControlService()
+  });
+
+  function getTopicPageService (): TopicPageService {
+    return implOfTopicPageService;
+  }
+
+  const implOfArticleItemEditViewService = new ArticleItemEditViewServiceImpl();
+
+  function getArticleItemEditViewService (): ArticleItemEditViewService {
+    return implOfArticleItemEditViewService;
+  }
 
   return {
-    components,
-    controls,
-    hooks,
-    module,
+    createApiResponseError,
+    getArticleDomainRepository,
+    getArticlePageService,
+    getArticleItemEditViewService,
+    getTableControlService,
+    getTestService,
+    getTopicDomainRepository,
+    getTopicPageService,
+    getStoreService,
   };
+}
+
+export function createApp (): App {
+  const module = createModule();
+  const components = createComponents();
+  const controls = createControls();
+  const hooks = createHooks({ components, module });
+
+  return { components, controls, hooks, module };
 };
