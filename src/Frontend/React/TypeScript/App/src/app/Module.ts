@@ -1,13 +1,8 @@
 import {
-  type ConfirmControlComponent,
-  type ConfirmControlHooks,
-  type NotificationControlHooks,
   type StoreService,
-  type TableControlHooks,
   type TableControlService
 } from '../common';
 import {
-  type ApiResponseHooks,
   type ApiResponseError,
   type ApiResponseErrorOptions
 } from '../data';
@@ -30,53 +25,20 @@ import {
   type TopicPageService
 } from '../pages';
 import {
-  type TopicPathViewHooks,
-  type AppNotificationViewHooks,
-  type ArticleItemEditViewHooks,
   type ArticleItemEditViewService,
-  type ArticleItemViewHooks,
-  type ArticleTableViewHooks,
-  type TopicItemViewHooks,
-  type TopicTreeViewHooks
 } from '../views';
 import { type Hooks } from './Hooks';
-import { type LocalizationHooks } from './Localization';
-import {
-  type AppNotificationStoreHooks,
-  type ArticleItemStoreHooks,
-  type ArticleListStoreHooks,
-  type TopicItemStoreHooks,
-  type TopicTreeStoreHooks
-} from './Stores';
 import { type TestService } from './Test';
 
 export interface Module {
   readonly createApiResponseError: (options: ApiResponseErrorOptions) => ApiResponseError;
-  readonly getApiResponseHooks: () => ApiResponseHooks;
-  readonly getAppNotificationStoreHooks: () => AppNotificationStoreHooks;
-  readonly getAppNotificationViewHooks: () => AppNotificationViewHooks;
   readonly getArticleDomainRepository: () => ArticleDomainRepository;
-  readonly getArticleItemStoreHooks: () => ArticleItemStoreHooks;
-  readonly getArticleListStoreHooks: () => ArticleListStoreHooks;
   readonly getArticlePageService: () => ArticlePageService;
-  readonly getArticleItemViewHooks: () => ArticleItemViewHooks;
-  readonly getArticleItemEditViewHooks: () => ArticleItemEditViewHooks;
   readonly getArticleItemEditViewService: () => ArticleItemEditViewService;
-  readonly getArticleTableViewHooks: () => ArticleTableViewHooks;
-  readonly getConfirmControlComponent: () => ConfirmControlComponent;
-  readonly getConfirmControlHooks: () => ConfirmControlHooks;
   readonly getHooks: () => Hooks;
-  readonly getNotificationControlHooks: () => NotificationControlHooks;
-  readonly getLocalizationHooks: () => LocalizationHooks;
-  readonly getTableControlHooks: () => TableControlHooks;
   readonly getTableControlService: () => TableControlService;
   readonly getTestService: () => TestService;
   readonly getTopicDomainRepository: () => TopicDomainRepository;
-  readonly getTopicItemStoreHooks: () => TopicItemStoreHooks;
-  readonly getTopicItemViewHooks: () => TopicItemViewHooks;
-  readonly getTopicPathViewHooks: () => TopicPathViewHooks;
-  readonly getTopicTreeStoreHooks: () => TopicTreeStoreHooks;
-  readonly getTopicTreeViewHooks: () => TopicTreeViewHooks;
   readonly getTopicPageService: () => TopicPageService;
   readonly getStoreService: () => StoreService;
   readonly useArticleDomainItemDeleteOperationRequestHandler: () => ArticleDomainItemDeleteOperationRequestHandler;

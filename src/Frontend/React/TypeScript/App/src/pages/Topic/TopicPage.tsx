@@ -44,7 +44,7 @@ function TopicPage () {
     [topicId]
   );
 
-  app.module.getTopicItemViewHooks().useStoreLoadActionOutput({
+  app.hooks.Views.Topic.Item.useStoreLoadActionOutput({
     payloadOfLoadAction: payloadOfLoadActionForTreeItem
   });
 

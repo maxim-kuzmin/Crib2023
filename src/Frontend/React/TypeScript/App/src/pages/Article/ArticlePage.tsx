@@ -49,7 +49,7 @@ function ArticlePage ({
     [topicId]
   );
 
-  app.module.getTopicItemViewHooks().useStoreLoadActionOutput({
+  app.hooks.Views.Topic.Item.useStoreLoadActionOutput({
     payloadOfLoadAction: payloadOfLoadActionForTreeItem,
     isCanceled: !articleItemIsLoaded.current
   });

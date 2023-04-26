@@ -27,9 +27,7 @@ import { useStoreState } from './Hooks/ArticleItemStoreStateHook';
 
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   function useResource (): ArticleItemStoreResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemStore);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemStore);
 
     const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');

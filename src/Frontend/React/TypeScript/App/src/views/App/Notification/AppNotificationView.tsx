@@ -3,13 +3,9 @@ import app from '../../../app';
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView () {
-  const notificationControlHooks = app.module.getNotificationControlHooks();
+  const component = app.hooks.Controls.Notification.useComponent();
 
-  const component = notificationControlHooks.useComponent();
-
-  const appNotificationViewHooks = app.module.getAppNotificationViewHooks();
-
-  const { payloadOfSetAction: data } = appNotificationViewHooks.useStoreState();
+  const { payloadOfSetAction: data } = app.hooks.Views.App.Notification.useStoreState();
 
   const onActionCompleted = useCallback(() => {
       if (data) {
@@ -19,7 +15,7 @@ function AppNotificationView () {
     [component, data]
   );
 
-  appNotificationViewHooks.useStoreClearActionOutput({
+  app.hooks.Views.App.Notification.useStoreClearActionOutput({
     onActionCompleted
   });
 

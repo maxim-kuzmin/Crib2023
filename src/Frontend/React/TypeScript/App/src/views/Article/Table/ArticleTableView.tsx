@@ -32,20 +32,14 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
-  const hooksOfConfirmControl = app.module.getConfirmControlHooks();
-
-  const resourceOfConfirmControl = hooksOfConfirmControl.useResource();
-
-  const hooksOfArticleItemView = app.module.getArticleItemViewHooks();
+  const resourceOfConfirmControl = app.hooks.Controls.Confirm.useResource();
 
   const {
     dispatchOfDeleteAction,
     pendingOfDeleteAction
-  } = hooksOfArticleItemView.useStoreDeleteActionOutput();
+  } = app.hooks.Views.Article.Item.useStoreDeleteActionOutput();
 
-  const hooksOfArticleTableView = app.module.getArticleTableViewHooks();
-
-  const resourceOfArticleTableView = hooksOfArticleTableView.useResource();
+  const resourceOfArticleTableView = app.hooks.Views.Article.Table.useResource();
 
   const payloadOfLoadAction: ArticleListStoreLoadActionPayload = useMemo(
     () => {
@@ -68,7 +62,7 @@ function ArticleTableView ({
     dispatchOfLoadAction,
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooksOfArticleTableView.useStoreLoadActionOutput({
+  } = app.hooks.Views.Article.Table.useStoreLoadActionOutput({
     payloadOfLoadAction
   });
 
@@ -204,7 +198,7 @@ function ArticleTableView ({
                     () => {
                       deletingId.current = id;
 
-                      app.module.getConfirmControlComponent().show({
+                      app.components.Controls.Confirm.show({
                         resourceOfConfirmControl,
                         onOk: () => {
                           dispatchOfDeleteAction.run({ id })

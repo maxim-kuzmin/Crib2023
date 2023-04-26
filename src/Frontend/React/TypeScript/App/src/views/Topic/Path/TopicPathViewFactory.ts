@@ -5,9 +5,7 @@ import { type TopicPathViewResource } from './TopicPathViewResource';
 
 export function createTopicPathViewHooks (): TopicPathViewHooks {
   function useResource (): TopicPathViewResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TopicPathView);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.TopicPathView);
 
     const tTitleForRoot: string = translator.translate('@@TitleForRoot');
 

@@ -81,13 +81,9 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicTreeStoreLoadActionOptions = {}
 ): TopicTreeStoreLoadActionDispatch {
-  const hooksOfApiResponse = app.module.getApiResponseHooks();
+  const resourceOfApiResponse = app.hooks.Api.Response.useResource();
 
-  const resourceOfApiResponse = hooksOfApiResponse.useResource();
-
-  const hooksOfTopicTreeStore = app.module.getTopicTreeStoreHooks();
-
-  const resourceOfTopicTreeStore = hooksOfTopicTreeStore.useResource();
+  const resourceOfTopicTreeStore = app.hooks.Stores.Topic.Tree.useResource();
 
   const dispatch = useTopicTreeStoreDispatchContext();
 

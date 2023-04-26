@@ -12,9 +12,7 @@ import {
 
 export function createConfirmControlHooks (): ConfirmControlHooks {
   function useResource (): ConfirmControlResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ConfirmControl);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ConfirmControl);
 
     const tCancelButtonText = translator.translate('@@CancelButtonText');
     const tDeleteConfirmContent = translator.translate('@@DeleteConfirmContent');

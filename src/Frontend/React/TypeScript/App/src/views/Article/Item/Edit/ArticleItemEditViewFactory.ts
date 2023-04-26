@@ -5,9 +5,7 @@ import { type ArticleItemEditViewResource } from './ArticleItemEditViewResource'
 
 export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemEditView);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemEditView);
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForDisplay: string = translator.translate('@@ActionForDisplay');

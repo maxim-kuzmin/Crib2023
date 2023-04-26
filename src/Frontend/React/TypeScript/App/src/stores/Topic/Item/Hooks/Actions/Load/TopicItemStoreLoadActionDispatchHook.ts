@@ -82,13 +82,9 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicItemStoreLoadActionOptions = {}
 ): TopicItemStoreLoadActionDispatch {
-  const hooksOfApiResponse = app.module.getApiResponseHooks();
+  const resourceOfApiResponse = app.hooks.Api.Response.useResource();
 
-  const resourceOfApiResponse = hooksOfApiResponse.useResource();
-
-  const hooksOfTopicItemStore = app.module.getTopicItemStoreHooks();
-
-  const resourceOfTopicItemStore = hooksOfTopicItemStore.useResource();
+  const resourceOfTopicItemStore = app.hooks.Stores.Topic.Item.useResource();
 
   const dispatch = useTopicItemStoreDispatchContext();
 

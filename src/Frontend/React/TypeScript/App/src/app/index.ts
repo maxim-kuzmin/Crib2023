@@ -1,13 +1,10 @@
-import { type App } from './App';
-import { createControls, createModule } from './Factory';
+import { createApp } from './Factory';
 
-const app: App = {
-  controls: createControls(),
-  module: createModule()
-};
+const app = createApp();
 
 export default app;
 export { type App } from './App';
+export { type Components } from './Components';
 export { type Controls } from './Controls';
 export { type Hooks } from './Hooks';
 export * from './Localization';

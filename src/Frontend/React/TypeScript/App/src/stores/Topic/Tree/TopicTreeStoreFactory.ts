@@ -17,9 +17,7 @@ import { useStoreState } from './Hooks/TopicTreeStoreStateHook';
 
 export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TopicTreeStore);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.TopicTreeStore);
 
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');
     const tOperationNameForGetChildren = translator.translate('@@OperationNameForGetChildren');

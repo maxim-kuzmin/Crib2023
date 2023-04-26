@@ -16,9 +16,7 @@ import { type ArticleTableViewResource } from './ArticleTableViewResource';
 
 export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks): ArticleTableViewHooks {
   function useResource (): ArticleTableViewResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleTableView);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleTableView);
 
     const tTitle: string = translator.translate('@@Title');
     const tLabelForActions: string = translator.translate('@@LabelForActions');

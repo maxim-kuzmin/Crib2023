@@ -46,20 +46,14 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
 
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView () {
-  const hooksOfTopicTreeStore = app.module.getTopicTreeStoreHooks();
+  const resourceOfTopicTreeStore = app.hooks.Stores.Topic.Tree.useResource();
 
-  const resourceOfTopicTreeStore = hooksOfTopicTreeStore.useResource();
-
-  const hooksOfApiResponse = app.module.getApiResponseHooks();
-
-  const resourceOfApiResponse = hooksOfApiResponse.useResource();
-
-  const topicItemStoreHooks = app.module.getTopicItemViewHooks();
+  const resourceOfApiResponse = app.hooks.Api.Response.useResource();
 
   const {
     payloadOfSetAction: topicItemResponse,
     statusOfLoadAction: topicItemStatus
-  } = topicItemStoreHooks.useStoreState();
+  } = app.hooks.Views.Topic.Item.useStoreState();
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
@@ -77,7 +71,7 @@ function TopicTreeView () {
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = app.module.getTopicTreeViewHooks().useStoreLoadActionOutput({
+  } = app.hooks.Views.Topic.Tree.useStoreLoadActionOutput({
     payloadOfLoadAction,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled
   });

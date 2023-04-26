@@ -21,13 +21,9 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
-  const hooksOfArticleItemEditView = app.module.getArticleItemEditViewHooks();
+  const resourceOfArticleItemEditView = app.hooks.Views.Article.ItemEdit.useResource();
 
-  const resourceOfArticleItemEditView = hooksOfArticleItemEditView.useResource();
-
-  const hooksOfArticleItemView = app.module.getArticleItemViewHooks();
-
-  hooksOfArticleItemView.useStoreClearActionOutput({
+  app.hooks.Views.Article.Item.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
@@ -45,7 +41,7 @@ function ArticleItemEditView ({
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooksOfArticleItemView.useStoreLoadActionOutput({
+  } = app.hooks.Views.Article.Item.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
@@ -56,7 +52,7 @@ function ArticleItemEditView ({
     dispatchOfSaveAction,
     payloadOfSaveCompletedAction,
     pendingOfSaveAction
-  } = hooksOfArticleItemView.useStoreSaveActionOutput();
+  } = app.hooks.Views.Article.Item.useStoreSaveActionOutput();
 
   const savedEntity = payloadOfSaveCompletedAction?.data?.item.data;
 

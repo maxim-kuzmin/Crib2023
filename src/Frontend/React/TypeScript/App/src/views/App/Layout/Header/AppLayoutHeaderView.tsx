@@ -6,9 +6,7 @@ import styles from './AppLayoutHeaderView.module.css';
 
 export const AppLayoutHeaderView: React.FC = memo(
 function AppLayoutHeaderView () {
-  const hooksOfLocalization = app.module.getLocalizationHooks();
-
-  const serviceOfLocalization = hooksOfLocalization.useService();
+  const serviceOfLocalization = app.hooks.Localization.useService();
 
   const languages: Array<{ label: string; value: string; }> = [];
 

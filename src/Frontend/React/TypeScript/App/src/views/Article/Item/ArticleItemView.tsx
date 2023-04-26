@@ -19,11 +19,9 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps) {
-  const hooksOfArticleItemView = app.module.getArticleItemViewHooks();
+  const resourceOfArticleItemView = app.hooks.Views.Article.Item.useResource();
 
-  const resourceOfArticleItemView = hooksOfArticleItemView.useResource();
-
-  hooksOfArticleItemView.useStoreClearActionOutput({
+  app.hooks.Views.Article.Item.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
@@ -41,7 +39,7 @@ function ArticleItemView ({
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooksOfArticleItemView.useStoreLoadActionOutput({
+  } = app.hooks.Views.Article.Item.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });

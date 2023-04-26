@@ -20,9 +20,7 @@ import { type ArticleItemViewResource } from './ArticleItemViewResource';
 
 export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): ArticleItemViewHooks {
   function useResource (): ArticleItemViewResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemView);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemView);
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForEdit: string = translator.translate('@@ActionForEdit');

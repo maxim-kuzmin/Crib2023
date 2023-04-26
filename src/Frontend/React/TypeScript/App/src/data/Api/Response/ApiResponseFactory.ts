@@ -5,9 +5,7 @@ import { type ApiResponseResource } from './ApiResponseResource';
 
 export function createApiResponseHooks (): ApiResponseHooks {
   function useResource (): ApiResponseResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ApiResponse);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ApiResponse);
 
     const tErrorMessageForDefault = translator.translate('@@ErrorMessageForDefault');
     const tErrorMessageForHttp400 = translator.translate('@@ErrorMessageForHttp400');

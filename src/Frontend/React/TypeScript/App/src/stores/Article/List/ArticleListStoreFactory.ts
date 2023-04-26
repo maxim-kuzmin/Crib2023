@@ -17,9 +17,7 @@ import { useStoreState } from './Hooks/ArticleListStoreStateHook';
 
 export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleListStore);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleListStore);
 
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');
 

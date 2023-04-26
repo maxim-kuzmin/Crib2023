@@ -72,9 +72,7 @@ function TableControl ({
   onChange,
   loading
 }: TableControlProps) {
-  const hooksOfTableControl = app.module.getTableControlHooks();
-
-  const resourceOfTableControl = hooksOfTableControl.useResource();
+  const resourceOfTableControl = app.hooks.Controls.Table.useResource();
 
   const columns = useMemo(
     () => convertToColumns(controlColumns),
@@ -83,10 +81,19 @@ function TableControl ({
 
   const { defaultPageSize } = app.module.getTableControlService();
 
+  const tPaginationPartForFrom = resourceOfTableControl.getPaginationPartForFrom();
+  const tPaginationPartForPerPage = resourceOfTableControl.getPaginationPartForPerPage();
+  const tPaginationPartForJumpTo = resourceOfTableControl.getPaginationPartForJumpTo();
+  const tPaginationPartForPageTo = resourceOfTableControl.getPaginationPartForPageTo();
+  const tPaginationPartForPrevPage = resourceOfTableControl.getPaginationPartForPrevPage();
+  const tPaginationPartForNextPage = resourceOfTableControl.getPaginationPartForNextPage();
+  const tPaginationPartForPrev5Pages = resourceOfTableControl.getPaginationPartForPrev5Pages();
+  const tPaginationPartForNext5Pages = resourceOfTableControl.getPaginationPartForNext5Pages();
+  const tPaginationPartForPrev3Pages = resourceOfTableControl.getPaginationPartForPrev3Pages();
+  const tPaginationPartForNext3Pages = resourceOfTableControl.getPaginationPartForNext3Pages();
+
   const paginationConfig: TablePaginationConfig = useMemo(
     () => {
-      const tPaginationPartForFrom = resourceOfTableControl.getPaginationPartForFrom();
-
       const result: TablePaginationConfig = {
         defaultPageSize,
         showTotal: (total, range) => `${range[0]}-${range[1]} ${tPaginationPartForFrom} ${total}`,
@@ -97,16 +104,16 @@ function TableControl ({
         size: 'small',
         hideOnSinglePage: false,
         locale: {
-          items_per_page: resourceOfTableControl.getPaginationPartForPerPage(),
-          jump_to: resourceOfTableControl.getPaginationPartForJumpTo(),
+          items_per_page: tPaginationPartForPerPage,
+          jump_to: tPaginationPartForJumpTo,
           // jump_to_confirm?: string;
-          page: resourceOfTableControl.getPaginationPartForPageTo(),
-          prev_page: resourceOfTableControl.getPaginationPartForPrevPage(),
-          next_page: resourceOfTableControl.getPaginationPartForNextPage(),
-          prev_5: resourceOfTableControl.getPaginationPartForPrev5Pages(),
-          next_5: resourceOfTableControl.getPaginationPartForNext5Pages(),
-          prev_3: resourceOfTableControl.getPaginationPartForPrev3Pages(),
-          next_3: resourceOfTableControl.getPaginationPartForNext3Pages()
+          page: tPaginationPartForPageTo,
+          prev_page: tPaginationPartForPrevPage,
+          next_page: tPaginationPartForNextPage,
+          prev_5: tPaginationPartForPrev5Pages,
+          next_5: tPaginationPartForNext5Pages,
+          prev_3: tPaginationPartForPrev3Pages,
+          next_3: tPaginationPartForNext3Pages
         },
       };
 
@@ -114,7 +121,16 @@ function TableControl ({
     },
     [
       defaultPageSize,
-      resourceOfTableControl,
+      tPaginationPartForFrom,
+      tPaginationPartForPerPage,
+      tPaginationPartForJumpTo,
+      tPaginationPartForPageTo,
+      tPaginationPartForPrevPage,
+      tPaginationPartForNextPage,
+      tPaginationPartForPrev5Pages,
+      tPaginationPartForNext5Pages,
+      tPaginationPartForPrev3Pages,
+      tPaginationPartForNext3Pages,
     ]
   );
 

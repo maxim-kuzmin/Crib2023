@@ -27,9 +27,7 @@ import { useStoreState } from './Hooks/TopicItemStoreStateHook';
 
 export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TopicItemStore);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.TopicItemStore);
 
     const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');

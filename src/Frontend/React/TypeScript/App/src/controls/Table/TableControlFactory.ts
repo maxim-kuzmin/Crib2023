@@ -7,9 +7,7 @@ import {
 
 export function createTableControlHooks (): TableControlHooks {
   function useResource (): TableControlResource {
-    const hooksOfLocalization = app.module.getLocalizationHooks();
-
-    const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TableControl);
+    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.TableControl);
 
     const tPaginationPartForFrom: string = translator.translate('@@PaginationPartForFrom');
     const tPaginationPartForJumpTo: string = translator.translate('@@PaginationPartForJumpTo');
