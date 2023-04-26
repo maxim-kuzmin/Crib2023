@@ -1,14 +1,12 @@
 import React, { memo, type PropsWithChildren } from 'react';
-import {
-  AppNotificationStoreContextProvider,
-  ArticleItemStoreContextProvider,
-  ArticleListStoreContextProvider,
-  TopicItemStoreContextProvider,
-  TopicTreeStoreContextProvider
-} from '../../stores';
+import { AppNotificationStoreContextProvider } from '../../stores/App/Notification/AppNotificationStoreContextProvider';
+import { ArticleItemStoreContextProvider } from '../../stores/Article/Item/ArticleItemStoreContextProvider';
+import { ArticleListStoreContextProvider } from '../../stores/Article/List/ArticleListStoreContextProvider';
+import { TopicItemStoreContextProvider } from '../../stores/Topic/Item/TopicItemStoreContextProvider';
+import { TopicTreeStoreContextProvider } from '../../stores/Topic/Tree/TopicTreeStoreContextProvider';
 
 export const StoresContextProvider: React.FC<PropsWithChildren> = memo(
-function ContextProvider ({
+function StoresContextProvider ({
   children
 }: PropsWithChildren) {
   return (
