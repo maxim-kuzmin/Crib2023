@@ -1,7 +1,4 @@
-import {
-  type StoreService,
-  type TableControlService
-} from '../common';
+import { type StoreService, type TableControlService } from '../common';
 import {
   BreadcrumbControl,
   ButtonControl,
@@ -15,30 +12,12 @@ import {
   TextInputControl,
   TreeControl,
 } from '../controls';
-import {
-  type ApiResponseError,
-  type ApiResponseErrorOptions,
-  type ApiSetupOptions
-} from '../data';
-import {
-  type ArticleDomainRepository,
-  type TopicDomainRepository
-} from '../domains';
-import {
-  type ArticlePageService,
-  type TopicPageService
-} from '../pages';
-import {
-  type ArticleItemEditViewService
-} from '../views';
+import { type ApiSetupOptions } from '../data';
+import { type ArticleDomainRepository, type TopicDomainRepository } from '../domains';
+import { type ArticlePageService, type TopicPageService } from '../pages';
+import { type ArticleItemEditViewService } from '../views';
 import { type TestService } from './Test';
-import {
-  type App,
-  type Controls,
-  type Components,
-  type Hooks,
-  type Module,
-} from '.';
+import { type App, type Controls, type Components, type Hooks, type Module } from '.';
 
 import { createOperationHooks } from '../common/Operation/OperationFactory';
 
@@ -47,7 +26,7 @@ import { createNotificationControlHooks } from '../controls/Notification/Notific
 import { createTableControlHooks } from '../controls/Table/TableControlFactory';
 
 import { createApiRequestHooks } from '../data/Api/Request/ApiRequestFactory';
-import { createApiResponseHooks } from '../data/Api/Response/ApiResponseFactory';
+import { createApiResponseError, createApiResponseHooks } from '../data/Api/Response/ApiResponseFactory';
 
 import { createArticleDomainHooks } from '../domains/Article/ArticleDomainFactory';
 import { createTopicDomainHooks } from '../domains/Topic/TopicDomainFactory';
@@ -73,7 +52,6 @@ import { HttpClientImpl } from '../common/Http/HttpClientImpl';
 import { SetupOptionsImpl } from '../common/Setup/SetupOptionsImpl';
 import { StoreServiceImpl } from '../common/Store/StoreServiceImpl';
 
-import { ApiResponseErrorImpl } from '../data/Api/Response/ApiResponseErrorImpl';
 import { ApiSetupOptionsImpl } from '../data/Api/Setup/ApiSetupOptionsImpl';
 import { ApiClientImpl } from '../data/Api/ApiClientImpl';
 
@@ -246,10 +224,6 @@ function createModule (): Module {
 
   function getTableControlService (): TableControlService {
     return implOfTableControlService;
-  }
-
-  function createApiResponseError (options: ApiResponseErrorOptions): ApiResponseError {
-    return new ApiResponseErrorImpl(options);
   }
 
   const implOfArticleDomainRepository = implOfSetupOptions.isTestModeEnabled

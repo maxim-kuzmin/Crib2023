@@ -2,6 +2,13 @@ import { useMemo } from 'react';
 import app, { LocalizationTarget } from '../../../app';
 import { type ApiResponseHooks } from './ApiResponseHooks';
 import { type ApiResponseResource } from './ApiResponseResource';
+import { ApiResponseErrorImpl } from './ApiResponseErrorImpl';
+import { type ApiResponseErrorOptions } from './ApiResponseErrorOptions';
+import { type ApiResponseError } from './ApiResponseError';
+
+export function createApiResponseError (options: ApiResponseErrorOptions): ApiResponseError {
+  return new ApiResponseErrorImpl(options);
+}
 
 export function createApiResponseHooks (): ApiResponseHooks {
   function useResource (): ApiResponseResource {
