@@ -10,7 +10,7 @@ import {
   type SorterResult,
   type ColumnType
 } from 'antd/es/table/interface';
-import { getModule } from '../../app';
+import app from '../../app';
 import {
   type TableControlColumn,
   type TableControlHeader,
@@ -72,7 +72,7 @@ function TableControl ({
   onChange,
   loading
 }: TableControlProps) {
-  const hooksOfTableControl = getModule().getTableControlHooks();
+  const hooksOfTableControl = app.module.getTableControlHooks();
 
   const resourceOfTableControl = hooksOfTableControl.useResource();
 
@@ -81,7 +81,7 @@ function TableControl ({
     [controlColumns]
   );
 
-  const { defaultPageSize } = getModule().getTableControlService();
+  const { defaultPageSize } = app.module.getTableControlService();
 
   const paginationConfig: TablePaginationConfig = useMemo(
     () => {

@@ -1,7 +1,6 @@
 export * from './Breadcrumb';
 export * from './Button';
 export * from './Card';
-export * from './Confirm';
 export * from './Form';
 export * from './Layout';
 export * from './Select';

@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { getModule, LocalizationTarget } from '../../../app';
+import app, { LocalizationTarget } from '../../../app';
 import { type ApiResponseHooks } from './ApiResponseHooks';
 import { type ApiResponseResource } from './ApiResponseResource';
 
 export function createApiResponseHooks (): ApiResponseHooks {
   function useResource (): ApiResponseResource {
-    const hooksOfLocalization = getModule().getLocalizationHooks();
+    const hooksOfLocalization = app.module.getLocalizationHooks();
 
     const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ApiResponse);
 

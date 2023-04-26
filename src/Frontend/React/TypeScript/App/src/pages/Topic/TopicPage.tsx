@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { getModule, type TopicItemStoreLoadActionPayload } from '../../app';
+import app, { type TopicItemStoreLoadActionPayload } from '../../app';
 import { TreeGetOperationAxisForItem, type TableControlPagination } from '../../common';
 import { ArticleTableView } from '../../views';
 
@@ -16,7 +16,7 @@ function TopicPage () {
     topicId = 0;
   }
 
-  const topicPageService = getModule().getTopicPageService();
+  const topicPageService = app.module.getTopicPageService();
 
   const topicPageSearch = topicPageService.getUrlSearch(searchParams);
 
@@ -44,14 +44,14 @@ function TopicPage () {
     [topicId]
   );
 
-  getModule().getTopicItemViewHooks().useStoreLoadActionOutput({
+  app.module.getTopicItemViewHooks().useStoreLoadActionOutput({
     payloadOfLoadAction: payloadOfLoadActionForTreeItem
   });
 
   const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;
 
-    getModule().getTopicPageService().updateURLSearchParams(searchParams, {
+    app.module.getTopicPageService().updateURLSearchParams(searchParams, {
       pageNumber,
       pageSize
     });

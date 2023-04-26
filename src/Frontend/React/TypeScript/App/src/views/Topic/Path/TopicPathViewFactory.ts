@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { getModule, LocalizationTarget } from '../../../app';
+import app, { LocalizationTarget } from '../../../app';
 import { type TopicPathViewHooks } from './TopicPathViewHooks';
 import { type TopicPathViewResource } from './TopicPathViewResource';
 
 export function createTopicPathViewHooks (): TopicPathViewHooks {
   function useResource (): TopicPathViewResource {
-    const hooksOfLocalization = getModule().getLocalizationHooks();
+    const hooksOfLocalization = app.module.getLocalizationHooks();
 
     const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TopicPathView);
 

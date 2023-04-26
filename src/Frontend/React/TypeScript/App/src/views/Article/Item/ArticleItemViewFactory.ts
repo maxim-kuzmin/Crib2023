@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import {
-  getModule,
+import app, {
   type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput,
   type ArticleItemStoreDeleteActionInput,
@@ -21,7 +20,7 @@ import { type ArticleItemViewResource } from './ArticleItemViewResource';
 
 export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): ArticleItemViewHooks {
   function useResource (): ArticleItemViewResource {
-    const hooksOfLocalization = getModule().getLocalizationHooks();
+    const hooksOfLocalization = app.module.getLocalizationHooks();
 
     const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemView);
 

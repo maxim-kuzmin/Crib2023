@@ -1,18 +1,18 @@
 import React, { useMemo } from 'react';
 import { Modal, type ModalFuncProps } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
-import { getModule, LocalizationTarget } from '../../app';
+import app, { LocalizationTarget } from '../../app';
 import {
   type ConfirmControlComponent,
+  type ConfirmControlHooks,
   type ConfirmControlProps,
+  type ConfirmControlResource,
   ConfirmControlType
 } from '../../common';
-import { type ConfirmControlHooks } from './ConfirmControlHooks';
-import { type ConfirmControlResource } from './ConfirmControlResource';
 
 export function createConfirmControlHooks (): ConfirmControlHooks {
   function useResource (): ConfirmControlResource {
-    const hooksOfLocalization = getModule().getLocalizationHooks();
+    const hooksOfLocalization = app.module.getLocalizationHooks();
 
     const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ConfirmControl);
 

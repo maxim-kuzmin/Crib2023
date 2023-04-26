@@ -1,7 +1,6 @@
 import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  getModule,
+import app, {
   type ArticleListStoreLoadActionPayload
 } from '../../../app';
 import {
@@ -10,7 +9,6 @@ import {
   type TableControlColumn,
   type TableControlPagination
 } from '../../../common';
-import { BreadcrumbControl, ButtonControl, TableControl } from '../../../controls';
 import { type ArticleDomainEntityForList } from '../../../domains';
 import { ArticlePageMode } from '../../../pages';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
@@ -34,18 +32,18 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
-  const hooksOfConfirmControl = getModule().getConfirmControlHooks();
+  const hooksOfConfirmControl = app.module.getConfirmControlHooks();
 
   const resourceOfConfirmControl = hooksOfConfirmControl.useResource();
 
-  const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
+  const hooksOfArticleItemView = app.module.getArticleItemViewHooks();
 
   const {
     dispatchOfDeleteAction,
     pendingOfDeleteAction
   } = hooksOfArticleItemView.useStoreDeleteActionOutput();
 
-  const hooksOfArticleTableView = getModule().getArticleTableViewHooks();
+  const hooksOfArticleTableView = app.module.getArticleTableViewHooks();
 
   const resourceOfArticleTableView = hooksOfArticleTableView.useResource();
 
@@ -113,7 +111,7 @@ function ArticleTableView ({
 
   const controlColumns: TableControlColumn[] = useMemo(
     () => {
-      const atriclePageService = getModule().getArticlePageService();
+      const atriclePageService = app.module.getArticlePageService();
 
       return [
         {
@@ -141,7 +139,7 @@ function ArticleTableView ({
 
             const { path } = viewRow;
 
-            const topicPageService = getModule().getTopicPageService();
+            const topicPageService = app.module.getTopicPageService();
 
             const controlItems: BreadcrumbControlItem[] = path.map((item) => {
               const { id, name } = item;
@@ -154,7 +152,7 @@ function ArticleTableView ({
             });
 
             return (
-              <BreadcrumbControl controlItems={controlItems} />
+              <app.controls.Breadcrumb controlItems={controlItems} />
             );
           }
         },
@@ -199,14 +197,14 @@ function ArticleTableView ({
                 >
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
-                <ButtonControl
+                <app.controls.Button
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
                   loading={id === deletingId.current && pendingOfDeleteAction}
                   onClick={
                     () => {
                       deletingId.current = id;
 
-                      getModule().getConfirmControlComponent().show({
+                      app.module.getConfirmControlComponent().show({
                         resourceOfConfirmControl,
                         onOk: () => {
                           dispatchOfDeleteAction.run({ id })
@@ -221,7 +219,7 @@ function ArticleTableView ({
                   title={`${tActionForDelete} ${id}`}
                 >
                   {resourceOfArticleTableView.getActionForDelete()}
-                </ButtonControl>
+                </app.controls.Button>
               </div>
             );
           }
@@ -242,7 +240,7 @@ function ArticleTableView ({
   return (
     <div className={styles.root}>
       <h2>{resourceOfArticleTableView.getTitle()}</h2>
-      <TableControl
+      <app.controls.Table
         className={styles.root}
         controlColumns={controlColumns}
         controlRows={controlRows}

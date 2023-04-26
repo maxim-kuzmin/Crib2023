@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
-import {
-  getModule,
+import app, {
   type ArticleItemStoreLoadActionPayload
 } from '../../../../app';
 import {
@@ -10,7 +9,6 @@ import {
   FormControlFieldType,
   FormControlValidationRuleType
 } from '../../../../common';
-import { FormControl, SpinnerControl } from '../../../../controls';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
@@ -23,11 +21,11 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
-  const hooksOfArticleItemEditView = getModule().getArticleItemEditViewHooks();
+  const hooksOfArticleItemEditView = app.module.getArticleItemEditViewHooks();
 
   const resourceOfArticleItemEditView = hooksOfArticleItemEditView.useResource();
 
-  const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
+  const hooksOfArticleItemView = app.module.getArticleItemViewHooks();
 
   hooksOfArticleItemView.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
@@ -68,7 +66,7 @@ function ArticleItemEditView ({
   );
 
   const formValues = useMemo(
-    () => getModule().getArticleItemEditViewService().convertToFormValues(entity),
+    () => app.module.getArticleItemEditViewService().convertToFormValues(entity),
     [entity]
   );
 
@@ -77,13 +75,13 @@ function ArticleItemEditView ({
     fieldNameForId,
     fieldNameForTitle,
     fieldNameForTopicId
-  } = getModule().getArticleItemEditViewService();
+  } = app.module.getArticleItemEditViewService();
 
   const controlActions = useMemo(
     () => {
       const result: FormControlAction[] = [];
 
-      const articlePageService = getModule().getArticlePageService();
+      const articlePageService = app.module.getArticlePageService();
 
       const actionToSave: FormControlAction = {
         key: 'save',
@@ -187,7 +185,7 @@ function ArticleItemEditView ({
 
   const [isFormFieldsTouched, setIsFormFieldsTouched] = useState(false);
 
-  const hooks = getModule().getHooks();
+  const hooks = app.module.getHooks();
 
   hooks.useLeaveFormBlocker(isFormFieldsTouched);
 
@@ -219,7 +217,7 @@ function ArticleItemEditView ({
 
   const handleSubmitSuccess = useCallback(
     (values: any) => {
-      const entity = getModule().getArticleItemEditViewService().convertToEntity(values);
+      const entity = app.module.getArticleItemEditViewService().convertToEntity(values);
 
       dispatchOfSaveAction.run(entity).then(() => {
           if (form.current.reset) {
@@ -241,8 +239,8 @@ function ArticleItemEditView ({
       </h2>
       {
         pendingOfLoadAction
-          ? <SpinnerControl/>
-          : <FormControl
+          ? <app.controls.Spinner/>
+          : <app.controls.Form
               controlActions={controlActions}
               controlFields={controlFields}
               formValues={formValues}

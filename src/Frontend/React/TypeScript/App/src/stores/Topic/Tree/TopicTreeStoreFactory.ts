@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import {
-  getModule,
+import app, {
   type TopicTreeStoreHooks,
   type TopicTreeStoreResource,
   LocalizationTarget
@@ -18,7 +17,7 @@ import { useStoreState } from './Hooks/TopicTreeStoreStateHook';
 
 export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {
-    const hooksOfLocalization = getModule().getLocalizationHooks();
+    const hooksOfLocalization = app.module.getLocalizationHooks();
 
     const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TopicTreeStore);
 

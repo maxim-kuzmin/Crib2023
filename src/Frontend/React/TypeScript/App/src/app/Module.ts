@@ -1,10 +1,11 @@
 import {
   type ConfirmControlComponent,
+  type ConfirmControlHooks,
   type NotificationControlHooks,
   type StoreService,
+  type TableControlHooks,
   type TableControlService
 } from '../common';
-import { type ConfirmControlHooks, type TableControlHooks } from '../controls';
 import {
   type ApiResponseHooks,
   type ApiResponseError,

@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { unstable_useBlocker as useBlocker } from 'react-router-dom';
-import { type ConfirmControlComponent, ConfirmControlType } from '../../common';
-import { type ConfirmControlHooks } from '../../controls';
+import {
+  type ConfirmControlComponent,
+  type ConfirmControlHooks,
+  ConfirmControlType
+} from '../../common';
 
 interface Options {
   readonly componentOfConfirmControl: ConfirmControlComponent;

@@ -1,6 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import {
-  getModule,
+import app, {
   type TopicItemStoreDeleteCompletedActionCallback,
   type TopicItemStoreDeleteActionDispatch,
   type TopicItemStoreDeleteActionOptions,
@@ -83,18 +82,18 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: TopicItemStoreDeleteActionOptions = {}
 ): TopicItemStoreDeleteActionDispatch {
-  const hooksOfApiResponse = getModule().getApiResponseHooks();
+  const hooksOfApiResponse = app.module.getApiResponseHooks();
 
   const resourceOfApiResponse = hooksOfApiResponse.useResource();
 
-  const hooksOfTopicItemStore = getModule().getTopicItemStoreHooks();
+  const hooksOfTopicItemStore = app.module.getTopicItemStoreHooks();
 
   const resourceOfTopicItemStore = hooksOfTopicItemStore.useResource();
 
   const dispatch = useTopicItemStoreDispatchContext();
 
   const requestHandler = useRef(
-    getModule().useTopicDomainItemDeleteOperationRequestHandler()
+    app.module.useTopicDomainItemDeleteOperationRequestHandler()
   ).current;
 
   useEffect(

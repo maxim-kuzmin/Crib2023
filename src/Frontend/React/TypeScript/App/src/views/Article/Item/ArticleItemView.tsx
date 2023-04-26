@@ -1,6 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import {
-  getModule,
+import app, {
   type ArticleItemStoreLoadActionPayload
 } from '../../../app';
 import {
@@ -8,7 +7,6 @@ import {
   type CardControlExtra,
   CardControlType
 } from '../../../common';
-import { CardControl } from '../../../controls';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../data';
 import { ArticlePageMode } from '../../../pages';
 import { type ArticleItemViewProps } from './ArticleItemViewProps';
@@ -21,7 +19,7 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps) {
-  const hooksOfArticleItemView = getModule().getArticleItemViewHooks();
+  const hooksOfArticleItemView = app.module.getArticleItemViewHooks();
 
   const resourceOfArticleItemView = hooksOfArticleItemView.useResource();
 
@@ -70,7 +68,7 @@ function ArticleItemView ({
       }
 
       const actionToEdit: CardControlAction = {
-        href: getModule().getArticlePageService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
+        href: app.module.getArticlePageService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
         key: 'edit',
         title: resourceOfArticleItemView.getActionForEdit()
       };
@@ -93,7 +91,7 @@ function ArticleItemView ({
       <h2>{resourceOfArticleItemView.getTitle()}</h2>
       {
         entity.id > 0
-          ? <CardControl
+          ? <app.controls.Card
               controlActions={controlActions}
               controlExtra={controlExtra}
               loading={pendingOfLoadAction}
@@ -101,7 +99,7 @@ function ArticleItemView ({
               type={CardControlType.Main}
             >
                 { entity.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
-            </CardControl>
+            </app.controls.Card>
           : null
       }
     </div>

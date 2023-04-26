@@ -5,7 +5,9 @@ import {
   type StoreService,
   type TableControlService,
   type NotificationControlHooks,
-  type ConfirmControlComponent
+  type ConfirmControlComponent,
+  type ConfirmControlHooks,
+  type TableControlHooks
 } from '../common';
 import {
   type ApiSetupOptions,
@@ -112,7 +114,6 @@ import { createConfirmControlComponent, createConfirmControlHooks } from '../con
 import { createHooks } from './Factory';
 import { type Hooks } from './Hooks';
 import { createTopicPathViewHooks } from '../views/Topic/Path/TopicPathViewFactory';
-import { type ConfirmControlHooks, type TableControlHooks } from '../controls';
 import { createTableControlHooks } from '../controls/Table/TableControlFactory';
 import { createApiResponseHooks } from '../data/Api/Response/ApiResponseFactory';
 import { type LocalizationHooks } from './Localization';

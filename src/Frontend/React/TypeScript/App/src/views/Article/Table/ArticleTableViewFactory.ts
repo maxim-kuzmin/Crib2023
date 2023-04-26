@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import {
-  getModule,
+import app, {
   type ArticleListStoreClearActionInput,
   type ArticleListStoreClearActionOutput,
   type ArticleListStoreLoadActionInput,
@@ -17,7 +16,7 @@ import { type ArticleTableViewResource } from './ArticleTableViewResource';
 
 export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks): ArticleTableViewHooks {
   function useResource (): ArticleTableViewResource {
-    const hooksOfLocalization = getModule().getLocalizationHooks();
+    const hooksOfLocalization = app.module.getLocalizationHooks();
 
     const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleTableView);
 

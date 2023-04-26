@@ -1,6 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import {
-  getModule,
+import app, {
   type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreSaveActionDispatch,
   type ArticleItemStoreSaveActionOptions,
@@ -83,18 +82,18 @@ export function useStoreSaveActionDispatch (
     payloadOfSaveAction
   }: ArticleItemStoreSaveActionOptions
 ): ArticleItemStoreSaveActionDispatch {
-  const hooksOfApiResponse = getModule().getApiResponseHooks();
+  const hooksOfApiResponse = app.module.getApiResponseHooks();
 
   const resourceOfApiResponse = hooksOfApiResponse.useResource();
 
-  const hooksOfArticleItemStore = getModule().getArticleItemStoreHooks();
+  const hooksOfArticleItemStore = app.module.getArticleItemStoreHooks();
 
   const resourceOfArticleItemStore = hooksOfArticleItemStore.useResource();
 
   const dispatch = useArticleItemStoreDispatchContext();
 
   const requestHandler = useRef(
-    getModule().useArticleDomainItemSaveOperationRequestHandler()
+    app.module.useArticleDomainItemSaveOperationRequestHandler()
   ).current;
 
   useEffect(

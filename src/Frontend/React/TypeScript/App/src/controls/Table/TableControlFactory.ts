@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
-import { getModule, LocalizationTarget } from '../../app';
-import { type TableControlHooks } from './TableControlHooks';
-import { type TableControlResource } from './TableControlResource';
+import app, { LocalizationTarget } from '../../app';
+import {
+  type TableControlHooks,
+  type TableControlResource
+} from '../../common';
 
 export function createTableControlHooks (): TableControlHooks {
   function useResource (): TableControlResource {
-    const hooksOfLocalization = getModule().getLocalizationHooks();
+    const hooksOfLocalization = app.module.getLocalizationHooks();
 
     const translator = hooksOfLocalization.useTranslator(LocalizationTarget.TableControl);
 

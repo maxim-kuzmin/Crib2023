@@ -1,12 +1,14 @@
-import { createModule } from './Factory';
-import { type Module } from './Module';
+import { type App } from './App';
+import { createControls, createModule } from './Factory';
 
-const module = createModule();
+const app: App = {
+  controls: createControls(),
+  module: createModule()
+};
 
-export function getModule (): Module {
-  return module;
-}
-
+export default app;
+export { type App } from './App';
+export { type Controls } from './Controls';
 export { type Hooks } from './Hooks';
 export * from './Localization';
 export { type Module } from './Module';

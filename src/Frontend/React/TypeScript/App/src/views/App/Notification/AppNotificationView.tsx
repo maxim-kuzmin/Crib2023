@@ -1,13 +1,13 @@
 import React, { memo, useCallback } from 'react';
-import { getModule } from '../../../app';
+import app from '../../../app';
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView () {
-  const notificationControlHooks = getModule().getNotificationControlHooks();
+  const notificationControlHooks = app.module.getNotificationControlHooks();
 
   const component = notificationControlHooks.useComponent();
 
-  const appNotificationViewHooks = getModule().getAppNotificationViewHooks();
+  const appNotificationViewHooks = app.module.getAppNotificationViewHooks();
 
   const { payloadOfSetAction: data } = appNotificationViewHooks.useStoreState();
 

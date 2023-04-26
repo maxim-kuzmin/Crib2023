@@ -1,4 +1,4 @@
-import { type ConfirmControlResource } from '../../../controls';
+import { type ConfirmControlResource } from './ConfirmControlResource';
 import { type ConfirmControlType } from './ConfirmControlType';
 
 export interface ConfirmControlProps {

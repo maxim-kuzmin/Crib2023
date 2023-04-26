@@ -1,4 +1,4 @@
-import { getModule } from '../../app';
+import app from '../../app';
 import {
   type HttpClient,
   type HttpRequestConfig,
@@ -221,7 +221,7 @@ export class ApiClientImpl implements ApiClient {
           }
       }
 
-      error = getModule().createApiResponseError({
+      error = app.module.createApiResponseError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,
@@ -272,7 +272,7 @@ export class ApiClientImpl implements ApiClient {
           }
       }
 
-      error = getModule().createApiResponseError({
+      error = app.module.createApiResponseError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,

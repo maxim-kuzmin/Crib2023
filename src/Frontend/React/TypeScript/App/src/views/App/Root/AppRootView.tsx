@@ -1,6 +1,5 @@
 import React, { memo, useEffect } from 'react';
-import { getModule } from '../../../app';
-import { LayoutControl } from '../../../controls';
+import app from '../../../app';
 import { AppLayoutAsideView } from '../Layout/Aside';
 import { AppLayoutContentView } from '../Layout/Content';
 import { AppLayoutFooterView } from '../Layout/Footer';
@@ -10,7 +9,7 @@ import logo from './logo.svg';
 
 export const AppRootView: React.FC = memo(
 function AppRootView () {
-  const hooksOfLocalization = getModule().getLocalizationHooks();
+  const hooksOfLocalization = app.module.getLocalizationHooks();
 
   const serviceOfLocalization = hooksOfLocalization.useService();
 
@@ -23,7 +22,7 @@ function AppRootView () {
   return (
     <>
       <AppNotificationView/>
-      <LayoutControl
+      <app.controls.Layout
         createAsideView={() => <AppLayoutAsideView logoUrl={logo}/>}
         createContentView={(backgroundColor) => <AppLayoutContentView backgroundColor={backgroundColor}/>}
         createFooterView={() => <AppLayoutFooterView/>}

@@ -1,6 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import {
-  getModule,
+import app, {
   type TopicTreeStoreSetActionCallback,
   type TopicTreeStoreLoadActionDispatch,
   type TopicTreeStoreLoadActionOptions,
@@ -82,18 +81,18 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicTreeStoreLoadActionOptions = {}
 ): TopicTreeStoreLoadActionDispatch {
-  const hooksOfApiResponse = getModule().getApiResponseHooks();
+  const hooksOfApiResponse = app.module.getApiResponseHooks();
 
   const resourceOfApiResponse = hooksOfApiResponse.useResource();
 
-  const hooksOfTopicTreeStore = getModule().getTopicTreeStoreHooks();
+  const hooksOfTopicTreeStore = app.module.getTopicTreeStoreHooks();
 
   const resourceOfTopicTreeStore = hooksOfTopicTreeStore.useResource();
 
   const dispatch = useTopicTreeStoreDispatchContext();
 
   const requestHandler = useRef(
-    getModule().useTopicDomainTreeGetOperationRequestHandler()
+    app.module.useTopicDomainTreeGetOperationRequestHandler()
   ).current;
 
   useEffect(

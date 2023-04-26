@@ -1,13 +1,12 @@
 import React, { memo } from 'react';
-import { SelectControl } from '../../../../controls';
 import { TopicPathView } from '../../..';
-import { getModule } from '../../../../app';
+import app from '../../../../app';
 import { type SelectControlOption } from '../../../../common';
 import styles from './AppLayoutHeaderView.module.css';
 
 export const AppLayoutHeaderView: React.FC = memo(
 function AppLayoutHeaderView () {
-  const hooksOfLocalization = getModule().getLocalizationHooks();
+  const hooksOfLocalization = app.module.getLocalizationHooks();
 
   const serviceOfLocalization = hooksOfLocalization.useService();
 
@@ -45,7 +44,7 @@ function AppLayoutHeaderView () {
   return (
     <div className={styles.root}>
       <TopicPathView/>
-      <SelectControl
+      <app.controls.Select
         className={styles.select}
         defaultValue={serviceOfLocalization.getCurrentLanguage()}
         onChange={handleLanguageChange}

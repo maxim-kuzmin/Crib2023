@@ -1,4 +1,4 @@
-import { type LocalizationResource } from '../../common';
+import { type LocalizationResource } from '../..';
 
 export interface TableControlResource extends LocalizationResource {
   readonly getPaginationPartForFrom: () => string;

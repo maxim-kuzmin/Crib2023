@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { getModule, LocalizationTarget } from '../../../../app';
+import app, { LocalizationTarget } from '../../../../app';
 import { type ArticleItemEditViewHooks } from './ArticleItemEditViewHooks';
 import { type ArticleItemEditViewResource } from './ArticleItemEditViewResource';
 
 export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
-    const hooksOfLocalization = getModule().getLocalizationHooks();
+    const hooksOfLocalization = app.module.getLocalizationHooks();
 
     const translator = hooksOfLocalization.useTranslator(LocalizationTarget.ArticleItemEditView);
 
