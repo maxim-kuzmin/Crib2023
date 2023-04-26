@@ -17,7 +17,7 @@ function AppLayoutHeaderView () {
   supportedLanguages.forEach((value) => {
     let label = '';
 
-    switch (value) {
+    switch (String(value)) {
       case 'en':
         label = 'English';
         break;
