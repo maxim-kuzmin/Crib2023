@@ -17,12 +17,12 @@ export function createArticleDomainModule ({
   apiClient,
   setupOptions
 }: Options): ArticleDomainModule {
-  const implOfArticleDomainRepository = setupOptions.isTestModeEnabled
+  const implOfRepository = setupOptions.isTestModeEnabled
     ? new TestArticleDomainRepositoryImpl()
     : new ArticleDomainRepositoryImpl({ apiClient });
 
   function getRepository (): ArticleDomainRepository {
-    return implOfArticleDomainRepository;
+    return implOfRepository;
   }
 
   return { getRepository };

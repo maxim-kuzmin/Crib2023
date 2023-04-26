@@ -6,12 +6,12 @@ export interface SetupModule {
 }
 
 export function createSetupModule (): SetupModule {
-  const implOfSetupOptions = new SetupOptionsImpl({
+  const implOfOptions = new SetupOptionsImpl({
     isTestModeEnabled: process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true'
   });
 
   function getOptions (): SetupOptions {
-    return implOfSetupOptions;
+    return implOfOptions;
   }
 
   return { getOptions };

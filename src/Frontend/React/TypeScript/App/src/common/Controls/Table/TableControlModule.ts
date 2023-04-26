@@ -6,10 +6,10 @@ export interface TableControlModule {
 }
 
 export function createTableControlModule (): TableControlModule {
-  const implOfTableControlService = new TableControlServiceImpl({ defaultPageSize: 10 });
+  const implOfService = new TableControlServiceImpl({ defaultPageSize: 10 });
 
   function getService (): TableControlService {
-    return implOfTableControlService;
+    return implOfService;
   }
 
   return { getService };

@@ -13,10 +13,10 @@ interface Options {
 export function createTopicPageModule ({
   tableControlService
 }: Options): TopicPageModule {
-  const implOfTopicPageService = new TopicPageServiceImpl({ tableControlService });
+  const implOfService = new TopicPageServiceImpl({ tableControlService });
 
   function getService (): TopicPageService {
-    return implOfTopicPageService;
+    return implOfService;
   }
 
   return { getService };

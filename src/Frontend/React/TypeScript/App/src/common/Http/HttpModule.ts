@@ -6,10 +6,10 @@ export interface HttpModule {
 }
 
 export function createHttpModule (): HttpModule {
-  const implOfHttpClient = new HttpClientImpl();
+  const implOfClient = new HttpClientImpl();
 
   function getClient (): HttpClient {
-    return implOfHttpClient;
+    return implOfClient;
   }
 
   return { getClient };

@@ -6,10 +6,10 @@ export interface ArticlePageModule {
 }
 
 export function createArticlePageModule (): ArticlePageModule {
-  const implOfArticlePageService = new ArticlePageServiceImpl();
+  const implOfService = new ArticlePageServiceImpl();
 
   function getService (): ArticlePageService {
-    return implOfArticlePageService;
+    return implOfService;
   }
 
   return { getService };

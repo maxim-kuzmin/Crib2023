@@ -17,12 +17,12 @@ export function createTopicDomainModule ({
   apiClient,
   setupOptions
 }: Options): TopicDomainModule {
-  const implOfTopicDomainRepository = setupOptions.isTestModeEnabled
+  const implOfRepository = setupOptions.isTestModeEnabled
     ? new TestTopicDomainRepositoryImpl()
     : new TopicDomainRepositoryImpl({ apiClient });
 
   function getRepository (): TopicDomainRepository {
-    return implOfTopicDomainRepository;
+    return implOfRepository;
   }
 
   return { getRepository };

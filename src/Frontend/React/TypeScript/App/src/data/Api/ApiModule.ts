@@ -26,10 +26,10 @@ export function createApiModule ({
     return implOfSetupOptions;
   }
 
-  const implOfApiClient = new ApiClientImpl({ apiSetupOptions: getSetupOptions(), httpClient });
+  const implOfClient = new ApiClientImpl({ apiSetupOptions: getSetupOptions(), httpClient });
 
   function getClient () {
-    return implOfApiClient;
+    return implOfClient;
   }
 
   return { getClient, getSetupOptions };
