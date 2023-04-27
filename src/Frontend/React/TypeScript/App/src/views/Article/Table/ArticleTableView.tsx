@@ -1,5 +1,6 @@
 import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import app, {
   type ArticleListStoreLoadActionPayload
 } from '../../../app';
@@ -231,9 +232,14 @@ function ArticleTableView ({
     ]
   );
 
+  const title = resourceOfArticleTableView.getTitle();
+
   return (
     <div className={styles.root}>
-      <h2>{resourceOfArticleTableView.getTitle()}</h2>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
+      <h2>{title}</h2>
       <app.controls.Table
         className={styles.root}
         controlColumns={controlColumns}

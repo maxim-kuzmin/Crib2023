@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { StoresContextProvider } from './app/Stores/StoresContextProvider';
 import {
   ArticlePage,
@@ -52,9 +53,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <HelmetProvider>
       <StoresContextProvider>
         <RouterProvider router={router} />
       </StoresContextProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );
 

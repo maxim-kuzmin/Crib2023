@@ -1,4 +1,5 @@
 import React, { memo, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import app, {
   type ArticleItemStoreLoadActionPayload
 } from '../../../app';
@@ -84,9 +85,14 @@ function ArticleItemView ({
     title: `${tLabelForId}: ${articleId}`
   };
 
+  const title = resourceOfArticleItemView.getTitle();
+
   return (
     <div className={styles.root}>
-      <h2>{resourceOfArticleItemView.getTitle()}</h2>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
+      <h2>{title}</h2>
       {
         entity.id > 0
           ? <app.controls.Card

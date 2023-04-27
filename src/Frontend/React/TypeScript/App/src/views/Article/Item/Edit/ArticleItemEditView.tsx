@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import app, {
   type ArticleItemStoreLoadActionPayload
 } from '../../../../app';
@@ -222,15 +223,16 @@ function ArticleItemEditView ({
     [dispatchOfSaveAction]
   );
 
+  const title = articleId > 0
+    ? resourceOfArticleItemEditView.getTitleForEdit()
+    : resourceOfArticleItemEditView.getTitleForNew();
+
   return (
     <div className={styles.root}>
-      <h2>
-        {
-          articleId > 0
-            ? resourceOfArticleItemEditView.getTitleForEdit()
-            : resourceOfArticleItemEditView.getTitleForNew()
-        }
-      </h2>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
+      <h2>{ title }</h2>
       {
         pendingOfLoadAction
           ? <app.controls.Spinner/>
