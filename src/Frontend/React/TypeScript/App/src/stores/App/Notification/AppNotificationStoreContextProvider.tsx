@@ -14,7 +14,7 @@ import {
   AppNotificationStoreStateContext
 } from './AppNotificationStoreContext';
 
-const initialState = app.modules.Store.getService().createInitialState<AppNotificationStoreState>(
+const initialState = app.module.Store.getService().createInitialState<AppNotificationStoreState>(
   [AppNotificationStoreSliceName.AppNotificationView],
   () => {
     const result: AppNotificationStoreState = {

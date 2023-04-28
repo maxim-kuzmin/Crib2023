@@ -11,8 +11,21 @@ import {
   type TextInputControlProps,
   type TreeControlProps,
 } from '../common';
+import {
+  BreadcrumbControl,
+  ButtonControl,
+  CardControl,
+  FormControl,
+  LayoutControl,
+  SpinnerControl,
+  SelectControl,
+  TableControl,
+  TextAreaControl,
+  TextInputControl,
+  TreeControl,
+} from '../controls';
 
-export interface Controls {
+export interface Control {
   readonly Breadcrumb: React.FC<BreadcrumbControlProps>;
   readonly Button: React.FC<ButtonControlProps>;
   readonly Card: React.FC<CardControlProps>;
@@ -24,4 +37,20 @@ export interface Controls {
   readonly TextArea: React.FC<TextAreaControlProps>;
   readonly TextInput: React.FC<TextInputControlProps>;
   readonly Tree: React.FC<TreeControlProps>;
+}
+
+export function createControl (): Control {
+  return {
+    Breadcrumb: BreadcrumbControl,
+    Button: ButtonControl,
+    Card: CardControl,
+    Form: FormControl,
+    Layout: LayoutControl,
+    Select: SelectControl,
+    Spinner: SpinnerControl,
+    Table: TableControl,
+    TextArea: TextAreaControl,
+    TextInput: TextInputControl,
+    Tree: TreeControl,
+  };
 }

@@ -90,7 +90,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.modules.Test.getService().getDataAsync(() => result);
+    return await app.module.Test.getService().getDataAsync(() => result);
   }
 
   async getItem (
@@ -107,7 +107,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.factories.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = app.factory.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {
@@ -117,7 +117,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.modules.Test.getService().getDataAsync(() => result);
+    return await app.module.Test.getService().getDataAsync(() => result);
   }
 
   async getList (
@@ -136,7 +136,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.modules.Test.getService().getDataAsync(() => result);
+    return await app.module.Test.getService().getDataAsync(() => result);
   }
 
   async getTree (
@@ -155,7 +155,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.modules.Test.getService().getDataAsync(() => result);
+    return await app.module.Test.getService().getDataAsync(() => result);
   }
 
   async saveItem (
@@ -188,7 +188,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.factories.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = app.factory.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {
@@ -198,6 +198,6 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.modules.Test.getService().getDataAsync(() => result);
+    return await app.module.Test.getService().getDataAsync(() => result);
   }
 }

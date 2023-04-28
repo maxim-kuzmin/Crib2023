@@ -20,7 +20,7 @@ function AppRootView () {
   return (
     <>
       <AppNotificationView/>
-      <app.controls.Layout
+      <app.control.Layout
         createAsideView={() => <AppLayoutAsideView logoUrl={logo}/>}
         createContentView={(backgroundColor) => <AppLayoutContentView backgroundColor={String(backgroundColor)}/>}
         createFooterView={() => <AppLayoutFooterView/>}

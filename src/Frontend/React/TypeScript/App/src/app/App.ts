@@ -1,13 +1,23 @@
-import { type Components } from './Components';
-import { type Controls } from './Controls';
-import { type Factories } from './Factories';
-import { type Hooks } from './Hooks';
-import { type Modules } from './Modules';
+import { type Component, createComponent } from './Component';
+import { type Control, createControl } from './Control';
+import { type Factory, createFactory } from './Factory';
+import { type Hooks, createHooks } from './Hooks';
+import { type Module, createModule } from './Module';
 
 export interface App {
-  readonly components: Components;
-  readonly controls: Controls;
-  readonly factories: Factories;
+  readonly component: Component;
+  readonly control: Control;
+  readonly factory: Factory;
   readonly hooks: Hooks;
-  readonly modules: Modules;
+  readonly module: Module;
 }
+
+export function createApp (): App {
+  const component = createComponent();
+  const control = createControl();
+  const factory = createFactory();
+  const module = createModule();
+  const hooks = createHooks({ component, module });
+
+  return { component, control, factory, hooks, module };
+};

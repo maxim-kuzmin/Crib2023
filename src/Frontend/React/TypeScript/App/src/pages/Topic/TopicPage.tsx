@@ -16,7 +16,7 @@ function TopicPage () {
     topicId = 0;
   }
 
-  const topicPageService = app.modules.Pages.Topic.getService();
+  const topicPageService = app.module.Pages.Topic.getService();
 
   const topicPageSearch = topicPageService.getUrlSearch(searchParams);
 
@@ -51,7 +51,7 @@ function TopicPage () {
   const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;
 
-    app.modules.Pages.Topic.getService().updateURLSearchParams(searchParams, {
+    app.module.Pages.Topic.getService().updateURLSearchParams(searchParams, {
       pageNumber,
       pageSize
     });

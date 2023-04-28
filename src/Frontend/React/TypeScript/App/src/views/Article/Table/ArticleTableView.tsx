@@ -106,7 +106,7 @@ function ArticleTableView ({
 
   const controlColumns: TableControlColumn[] = useMemo(
     () => {
-      const atriclePageService = app.modules.Pages.Article.getService();
+      const atriclePageService = app.module.Pages.Article.getService();
 
       return [
         {
@@ -134,7 +134,7 @@ function ArticleTableView ({
 
             const { path } = viewRow;
 
-            const topicPageService = app.modules.Pages.Topic.getService();
+            const topicPageService = app.module.Pages.Topic.getService();
 
             const controlItems: BreadcrumbControlItem[] = path.map((item) => {
               const { id, name } = item;
@@ -147,7 +147,7 @@ function ArticleTableView ({
             });
 
             return (
-              <app.controls.Breadcrumb controlItems={controlItems} />
+              <app.control.Breadcrumb controlItems={controlItems} />
             );
           }
         },
@@ -192,14 +192,14 @@ function ArticleTableView ({
                 >
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
-                <app.controls.Button
+                <app.control.Button
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
                   loading={id === deletingId.current && pendingOfDeleteAction}
                   onClick={
                     () => {
                       deletingId.current = id;
 
-                      app.components.Controls.Confirm.show({
+                      app.component.Controls.Confirm.show({
                         resourceOfConfirmControl,
                         onOk: () => {
                           dispatchOfDeleteAction.run({ id })
@@ -214,7 +214,7 @@ function ArticleTableView ({
                   title={`${tActionForDelete} ${id}`}
                 >
                   {resourceOfArticleTableView.getActionForDelete()}
-                </app.controls.Button>
+                </app.control.Button>
               </div>
             );
           }
@@ -240,7 +240,7 @@ function ArticleTableView ({
         <title>{title}</title>
       </Helmet>
       <h2>{title}</h2>
-      <app.controls.Table
+      <app.control.Table
         className={styles.root}
         controlColumns={controlColumns}
         controlRows={controlRows}

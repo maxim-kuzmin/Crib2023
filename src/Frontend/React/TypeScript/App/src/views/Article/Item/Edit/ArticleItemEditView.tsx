@@ -22,7 +22,7 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps) {
-  const resourceOfArticleItemEditView = app.hooks.Views.Article.ItemEdit.useResource();
+  const resourceOfArticleItemEditView = app.hooks.Views.Article.Item.Edit.useResource();
 
   app.hooks.Views.Article.Item.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
@@ -63,7 +63,7 @@ function ArticleItemEditView ({
   );
 
   const formValues = useMemo(
-    () => app.modules.Views.Article.ItemEdit.getService().convertToFormValues(entity),
+    () => app.module.Views.Article.Item.Edit.getService().convertToFormValues(entity),
     [entity]
   );
 
@@ -72,13 +72,13 @@ function ArticleItemEditView ({
     fieldNameForId,
     fieldNameForTitle,
     fieldNameForTopicId
-  } = app.modules.Views.Article.ItemEdit.getService();
+  } = app.module.Views.Article.Item.Edit.getService();
 
   const controlActions = useMemo(
     () => {
       const result: FormControlAction[] = [];
 
-      const articlePageService = app.modules.Pages.Article.getService();
+      const articlePageService = app.module.Pages.Article.getService();
 
       const actionToSave: FormControlAction = {
         key: 'save',
@@ -212,7 +212,7 @@ function ArticleItemEditView ({
 
   const handleSubmitSuccess = useCallback(
     (values: any) => {
-      const entity = app.modules.Views.Article.ItemEdit.getService().convertToEntity(values);
+      const entity = app.module.Views.Article.Item.Edit.getService().convertToEntity(values);
 
       dispatchOfSaveAction.run(entity).then(() => {
           if (form.current.reset) {
@@ -235,8 +235,8 @@ function ArticleItemEditView ({
       <h2>{ title }</h2>
       {
         pendingOfLoadAction
-          ? <app.controls.Spinner/>
-          : <app.controls.Form
+          ? <app.control.Spinner/>
+          : <app.control.Form
               controlActions={controlActions}
               controlFields={controlFields}
               formValues={formValues}

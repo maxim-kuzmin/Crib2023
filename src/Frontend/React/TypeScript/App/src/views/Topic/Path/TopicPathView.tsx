@@ -16,7 +16,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 
   const result: BreadcrumbControlItem[] = [root];
 
-  const topicPageService = app.modules.Pages.Topic.getService();
+  const topicPageService = app.module.Pages.Topic.getService();
 
   if (entity) {
     root.href = '/';
@@ -64,7 +64,7 @@ function TopicPathView () {
 
   return (
     <div className={styles.root}>
-      <app.controls.Breadcrumb controlItems={controlItems} currentItemKey={currentItemKey}/>
+      <app.control.Breadcrumb controlItems={controlItems} currentItemKey={currentItemKey}/>
     </div>
   );
 });

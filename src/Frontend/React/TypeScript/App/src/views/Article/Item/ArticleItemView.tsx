@@ -67,7 +67,7 @@ function ArticleItemView ({
       }
 
       const actionToEdit: CardControlAction = {
-        href: app.modules.Pages.Article.getService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
+        href: app.module.Pages.Article.getService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
         key: 'edit',
         title: resourceOfArticleItemView.getActionForEdit()
       };
@@ -95,7 +95,7 @@ function ArticleItemView ({
       <h2>{title}</h2>
       {
         entity.id > 0
-          ? <app.controls.Card
+          ? <app.control.Card
               controlActions={controlActions}
               controlExtra={controlExtra}
               loading={pendingOfLoadAction}
@@ -103,7 +103,7 @@ function ArticleItemView ({
               type={CardControlType.Main}
             >
                 { entity.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
-            </app.controls.Card>
+            </app.control.Card>
           : null
       }
     </div>

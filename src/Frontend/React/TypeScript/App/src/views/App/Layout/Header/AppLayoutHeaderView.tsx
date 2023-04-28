@@ -42,7 +42,7 @@ function AppLayoutHeaderView () {
   return (
     <div className={styles.root}>
       <TopicPathView/>
-      <app.controls.Select
+      <app.control.Select
         className={styles.select}
         defaultValue={serviceOfLocalization.getCurrentLanguage()}
         onChange={handleLanguageChange}

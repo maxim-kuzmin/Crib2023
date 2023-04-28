@@ -22,7 +22,7 @@ const topicInput: TopicDomainTreeGetOperationInput = {
 };
 
 function convertToControlNodes (topicId: number, entities?: TopicDomainEntityForTree[]): TreeControlNode[] {
-  const topicPageService = app.modules.Pages.Topic.getService();
+  const topicPageService = app.module.Pages.Topic.getService();
 
   return entities
     ? entities.map((entity) => {
@@ -114,8 +114,8 @@ function TopicTreeView () {
     <div className={styles.root}>
       {
         pendingOfLoadAction
-          ? <app.controls.Spinner/>
-          : <app.controls.Tree controlNodes={controlNodes} getChildren={getChildren} />
+          ? <app.control.Spinner/>
+          : <app.control.Tree controlNodes={controlNodes} getChildren={getChildren} />
       }
     </div>
   );
