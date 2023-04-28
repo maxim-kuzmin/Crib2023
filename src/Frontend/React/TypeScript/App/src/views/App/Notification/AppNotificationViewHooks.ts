@@ -20,23 +20,29 @@ export interface AppNotificationViewHooks {
   readonly useStoreState: () => AppNotificationStoreState;
 }
 
-export function createAppNotificationViewHooks (storeHooks: AppNotificationStoreHooks): AppNotificationViewHooks {
+interface Options {
+  readonly hooksOfAppNotificationStore: AppNotificationStoreHooks;
+}
+
+export function createAppNotificationViewHooks ({
+  hooksOfAppNotificationStore
+}: Options): AppNotificationViewHooks {
   const sliceName = AppNotificationStoreSliceName.AppNotificationView;
 
   function useStoreClearActionOutput (
     input: AppNotificationStoreClearActionInput
   ): AppNotificationStoreClearActionOutput {
-    return storeHooks.useStoreClearActionOutput(sliceName, input);
+    return hooksOfAppNotificationStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (
     input: AppNotificationStoreSetActionInput
   ): AppNotificationStoreSetActionOutput {
-    return storeHooks.useStoreSetActionOutput(sliceName, input);
+    return hooksOfAppNotificationStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): AppNotificationStoreState {
-    return storeHooks.useStoreState(sliceName);
+    return hooksOfAppNotificationStore.useStoreState(sliceName);
   }
 
   return {

@@ -26,23 +26,29 @@ export interface TopicTreeViewHooks {
   readonly useStoreState: () => TopicTreeStoreState;
 }
 
-export function createTopicTreeViewHooks (storeHooks: TopicTreeStoreHooks): TopicTreeViewHooks {
+interface Options {
+  readonly hooksOfTopicTreeStore: TopicTreeStoreHooks;
+}
+
+export function createTopicTreeViewHooks ({
+  hooksOfTopicTreeStore
+}: Options): TopicTreeViewHooks {
   const sliceName = TopicTreeStoreSliceName.TopicTreeView;
 
   function useStoreClearActionOutput (input: TopicTreeStoreClearActionInput): TopicTreeStoreClearActionOutput {
-    return storeHooks.useStoreClearActionOutput(sliceName, input);
+    return hooksOfTopicTreeStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreLoadActionOutput (input: TopicTreeStoreLoadActionInput): TopicTreeStoreLoadActionOutput {
-    return storeHooks.useStoreLoadActionOutput(sliceName, input);
+    return hooksOfTopicTreeStore.useStoreLoadActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (input: TopicTreeStoreSetActionInput): TopicTreeStoreSetActionOutput {
-    return storeHooks.useStoreSetActionOutput(sliceName, input);
+    return hooksOfTopicTreeStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): TopicTreeStoreState {
-    return storeHooks.useStoreState(sliceName);
+    return hooksOfTopicTreeStore.useStoreState(sliceName);
   }
 
   return {

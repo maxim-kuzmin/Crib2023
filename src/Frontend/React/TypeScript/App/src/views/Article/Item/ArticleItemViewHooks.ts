@@ -47,7 +47,13 @@ export interface ArticleItemViewHooks {
   readonly useStoreState: () => ArticleItemStoreState;
 }
 
-export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): ArticleItemViewHooks {
+interface Options {
+  readonly hooksOfArticleItemStore: ArticleItemStoreHooks;
+}
+
+export function createArticleItemViewHooks ({
+  hooksOfArticleItemStore
+}: Options): ArticleItemViewHooks {
   function useResource (): ArticleItemViewResource {
     const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemView);
 
@@ -82,27 +88,27 @@ export function createArticleItemViewHooks (storeHooks: ArticleItemStoreHooks): 
   const sliceName = ArticleItemStoreSliceName.ArticleItemView;
 
   function useStoreClearActionOutput (input: ArticleItemStoreClearActionInput): ArticleItemStoreClearActionOutput {
-    return storeHooks.useStoreClearActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreDeleteActionOutput (input?: ArticleItemStoreDeleteActionInput): ArticleItemStoreDeleteActionOutput {
-    return storeHooks.useStoreDeleteActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreDeleteActionOutput(sliceName, input);
   }
 
   function useStoreLoadActionOutput (input: ArticleItemStoreLoadActionInput): ArticleItemStoreLoadActionOutput {
-    return storeHooks.useStoreLoadActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreLoadActionOutput(sliceName, input);
   }
 
   function useStoreSaveActionOutput (input?: ArticleItemStoreSaveActionInput): ArticleItemStoreSaveActionOutput {
-    return storeHooks.useStoreSaveActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreSaveActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (input: ArticleItemStoreSetActionInput): ArticleItemStoreSetActionOutput {
-    return storeHooks.useStoreSetActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): ArticleItemStoreState {
-    return storeHooks.useStoreState(sliceName);
+    return hooksOfArticleItemStore.useStoreState(sliceName);
   }
 
   return {

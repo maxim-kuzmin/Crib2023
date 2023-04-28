@@ -31,7 +31,13 @@ export interface ArticleTableViewHooks {
   readonly useStoreState: () => ArticleListStoreState;
 }
 
-export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks): ArticleTableViewHooks {
+interface Options {
+  readonly hooksOfArticleListStore: ArticleListStoreHooks;
+}
+
+export function createArticleTableViewHooks ({
+  hooksOfArticleListStore
+}: Options): ArticleTableViewHooks {
   function useResource (): ArticleTableViewResource {
     const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleTableView);
 
@@ -81,19 +87,19 @@ export function createArticleTableViewHooks (storeHooks: ArticleListStoreHooks):
   const sliceName = ArticleListStoreSliceName.ArticleTableView;
 
   function useStoreClearActionOutput (input: ArticleListStoreClearActionInput): ArticleListStoreClearActionOutput {
-    return storeHooks.useStoreClearActionOutput(sliceName, input);
+    return hooksOfArticleListStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreLoadActionOutput (input: ArticleListStoreLoadActionInput): ArticleListStoreLoadActionOutput {
-    return storeHooks.useStoreLoadActionOutput(sliceName, input);
+    return hooksOfArticleListStore.useStoreLoadActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (input: ArticleListStoreSetActionInput): ArticleListStoreSetActionOutput {
-    return storeHooks.useStoreSetActionOutput(sliceName, input);
+    return hooksOfArticleListStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): ArticleListStoreState {
-    return storeHooks.useStoreState(sliceName);
+    return hooksOfArticleListStore.useStoreState(sliceName);
   }
 
   return {
