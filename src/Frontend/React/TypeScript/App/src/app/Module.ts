@@ -1,16 +1,23 @@
-import { createHttpModule, type HttpModule } from '../common/Http/HttpModule';
-import { createSetupModule, type SetupModule } from '../common/Setup/SetupModule';
-import { createStoreModule, type StoreModule } from '../common/Store/StoreModule';
-import { type ControlsModule } from '../controls';
-import { createControlsModule } from '../controls/ControlsModule';
-import { createApiModule, type ApiModule } from '../data/Api/ApiModule';
+import {
+  type ControlsModule,
+  type HttpModule,
+  type SetupModule,
+  type StoreModule
+} from '../common';
+import { createControlsModule } from '../common/Controls/ControlsModule';
+import { createHttpModule } from '../common/Http/HttpModule';
+import { createSetupModule } from '../common/Setup/SetupModule';
+import { createStoreModule } from '../common/Store/StoreModule';
+import { type ApiModule } from '../data';
+import { createApiModule } from '../data/Api/ApiModule';
 import { type DomainsModule } from '../domains';
 import { createDomainsModule } from '../domains/DomainsModule';
 import { type PagesModule } from '../pages';
 import { createPagesModule } from '../pages/PagesModule';
 import { type ViewsModule } from '../views';
 import { createViewsModule } from '../views/ViewsModule';
-import { createTestModule, type TestModule } from './Test/TestModule';
+import { type TestModule } from './Test';
+import { createTestModule } from './Test/TestModule';
 
 export interface Module {
   readonly Api: ApiModule;

@@ -31,7 +31,7 @@ export interface TopicDomainHooks {
   readonly useTreeGetOperationRequestHandler: () => TopicDomainTreeGetOperationRequestHandler;
 }
 
-interface HooksOptions {
+interface Options {
   readonly getTopicDomainRepository: () => TopicDomainRepository;
   readonly hooksOfApiRequest: ApiRequestHooks;
 }
@@ -39,7 +39,7 @@ interface HooksOptions {
 export function createTopicDomainHooks ({
   hooksOfApiRequest,
   getTopicDomainRepository
-}: HooksOptions): TopicDomainHooks {
+}: Options): TopicDomainHooks {
   function useItemDeleteOperationRequestHandler (): TopicDomainItemDeleteOperationRequestHandler {
     return new TopicDomainItemDeleteOperationRequestHandlerImpl({
       apiRequestHandler: hooksOfApiRequest.useHandler({

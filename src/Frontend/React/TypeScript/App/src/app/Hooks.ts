@@ -1,10 +1,12 @@
 import {
-  type ConfirmControlHooks,
-  type NotificationControlHooks,
-  type TableControlHooks,
+  type ControlsHooks
 } from '../common';
-import { type ApiResponseHooks } from '../data';
-import { type TopicDomainHooks, type ArticleDomainHooks } from '../domains';
+import { createOperationHooks } from '../common/Operation/OperationHooks';
+import { createControlsHooks } from '../controls/ControlsHooks';
+import { type ApiHooks } from '../data';
+import { createApiHooks } from '../data/Api/ApiHooks';
+import { type DomainsHooks } from '../domains';
+import { createDomainsHooks } from '../domains/DomainsHooks';
 import {
   type AppNotificationViewHooks,
   type ArticleItemViewHooks,
@@ -21,18 +23,6 @@ import {
   type TopicItemStoreHooks,
   type TopicTreeStoreHooks,
 } from './Stores';
-
-import { createOperationHooks } from '../common/Operation/OperationHooks';
-
-import { createConfirmControlHooks } from '../controls/Confirm/ConfirmControlHooks';
-import { createNotificationControlHooks } from '../controls/Notification/NotificationControlHooks';
-import { createTableControlHooks } from '../controls/Table/TableControlHooks';
-
-import { createApiRequestHooks } from '../data/Api/Request/ApiRequestHooks';
-import { createApiResponseHooks } from '../data/Api/Response/ApiResponseHooks';
-
-import { createArticleDomainHooks } from '../domains/Article/ArticleDomainHooks';
-import { createTopicDomainHooks } from '../domains/Topic/TopicDomainHooks';
 
 import { createAppNotificationStoreHooks } from '../stores/App/Notification/AppNotificationStoreHooks';
 import { createArticleItemStoreHooks } from '../stores/Article/Item/ArticleItemStoreHooks';
@@ -55,18 +45,9 @@ import { type Component } from './Component';
 import { type Module } from './Module';
 
 export interface Hooks {
-  readonly Api: {
-    readonly Response: ApiResponseHooks;
-  };
-  readonly Controls: {
-    readonly Confirm: ConfirmControlHooks;
-    readonly Notification: NotificationControlHooks;
-    readonly Table: TableControlHooks;
-  };
-  readonly Domains: {
-    Article: ArticleDomainHooks;
-    Topic: TopicDomainHooks;
-  };
+  readonly Api: ApiHooks;
+  readonly Controls: ControlsHooks;
+  readonly Domains: DomainsHooks;
   readonly Localization: LocalizationHooks;
   readonly Stores: {
     readonly App: {
@@ -107,10 +88,7 @@ export function createHooks ({
   component,
   module
 }: HooksOptions): Hooks {
-  const hooksOfApiResponse = createApiResponseHooks();
-  const hooksOfConfirmControl = createConfirmControlHooks();
-  const hooksOfNotificationControl = createNotificationControlHooks();
-  const hooksOfTableControl = createTableControlHooks();
+  const hooksOfControls = createControlsHooks();
   const hooksOfAppNotificationStore = createAppNotificationStoreHooks();
   const hooksOfAppNotificationView = createAppNotificationViewHooks(hooksOfAppNotificationStore);
   const hooksOfArticleItemStore = createArticleItemStoreHooks();
@@ -124,39 +102,26 @@ export function createHooks ({
   const hooksOfTopicTreeStore = createTopicTreeStoreHooks();
   const hooksOfTopicTreeView = createTopicTreeViewHooks(hooksOfTopicTreeStore);
   const hooksOfOperation = createOperationHooks({ hooksOfAppNotificationStore });
-  const hooksOfApiRequest = createApiRequestHooks({ hooksOfOperation });
+  const hooksOfApi = createApiHooks({ hooksOfOperation });
 
-  const hooksOfArticleDomain = createArticleDomainHooks({
+  const hooksOfDomains = createDomainsHooks({
     getArticleDomainRepository: module.Domains.Article.getRepository,
-    hooksOfApiRequest
-  });
-
-  const hooksOfTopicDomain = createTopicDomainHooks({
     getTopicDomainRepository: module.Domains.Topic.getRepository,
-    hooksOfApiRequest
+    hooksOfApiRequest: hooksOfApi.Request
   });
 
   function useLeaveFormBlocker (shouldBlock: boolean) {
     useLeaveFormBlockerInner({
       componentOfConfirmControl: component.Controls.Confirm,
-      hooksOfConfirmControl,
+      hooksOfConfirmControl: hooksOfControls.Confirm,
       shouldBlock
     });
   }
 
   return {
-    Api: {
-      Response: hooksOfApiResponse
-    },
-    Controls: {
-      Confirm: hooksOfConfirmControl,
-      Notification: hooksOfNotificationControl,
-      Table: hooksOfTableControl
-    },
-    Domains: {
-      Article: hooksOfArticleDomain,
-      Topic: hooksOfTopicDomain,
-    },
+    Api: hooksOfApi,
+    Controls: hooksOfControls,
+    Domains: hooksOfDomains,
     Localization: hooksOfLocalization,
     Stores: {
       App: {

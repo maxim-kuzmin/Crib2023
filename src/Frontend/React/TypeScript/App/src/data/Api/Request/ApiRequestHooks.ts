@@ -7,13 +7,13 @@ export interface ApiRequestHooks {
   readonly useHandler: (config: OperationHandlerConfig) => ApiRequestHandler;
 }
 
-interface HooksOptions {
+interface Options {
   readonly hooksOfOperation: OperationHooks;
 }
 
 export function createApiRequestHooks ({
   hooksOfOperation
-}: HooksOptions): ApiRequestHooks {
+}: Options): ApiRequestHooks {
   function useHandler (config: OperationHandlerConfig): ApiRequestHandler {
     return new ApiRequestHandlerImpl({
       operationHandler: hooksOfOperation.useOperationHandler(config)
