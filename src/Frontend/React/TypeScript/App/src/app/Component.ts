@@ -1,18 +1,14 @@
-import { type ConfirmControlComponent } from '../common';
-import { createConfirmControlComponent } from '../controls/Confirm/ConfirmControlComponent';
+import { type ControlsComponent } from '../controls';
+import { createControlsComponent } from '../controls/ControlsComponent';
 
 export interface Component {
-  readonly Controls: {
-      readonly Confirm: ConfirmControlComponent;
-  };
+  readonly Controls: ControlsComponent;
 }
 
 export function createComponent (): Component {
-  const componentOfConfirmControl = createConfirmControlComponent();
+  const componentOfControls = createControlsComponent();
 
   return {
-    Controls: {
-      Confirm: componentOfConfirmControl
-    }
+    Controls: componentOfControls
   };
 }

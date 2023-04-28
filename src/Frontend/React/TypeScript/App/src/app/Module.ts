@@ -1,45 +1,34 @@
-import { createTableControlModule, type TableControlModule } from '../common/Controls/Table/TableControlModule';
 import { createHttpModule, type HttpModule } from '../common/Http/HttpModule';
 import { createSetupModule, type SetupModule } from '../common/Setup/SetupModule';
 import { createStoreModule, type StoreModule } from '../common/Store/StoreModule';
+import { type ControlsModule } from '../controls';
+import { createControlsModule } from '../controls/ControlsModule';
 import { createApiModule, type ApiModule } from '../data/Api/ApiModule';
-import { createArticleDomainModule, type ArticleDomainModule } from '../domains/Article/ArticleDomainModule'
-import { createTopicDomainModule, type TopicDomainModule } from '../domains/Topic/TopicDomainModule';
-import { createArticlePageModule, type ArticlePageModule } from '../pages/Article/ArticlePageModule';
-import { createTopicPageModule, type TopicPageModule } from '../pages/Topic/TopicPageModule';
-import { createArticleItemViewModule, type ArticleItemViewModule } from '../views/Article/Item/ArticleItemViewModule';
+import { type DomainsModule } from '../domains';
+import { createDomainsModule } from '../domains/DomainsModule';
+import { type PagesModule } from '../pages';
+import { createPagesModule } from '../pages/PagesModule';
+import { type ViewsModule } from '../views';
+import { createViewsModule } from '../views/ViewsModule';
 import { createTestModule, type TestModule } from './Test/TestModule';
 
 export interface Module {
   readonly Api: ApiModule;
-  readonly Controls: {
-    readonly Table: TableControlModule;
-  };
-  readonly Domains: {
-    readonly Article: ArticleDomainModule;
-    readonly Topic: TopicDomainModule;
-  };
+  readonly Controls: ControlsModule;
+  readonly Domains: DomainsModule;
   readonly Http: HttpModule;
-  readonly Pages: {
-    readonly Article: ArticlePageModule;
-    readonly Topic: TopicPageModule;
-  };
+  readonly Pages: PagesModule;
   readonly Setup: SetupModule;
   readonly Store: StoreModule;
   readonly Test: TestModule;
-  readonly Views: {
-    readonly Article: {
-      readonly Item: ArticleItemViewModule;
-    };
-  };
+  readonly Views: ViewsModule;
 }
 
 export function createModule (): Module {
+  const moduleOfControls = createControlsModule();
   const moduleOfSetup = createSetupModule();
   const moduleOfHttp = createHttpModule();
-  const moduleOfArticlePage = createArticlePageModule();
-  const moduleOfTableControl = createTableControlModule();
-  const moduleOfArticleItemView = createArticleItemViewModule();
+  const moduleOfViews = createViewsModule();
   const moduleOfTest = createTestModule();
   const moduleOfStore = createStoreModule();
 
@@ -47,41 +36,24 @@ export function createModule (): Module {
     httpClient: moduleOfHttp.getClient()
   });
 
-  const moduleOfArticleDomain = createArticleDomainModule({
+  const moduleOfDomains = createDomainsModule({
     apiClient: moduleOfApi.getClient(),
     setupOptions: moduleOfSetup.getOptions()
   });
 
-  const moduleOfTopicDomain = createTopicDomainModule({
-    apiClient: moduleOfApi.getClient(),
-    setupOptions: moduleOfSetup.getOptions()
-  });
-
-  const moduleOfTopicPage = createTopicPageModule({
-    tableControlService: moduleOfTableControl.getService()
+  const moduleOfPages = createPagesModule({
+    tableControlService: moduleOfControls.Table.getService()
   });
 
   return {
     Api: moduleOfApi,
-    Controls: {
-      Table: moduleOfTableControl,
-    },
-    Domains: {
-      Article: moduleOfArticleDomain,
-      Topic: moduleOfTopicDomain,
-    },
+    Controls: moduleOfControls,
+    Domains: moduleOfDomains,
     Http: moduleOfHttp,
-    Pages: {
-      Article: moduleOfArticlePage,
-      Topic: moduleOfTopicPage,
-    },
+    Pages: moduleOfPages,
     Setup: moduleOfSetup,
     Store: moduleOfStore,
     Test: moduleOfTest,
-    Views: {
-      Article: {
-        Item: moduleOfArticleItemView,
-      }
-    }
+    Views: moduleOfViews
   };
 }
