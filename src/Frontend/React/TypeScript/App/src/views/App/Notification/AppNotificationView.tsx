@@ -1,11 +1,11 @@
 import React, { memo, useCallback } from 'react';
-import app from '../../../app';
+import appInstance from '../../../app/AppInstance';
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView (): React.ReactElement | null {
-  const component = app.hooks.Controls.Notification.useComponent();
+  const component = appInstance.hooks.Controls.Notification.useComponent();
 
-  const { payloadOfSetAction: data } = app.hooks.Views.App.Notification.useStoreState();
+  const { payloadOfSetAction: data } = appInstance.hooks.Views.App.Notification.useStoreState();
 
   const onActionCompleted = useCallback(() => {
       if (data) {
@@ -15,7 +15,7 @@ function AppNotificationView (): React.ReactElement | null {
     [component, data]
   );
 
-  app.hooks.Views.App.Notification.useStoreClearActionOutput({
+  appInstance.hooks.Views.App.Notification.useStoreClearActionOutput({
     onActionCompleted
   });
 

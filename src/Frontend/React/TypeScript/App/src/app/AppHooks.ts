@@ -8,14 +8,14 @@ import { createDomainsHooks } from '../domains/DomainsHooks';
 import { createStoresHooks } from '../stores/StoresHooks';
 import { type ViewsHooks } from '../views';
 import { createViewsHooks } from '../views/ViewsHooks';
-import { type Component } from './Component';
+import { type AppComponent } from './AppComponent';
 import { useLeaveFormBlocker as useLeaveFormBlockerInner } from './Hooks/LeaveFormBlockerHook';
 import { type LocalizationHooks } from './Localization';
 import { createLocalizationHooks } from './Localization/LocalizationHooks';
-import { type Module } from './Module';
+import { type AppModule } from './AppModule';
 import { type StoresHooks } from './Stores';
 
-export interface Hooks {
+export interface AppHooks {
   readonly Api: ApiHooks;
   readonly Controls: ControlsHooks;
   readonly Domains: DomainsHooks;
@@ -25,15 +25,15 @@ export interface Hooks {
   readonly useLeaveFormBlocker: (shouldBlock: boolean) => void;
 }
 
-interface HooksOptions {
-  readonly component: Component;
-  readonly module: Module;
+interface Options {
+  readonly component: AppComponent;
+  readonly module: AppModule;
 }
 
-export function createHooks ({
+export function createAppHooks ({
   component,
   module
-}: HooksOptions): Hooks {
+}: Options): AppHooks {
   const hooksOfControls = createControlsHooks();
   const hooksOfStores = createStoresHooks();
 

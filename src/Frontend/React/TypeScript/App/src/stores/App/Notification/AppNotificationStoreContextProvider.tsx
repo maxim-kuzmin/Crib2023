@@ -3,7 +3,8 @@ import React, {
   memo,
   useReducer,
 } from 'react';
-import app, {
+import appInstance from '../../../app/AppInstance';
+import {
   AppNotificationStoreSliceName,
   type AppNotificationStoreState
 } from '../../../app';
@@ -14,7 +15,7 @@ import {
   AppNotificationStoreStateContext
 } from './AppNotificationStoreContext';
 
-const initialState = app.module.Store.getService().createInitialState<AppNotificationStoreState>(
+const initialState = appInstance.module.Store.getService().createInitialState<AppNotificationStoreState>(
   [AppNotificationStoreSliceName.AppNotificationView],
   () => {
     const result: AppNotificationStoreState = {

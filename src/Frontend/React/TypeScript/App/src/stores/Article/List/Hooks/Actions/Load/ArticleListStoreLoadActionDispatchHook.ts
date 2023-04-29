@@ -1,5 +1,6 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import app, {
+import appInstance from '../../../../../../app/AppInstance';
+import {
   type ArticleListStoreSetActionCallback,
   type ArticleListStoreLoadActionDispatch,
   type ArticleListStoreLoadActionOptions,
@@ -82,13 +83,13 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: ArticleListStoreLoadActionOptions = {}
 ): ArticleListStoreLoadActionDispatch {
-  const resourceOfApiResponse = app.hooks.Api.Response.useResource();
+  const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 
-  const resourceOfArticleListStore = app.hooks.Stores.Article.List.useResource();
+  const resourceOfArticleListStore = appInstance.hooks.Stores.Article.List.useResource();
 
   const dispatch = useArticleListStoreDispatchContext();
 
-  const requestHandler = useRef(app.hooks.Domains.Article.useListGetOperationRequestHandler()).current;
+  const requestHandler = useRef(appInstance.hooks.Domains.Article.useListGetOperationRequestHandler()).current;
 
   useEffect(
     () => {

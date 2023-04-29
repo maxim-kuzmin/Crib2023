@@ -1,11 +1,11 @@
 import { type ControlsComponent } from '../controls';
 import { createControlsComponent } from '../controls/ControlsComponent';
 
-export interface Component {
+export interface AppComponent {
   readonly Controls: ControlsComponent;
 }
 
-export function createComponent (): Component {
+export function createAppComponent (): AppComponent {
   const componentOfControls = createControlsComponent();
 
   return {

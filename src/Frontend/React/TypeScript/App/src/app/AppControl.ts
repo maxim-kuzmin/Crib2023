@@ -25,7 +25,7 @@ import {
   TreeControl,
 } from '../controls';
 
-export interface Control {
+export interface AppControl {
   readonly Breadcrumb: React.FC<BreadcrumbControlProps>;
   readonly Button: React.FC<ButtonControlProps>;
   readonly Card: React.FC<CardControlProps>;
@@ -39,7 +39,7 @@ export interface Control {
   readonly Tree: React.FC<TreeControlProps>;
 }
 
-export function createControl (): Control {
+export function createAppControl (): AppControl {
   return {
     Breadcrumb: BreadcrumbControl,
     Button: ButtonControl,

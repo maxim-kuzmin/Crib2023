@@ -1,11 +1,8 @@
-import { createApp } from './App';
-
-const app = createApp();
-
-export default app;
-export { type App } from './App';
-export { type Component as Components } from './Component';
-export { type Control as Controls } from './Control';
-export { type Hooks } from './Hooks';
 export * from './Localization';
 export * from './Stores';
+export { type AppComponent } from './AppComponent';
+export { type AppControl } from './AppControl';
+export { type AppFactory } from './AppFactory';
+export { type AppHooks } from './AppHooks';
+export { type AppInstance } from './AppInstance';
+export { type AppModule } from './AppModule';

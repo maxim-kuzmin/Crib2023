@@ -19,7 +19,7 @@ import { createViewsModule } from '../views/ViewsModule';
 import { type TestModule } from './Test';
 import { createTestModule } from './Test/TestModule';
 
-export interface Module {
+export interface AppModule {
   readonly Api: ApiModule;
   readonly Controls: ControlsModule;
   readonly Domains: DomainsModule;
@@ -31,7 +31,7 @@ export interface Module {
   readonly Views: ViewsModule;
 }
 
-export function createModule (): Module {
+export function createAppModule (): AppModule {
   const moduleOfControls = createControlsModule();
   const moduleOfSetup = createSetupModule();
   const moduleOfHttp = createHttpModule();

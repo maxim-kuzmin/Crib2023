@@ -1,9 +1,8 @@
 import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import app, {
-  type ArticleListStoreLoadActionPayload
-} from '../../../app';
+import appInstance from '../../../app/AppInstance';
+import { type ArticleListStoreLoadActionPayload } from '../../../app';
 import {
   ConfirmControlType,
   type BreadcrumbControlItem,
@@ -33,14 +32,14 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
-  const resourceOfConfirmControl = app.hooks.Controls.Confirm.useResource();
+  const resourceOfConfirmControl = appInstance.hooks.Controls.Confirm.useResource();
 
   const {
     dispatchOfDeleteAction,
     pendingOfDeleteAction
-  } = app.hooks.Views.Article.Item.useStoreDeleteActionOutput();
+  } = appInstance.hooks.Views.Article.Item.useStoreDeleteActionOutput();
 
-  const resourceOfArticleTableView = app.hooks.Views.Article.Table.useResource();
+  const resourceOfArticleTableView = appInstance.hooks.Views.Article.Table.useResource();
 
   const payloadOfLoadAction: ArticleListStoreLoadActionPayload = useMemo(
     () => {
@@ -63,7 +62,7 @@ function ArticleTableView ({
     dispatchOfLoadAction,
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = app.hooks.Views.Article.Table.useStoreLoadActionOutput({
+  } = appInstance.hooks.Views.Article.Table.useStoreLoadActionOutput({
     payloadOfLoadAction
   });
 
@@ -106,7 +105,7 @@ function ArticleTableView ({
 
   const controlColumns: TableControlColumn[] = useMemo(
     () => {
-      const atriclePageService = app.module.Pages.Article.getService();
+      const atriclePageService = appInstance.module.Pages.Article.getService();
 
       return [
         {
@@ -134,7 +133,7 @@ function ArticleTableView ({
 
             const { path } = viewRow;
 
-            const topicPageService = app.module.Pages.Topic.getService();
+            const topicPageService = appInstance.module.Pages.Topic.getService();
 
             const controlItems: BreadcrumbControlItem[] = path.map((item) => {
               const { id, name } = item;
@@ -147,7 +146,7 @@ function ArticleTableView ({
             });
 
             return (
-              <app.control.Breadcrumb controlItems={controlItems} />
+              <appInstance.control.Breadcrumb controlItems={controlItems} />
             );
           }
         },
@@ -192,14 +191,14 @@ function ArticleTableView ({
                 >
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
-                <app.control.Button
+                <appInstance.control.Button
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
                   loading={id === deletingId.current && pendingOfDeleteAction}
                   onClick={
                     () => {
                       deletingId.current = id;
 
-                      app.component.Controls.Confirm.show({
+                      appInstance.component.Controls.Confirm.show({
                         resourceOfConfirmControl,
                         onOk: () => {
                           dispatchOfDeleteAction.run({ id })
@@ -214,7 +213,7 @@ function ArticleTableView ({
                   title={`${tActionForDelete} ${id}`}
                 >
                   {resourceOfArticleTableView.getActionForDelete()}
-                </app.control.Button>
+                </appInstance.control.Button>
               </div>
             );
           }
@@ -240,7 +239,7 @@ function ArticleTableView ({
         <title>{title}</title>
       </Helmet>
       <h2>{title}</h2>
-      <app.control.Table
+      <appInstance.control.Table
         className={styles.root}
         controlColumns={controlColumns}
         controlRows={controlRows}

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import app, { LocalizationTarget } from '../../../app';
+import appInstance from '../../../app/AppInstance';
+import { LocalizationTarget } from '../../../app';
 import { type TopicPathViewResource } from './TopicPathViewResource';
 
 export interface TopicPathViewHooks {
@@ -8,7 +9,7 @@ export interface TopicPathViewHooks {
 
 export function createTopicPathViewHooks (): TopicPathViewHooks {
   function useResource (): TopicPathViewResource {
-    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.TopicPathView);
+    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.TopicPathView);
 
     const tTitleForRoot: string = translator.translate('@@TitleForRoot');
 

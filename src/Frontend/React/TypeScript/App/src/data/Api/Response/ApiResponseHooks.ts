@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import app, { LocalizationTarget } from '../../../app';
+import appInstance from '../../../app/AppInstance';
+import { LocalizationTarget } from '../../../app';
 import { type ApiResponseResource } from './ApiResponseResource';
 
 export interface ApiResponseHooks {
@@ -8,7 +9,7 @@ export interface ApiResponseHooks {
 
 export function createApiResponseHooks (): ApiResponseHooks {
   function useResource (): ApiResponseResource {
-    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ApiResponse);
+    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ApiResponse);
 
     const tErrorMessageForDefault = translator.translate('@@ErrorMessageForDefault');
     const tErrorMessageForHttp400 = translator.translate('@@ErrorMessageForHttp400');

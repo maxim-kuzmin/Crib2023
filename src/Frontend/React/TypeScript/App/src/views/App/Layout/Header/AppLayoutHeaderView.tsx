@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 import { TopicPathView } from '../../..';
-import app from '../../../../app';
+import appInstance from '../../../../app/AppInstance';
 import { type SelectControlOption } from '../../../../common';
 import styles from './AppLayoutHeaderView.module.css';
 
 export const AppLayoutHeaderView: React.FC = memo(
 function AppLayoutHeaderView (): React.ReactElement | null {
-  const serviceOfLocalization = app.hooks.Localization.useService();
+  const serviceOfLocalization = appInstance.hooks.Localization.useService();
 
   const languages: Array<{ label: string; value: string; }> = [];
 
@@ -42,7 +42,7 @@ function AppLayoutHeaderView (): React.ReactElement | null {
   return (
     <div className={styles.root}>
       <TopicPathView/>
-      <app.control.Select
+      <appInstance.control.Select
         className={styles.select}
         defaultValue={serviceOfLocalization.getCurrentLanguage()}
         onChange={handleLanguageChange}

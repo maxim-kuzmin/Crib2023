@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import app, {
+import appInstance from '../../../app/AppInstance';
+import {
   type ArticleListStoreResource,
   type ArticleListStoreHooks,
   LocalizationTarget
@@ -17,7 +18,7 @@ import { useStoreState } from './Hooks/ArticleListStoreStateHook';
 
 export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
-    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleListStore);
+    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ArticleListStore);
 
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');
 

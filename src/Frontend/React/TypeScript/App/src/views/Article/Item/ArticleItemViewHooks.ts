@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import app, {
+import appInstance from '../../../app/AppInstance';
+import {
   type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput,
   type ArticleItemStoreDeleteActionInput,
@@ -55,7 +56,7 @@ export function createArticleItemViewHooks ({
   hooksOfArticleItemStore
 }: Options): ArticleItemViewHooks {
   function useResource (): ArticleItemViewResource {
-    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemView);
+    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemView);
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForEdit: string = translator.translate('@@ActionForEdit');

@@ -1,7 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
-import app, {
-  type TopicTreeStoreLoadActionPayload
-} from '../../../app';
+import appInstance from '../../../app/AppInstance';
+import { type TopicTreeStoreLoadActionPayload } from '../../../app';
 import {
   OperationSortDirection,
   OperationStatus,
@@ -22,7 +21,7 @@ const topicInput: TopicDomainTreeGetOperationInput = {
 };
 
 function convertToControlNodes (topicId: number, entities?: TopicDomainEntityForTree[]): TreeControlNode[] {
-  const topicPageService = app.module.Pages.Topic.getService();
+  const topicPageService = appInstance.module.Pages.Topic.getService();
 
   return entities
     ? entities.map((entity) => {
@@ -46,14 +45,14 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
 
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView (): React.ReactElement | null {
-  const resourceOfTopicTreeStore = app.hooks.Stores.Topic.Tree.useResource();
+  const resourceOfTopicTreeStore = appInstance.hooks.Stores.Topic.Tree.useResource();
 
-  const resourceOfApiResponse = app.hooks.Api.Response.useResource();
+  const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 
   const {
     payloadOfSetAction: topicItemResponse,
     statusOfLoadAction: topicItemStatus
-  } = app.hooks.Views.Topic.Item.useStoreState();
+  } = appInstance.hooks.Views.Topic.Item.useStoreState();
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
@@ -71,7 +70,7 @@ function TopicTreeView (): React.ReactElement | null {
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = app.hooks.Views.Topic.Tree.useStoreLoadActionOutput({
+  } = appInstance.hooks.Views.Topic.Tree.useStoreLoadActionOutput({
     payloadOfLoadAction,
     isCanceled: topicItemStatus !== OperationStatus.Fulfilled
   });
@@ -83,7 +82,7 @@ function TopicTreeView (): React.ReactElement | null {
     [topicId, entities]
   );
 
-  const requestHandler = useRef(app.hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
+  const requestHandler = useRef(appInstance.hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
 
   const getChildren = useCallback(
     async (key: string) => {
@@ -114,8 +113,8 @@ function TopicTreeView (): React.ReactElement | null {
     <div className={styles.root}>
       {
         pendingOfLoadAction
-          ? <app.control.Spinner/>
-          : <app.control.Tree controlNodes={controlNodes} getChildren={getChildren} />
+          ? <appInstance.control.Spinner/>
+          : <appInstance.control.Tree controlNodes={controlNodes} getChildren={getChildren} />
       }
     </div>
   );

@@ -1,4 +1,4 @@
-import app from '../../app';
+import appInstance from '../../app/AppInstance';
 import {
   type HttpClient,
   type HttpRequestConfig,
@@ -221,7 +221,7 @@ export class ApiClientImpl implements ApiClient {
           }
       }
 
-      error = app.factory.Api.Response.createError({
+      error = appInstance.factory.Api.Response.createError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,
@@ -272,7 +272,7 @@ export class ApiClientImpl implements ApiClient {
           }
       }
 
-      error = app.factory.Api.Response.createError({
+      error = appInstance.factory.Api.Response.createError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,

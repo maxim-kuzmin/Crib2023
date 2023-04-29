@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import app from '../../../../app';
+import appInstance from '../../../AppInstance';
 import {
   type ArticleDomainItemSaveOperationRequest,
   type ArticleDomainEntityForItem,
@@ -49,7 +49,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.Test.getService().getDataAsync(() => result);
+    return await appInstance.module.Test.getService().getDataAsync(() => result);
   }
 
   async getItem (
@@ -66,7 +66,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.factory.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = appInstance.factory.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
@@ -76,7 +76,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.Test.getService().getDataAsync(() => result);
+    return await appInstance.module.Test.getService().getDataAsync(() => result);
   }
 
   async getList (
@@ -95,7 +95,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.Test.getService().getDataAsync(() => result);
+    return await appInstance.module.Test.getService().getDataAsync(() => result);
   }
 
   async saveItem (
@@ -127,7 +127,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.factory.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = appInstance.factory.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
@@ -137,6 +137,6 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.Test.getService().getDataAsync(() => result);
+    return await appInstance.module.Test.getService().getDataAsync(() => result);
   }
 }

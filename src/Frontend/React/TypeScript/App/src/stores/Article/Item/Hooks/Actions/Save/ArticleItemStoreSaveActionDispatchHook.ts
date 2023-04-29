@@ -1,5 +1,6 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import app, {
+import appInstance from '../../../../../../app/AppInstance';
+import {
   type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreSaveActionDispatch,
   type ArticleItemStoreSaveActionOptions,
@@ -82,13 +83,13 @@ export function useStoreSaveActionDispatch (
     payloadOfSaveAction
   }: ArticleItemStoreSaveActionOptions
 ): ArticleItemStoreSaveActionDispatch {
-  const resourceOfApiResponse = app.hooks.Api.Response.useResource();
+  const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 
-  const resourceOfArticleItemStore = app.hooks.Stores.Article.Item.useResource();
+  const resourceOfArticleItemStore = appInstance.hooks.Stores.Article.Item.useResource();
 
   const dispatch = useArticleItemStoreDispatchContext();
 
-  const requestHandler = useRef(app.hooks.Domains.Article.useItemSaveOperationRequestHandler()).current;
+  const requestHandler = useRef(appInstance.hooks.Domains.Article.useItemSaveOperationRequestHandler()).current;
 
   useEffect(
     () => {

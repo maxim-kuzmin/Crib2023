@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import app, {
+import appInstance from '../../../app/AppInstance';
+import {
   type TopicItemStoreHooks,
   type TopicItemStoreResource,
   LocalizationTarget,
@@ -27,7 +28,7 @@ import { useStoreState } from './Hooks/TopicItemStoreStateHook';
 
 export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
-    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.TopicItemStore);
+    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.TopicItemStore);
 
     const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');

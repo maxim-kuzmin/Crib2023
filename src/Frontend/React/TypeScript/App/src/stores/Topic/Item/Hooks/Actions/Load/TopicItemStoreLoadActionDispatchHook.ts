@@ -1,5 +1,6 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import app, {
+import appInstance from '../../../../../../app/AppInstance';
+import {
   type TopicItemStoreSetActionCallback,
   type TopicItemStoreLoadActionDispatch,
   type TopicItemStoreLoadActionOptions,
@@ -82,13 +83,13 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicItemStoreLoadActionOptions = {}
 ): TopicItemStoreLoadActionDispatch {
-  const resourceOfApiResponse = app.hooks.Api.Response.useResource();
+  const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 
-  const resourceOfTopicItemStore = app.hooks.Stores.Topic.Item.useResource();
+  const resourceOfTopicItemStore = appInstance.hooks.Stores.Topic.Item.useResource();
 
   const dispatch = useTopicItemStoreDispatchContext();
 
-  const requestHandler = useRef(app.hooks.Domains.Topic.useItemGetOperationRequestHandler()).current;
+  const requestHandler = useRef(appInstance.hooks.Domains.Topic.useItemGetOperationRequestHandler()).current;
 
   useEffect(
     () => {

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import app, { LocalizationTarget } from '../../../../app';
+import appInstance from '../../../../app/AppInstance';
+import { LocalizationTarget } from '../../../../app';
 import { type ArticleItemEditViewResource } from './ArticleItemEditViewResource';
 
 export interface ArticleItemEditViewHooks {
@@ -8,7 +9,7 @@ export interface ArticleItemEditViewHooks {
 
 export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
-    const translator = app.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemEditView);
+    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemEditView);
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForDisplay: string = translator.translate('@@ActionForDisplay');
