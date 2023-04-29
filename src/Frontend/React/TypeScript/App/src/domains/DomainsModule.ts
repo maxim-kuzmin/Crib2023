@@ -19,11 +19,11 @@ export function createDomainsModule ({
   apiClient,
   setupOptions
 }: Options): DomainsModule {
-  const moduleOfArticleDomain = createArticleDomainModule({ apiClient, setupOptions });
-  const moduleOfTopicDomain = createTopicDomainModule({ apiClient, setupOptions });
+  const moduleOfArticle = createArticleDomainModule({ apiClient, setupOptions });
+  const moduleOfTopic = createTopicDomainModule({ apiClient, setupOptions });
 
   return {
-    Article: moduleOfArticleDomain,
-    Topic: moduleOfTopicDomain,
+    Article: moduleOfArticle,
+    Topic: moduleOfTopic,
   }
 }

@@ -45,7 +45,7 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
 }
 
 export const TopicTreeView: React.FC = memo(
-function TopicTreeView () {
+function TopicTreeView (): React.ReactElement | null {
   const resourceOfTopicTreeStore = app.hooks.Stores.Topic.Tree.useResource();
 
   const resourceOfApiResponse = app.hooks.Api.Response.useResource();

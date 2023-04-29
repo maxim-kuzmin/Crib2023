@@ -126,9 +126,8 @@ function reducer (
 
 export const ArticleItemStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function ArticleItemStoreContextProvider ({
-    children
-  }: PropsWithChildren
-) {
+  children
+}: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (

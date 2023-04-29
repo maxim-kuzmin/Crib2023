@@ -53,9 +53,8 @@ function reducer (
 
 export const AppNotificationStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function AppNotificationStoreContextProvider ({
-    children
-  }: PropsWithChildren
-) {
+  children
+}: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (

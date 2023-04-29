@@ -6,9 +6,9 @@ export interface ControlsComponent {
 }
 
 export function createControlsComponent (): ControlsComponent {
-  const componentOfConfirmControl = createConfirmControlComponent();
+  const componentOfConfirm = createConfirmControlComponent();
 
   return {
-    Confirm: componentOfConfirmControl
+    Confirm: componentOfConfirm
   };
 }

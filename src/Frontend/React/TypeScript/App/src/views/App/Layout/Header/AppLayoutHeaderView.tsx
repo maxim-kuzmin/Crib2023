@@ -5,7 +5,7 @@ import { type SelectControlOption } from '../../../../common';
 import styles from './AppLayoutHeaderView.module.css';
 
 export const AppLayoutHeaderView: React.FC = memo(
-function AppLayoutHeaderView () {
+function AppLayoutHeaderView (): React.ReactElement | null {
   const serviceOfLocalization = app.hooks.Localization.useService();
 
   const languages: Array<{ label: string; value: string; }> = [];

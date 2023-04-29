@@ -16,11 +16,11 @@ interface Options {
 export function createPagesModule ({
   tableControlService
 }: Options): PagesModule {
-  const moduleOfArticlePage = createArticlePageModule();
-  const moduleOfTopicPage = createTopicPageModule({ tableControlService });
+  const moduleOfArticle = createArticlePageModule();
+  const moduleOfTopic = createTopicPageModule({ tableControlService });
 
   return {
-    Article: moduleOfArticlePage,
-    Topic: moduleOfTopicPage,
+    Article: moduleOfArticle,
+    Topic: moduleOfTopic,
   }
 }

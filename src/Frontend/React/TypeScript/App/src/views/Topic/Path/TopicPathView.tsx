@@ -46,7 +46,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 }
 
 export const TopicPathView: React.FC = memo(
-function TopicPathView () {
+function TopicPathView (): React.ReactElement | null {
   const topicPathViewResource = app.hooks.Views.Topic.Path.useResource();
 
   const {

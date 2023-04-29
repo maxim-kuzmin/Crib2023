@@ -8,9 +8,9 @@ export interface ApiFactory {
 }
 
 export function createApiFactory (): ApiFactory {
-  const factoryOfApiResponse = createApiResponseFactory();
+  const factoryOfResponse = createApiResponseFactory();
 
   return {
-    Response: factoryOfApiResponse
+    Response: factoryOfResponse
   };
 }

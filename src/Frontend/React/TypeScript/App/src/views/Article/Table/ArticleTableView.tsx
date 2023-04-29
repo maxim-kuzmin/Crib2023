@@ -26,7 +26,7 @@ function ArticleTableView ({
   pageNumber,
   pageSize,
   topicId
-}: ArticleTableViewProps) {
+}: ArticleTableViewProps): React.ReactElement<ArticleTableViewProps> | null {
   let items: ArticleDomainEntityForList[];
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];

@@ -47,7 +47,7 @@ function CardControl ({
   controlExtra,
   title,
   type
-}: CardControlProps) {
+}: CardControlProps): React.ReactElement<CardControlProps> | null {
   const actions = useMemo(
     () => convertToActions(controlActions),
     [controlActions]

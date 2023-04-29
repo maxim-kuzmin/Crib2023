@@ -20,18 +20,18 @@ export function createDomainsHooks ({
   getTopicDomainRepository,
   hooksOfApiRequest
 }: Options): DomainsHooks {
-  const hooksOfArticleDomain = createArticleDomainHooks({
+  const hooksOfArticle = createArticleDomainHooks({
     getArticleDomainRepository,
     hooksOfApiRequest
   });
 
-  const hooksOfTopicDomain = createTopicDomainHooks({
+  const hooksOfTopic = createTopicDomainHooks({
     getTopicDomainRepository,
     hooksOfApiRequest
   });
 
   return {
-    Article: hooksOfArticleDomain,
-    Topic: hooksOfTopicDomain,
+    Article: hooksOfArticle,
+    Topic: hooksOfTopic,
   };
 }

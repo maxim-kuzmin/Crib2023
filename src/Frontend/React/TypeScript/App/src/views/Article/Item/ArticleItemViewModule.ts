@@ -8,7 +8,9 @@ export interface ArticleItemViewModule {
 }
 
 export function createArticleItemViewModule (): ArticleItemViewModule {
+  const moduleOfEdit = createArticleItemEditViewModule();
+
   return {
-    Edit: createArticleItemEditViewModule()
+    Edit: moduleOfEdit
   };
 }

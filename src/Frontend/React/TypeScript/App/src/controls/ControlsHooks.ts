@@ -4,13 +4,13 @@ import { createNotificationControlHooks } from './Notification/NotificationContr
 import { createTableControlHooks } from './Table/TableControlHooks';
 
 export function createControlsHooks (): ControlsHooks {
-  const hooksOfConfirmControl = createConfirmControlHooks();
-  const hooksOfNotificationControl = createNotificationControlHooks();
-  const hooksOfTableControl = createTableControlHooks();
+  const hooksOfConfirm = createConfirmControlHooks();
+  const hooksOfNotification = createNotificationControlHooks();
+  const hooksOfTable = createTableControlHooks();
 
   return {
-    Confirm: hooksOfConfirmControl,
-    Notification: hooksOfNotificationControl,
-    Table: hooksOfTableControl
+    Confirm: hooksOfConfirm,
+    Notification: hooksOfNotification,
+    Table: hooksOfTable
   };
 }

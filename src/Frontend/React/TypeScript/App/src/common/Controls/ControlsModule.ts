@@ -5,9 +5,9 @@ export interface ControlsModule {
   readonly Table: TableControlModule;
 }
 export function createControlsModule (): ControlsModule {
-  const moduleOfTableControl = createTableControlModule();
+  const moduleOfTable = createTableControlModule();
 
   return {
-    Table: moduleOfTableControl
+    Table: moduleOfTable
   };
 }

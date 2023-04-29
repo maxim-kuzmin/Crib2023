@@ -28,7 +28,7 @@ export const BreadcrumbControl: React.FC<BreadcrumbControlProps> = memo(
 function BreadcrumbControl ({
   controlItems,
   currentItemKey
-}: BreadcrumbControlProps) {
+}: BreadcrumbControlProps): React.ReactElement<BreadcrumbControlProps> | null {
   const items = useMemo(
     () => convertToItems(controlItems, currentItemKey),
     [controlItems, currentItemKey]

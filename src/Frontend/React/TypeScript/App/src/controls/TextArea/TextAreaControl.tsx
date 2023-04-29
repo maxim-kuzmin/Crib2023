@@ -5,7 +5,7 @@ import { type TextAreaControlProps } from '../../common';
 export const TextAreaControl: React.FC<TextAreaControlProps> = memo(
 function TextAreaControl ({
   className
-}: TextAreaControlProps) {
+}: TextAreaControlProps): React.ReactElement<TextAreaControlProps> | null {
   const props = {
     className
   };

@@ -5,7 +5,7 @@ import { TreeGetOperationAxisForItem, type TableControlPagination } from '../../
 import { ArticleTableView } from '../../views';
 
 export const TopicPage: React.FC = memo(
-function TopicPage () {
+function TopicPage (): React.ReactElement | null {
   const urlParams = useParams();
 
   const [searchParams, setSearchParams] = useSearchParams();

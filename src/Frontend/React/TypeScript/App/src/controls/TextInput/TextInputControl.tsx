@@ -5,7 +5,7 @@ import { type TextInputControlProps } from '../../common';
 export const TextInputControl: React.FC<TextInputControlProps> = memo(
 function TextInputControl ({
   className
-}: TextInputControlProps) {
+}: TextInputControlProps): React.ReactElement<TextInputControlProps> | null {
   const props = {
     className
   };

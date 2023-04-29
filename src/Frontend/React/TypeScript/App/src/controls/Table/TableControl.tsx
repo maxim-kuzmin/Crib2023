@@ -71,7 +71,7 @@ function TableControl ({
   getRowKey,
   onChange,
   loading
-}: TableControlProps) {
+}: TableControlProps): React.ReactElement<TableControlProps> | null {
   const resourceOfTableControl = app.hooks.Controls.Table.useResource();
 
   const columns = useMemo(

@@ -10,7 +10,7 @@ function ButtonControl ({
   loading,
   onClick,
   title
-}: ButtonControlProps) {
+}: ButtonControlProps): React.ReactElement<ButtonControlProps> | null {
   const buttonProps = {
     className,
     disabled,

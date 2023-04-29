@@ -6,9 +6,9 @@ export interface ViewsModule {
 }
 
 export function createViewsModule (): ViewsModule {
-  const moduleOfArticleView = createArticleViewModule();
+  const moduleOfArticle = createArticleViewModule();
 
   return {
-    Article: moduleOfArticleView
+    Article: moduleOfArticle
   };
 }

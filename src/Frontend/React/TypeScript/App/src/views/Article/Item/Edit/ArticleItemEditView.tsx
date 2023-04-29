@@ -21,7 +21,7 @@ function ArticleItemEditView ({
   onArticleItemLoadActionCompleted,
   topicId,
   topicPageLastUrl
-}: ArticleItemEditViewProps) {
+}: ArticleItemEditViewProps): React.ReactElement<ArticleItemEditViewProps> | null {
   const resourceOfArticleItemEditView = app.hooks.Views.Article.Item.Edit.useResource();
 
   app.hooks.Views.Article.Item.useStoreClearActionOutput({

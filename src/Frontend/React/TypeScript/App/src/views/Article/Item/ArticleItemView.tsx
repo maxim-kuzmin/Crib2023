@@ -19,7 +19,7 @@ function ArticleItemView ({
   onArticleItemClearActionCompleted,
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
-}: ArticleItemViewProps) {
+}: ArticleItemViewProps): React.ReactElement<ArticleItemViewProps> | null {
   const resourceOfArticleItemView = app.hooks.Views.Article.Item.useResource();
 
   app.hooks.Views.Article.Item.useStoreClearActionOutput({

@@ -8,7 +8,7 @@ import { TopicTreeStoreContextProvider } from '../../stores/Topic/Tree/TopicTree
 export const StoresContextProvider: React.FC<PropsWithChildren> = memo(
 function StoresContextProvider ({
   children
-}: PropsWithChildren) {
+}: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
   return (
     <AppNotificationStoreContextProvider>
       <ArticleItemStoreContextProvider>

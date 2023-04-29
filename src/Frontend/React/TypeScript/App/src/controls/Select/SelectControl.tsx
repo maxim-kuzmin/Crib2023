@@ -9,7 +9,7 @@ function SelectControl ({
   key,
   onChange,
   options
-}: SelectControlProps) {
+}: SelectControlProps): React.ReactElement<SelectControlProps> | null {
   const props = {
     defaultValue,
     className,

@@ -8,7 +8,7 @@ import { AppNotificationView } from '../Notification';
 import logo from './logo.svg';
 
 export const AppRootView: React.FC = memo(
-function AppRootView () {
+function AppRootView (): React.ReactElement | null {
   const serviceOfLocalization = app.hooks.Localization.useService();
 
   useEffect(

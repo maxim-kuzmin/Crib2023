@@ -11,7 +11,7 @@ function LayoutControl ({
   createContentView,
   createFooterView,
   createHeaderView
-}: LayoutControlProps) {
+}: LayoutControlProps): React.ReactElement<LayoutControlProps> | null {
   const {
     token: { colorBgContainer },
   } = theme.useToken();

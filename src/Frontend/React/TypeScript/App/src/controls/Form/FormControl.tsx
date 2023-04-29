@@ -138,7 +138,7 @@ function FormControl ({
   onGetFunctionToResetFields,
   onSubmitFailed,
   onSubmitSuccess
-}: FormControlProps) {
+}: FormControlProps): React.ReactElement<FormControlProps> | null {
   const [form] = Form.useForm();
 
   const [, forceUpdate] = useState({});

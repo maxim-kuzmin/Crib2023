@@ -7,7 +7,7 @@ import styles from './AppLayoutAsideView.module.css';
 export const AppLayoutAsideView: React.FC<AppLayoutAsideViewProps> = memo(
 function AppLayoutAsideView ({
   logoUrl
-}: AppLayoutAsideViewProps) {
+}: AppLayoutAsideViewProps): React.ReactElement<AppLayoutAsideViewProps> | null {
   return (
     <>
       <div className={styles.root}>

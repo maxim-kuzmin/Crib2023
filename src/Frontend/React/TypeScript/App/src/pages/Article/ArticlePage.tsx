@@ -12,7 +12,7 @@ import { TreeGetOperationAxisForItem } from '../../common';
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({
   mode
-}: ArticlePageProps) {
+}: ArticlePageProps): React.ReactElement<ArticlePageProps> | null {
   const urlParams = useParams();
 
   const [searchParams] = useSearchParams();

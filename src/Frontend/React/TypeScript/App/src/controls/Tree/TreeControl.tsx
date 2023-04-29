@@ -74,7 +74,7 @@ export const TreeControl: React.FC<TreeControlProps> = memo(
 function TreeControl ({
   controlNodes,
   getChildren
-}: TreeControlProps) {
+}: TreeControlProps): React.ReactElement<TreeControlProps> | null {
   const { initTreeData, defaultExpandedKeys, defaultSelectedKeys } = useMemo(
     () => convertToData(controlNodes),
     [controlNodes]

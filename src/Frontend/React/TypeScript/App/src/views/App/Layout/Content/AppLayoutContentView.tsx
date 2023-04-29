@@ -6,7 +6,7 @@ import styles from './AppLayoutContentView.module.css';
 export const AppLayoutContentView: React.FC<AppLayoutContentViewProps> = memo(
 function AppLayoutContentView ({
   backgroundColor
-}: AppLayoutContentViewProps) {
+}: AppLayoutContentViewProps): React.ReactElement<AppLayoutContentViewProps> | null {
   return (
     <div className={styles.root} style={{ background: backgroundColor }}>
       <Outlet />
