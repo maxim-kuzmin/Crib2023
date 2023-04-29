@@ -20,7 +20,9 @@ function ArticlePage ({
 
   const articleItemIsLoaded = useRef(false);
 
-  const [topicId, setTopicId] = useState(appInstance.module.Pages.Article.getService().getUrlSearch(searchParams).topicId);
+  const [topicId, setTopicId] = useState(
+    appInstance.module.Pages.Article.getService().getUrlSearch(searchParams).topicId
+  );
 
   const handleArticleItemLoadActionCompleted = useCallback((payload: ArticleItemStoreSetActionPayload) => {
       if (mode !== ArticlePageMode.New) {
