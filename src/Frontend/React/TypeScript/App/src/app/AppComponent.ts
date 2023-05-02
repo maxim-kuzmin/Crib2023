@@ -1,4 +1,4 @@
-import { type ControlsComponent } from '../controls';
+import { type ControlsComponent } from '../common';
 import { createControlsComponent } from '../controls/ControlsComponent';
 
 export interface AppComponent {

@@ -7,6 +7,7 @@ export * from './Operations';
 export * from './Setup';
 export * from './Store';
 export * from './ValueObjects';
+export { type CommonComponent } from './CommonComponent';
 export { type ShouldBeCanceled } from './CommonFunctions';
 export { type CommonHooks } from './CommonHooks';
 export { type CommonModule } from './CommonModule';
