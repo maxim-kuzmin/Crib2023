@@ -20,10 +20,10 @@ export const AppNotificationStoreContextProvider: React.FC<PropsWithChildren> = 
 function AppNotificationStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
-  const { module } = useAppInstance();
+  const { modules } = useAppInstance();
 
   const initialState = useRef(
-    module.Common.Store.getService().createInitialState<AppNotificationStoreState>(
+    modules.Common.Store.getService().createInitialState<AppNotificationStoreState>(
       [AppNotificationStoreSliceName.AppNotificationView],
       () => {
         const result: AppNotificationStoreState = {

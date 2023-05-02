@@ -85,9 +85,9 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicTreeStoreLoadActionOptions = {}
 ): TopicTreeStoreLoadActionDispatch {
-  const { factory, hooks } = useAppInstance();
+  const { factories, hooks } = useAppInstance();
 
-  const factoryOfApiResponse = factory.Data.Api.Response;
+  const factoryOfApiResponse = factories.Data.Api.Response;
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 

@@ -21,7 +21,7 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps): React.ReactElement<ArticleItemEditViewProps> | null {
-  const { control, hooks, module } = useAppInstance();
+  const { controls, hooks, modules } = useAppInstance();
 
   const resourceOfArticleItemEditView = hooks.Views.Article.Item.Edit.useResource();
 
@@ -63,7 +63,7 @@ function ArticleItemEditView ({
     [loadedEntity, savedEntity, topicId]
   );
 
-  const serviceOfArticleItemEditView = module.Views.Article.Item.Edit.getService();
+  const serviceOfArticleItemEditView = modules.Views.Article.Item.Edit.getService();
 
   const formValues = useMemo(
     () => serviceOfArticleItemEditView.convertToFormValues(entity),
@@ -75,9 +75,9 @@ function ArticleItemEditView ({
     fieldNameForId,
     fieldNameForTitle,
     fieldNameForTopicId
-  } = module.Views.Article.Item.Edit.getService();
+  } = modules.Views.Article.Item.Edit.getService();
 
-  const serviceOfArticlePage = module.Pages.Article.getService();
+  const serviceOfArticlePage = modules.Pages.Article.getService();
 
   const controlActions = useMemo(
     () => {
@@ -239,8 +239,8 @@ function ArticleItemEditView ({
       <h2>{ title }</h2>
       {
         pendingOfLoadAction
-          ? <control.Spinner/>
-          : <control.Form
+          ? <controls.Spinner/>
+          : <controls.Form
               controlActions={controlActions}
               controlFields={controlFields}
               formValues={formValues}

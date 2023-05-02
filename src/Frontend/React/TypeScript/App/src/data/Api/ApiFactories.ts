@@ -1,11 +1,11 @@
 import { type ApiResponseFactory } from '.';
 import { createApiResponseFactory } from './Response/ApiResponseFactory'
 
-export interface ApiFactory {
+export interface ApiFactories {
   readonly Response: ApiResponseFactory;
 }
 
-export function createApiFactory (): ApiFactory {
+export function createApiFactories (): ApiFactories {
   const factoryOfResponse = createApiResponseFactory();
 
   return {

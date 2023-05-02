@@ -19,7 +19,7 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps): React.ReactElement<ArticleItemViewProps> | null {
-  const { control, hooks, module } = useAppInstance();
+  const { controls, hooks, modules } = useAppInstance();
 
   const resourceOfArticleItemView = hooks.Views.Article.Item.useResource();
 
@@ -53,7 +53,7 @@ function ArticleItemView ({
     [loadedEntity]
   );
 
-  const serviceOfArticlePage = module.Pages.Article.getService();
+  const serviceOfArticlePage = modules.Pages.Article.getService();
 
   const controlActions: CardControlAction[] = useMemo(
     () => {
@@ -98,7 +98,7 @@ function ArticleItemView ({
       <h2>{title}</h2>
       {
         entity.id > 0
-          ? <control.Card
+          ? <controls.Card
               controlActions={controlActions}
               controlExtra={controlExtra}
               loading={pendingOfLoadAction}
@@ -106,7 +106,7 @@ function ArticleItemView ({
               type={CardControlType.Main}
             >
                 { entity.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
-            </control.Card>
+            </controls.Card>
           : null
       }
     </div>

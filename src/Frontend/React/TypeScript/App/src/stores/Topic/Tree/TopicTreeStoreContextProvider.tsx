@@ -21,10 +21,10 @@ export const TopicTreeStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function TopicTreeStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
-  const { module } = useAppInstance();
+  const { modules } = useAppInstance();
 
   const initialState = useRef(
-    module.Common.Store.getService().createInitialState<TopicTreeStoreState>(
+    modules.Common.Store.getService().createInitialState<TopicTreeStoreState>(
       [TopicTreeStoreSliceName.TopicTreeView],
       () => {
         const result: TopicTreeStoreState = {

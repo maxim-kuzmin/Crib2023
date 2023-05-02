@@ -7,16 +7,16 @@ const paramNameForPageNumber = 'pn';
 const paramNameForPageSize = 'ps';
 
 interface Options {
-  tableControlService: TableControlService;
+  serviceOfTableControl: TableControlService;
 }
 
 export class TopicPageServiceImpl implements TopicPageService {
-  private readonly tableControlService: TableControlService;
+  private readonly serviceOfTableControl: TableControlService;
 
   public lastUrl?: string;
 
   constructor (options: Options) {
-    this.tableControlService = options.tableControlService;
+    this.serviceOfTableControl = options.serviceOfTableControl;
   }
 
   createUrl (options?: TopicPageUrlOptions): string {
@@ -26,7 +26,7 @@ export class TopicPageServiceImpl implements TopicPageService {
 
     let search: TopicPageUrlSearch = {
       pageNumber: 1,
-      pageSize: this.tableControlService.defaultPageSize
+      pageSize: this.serviceOfTableControl.defaultPageSize
     };
 
     if (options) {
@@ -57,7 +57,7 @@ export class TopicPageServiceImpl implements TopicPageService {
   }
 
   getUrlSearch (searchParams: URLSearchParams): TopicPageUrlSearch {
-    const { defaultPageSize } = this.tableControlService;
+    const { defaultPageSize } = this.serviceOfTableControl;
 
     return {
       pageNumber: Number(searchParams.get(paramNameForPageNumber) ?? 1),
@@ -68,7 +68,7 @@ export class TopicPageServiceImpl implements TopicPageService {
   updateURLSearchParams (searchParams: URLSearchParams, urlSearch: TopicPageUrlSearch) {
     const { pageNumber, pageSize } = urlSearch;
 
-    const { defaultPageSize } = this.tableControlService;
+    const { defaultPageSize } = this.serviceOfTableControl;
 
     if (pageNumber > 1) {
       searchParams.set(paramNameForPageNumber, pageNumber.toString());

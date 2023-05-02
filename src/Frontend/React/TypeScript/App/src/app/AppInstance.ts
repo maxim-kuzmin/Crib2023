@@ -1,29 +1,36 @@
-import { type AppComponent, createAppComponent } from './AppComponent';
-import { type AppControl, createAppControl } from './AppControl';
-import { type AppFactory, createAppFactory } from './AppFactory';
-import { type AppHooks, createAppHooks } from './AppHooks';
-import { type AppModule, createAppModule } from './AppModule';
+import {
+  type InstanceComponents,
+  type InstanceControls,
+  type InstanceFactories,
+  type InstanceHooks,
+  type InstanceModules,
+} from './Instance';
+import { createInstanceComponents } from './Instance/InstanceComponents';
+import { createInstanceControls } from './Instance/InstanceControls';
+import { createInstanceFactories } from './Instance/InstanceFactories';
+import { createInstanceHooks } from './Instance/InstanceHooks';
+import { createInstanceModules } from './Instance/InstanceModules';
 
 export interface AppInstance {
-  readonly component: AppComponent;
-  readonly control: AppControl;
-  readonly factory: AppFactory;
-  readonly hooks: AppHooks;
-  readonly module: AppModule;
+  readonly components: InstanceComponents;
+  readonly controls: InstanceControls;
+  readonly factories: InstanceFactories;
+  readonly hooks: InstanceHooks;
+  readonly modules: InstanceModules;
 }
 
 export function createAppInstance (): AppInstance {
-  const component = createAppComponent();
-  const control = createAppControl();
-  const factory = createAppFactory();
-  const module = createAppModule({ factory });
-  const hooks = createAppHooks({ component, module });
+  const components = createInstanceComponents();
+  const controls = createInstanceControls();
+  const factories = createInstanceFactories();
+  const modules = createInstanceModules({ factories });
+  const hooks = createInstanceHooks({ components, modules });
 
   return {
-    component,
-    control,
-    factory,
+    components,
+    controls,
+    factories,
     hooks,
-    module,
+    modules,
   };
 }

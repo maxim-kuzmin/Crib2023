@@ -13,16 +13,16 @@ interface Options {
   readonly apiClient: ApiClient;
   readonly factoryOfApiResponse: ApiResponseFactory;
   readonly serviceOfTest: TestService;
-  readonly setupOptions: SetupOptions;
+  readonly optionsOfSetup: SetupOptions;
 }
 
 export function createArticleDomainModule ({
   apiClient,
   factoryOfApiResponse,
   serviceOfTest,
-  setupOptions
+  optionsOfSetup
 }: Options): ArticleDomainModule {
-  const implOfRepository = setupOptions.isTestModeEnabled
+  const implOfRepository = optionsOfSetup.isTestModeEnabled
     ? new TestArticleDomainRepositoryImpl({ factoryOfApiResponse, serviceOfTest })
     : new ArticleDomainRepositoryImpl({ apiClient });
 

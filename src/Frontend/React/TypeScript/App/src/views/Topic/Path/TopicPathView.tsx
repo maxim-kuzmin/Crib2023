@@ -47,7 +47,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 
 export const TopicPathView: React.FC = memo(
 function TopicPathView (): React.ReactElement | null {
-  const { control, hooks, module } = useAppInstance();
+  const { controls, hooks, modules } = useAppInstance();
 
   const topicPathViewResource = hooks.Views.Topic.Path.useResource();
 
@@ -57,7 +57,7 @@ function TopicPathView (): React.ReactElement | null {
 
   const entity = topicItemResponse?.data?.item;
 
-  const serviceOfTopicPage = module.Pages.Topic.getService();
+  const serviceOfTopicPage = modules.Pages.Topic.getService();
 
   const titleForRoot = topicPathViewResource.getTitleForRoot();
 
@@ -70,7 +70,7 @@ function TopicPathView (): React.ReactElement | null {
 
   return (
     <div className={styles.root}>
-      <control.Breadcrumb controlItems={controlItems} currentItemKey={currentItemKey}/>
+      <controls.Breadcrumb controlItems={controlItems} currentItemKey={currentItemKey}/>
     </div>
   );
 });

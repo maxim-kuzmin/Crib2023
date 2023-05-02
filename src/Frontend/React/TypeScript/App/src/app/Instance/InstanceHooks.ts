@@ -1,21 +1,21 @@
 import { useContext } from 'react';
-import { type CommonHooks, type ControlsHooks } from '../common';
-import { createCommonHooks } from '../common/CommonHooks';
-import { createControlsHooks } from '../controls/ControlsHooks';
-import { type DataHooks } from '../data';
-import { createDataHooks } from '../data/DataHooks';
-import { type DomainsHooks } from '../domains';
-import { createDomainsHooks } from '../domains/DomainsHooks';
-import { type FeaturesHooks } from '../features';
-import { createFeaturesHooks } from '../features/FeaturesHooks';
-import { type ViewsHooks } from '../views';
-import { createViewsHooks } from '../views/ViewsHooks';
-import { type AppComponent } from './AppComponent';
-import { AppContext } from './AppContext';
-import { type AppInstance } from './AppInstance';
-import { type AppModule } from './AppModule';
+import { type CommonHooks, type ControlsHooks } from '../../common';
+import { createCommonHooks } from '../../common/CommonHooks';
+import { createControlsHooks } from '../../controls/ControlsHooks';
+import { type DataHooks } from '../../data';
+import { createDataHooks } from '../../data/DataHooks';
+import { type DomainsHooks } from '../../domains';
+import { createDomainsHooks } from '../../domains/DomainsHooks';
+import { type FeaturesHooks } from '../../features';
+import { createFeaturesHooks } from '../../features/FeaturesHooks';
+import { type ViewsHooks } from '../../views';
+import { createViewsHooks } from '../../views/ViewsHooks';
+import { type InstanceComponents } from './InstanceComponents';
+import { AppContext } from '../AppContext';
+import { type AppInstance } from '../AppInstance';
+import { type InstanceModules } from './InstanceModules';
 
-export interface AppHooks {
+export interface InstanceHooks {
   readonly Common: CommonHooks;
   readonly Controls: ControlsHooks;
   readonly Data: DataHooks;
@@ -25,14 +25,14 @@ export interface AppHooks {
 }
 
 interface Options {
-  readonly component: AppComponent;
-  readonly module: AppModule;
+  readonly components: InstanceComponents;
+  readonly modules: InstanceModules;
 }
 
-export function createAppHooks ({
-  component,
-  module
-}: Options): AppHooks {
+export function createInstanceHooks ({
+  components,
+  modules
+}: Options): InstanceHooks {
   const hooksOfControls = createControlsHooks();
 
   const hooksOfFeatures = createFeaturesHooks();
@@ -46,7 +46,7 @@ export function createAppHooks ({
   });
 
   const hooksOfCommon = createCommonHooks({
-    componentOfConfirmControl: component.Controls.Confirm,
+    componentOfConfirmControl: components.Controls.Confirm,
     hooksOfAppNotificationStore: hooksOfFeatures.Stores.App.Notification,
     hooksOfConfirmControl: hooksOfControls.Confirm,
   });
@@ -56,8 +56,8 @@ export function createAppHooks ({
   });
 
   const hooksOfDomains = createDomainsHooks({
-    getArticleDomainRepository: module.Domains.Article.getRepository,
-    getTopicDomainRepository: module.Domains.Topic.getRepository,
+    getArticleDomainRepository: modules.Domains.Article.getRepository,
+    getTopicDomainRepository: modules.Domains.Topic.getRepository,
     hooksOfApiRequest: hooksOfData.Api.Request
   });
 

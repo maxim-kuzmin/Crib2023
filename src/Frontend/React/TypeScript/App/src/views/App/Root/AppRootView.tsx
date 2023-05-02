@@ -9,7 +9,7 @@ import logo from './logo.svg';
 
 export const AppRootView: React.FC = memo(
 function AppRootView (): React.ReactElement | null {
-  const { control, hooks } = useAppInstance();
+  const { controls, hooks } = useAppInstance();
 
   const serviceOfLocalization = hooks.Features.Localization.useService();
 
@@ -22,7 +22,7 @@ function AppRootView (): React.ReactElement | null {
   return (
     <>
       <AppNotificationView/>
-      <control.Layout
+      <controls.Layout
         createAsideView={() => <AppLayoutAsideView logoUrl={logo}/>}
         createContentView={(backgroundColor) => <AppLayoutContentView backgroundColor={String(backgroundColor)}/>}
         createFooterView={() => <AppLayoutFooterView/>}

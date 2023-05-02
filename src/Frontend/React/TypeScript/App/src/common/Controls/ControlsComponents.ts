@@ -1,5 +1,5 @@
 import { type ConfirmControlComponent } from './Confirm';
 
-export interface ControlsComponent {
+export interface ControlsComponents {
   readonly Confirm: ConfirmControlComponent;
 }

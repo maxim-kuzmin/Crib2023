@@ -32,7 +32,7 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
-  const { component, control, hooks, module } = useAppInstance();
+  const { components, controls, hooks, modules } = useAppInstance();
 
   const resourceOfConfirmControl = hooks.Controls.Confirm.useResource();
 
@@ -105,9 +105,9 @@ function ArticleTableView ({
     ]
   );
 
-  const componentOfConfirmControl = component.Controls.Confirm;
-  const serviceOfArticlePage = module.Pages.Article.getService();
-  const serviceOfTopicPage = module.Pages.Topic.getService();
+  const componentOfConfirmControl = components.Controls.Confirm;
+  const serviceOfArticlePage = modules.Pages.Article.getService();
+  const serviceOfTopicPage = modules.Pages.Topic.getService();
 
   const controlColumns: TableControlColumn[] = useMemo(
     () => {
@@ -148,7 +148,7 @@ function ArticleTableView ({
             });
 
             return (
-              <control.Breadcrumb controlItems={controlItems} />
+              <controls.Breadcrumb controlItems={controlItems} />
             );
           }
         },
@@ -193,7 +193,7 @@ function ArticleTableView ({
                 >
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
-                <control.Button
+                <controls.Button
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
                   loading={id === deletingId.current && pendingOfDeleteAction}
                   onClick={
@@ -215,7 +215,7 @@ function ArticleTableView ({
                   title={`${tActionForDelete} ${id}`}
                 >
                   {resourceOfArticleTableView.getActionForDelete()}
-                </control.Button>
+                </controls.Button>
               </div>
             );
           }
@@ -224,7 +224,7 @@ function ArticleTableView ({
     },
     [
       componentOfConfirmControl,
-      control,
+      controls,
       dispatchOfDeleteAction,
       dispatchOfLoadAction,
       payloadOfLoadAction,
@@ -245,7 +245,7 @@ function ArticleTableView ({
         <title>{title}</title>
       </Helmet>
       <h2>{title}</h2>
-      <control.Table
+      <controls.Table
         className={styles.root}
         controlColumns={controlColumns}
         controlRows={controlRows}

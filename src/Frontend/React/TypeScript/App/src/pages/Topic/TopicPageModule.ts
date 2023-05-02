@@ -7,13 +7,13 @@ export interface TopicPageModule {
 }
 
 interface Options {
-  tableControlService: TableControlService;
+  serviceOfTableControl: TableControlService;
 }
 
 export function createTopicPageModule ({
-  tableControlService
+  serviceOfTableControl
 }: Options): TopicPageModule {
-  const implOfService = new TopicPageServiceImpl({ tableControlService });
+  const implOfService = new TopicPageServiceImpl({ serviceOfTableControl });
 
   function getService (): TopicPageService {
     return implOfService;

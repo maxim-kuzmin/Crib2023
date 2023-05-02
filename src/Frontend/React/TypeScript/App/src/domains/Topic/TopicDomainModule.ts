@@ -12,17 +12,17 @@ export interface TopicDomainModule {
 interface Options {
   readonly apiClient: ApiClient;
   readonly factoryOfApiResponse: ApiResponseFactory;
+  readonly optionsOfSetup: SetupOptions;
   readonly serviceOfTest: TestService;
-  readonly setupOptions: SetupOptions;
 }
 
 export function createTopicDomainModule ({
   apiClient,
   factoryOfApiResponse,
+  optionsOfSetup,
   serviceOfTest,
-  setupOptions,
 }: Options): TopicDomainModule {
-  const implOfRepository = setupOptions.isTestModeEnabled
+  const implOfRepository = optionsOfSetup.isTestModeEnabled
     ? new TestTopicDomainRepositoryImpl({ factoryOfApiResponse, serviceOfTest })
     : new TopicDomainRepositoryImpl({ apiClient });
 

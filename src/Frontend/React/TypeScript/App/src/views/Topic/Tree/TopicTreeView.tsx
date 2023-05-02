@@ -48,9 +48,9 @@ function convertToControlNodes (
 
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView (): React.ReactElement | null {
-  const { control, factory, hooks, module } = useAppInstance();
+  const { controls, factories, hooks, modules } = useAppInstance();
 
-  const factoryOfApiResponse = factory.Data.Api.Response;
+  const factoryOfApiResponse = factories.Data.Api.Response;
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
@@ -84,7 +84,7 @@ function TopicTreeView (): React.ReactElement | null {
 
   const entities = payloadOfLoadCompletedAction?.data?.nodes;
 
-  const serviceOfTopicPage = module.Pages.Topic.getService();
+  const serviceOfTopicPage = modules.Pages.Topic.getService();
 
   const controlNodes = useMemo(
     () => convertToControlNodes(topicId, serviceOfTopicPage, entities),
@@ -125,8 +125,8 @@ function TopicTreeView (): React.ReactElement | null {
     <div className={styles.root}>
       {
         pendingOfLoadAction
-          ? <control.Spinner/>
-          : <control.Tree controlNodes={controlNodes} getChildren={getChildren} />
+          ? <controls.Spinner/>
+          : <controls.Tree controlNodes={controlNodes} getChildren={getChildren} />
       }
     </div>
   );

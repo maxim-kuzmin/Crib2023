@@ -17,9 +17,9 @@ function TopicPage (): React.ReactElement | null {
     topicId = 0;
   }
 
-  const { hooks, module } = useAppInstance();
+  const { hooks, modules } = useAppInstance();
 
-  const topicPageService = module.Pages.Topic.getService();
+  const topicPageService = modules.Pages.Topic.getService();
 
   const topicPageSearch = topicPageService.getUrlSearch(searchParams);
 
@@ -54,13 +54,13 @@ function TopicPage (): React.ReactElement | null {
   const onTableChange = useCallback((pagination: TableControlPagination) => {
     const { pageNumber, pageSize } = pagination;
 
-    module.Pages.Topic.getService().updateURLSearchParams(searchParams, {
+    modules.Pages.Topic.getService().updateURLSearchParams(searchParams, {
       pageNumber,
       pageSize
     });
 
     setSearchParams(searchParams);
-  }, [module, searchParams, setSearchParams]);
+  }, [modules, searchParams, setSearchParams]);
 
   return (
     <ArticleTableView

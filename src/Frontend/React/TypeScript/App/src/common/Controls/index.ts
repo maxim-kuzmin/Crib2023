@@ -10,6 +10,6 @@ export * from './Table';
 export * from './TextArea';
 export * from './TextInput';
 export * from './Tree';
-export { type ControlsComponent } from './ControlsComponent';
+export { type ControlsComponents } from './ControlsComponents';
 export { type ControlsHooks } from './ControlsHooks';
-export { type ControlsModule } from './ControlsModule';
+export { type ControlsModules } from './ControlsModules';

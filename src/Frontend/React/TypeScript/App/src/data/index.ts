@@ -1,5 +1,5 @@
 export * from './Api';
 export * from './Types';
-export { type DataFactory } from './DataFactory';
+export { type DataFactories } from './DataFactories';
 export { type DataHooks } from './DataHooks';
-export { type DataModule } from './DataModule';
+export { type DataModules } from './DataModules';

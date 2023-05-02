@@ -6,7 +6,7 @@ import styles from './AppLayoutHeaderView.module.css';
 
 export const AppLayoutHeaderView: React.FC = memo(
 function AppLayoutHeaderView (): React.ReactElement | null {
-  const { control, hooks } = useAppInstance();
+  const { controls, hooks } = useAppInstance();
 
   const serviceOfLocalization = hooks.Features.Localization.useService();
 
@@ -44,7 +44,7 @@ function AppLayoutHeaderView (): React.ReactElement | null {
   return (
     <div className={styles.root}>
       <TopicPathView/>
-      <control.Select
+      <controls.Select
         className={styles.select}
         defaultValue={serviceOfLocalization.getCurrentLanguage()}
         onChange={handleLanguageChange}

@@ -1,7 +1,7 @@
-import { type ControlsComponent } from '../common';
+import { type ControlsComponents } from '../common';
 import { createConfirmControlComponent } from './Confirm/ConfirmControlComponent';
 
-export function createControlsComponent (): ControlsComponent {
+export function createControlsComponents (): ControlsComponents {
   const componentOfConfirm = createConfirmControlComponent();
 
   return {

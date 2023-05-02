@@ -23,10 +23,10 @@ function ArticlePage ({
 
   const articleItemIsLoaded = useRef(false);
 
-  const { hooks, module } = useAppInstance();
+  const { hooks, modules } = useAppInstance();
 
   const [topicId, setTopicId] = useState(
-    module.Pages.Article.getService().getUrlSearch(searchParams).topicId
+    modules.Pages.Article.getService().getUrlSearch(searchParams).topicId
   );
 
   const handleArticleItemLoadActionCompleted = useCallback((payload: ArticleItemStoreSetActionPayload) => {
@@ -62,7 +62,7 @@ function ArticlePage ({
     isCanceled: !articleItemIsLoaded.current
   });
 
-  const topicPageLastUrl = module.Pages.Topic.getService().lastUrl;
+  const topicPageLastUrl = modules.Pages.Topic.getService().lastUrl;
 
   return (
     mode === ArticleItemViewMode.Display

@@ -21,10 +21,10 @@ export const ArticleItemStoreContextProvider: React.FC<PropsWithChildren> = memo
 function ArticleItemStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
-  const { module } = useAppInstance();
+  const { modules } = useAppInstance();
 
   const initialState = useRef(
-    module.Common.Store.getService().createInitialState<ArticleItemStoreState>(
+    modules.Common.Store.getService().createInitialState<ArticleItemStoreState>(
       [ArticleItemStoreSliceName.ArticleItemView],
       () => {
         const result: ArticleItemStoreState = {

@@ -10,7 +10,7 @@ import {
   type TextAreaControlProps,
   type TextInputControlProps,
   type TreeControlProps,
-} from '../common';
+} from '../../common';
 import {
   BreadcrumbControl,
   ButtonControl,
@@ -23,9 +23,9 @@ import {
   TextAreaControl,
   TextInputControl,
   TreeControl,
-} from '../controls';
+} from '../../controls';
 
-export interface AppControl {
+export interface InstanceControls {
   readonly Breadcrumb: React.FC<BreadcrumbControlProps>;
   readonly Button: React.FC<ButtonControlProps>;
   readonly Card: React.FC<CardControlProps>;
@@ -39,7 +39,7 @@ export interface AppControl {
   readonly Tree: React.FC<TreeControlProps>;
 }
 
-export function createAppControl (): AppControl {
+export function createInstanceControls (): InstanceControls {
   return {
     Breadcrumb: BreadcrumbControl,
     Button: ButtonControl,

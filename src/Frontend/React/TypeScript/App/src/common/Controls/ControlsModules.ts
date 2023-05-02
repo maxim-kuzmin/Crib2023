@@ -1,10 +1,10 @@
 import { type TableControlModule } from './Table';
 import { createTableControlModule } from './Table/TableControlModule';
 
-export interface ControlsModule {
+export interface ControlsModules {
   readonly Table: TableControlModule;
 }
-export function createControlsModule (): ControlsModule {
+export function createControlsModules (): ControlsModules {
   const moduleOfTable = createTableControlModule();
 
   return {

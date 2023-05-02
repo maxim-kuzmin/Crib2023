@@ -1,4 +1,4 @@
 export * from './Article';
 export * from './NotFound';
 export * from './Topic';
-export { type PagesModule } from './PagesModule';
+export type { PagesModules } from './PagesModules';

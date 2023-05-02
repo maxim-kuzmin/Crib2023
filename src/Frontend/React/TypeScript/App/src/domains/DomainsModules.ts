@@ -6,7 +6,7 @@ import { createArticleDomainModule } from './Article/ArticleDomainModule';
 import { type TopicDomainModule } from './Topic';
 import { createTopicDomainModule } from './Topic/TopicDomainModule';
 
-export interface DomainsModule {
+export interface DomainsModules {
   readonly Article: ArticleDomainModule;
   readonly Topic: TopicDomainModule;
 }
@@ -14,18 +14,29 @@ export interface DomainsModule {
 interface Options {
   readonly apiClient: ApiClient;
   readonly factoryOfApiResponse: ApiResponseFactory;
+  readonly optionsOfSetup: SetupOptions;
   readonly serviceOfTest: TestService;
-  readonly setupOptions: SetupOptions;
 }
 
-export function createDomainsModule ({
+export function createDomainsModules ({
   apiClient,
   factoryOfApiResponse,
+  optionsOfSetup,
   serviceOfTest,
-  setupOptions
-}: Options): DomainsModule {
-  const moduleOfArticle = createArticleDomainModule({ apiClient, factoryOfApiResponse, serviceOfTest, setupOptions });
-  const moduleOfTopic = createTopicDomainModule({ apiClient, factoryOfApiResponse, serviceOfTest, setupOptions });
+}: Options): DomainsModules {
+  const moduleOfArticle = createArticleDomainModule({
+    apiClient,
+    factoryOfApiResponse,
+    optionsOfSetup,
+    serviceOfTest,
+  });
+
+  const moduleOfTopic = createTopicDomainModule({
+    apiClient,
+    factoryOfApiResponse,
+    optionsOfSetup,
+    serviceOfTest,
+  });
 
   return {
     Article: moduleOfArticle,

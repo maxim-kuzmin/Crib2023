@@ -1,1 +1,1 @@
-export { useAppInstance } from './AppHooks';
+export { useAppInstance } from './Instance/InstanceHooks';

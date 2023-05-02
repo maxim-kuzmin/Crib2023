@@ -4,20 +4,20 @@ import { createArticlePageModule } from './Article/ArticlePageModule';
 import { type TopicPageModule } from './Topic';
 import { createTopicPageModule } from './Topic/TopicPageModule';
 
-export interface PagesModule {
+export interface PagesModules {
   readonly Article: ArticlePageModule;
   readonly Topic: TopicPageModule;
 }
 
 interface Options {
-  tableControlService: TableControlService;
+  serviceOfTableControl: TableControlService;
 }
 
-export function createPagesModule ({
-  tableControlService
-}: Options): PagesModule {
+export function createPagesModules ({
+  serviceOfTableControl
+}: Options): PagesModules {
   const moduleOfArticle = createArticlePageModule();
-  const moduleOfTopic = createTopicPageModule({ tableControlService });
+  const moduleOfTopic = createTopicPageModule({ serviceOfTableControl });
 
   return {
     Article: moduleOfArticle,
