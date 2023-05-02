@@ -1,4 +1,4 @@
-import { type TableControlService } from '../../common';
+import { type TableControlOptions } from '../../common';
 import { type TopicPageService } from './TopicPageService';
 import { type TopicPageUrlOptions, type TopicPageUrlSearch } from './Url';
 
@@ -7,16 +7,18 @@ const paramNameForPageNumber = 'pn';
 const paramNameForPageSize = 'ps';
 
 interface Options {
-  serviceOfTableControl: TableControlService;
+  optionsOfTableControl: TableControlOptions;
 }
 
 export class TopicPageServiceImpl implements TopicPageService {
-  private readonly serviceOfTableControl: TableControlService;
+  private readonly optionsOfTableControl: TableControlOptions;
 
   public lastUrl?: string;
 
-  constructor (options: Options) {
-    this.serviceOfTableControl = options.serviceOfTableControl;
+  constructor ({
+    optionsOfTableControl
+  }: Options) {
+    this.optionsOfTableControl = optionsOfTableControl;
   }
 
   createUrl (options?: TopicPageUrlOptions): string {
@@ -26,7 +28,7 @@ export class TopicPageServiceImpl implements TopicPageService {
 
     let search: TopicPageUrlSearch = {
       pageNumber: 1,
-      pageSize: this.serviceOfTableControl.defaultPageSize
+      pageSize: this.optionsOfTableControl.defaultPageSize
     };
 
     if (options) {
@@ -57,7 +59,7 @@ export class TopicPageServiceImpl implements TopicPageService {
   }
 
   getUrlSearch (searchParams: URLSearchParams): TopicPageUrlSearch {
-    const { defaultPageSize } = this.serviceOfTableControl;
+    const { defaultPageSize } = this.optionsOfTableControl;
 
     return {
       pageNumber: Number(searchParams.get(paramNameForPageNumber) ?? 1),
@@ -68,7 +70,7 @@ export class TopicPageServiceImpl implements TopicPageService {
   updateURLSearchParams (searchParams: URLSearchParams, urlSearch: TopicPageUrlSearch) {
     const { pageNumber, pageSize } = urlSearch;
 
-    const { defaultPageSize } = this.serviceOfTableControl;
+    const { defaultPageSize } = this.optionsOfTableControl;
 
     if (pageNumber > 1) {
       searchParams.set(paramNameForPageNumber, pageNumber.toString());

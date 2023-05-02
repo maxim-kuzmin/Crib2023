@@ -49,7 +49,7 @@ export function createInstanceModules ({
   });
 
   const modulesOfPages = createPagesModules({
-    serviceOfTableControl: modulesOfCommon.Controls.Table.getService()
+    optionsOfTableControl: options.Common.Controls.Table
   });
 
   return {

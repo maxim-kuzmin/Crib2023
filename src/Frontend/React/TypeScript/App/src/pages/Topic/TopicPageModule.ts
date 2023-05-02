@@ -1,4 +1,4 @@
-import { type TableControlService } from '../../common';
+import { type TableControlOptions } from '../../common';
 import { type TopicPageService } from './TopicPageService';
 import { TopicPageServiceImpl } from './TopicPageServiceImpl';
 
@@ -7,13 +7,13 @@ export interface TopicPageModule {
 }
 
 interface Options {
-  serviceOfTableControl: TableControlService;
+  optionsOfTableControl: TableControlOptions;
 }
 
 export function createTopicPageModule ({
-  serviceOfTableControl
+  optionsOfTableControl
 }: Options): TopicPageModule {
-  const implOfService = new TopicPageServiceImpl({ serviceOfTableControl });
+  const implOfService = new TopicPageServiceImpl({ optionsOfTableControl });
 
   function getService (): TopicPageService {
     return implOfService;

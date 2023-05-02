@@ -12,4 +12,4 @@ export * from './TextInput';
 export * from './Tree';
 export { type ControlsComponents } from './ControlsComponents';
 export { type ControlsHooks } from './ControlsHooks';
-export { type ControlsModules } from './ControlsModules';
+export { type ControlsOptions } from './ControlsOptions';

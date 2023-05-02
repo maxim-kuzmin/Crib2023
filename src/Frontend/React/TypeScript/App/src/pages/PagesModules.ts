@@ -1,4 +1,4 @@
-import { type TableControlService } from '../common';
+import { type TableControlOptions } from '../common';
 import { type ArticlePageModule } from './Article';
 import { createArticlePageModule } from './Article/ArticlePageModule';
 import { type TopicPageModule } from './Topic';
@@ -10,14 +10,14 @@ export interface PagesModules {
 }
 
 interface Options {
-  serviceOfTableControl: TableControlService;
+  optionsOfTableControl: TableControlOptions;
 }
 
 export function createPagesModules ({
-  serviceOfTableControl
+  optionsOfTableControl
 }: Options): PagesModules {
   const moduleOfArticle = createArticlePageModule();
-  const moduleOfTopic = createTopicPageModule({ serviceOfTableControl });
+  const moduleOfTopic = createTopicPageModule({ optionsOfTableControl });
 
   return {
     Article: moduleOfArticle,

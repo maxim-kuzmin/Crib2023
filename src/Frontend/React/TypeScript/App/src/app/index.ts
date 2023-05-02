@@ -1,7 +1,2 @@
-import { startLocalization } from '../features';
-
-export function start () {
-  startLocalization();
-}
-
+export { setupOfApp } from './AppSetup';
 export { useAppInstance } from './Instance/InstanceHooks';

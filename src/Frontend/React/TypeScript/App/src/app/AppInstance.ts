@@ -22,8 +22,9 @@ export interface AppInstance {
   readonly options: InstanceOptions;
 }
 
+export const options = createInstanceOptions();
+
 export function createAppInstance (): AppInstance {
-  const options = createInstanceOptions();
   const components = createInstanceComponents();
   const controls = createInstanceControls();
   const factories = createInstanceFactories();

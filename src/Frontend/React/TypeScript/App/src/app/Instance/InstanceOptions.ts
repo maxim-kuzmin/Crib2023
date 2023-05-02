@@ -9,7 +9,12 @@ export interface InstanceOptions {
 export function createInstanceOptions (): InstanceOptions {
   return {
     Common: {
-      isTestModeEnabled: process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true'
+      Controls: {
+        Table: {
+          defaultPageSize: Number(process.env.REACT_APP_TABLE_CONTROL_DEFAULT_PAGE_SIZE ?? 10),
+        }
+      },
+      isTestModeEnabled: process.env.REACT_APP_IS_TEST_MODE_ENABLED === 'true',
     },
     Data: {
       Api: {
