@@ -3,3 +3,4 @@ export * from './Types';
 export { type DataFactories } from './DataFactories';
 export { type DataHooks } from './DataHooks';
 export { type DataModules } from './DataModules';
+export { type DataOptions } from './DataOptions';

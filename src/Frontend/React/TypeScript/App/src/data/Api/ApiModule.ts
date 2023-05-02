@@ -1,36 +1,29 @@
 import { type HttpClient } from '../../common';
 import { type ApiClient } from './ApiClient';
 import { ApiClientImpl } from './ApiClientImpl';
-import { type ApiSetupOptions } from './Setup';
-import { ApiSetupOptionsImpl } from './Setup/ApiSetupOptionsImpl';
+import { type ApiOptions } from './ApiOptions';
 
 export interface ApiModule {
   readonly getClient: () => ApiClient;
-  readonly getSetupOptions: () => ApiSetupOptions;
 }
 
 interface Options {
   readonly httpClient: HttpClient;
+  readonly optionsOfApi: ApiOptions;
 }
 
 export function createApiModule ({
-  httpClient
+  httpClient,
+  optionsOfApi,
 }: Options): ApiModule {
-  const implOfSetupOptions: ApiSetupOptions = new ApiSetupOptionsImpl({
-    queryStringKeyForCulture: process.env.REACT_APP_API_QUERY_STRING_KEY_FOR_CULTURE ?? 'lng',
-    queryStringKeyForUICulture: process.env.REACT_APP_API_QUERY_STRING_KEY_FOR_UI_CULTURE ?? 'ui-lng',
-    url: process.env.REACT_APP_API_URL ?? ''
+  const implOfClient = new ApiClientImpl({
+    httpClient,
+    optionsOfApi,
   });
-
-  function getSetupOptions (): ApiSetupOptions {
-    return implOfSetupOptions;
-  }
-
-  const implOfClient = new ApiClientImpl({ apiSetupOptions: getSetupOptions(), httpClient });
 
   function getClient () {
     return implOfClient;
   }
 
-  return { getClient, getSetupOptions };
+  return { getClient };
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { start } from './app';
 import { AppContextProvider } from './app/AppContextProvider';
 import { StoresContextProvider } from './features/Stores/StoresContextProvider';
 import { ArticlePage, NotFoundPage, TopicPage } from './pages';
@@ -10,7 +11,7 @@ import { reportWebVitals } from './reportWebVitals';
 
 import './index.css';
 
-import './features/Localization/LocalizationSetup';
+start();
 
 const router = createBrowserRouter([{
   path: '/',

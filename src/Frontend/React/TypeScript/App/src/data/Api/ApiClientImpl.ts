@@ -4,6 +4,7 @@ import {
   type HttpRequestResult
 } from '../../common';
 import { type ApiClient } from './ApiClient';
+import { type ApiOptions } from './ApiOptions';
 import {
   type ApiOperationResponse,
   type ApiOperationResponseWithData
@@ -25,11 +26,10 @@ import {
   type ApiResponseWithDetails,
   type ApiResponseWithMessages
 } from './Responses';
-import { type ApiSetupOptions } from './Setup';
 
 interface Options {
-  readonly apiSetupOptions: ApiSetupOptions;
   readonly httpClient: HttpClient;
+  readonly optionsOfApi: ApiOptions;
 }
 
 interface RequestOptions {
@@ -43,19 +43,19 @@ interface RequestOptions {
 interface RequestConfigOptions {
   readonly language: string;
   readonly operationCode: string;
+  readonly optionsOfApi: ApiOptions;
   readonly query?: any;
-  readonly apiSetupOptions: ApiSetupOptions;
 }
 
 function createRequestConfig ({
   language,
   operationCode,
-  query,
-  apiSetupOptions:
+  optionsOfApi:
   {
     queryStringKeyForCulture,
     queryStringKeyForUICulture
-  }
+  },
+  query,
 }: RequestConfigOptions): HttpRequestConfig {
   return {
     query: {
@@ -73,12 +73,15 @@ function createRequestConfig ({
 };
 
 export class ApiClientImpl implements ApiClient {
-  private readonly apiSetupOptions: ApiSetupOptions;
   private readonly httpClient: HttpClient;
+  private readonly optionsOfApi: ApiOptions;
 
-  constructor (options: Options) {
-    this.apiSetupOptions = options.apiSetupOptions;
-    this.httpClient = options.httpClient;
+  constructor ({
+    httpClient,
+    optionsOfApi,
+  }: Options) {
+    this.httpClient = httpClient;
+    this.optionsOfApi = optionsOfApi;
   }
 
   async delete ({
@@ -98,8 +101,8 @@ export class ApiClientImpl implements ApiClient {
         createRequestConfig({
           language,
           operationCode,
+          optionsOfApi: this.optionsOfApi,
           query,
-          apiSetupOptions: this.apiSetupOptions
         })
       ),
       operationName,
@@ -125,8 +128,8 @@ export class ApiClientImpl implements ApiClient {
         createRequestConfig({
           language,
           operationCode,
+          optionsOfApi: this.optionsOfApi,
           query,
-          apiSetupOptions: this.apiSetupOptions
         })
       ),
       operationName,
@@ -154,8 +157,8 @@ export class ApiClientImpl implements ApiClient {
         createRequestConfig({
           language,
           operationCode,
+          optionsOfApi: this.optionsOfApi,
           query,
-          apiSetupOptions: this.apiSetupOptions
         })
       ),
       operationName,
@@ -183,8 +186,8 @@ export class ApiClientImpl implements ApiClient {
         createRequestConfig({
           language,
           operationCode,
+          optionsOfApi: this.optionsOfApi,
           query,
-          apiSetupOptions: this.apiSetupOptions
         })
       ),
       operationName,
@@ -194,7 +197,7 @@ export class ApiClientImpl implements ApiClient {
   }
 
   private createUrl (endpoint: string) {
-    return `${this.apiSetupOptions.url}/${endpoint}`;
+    return `${this.optionsOfApi.url}/${endpoint}`;
   }
 
   private async request ({

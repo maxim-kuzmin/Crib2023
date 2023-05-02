@@ -3,3 +3,4 @@ export { type InstanceControls } from './InstanceControls';
 export { type InstanceFactories } from './InstanceFactories';
 export { type InstanceHooks } from './InstanceHooks';
 export { type InstanceModules } from './InstanceModules';
+export { type InstanceOptions } from './InstanceOptions';

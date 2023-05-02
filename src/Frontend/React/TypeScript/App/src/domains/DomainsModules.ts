@@ -1,4 +1,4 @@
-import { type SetupOptions } from '../common';
+import { type CommonOptions } from '../common';
 import { type ApiResponseFactory, type ApiClient } from '../data';
 import { type TestService } from '../features';
 import { type ArticleDomainModule } from './Article';
@@ -14,27 +14,27 @@ export interface DomainsModules {
 interface Options {
   readonly apiClient: ApiClient;
   readonly factoryOfApiResponse: ApiResponseFactory;
-  readonly optionsOfSetup: SetupOptions;
+  readonly optionsOfCommon: CommonOptions;
   readonly serviceOfTest: TestService;
 }
 
 export function createDomainsModules ({
   apiClient,
   factoryOfApiResponse,
-  optionsOfSetup,
+  optionsOfCommon,
   serviceOfTest,
 }: Options): DomainsModules {
   const moduleOfArticle = createArticleDomainModule({
     apiClient,
     factoryOfApiResponse,
-    optionsOfSetup,
+    optionsOfCommon,
     serviceOfTest,
   });
 
   const moduleOfTopic = createTopicDomainModule({
     apiClient,
     factoryOfApiResponse,
-    optionsOfSetup,
+    optionsOfCommon,
     serviceOfTest,
   });
 

@@ -1,3 +1,3 @@
-export interface SetupOptions {
+export interface CommonOptions {
   readonly isTestModeEnabled: boolean;
 }

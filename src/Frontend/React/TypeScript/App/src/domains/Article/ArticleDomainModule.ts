@@ -1,4 +1,4 @@
-import { type SetupOptions } from '../../common';
+import { type CommonOptions } from '../../common';
 import { type ApiResponseFactory, type ApiClient } from '../../data';
 import { type TestService } from '../../features';
 import { TestArticleDomainRepositoryImpl } from '../../features/Test/Domains/Article/TestArticleDomainRepositoryImpl';
@@ -12,17 +12,17 @@ export interface ArticleDomainModule {
 interface Options {
   readonly apiClient: ApiClient;
   readonly factoryOfApiResponse: ApiResponseFactory;
+  readonly optionsOfCommon: CommonOptions;
   readonly serviceOfTest: TestService;
-  readonly optionsOfSetup: SetupOptions;
 }
 
 export function createArticleDomainModule ({
   apiClient,
   factoryOfApiResponse,
+  optionsOfCommon,
   serviceOfTest,
-  optionsOfSetup
 }: Options): ArticleDomainModule {
-  const implOfRepository = optionsOfSetup.isTestModeEnabled
+  const implOfRepository = optionsOfCommon.isTestModeEnabled
     ? new TestArticleDomainRepositoryImpl({ factoryOfApiResponse, serviceOfTest })
     : new ArticleDomainRepositoryImpl({ apiClient });
 
