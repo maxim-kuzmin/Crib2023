@@ -47,7 +47,7 @@ export const TopicTreeView: React.FC = memo(
 function TopicTreeView (): React.ReactElement | null {
   const resourceOfTopicTreeStore = appInstance.hooks.Features.Stores.Topic.Tree.useResource();
 
-  const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
+  const resourceOfApiResponse = appInstance.hooks.Data.Api.Response.useResource();
 
   const {
     payloadOfSetAction: topicItemResponse,

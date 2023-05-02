@@ -9,3 +9,4 @@ export * from './Store';
 export * from './ValueObjects';
 export { type ShouldBeCanceled } from './CommonFunctions';
 export { type CommonHooks } from './CommonHooks';
+export { type CommonModule } from './CommonModule';

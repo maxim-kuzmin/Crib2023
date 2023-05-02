@@ -16,7 +16,7 @@ import {
   ArticleItemStoreStateContext
 } from './ArticleItemStoreContext';
 
-const initialState = appInstance.module.Store.getService().createInitialState<ArticleItemStoreState>(
+const initialState = appInstance.module.Common.Store.getService().createInitialState<ArticleItemStoreState>(
   [ArticleItemStoreSliceName.ArticleItemView],
   () => {
     const result: ArticleItemStoreState = {

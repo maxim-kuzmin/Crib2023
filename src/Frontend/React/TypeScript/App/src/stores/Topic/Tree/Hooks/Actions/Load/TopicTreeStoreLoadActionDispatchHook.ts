@@ -82,7 +82,7 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicTreeStoreLoadActionOptions = {}
 ): TopicTreeStoreLoadActionDispatch {
-  const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
+  const resourceOfApiResponse = appInstance.hooks.Data.Api.Response.useResource();
 
   const resourceOfTopicTreeStore = appInstance.hooks.Features.Stores.Topic.Tree.useResource();
 

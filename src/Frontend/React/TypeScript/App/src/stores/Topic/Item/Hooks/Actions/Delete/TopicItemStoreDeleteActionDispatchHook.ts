@@ -83,7 +83,7 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: TopicItemStoreDeleteActionOptions = {}
 ): TopicItemStoreDeleteActionDispatch {
-  const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
+  const resourceOfApiResponse = appInstance.hooks.Data.Api.Response.useResource();
 
   const resourceOfTopicItemStore = appInstance.hooks.Features.Stores.Topic.Item.useResource();
 

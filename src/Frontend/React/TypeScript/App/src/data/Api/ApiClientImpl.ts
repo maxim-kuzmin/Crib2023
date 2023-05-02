@@ -221,7 +221,7 @@ export class ApiClientImpl implements ApiClient {
           }
       }
 
-      error = appInstance.factory.Api.Response.createError({
+      error = appInstance.factory.Data.Api.Response.createError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,
@@ -272,7 +272,7 @@ export class ApiClientImpl implements ApiClient {
           }
       }
 
-      error = appInstance.factory.Api.Response.createError({
+      error = appInstance.factory.Data.Api.Response.createError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,

@@ -16,7 +16,7 @@ import {
   ArticleListStoreStateContext
 } from './ArticleListStoreContext';
 
-const initialState = appInstance.module.Store.getService().createInitialState<ArticleListStoreState>(
+const initialState = appInstance.module.Common.Store.getService().createInitialState<ArticleListStoreState>(
   [ArticleListStoreSliceName.ArticleTableView],
   () => {
     const result: ArticleListStoreState = {

@@ -107,7 +107,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = appInstance.factory.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = appInstance.factory.Data.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {
@@ -188,7 +188,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = appInstance.factory.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = appInstance.factory.Data.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {

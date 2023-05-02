@@ -16,7 +16,7 @@ import {
   TopicTreeStoreStateContext
 } from './TopicTreeStoreContext';
 
-const initialState = appInstance.module.Store.getService().createInitialState<TopicTreeStoreState>(
+const initialState = appInstance.module.Common.Store.getService().createInitialState<TopicTreeStoreState>(
   [TopicTreeStoreSliceName.TopicTreeView],
   () => {
     const result: TopicTreeStoreState = {

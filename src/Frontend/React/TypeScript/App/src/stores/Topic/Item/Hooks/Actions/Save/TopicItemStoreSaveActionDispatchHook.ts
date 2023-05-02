@@ -83,7 +83,7 @@ export function useStoreSaveActionDispatch (
     payloadOfSaveAction
   }: TopicItemStoreSaveActionOptions
 ): TopicItemStoreSaveActionDispatch {
-  const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
+  const resourceOfApiResponse = appInstance.hooks.Data.Api.Response.useResource();
 
   const resourceOfTopicItemStore = appInstance.hooks.Features.Stores.Topic.Item.useResource();
 

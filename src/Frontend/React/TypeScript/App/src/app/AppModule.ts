@@ -1,15 +1,7 @@
-import {
-  type ControlsModule,
-  type HttpModule,
-  type SetupModule,
-  type StoreModule
-} from '../common';
-import { createControlsModule } from '../common/Controls/ControlsModule';
-import { createHttpModule } from '../common/Http/HttpModule';
-import { createSetupModule } from '../common/Setup/SetupModule';
-import { createStoreModule } from '../common/Store/StoreModule';
-import { type ApiModule } from '../data';
-import { createApiModule } from '../data/Api/ApiModule';
+import { type CommonModule } from '../common';
+import { createCommonModule } from '../common/CommonModule';
+import { type DataModule } from '../data';
+import { createDataModule } from '../data/DataModule';
 import { type DomainsModule } from '../domains';
 import { createDomainsModule } from '../domains/DomainsModule';
 import { type FeaturesModule } from '../features';
@@ -20,47 +12,38 @@ import { type ViewsModule } from '../views';
 import { createViewsModule } from '../views/ViewsModule';
 
 export interface AppModule {
-  readonly Api: ApiModule;
-  readonly Controls: ControlsModule;
+  readonly Common: CommonModule;
+  readonly Data: DataModule;
   readonly Domains: DomainsModule;
   readonly Features: FeaturesModule;
-  readonly Http: HttpModule;
   readonly Pages: PagesModule;
-  readonly Setup: SetupModule;
-  readonly Store: StoreModule;
   readonly Views: ViewsModule;
 }
 
 export function createAppModule (): AppModule {
-  const moduleOfControls = createControlsModule();
-  const moduleOfSetup = createSetupModule();
-  const moduleOfHttp = createHttpModule();
-  const moduleOfViews = createViewsModule();
+  const moduleOfCommon = createCommonModule();
   const moduleOfFeatures = createFeaturesModule();
-  const moduleOfStore = createStoreModule();
+  const moduleOfViews = createViewsModule();
 
-  const moduleOfApi = createApiModule({
-    httpClient: moduleOfHttp.getClient()
+  const moduleOfData = createDataModule({
+    httpClient: moduleOfCommon.Http.getClient()
   });
 
   const moduleOfDomains = createDomainsModule({
-    apiClient: moduleOfApi.getClient(),
-    setupOptions: moduleOfSetup.getOptions()
+    apiClient: moduleOfData.Api.getClient(),
+    setupOptions: moduleOfCommon.Setup.getOptions()
   });
 
   const moduleOfPages = createPagesModule({
-    tableControlService: moduleOfControls.Table.getService()
+    tableControlService: moduleOfCommon.Controls.Table.getService()
   });
 
   return {
-    Api: moduleOfApi,
-    Controls: moduleOfControls,
+    Common: moduleOfCommon,
+    Data: moduleOfData,
     Domains: moduleOfDomains,
     Features: moduleOfFeatures,
-    Http: moduleOfHttp,
     Pages: moduleOfPages,
-    Setup: moduleOfSetup,
-    Store: moduleOfStore,
     Views: moduleOfViews,
   };
 }

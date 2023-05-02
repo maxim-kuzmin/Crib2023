@@ -1,14 +1,14 @@
-import { type ApiFactory } from '../data';
-import { createApiFactory } from '../data/Api/ApiFactory';
+import { type DataFactory } from '../data';
+import { createDataFactory } from '../data/DataFactory';
 
 export interface AppFactory {
-  readonly Api: ApiFactory;
+  readonly Data: DataFactory;
 }
 
 export function createAppFactory (): AppFactory {
-  const factoryOfApi = createApiFactory();
+  const factoryOfData = createDataFactory();
 
   return {
-    Api: factoryOfApi
+    Data: factoryOfData
   };
 }
