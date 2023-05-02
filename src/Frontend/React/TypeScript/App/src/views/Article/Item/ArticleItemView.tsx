@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import app from '../../../app';
+import { useApp } from '../../../app';
 import {
   type CardControlAction,
   type CardControlExtra,
@@ -19,9 +19,11 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps): React.ReactElement<ArticleItemViewProps> | null {
-  const resourceOfArticleItemView = app.hooks.Views.Article.Item.useResource();
+  const { control, hooks, module } = useApp();
 
-  app.hooks.Views.Article.Item.useStoreClearActionOutput({
+  const resourceOfArticleItemView = hooks.Views.Article.Item.useResource();
+
+  hooks.Views.Article.Item.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
@@ -39,7 +41,7 @@ function ArticleItemView ({
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = app.hooks.Views.Article.Item.useStoreLoadActionOutput({
+  } = hooks.Views.Article.Item.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
@@ -50,6 +52,8 @@ function ArticleItemView ({
     () => loadedEntity ?? createArticleTypeEntity(),
     [loadedEntity]
   );
+
+  const serviceOfArticlePage = module.Pages.Article.getService();
 
   const controlActions: CardControlAction[] = useMemo(
     () => {
@@ -66,7 +70,7 @@ function ArticleItemView ({
       }
 
       const actionToEdit: CardControlAction = {
-        href: app.module.Pages.Article.getService().createUrl({ articleId, mode: ArticleItemViewMode.Edit }),
+        href: serviceOfArticlePage.createUrl({ articleId, mode: ArticleItemViewMode.Edit }),
         key: 'edit',
         title: resourceOfArticleItemView.getActionForEdit()
       };
@@ -75,7 +79,7 @@ function ArticleItemView ({
 
       return result;
     },
-    [articleId, topicPageLastUrl, resourceOfArticleItemView]
+    [articleId, resourceOfArticleItemView, serviceOfArticlePage, topicPageLastUrl]
   );
 
   const tLabelForId: string = resourceOfArticleItemView.getLabelForId();
@@ -94,7 +98,7 @@ function ArticleItemView ({
       <h2>{title}</h2>
       {
         entity.id > 0
-          ? <app.control.Card
+          ? <control.Card
               controlActions={controlActions}
               controlExtra={controlExtra}
               loading={pendingOfLoadAction}
@@ -102,7 +106,7 @@ function ArticleItemView ({
               type={CardControlType.Main}
             >
                 { entity.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
-            </app.control.Card>
+            </control.Card>
           : null
       }
     </div>

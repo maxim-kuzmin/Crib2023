@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import app from '../../../../app';
+import {
+  type ApiResponseFactory,
+  type ApiOperationResponse,
+  type ApiResponseError
+} from '../../../../data';
 import {
   type TopicDomainItemGetOperationRequest,
   type TopicDomainEntityForItem,
@@ -16,16 +20,29 @@ import {
   type TopicDomainTreeGetOperationOutput,
   type TopicDomainItemSaveOperationRequest
 } from '../../../../domains';
-import { type ApiOperationResponse, type ApiResponseError } from '../../../../data';
+import { type TestService } from '../../TestService';
 
 let maxId = 0;
+
+interface Options {
+  readonly serviceOfTest: TestService;
+  readonly factoryOfApiResponse: ApiResponseFactory;
+}
 
 export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
   private entitiesForItem: TopicDomainEntityForItem[] = [];
   private readonly entitiesForList: TopicDomainEntityForList[] = [];
   private readonly entitiesForTree: TopicDomainEntityForTree[] = [];
+  private readonly factoryOfApiResponse: ApiResponseFactory;
+  private readonly serviceOfTest: TestService;
 
-  constructor () {
+  constructor ({
+    factoryOfApiResponse,
+    serviceOfTest,
+  }: Options) {
+    this.factoryOfApiResponse = factoryOfApiResponse;
+    this.serviceOfTest = serviceOfTest;
+
     for (let id = 1; id < 101; id++) {
       const entity: TopicDomainEntityForItem = {
         data: {
@@ -90,7 +107,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 
   async getItem (
@@ -107,7 +124,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.factory.Data.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = this.factoryOfApiResponse.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {
@@ -117,7 +134,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 
   async getList (
@@ -136,7 +153,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 
   async getTree (
@@ -155,7 +172,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 
   async saveItem (
@@ -188,7 +205,7 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.factory.Data.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = this.factoryOfApiResponse.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {
@@ -198,6 +215,6 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 }

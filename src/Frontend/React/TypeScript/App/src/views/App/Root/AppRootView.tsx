@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react';
-import app from '../../../app';
+import { useApp } from '../../../app';
 import { AppLayoutAsideView } from '../Layout/Aside';
 import { AppLayoutContentView } from '../Layout/Content';
 import { AppLayoutFooterView } from '../Layout/Footer';
@@ -9,7 +9,9 @@ import logo from './logo.svg';
 
 export const AppRootView: React.FC = memo(
 function AppRootView (): React.ReactElement | null {
-  const serviceOfLocalization = app.hooks.Features.Localization.useService();
+  const { control, hooks } = useApp();
+
+  const serviceOfLocalization = hooks.Features.Localization.useService();
 
   useEffect(
     () => {
@@ -20,7 +22,7 @@ function AppRootView (): React.ReactElement | null {
   return (
     <>
       <AppNotificationView/>
-      <app.control.Layout
+      <control.Layout
         createAsideView={() => <AppLayoutAsideView logoUrl={logo}/>}
         createContentView={(backgroundColor) => <AppLayoutContentView backgroundColor={String(backgroundColor)}/>}
         createFooterView={() => <AppLayoutFooterView/>}

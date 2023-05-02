@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import app from '../../../../app';
+import {
+  type ApiResponseFactory,
+  type ApiOperationResponse,
+  type ApiResponseError
+} from '../../../../data';
 import {
   type ArticleDomainItemSaveOperationRequest,
   type ArticleDomainEntityForItem,
@@ -11,14 +15,27 @@ import {
   type ArticleDomainListGetOperationResponse,
   type ArticleDomainRepository
 } from '../../../../domains';
-import { type ApiOperationResponse, type ApiResponseError } from '../../../../data';
+import { type TestService } from '../../TestService';
 
 let maxId = 0;
 
-export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
-  private items: ArticleDomainEntityForItem[] = [];
+interface Options {
+  readonly serviceOfTest: TestService;
+  readonly factoryOfApiResponse: ApiResponseFactory;
+}
 
-  constructor () {
+export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
+  private readonly factoryOfApiResponse: ApiResponseFactory;
+  private items: ArticleDomainEntityForItem[] = [];
+  private readonly serviceOfTest: TestService;
+
+  constructor ({
+    factoryOfApiResponse,
+    serviceOfTest,
+  }: Options) {
+    this.factoryOfApiResponse = factoryOfApiResponse;
+    this.serviceOfTest = serviceOfTest;
+
     for (let id = 1; id < 101; id++) {
       const item: ArticleDomainEntityForItem = {
         data: {
@@ -49,13 +66,13 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const item = this.items.find(x => x.data.id === input.id);
 
@@ -66,7 +83,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.factory.Data.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = factoryOfApiResponse.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
@@ -76,7 +93,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 
   async getList (
@@ -95,7 +112,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 
   async saveItem (
@@ -127,7 +144,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = app.factory.Data.Api.Response.createError({ responseStatus: status, resourceOfApiResponse });
+      error = this.factoryOfApiResponse.createError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: ArticleDomainItemGetOperationResponse = {
@@ -137,6 +154,6 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await app.module.Features.Test.getService().getDataAsync(() => result);
+    return await this.serviceOfTest.getDataAsync(() => result);
   }
 }

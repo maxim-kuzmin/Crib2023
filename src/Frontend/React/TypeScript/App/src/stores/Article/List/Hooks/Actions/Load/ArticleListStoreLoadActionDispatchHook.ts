@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import app from '../../../../../../app';
+import { useApp } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseResource } from '../../../../../../data';
+import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainListGetOperationRequestHandler,
   createArticleDomainListGetOperationRequest
@@ -21,6 +21,7 @@ import { runLoadCompletedAction } from '../LoadCompleted/ArticleListStoreLoadCom
 interface Options {
   readonly callback?: ArticleListStoreSetActionCallback;
   readonly dispatch: Dispatch<ArticleListStoreActionUnion>;
+  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly payload: ArticleListStoreLoadActionPayload;
   readonly requestHandler: ArticleDomainListGetOperationRequestHandler;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -32,6 +33,7 @@ interface Options {
 async function runLoadAction ({
   callback,
   dispatch,
+  factoryOfApiResponse,
   payload,
   requestHandler,
   resourceOfApiResponse,
@@ -54,6 +56,7 @@ async function runLoadAction ({
         createArticleDomainListGetOperationRequest(
           payload,
           {
+            factoryOfApiResponse,
             operationName: resourceOfArticleListStore.getOperationNameForGet(),
             resourceOfApiResponse
           }
@@ -83,13 +86,17 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: ArticleListStoreLoadActionOptions = {}
 ): ArticleListStoreLoadActionDispatch {
-  const resourceOfApiResponse = app.hooks.Data.Api.Response.useResource();
+  const { factory, hooks } = useApp();
 
-  const resourceOfArticleListStore = app.hooks.Features.Stores.Article.List.useResource();
+  const factoryOfApiResponse = factory.Data.Api.Response;
+
+  const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
+
+  const resourceOfArticleListStore = hooks.Features.Stores.Article.List.useResource();
 
   const dispatch = useArticleListStoreDispatchContext();
 
-  const requestHandler = useRef(app.hooks.Domains.Article.useListGetOperationRequestHandler()).current;
+  const requestHandler = useRef(hooks.Domains.Article.useListGetOperationRequestHandler()).current;
 
   useEffect(
     () => {
@@ -101,6 +108,7 @@ export function useStoreLoadActionDispatch (
         runLoadAction({
           callback,
           dispatch,
+          factoryOfApiResponse,
           payload: payloadOfLoadAction,
           requestHandler,
           resourceOfApiResponse,
@@ -115,6 +123,7 @@ export function useStoreLoadActionDispatch (
           runLoadAction({
             callback,
             dispatch,
+            factoryOfApiResponse,
             payload: payloadOfLoadAction,
             requestHandler,
             resourceOfApiResponse,
@@ -131,6 +140,7 @@ export function useStoreLoadActionDispatch (
       callback,
       dispatch,
       dispatchType,
+      factoryOfApiResponse,
       isCanceled,
       payloadOfLoadAction,
       requestHandler,
@@ -147,6 +157,7 @@ export function useStoreLoadActionDispatch (
     await runLoadAction({
       callback,
       dispatch,
+      factoryOfApiResponse,
       payload,
       requestHandler,
       resourceOfApiResponse,

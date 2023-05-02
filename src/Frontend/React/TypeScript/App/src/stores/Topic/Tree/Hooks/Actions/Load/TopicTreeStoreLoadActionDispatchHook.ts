@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import app from '../../../../../../app';
+import { useApp } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseResource } from '../../../../../../data';
+import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainTreeGetOperationRequestHandler,
   createTopicDomainTreeGetOperationRequest
@@ -21,6 +21,7 @@ import { runLoadCompletedAction } from '../LoadCompleted/TopicTreeStoreLoadCompl
 interface Options {
   readonly callback?: TopicTreeStoreSetActionCallback;
   readonly dispatch: Dispatch<TopicTreeStoreActionUnion>;
+  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly payload: TopicTreeStoreLoadActionPayload;
   readonly requestHandler: TopicDomainTreeGetOperationRequestHandler;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -32,6 +33,7 @@ interface Options {
 async function runLoadAction ({
   callback,
   dispatch,
+  factoryOfApiResponse,
   payload,
   requestHandler,
   resourceOfApiResponse,
@@ -54,6 +56,7 @@ async function runLoadAction ({
         createTopicDomainTreeGetOperationRequest(
           payload,
           {
+            factoryOfApiResponse,
             operationName: resourceOfTopicTreeStore.getOperationNameForGet(),
             resourceOfApiResponse
           }),
@@ -82,13 +85,17 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicTreeStoreLoadActionOptions = {}
 ): TopicTreeStoreLoadActionDispatch {
-  const resourceOfApiResponse = app.hooks.Data.Api.Response.useResource();
+  const { factory, hooks } = useApp();
 
-  const resourceOfTopicTreeStore = app.hooks.Features.Stores.Topic.Tree.useResource();
+  const factoryOfApiResponse = factory.Data.Api.Response;
+
+  const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
+
+  const resourceOfTopicTreeStore = hooks.Features.Stores.Topic.Tree.useResource();
 
   const dispatch = useTopicTreeStoreDispatchContext();
 
-  const requestHandler = useRef(app.hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
+  const requestHandler = useRef(hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
 
   useEffect(
     () => {
@@ -100,6 +107,7 @@ export function useStoreLoadActionDispatch (
         runLoadAction({
           callback,
           dispatch,
+          factoryOfApiResponse,
           payload: payloadOfLoadAction,
           requestHandler,
           resourceOfApiResponse,
@@ -114,6 +122,7 @@ export function useStoreLoadActionDispatch (
           runLoadAction({
             callback,
             dispatch,
+            factoryOfApiResponse,
             payload: payloadOfLoadAction,
             requestHandler,
             resourceOfApiResponse,
@@ -130,6 +139,7 @@ export function useStoreLoadActionDispatch (
       callback,
       dispatch,
       dispatchType,
+      factoryOfApiResponse,
       isCanceled,
       payloadOfLoadAction,
       requestHandler,
@@ -146,6 +156,7 @@ export function useStoreLoadActionDispatch (
     await runLoadAction({
       callback,
       dispatch,
+      factoryOfApiResponse,
       payload,
       requestHandler,
       resourceOfApiResponse,

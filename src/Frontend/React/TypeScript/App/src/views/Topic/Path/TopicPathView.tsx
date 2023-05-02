@@ -1,22 +1,22 @@
 import React, { memo, useMemo } from 'react';
-import app from '../../../app';
+import { useApp } from '../../../app';
 import { type BreadcrumbControlItem } from '../../../common';
 import { type TopicDomainEntityForItem } from '../../../domains';
+import { type TopicPageService } from '../../../pages';
 import styles from './TopicPathView.module.css';
 
 interface ConvertToControlItemsOptions {
   entity?: TopicDomainEntityForItem;
+  serviceOfTopicPage: TopicPageService;
   titleForRoot: string;
 }
 
 function convertToControlItems (options: ConvertToControlItemsOptions): BreadcrumbControlItem[] {
-  const { entity, titleForRoot } = options;
+  const { entity, serviceOfTopicPage, titleForRoot } = options;
 
   const root: BreadcrumbControlItem = { title: titleForRoot, key: 0 };
 
   const result: BreadcrumbControlItem[] = [root];
-
-  const topicPageService = app.module.Pages.Topic.getService();
 
   if (entity) {
     root.href = '/';
@@ -25,7 +25,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
       const { id, name } = valueObject;
 
       return {
-        href: topicPageService.createUrl({ topicId: Number(id) }),
+        href: serviceOfTopicPage.createUrl({ topicId: Number(id) }),
         key: id,
         title: name
       };
@@ -36,7 +36,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
     const { id, name } = entity.data;
 
     result.push({
-      href: topicPageService.createUrl({ topicId: Number(id) }),
+      href: serviceOfTopicPage.createUrl({ topicId: Number(id) }),
       key: id,
       title: name
     });
@@ -47,24 +47,30 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 
 export const TopicPathView: React.FC = memo(
 function TopicPathView (): React.ReactElement | null {
-  const topicPathViewResource = app.hooks.Views.Topic.Path.useResource();
+  const { control, hooks, module } = useApp();
+
+  const topicPathViewResource = hooks.Views.Topic.Path.useResource();
 
   const {
     payloadOfSetAction: topicItemResponse
-  } = app.hooks.Views.Topic.Item.useStoreState();
+  } = hooks.Views.Topic.Item.useStoreState();
 
   const entity = topicItemResponse?.data?.item;
 
+  const serviceOfTopicPage = module.Pages.Topic.getService();
+
+  const titleForRoot = topicPathViewResource.getTitleForRoot();
+
   const controlItems = useMemo(
-    () => convertToControlItems({ entity, titleForRoot: topicPathViewResource.getTitleForRoot() }),
-    [entity, topicPathViewResource]
+    () => convertToControlItems({ entity, serviceOfTopicPage, titleForRoot }),
+    [entity, serviceOfTopicPage, titleForRoot]
   );
 
   const currentItemKey = entity?.data.id ?? 0;
 
   return (
     <div className={styles.root}>
-      <app.control.Breadcrumb controlItems={controlItems} currentItemKey={currentItemKey}/>
+      <control.Breadcrumb controlItems={controlItems} currentItemKey={currentItemKey}/>
     </div>
   );
 });

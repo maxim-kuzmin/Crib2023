@@ -1,4 +1,3 @@
-import app from '../../app';
 import {
   type HttpClient,
   type HttpRequestConfig,
@@ -14,12 +13,13 @@ import {
   type ApiRequestOptions
 } from './Request';
 import {
-  type ApiResponseResource,
   type ApiResponse,
   type ApiResponseDataWithDetails,
   type ApiResponseDataWithMessages,
   type ApiResponseError,
-  type ApiResponseWithData
+  type ApiResponseFactory,
+  type ApiResponseResource,
+  type ApiResponseWithData,
 } from './Response';
 import {
   type ApiResponseWithDetails,
@@ -33,6 +33,7 @@ interface Options {
 }
 
 interface RequestOptions {
+  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly getRequestResult: () => Promise<HttpRequestResult>;
   readonly operationName: string;
   readonly operationCode: string;
@@ -82,6 +83,7 @@ export class ApiClientImpl implements ApiClient {
 
   async delete ({
     endpoint,
+    factoryOfApiResponse,
     operationName,
     operationCode,
     query,
@@ -90,6 +92,7 @@ export class ApiClientImpl implements ApiClient {
     const { language } = resourceOfApiResponse;
 
     return await this.request({
+      factoryOfApiResponse,
       getRequestResult: async () => await this.httpClient.delete(
         this.createUrl(endpoint),
         createRequestConfig({
@@ -107,6 +110,7 @@ export class ApiClientImpl implements ApiClient {
 
   async get<TData> ({
     endpoint,
+    factoryOfApiResponse,
     operationName,
     operationCode,
     query,
@@ -115,6 +119,7 @@ export class ApiClientImpl implements ApiClient {
     const { language } = resourceOfApiResponse;
 
     return await this.requestWithData({
+      factoryOfApiResponse,
       getRequestResult: async () => await this.httpClient.get(
         this.createUrl(endpoint),
         createRequestConfig({
@@ -133,6 +138,7 @@ export class ApiClientImpl implements ApiClient {
   async post<TData> ({
     body,
     endpoint,
+    factoryOfApiResponse,
     operationName,
     operationCode,
     query,
@@ -141,6 +147,7 @@ export class ApiClientImpl implements ApiClient {
     const { language } = resourceOfApiResponse;
 
     return await this.requestWithData({
+      factoryOfApiResponse,
       getRequestResult: async () => await this.httpClient.post(
         this.createUrl(endpoint),
         body,
@@ -160,6 +167,7 @@ export class ApiClientImpl implements ApiClient {
   async put<TData> ({
     body,
     endpoint,
+    factoryOfApiResponse,
     operationName,
     operationCode,
     query,
@@ -168,6 +176,7 @@ export class ApiClientImpl implements ApiClient {
     const { language } = resourceOfApiResponse;
 
     return await this.requestWithData({
+      factoryOfApiResponse,
       getRequestResult: async () => await this.httpClient.put(
         this.createUrl(endpoint),
         body,
@@ -189,6 +198,7 @@ export class ApiClientImpl implements ApiClient {
   }
 
   private async request ({
+    factoryOfApiResponse,
     getRequestResult,
     operationName,
     operationCode,
@@ -221,7 +231,7 @@ export class ApiClientImpl implements ApiClient {
           }
       }
 
-      error = app.factory.Data.Api.Response.createError({
+      error = factoryOfApiResponse.createError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,
@@ -237,6 +247,7 @@ export class ApiClientImpl implements ApiClient {
   }
 
   private async requestWithData<TData> ({
+    factoryOfApiResponse,
     getRequestResult,
     operationName,
     operationCode,
@@ -272,7 +283,7 @@ export class ApiClientImpl implements ApiClient {
           }
       }
 
-      error = app.factory.Data.Api.Response.createError({
+      error = factoryOfApiResponse.createError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,

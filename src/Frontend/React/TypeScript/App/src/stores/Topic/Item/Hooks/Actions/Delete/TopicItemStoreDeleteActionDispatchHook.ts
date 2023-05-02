@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import app from '../../../../../../app';
+import { useApp } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseResource } from '../../../../../../data';
+import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainItemDeleteOperationRequestHandler,
   createTopicDomainItemDeleteOperationRequest,
@@ -21,6 +21,7 @@ import { runDeleteCompletedAction } from '../DeleteCompleted/TopicItemStoreDelet
 interface Options {
   readonly callback?: TopicItemStoreDeleteCompletedActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
+  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly payload: TopicItemStoreDeleteActionPayload;
   readonly requestHandler: TopicDomainItemDeleteOperationRequestHandler;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -32,6 +33,7 @@ interface Options {
 async function runDeleteAction ({
   callback,
   dispatch,
+  factoryOfApiResponse,
   payload,
   requestHandler,
   resourceOfApiResponse,
@@ -54,6 +56,7 @@ async function runDeleteAction ({
         createTopicDomainItemDeleteOperationRequest(
           payload,
           {
+            factoryOfApiResponse,
             operationName: resourceOfTopicItemStore.getOperationNameForDelete(),
             resourceOfApiResponse
           }
@@ -83,13 +86,17 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: TopicItemStoreDeleteActionOptions = {}
 ): TopicItemStoreDeleteActionDispatch {
-  const resourceOfApiResponse = app.hooks.Data.Api.Response.useResource();
+  const { factory, hooks } = useApp();
 
-  const resourceOfTopicItemStore = app.hooks.Features.Stores.Topic.Item.useResource();
+  const factoryOfApiResponse = factory.Data.Api.Response;
+
+  const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
+
+  const resourceOfTopicItemStore = hooks.Features.Stores.Topic.Item.useResource();
 
   const dispatch = useTopicItemStoreDispatchContext();
 
-  const requestHandler = useRef(app.hooks.Domains.Topic.useItemDeleteOperationRequestHandler()).current;
+  const requestHandler = useRef(hooks.Domains.Topic.useItemDeleteOperationRequestHandler()).current;
 
   useEffect(
     () => {
@@ -101,6 +108,7 @@ export function useStoreDeleteActionDispatch (
         runDeleteAction({
           callback,
           dispatch,
+          factoryOfApiResponse,
           payload: payloadOfDeleteAction,
           requestHandler,
           resourceOfApiResponse,
@@ -115,6 +123,7 @@ export function useStoreDeleteActionDispatch (
           runDeleteAction({
             callback,
             dispatch,
+            factoryOfApiResponse,
             payload: payloadOfDeleteAction,
             requestHandler,
             resourceOfApiResponse,
@@ -131,6 +140,7 @@ export function useStoreDeleteActionDispatch (
       callback,
       dispatch,
       dispatchType,
+      factoryOfApiResponse,
       isCanceled,
       payloadOfDeleteAction,
       requestHandler,
@@ -147,6 +157,7 @@ export function useStoreDeleteActionDispatch (
     await runDeleteAction({
       callback,
       dispatch,
+      factoryOfApiResponse,
       payload,
       requestHandler,
       resourceOfApiResponse,

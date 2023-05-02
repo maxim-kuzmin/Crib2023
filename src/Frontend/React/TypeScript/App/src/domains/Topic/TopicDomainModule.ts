@@ -1,5 +1,6 @@
 import { type SetupOptions } from '../../common';
-import { type ApiClient } from '../../data';
+import { type ApiResponseFactory, type ApiClient } from '../../data';
+import { type TestService } from '../../features';
 import { TestTopicDomainRepositoryImpl } from '../../features/Test/Domains/Topic/TestTopicDomainRepositoryImpl';
 import { type TopicDomainRepository } from './TopicDomainRepository';
 import { TopicDomainRepositoryImpl } from './TopicDomainRepositoryImpl';
@@ -10,15 +11,19 @@ export interface TopicDomainModule {
 
 interface Options {
   readonly apiClient: ApiClient;
+  readonly factoryOfApiResponse: ApiResponseFactory;
+  readonly serviceOfTest: TestService;
   readonly setupOptions: SetupOptions;
 }
 
 export function createTopicDomainModule ({
   apiClient,
-  setupOptions
+  factoryOfApiResponse,
+  serviceOfTest,
+  setupOptions,
 }: Options): TopicDomainModule {
   const implOfRepository = setupOptions.isTestModeEnabled
-    ? new TestTopicDomainRepositoryImpl()
+    ? new TestTopicDomainRepositoryImpl({ factoryOfApiResponse, serviceOfTest })
     : new TopicDomainRepositoryImpl({ apiClient });
 
   function getRepository (): TopicDomainRepository {

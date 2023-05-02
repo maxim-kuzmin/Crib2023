@@ -10,7 +10,7 @@ import {
   type SorterResult,
   type ColumnType
 } from 'antd/es/table/interface';
-import app from '../../app';
+import { useApp } from '../../app';
 import {
   type TableControlColumn,
   type TableControlHeader,
@@ -72,14 +72,16 @@ function TableControl ({
   onChange,
   loading
 }: TableControlProps): React.ReactElement<TableControlProps> | null {
-  const resourceOfTableControl = app.hooks.Controls.Table.useResource();
+  const { hooks, module } = useApp();
+
+  const resourceOfTableControl = hooks.Controls.Table.useResource();
 
   const columns = useMemo(
     () => convertToColumns(controlColumns),
     [controlColumns]
   );
 
-  const { defaultPageSize } = app.module.Common.Controls.Table.getService();
+  const { defaultPageSize } = module.Common.Controls.Table.getService();
 
   const tPaginationPartForFrom = resourceOfTableControl.getPaginationPartForFrom();
   const tPaginationPartForPerPage = resourceOfTableControl.getPaginationPartForPerPage();

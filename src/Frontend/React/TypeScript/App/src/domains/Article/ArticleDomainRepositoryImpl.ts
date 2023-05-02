@@ -27,12 +27,13 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   async deleteItem (
     request: ArticleDomainItemDeleteOperationRequest
   ): Promise<ApiOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
     return await this.apiClient.delete({
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
@@ -42,12 +43,13 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
     return await this.apiClient.get<ArticleDomainItemGetOperationOutput>({
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
@@ -57,12 +59,13 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   async getList (
     request: ArticleDomainListGetOperationRequest
   ): Promise<ArticleDomainListGetOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
     const endpoint = `${controller}List`;
 
     return await this.apiClient.get<ArticleDomainListGetOperationOutput>({
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       query,
@@ -73,7 +76,7 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
   async saveItem (
     request: ArticleDomainItemSaveOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input: body } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: body } = request;
 
     const id = Number(body.id ?? 0);
 
@@ -82,6 +85,7 @@ export class ArticleDomainRepositoryImpl implements ArticleDomainRepository {
     const options: ApiRequestOptionsWithBody = {
       body,
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse

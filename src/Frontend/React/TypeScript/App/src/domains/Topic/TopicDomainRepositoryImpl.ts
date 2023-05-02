@@ -30,12 +30,13 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
   async deleteItem (
     request: TopicDomainItemDeleteOperationRequest
   ): Promise<ApiOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
     return await this.apiClient.delete({
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
@@ -45,12 +46,13 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
   async getItem (
     request: TopicDomainItemGetOperationRequest
   ): Promise<TopicDomainItemGetOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`
 
     return await this.apiClient.get<TopicDomainItemGetOperationOutput>({
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
@@ -60,12 +62,13 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
   async getList (
     request: TopicDomainListGetOperationRequest
   ): Promise<TopicDomainListGetOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
     const endpoint = `${controller}List`;
 
     return await this.apiClient.get<TopicDomainListGetOperationOutput>({
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       query,
@@ -76,12 +79,13 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
   async getTree (
     request: TopicDomainTreeGetOperationRequest
   ): Promise<TopicDomainTreeGetOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
     const endpoint = `${controller}Tree`;
 
     return await this.apiClient.get<TopicDomainTreeGetOperationOutput>({
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       query,
@@ -92,7 +96,7 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
   async saveItem (
     request: TopicDomainItemSaveOperationRequest
   ): Promise<TopicDomainItemGetOperationResponse> {
-    const { operationCode, operationName, resourceOfApiResponse, input: body } = request;
+    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: body } = request;
 
     const id = Number(body.id ?? 0);
 
@@ -101,6 +105,7 @@ export class TopicDomainRepositoryImpl implements TopicDomainRepository {
     const options: ApiRequestOptionsWithBody = {
       body,
       endpoint,
+      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse

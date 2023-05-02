@@ -1,7 +1,7 @@
 import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import app from '../../../app';
+import { useApp } from '../../../app';
 import {
   ConfirmControlType,
   type BreadcrumbControlItem,
@@ -32,14 +32,16 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
-  const resourceOfConfirmControl = app.hooks.Controls.Confirm.useResource();
+  const { component, control, hooks, module } = useApp();
+
+  const resourceOfConfirmControl = hooks.Controls.Confirm.useResource();
 
   const {
     dispatchOfDeleteAction,
     pendingOfDeleteAction
-  } = app.hooks.Views.Article.Item.useStoreDeleteActionOutput();
+  } = hooks.Views.Article.Item.useStoreDeleteActionOutput();
 
-  const resourceOfArticleTableView = app.hooks.Views.Article.Table.useResource();
+  const resourceOfArticleTableView = hooks.Views.Article.Table.useResource();
 
   const payloadOfLoadAction: ArticleListStoreLoadActionPayload = useMemo(
     () => {
@@ -62,7 +64,7 @@ function ArticleTableView ({
     dispatchOfLoadAction,
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = app.hooks.Views.Article.Table.useStoreLoadActionOutput({
+  } = hooks.Views.Article.Table.useStoreLoadActionOutput({
     payloadOfLoadAction
   });
 
@@ -103,10 +105,12 @@ function ArticleTableView ({
     ]
   );
 
+  const componentOfConfirmControl = component.Controls.Confirm;
+  const serviceOfArticlePage = module.Pages.Article.getService();
+  const serviceOfTopicPage = module.Pages.Topic.getService();
+
   const controlColumns: TableControlColumn[] = useMemo(
     () => {
-      const atriclePageService = app.module.Pages.Article.getService();
-
       return [
         {
           field: 'id',
@@ -121,7 +125,7 @@ function ArticleTableView ({
             const { id, title } = viewRow;
 
             return (
-              <Link to={ atriclePageService.createUrl({ articleId: Number(id) })}>{title}</Link>
+              <Link to={ serviceOfArticlePage.createUrl({ articleId: Number(id) })}>{title}</Link>
             );
           }
         },
@@ -133,20 +137,18 @@ function ArticleTableView ({
 
             const { path } = viewRow;
 
-            const topicPageService = app.module.Pages.Topic.getService();
-
             const controlItems: BreadcrumbControlItem[] = path.map((item) => {
               const { id, name } = item;
 
               return {
-                href: topicPageService.createUrl({ topicId: Number(id) }),
+                href: serviceOfTopicPage.createUrl({ topicId: Number(id) }),
                 key: id,
                 title: name
               };
             });
 
             return (
-              <app.control.Breadcrumb controlItems={controlItems} />
+              <control.Breadcrumb controlItems={controlItems} />
             );
           }
         },
@@ -160,7 +162,7 @@ function ArticleTableView ({
                   {
                     topicId > 0
                       ? <Link
-                          to={atriclePageService.createUrl({ search: { topicId } })}
+                          to={serviceOfArticlePage.createUrl({ search: { topicId } })}
                         >
                           {resourceOfArticleTableView.getActionForNew()}
                         </Link>
@@ -181,24 +183,24 @@ function ArticleTableView ({
               <div className={styles.actions}>
                 <Link
                   className={styles.action}
-                  to={atriclePageService.createUrl({ articleId: Number(id) })}
+                  to={serviceOfArticlePage.createUrl({ articleId: Number(id) })}
                 >
                   {resourceOfArticleTableView.getActionForDisplay()}
                 </Link>
                 <Link
                   className={styles.action}
-                  to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticleItemViewMode.Edit })}
+                  to={serviceOfArticlePage.createUrl({ articleId: Number(id), mode: ArticleItemViewMode.Edit })}
                 >
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
-                <app.control.Button
+                <control.Button
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
                   loading={id === deletingId.current && pendingOfDeleteAction}
                   onClick={
                     () => {
                       deletingId.current = id;
 
-                      app.component.Controls.Confirm.show({
+                      componentOfConfirmControl.show({
                         resourceOfConfirmControl,
                         onOk: () => {
                           dispatchOfDeleteAction.run({ id })
@@ -213,7 +215,7 @@ function ArticleTableView ({
                   title={`${tActionForDelete} ${id}`}
                 >
                   {resourceOfArticleTableView.getActionForDelete()}
-                </app.control.Button>
+                </control.Button>
               </div>
             );
           }
@@ -221,12 +223,16 @@ function ArticleTableView ({
       ];
     },
     [
+      componentOfConfirmControl,
+      control,
       dispatchOfDeleteAction,
       dispatchOfLoadAction,
       payloadOfLoadAction,
       pendingOfDeleteAction,
       resourceOfArticleTableView,
       resourceOfConfirmControl,
+      serviceOfArticlePage,
+      serviceOfTopicPage,
       topicId
     ]
   );
@@ -239,7 +245,7 @@ function ArticleTableView ({
         <title>{title}</title>
       </Helmet>
       <h2>{title}</h2>
-      <app.control.Table
+      <control.Table
         className={styles.root}
         controlColumns={controlColumns}
         controlRows={controlRows}

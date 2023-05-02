@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import app from '../../../../../../app';
+import { useApp } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseResource } from '../../../../../../data';
+import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainItemSaveOperationRequestHandler,
   createTopicDomainItemSaveOperationRequest
@@ -21,6 +21,7 @@ import { runSaveCompletedAction } from '../SaveCompleted/TopicItemStoreSaveCompl
 interface Options {
   readonly callback?: TopicItemStoreSetActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
+  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly payload: TopicItemStoreSaveActionPayload;
   readonly requestHandler: TopicDomainItemSaveOperationRequestHandler;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -32,6 +33,7 @@ interface Options {
 async function runSaveAction ({
   callback,
   dispatch,
+  factoryOfApiResponse,
   payload,
   requestHandler,
   resourceOfApiResponse,
@@ -54,6 +56,7 @@ async function runSaveAction ({
         createTopicDomainItemSaveOperationRequest(
           payload,
           {
+            factoryOfApiResponse,
             operationName: resourceOfTopicItemStore.getOperationNameForSave(),
             resourceOfApiResponse
           }
@@ -83,13 +86,17 @@ export function useStoreSaveActionDispatch (
     payloadOfSaveAction
   }: TopicItemStoreSaveActionOptions
 ): TopicItemStoreSaveActionDispatch {
-  const resourceOfApiResponse = app.hooks.Data.Api.Response.useResource();
+  const { factory, hooks } = useApp();
 
-  const resourceOfTopicItemStore = app.hooks.Features.Stores.Topic.Item.useResource();
+  const factoryOfApiResponse = factory.Data.Api.Response;
+
+  const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
+
+  const resourceOfTopicItemStore = hooks.Features.Stores.Topic.Item.useResource();
 
   const dispatch = useTopicItemStoreDispatchContext();
 
-  const requestHandler = useRef(app.hooks.Domains.Topic.useItemSaveOperationRequestHandler()).current;
+  const requestHandler = useRef(hooks.Domains.Topic.useItemSaveOperationRequestHandler()).current;
 
   useEffect(
     () => {
@@ -101,6 +108,7 @@ export function useStoreSaveActionDispatch (
         runSaveAction({
           callback,
           dispatch,
+          factoryOfApiResponse,
           payload: payloadOfSaveAction,
           requestHandler,
           resourceOfApiResponse,
@@ -115,6 +123,7 @@ export function useStoreSaveActionDispatch (
           runSaveAction({
             callback,
             dispatch,
+            factoryOfApiResponse,
             payload: payloadOfSaveAction,
             requestHandler,
             resourceOfApiResponse,
@@ -131,6 +140,7 @@ export function useStoreSaveActionDispatch (
       callback,
       dispatch,
       dispatchType,
+      factoryOfApiResponse,
       isCanceled,
       payloadOfSaveAction,
       requestHandler,
@@ -147,6 +157,7 @@ export function useStoreSaveActionDispatch (
     await runSaveAction({
       callback,
       dispatch,
+      factoryOfApiResponse,
       payload,
       requestHandler,
       resourceOfApiResponse,

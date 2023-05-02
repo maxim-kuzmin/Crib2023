@@ -10,6 +10,7 @@ import { type PagesModule } from '../pages';
 import { createPagesModule } from '../pages/PagesModule';
 import { type ViewsModule } from '../views';
 import { createViewsModule } from '../views/ViewsModule';
+import { type AppFactory } from './AppFactory';
 
 export interface AppModule {
   readonly Common: CommonModule;
@@ -20,7 +21,13 @@ export interface AppModule {
   readonly Views: ViewsModule;
 }
 
-export function createAppModule (): AppModule {
+interface Options {
+  readonly factory: AppFactory;
+}
+
+export function createAppModule ({
+  factory
+}: Options): AppModule {
   const moduleOfCommon = createCommonModule();
   const moduleOfFeatures = createFeaturesModule();
   const moduleOfViews = createViewsModule();
@@ -31,6 +38,8 @@ export function createAppModule (): AppModule {
 
   const moduleOfDomains = createDomainsModule({
     apiClient: moduleOfData.Api.getClient(),
+    factoryOfApiResponse: factory.Data.Api.Response,
+    serviceOfTest: moduleOfFeatures.Test.getService(),
     setupOptions: moduleOfCommon.Setup.getOptions()
   });
 

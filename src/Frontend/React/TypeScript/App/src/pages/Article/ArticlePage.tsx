@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import app from '../../app';
+import { useApp } from '../../app';
 import { TreeGetOperationAxisForItem } from '../../common';
 import {
   type TopicItemStoreLoadActionPayload,
@@ -23,8 +23,10 @@ function ArticlePage ({
 
   const articleItemIsLoaded = useRef(false);
 
+  const { hooks, module } = useApp();
+
   const [topicId, setTopicId] = useState(
-    app.module.Pages.Article.getService().getUrlSearch(searchParams).topicId
+    module.Pages.Article.getService().getUrlSearch(searchParams).topicId
   );
 
   const handleArticleItemLoadActionCompleted = useCallback((payload: ArticleItemStoreSetActionPayload) => {
@@ -55,12 +57,12 @@ function ArticlePage ({
     [topicId]
   );
 
-  app.hooks.Views.Topic.Item.useStoreLoadActionOutput({
+  hooks.Views.Topic.Item.useStoreLoadActionOutput({
     payloadOfLoadAction: payloadOfLoadActionForTreeItem,
     isCanceled: !articleItemIsLoaded.current
   });
 
-  const topicPageLastUrl = app.module.Pages.Topic.getService().lastUrl;
+  const topicPageLastUrl = module.Pages.Topic.getService().lastUrl;
 
   return (
     mode === ArticleItemViewMode.Display

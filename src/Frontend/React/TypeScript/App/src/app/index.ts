@@ -16,7 +16,7 @@ function createApp (): App {
   const component = createAppComponent();
   const control = createAppControl();
   const factory = createAppFactory();
-  const module = createAppModule();
+  const module = createAppModule({ factory });
   const hooks = createAppHooks({ component, module });
 
   return {
@@ -30,4 +30,6 @@ function createApp (): App {
 
 const app = createApp();
 
-export default app;
+export function useApp (): App {
+  return app;
+}

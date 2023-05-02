@@ -1,7 +1,5 @@
-import {
-  type ApiResponseFactory,
-  createApiResponseFactory,
-} from './Response/ApiResponseFactory'
+import { type ApiResponseFactory } from '.';
+import { createApiResponseFactory } from './Response/ApiResponseFactory'
 
 export interface ApiFactory {
   readonly Response: ApiResponseFactory;

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import app from '../../../app';
+import { useApp } from '../../../app';
 import {
   type ArticleItemStoreResource,
   type ArticleItemStoreHooks
@@ -28,7 +28,9 @@ import { getArticleItemStoreResourcePath } from './ArticleItemStoreResource';
 
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   function useResource (): ArticleItemStoreResource {
-    const translator = app.hooks.Features.Localization.useTranslator(getArticleItemStoreResourcePath());
+    const { hooks } = useApp();
+
+    const translator = hooks.Features.Localization.useTranslator(getArticleItemStoreResourcePath());
 
     const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');

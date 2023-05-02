@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import app from '../../../../app';
+import { useApp } from '../../../../app';
 import {
   type FormControlAction,
   FormControlActionType,
@@ -21,9 +21,11 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps): React.ReactElement<ArticleItemEditViewProps> | null {
-  const resourceOfArticleItemEditView = app.hooks.Views.Article.Item.Edit.useResource();
+  const { control, hooks, module } = useApp();
 
-  app.hooks.Views.Article.Item.useStoreClearActionOutput({
+  const resourceOfArticleItemEditView = hooks.Views.Article.Item.Edit.useResource();
+
+  hooks.Views.Article.Item.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
@@ -41,7 +43,7 @@ function ArticleItemEditView ({
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = app.hooks.Views.Article.Item.useStoreLoadActionOutput({
+  } = hooks.Views.Article.Item.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
@@ -52,7 +54,7 @@ function ArticleItemEditView ({
     dispatchOfSaveAction,
     payloadOfSaveCompletedAction,
     pendingOfSaveAction
-  } = app.hooks.Views.Article.Item.useStoreSaveActionOutput();
+  } = hooks.Views.Article.Item.useStoreSaveActionOutput();
 
   const savedEntity = payloadOfSaveCompletedAction?.data?.item.data;
 
@@ -61,9 +63,11 @@ function ArticleItemEditView ({
     [loadedEntity, savedEntity, topicId]
   );
 
+  const serviceOfArticleItemEditView = module.Views.Article.Item.Edit.getService();
+
   const formValues = useMemo(
-    () => app.module.Views.Article.Item.Edit.getService().convertToFormValues(entity),
-    [entity]
+    () => serviceOfArticleItemEditView.convertToFormValues(entity),
+    [entity, serviceOfArticleItemEditView]
   );
 
   const {
@@ -71,13 +75,13 @@ function ArticleItemEditView ({
     fieldNameForId,
     fieldNameForTitle,
     fieldNameForTopicId
-  } = app.module.Views.Article.Item.Edit.getService();
+  } = module.Views.Article.Item.Edit.getService();
+
+  const serviceOfArticlePage = module.Pages.Article.getService();
 
   const controlActions = useMemo(
     () => {
       const result: FormControlAction[] = [];
-
-      const articlePageService = app.module.Pages.Article.getService();
 
       const actionToSave: FormControlAction = {
         key: 'save',
@@ -100,7 +104,7 @@ function ArticleItemEditView ({
 
       if (articleId > 0) {
         const actionToDisplay: FormControlAction = {
-          href: articlePageService.createUrl({ articleId }),
+          href: serviceOfArticlePage.createUrl({ articleId }),
           key: 'display',
           title: resourceOfArticleItemEditView.getActionForDisplay(),
           type: FormControlActionType.None
@@ -126,8 +130,9 @@ function ArticleItemEditView ({
       articleId,
       pendingOfLoadAction,
       pendingOfSaveAction,
-      topicPageLastUrl,
       resourceOfArticleItemEditView,
+      serviceOfArticlePage,
+      topicPageLastUrl,
     ]
   );
 
@@ -181,7 +186,7 @@ function ArticleItemEditView ({
 
   const [isFormFieldsTouched, setIsFormFieldsTouched] = useState(false);
 
-  app.hooks.Common.useLeaveFormBlocker(isFormFieldsTouched);
+  hooks.Common.useLeaveFormBlocker(isFormFieldsTouched);
 
   const handleFieldsTouched = useCallback(
     (isFieldsTouched: boolean) => {
@@ -211,7 +216,7 @@ function ArticleItemEditView ({
 
   const handleSubmitSuccess = useCallback(
     (values: any) => {
-      const entity = app.module.Views.Article.Item.Edit.getService().convertToEntity(values);
+      const entity = serviceOfArticleItemEditView.convertToEntity(values);
 
       dispatchOfSaveAction.run(entity).then(() => {
           if (form.current.reset) {
@@ -219,7 +224,7 @@ function ArticleItemEditView ({
           }
       });
     },
-    [dispatchOfSaveAction]
+    [dispatchOfSaveAction, serviceOfArticleItemEditView]
   );
 
   const title = articleId > 0
@@ -234,8 +239,8 @@ function ArticleItemEditView ({
       <h2>{ title }</h2>
       {
         pendingOfLoadAction
-          ? <app.control.Spinner/>
-          : <app.control.Form
+          ? <control.Spinner/>
+          : <control.Form
               controlActions={controlActions}
               controlFields={controlFields}
               formValues={formValues}
