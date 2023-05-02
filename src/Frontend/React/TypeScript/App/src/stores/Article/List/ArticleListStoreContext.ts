@@ -1,8 +1,4 @@
-import {
-  type Dispatch,
-  createContext,
-  useContext,
-} from 'react';
+import { type Dispatch, createContext } from 'react';
 import { type ArticleListStoreState } from '../../../features';
 import { type ArticleListStoreActionUnion } from './ArticleListStoreActionUnion';
 
@@ -10,16 +6,6 @@ export const ArticleListStoreDispatchContext = createContext<
   Dispatch<ArticleListStoreActionUnion> | null
 >(null);
 
-export function useArticleListStoreDispatchContext () {
-  return useContext(ArticleListStoreDispatchContext)!;
-}
-
 export const ArticleListStoreStateContext = createContext<
   Map<string, ArticleListStoreState> | null
 >(null);
-
-export function useArticleListStoreStateContext (
-  sliceName: string
-): ArticleListStoreState {
-  return useContext(ArticleListStoreStateContext)!.get(sliceName)!;
-}

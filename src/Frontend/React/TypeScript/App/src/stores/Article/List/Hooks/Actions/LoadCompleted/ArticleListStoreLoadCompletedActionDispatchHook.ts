@@ -8,7 +8,7 @@ import {
 } from '../../../../../../features';
 import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
 import { type ArticleListStoreActionUnion } from '../../../ArticleListStoreActionUnion';
-import { useArticleListStoreDispatchContext } from '../../../ArticleListStoreContext';
+import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 
 interface Options {
   readonly callback?: ArticleListStoreLoadCompletedActionCallback;
@@ -42,7 +42,7 @@ export function useStoreLoadCompletedActionDispatch (
     payloadOfLoadCompletedAction
   }: ArticleListStoreLoadCompletedActionOptions = {}
 ): ArticleListStoreLoadCompletedActionDispatch {
-  const dispatch = useArticleListStoreDispatchContext();
+  const dispatch = useArticleListStoreDispatch();
 
   useEffect(
     () => {

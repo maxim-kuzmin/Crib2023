@@ -4,7 +4,7 @@ import React, {
   useReducer,
   useRef,
 } from 'react';
-import { useApp } from '../../../app';
+import { useAppInstance } from '../../../app';
 import { OperationStatus } from '../../../common';
 import {
   TopicItemStoreSliceName,
@@ -21,7 +21,7 @@ export const TopicItemStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function TopicItemStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
-  const { module } = useApp();
+  const { module } = useAppInstance();
 
   const initialState = useRef(
     module.Common.Store.getService().createInitialState<TopicItemStoreState>(

@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 import { TopicPathView } from '../../..';
-import { useApp } from '../../../../app';
+import { useAppInstance } from '../../../../app';
 import { type SelectControlOption } from '../../../../common';
 import styles from './AppLayoutHeaderView.module.css';
 
 export const AppLayoutHeaderView: React.FC = memo(
 function AppLayoutHeaderView (): React.ReactElement | null {
-  const { control, hooks } = useApp();
+  const { control, hooks } = useAppInstance();
 
   const serviceOfLocalization = hooks.Features.Localization.useService();
 

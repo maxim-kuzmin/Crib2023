@@ -4,7 +4,7 @@ import React, {
   useReducer,
   useRef,
 } from 'react';
-import { useApp } from '../../../app';
+import { useAppInstance } from '../../../app';
 import {
   AppNotificationStoreSliceName,
   type AppNotificationStoreState
@@ -20,7 +20,7 @@ export const AppNotificationStoreContextProvider: React.FC<PropsWithChildren> = 
 function AppNotificationStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
-  const { module } = useApp();
+  const { module } = useAppInstance();
 
   const initialState = useRef(
     module.Common.Store.getService().createInitialState<AppNotificationStoreState>(

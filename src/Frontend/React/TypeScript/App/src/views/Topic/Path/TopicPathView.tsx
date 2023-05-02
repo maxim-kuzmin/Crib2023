@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { useApp } from '../../../app';
+import { useAppInstance } from '../../../app';
 import { type BreadcrumbControlItem } from '../../../common';
 import { type TopicDomainEntityForItem } from '../../../domains';
 import { type TopicPageService } from '../../../pages';
@@ -47,7 +47,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 
 export const TopicPathView: React.FC = memo(
 function TopicPathView (): React.ReactElement | null {
-  const { control, hooks, module } = useApp();
+  const { control, hooks, module } = useAppInstance();
 
   const topicPathViewResource = hooks.Views.Topic.Path.useResource();
 

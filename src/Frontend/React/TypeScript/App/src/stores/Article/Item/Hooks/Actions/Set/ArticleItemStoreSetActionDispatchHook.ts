@@ -8,7 +8,7 @@ import {
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
-import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
+import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
 interface Options {
   readonly callback?: ArticleItemStoreSetActionCallback;
@@ -42,7 +42,7 @@ export function useStoreSetActionDispatch (
     payloadOfSetAction
   }: ArticleItemStoreSetActionOptions
 ): ArticleItemStoreSetActionDispatch {
-  const dispatch = useArticleItemStoreDispatchContext();
+  const dispatch = useArticleItemStoreDispatch();
 
   useEffect(
     () => {

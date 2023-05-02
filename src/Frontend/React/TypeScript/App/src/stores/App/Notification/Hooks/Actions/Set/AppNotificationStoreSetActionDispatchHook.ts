@@ -8,7 +8,7 @@ import {
 } from '../../../../../../features';
 import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';
-import { useAppNotificationStoreDispatchContext } from '../../../AppNotificationStoreContext';
+import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHooks';
 
 interface Options {
   readonly callback?: AppNotificationStoreSetActionCallback;
@@ -42,7 +42,7 @@ export function useStoreSetActionDispatch (
     payloadOfSetAction
   }: AppNotificationStoreSetActionOptions
 ): AppNotificationStoreSetActionDispatch {
-  const dispatch = useAppNotificationStoreDispatchContext();
+  const dispatch = useAppNotificationStoreDispatch();
 
   useEffect(
     () => {

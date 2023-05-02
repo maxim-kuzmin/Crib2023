@@ -1,5 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { useApp } from '../../../../../../app';
+import { useAppInstance } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
 import {
@@ -15,7 +15,7 @@ import {
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
-import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
+import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 import { runDeleteCompletedAction } from '../DeleteCompleted/ArticleItemStoreDeleteCompletedActionDispatchHook';
 
 interface Options {
@@ -86,7 +86,7 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: ArticleItemStoreDeleteActionOptions = {}
 ): ArticleItemStoreDeleteActionDispatch {
-  const { factory, hooks } = useApp();
+  const { factory, hooks } = useAppInstance();
 
   const factoryOfApiResponse = factory.Data.Api.Response;
 
@@ -94,7 +94,7 @@ export function useStoreDeleteActionDispatch (
 
   const resourceOfArticleItemStore = hooks.Features.Stores.Article.Item.useResource();
 
-  const dispatch = useArticleItemStoreDispatchContext();
+  const dispatch = useArticleItemStoreDispatch();
 
   const requestHandler = useRef(hooks.Domains.Article.useItemDeleteOperationRequestHandler()).current;
 

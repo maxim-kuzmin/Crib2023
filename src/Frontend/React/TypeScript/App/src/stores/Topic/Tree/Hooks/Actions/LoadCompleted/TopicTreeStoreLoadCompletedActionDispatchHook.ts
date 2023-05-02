@@ -8,7 +8,7 @@ import {
 } from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
-import { useTopicTreeStoreDispatchContext } from '../../../TopicTreeStoreContext';
+import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
 
 interface Options {
   readonly callback?: TopicTreeStoreLoadCompletedActionCallback;
@@ -42,7 +42,7 @@ export function useStoreLoadCompletedActionDispatch (
     payloadOfLoadCompletedAction
   }: TopicTreeStoreLoadCompletedActionOptions = {}
 ): TopicTreeStoreLoadCompletedActionDispatch {
-  const dispatch = useTopicTreeStoreDispatchContext();
+  const dispatch = useTopicTreeStoreDispatch();
 
   useEffect(
     () => {

@@ -1,7 +1,7 @@
 import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useApp } from '../../../app';
+import { useAppInstance } from '../../../app';
 import {
   ConfirmControlType,
   type BreadcrumbControlItem,
@@ -32,7 +32,7 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
-  const { component, control, hooks, module } = useApp();
+  const { component, control, hooks, module } = useAppInstance();
 
   const resourceOfConfirmControl = hooks.Controls.Confirm.useResource();
 

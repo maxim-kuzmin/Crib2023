@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
-import { useApp } from '../../../app';
+import { useAppInstance } from '../../../app';
 import {
   OperationSortDirection,
   OperationStatus,
@@ -48,7 +48,7 @@ function convertToControlNodes (
 
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView (): React.ReactElement | null {
-  const { control, factory, hooks, module } = useApp();
+  const { control, factory, hooks, module } = useAppInstance();
 
   const factoryOfApiResponse = factory.Data.Api.Response;
 

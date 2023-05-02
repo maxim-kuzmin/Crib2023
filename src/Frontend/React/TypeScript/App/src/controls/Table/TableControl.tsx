@@ -10,7 +10,7 @@ import {
   type SorterResult,
   type ColumnType
 } from 'antd/es/table/interface';
-import { useApp } from '../../app';
+import { useAppInstance } from '../../app';
 import {
   type TableControlColumn,
   type TableControlHeader,
@@ -72,7 +72,7 @@ function TableControl ({
   onChange,
   loading
 }: TableControlProps): React.ReactElement<TableControlProps> | null {
-  const { hooks, module } = useApp();
+  const { hooks, module } = useAppInstance();
 
   const resourceOfTableControl = hooks.Controls.Table.useResource();
 

@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { useApp } from '../../app';
+import { useAppInstance } from '../../app';
 import { TreeGetOperationAxisForItem, type TableControlPagination } from '../../common';
 import { type TopicItemStoreLoadActionPayload } from '../../features';
 import { ArticleTableView } from '../../views';
@@ -17,7 +17,7 @@ function TopicPage (): React.ReactElement | null {
     topicId = 0;
   }
 
-  const { hooks, module } = useApp();
+  const { hooks, module } = useAppInstance();
 
   const topicPageService = module.Pages.Topic.getService();
 

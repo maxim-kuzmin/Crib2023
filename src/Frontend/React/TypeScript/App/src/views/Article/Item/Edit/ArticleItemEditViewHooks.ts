@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useApp } from '../../../../app';
+import { useAppInstance } from '../../../../app';
 import {
   type ArticleItemEditViewResource,
   getArticleItemEditViewResourcePath
@@ -11,7 +11,7 @@ export interface ArticleItemEditViewHooks {
 
 export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
-    const { hooks } = useApp();
+    const { hooks } = useAppInstance();
 
     const translator = hooks.Features.Localization.useTranslator(getArticleItemEditViewResourcePath());
 

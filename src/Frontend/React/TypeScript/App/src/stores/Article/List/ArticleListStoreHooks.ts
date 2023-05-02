@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
-import { useApp } from '../../../app';
+import { type Dispatch, useContext, useMemo } from 'react';
+import { useAppInstance } from '../../../app';
 import {
   type ArticleListStoreResource,
-  type ArticleListStoreHooks
+  type ArticleListStoreHooks,
+  type ArticleListStoreState
 } from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/ArticleListStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/ArticleListStoreClearActionOutputHook';
@@ -15,10 +16,12 @@ import { useStoreSetActionDispatch } from './Hooks/Actions/Set/ArticleListStoreS
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/ArticleListStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/ArticleListStoreStateHook';
 import { getArticleListStoreResourcePath } from './ArticleListStoreResource';
+import { type ArticleListStoreActionUnion } from './ArticleListStoreActionUnion';
+import { ArticleListStoreDispatchContext, ArticleListStoreStateContext } from './ArticleListStoreContext';
 
 export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
-    const { hooks } = useApp();
+    const { hooks } = useAppInstance();
 
     const translator = hooks.Features.Localization.useTranslator(getArticleListStoreResourcePath());
 
@@ -53,4 +56,14 @@ export function createArticleListStoreHooks (): ArticleListStoreHooks {
     useStoreSetActionOutput,
     useStoreState
   };
+}
+
+export function useArticleListStoreDispatch (): Dispatch<ArticleListStoreActionUnion> {
+  return useContext(ArticleListStoreDispatchContext)!;
+}
+
+export function useArticleListStoreState (
+  sliceName: string
+): ArticleListStoreState {
+  return useContext(ArticleListStoreStateContext)!.get(sliceName)!;
 }

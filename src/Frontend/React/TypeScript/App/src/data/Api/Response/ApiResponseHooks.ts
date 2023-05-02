@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useApp } from '../../../app';
+import { useAppInstance } from '../../../app';
 import {
   type ApiResponseResource,
   getApiResponseResourcePath
@@ -11,7 +11,7 @@ export interface ApiResponseHooks {
 
 export function createApiResponseHooks (): ApiResponseHooks {
   function useResource (): ApiResponseResource {
-    const { hooks } = useApp();
+    const { hooks } = useAppInstance();
 
     const translator = hooks.Features.Localization.useTranslator(getApiResponseResourcePath());
 

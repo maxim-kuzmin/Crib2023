@@ -8,7 +8,7 @@ import {
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
-import { useTopicItemStoreDispatchContext } from '../../../TopicItemStoreContext';
+import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
 interface Options {
   readonly callback?: TopicItemStoreSetActionCallback;
@@ -42,7 +42,7 @@ export function useStoreSetActionDispatch (
     payloadOfSetAction
   }: TopicItemStoreSetActionOptions
 ): TopicItemStoreSetActionDispatch {
-  const dispatch = useTopicItemStoreDispatchContext();
+  const dispatch = useTopicItemStoreDispatch();
 
   useEffect(
     () => {

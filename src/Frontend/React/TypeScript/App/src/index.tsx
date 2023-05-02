@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import { AppContextProvider } from './app/AppContextProvider';
 import { StoresContextProvider } from './features/Stores/StoresContextProvider';
 import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import { AppRootView, ArticleItemViewMode } from './views';
@@ -49,9 +50,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <StoresContextProvider>
-        <RouterProvider router={router} />
-      </StoresContextProvider>
+      <AppContextProvider>
+        <StoresContextProvider>
+          <RouterProvider router={router} />
+        </StoresContextProvider>
+      </AppContextProvider>
     </HelmetProvider>
   </React.StrictMode>
 );

@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
-import { useApp } from '../../../app';
+import { type Dispatch, useContext, useMemo } from 'react';
+import { useAppInstance } from '../../../app';
 import {
   type TopicItemStoreHooks,
   type TopicItemStoreResource,
+  type TopicItemStoreState,
 } from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/TopicItemStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/TopicItemStoreClearActionOutputHook';
@@ -25,10 +26,12 @@ import { useStoreSetActionDispatch } from './Hooks/Actions/Set/TopicItemStoreSet
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/TopicItemStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/TopicItemStoreStateHook';
 import { getTopicItemStoreResourcePath } from './TopicItemStoreResource';
+import { type TopicItemStoreActionUnion } from './TopicItemStoreActionUnion';
+import { TopicItemStoreDispatchContext, TopicItemStoreStateContext } from './TopicItemStoreContext';
 
 export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
-    const { hooks } = useApp();
+    const { hooks } = useAppInstance();
 
     const translator = hooks.Features.Localization.useTranslator(getTopicItemStoreResourcePath());
 
@@ -75,4 +78,14 @@ export function createTopicItemStoreHooks (): TopicItemStoreHooks {
     useStoreSetActionOutput,
     useStoreState
   };
+}
+
+export function useTopicItemStoreDispatch (): Dispatch<TopicItemStoreActionUnion> {
+  return useContext(TopicItemStoreDispatchContext)!;
+}
+
+export function useTopicItemStoreState (
+  sliceName: string
+): TopicItemStoreState {
+  return useContext(TopicItemStoreStateContext)!.get(sliceName)!;
 }

@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
-import { useApp } from '../../../app';
+import { type Dispatch, useContext, useMemo } from 'react';
+import { useAppInstance } from '../../../app';
 import {
   type TopicTreeStoreHooks,
-  type TopicTreeStoreResource
+  type TopicTreeStoreResource,
+  type TopicTreeStoreState,
 } from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/TopicTreeStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/TopicTreeStoreClearActionOutputHook';
@@ -15,10 +16,12 @@ import { useStoreSetActionDispatch } from './Hooks/Actions/Set/TopicTreeStoreSet
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/TopicTreeStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/TopicTreeStoreStateHook';
 import { getTopicTreeStoreResourcePath } from './TopicTreeStoreResource';
+import { type TopicTreeStoreActionUnion } from './TopicTreeStoreActionUnion';
+import { TopicTreeStoreDispatchContext, TopicTreeStoreStateContext } from './TopicTreeStoreContext';
 
 export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {
-    const { hooks } = useApp();
+    const { hooks } = useAppInstance();
 
     const translator = hooks.Features.Localization.useTranslator(getTopicTreeStoreResourcePath());
 
@@ -56,4 +59,14 @@ export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
     useStoreSetActionOutput,
     useStoreState
   };
+}
+
+export function useTopicTreeStoreDispatch (): Dispatch<TopicTreeStoreActionUnion> {
+  return useContext(TopicTreeStoreDispatchContext)!;
+}
+
+export function useTopicTreeStoreState (
+  sliceName: string
+): TopicTreeStoreState {
+  return useContext(TopicTreeStoreStateContext)!.get(sliceName)!;
 }

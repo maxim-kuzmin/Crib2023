@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useApp } from '../../app';
+import { useAppInstance } from '../../app';
 import {
   type ConfirmControlHooks,
   type ConfirmControlResource,
@@ -8,7 +8,7 @@ import { getConfirmControlResourcePath } from './ConfirmControlResource';
 
 export function createConfirmControlHooks (): ConfirmControlHooks {
   function useResource (): ConfirmControlResource {
-    const { hooks } = useApp();
+    const { hooks } = useAppInstance();
 
     const translator = hooks.Features.Localization.useTranslator(getConfirmControlResourcePath());
 

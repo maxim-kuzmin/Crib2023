@@ -1,9 +1,9 @@
 import React, { memo, useCallback } from 'react';
-import { useApp } from '../../../app';
+import { useAppInstance } from '../../../app';
 
 export const AppNotificationView: React.FC = memo(
 function AppNotificationView (): React.ReactElement | null {
-  const { hooks } = useApp();
+  const { hooks } = useAppInstance();
 
   const component = hooks.Controls.Notification.useComponent();
 

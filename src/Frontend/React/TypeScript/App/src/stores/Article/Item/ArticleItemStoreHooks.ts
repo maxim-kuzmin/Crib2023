@@ -1,8 +1,9 @@
-import { useMemo } from 'react';
-import { useApp } from '../../../app';
+import { type Dispatch, useContext, useMemo } from 'react';
+import { useAppInstance } from '../../../app';
 import {
+  type ArticleItemStoreHooks,
   type ArticleItemStoreResource,
-  type ArticleItemStoreHooks
+  type ArticleItemStoreState
 } from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/ArticleItemStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/ArticleItemStoreClearActionOutputHook';
@@ -25,10 +26,12 @@ import { useStoreSetActionDispatch } from './Hooks/Actions/Set/ArticleItemStoreS
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/ArticleItemStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/ArticleItemStoreStateHook';
 import { getArticleItemStoreResourcePath } from './ArticleItemStoreResource';
+import { ArticleItemStoreDispatchContext, ArticleItemStoreStateContext } from './ArticleItemStoreContext';
+import { type ArticleItemStoreActionUnion } from './ArticleItemStoreActionUnion';
 
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   function useResource (): ArticleItemStoreResource {
-    const { hooks } = useApp();
+    const { hooks } = useAppInstance();
 
     const translator = hooks.Features.Localization.useTranslator(getArticleItemStoreResourcePath());
 
@@ -75,4 +78,14 @@ export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
     useStoreSetActionOutput,
     useStoreState
   };
+}
+
+export function useArticleItemStoreDispatch (): Dispatch<ArticleItemStoreActionUnion> {
+  return useContext(ArticleItemStoreDispatchContext)!;
+}
+
+export function useArticleItemStoreState (
+  sliceName: string
+): ArticleItemStoreState {
+  return useContext(ArticleItemStoreStateContext)!.get(sliceName)!;
 }

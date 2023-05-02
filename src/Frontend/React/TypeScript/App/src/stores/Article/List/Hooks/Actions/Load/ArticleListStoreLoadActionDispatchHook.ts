@@ -1,5 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import { useApp } from '../../../../../../app';
+import { useAppInstance } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
 import {
@@ -15,7 +15,7 @@ import {
 } from '../../../../../../features';
 import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
 import { type ArticleListStoreActionUnion } from '../../../ArticleListStoreActionUnion';
-import { useArticleListStoreDispatchContext } from '../../../ArticleListStoreContext';
+import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 import { runLoadCompletedAction } from '../LoadCompleted/ArticleListStoreLoadCompletedActionDispatchHook';
 
 interface Options {
@@ -86,7 +86,7 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: ArticleListStoreLoadActionOptions = {}
 ): ArticleListStoreLoadActionDispatch {
-  const { factory, hooks } = useApp();
+  const { factory, hooks } = useAppInstance();
 
   const factoryOfApiResponse = factory.Data.Api.Response;
 
@@ -94,7 +94,7 @@ export function useStoreLoadActionDispatch (
 
   const resourceOfArticleListStore = hooks.Features.Stores.Article.List.useResource();
 
-  const dispatch = useArticleListStoreDispatchContext();
+  const dispatch = useArticleListStoreDispatch();
 
   const requestHandler = useRef(hooks.Domains.Article.useListGetOperationRequestHandler()).current;
 

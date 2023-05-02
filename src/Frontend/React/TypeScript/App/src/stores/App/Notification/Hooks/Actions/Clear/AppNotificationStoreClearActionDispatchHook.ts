@@ -7,7 +7,7 @@ import {
 } from '../../../../../../features';
 import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';
-import { useAppNotificationStoreDispatchContext } from '../../../AppNotificationStoreContext';
+import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHooks';
 
 interface Options {
   readonly callback?: AppNotificationStoreClearActionCallback;
@@ -37,7 +37,7 @@ export function useStoreClearActionDispatch (
     dispatchType
   }: AppNotificationStoreClearActionOptions = {}
 ): AppNotificationStoreClearActionDispatch {
-  const dispatch = useAppNotificationStoreDispatchContext();
+  const dispatch = useAppNotificationStoreDispatch();
 
   useEffect(
     () => {

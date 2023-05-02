@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useApp } from '../../../app';
+import { useAppInstance } from '../../../app';
 import {
   type CardControlAction,
   type CardControlExtra,
@@ -19,7 +19,7 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps): React.ReactElement<ArticleItemViewProps> | null {
-  const { control, hooks, module } = useApp();
+  const { control, hooks, module } = useAppInstance();
 
   const resourceOfArticleItemView = hooks.Views.Article.Item.useResource();
 

@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useApp } from '../../../../app';
+import { useAppInstance } from '../../../../app';
 import {
   type FormControlAction,
   FormControlActionType,
@@ -21,7 +21,7 @@ function ArticleItemEditView ({
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps): React.ReactElement<ArticleItemEditViewProps> | null {
-  const { control, hooks, module } = useApp();
+  const { control, hooks, module } = useAppInstance();
 
   const resourceOfArticleItemEditView = hooks.Views.Article.Item.Edit.useResource();
 

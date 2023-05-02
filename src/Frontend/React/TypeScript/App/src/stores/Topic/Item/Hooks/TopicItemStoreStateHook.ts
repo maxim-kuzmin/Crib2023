@@ -1,6 +1,6 @@
 import { type TopicItemStoreState } from '../../../../features';
-import { useTopicItemStoreStateContext } from '../TopicItemStoreContext';
+import { useTopicItemStoreState } from '../TopicItemStoreHooks';
 
 export function useStoreState (sliceName: string): TopicItemStoreState {
-  return useTopicItemStoreStateContext(sliceName);
+  return useTopicItemStoreState(sliceName);
 }

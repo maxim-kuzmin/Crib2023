@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { useApp } from '../../app';
+import { useAppInstance } from '../../app';
 import { TreeGetOperationAxisForItem } from '../../common';
 import {
   type TopicItemStoreLoadActionPayload,
@@ -23,7 +23,7 @@ function ArticlePage ({
 
   const articleItemIsLoaded = useRef(false);
 
-  const { hooks, module } = useApp();
+  const { hooks, module } = useAppInstance();
 
   const [topicId, setTopicId] = useState(
     module.Pages.Article.getService().getUrlSearch(searchParams).topicId

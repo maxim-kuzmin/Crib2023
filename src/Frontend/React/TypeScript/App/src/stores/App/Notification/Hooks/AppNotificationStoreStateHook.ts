@@ -1,6 +1,6 @@
 import { type AppNotificationStoreState } from '../../../../features';
-import { useAppNotificationStoreStateContext } from '../AppNotificationStoreContext';
+import { useAppNotificationStoreState } from '../AppNotificationStoreHooks';
 
 export function useStoreState (sliceName: string): AppNotificationStoreState {
-  return useAppNotificationStoreStateContext(sliceName);
+  return useAppNotificationStoreState(sliceName);
 }

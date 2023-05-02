@@ -1,4 +1,7 @@
-import { type AppNotificationStoreHooks } from '../../../features';
+import { type Dispatch, useContext } from 'react';
+import { type AppNotificationStoreState, type AppNotificationStoreHooks } from '../../../features';
+import { AppNotificationStoreDispatchContext, AppNotificationStoreStateContext } from './AppNotificationStoreContext';
+import { type AppNotificationStoreActionUnion } from './AppNotificationStoreActionUnion';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/AppNotificationStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/AppNotificationStoreClearActionOutputHook';
 import { useStoreSetActionDispatch } from './Hooks/Actions/Set/AppNotificationStoreSetActionDispatchHook';
@@ -13,4 +16,14 @@ export function createAppNotificationStoreHooks (): AppNotificationStoreHooks {
     useStoreSetActionOutput,
     useStoreState
   };
+}
+
+export function useAppNotificationStoreDispatch (): Dispatch<AppNotificationStoreActionUnion> {
+  return useContext(AppNotificationStoreDispatchContext)!;
+}
+
+export function useAppNotificationStoreState (
+  sliceName: string
+): AppNotificationStoreState {
+  return useContext(AppNotificationStoreStateContext)!.get(sliceName)!;
 }
