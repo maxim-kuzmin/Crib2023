@@ -1,5 +1,5 @@
-import { type TopicItemStoreLoadCompletedActionPayload } from '../../../../app';
 import { type StoreAction } from '../../../../common';
+import { type TopicItemStoreLoadCompletedActionPayload } from '../../../../features';
 import { type TopicItemStoreActionType } from '../TopicItemStoreActionType';
 
 export interface TopicItemStoreLoadCompletedAction extends StoreAction {

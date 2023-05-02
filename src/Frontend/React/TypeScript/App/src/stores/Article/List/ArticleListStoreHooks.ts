@@ -2,9 +2,8 @@ import { useMemo } from 'react';
 import appInstance from '../../../app/AppInstance';
 import {
   type ArticleListStoreResource,
-  type ArticleListStoreHooks,
-  LocalizationTarget
-} from '../../../app';
+  type ArticleListStoreHooks
+} from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/ArticleListStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/ArticleListStoreClearActionOutputHook';
 import { useStoreLoadActionDispatch } from './Hooks/Actions/Load/ArticleListStoreLoadActionDispatchHook';
@@ -15,10 +14,11 @@ import {
 import { useStoreSetActionDispatch } from './Hooks/Actions/Set/ArticleListStoreSetActionDispatchHook';
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/ArticleListStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/ArticleListStoreStateHook';
+import { getArticleListStoreResourcePath } from './ArticleListStoreResource';
 
 export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
-    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ArticleListStore);
+    const translator = appInstance.hooks.Features.Localization.useTranslator(getArticleListStoreResourcePath());
 
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');
 

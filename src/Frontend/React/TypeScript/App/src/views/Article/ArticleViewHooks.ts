@@ -1,4 +1,4 @@
-import { type ArticleItemStoreHooks, type ArticleListStoreHooks } from '../../app';
+import { type ArticleItemStoreHooks, type ArticleListStoreHooks } from '../../features';
 import { type ArticleItemViewHooks } from './Item';
 import { createArticleItemViewHooks } from './Item/ArticleItemViewHooks';
 import { type ArticleTableViewHooks } from './Table';

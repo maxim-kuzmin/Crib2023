@@ -1,28 +1,26 @@
-import { type ControlsHooks } from '../common';
+import { type CommonHooks, type ControlsHooks } from '../common';
+import { createCommonHooks } from '../common/CommonHooks';
 import { createOperationHooks } from '../common/Operation/OperationHooks';
 import { createControlsHooks } from '../controls/ControlsHooks';
 import { type ApiHooks } from '../data';
 import { createApiHooks } from '../data/Api/ApiHooks';
 import { type DomainsHooks } from '../domains';
 import { createDomainsHooks } from '../domains/DomainsHooks';
+import { type FeaturesHooks } from '../features';
+import { createFeaturesHooks } from '../features/FeaturesHooks';
 import { createStoresHooks } from '../stores/StoresHooks';
 import { type ViewsHooks } from '../views';
 import { createViewsHooks } from '../views/ViewsHooks';
 import { type AppComponent } from './AppComponent';
-import { useLeaveFormBlocker as useLeaveFormBlockerInner } from './Hooks/LeaveFormBlockerHook';
-import { type LocalizationHooks } from './Localization';
-import { createLocalizationHooks } from './Localization/LocalizationHooks';
 import { type AppModule } from './AppModule';
-import { type StoresHooks } from './Stores';
 
 export interface AppHooks {
   readonly Api: ApiHooks;
   readonly Controls: ControlsHooks;
   readonly Domains: DomainsHooks;
-  readonly Localization: LocalizationHooks;
-  readonly Stores: StoresHooks;
+  readonly Features: FeaturesHooks;
   readonly Views: ViewsHooks;
-  readonly useLeaveFormBlocker: (shouldBlock: boolean) => void;
+  readonly Common: CommonHooks;
 }
 
 interface Options {
@@ -45,7 +43,7 @@ export function createAppHooks ({
     hooksOfTopicTreeStore: hooksOfStores.Topic.Tree,
   });
 
-  const hooksOfLocalization = createLocalizationHooks();
+  const hooksOfFeatures = createFeaturesHooks();
 
   const hooksOfOperation = createOperationHooks({
     hooksOfAppNotificationStore: hooksOfStores.App.Notification
@@ -59,21 +57,17 @@ export function createAppHooks ({
     hooksOfApiRequest: hooksOfApi.Request
   });
 
-  function useLeaveFormBlocker (shouldBlock: boolean) {
-    useLeaveFormBlockerInner({
-      componentOfConfirmControl: component.Controls.Confirm,
-      hooksOfConfirmControl: hooksOfControls.Confirm,
-      shouldBlock
-    });
-  }
+  const hooksOfCommon = createCommonHooks({
+    componentOfConfirmControl: component.Controls.Confirm,
+    hooksOfConfirmControl: hooksOfControls.Confirm
+  });
 
   return {
     Api: hooksOfApi,
+    Common: hooksOfCommon,
     Controls: hooksOfControls,
     Domains: hooksOfDomains,
-    Localization: hooksOfLocalization,
-    Stores: hooksOfStores,
+    Features: hooksOfFeatures,
     Views: hooksOfViews,
-    useLeaveFormBlocker
   };
 }

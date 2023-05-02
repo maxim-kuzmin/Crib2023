@@ -1,4 +1,4 @@
-import { ArticlePageMode } from './ArticlePageMode';
+import { ArticleItemViewMode } from '../../views/Article/Item/ArticleItemViewMode';
 import { type ArticlePageService } from './ArticlePageService';
 import { type ArticlePageUrlOptions, type ArticlePageUrlSearch } from './Url';
 
@@ -14,7 +14,7 @@ export class ArticlePageServiceImpl implements ArticlePageService {
       topicId: 0
     };
 
-    let mode: ArticlePageMode = ArticlePageMode.Display;
+    let mode: ArticleItemViewMode = ArticleItemViewMode.Display;
 
     if (options) {
       if (options.articleId) {
@@ -33,7 +33,7 @@ export class ArticlePageServiceImpl implements ArticlePageService {
     if (articleId > 0) {
       result += `/${articleId}`;
 
-      if (mode === ArticlePageMode.Edit) {
+      if (mode === ArticleItemViewMode.Edit) {
         result += '/edit';
       }
     }

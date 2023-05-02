@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import appInstance from '../../../../app/AppInstance';
-import { LocalizationTarget } from '../../../../app';
-import { type ArticleItemEditViewResource } from './ArticleItemEditViewResource';
+import {
+  type ArticleItemEditViewResource,
+  getArticleItemEditViewResourcePath
+} from './ArticleItemEditViewResource';
 
 export interface ArticleItemEditViewHooks {
   readonly useResource: () => ArticleItemEditViewResource;
@@ -9,7 +11,7 @@ export interface ArticleItemEditViewHooks {
 
 export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
-    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemEditView);
+    const translator = appInstance.hooks.Features.Localization.useTranslator(getArticleItemEditViewResourcePath());
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForDisplay: string = translator.translate('@@ActionForDisplay');

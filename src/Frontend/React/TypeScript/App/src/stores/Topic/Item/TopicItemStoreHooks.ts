@@ -3,8 +3,7 @@ import appInstance from '../../../app/AppInstance';
 import {
   type TopicItemStoreHooks,
   type TopicItemStoreResource,
-  LocalizationTarget,
-} from '../../../app';
+} from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/TopicItemStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/TopicItemStoreClearActionOutputHook';
 import { useStoreDeleteActionDispatch } from './Hooks/Actions/Delete/TopicItemStoreDeleteActionDispatchHook';
@@ -25,10 +24,11 @@ import {
 import { useStoreSetActionDispatch } from './Hooks/Actions/Set/TopicItemStoreSetActionDispatchHook';
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/TopicItemStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/TopicItemStoreStateHook';
+import { getTopicItemStoreResourcePath } from './TopicItemStoreResource';
 
 export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
-    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.TopicItemStore);
+    const translator = appInstance.hooks.Features.Localization.useTranslator(getTopicItemStoreResourcePath());
 
     const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');

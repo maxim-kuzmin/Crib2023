@@ -1,4 +1,4 @@
-import { type AppStoreHooks } from '../../app';
+import { type AppStoreHooks } from '../../features';
 import { createAppNotificationStoreHooks } from './Notification/AppNotificationStoreHooks';
 
 export function createAppStoreHooks (): AppStoreHooks {

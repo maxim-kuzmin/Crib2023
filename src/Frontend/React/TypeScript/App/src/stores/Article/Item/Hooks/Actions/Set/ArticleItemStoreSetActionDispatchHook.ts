@@ -1,11 +1,11 @@
 import { type Dispatch, useEffect, useRef } from 'react';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreSetActionDispatch,
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionPayload,
-} from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+} from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
 import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';

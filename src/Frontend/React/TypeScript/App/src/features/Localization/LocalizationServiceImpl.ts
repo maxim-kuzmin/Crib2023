@@ -8,6 +8,7 @@ interface Options {
   readonly setSearchParams: (searchParams: URLSearchParams) => void;
   readonly navigate: NavigateFunction;
 }
+
 export class LocalizationServiceImpl implements LocalizationService {
   private readonly i18n: i18n;
   private readonly navigate: NavigateFunction;

@@ -3,7 +3,7 @@ import {
   type TopicItemStoreSetActionInput,
   type TopicItemStoreSetActionOutput,
   type TopicItemStoreSetActionPayload,
-} from '../../../../../../app';
+} from '../../../../../../features';
 import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreSetActionDispatch } from './TopicItemStoreSetActionDispatchHook';
 

@@ -1,18 +1,18 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import appInstance from '../../../../../../app/AppInstance';
-import {
-  type ArticleItemStoreSetActionCallback,
-  type ArticleItemStoreSaveActionDispatch,
-  type ArticleItemStoreSaveActionOptions,
-  type ArticleItemStoreSaveActionPayload,
-  type ArticleItemStoreResource,
-} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainItemSaveOperationRequestHandler,
   createArticleDomainItemSaveOperationRequest
 } from '../../../../../../domains';
+import {
+  type ArticleItemStoreSetActionCallback,
+  type ArticleItemStoreSaveActionDispatch,
+  type ArticleItemStoreSaveActionOptions,
+  type ArticleItemStoreSaveActionPayload,
+  type ArticleItemStoreResource,
+} from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
 import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
@@ -85,7 +85,7 @@ export function useStoreSaveActionDispatch (
 ): ArticleItemStoreSaveActionDispatch {
   const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 
-  const resourceOfArticleItemStore = appInstance.hooks.Stores.Article.Item.useResource();
+  const resourceOfArticleItemStore = appInstance.hooks.Features.Stores.Article.Item.useResource();
 
   const dispatch = useArticleItemStoreDispatchContext();
 

@@ -3,7 +3,7 @@ import {
   createContext,
   useContext,
 } from 'react';
-import { type AppNotificationStoreState } from '../../../app';
+import { type AppNotificationStoreState } from '../../../features';
 import { type AppNotificationStoreActionUnion } from './AppNotificationStoreActionUnion';
 
 export const AppNotificationStoreDispatchContext = createContext<

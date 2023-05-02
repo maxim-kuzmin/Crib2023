@@ -1,5 +1,5 @@
-import { type TopicItemStoreSaveActionPayload } from '../../../../app';
 import { type StoreAction } from '../../../../common';
+import { type TopicItemStoreSaveActionPayload } from '../../../../features';
 import { type TopicItemStoreActionType } from '../TopicItemStoreActionType';
 
 export interface TopicItemStoreSaveAction extends StoreAction {

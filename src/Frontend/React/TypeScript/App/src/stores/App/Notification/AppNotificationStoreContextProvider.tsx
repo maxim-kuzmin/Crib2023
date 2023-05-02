@@ -7,7 +7,7 @@ import appInstance from '../../../app/AppInstance';
 import {
   AppNotificationStoreSliceName,
   type AppNotificationStoreState
-} from '../../../app';
+} from '../../../features';
 import { AppNotificationStoreActionType } from './AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from './AppNotificationStoreActionUnion';
 import {

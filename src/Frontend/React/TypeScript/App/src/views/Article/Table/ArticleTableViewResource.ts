@@ -11,3 +11,7 @@ export interface ArticleTableViewResource extends LocalizationResource {
   readonly getLabelForTitle: () => string;
   readonly getTitle: () => string;
 }
+
+export function getArticleTableViewResourcePath (): string {
+  return 'views/Article/Table/ArticleTableView';
+}

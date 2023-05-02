@@ -6,7 +6,7 @@ import {
   type AppNotificationStoreHooks,
   AppNotificationStoreSliceName,
   type AppNotificationStoreState,
-} from '../../../app';
+} from '../../../features';
 
 export interface AppNotificationViewHooks {
   readonly useStoreClearActionOutput: (

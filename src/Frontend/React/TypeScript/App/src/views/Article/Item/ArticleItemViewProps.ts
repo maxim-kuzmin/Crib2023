@@ -2,7 +2,7 @@ import { type PropsWithChildren } from 'react';
 import {
   type ArticleItemStoreClearActionCallback,
   type ArticleItemStoreLoadCompletedActionCallback
-} from '../../../app';
+} from '../../../features';
 
 export interface ArticleItemViewProps extends PropsWithChildren {
   articleId: number;

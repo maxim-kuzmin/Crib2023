@@ -1,10 +1,10 @@
 import { type Dispatch, useEffect, useRef } from 'react';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type ArticleListStoreClearActionCallback,
   type ArticleListStoreClearActionDispatch,
   type ArticleListStoreClearActionOptions,
-} from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+} from '../../../../../../features';
 import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
 import { type ArticleListStoreActionUnion } from '../../../ArticleListStoreActionUnion';
 import { useArticleListStoreDispatchContext } from '../../../ArticleListStoreContext';

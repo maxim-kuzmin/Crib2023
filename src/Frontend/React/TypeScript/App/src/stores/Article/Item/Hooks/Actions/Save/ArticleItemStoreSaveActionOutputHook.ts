@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
+import { OperationStatus } from '../../../../../../common';
 import {
   type ArticleItemStoreSaveActionInput,
   type ArticleItemStoreSaveActionOutput,
   type ArticleItemStoreSaveCompletedActionPayload,
-} from '../../../../../../app';
-import { OperationStatus } from '../../../../../../common';
+} from '../../../../../../features';
 import { useStoreSaveActionDispatch } from './ArticleItemStoreSaveActionDispatchHook';
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 

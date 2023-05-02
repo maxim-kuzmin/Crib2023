@@ -9,7 +9,7 @@ import logo from './logo.svg';
 
 export const AppRootView: React.FC = memo(
 function AppRootView (): React.ReactElement | null {
-  const serviceOfLocalization = appInstance.hooks.Localization.useService();
+  const serviceOfLocalization = appInstance.hooks.Features.Localization.useService();
 
   useEffect(
     () => {

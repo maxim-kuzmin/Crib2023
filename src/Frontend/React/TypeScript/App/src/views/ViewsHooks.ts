@@ -4,7 +4,7 @@ import {
   type ArticleListStoreHooks,
   type TopicItemStoreHooks,
   type TopicTreeStoreHooks
-} from '../app';
+} from '../features';
 import { type AppViewHooks } from './App';
 import { createAppViewHooks } from './App/AppViewHooks';
 import { type ArticleViewHooks } from './Article';

@@ -1,5 +1,5 @@
-import { type ArticlePageMode } from './ArticlePageMode';
+import { type ArticleItemViewMode } from '../../views/Article/Item/ArticleItemViewMode';
 
 export interface ArticlePageProps {
-  mode: ArticlePageMode;
+  mode: ArticleItemViewMode;
 }

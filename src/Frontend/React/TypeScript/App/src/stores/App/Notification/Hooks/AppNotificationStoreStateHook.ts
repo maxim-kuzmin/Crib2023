@@ -1,4 +1,4 @@
-import { type AppNotificationStoreState } from '../../../../app';
+import { type AppNotificationStoreState } from '../../../../features';
 import { useAppNotificationStoreStateContext } from '../AppNotificationStoreContext';
 
 export function useStoreState (sliceName: string): AppNotificationStoreState {

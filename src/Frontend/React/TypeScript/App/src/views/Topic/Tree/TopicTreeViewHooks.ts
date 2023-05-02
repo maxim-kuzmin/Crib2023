@@ -8,7 +8,7 @@ import {
   type TopicTreeStoreHooks,
   TopicTreeStoreSliceName,
   type TopicTreeStoreState,
-} from '../../../app';
+} from '../../../features';
 
 export interface TopicTreeViewHooks {
   readonly useStoreClearActionOutput: (

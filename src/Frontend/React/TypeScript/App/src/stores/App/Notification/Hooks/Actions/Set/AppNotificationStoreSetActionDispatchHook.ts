@@ -1,11 +1,11 @@
 import { type Dispatch, useEffect, useRef } from 'react';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type AppNotificationStoreSetActionCallback,
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionOptions,
   type AppNotificationStoreSetActionPayload,
-} from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+} from '../../../../../../features';
 import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';
 import { useAppNotificationStoreDispatchContext } from '../../../AppNotificationStoreContext';

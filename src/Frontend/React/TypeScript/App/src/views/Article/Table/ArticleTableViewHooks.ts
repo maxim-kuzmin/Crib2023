@@ -10,9 +10,11 @@ import {
   type ArticleListStoreHooks,
   ArticleListStoreSliceName,
   type ArticleListStoreState,
-  LocalizationTarget
-} from '../../../app';
-import { type ArticleTableViewResource } from './ArticleTableViewResource';
+} from '../../../features';
+import {
+  type ArticleTableViewResource,
+  getArticleTableViewResourcePath
+} from './ArticleTableViewResource';
 
 export interface ArticleTableViewHooks {
   readonly useResource: () => ArticleTableViewResource;
@@ -40,7 +42,7 @@ export function createArticleTableViewHooks ({
   hooksOfArticleListStore
 }: Options): ArticleTableViewHooks {
   function useResource (): ArticleTableViewResource {
-    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ArticleTableView);
+    const translator = appInstance.hooks.Features.Localization.useTranslator(getArticleTableViewResourcePath());
 
     const tTitle: string = translator.translate('@@Title');
     const tLabelForActions: string = translator.translate('@@LabelForActions');

@@ -1,6 +1,6 @@
-import { TestArticleDomainRepositoryImpl } from '../../app/Test/Domains/Article/TestArticleDomainRepositoryImpl';
 import { type SetupOptions } from '../../common';
 import { type ApiClient } from '../../data';
+import { TestArticleDomainRepositoryImpl } from '../../features/Test/Domains/Article/TestArticleDomainRepositoryImpl';
 import { type ArticleDomainRepository } from './ArticleDomainRepository';
 import { ArticleDomainRepositoryImpl } from './ArticleDomainRepositoryImpl';
 

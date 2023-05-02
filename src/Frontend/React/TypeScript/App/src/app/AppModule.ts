@@ -12,22 +12,22 @@ import { type ApiModule } from '../data';
 import { createApiModule } from '../data/Api/ApiModule';
 import { type DomainsModule } from '../domains';
 import { createDomainsModule } from '../domains/DomainsModule';
+import { type FeaturesModule } from '../features';
+import { createFeaturesModule } from '../features/FeaturesModule';
 import { type PagesModule } from '../pages';
 import { createPagesModule } from '../pages/PagesModule';
 import { type ViewsModule } from '../views';
 import { createViewsModule } from '../views/ViewsModule';
-import { type TestModule } from './Test';
-import { createTestModule } from './Test/TestModule';
 
 export interface AppModule {
   readonly Api: ApiModule;
   readonly Controls: ControlsModule;
   readonly Domains: DomainsModule;
+  readonly Features: FeaturesModule;
   readonly Http: HttpModule;
   readonly Pages: PagesModule;
   readonly Setup: SetupModule;
   readonly Store: StoreModule;
-  readonly Test: TestModule;
   readonly Views: ViewsModule;
 }
 
@@ -36,7 +36,7 @@ export function createAppModule (): AppModule {
   const moduleOfSetup = createSetupModule();
   const moduleOfHttp = createHttpModule();
   const moduleOfViews = createViewsModule();
-  const moduleOfTest = createTestModule();
+  const moduleOfFeatures = createFeaturesModule();
   const moduleOfStore = createStoreModule();
 
   const moduleOfApi = createApiModule({
@@ -56,11 +56,11 @@ export function createAppModule (): AppModule {
     Api: moduleOfApi,
     Controls: moduleOfControls,
     Domains: moduleOfDomains,
+    Features: moduleOfFeatures,
     Http: moduleOfHttp,
     Pages: moduleOfPages,
     Setup: moduleOfSetup,
     Store: moduleOfStore,
-    Test: moduleOfTest,
-    Views: moduleOfViews
+    Views: moduleOfViews,
   };
 }

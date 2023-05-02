@@ -1,4 +1,4 @@
-import { type ArticleListStoreState } from '../../../../app';
+import { type ArticleListStoreState } from '../../../../features';
 import { useArticleListStoreStateContext } from '../ArticleListStoreContext';
 
 export function useStoreState (sliceName: string): ArticleListStoreState {

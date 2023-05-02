@@ -1,11 +1,11 @@
 import { type Dispatch, useEffect, useRef } from 'react';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type TopicItemStoreSetActionCallback,
   type TopicItemStoreSetActionDispatch,
   type TopicItemStoreSetActionOptions,
   type TopicItemStoreSetActionPayload,
-} from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+} from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
 import { useTopicItemStoreDispatchContext } from '../../../TopicItemStoreContext';

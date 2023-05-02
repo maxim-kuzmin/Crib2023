@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import appInstance from '../../../AppInstance';
+import appInstance from '../../../../app/AppInstance';
 import {
   type ArticleDomainItemSaveOperationRequest,
   type ArticleDomainEntityForItem,
@@ -49,7 +49,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await appInstance.module.Test.getService().getDataAsync(() => result);
+    return await appInstance.module.Features.Test.getService().getDataAsync(() => result);
   }
 
   async getItem (
@@ -76,7 +76,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await appInstance.module.Test.getService().getDataAsync(() => result);
+    return await appInstance.module.Features.Test.getService().getDataAsync(() => result);
   }
 
   async getList (
@@ -95,7 +95,7 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await appInstance.module.Test.getService().getDataAsync(() => result);
+    return await appInstance.module.Features.Test.getService().getDataAsync(() => result);
   }
 
   async saveItem (
@@ -137,6 +137,6 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
       operationName
     };
 
-    return await appInstance.module.Test.getService().getDataAsync(() => result);
+    return await appInstance.module.Features.Test.getService().getDataAsync(() => result);
   }
 }

@@ -4,7 +4,7 @@ import {
   type ConfirmControlComponent,
   type ConfirmControlHooks,
   ConfirmControlType
-} from '../../common';
+} from '..';
 
 interface Options {
   readonly componentOfConfirmControl: ConfirmControlComponent;

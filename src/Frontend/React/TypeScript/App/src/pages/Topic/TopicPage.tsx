@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import appInstance from '../../app/AppInstance';
-import { type TopicItemStoreLoadActionPayload } from '../../app';
 import { TreeGetOperationAxisForItem, type TableControlPagination } from '../../common';
+import { type TopicItemStoreLoadActionPayload } from '../../features';
 import { ArticleTableView } from '../../views';
 
 export const TopicPage: React.FC = memo(

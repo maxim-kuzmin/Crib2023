@@ -1,4 +1,4 @@
-import { type TopicItemStoreState } from '../../../../app';
+import { type TopicItemStoreState } from '../../../../features';
 import { useTopicItemStoreStateContext } from '../TopicItemStoreContext';
 
 export function useStoreState (sliceName: string): TopicItemStoreState {

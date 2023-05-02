@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type AppNotificationStoreClearActionInput,
   type AppNotificationStoreClearActionOutput
-} from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+} from '../../../../../../features';
 import { useStoreClearActionDispatch } from './AppNotificationStoreClearActionDispatchHook';
 
 export function useStoreClearActionOutput (

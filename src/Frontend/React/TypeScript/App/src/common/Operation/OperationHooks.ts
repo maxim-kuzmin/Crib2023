@@ -1,4 +1,4 @@
-import { AppNotificationStoreSliceName, type AppNotificationStoreHooks } from '../../app';
+import { AppNotificationStoreSliceName, type AppNotificationStoreHooks } from '../../features';
 import { type OperationHandler } from './OperationHandler';
 import { type OperationHandlerConfig } from './OperationHandlerConfig';
 import { OperationHandlerImpl } from './OperationHandlerImpl';

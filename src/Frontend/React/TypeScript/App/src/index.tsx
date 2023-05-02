@@ -2,19 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { StoresContextProvider } from './app/Stores/StoresContextProvider';
+import { StoresContextProvider } from './features/Stores/StoresContextProvider';
 import {
   ArticlePage,
-  ArticlePageMode,
   NotFoundPage,
   TopicPage
 } from './pages';
-import { AppRootView } from './views';
+import { AppRootView, ArticleItemViewMode } from './views';
 import { reportWebVitals } from './reportWebVitals';
 
 import './index.css';
 
-import './app/Localization/LocalizationSetup';
+import './features/Localization/LocalizationSetup';
 
 const router = createBrowserRouter([{
   path: '/',
@@ -30,15 +29,15 @@ const router = createBrowserRouter([{
     },
     {
       path: 'article',
-      element: <ArticlePage mode={ArticlePageMode.New} />
+      element: <ArticlePage mode={ArticleItemViewMode.New} />
     },
     {
       path: 'article/:articleId',
-      element: <ArticlePage mode={ArticlePageMode.Display} />
+      element: <ArticlePage mode={ArticleItemViewMode.Display} />
     },
     {
       path: 'article/:articleId/edit',
-      element: <ArticlePage mode={ArticlePageMode.Edit} />
+      element: <ArticlePage mode={ArticleItemViewMode.Edit} />
     },
     {
       path: '*',

@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import appInstance from '../../app/AppInstance';
-import { LocalizationTarget } from '../../app';
 import {
   type ConfirmControlHooks,
   type ConfirmControlResource,
 } from '../../common';
+import { getConfirmControlResourcePath } from './ConfirmControlResource';
 
 export function createConfirmControlHooks (): ConfirmControlHooks {
   function useResource (): ConfirmControlResource {
-    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ConfirmControl);
+    const translator = appInstance.hooks.Features.Localization.useTranslator(getConfirmControlResourcePath());
 
     const tCancelButtonText = translator.translate('@@CancelButtonText');
     const tDeleteConfirmContent = translator.translate('@@DeleteConfirmContent');

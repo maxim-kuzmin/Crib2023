@@ -4,11 +4,11 @@ import React, {
   useReducer,
 } from 'react';
 import appInstance from '../../../app/AppInstance';
+import { OperationStatus } from '../../../common';
 import {
   TopicItemStoreSliceName,
   type TopicItemStoreState
-} from '../../../app';
-import { OperationStatus } from '../../../common';
+} from '../../../features';
 import { TopicItemStoreActionType } from './TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from './TopicItemStoreActionUnion';
 import {

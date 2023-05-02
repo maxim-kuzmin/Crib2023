@@ -1,4 +1,4 @@
-import { type ArticleStoreHooks } from '../../app';
+import { type ArticleStoreHooks } from '../../features';
 import { createArticleItemStoreHooks } from './Item/ArticleItemStoreHooks';
 import { createArticleListStoreHooks } from './List/ArticleListStoreHooks';
 

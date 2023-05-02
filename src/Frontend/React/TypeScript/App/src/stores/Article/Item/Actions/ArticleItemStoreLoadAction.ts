@@ -1,5 +1,5 @@
-import { type ArticleItemStoreLoadActionPayload } from '../../../../app';
 import { type StoreAction } from '../../../../common';
+import { type ArticleItemStoreLoadActionPayload } from '../../../../features';
 import { type ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
 
 export interface ArticleItemStoreLoadAction extends StoreAction {

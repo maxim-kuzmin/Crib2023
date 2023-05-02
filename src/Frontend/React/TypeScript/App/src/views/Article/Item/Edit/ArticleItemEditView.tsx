@@ -1,7 +1,6 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import appInstance from '../../../../app/AppInstance';
-import { type ArticleItemStoreLoadActionPayload } from '../../../../app';
 import {
   type FormControlAction,
   FormControlActionType,
@@ -10,6 +9,7 @@ import {
   FormControlValidationRuleType
 } from '../../../../common';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
+import { type ArticleItemStoreLoadActionPayload } from '../../../../features';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
 
@@ -181,7 +181,7 @@ function ArticleItemEditView ({
 
   const [isFormFieldsTouched, setIsFormFieldsTouched] = useState(false);
 
-  appInstance.hooks.useLeaveFormBlocker(isFormFieldsTouched);
+  appInstance.hooks.Common.useLeaveFormBlocker(isFormFieldsTouched);
 
   const handleFieldsTouched = useCallback(
     (isFieldsTouched: boolean) => {

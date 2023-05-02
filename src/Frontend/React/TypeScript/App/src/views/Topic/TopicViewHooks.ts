@@ -1,4 +1,4 @@
-import { type TopicItemStoreHooks, type TopicTreeStoreHooks } from '../../app';
+import { type TopicItemStoreHooks, type TopicTreeStoreHooks } from '../../features';
 import { type TopicItemViewHooks } from './Item';
 import { createTopicItemViewHooks } from './Item/TopicItemViewHooks';
 import { type TopicPathViewHooks } from './Path';

@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import appInstance from '../../app/AppInstance';
-import { LocalizationTarget } from '../../app';
 import {
   type TableControlHooks,
   type TableControlResource
 } from '../../common';
+import { getTableControlResourcePath } from './TableControlResource';
 
 export function createTableControlHooks (): TableControlHooks {
   function useResource (): TableControlResource {
-    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.TableControl);
+    const translator = appInstance.hooks.Features.Localization.useTranslator(getTableControlResourcePath());
 
     const tPaginationPartForFrom: string = translator.translate('@@PaginationPartForFrom');
     const tPaginationPartForJumpTo: string = translator.translate('@@PaginationPartForJumpTo');

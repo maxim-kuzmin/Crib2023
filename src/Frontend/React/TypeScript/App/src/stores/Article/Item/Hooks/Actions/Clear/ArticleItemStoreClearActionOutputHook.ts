@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput
-} from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+} from '../../../../../../features';
 import { useStoreClearActionDispatch } from './ArticleItemStoreClearActionDispatchHook';
 
 export function useStoreClearActionOutput (

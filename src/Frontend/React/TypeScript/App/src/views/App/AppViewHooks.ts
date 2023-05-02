@@ -1,4 +1,4 @@
-import { type AppNotificationStoreHooks } from '../../app';
+import { type AppNotificationStoreHooks } from '../../features';
 import { type AppNotificationViewHooks } from './Notification';
 import { createAppNotificationViewHooks } from './Notification/AppNotificationViewHooks';
 

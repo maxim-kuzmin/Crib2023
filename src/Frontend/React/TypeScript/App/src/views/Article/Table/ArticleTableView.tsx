@@ -2,7 +2,6 @@ import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import appInstance from '../../../app/AppInstance';
-import { type ArticleListStoreLoadActionPayload } from '../../../app';
 import {
   ConfirmControlType,
   type BreadcrumbControlItem,
@@ -10,7 +9,8 @@ import {
   type TableControlPagination
 } from '../../../common';
 import { type ArticleDomainEntityForList } from '../../../domains';
-import { ArticlePageMode } from '../../../pages';
+import { type ArticleListStoreLoadActionPayload } from '../../../features';
+import { ArticleItemViewMode } from '../Item';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
@@ -187,7 +187,7 @@ function ArticleTableView ({
                 </Link>
                 <Link
                   className={styles.action}
-                  to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticlePageMode.Edit })}
+                  to={atriclePageService.createUrl({ articleId: Number(id), mode: ArticleItemViewMode.Edit })}
                 >
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>

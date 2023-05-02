@@ -14,9 +14,11 @@ import {
   type ArticleItemStoreHooks,
   ArticleItemStoreSliceName,
   type ArticleItemStoreState,
-  LocalizationTarget
-} from '../../../app';
-import { type ArticleItemViewResource } from './ArticleItemViewResource';
+} from '../../../features';
+import {
+  type ArticleItemViewResource,
+  getArticleItemViewResourcePath
+} from './ArticleItemViewResource';
 import { createArticleItemEditViewHooks } from './Edit/ArticleItemEditViewHooks';
 import { type ArticleItemEditViewHooks } from './Edit';
 
@@ -56,7 +58,7 @@ export function createArticleItemViewHooks ({
   hooksOfArticleItemStore
 }: Options): ArticleItemViewHooks {
   function useResource (): ArticleItemViewResource {
-    const translator = appInstance.hooks.Localization.useTranslator(LocalizationTarget.ArticleItemView);
+    const translator = appInstance.hooks.Features.Localization.useTranslator(getArticleItemViewResourcePath());
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForEdit: string = translator.translate('@@ActionForEdit');

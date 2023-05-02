@@ -1,14 +1,17 @@
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import appInstance from '../../app/AppInstance';
+import { TreeGetOperationAxisForItem } from '../../common';
 import {
   type TopicItemStoreLoadActionPayload,
   type ArticleItemStoreSetActionPayload
-} from '../../app';
+} from '../../features';
+import {
+  ArticleItemEditView,
+  ArticleItemView,
+  ArticleItemViewMode
+} from '../../views';
 import { type ArticlePageProps } from './ArticlePageProps';
-import { ArticleItemEditView, ArticleItemView } from '../../views';
-import { ArticlePageMode } from './ArticlePageMode';
-import { TreeGetOperationAxisForItem } from '../../common';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({
@@ -25,7 +28,7 @@ function ArticlePage ({
   );
 
   const handleArticleItemLoadActionCompleted = useCallback((payload: ArticleItemStoreSetActionPayload) => {
-      if (mode !== ArticlePageMode.New) {
+      if (mode !== ArticleItemViewMode.New) {
         setTopicId(payload?.data?.item?.data.topicId ?? 0);
       }
 
@@ -60,7 +63,7 @@ function ArticlePage ({
   const topicPageLastUrl = appInstance.module.Pages.Topic.getService().lastUrl;
 
   return (
-    mode === ArticlePageMode.Display
+    mode === ArticleItemViewMode.Display
       ? <ArticleItemView
           articleId={articleId}
           onArticleItemLoadActionCompleted={handleArticleItemLoadActionCompleted}

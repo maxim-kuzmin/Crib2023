@@ -3,7 +3,7 @@ import {
   createContext,
   useContext,
 } from 'react';
-import { type ArticleItemStoreState } from '../../../app';
+import { type ArticleItemStoreState } from '../../../features';
 import { type ArticleItemStoreActionUnion } from './ArticleItemStoreActionUnion';
 
 export const ArticleItemStoreDispatchContext = createContext<

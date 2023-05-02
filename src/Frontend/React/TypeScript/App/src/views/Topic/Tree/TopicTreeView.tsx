@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import appInstance from '../../../app/AppInstance';
-import { type TopicTreeStoreLoadActionPayload } from '../../../app';
 import {
   OperationSortDirection,
   OperationStatus,
@@ -12,6 +11,7 @@ import {
   type TopicDomainTreeGetOperationInput,
   createTopicDomainTreeGetOperationRequest
 } from '../../../domains';
+import { type TopicTreeStoreLoadActionPayload } from '../../../features';
 import styles from './TopicTreeView.module.css';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
@@ -45,7 +45,7 @@ function convertToControlNodes (topicId: number, entities?: TopicDomainEntityFor
 
 export const TopicTreeView: React.FC = memo(
 function TopicTreeView (): React.ReactElement | null {
-  const resourceOfTopicTreeStore = appInstance.hooks.Stores.Topic.Tree.useResource();
+  const resourceOfTopicTreeStore = appInstance.hooks.Features.Stores.Topic.Tree.useResource();
 
   const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 

@@ -1,18 +1,18 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import appInstance from '../../../../../../app/AppInstance';
-import {
-  type ArticleItemStoreDeleteCompletedActionCallback,
-  type ArticleItemStoreDeleteActionDispatch,
-  type ArticleItemStoreDeleteActionOptions,
-  type ArticleItemStoreDeleteActionPayload,
-  type ArticleItemStoreResource,
-} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainItemDeleteOperationRequestHandler,
   createArticleDomainItemDeleteOperationRequest,
 } from '../../../../../../domains';
+import {
+  type ArticleItemStoreDeleteCompletedActionCallback,
+  type ArticleItemStoreDeleteActionDispatch,
+  type ArticleItemStoreDeleteActionOptions,
+  type ArticleItemStoreDeleteActionPayload,
+  type ArticleItemStoreResource,
+} from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
 import { useArticleItemStoreDispatchContext } from '../../../ArticleItemStoreContext';
@@ -85,7 +85,7 @@ export function useStoreDeleteActionDispatch (
 ): ArticleItemStoreDeleteActionDispatch {
   const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 
-  const resourceOfArticleItemStore = appInstance.hooks.Stores.Article.Item.useResource();
+  const resourceOfArticleItemStore = appInstance.hooks.Features.Stores.Article.Item.useResource();
 
   const dispatch = useArticleItemStoreDispatchContext();
 

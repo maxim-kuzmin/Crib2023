@@ -1,18 +1,18 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import appInstance from '../../../../../../app/AppInstance';
-import {
-  type ArticleListStoreSetActionCallback,
-  type ArticleListStoreLoadActionDispatch,
-  type ArticleListStoreLoadActionOptions,
-  type ArticleListStoreLoadActionPayload,
-  type ArticleListStoreResource,
-} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainListGetOperationRequestHandler,
   createArticleDomainListGetOperationRequest
 } from '../../../../../../domains';
+import {
+  type ArticleListStoreSetActionCallback,
+  type ArticleListStoreLoadActionDispatch,
+  type ArticleListStoreLoadActionOptions,
+  type ArticleListStoreLoadActionPayload,
+  type ArticleListStoreResource,
+} from '../../../../../../features';
 import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
 import { type ArticleListStoreActionUnion } from '../../../ArticleListStoreActionUnion';
 import { useArticleListStoreDispatchContext } from '../../../ArticleListStoreContext';
@@ -85,7 +85,7 @@ export function useStoreLoadActionDispatch (
 ): ArticleListStoreLoadActionDispatch {
   const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 
-  const resourceOfArticleListStore = appInstance.hooks.Stores.Article.List.useResource();
+  const resourceOfArticleListStore = appInstance.hooks.Features.Stores.Article.List.useResource();
 
   const dispatch = useArticleListStoreDispatchContext();
 

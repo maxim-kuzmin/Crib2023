@@ -3,7 +3,7 @@ import {
   type ArticleListStoreSetActionInput,
   type ArticleListStoreSetActionOutput,
   type ArticleListStoreSetActionPayload,
-} from '../../../../../../app';
+} from '../../../../../../features';
 import { useStoreState } from '../../ArticleListStoreStateHook';
 import { useStoreSetActionDispatch } from './ArticleListStoreSetActionDispatchHook';
 

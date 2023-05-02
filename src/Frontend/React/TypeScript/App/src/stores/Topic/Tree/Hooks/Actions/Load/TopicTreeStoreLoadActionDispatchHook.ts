@@ -1,18 +1,18 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import appInstance from '../../../../../../app/AppInstance';
-import {
-  type TopicTreeStoreSetActionCallback,
-  type TopicTreeStoreLoadActionDispatch,
-  type TopicTreeStoreLoadActionOptions,
-  type TopicTreeStoreLoadActionPayload,
-  type TopicTreeStoreResource
-} from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainTreeGetOperationRequestHandler,
   createTopicDomainTreeGetOperationRequest
 } from '../../../../../../domains';
+import {
+  type TopicTreeStoreSetActionCallback,
+  type TopicTreeStoreLoadActionDispatch,
+  type TopicTreeStoreLoadActionOptions,
+  type TopicTreeStoreLoadActionPayload,
+  type TopicTreeStoreResource
+} from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
 import { useTopicTreeStoreDispatchContext } from '../../../TopicTreeStoreContext';
@@ -84,7 +84,7 @@ export function useStoreLoadActionDispatch (
 ): TopicTreeStoreLoadActionDispatch {
   const resourceOfApiResponse = appInstance.hooks.Api.Response.useResource();
 
-  const resourceOfTopicTreeStore = appInstance.hooks.Stores.Topic.Tree.useResource();
+  const resourceOfTopicTreeStore = appInstance.hooks.Features.Stores.Topic.Tree.useResource();
 
   const dispatch = useTopicTreeStoreDispatchContext();
 

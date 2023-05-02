@@ -1,5 +1,5 @@
-import { type TopicTreeStoreLoadActionPayload } from '../../../../app';
 import { type StoreAction } from '../../../../common';
+import { type TopicTreeStoreLoadActionPayload } from '../../../../features';
 import { type TopicTreeStoreActionType } from '../TopicTreeStoreActionType';
 
 export interface TopicTreeStoreLoadAction extends StoreAction {

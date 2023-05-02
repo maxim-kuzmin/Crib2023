@@ -12,7 +12,7 @@ import {
   type TopicItemStoreHooks,
   TopicItemStoreSliceName,
   type TopicItemStoreState,
-} from '../../../app';
+} from '../../../features';
 
 export interface TopicItemViewHooks {
   readonly useStoreClearActionOutput: (

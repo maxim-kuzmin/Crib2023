@@ -1,10 +1,10 @@
 import { type Dispatch, useEffect, useRef } from 'react';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type AppNotificationStoreClearActionCallback,
   type AppNotificationStoreClearActionDispatch,
   type AppNotificationStoreClearActionOptions,
-} from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+} from '../../../../../../features';
 import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';
 import { useAppNotificationStoreDispatchContext } from '../../../AppNotificationStoreContext';

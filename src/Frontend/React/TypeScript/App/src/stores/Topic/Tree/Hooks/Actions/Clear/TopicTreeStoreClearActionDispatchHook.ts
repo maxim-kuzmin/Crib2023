@@ -1,10 +1,10 @@
 import { type Dispatch, useEffect, useRef } from 'react';
+import { StoreDispatchType } from '../../../../../../common';
 import {
   type TopicTreeStoreClearActionCallback,
   type TopicTreeStoreClearActionDispatch,
   type TopicTreeStoreClearActionOptions,
-} from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+} from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
 import { useTopicTreeStoreDispatchContext } from '../../../TopicTreeStoreContext';

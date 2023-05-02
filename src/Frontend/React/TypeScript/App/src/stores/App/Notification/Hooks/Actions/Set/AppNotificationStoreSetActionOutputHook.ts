@@ -3,7 +3,7 @@ import {
   type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput,
   type AppNotificationStoreSetActionPayload,
-} from '../../../../../../app';
+} from '../../../../../../features';
 import { useStoreState } from '../../AppNotificationStoreStateHook';
 import { useStoreSetActionDispatch } from './AppNotificationStoreSetActionDispatchHook';
 

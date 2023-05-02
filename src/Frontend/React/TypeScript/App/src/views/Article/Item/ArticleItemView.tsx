@@ -1,14 +1,14 @@
 import React, { memo, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import appInstance from '../../../app/AppInstance';
-import { type ArticleItemStoreLoadActionPayload } from '../../../app';
 import {
   type CardControlAction,
   type CardControlExtra,
   CardControlType
 } from '../../../common';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../data';
-import { ArticlePageMode } from '../../../pages';
+import { type ArticleItemStoreLoadActionPayload } from '../../../features';
+import { ArticleItemViewMode } from './ArticleItemViewMode';
 import { type ArticleItemViewProps } from './ArticleItemViewProps';
 import styles from './ArticleItemView.module.css';
 
@@ -66,7 +66,7 @@ function ArticleItemView ({
       }
 
       const actionToEdit: CardControlAction = {
-        href: appInstance.module.Pages.Article.getService().createUrl({ articleId, mode: ArticlePageMode.Edit }),
+        href: appInstance.module.Pages.Article.getService().createUrl({ articleId, mode: ArticleItemViewMode.Edit }),
         key: 'edit',
         title: resourceOfArticleItemView.getActionForEdit()
       };

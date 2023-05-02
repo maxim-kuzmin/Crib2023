@@ -1,13 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { type LocalizationService, type LocalizationTranslator } from '../../common';
-import { type LocalizationTarget } from './LocalizationTarget';
 import { LocalizationTranslatorImpl } from './LocalizationTranslatorImpl';
 import { LocalizationServiceImpl } from './LocalizationServiceImpl';
 
 export interface LocalizationHooks {
   readonly useService: () => LocalizationService;
-  readonly useTranslator: (target: LocalizationTarget) => LocalizationTranslator;
+  readonly useTranslator: (resourcePath: string) => LocalizationTranslator;
 }
 
 export function createLocalizationHooks (): LocalizationHooks {
@@ -21,8 +20,8 @@ export function createLocalizationHooks (): LocalizationHooks {
     return new LocalizationServiceImpl({ i18n, searchParams, setSearchParams, navigate });
   }
 
-  function useTranslator (target: LocalizationTarget): LocalizationTranslator {
-    const { i18n, t } = useTranslation(target);
+  function useTranslator (resourcePath: string): LocalizationTranslator {
+    const { i18n, t } = useTranslation(resourcePath);
 
     return new LocalizationTranslatorImpl({
       functionToTranslate: t,

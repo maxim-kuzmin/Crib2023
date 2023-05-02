@@ -1,0 +1,1 @@
+export { getConfirmControlResourcePath } from './ConfirmControlResource';

@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
+import { OperationStatus } from '../../../../../../common';
 import {
   type TopicItemStoreDeleteActionInput,
   type TopicItemStoreDeleteActionOutput,
   type TopicItemStoreDeleteCompletedActionPayload,
-} from '../../../../../../app';
-import { OperationStatus } from '../../../../../../common';
+} from '../../../../../../features';
 import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreDeleteActionDispatch } from './TopicItemStoreDeleteActionDispatchHook';
 
