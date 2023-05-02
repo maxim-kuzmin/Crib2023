@@ -3,7 +3,7 @@ import React, {
   memo,
   useReducer,
 } from 'react';
-import appInstance from '../../../app/AppInstance';
+import app from '../../../app';
 import { OperationStatus } from '../../../common';
 import {
   ArticleListStoreSliceName,
@@ -16,7 +16,7 @@ import {
   ArticleListStoreStateContext
 } from './ArticleListStoreContext';
 
-const initialState = appInstance.module.Common.Store.getService().createInitialState<ArticleListStoreState>(
+const initialState = app.module.Common.Store.getService().createInitialState<ArticleListStoreState>(
   [ArticleListStoreSliceName.ArticleTableView],
   () => {
     const result: ArticleListStoreState = {

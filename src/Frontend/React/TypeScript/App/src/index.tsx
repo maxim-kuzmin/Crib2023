@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { StoresContextProvider } from './features/Stores/StoresContextProvider';
-import {
-  ArticlePage,
-  NotFoundPage,
-  TopicPage
-} from './pages';
+import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import { AppRootView, ArticleItemViewMode } from './views';
 import { reportWebVitals } from './reportWebVitals';
 

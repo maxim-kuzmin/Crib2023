@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import appInstance from '../../../app/AppInstance';
+import app from '../../../app';
 import {
   type CardControlAction,
   type CardControlExtra,
@@ -19,9 +19,9 @@ function ArticleItemView ({
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps): React.ReactElement<ArticleItemViewProps> | null {
-  const resourceOfArticleItemView = appInstance.hooks.Views.Article.Item.useResource();
+  const resourceOfArticleItemView = app.hooks.Views.Article.Item.useResource();
 
-  appInstance.hooks.Views.Article.Item.useStoreClearActionOutput({
+  app.hooks.Views.Article.Item.useStoreClearActionOutput({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
@@ -39,7 +39,7 @@ function ArticleItemView ({
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = appInstance.hooks.Views.Article.Item.useStoreLoadActionOutput({
+  } = app.hooks.Views.Article.Item.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
     payloadOfLoadAction
   });
@@ -66,7 +66,7 @@ function ArticleItemView ({
       }
 
       const actionToEdit: CardControlAction = {
-        href: appInstance.module.Pages.Article.getService().createUrl({ articleId, mode: ArticleItemViewMode.Edit }),
+        href: app.module.Pages.Article.getService().createUrl({ articleId, mode: ArticleItemViewMode.Edit }),
         key: 'edit',
         title: resourceOfArticleItemView.getActionForEdit()
       };
@@ -94,7 +94,7 @@ function ArticleItemView ({
       <h2>{title}</h2>
       {
         entity.id > 0
-          ? <appInstance.control.Card
+          ? <app.control.Card
               controlActions={controlActions}
               controlExtra={controlExtra}
               loading={pendingOfLoadAction}
@@ -102,7 +102,7 @@ function ArticleItemView ({
               type={CardControlType.Main}
             >
                 { entity.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
-            </appInstance.control.Card>
+            </app.control.Card>
           : null
       }
     </div>

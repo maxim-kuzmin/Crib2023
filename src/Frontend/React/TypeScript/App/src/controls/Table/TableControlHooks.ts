@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import appInstance from '../../app/AppInstance';
+import app from '../../app';
 import {
   type TableControlHooks,
   type TableControlResource
@@ -8,7 +8,7 @@ import { getTableControlResourcePath } from './TableControlResource';
 
 export function createTableControlHooks (): TableControlHooks {
   function useResource (): TableControlResource {
-    const translator = appInstance.hooks.Features.Localization.useTranslator(getTableControlResourcePath());
+    const translator = app.hooks.Features.Localization.useTranslator(getTableControlResourcePath());
 
     const tPaginationPartForFrom: string = translator.translate('@@PaginationPartForFrom');
     const tPaginationPartForJumpTo: string = translator.translate('@@PaginationPartForJumpTo');

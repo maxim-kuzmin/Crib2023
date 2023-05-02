@@ -1,5 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import appInstance from '../../../../../../app/AppInstance';
+import app from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {
@@ -83,13 +83,13 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: ArticleItemStoreDeleteActionOptions = {}
 ): ArticleItemStoreDeleteActionDispatch {
-  const resourceOfApiResponse = appInstance.hooks.Data.Api.Response.useResource();
+  const resourceOfApiResponse = app.hooks.Data.Api.Response.useResource();
 
-  const resourceOfArticleItemStore = appInstance.hooks.Features.Stores.Article.Item.useResource();
+  const resourceOfArticleItemStore = app.hooks.Features.Stores.Article.Item.useResource();
 
   const dispatch = useArticleItemStoreDispatchContext();
 
-  const requestHandler = useRef(appInstance.hooks.Domains.Article.useItemDeleteOperationRequestHandler()).current;
+  const requestHandler = useRef(app.hooks.Domains.Article.useItemDeleteOperationRequestHandler()).current;
 
   useEffect(
     () => {

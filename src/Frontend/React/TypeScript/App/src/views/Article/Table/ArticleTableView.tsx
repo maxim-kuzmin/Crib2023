@@ -1,7 +1,7 @@
 import React, { useMemo, type Key, memo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import appInstance from '../../../app/AppInstance';
+import app from '../../../app';
 import {
   ConfirmControlType,
   type BreadcrumbControlItem,
@@ -32,14 +32,14 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
-  const resourceOfConfirmControl = appInstance.hooks.Controls.Confirm.useResource();
+  const resourceOfConfirmControl = app.hooks.Controls.Confirm.useResource();
 
   const {
     dispatchOfDeleteAction,
     pendingOfDeleteAction
-  } = appInstance.hooks.Views.Article.Item.useStoreDeleteActionOutput();
+  } = app.hooks.Views.Article.Item.useStoreDeleteActionOutput();
 
-  const resourceOfArticleTableView = appInstance.hooks.Views.Article.Table.useResource();
+  const resourceOfArticleTableView = app.hooks.Views.Article.Table.useResource();
 
   const payloadOfLoadAction: ArticleListStoreLoadActionPayload = useMemo(
     () => {
@@ -62,7 +62,7 @@ function ArticleTableView ({
     dispatchOfLoadAction,
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
-  } = appInstance.hooks.Views.Article.Table.useStoreLoadActionOutput({
+  } = app.hooks.Views.Article.Table.useStoreLoadActionOutput({
     payloadOfLoadAction
   });
 
@@ -105,7 +105,7 @@ function ArticleTableView ({
 
   const controlColumns: TableControlColumn[] = useMemo(
     () => {
-      const atriclePageService = appInstance.module.Pages.Article.getService();
+      const atriclePageService = app.module.Pages.Article.getService();
 
       return [
         {
@@ -133,7 +133,7 @@ function ArticleTableView ({
 
             const { path } = viewRow;
 
-            const topicPageService = appInstance.module.Pages.Topic.getService();
+            const topicPageService = app.module.Pages.Topic.getService();
 
             const controlItems: BreadcrumbControlItem[] = path.map((item) => {
               const { id, name } = item;
@@ -146,7 +146,7 @@ function ArticleTableView ({
             });
 
             return (
-              <appInstance.control.Breadcrumb controlItems={controlItems} />
+              <app.control.Breadcrumb controlItems={controlItems} />
             );
           }
         },
@@ -191,14 +191,14 @@ function ArticleTableView ({
                 >
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
-                <appInstance.control.Button
+                <app.control.Button
                   disabled={id !== deletingId.current && pendingOfDeleteAction}
                   loading={id === deletingId.current && pendingOfDeleteAction}
                   onClick={
                     () => {
                       deletingId.current = id;
 
-                      appInstance.component.Controls.Confirm.show({
+                      app.component.Controls.Confirm.show({
                         resourceOfConfirmControl,
                         onOk: () => {
                           dispatchOfDeleteAction.run({ id })
@@ -213,7 +213,7 @@ function ArticleTableView ({
                   title={`${tActionForDelete} ${id}`}
                 >
                   {resourceOfArticleTableView.getActionForDelete()}
-                </appInstance.control.Button>
+                </app.control.Button>
               </div>
             );
           }
@@ -239,7 +239,7 @@ function ArticleTableView ({
         <title>{title}</title>
       </Helmet>
       <h2>{title}</h2>
-      <appInstance.control.Table
+      <app.control.Table
         className={styles.root}
         controlColumns={controlColumns}
         controlRows={controlRows}

@@ -1,5 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import appInstance from '../../../../../../app/AppInstance';
+import app from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {
@@ -82,13 +82,13 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicTreeStoreLoadActionOptions = {}
 ): TopicTreeStoreLoadActionDispatch {
-  const resourceOfApiResponse = appInstance.hooks.Data.Api.Response.useResource();
+  const resourceOfApiResponse = app.hooks.Data.Api.Response.useResource();
 
-  const resourceOfTopicTreeStore = appInstance.hooks.Features.Stores.Topic.Tree.useResource();
+  const resourceOfTopicTreeStore = app.hooks.Features.Stores.Topic.Tree.useResource();
 
   const dispatch = useTopicTreeStoreDispatchContext();
 
-  const requestHandler = useRef(appInstance.hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
+  const requestHandler = useRef(app.hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
 
   useEffect(
     () => {

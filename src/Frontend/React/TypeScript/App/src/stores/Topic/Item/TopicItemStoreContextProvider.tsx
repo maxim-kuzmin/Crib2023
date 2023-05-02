@@ -3,7 +3,7 @@ import React, {
   memo,
   useReducer,
 } from 'react';
-import appInstance from '../../../app/AppInstance';
+import app from '../../../app';
 import { OperationStatus } from '../../../common';
 import {
   TopicItemStoreSliceName,
@@ -16,7 +16,7 @@ import {
   TopicItemStoreStateContext
 } from './TopicItemStoreContext';
 
-const initialState = appInstance.module.Common.Store.getService().createInitialState<TopicItemStoreState>(
+const initialState = app.module.Common.Store.getService().createInitialState<TopicItemStoreState>(
   [TopicItemStoreSliceName.TopicItemView],
   () => {
     const result: TopicItemStoreState = {

@@ -1,5 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import appInstance from '../../../../../../app/AppInstance';
+import app from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {
@@ -83,13 +83,13 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: ArticleListStoreLoadActionOptions = {}
 ): ArticleListStoreLoadActionDispatch {
-  const resourceOfApiResponse = appInstance.hooks.Data.Api.Response.useResource();
+  const resourceOfApiResponse = app.hooks.Data.Api.Response.useResource();
 
-  const resourceOfArticleListStore = appInstance.hooks.Features.Stores.Article.List.useResource();
+  const resourceOfArticleListStore = app.hooks.Features.Stores.Article.List.useResource();
 
   const dispatch = useArticleListStoreDispatchContext();
 
-  const requestHandler = useRef(appInstance.hooks.Domains.Article.useListGetOperationRequestHandler()).current;
+  const requestHandler = useRef(app.hooks.Domains.Article.useListGetOperationRequestHandler()).current;
 
   useEffect(
     () => {

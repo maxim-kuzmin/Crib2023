@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import appInstance from '../../../app/AppInstance';
+import app from '../../../app';
 import {
   type ArticleListStoreClearActionInput,
   type ArticleListStoreClearActionOutput,
@@ -42,7 +42,7 @@ export function createArticleTableViewHooks ({
   hooksOfArticleListStore
 }: Options): ArticleTableViewHooks {
   function useResource (): ArticleTableViewResource {
-    const translator = appInstance.hooks.Features.Localization.useTranslator(getArticleTableViewResourcePath());
+    const translator = app.hooks.Features.Localization.useTranslator(getArticleTableViewResourcePath());
 
     const tTitle: string = translator.translate('@@Title');
     const tLabelForActions: string = translator.translate('@@LabelForActions');

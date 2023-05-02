@@ -1,5 +1,5 @@
 import { type Dispatch, useEffect, useRef } from 'react';
-import appInstance from '../../../../../../app/AppInstance';
+import app from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import {
@@ -83,13 +83,13 @@ export function useStoreSaveActionDispatch (
     payloadOfSaveAction
   }: TopicItemStoreSaveActionOptions
 ): TopicItemStoreSaveActionDispatch {
-  const resourceOfApiResponse = appInstance.hooks.Data.Api.Response.useResource();
+  const resourceOfApiResponse = app.hooks.Data.Api.Response.useResource();
 
-  const resourceOfTopicItemStore = appInstance.hooks.Features.Stores.Topic.Item.useResource();
+  const resourceOfTopicItemStore = app.hooks.Features.Stores.Topic.Item.useResource();
 
   const dispatch = useTopicItemStoreDispatchContext();
 
-  const requestHandler = useRef(appInstance.hooks.Domains.Topic.useItemSaveOperationRequestHandler()).current;
+  const requestHandler = useRef(app.hooks.Domains.Topic.useItemSaveOperationRequestHandler()).current;
 
   useEffect(
     () => {

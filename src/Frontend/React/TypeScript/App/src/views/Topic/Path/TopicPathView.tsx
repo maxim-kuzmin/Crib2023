@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import appInstance from '../../../app/AppInstance';
+import app from '../../../app';
 import { type BreadcrumbControlItem } from '../../../common';
 import { type TopicDomainEntityForItem } from '../../../domains';
 import styles from './TopicPathView.module.css';
@@ -16,7 +16,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 
   const result: BreadcrumbControlItem[] = [root];
 
-  const topicPageService = appInstance.module.Pages.Topic.getService();
+  const topicPageService = app.module.Pages.Topic.getService();
 
   if (entity) {
     root.href = '/';
@@ -47,11 +47,11 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
 
 export const TopicPathView: React.FC = memo(
 function TopicPathView (): React.ReactElement | null {
-  const topicPathViewResource = appInstance.hooks.Views.Topic.Path.useResource();
+  const topicPathViewResource = app.hooks.Views.Topic.Path.useResource();
 
   const {
     payloadOfSetAction: topicItemResponse
-  } = appInstance.hooks.Views.Topic.Item.useStoreState();
+  } = app.hooks.Views.Topic.Item.useStoreState();
 
   const entity = topicItemResponse?.data?.item;
 
@@ -64,7 +64,7 @@ function TopicPathView (): React.ReactElement | null {
 
   return (
     <div className={styles.root}>
-      <appInstance.control.Breadcrumb controlItems={controlItems} currentItemKey={currentItemKey}/>
+      <app.control.Breadcrumb controlItems={controlItems} currentItemKey={currentItemKey}/>
     </div>
   );
 });
