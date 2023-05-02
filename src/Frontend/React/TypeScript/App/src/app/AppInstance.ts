@@ -24,7 +24,7 @@ export function createAppInstance (): AppInstance {
     control,
     factory,
     hooks,
-    module
+    module,
   };
 }
 
