@@ -1,12 +1,11 @@
-import { type HttpClient } from './HttpClient';
-import { HttpClientImpl } from './HttpClientImpl';
+import { type HttpClient, createHttpClient } from './HttpClient';
 
 export interface HttpModule {
   readonly getClient: () => HttpClient;
 }
 
 export function createHttpModule (): HttpModule {
-  const implOfClient = new HttpClientImpl();
+  const implOfClient = createHttpClient();
 
   function getClient (): HttpClient {
     return implOfClient;

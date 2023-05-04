@@ -2,14 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { setupOfApp } from './app';
-import { AppContextProvider } from './app/AppContextProvider';
-import { StoresContextProvider } from './features/Stores/StoresContextProvider';
+import { createAppInstance } from './app/AppInstance';
+import { createAppSetup } from './app/AppSetup';
+import { ContextProvider } from './app/Context/ContextProvider';
 import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import { AppRootView, ArticleItemViewMode } from './views';
 import { reportWebVitals } from './reportWebVitals';
 
 import './index.css';
+
+const instanceOfApp = createAppInstance();
+
+const setupOfApp = createAppSetup({ instanceOfApp });
 
 setupOfApp.run();
 
@@ -51,11 +55,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <AppContextProvider>
-        <StoresContextProvider>
-          <RouterProvider router={router} />
-        </StoresContextProvider>
-      </AppContextProvider>
+      <ContextProvider instanceOfApp={instanceOfApp}>
+        <RouterProvider router={router} />
+      </ContextProvider>
     </HelmetProvider>
   </React.StrictMode>
 );

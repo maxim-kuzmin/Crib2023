@@ -24,7 +24,7 @@ export interface LocalizationSetup {
   readonly run: () => void;
 }
 
-function createLocalizationSetup (): LocalizationSetup {
+export function createLocalizationSetup (): LocalizationSetup {
   function run () {
     i18next
     .use(Backend)
@@ -63,5 +63,3 @@ function createLocalizationSetup (): LocalizationSetup {
 
   return { run };
 }
-
-export const setupOfLocalization = createLocalizationSetup();

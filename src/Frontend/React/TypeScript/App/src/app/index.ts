@@ -1,2 +1,4 @@
-export { setupOfApp } from './AppSetup';
-export { useAppInstance } from './Instance/InstanceHooks';
+export * from './Context';
+export * from './Instance';
+export { type AppInstance } from './AppInstance';
+export { useAppInstance } from './AppHooks';

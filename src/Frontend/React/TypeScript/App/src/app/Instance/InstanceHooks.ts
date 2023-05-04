@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { type CommonHooks, type ControlsHooks } from '../../common';
 import { createCommonHooks } from '../../common/CommonHooks';
 import { createControlsHooks } from '../../controls/ControlsHooks';
@@ -11,8 +10,6 @@ import { createFeaturesHooks } from '../../features/FeaturesHooks';
 import { type ViewsHooks } from '../../views';
 import { createViewsHooks } from '../../views/ViewsHooks';
 import { type InstanceComponents } from './InstanceComponents';
-import { AppContext } from '../AppContext';
-import { type AppInstance } from '../AppInstance';
 import { type InstanceModules } from './InstanceModules';
 
 export interface InstanceHooks {
@@ -69,8 +66,4 @@ export function createInstanceHooks ({
     Features: hooksOfFeatures,
     Views: hooksOfViews,
   };
-}
-
-export function useAppInstance (): AppInstance {
-  return useContext(AppContext)!;
 }

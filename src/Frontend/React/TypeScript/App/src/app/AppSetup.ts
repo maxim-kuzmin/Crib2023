@@ -1,15 +1,30 @@
-import { setupOfLocalization } from '../features';
+import { type AppInstance } from '.';
+import { createLocalizationSetup } from '../features/Localization/LocalizationSetup';
 
 export interface AppSetup {
   readonly run: () => void;
 }
 
-function createAppSetup (): AppSetup {
-  function run () {
-    setupOfLocalization.run();
-  }
-
-  return { run };
+interface Options {
+  readonly instanceOfApp: AppInstance;
 }
 
-export const setupOfApp = createAppSetup();
+class AppSetupImpl implements AppSetup {
+  private readonly instanceOfApp: AppInstance;
+
+  constructor ({
+    instanceOfApp,
+  }: Options) {
+    this.instanceOfApp = instanceOfApp;
+  }
+
+  run () {
+    const setupOfLocalization = createLocalizationSetup();
+
+    setupOfLocalization.run();
+  }
+}
+
+export function createAppSetup (options: Options): AppSetup {
+  return new AppSetupImpl(options);
+}

@@ -1,2 +1,2 @@
-export { setupOfLocalization } from './LocalizationSetup';
 export { type LocalizationHooks } from './LocalizationHooks';
+export { type LocalizationSetup } from './LocalizationSetup';

@@ -5,7 +5,7 @@ import {
   type InstanceFactories,
   type InstanceHooks,
   type InstanceModules,
-} from './Instance';
+} from '.';
 import { createInstanceComponents } from './Instance/InstanceComponents';
 import { createInstanceControls } from './Instance/InstanceControls';
 import { createInstanceFactories } from './Instance/InstanceFactories';
@@ -22,9 +22,8 @@ export interface AppInstance {
   readonly options: InstanceOptions;
 }
 
-export const options = createInstanceOptions();
-
 export function createAppInstance (): AppInstance {
+  const options = createInstanceOptions();
   const components = createInstanceComponents();
   const controls = createInstanceControls();
   const factories = createInstanceFactories();

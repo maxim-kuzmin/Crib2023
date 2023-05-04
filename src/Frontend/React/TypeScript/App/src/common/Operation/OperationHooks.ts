@@ -1,7 +1,6 @@
-import { AppNotificationStoreSliceName, type AppNotificationStoreHooks } from '../../features';
-import { type OperationHandler } from './OperationHandler';
+import { type AppNotificationStoreHooks, AppNotificationStoreSliceName } from '../../features';
+import { type OperationHandler, createOperationHandler } from './OperationHandler';
 import { type OperationHandlerConfig } from './OperationHandlerConfig';
-import { OperationHandlerImpl } from './OperationHandlerImpl';
 
 export interface OperationHooks {
   readonly useOperationHandler: (config: OperationHandlerConfig) => OperationHandler;
@@ -22,7 +21,7 @@ export function createOperationHooks ({
       {}
     );
 
-    return new OperationHandlerImpl({
+    return createOperationHandler({
       functionToSetNotification: run,
       shouldBeLogged,
       shouldBeNotified
