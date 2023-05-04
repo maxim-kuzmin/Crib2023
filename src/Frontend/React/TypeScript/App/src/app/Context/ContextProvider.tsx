@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { StoresContextProvider } from '../../features/Stores/StoresContextProvider';
+import { StoresContextProvider } from '../../features';
 import { Context } from './ContextDefinition';
 import { type ContextProviderProps } from './ContextProviderProps';
 
