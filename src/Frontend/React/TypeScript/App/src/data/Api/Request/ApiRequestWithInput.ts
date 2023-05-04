@@ -14,5 +14,5 @@ export function createApiRequestWithInput<TInput> (
   return {
     ...apiRequest,
     input
-  }
+  };
 }

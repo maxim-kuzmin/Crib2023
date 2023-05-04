@@ -1,16 +1,17 @@
-import { type ArticlePageService } from './ArticlePageService';
-import { ArticlePageServiceImpl } from './ArticlePageServiceImpl';
+import { type ArticlePageService, createArticlePageService } from './ArticlePageService';
 
 export interface ArticlePageModule {
   readonly getService: () => ArticlePageService;
 }
 
-export function createArticlePageModule (): ArticlePageModule {
-  const implOfService = new ArticlePageServiceImpl();
+class Implementation implements ArticlePageModule {
+  private readonly service = createArticlePageService();
 
-  function getService (): ArticlePageService {
-    return implOfService;
+  getService (): ArticlePageService {
+    return this.service;
   }
+}
 
-  return { getService };
+export function createArticlePageModule (): ArticlePageModule {
+  return new Implementation();
 }

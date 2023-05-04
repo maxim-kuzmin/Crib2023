@@ -1,6 +1,5 @@
 import { type HttpClient } from '../../common';
-import { type ApiClient } from './ApiClient';
-import { ApiClientImpl } from './ApiClientImpl';
+import { type ApiClient, createApiClient } from './ApiClient';
 import { type ApiOptions } from './ApiOptions';
 
 export interface ApiModule {
@@ -12,18 +11,24 @@ interface Options {
   readonly optionsOfApi: ApiOptions;
 }
 
-export function createApiModule ({
-  httpClient,
-  optionsOfApi,
-}: Options): ApiModule {
-  const implOfClient = new ApiClientImpl({
+class Implementation implements ApiModule {
+  private readonly client: ApiClient;
+
+  constructor ({
     httpClient,
     optionsOfApi,
-  });
-
-  function getClient () {
-    return implOfClient;
+  }: Options) {
+    this.client = createApiClient({
+      httpClient,
+      optionsOfApi,
+    });
   }
 
-  return { getClient };
+  getClient (): ApiClient {
+    return this.client;
+  }
+}
+
+export function createApiModule (options: Options): ApiModule {
+  return new Implementation(options);
 }

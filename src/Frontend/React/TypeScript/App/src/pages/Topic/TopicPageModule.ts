@@ -1,6 +1,5 @@
 import { type TableControlOptions } from '../../common';
-import { type TopicPageService } from './TopicPageService';
-import { TopicPageServiceImpl } from './TopicPageServiceImpl';
+import { type TopicPageService, createTopicPageService } from './TopicPageService';
 
 export interface TopicPageModule {
   readonly getService: () => TopicPageService;
@@ -10,14 +9,20 @@ interface Options {
   optionsOfTableControl: TableControlOptions;
 }
 
-export function createTopicPageModule ({
-  optionsOfTableControl
-}: Options): TopicPageModule {
-  const implOfService = new TopicPageServiceImpl({ optionsOfTableControl });
+class Implementation implements TopicPageModule {
+  private readonly service: TopicPageService;
 
-  function getService (): TopicPageService {
-    return implOfService;
+  constructor ({
+    optionsOfTableControl
+  }: Options) {
+    this.service = createTopicPageService({ optionsOfTableControl });
   }
 
-  return { getService };
+  getService (): TopicPageService {
+    return this.service;
+  }
+}
+
+export function createTopicPageModule (options: Options): TopicPageModule {
+  return new Implementation(options);
 }

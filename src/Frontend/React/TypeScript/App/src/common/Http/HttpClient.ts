@@ -18,7 +18,7 @@ function createRequestConfigValue (method: string, config?: HttpRequestConfig, b
   return result;
 }
 
-class HttpClientImpl implements HttpClient {
+class Implementation implements HttpClient {
   async delete (url: string, config?: HttpRequestConfig) {
     return await this.request(url, createRequestConfigValue('DELETE', config));
   }
@@ -56,5 +56,5 @@ class HttpClientImpl implements HttpClient {
 }
 
 export function createHttpClient (): HttpClient {
-  return new HttpClientImpl();
+  return new Implementation();
 }

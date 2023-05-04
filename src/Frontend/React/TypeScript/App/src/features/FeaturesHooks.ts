@@ -15,5 +15,5 @@ export function createFeaturesHooks (): FeaturesHooks {
   return {
     Localization: hooksOfLocalization,
     Stores: hooksOfStores,
-  }
+  };
 }

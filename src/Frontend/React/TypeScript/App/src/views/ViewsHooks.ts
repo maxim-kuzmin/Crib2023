@@ -41,5 +41,5 @@ export function createViewsHooks ({
     App: hooksOfApp,
     Article: hooksOfArticle,
     Topic: hooksOfTopic,
-  }
+  };
 }

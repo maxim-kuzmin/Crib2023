@@ -1,23 +1,23 @@
 import { type ApiRequestHooks } from '../../data/Api/Request/ApiRequestHooks';
-import { type ArticleDomainRepository } from './ArticleDomainRepository';
+import { type ArticleDomainModule } from './ArticleDomainModule';
 import {
   type ArticleDomainItemDeleteOperationRequestHandler,
   type ArticleDomainItemGetOperationRequestHandler,
   type ArticleDomainItemSaveOperationRequestHandler,
-  type ArticleDomainListGetOperationRequestHandler
+  type ArticleDomainListGetOperationRequestHandler,
 } from './Operations';
 import {
   ArticleDomainItemDeleteOperationRequestHandlerImpl
 } from './Operations/Item/Delete/ArticleDomainItemDeleteOperationRequestHandlerImpl';
 import {
-  ArticleDomainItemGetOperationRequestHandlerImpl
-} from './Operations/Item/Get/ArticleDomainItemGetOperationRequestHandlerImpl';
+  createArticleDomainItemGetOperationRequestHandler
+} from './Operations/Item/Get/ArticleDomainItemGetOperationRequestHandler';
 import {
-  ArticleDomainItemSaveOperationRequestHandlerImpl
-} from './Operations/Item/Save/ArticleDomainItemSaveOperationRequestHandlerImpl';
+  createArticleDomainItemSaveOperationRequestHandler
+} from './Operations/Item/Save/ArticleDomainItemSaveOperationRequestHandler';
 import {
-  ArticleDomainListGetOperationRequestHandlerImpl
-} from './Operations/List/Get/ArticleDomainListGetOperationRequestHandlerImpl';
+  createArticleDomainListGetOperationRequestHandler
+} from './Operations/List/Get/ArticleDomainListGetOperationRequestHandler';
 
 export interface ArticleDomainHooks {
   readonly useItemDeleteOperationRequestHandler: () => ArticleDomainItemDeleteOperationRequestHandler;
@@ -27,13 +27,13 @@ export interface ArticleDomainHooks {
 }
 
 interface HooksOptions {
-  readonly getArticleDomainRepository: () => ArticleDomainRepository;
   readonly hooksOfApiRequest: ApiRequestHooks;
+  readonly moduleOfArticleDomain: ArticleDomainModule;
 }
 
 export function createArticleDomainHooks ({
   hooksOfApiRequest,
-  getArticleDomainRepository
+  moduleOfArticleDomain
 }: HooksOptions): ArticleDomainHooks {
   function useItemDeleteOperationRequestHandler (): ArticleDomainItemDeleteOperationRequestHandler {
     return new ArticleDomainItemDeleteOperationRequestHandlerImpl({
@@ -41,37 +41,37 @@ export function createArticleDomainHooks ({
         shouldBeLogged: true,
         shouldBeNotified: true
       }),
-      repository: getArticleDomainRepository()
+      repository: moduleOfArticleDomain.getRepository()
     });
   }
 
   function useItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {
-    return new ArticleDomainItemGetOperationRequestHandlerImpl({
+    return createArticleDomainItemGetOperationRequestHandler({
       apiRequestHandler: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),
-      repository: getArticleDomainRepository()
+      repository: moduleOfArticleDomain.getRepository()
     });
   }
 
   function useItemSaveOperationRequestHandler (): ArticleDomainItemSaveOperationRequestHandler {
-    return new ArticleDomainItemSaveOperationRequestHandlerImpl({
+    return createArticleDomainItemSaveOperationRequestHandler({
       apiRequestHandler: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: true
       }),
-      repository: getArticleDomainRepository()
+      repository: moduleOfArticleDomain.getRepository()
     });
   }
 
   function useListGetOperationRequestHandler (): ArticleDomainListGetOperationRequestHandler {
-    return new ArticleDomainListGetOperationRequestHandlerImpl({
+    return createArticleDomainListGetOperationRequestHandler({
       apiRequestHandler: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),
-      repository: getArticleDomainRepository()
+      repository: moduleOfArticleDomain.getRepository()
     });
   }
 

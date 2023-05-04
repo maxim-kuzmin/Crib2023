@@ -1,16 +1,17 @@
-import { type TestService } from './TestService';
-import { TestServiceImpl } from './TestServiceImpl';
+import { type TestService, createTestService } from './TestService';
 
 export interface TestModule {
   readonly getService: () => TestService;
 }
 
-export function createTestModule (): TestModule {
-  const implOfService = new TestServiceImpl();
+class Implementation implements TestModule {
+  private readonly service = createTestService();
 
-  function getService (): TestService {
-    return implOfService;
+  getService (): TestService {
+    return this.service;
   }
+}
 
-  return { getService };
+export function createTestModule (): TestModule {
+  return new Implementation();
 }

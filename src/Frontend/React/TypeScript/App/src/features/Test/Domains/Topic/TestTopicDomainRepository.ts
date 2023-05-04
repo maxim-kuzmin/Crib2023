@@ -29,7 +29,7 @@ interface Options {
   readonly factoryOfApiResponse: ApiResponseFactory;
 }
 
-export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
+class Implementation implements TopicDomainRepository {
   private entitiesForItem: TopicDomainEntityForItem[] = [];
   private readonly entitiesForList: TopicDomainEntityForList[] = [];
   private readonly entitiesForTree: TopicDomainEntityForTree[] = [];
@@ -217,4 +217,8 @@ export class TestTopicDomainRepositoryImpl implements TopicDomainRepository {
 
     return await this.serviceOfTest.getDataAsync(() => result);
   }
+}
+
+export function createTestTopicDomainRepository (options: Options): TopicDomainRepository {
+    return new Implementation(options);
 }

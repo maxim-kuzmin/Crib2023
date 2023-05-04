@@ -10,5 +10,5 @@ export function createFeaturesModules (): FeaturesModules {
 
   return {
     Test: moduleOfTest,
-  }
+  };
 }

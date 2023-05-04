@@ -47,5 +47,5 @@ export function createConfirmControlHooks (): ConfirmControlHooks {
     );
   }
 
-  return { useResource }
+  return { useResource };
 }

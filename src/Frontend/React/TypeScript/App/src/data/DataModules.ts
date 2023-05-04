@@ -22,5 +22,5 @@ export function createDataModules ({
 
   return {
     Api: moduleOfApi,
-  }
+  };
 }

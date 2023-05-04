@@ -6,7 +6,7 @@ interface Options {
   readonly language: string;
 }
 
-export class LocalizationTranslatorImpl implements LocalizationTranslator {
+class Implementation implements LocalizationTranslator {
   private readonly functionToTranslate: TFunction;
   public readonly language: string;
 
@@ -21,4 +21,8 @@ export class LocalizationTranslatorImpl implements LocalizationTranslator {
   translate (name: string): string {
     return this.functionToTranslate(name);
   }
+}
+
+export function createLocalizationTranslator (options: Options): LocalizationTranslator {
+  return new Implementation(options);
 }

@@ -1,7 +1,7 @@
 import { type ApiRequestHooks } from '../data';
-import { type ArticleDomainRepository, type ArticleDomainHooks } from './Article';
+import { type ArticleDomainHooks, type ArticleDomainModule } from './Article';
 import { createArticleDomainHooks } from './Article/ArticleDomainHooks';
-import { type TopicDomainRepository, type TopicDomainHooks } from './Topic';
+import { type TopicDomainHooks, type TopicDomainModule } from './Topic';
 import { createTopicDomainHooks } from './Topic/TopicDomainHooks';
 
 export interface DomainsHooks {
@@ -10,24 +10,24 @@ export interface DomainsHooks {
 }
 
 interface Options {
-  readonly getArticleDomainRepository: () => ArticleDomainRepository;
-  readonly getTopicDomainRepository: () => TopicDomainRepository;
   readonly hooksOfApiRequest: ApiRequestHooks;
+  readonly moduleOfArticleDomain: ArticleDomainModule;
+  readonly moduleOfTopicDomain: TopicDomainModule;
 }
 
 export function createDomainsHooks ({
-  getArticleDomainRepository,
-  getTopicDomainRepository,
-  hooksOfApiRequest
+  hooksOfApiRequest,
+  moduleOfArticleDomain,
+  moduleOfTopicDomain,
 }: Options): DomainsHooks {
   const hooksOfArticle = createArticleDomainHooks({
-    getArticleDomainRepository,
-    hooksOfApiRequest
+    hooksOfApiRequest,
+    moduleOfArticleDomain,
   });
 
   const hooksOfTopic = createTopicDomainHooks({
-    getTopicDomainRepository,
-    hooksOfApiRequest
+    hooksOfApiRequest,
+    moduleOfTopicDomain,
   });
 
   return {

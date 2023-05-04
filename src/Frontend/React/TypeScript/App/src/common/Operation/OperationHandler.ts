@@ -11,7 +11,7 @@ export interface OperationHandler {
   readonly operationCode: string;
 }
 
-class OperationHandlerImpl implements OperationHandler {
+class Implementation implements OperationHandler {
   private _operationCode = '';
 
   private operationName = '';
@@ -87,5 +87,5 @@ class OperationHandlerImpl implements OperationHandler {
 }
 
 export function createOperationHandler (options: OperationHandlerOptions): OperationHandler {
-  return new OperationHandlerImpl(options);
+  return new Implementation(options);
 }

@@ -9,7 +9,7 @@ interface Options {
   readonly instanceOfApp: AppInstance;
 }
 
-class AppSetupImpl implements AppSetup {
+class Implementation implements AppSetup {
   private readonly instanceOfApp: AppInstance;
 
   constructor ({
@@ -26,5 +26,5 @@ class AppSetupImpl implements AppSetup {
 }
 
 export function createAppSetup (options: Options): AppSetup {
-  return new AppSetupImpl(options);
+  return new Implementation(options);
 }

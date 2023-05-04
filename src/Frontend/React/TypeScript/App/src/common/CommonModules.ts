@@ -15,5 +15,5 @@ export function createCommonModules (): CommonModules {
   return {
     Http: moduleOfHttp,
     Store: moduleOfStore,
-  }
+  };
 }

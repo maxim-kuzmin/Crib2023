@@ -6,10 +6,12 @@ export interface ApiResponseFactory {
   readonly createError: (options: ApiResponseErrorOptions) => ApiResponseError;
 }
 
-export function createApiResponseFactory (): ApiResponseFactory {
-  function createError (options: ApiResponseErrorOptions): ApiResponseError {
+class Implementation implements ApiResponseFactory {
+  createError (options: ApiResponseErrorOptions): ApiResponseError {
     return new ApiResponseErrorImpl(options);
   }
+}
 
-  return { createError };
+export function createApiResponseFactory (): ApiResponseFactory {
+  return new Implementation();
 };

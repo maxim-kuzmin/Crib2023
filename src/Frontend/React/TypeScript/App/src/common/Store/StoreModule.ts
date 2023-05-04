@@ -1,16 +1,17 @@
-import { type StoreService } from './StoreService';
-import { StoreServiceImpl } from './StoreServiceImpl';
+import { type StoreService, createStoreService } from './StoreService';
 
 export interface StoreModule {
   readonly getService: () => StoreService;
 }
 
-export function createStoreModule (): StoreModule {
-  const implOfService = new StoreServiceImpl();
+class Implementation implements StoreModule {
+  private readonly service = createStoreService();
 
-  function getService (): StoreService {
-    return implOfService;
+  getService (): StoreService {
+    return this.service;
   }
+}
 
-  return { getService };
+export function createStoreModule (): StoreModule {
+  return new Implementation();
 }

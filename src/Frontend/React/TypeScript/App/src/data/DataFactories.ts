@@ -10,5 +10,5 @@ export function createDataFactories (): DataFactories {
 
   return {
     Api: factoriesOfApi,
-  }
+  };
 }

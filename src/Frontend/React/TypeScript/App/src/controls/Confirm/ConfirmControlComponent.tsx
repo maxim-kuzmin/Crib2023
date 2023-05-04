@@ -7,40 +7,42 @@ import {
   ConfirmControlType
 } from '../../common';
 
-function show ({ content, onCancel, onOk, resourceOfConfirmControl, title, type }: ConfirmControlProps) {
-  const props: ModalFuncProps = {
-    content,
-    icon: <ExclamationCircleFilled />,
-    onCancel,
-    onOk,
-    title,
-    okText: resourceOfConfirmControl.getOkButtonText(),
-    cancelText: resourceOfConfirmControl.getCancelButtonText(),
-  };
+class Implementation implements ConfirmControlComponent {
+  show ({ content, onCancel, onOk, resourceOfConfirmControl, title, type }: ConfirmControlProps) {
+    const props: ModalFuncProps = {
+      content,
+      icon: <ExclamationCircleFilled />,
+      onCancel,
+      onOk,
+      title,
+      okText: resourceOfConfirmControl.getOkButtonText(),
+      cancelText: resourceOfConfirmControl.getCancelButtonText(),
+    };
 
-  switch (type) {
-    case ConfirmControlType.Delete:
-      if (!content) {
-        props.content = resourceOfConfirmControl.getDeleteConfirmContent();
+    switch (type) {
+      case ConfirmControlType.Delete:
+        if (!content) {
+          props.content = resourceOfConfirmControl.getDeleteConfirmContent();
+        }
+        if (!title) {
+          props.title = resourceOfConfirmControl.getDeleteConfirmTitle();
+        }
+        props.okType = 'danger';
+        break;
+      case ConfirmControlType.LeaveForm:
+        if (!content) {
+          props.content = resourceOfConfirmControl.getLeaveFormConfirmContent();
+        }
+        if (!title) {
+          props.title = resourceOfConfirmControl.getLeaveFormConfirmTitle();
+        }
+        break;
       }
-      if (!title) {
-        props.title = resourceOfConfirmControl.getDeleteConfirmTitle();
-      }
-      props.okType = 'danger';
-      break;
-    case ConfirmControlType.LeaveForm:
-      if (!content) {
-        props.content = resourceOfConfirmControl.getLeaveFormConfirmContent();
-      }
-      if (!title) {
-        props.title = resourceOfConfirmControl.getLeaveFormConfirmTitle();
-      }
-      break;
-    }
 
-    Modal.confirm(props);
+      Modal.confirm(props);
+  }
 }
 
 export function createConfirmControlComponent (): ConfirmControlComponent {
-  return { show };
+  return new Implementation();
 }

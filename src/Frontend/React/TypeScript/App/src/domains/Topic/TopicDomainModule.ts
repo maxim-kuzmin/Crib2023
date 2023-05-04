@@ -1,9 +1,8 @@
 import { type CommonOptions } from '../../common';
 import { type ApiResponseFactory, type ApiClient } from '../../data';
 import { type TestService } from '../../features';
-import { TestTopicDomainRepositoryImpl } from '../../features/Test/Domains/Topic/TestTopicDomainRepositoryImpl';
-import { type TopicDomainRepository } from './TopicDomainRepository';
-import { TopicDomainRepositoryImpl } from './TopicDomainRepositoryImpl';
+import { createTestTopicDomainRepository } from '../../features/Test/Domains/Topic/TestTopicDomainRepository';
+import { type TopicDomainRepository, createTopicDomainRepository } from './TopicDomainRepository';
 
 export interface TopicDomainModule {
   readonly getRepository: () => TopicDomainRepository;
@@ -16,19 +15,25 @@ interface Options {
   readonly serviceOfTest: TestService;
 }
 
-export function createTopicDomainModule ({
-  apiClient,
-  factoryOfApiResponse,
-  optionsOfCommon,
-  serviceOfTest,
-}: Options): TopicDomainModule {
-  const implOfRepository = optionsOfCommon.isTestModeEnabled
-    ? new TestTopicDomainRepositoryImpl({ factoryOfApiResponse, serviceOfTest })
-    : new TopicDomainRepositoryImpl({ apiClient });
+class Implementation implements TopicDomainModule {
+  private readonly implOfRepository: TopicDomainRepository;
 
-  function getRepository (): TopicDomainRepository {
-    return implOfRepository;
+  constructor ({
+    apiClient,
+    factoryOfApiResponse,
+    optionsOfCommon,
+    serviceOfTest,
+  }: Options) {
+    this.implOfRepository = optionsOfCommon.isTestModeEnabled
+      ? createTestTopicDomainRepository({ factoryOfApiResponse, serviceOfTest })
+      : createTopicDomainRepository({ apiClient });
   }
 
-  return { getRepository };
+  getRepository (): TopicDomainRepository {
+    return this.implOfRepository;
+  }
+}
+
+export function createTopicDomainModule (options: Options): TopicDomainModule {
+  return new Implementation(options);
 }

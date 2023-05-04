@@ -53,9 +53,9 @@ export function createInstanceHooks ({
   });
 
   const hooksOfDomains = createDomainsHooks({
-    getArticleDomainRepository: modules.Domains.Article.getRepository,
-    getTopicDomainRepository: modules.Domains.Topic.getRepository,
-    hooksOfApiRequest: hooksOfData.Api.Request
+    hooksOfApiRequest: hooksOfData.Api.Request,
+    moduleOfArticleDomain: modules.Domains.Article,
+    moduleOfTopicDomain: modules.Domains.Topic,
   });
 
   return {

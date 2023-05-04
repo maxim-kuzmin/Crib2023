@@ -1,5 +1,7 @@
 import { type ShouldBeCanceled } from '../../../../../common';
-import { type TopicDomainItemGetOperationResponse } from '../Get';
+import { type TopicTypeEntity, type ApiRequestHandler } from '../../../../../data';
+import { type TopicDomainRepository } from '../../../TopicDomainRepository';
+import { type TopicDomainItemGetOperationOutput, type TopicDomainItemGetOperationResponse } from '../Get';
 import { type TopicDomainItemSaveOperationRequest } from './TopicDomainItemSaveOperationRequest';
 
 export interface TopicDomainItemSaveOperationRequestHandler {
@@ -7,4 +9,51 @@ export interface TopicDomainItemSaveOperationRequestHandler {
     request: TopicDomainItemSaveOperationRequest,
     shouldBeCanceled: ShouldBeCanceled
   ) => Promise<TopicDomainItemGetOperationResponse | null>;
+}
+
+interface Options {
+  apiRequestHandler: ApiRequestHandler;
+  repository: TopicDomainRepository;
+}
+
+class Implementation implements TopicDomainItemSaveOperationRequestHandler {
+  private readonly apiRequestHandler: ApiRequestHandler;
+  private readonly repository: TopicDomainRepository;
+
+  constructor (options: Options) {
+    this.apiRequestHandler = options.apiRequestHandler;
+    this.repository = options.repository;
+  }
+
+  async handle (
+    request: TopicDomainItemSaveOperationRequest,
+    shouldBeCanceled: ShouldBeCanceled
+  ): Promise<TopicDomainItemGetOperationResponse | null> {
+    return await this.apiRequestHandler.handleWithInputAndOutput<
+      TopicTypeEntity,
+      TopicDomainItemSaveOperationRequest,
+      TopicDomainItemGetOperationOutput,
+      TopicDomainItemGetOperationResponse
+    >(
+      request,
+      async () => {
+        const { name } = request.input;
+
+        const isInputValid = !!name;
+
+        if (isInputValid) {
+          return await this.repository.saveItem(request);
+        }
+
+        return null;
+      },
+      shouldBeCanceled
+    );
+  }
+}
+
+export function createTopicDomainItemSaveOperationRequestHandler (
+  options: Options
+): TopicDomainItemSaveOperationRequestHandler {
+  return new Implementation(options);
 }

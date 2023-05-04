@@ -41,5 +41,5 @@ export function createDomainsModules ({
   return {
     Article: moduleOfArticle,
     Topic: moduleOfTopic,
-  }
+  };
 }

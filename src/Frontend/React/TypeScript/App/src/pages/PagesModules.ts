@@ -22,5 +22,5 @@ export function createPagesModules ({
   return {
     Article: moduleOfArticle,
     Topic: moduleOfTopic,
-  }
+  };
 }

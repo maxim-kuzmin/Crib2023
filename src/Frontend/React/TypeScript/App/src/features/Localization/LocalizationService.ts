@@ -9,7 +9,7 @@ interface Options {
   readonly navigate: NavigateFunction;
 }
 
-export class LocalizationServiceImpl implements LocalizationService {
+class Implementation implements LocalizationService {
   private readonly i18n: i18n;
   private readonly navigate: NavigateFunction;
   private readonly searchParams: URLSearchParams;
@@ -59,4 +59,8 @@ export class LocalizationServiceImpl implements LocalizationService {
       this.navigate(0);
     });
   }
+}
+
+export function createLocalizationService (options: Options): LocalizationService {
+  return new Implementation(options);
 }

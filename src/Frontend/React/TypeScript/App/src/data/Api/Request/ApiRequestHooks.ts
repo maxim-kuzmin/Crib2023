@@ -1,7 +1,6 @@
 import { type OperationHandlerConfig } from '../../../common';
 import { type OperationHooks } from '../../../common/Operation/OperationHooks';
-import { type ApiRequestHandler } from '.';
-import { ApiRequestHandlerImpl } from './ApiRequestHandlerImpl';
+import { type ApiRequestHandler, createApiRequestHandler } from './ApiRequestHandler';
 
 export interface ApiRequestHooks {
   readonly useHandler: (config: OperationHandlerConfig) => ApiRequestHandler;
@@ -15,7 +14,7 @@ export function createApiRequestHooks ({
   hooksOfOperation
 }: Options): ApiRequestHooks {
   function useHandler (config: OperationHandlerConfig): ApiRequestHandler {
-    return new ApiRequestHandlerImpl({
+    return createApiRequestHandler({
       operationHandler: hooksOfOperation.useOperationHandler(config)
     });
   }

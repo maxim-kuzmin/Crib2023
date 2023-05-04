@@ -24,8 +24,8 @@ export interface LocalizationSetup {
   readonly run: () => void;
 }
 
-export function createLocalizationSetup (): LocalizationSetup {
-  function run () {
+class Implementation implements LocalizationSetup {
+  run () {
     i18next
     .use(Backend)
     .use(LanguageDetector)
@@ -60,6 +60,8 @@ export function createLocalizationSetup (): LocalizationSetup {
       ],
     });
   }
+}
 
-  return { run };
+export function createLocalizationSetup (): LocalizationSetup {
+  return new Implementation();
 }

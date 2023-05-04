@@ -4,12 +4,14 @@ export interface HttpModule {
   readonly getClient: () => HttpClient;
 }
 
-export function createHttpModule (): HttpModule {
-  const implOfClient = createHttpClient();
+class Implementation implements HttpModule {
+  private readonly client = createHttpClient();
 
-  function getClient (): HttpClient {
-    return implOfClient;
+  getClient (): HttpClient {
+    return this.client;
   }
+}
 
-  return { getClient };
+export function createHttpModule (): HttpModule {
+  return new Implementation();
 }

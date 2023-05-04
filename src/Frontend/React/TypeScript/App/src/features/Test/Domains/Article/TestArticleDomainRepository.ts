@@ -24,7 +24,7 @@ interface Options {
   readonly factoryOfApiResponse: ApiResponseFactory;
 }
 
-export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository {
+class Implementation implements ArticleDomainRepository {
   private readonly factoryOfApiResponse: ApiResponseFactory;
   private items: ArticleDomainEntityForItem[] = [];
   private readonly serviceOfTest: TestService;
@@ -156,4 +156,8 @@ export class TestArticleDomainRepositoryImpl implements ArticleDomainRepository 
 
     return await this.serviceOfTest.getDataAsync(() => result);
   }
+}
+
+export function createTestArticleDomainRepository (options: Options): ArticleDomainRepository {
+  return new Implementation(options);
 }

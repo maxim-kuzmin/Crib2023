@@ -11,5 +11,5 @@ export function createStoresHooks () {
     App: hooksOfApp,
     Article: hooksOfArticle,
     Topic: hooksOfTopic,
-  }
+  };
 }

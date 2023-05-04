@@ -32,7 +32,5 @@ function useComponent (): NotificationControlComponent {
   }
 
 export function createNotificationControlHooks (): NotificationControlHooks {
-  return {
-    useComponent
-  };
+  return { useComponent };
 }

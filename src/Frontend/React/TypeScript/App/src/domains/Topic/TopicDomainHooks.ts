@@ -1,5 +1,4 @@
 import { type ApiRequestHooks } from '../../data';
-import { type TopicDomainRepository } from './TopicDomainRepository';
 import {
   type TopicDomainTreeGetOperationRequestHandler,
   type TopicDomainItemDeleteOperationRequestHandler,
@@ -11,17 +10,18 @@ import {
   TopicDomainItemDeleteOperationRequestHandlerImpl
 } from './Operations/Item/Delete/TopicDomainItemDeleteOperationRequestHandlerImpl';
 import {
-  TopicDomainItemGetOperationRequestHandlerImpl
-} from './Operations/Item/Get/TopicDomainItemGetOperationRequestHandlerImpl';
+  createTopicDomainItemGetOperationRequestHandler
+} from './Operations/Item/Get/TopicDomainItemGetOperationRequestHandler';
 import {
-  TopicDomainItemSaveOperationRequestHandlerImpl
-} from './Operations/Item/Save/TopicDomainItemSaveOperationRequestHandlerImpl';
+  createTopicDomainItemSaveOperationRequestHandler
+} from './Operations/Item/Save/TopicDomainItemSaveOperationRequestHandler';
 import {
-  TopicDomainListGetOperationRequestHandlerImpl
-} from './Operations/List/Get/TopicDomainListGetOperationRequestHandlerImpl';
+  createTopicDomainListGetOperationRequestHandler
+} from './Operations/List/Get/TopicDomainListGetOperationRequestHandler';
 import {
-  TopicDomainTreeGetOperationRequestHandlerImpl
-} from './Operations/Tree/Get/TopicDomainTreeGetOperationRequestHandlerImpl';
+  createTopicDomainTreeGetOperationRequestHandler
+} from './Operations/Tree/Get/TopicDomainTreeGetOperationRequestHandler';
+import { type TopicDomainModule } from './TopicDomainModule';
 
 export interface TopicDomainHooks {
   readonly useItemDeleteOperationRequestHandler: () => TopicDomainItemDeleteOperationRequestHandler;
@@ -32,13 +32,13 @@ export interface TopicDomainHooks {
 }
 
 interface Options {
-  readonly getTopicDomainRepository: () => TopicDomainRepository;
   readonly hooksOfApiRequest: ApiRequestHooks;
+  readonly moduleOfTopicDomain: TopicDomainModule;
 }
 
 export function createTopicDomainHooks ({
   hooksOfApiRequest,
-  getTopicDomainRepository
+  moduleOfTopicDomain,
 }: Options): TopicDomainHooks {
   function useItemDeleteOperationRequestHandler (): TopicDomainItemDeleteOperationRequestHandler {
     return new TopicDomainItemDeleteOperationRequestHandlerImpl({
@@ -46,47 +46,47 @@ export function createTopicDomainHooks ({
         shouldBeLogged: true,
         shouldBeNotified: true
       }),
-      repository: getTopicDomainRepository()
+      repository: moduleOfTopicDomain.getRepository()
     });
   }
 
   function useItemGetOperationRequestHandler (): TopicDomainItemGetOperationRequestHandler {
-    return new TopicDomainItemGetOperationRequestHandlerImpl({
+    return createTopicDomainItemGetOperationRequestHandler({
       apiRequestHandler: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),
-      repository: getTopicDomainRepository()
+      repository: moduleOfTopicDomain.getRepository()
     });
   }
 
   function useItemSaveOperationRequestHandler (): TopicDomainItemSaveOperationRequestHandler {
-    return new TopicDomainItemSaveOperationRequestHandlerImpl({
+    return createTopicDomainItemSaveOperationRequestHandler({
       apiRequestHandler: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: true
       }),
-      repository: getTopicDomainRepository()
+      repository: moduleOfTopicDomain.getRepository()
     });
   }
 
   function useListGetOperationRequestHandler (): TopicDomainListGetOperationRequestHandler {
-    return new TopicDomainListGetOperationRequestHandlerImpl({
+    return createTopicDomainListGetOperationRequestHandler({
       apiRequestHandler: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),
-      repository: getTopicDomainRepository()
+      repository: moduleOfTopicDomain.getRepository()
     });
   }
 
   function useTreeGetOperationRequestHandler (): TopicDomainTreeGetOperationRequestHandler {
-    return new TopicDomainTreeGetOperationRequestHandlerImpl({
+    return createTopicDomainTreeGetOperationRequestHandler({
       apiRequestHandler: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),
-      repository: getTopicDomainRepository()
+      repository: moduleOfTopicDomain.getRepository()
     });
   }
 

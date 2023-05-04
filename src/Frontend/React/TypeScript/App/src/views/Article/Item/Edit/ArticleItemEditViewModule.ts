@@ -1,16 +1,17 @@
-import { type ArticleItemEditViewService } from './ArticleItemEditViewService';
-import { ArticleItemEditViewServiceImpl } from './ArticleItemEditViewServiceImpl';
+import { type ArticleItemEditViewService, createArticleItemEditViewService } from './ArticleItemEditViewService';
 
 export interface ArticleItemEditViewModule {
   readonly getService: () => ArticleItemEditViewService;
 }
 
-export function createArticleItemEditViewModule (): ArticleItemEditViewModule {
-  const implOfService = new ArticleItemEditViewServiceImpl();
+class Implementation implements ArticleItemEditViewModule {
+  private readonly implOfService = createArticleItemEditViewService();
 
-  function getService (): ArticleItemEditViewService {
-    return implOfService;
+  getService (): ArticleItemEditViewService {
+    return this.implOfService;
   }
+}
 
-  return { getService };
+export function createArticleItemEditViewModule (): ArticleItemEditViewModule {
+  return new Implementation();
 }
