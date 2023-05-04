@@ -15,9 +15,12 @@ import {
 import { useStoreSetActionDispatch } from './Hooks/Actions/Set/TopicTreeStoreSetActionDispatchHook';
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/TopicTreeStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/TopicTreeStoreStateHook';
-import { getTopicTreeStoreResourcePath } from './TopicTreeStoreResource';
-import { type TopicTreeStoreActionUnion } from './TopicTreeStoreActionUnion';
-import { TopicTreeStoreDispatchContext, TopicTreeStoreStateContext } from './Context/TopicTreeStoreContextDefinition';
+import {
+  TopicTreeStoreDispatchContext,
+  TopicTreeStoreStateContext,
+  type TopicTreeStoreActionUnion,
+  getTopicTreeStoreResourcePath,
+} from '.';
 
 export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {

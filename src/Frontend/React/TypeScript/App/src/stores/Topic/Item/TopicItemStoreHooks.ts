@@ -25,9 +25,12 @@ import {
 import { useStoreSetActionDispatch } from './Hooks/Actions/Set/TopicItemStoreSetActionDispatchHook';
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/TopicItemStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/TopicItemStoreStateHook';
-import { getTopicItemStoreResourcePath } from './TopicItemStoreResource';
-import { type TopicItemStoreActionUnion } from './TopicItemStoreActionUnion';
-import { TopicItemStoreDispatchContext, TopicItemStoreStateContext } from './Context/TopicItemStoreContextDefinition';
+import {
+  TopicItemStoreDispatchContext,
+  TopicItemStoreStateContext,
+  type TopicItemStoreActionUnion,
+  getTopicItemStoreResourcePath,
+} from '.';
 
 export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
