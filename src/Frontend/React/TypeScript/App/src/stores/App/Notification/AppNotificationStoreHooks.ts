@@ -1,7 +1,7 @@
 import { type Dispatch, useContext } from 'react';
 import { type AppNotificationStoreState, type AppNotificationStoreHooks } from '../../../features';
-import { AppNotificationStoreDispatchContext, AppNotificationStoreStateContext } from './AppNotificationStoreContext';
 import { type AppNotificationStoreActionUnion } from './AppNotificationStoreActionUnion';
+import { AppNotificationStoreDispatchContext, AppNotificationStoreStateContext } from './Context';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/AppNotificationStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/AppNotificationStoreClearActionOutputHook';
 import { useStoreSetActionDispatch } from './Hooks/Actions/Set/AppNotificationStoreSetActionDispatchHook';

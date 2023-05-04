@@ -17,7 +17,7 @@ import { useStoreSetActionOutput } from './Hooks/Actions/Set/TopicTreeStoreSetAc
 import { useStoreState } from './Hooks/TopicTreeStoreStateHook';
 import { getTopicTreeStoreResourcePath } from './TopicTreeStoreResource';
 import { type TopicTreeStoreActionUnion } from './TopicTreeStoreActionUnion';
-import { TopicTreeStoreDispatchContext, TopicTreeStoreStateContext } from './TopicTreeStoreContext';
+import { TopicTreeStoreDispatchContext, TopicTreeStoreStateContext } from './Context/TopicTreeStoreContextDefinition';
 
 export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {

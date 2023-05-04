@@ -27,7 +27,7 @@ import { useStoreSetActionOutput } from './Hooks/Actions/Set/TopicItemStoreSetAc
 import { useStoreState } from './Hooks/TopicItemStoreStateHook';
 import { getTopicItemStoreResourcePath } from './TopicItemStoreResource';
 import { type TopicItemStoreActionUnion } from './TopicItemStoreActionUnion';
-import { TopicItemStoreDispatchContext, TopicItemStoreStateContext } from './TopicItemStoreContext';
+import { TopicItemStoreDispatchContext, TopicItemStoreStateContext } from './Context/TopicItemStoreContextDefinition';
 
 export function createTopicItemStoreHooks (): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {

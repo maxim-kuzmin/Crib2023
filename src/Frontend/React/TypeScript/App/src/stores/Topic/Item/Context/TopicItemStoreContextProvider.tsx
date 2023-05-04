@@ -4,30 +4,30 @@ import React, {
   useReducer,
   useRef,
 } from 'react';
-import { useAppInstance } from '../../../app';
-import { OperationStatus } from '../../../common';
+import { useAppInstance } from '../../../../app';
+import { OperationStatus } from '../../../../common';
 import {
-  ArticleItemStoreSliceName,
-  type ArticleItemStoreState
-} from '../../../features';
-import { ArticleItemStoreActionType } from './ArticleItemStoreActionType';
-import { type ArticleItemStoreActionUnion } from './ArticleItemStoreActionUnion';
+  TopicItemStoreSliceName,
+  type TopicItemStoreState
+} from '../../../../features';
+import { TopicItemStoreActionType } from '../TopicItemStoreActionType';
+import { type TopicItemStoreActionUnion } from '../TopicItemStoreActionUnion';
 import {
-  ArticleItemStoreDispatchContext,
-  ArticleItemStoreStateContext
-} from './ArticleItemStoreContext';
+  TopicItemStoreDispatchContext,
+  TopicItemStoreStateContext
+} from './TopicItemStoreContextDefinition';
 
-export const ArticleItemStoreContextProvider: React.FC<PropsWithChildren> = memo(
-function ArticleItemStoreContextProvider ({
+export const TopicItemStoreContextProvider: React.FC<PropsWithChildren> = memo(
+function TopicItemStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
   const { modules } = useAppInstance();
 
   const initialState = useRef(
-    modules.Common.Store.getService().createInitialState<ArticleItemStoreState>(
-      [ArticleItemStoreSliceName.ArticleItemView],
+    modules.Common.Store.getService().createInitialState<TopicItemStoreState>(
+      [TopicItemStoreSliceName.TopicItemView],
       () => {
-        const result: ArticleItemStoreState = {
+        const result: TopicItemStoreState = {
           payloadOfDeleteAction: null,
           payloadOfDeleteCompletedAction: null,
           payloadOfLoadAction: null,
@@ -47,18 +47,18 @@ function ArticleItemStoreContextProvider ({
 
   const reducer = useRef(
     function (
-      stateMap: Map<string, ArticleItemStoreState>,
-      action: ArticleItemStoreActionUnion
-    ): Map<string, ArticleItemStoreState> {
-      const result = new Map<string, ArticleItemStoreState>(stateMap);
+      stateMap: Map<string, TopicItemStoreState>,
+      action: TopicItemStoreActionUnion
+    ): Map<string, TopicItemStoreState> {
+      const result = new Map<string, TopicItemStoreState>(stateMap);
       const { sliceName, type } = action;
       const state = result.get(sliceName)!;
 
       switch (type) {
-        case ArticleItemStoreActionType.Clear:
+        case TopicItemStoreActionType.Clear:
           result.set(sliceName, initialState.get(sliceName)!);
           break;
-        case ArticleItemStoreActionType.Delete:
+        case TopicItemStoreActionType.Delete:
           result.set(
             sliceName,
             {
@@ -68,7 +68,7 @@ function ArticleItemStoreContextProvider ({
             }
           );
           break;
-        case ArticleItemStoreActionType.DeleteCompleted:
+        case TopicItemStoreActionType.DeleteCompleted:
           result.set(
             sliceName,
             {
@@ -79,7 +79,7 @@ function ArticleItemStoreContextProvider ({
             }
           );
           break;
-        case ArticleItemStoreActionType.Load:
+        case TopicItemStoreActionType.Load:
           result.set(
             sliceName,
             {
@@ -89,7 +89,7 @@ function ArticleItemStoreContextProvider ({
             }
           );
           break;
-        case ArticleItemStoreActionType.LoadCompleted:
+        case TopicItemStoreActionType.LoadCompleted:
           result.set(
             sliceName,
             {
@@ -100,7 +100,7 @@ function ArticleItemStoreContextProvider ({
             }
           );
           break;
-        case ArticleItemStoreActionType.Save:
+        case TopicItemStoreActionType.Save:
           result.set(
             sliceName,
             {
@@ -110,7 +110,7 @@ function ArticleItemStoreContextProvider ({
             }
           );
           break;
-        case ArticleItemStoreActionType.SaveCompleted:
+        case TopicItemStoreActionType.SaveCompleted:
           result.set(
             sliceName,
             {
@@ -121,7 +121,7 @@ function ArticleItemStoreContextProvider ({
             }
           );
           break;
-        case ArticleItemStoreActionType.Set:
+        case TopicItemStoreActionType.Set:
           result.set(
             sliceName,
             {
@@ -139,10 +139,10 @@ function ArticleItemStoreContextProvider ({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <ArticleItemStoreStateContext.Provider value={state}>
-      <ArticleItemStoreDispatchContext.Provider value={dispatch}>
+    <TopicItemStoreStateContext.Provider value={state}>
+      <TopicItemStoreDispatchContext.Provider value={dispatch}>
         {children}
-      </ArticleItemStoreDispatchContext.Provider>
-    </ArticleItemStoreStateContext.Provider>
+      </TopicItemStoreDispatchContext.Provider>
+    </TopicItemStoreStateContext.Provider>
   );
 });

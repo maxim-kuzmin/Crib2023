@@ -4,30 +4,30 @@ import React, {
   useReducer,
   useRef,
 } from 'react';
-import { useAppInstance } from '../../../app';
-import { OperationStatus } from '../../../common';
+import { useAppInstance } from '../../../../app';
+import { OperationStatus } from '../../../../common';
 import {
-  TopicTreeStoreSliceName,
-  type TopicTreeStoreState
-} from '../../../features';
-import { TopicTreeStoreActionType } from './TopicTreeStoreActionType';
-import { type TopicTreeStoreActionUnion } from './TopicTreeStoreActionUnion';
+  ArticleListStoreSliceName,
+  type ArticleListStoreState
+} from '../../../../features';
+import { ArticleListStoreActionType } from '../ArticleListStoreActionType';
+import { type ArticleListStoreActionUnion } from '../ArticleListStoreActionUnion';
 import {
-  TopicTreeStoreDispatchContext,
-  TopicTreeStoreStateContext
-} from './TopicTreeStoreContext';
+  ArticleListStoreDispatchContext,
+  ArticleListStoreStateContext
+} from './ArticleListStoreContextDefinition';
 
-export const TopicTreeStoreContextProvider: React.FC<PropsWithChildren> = memo(
-function TopicTreeStoreContextProvider ({
+export const ArticleListStoreContextProvider: React.FC<PropsWithChildren> = memo(
+function ArticleListStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
   const { modules } = useAppInstance();
 
   const initialState = useRef(
-    modules.Common.Store.getService().createInitialState<TopicTreeStoreState>(
-      [TopicTreeStoreSliceName.TopicTreeView],
+    modules.Common.Store.getService().createInitialState<ArticleListStoreState>(
+      [ArticleListStoreSliceName.ArticleTableView],
       () => {
-        const result: TopicTreeStoreState = {
+        const result: ArticleListStoreState = {
           payloadOfLoadAction: null,
           payloadOfLoadCompletedAction: null,
           payloadOfSetAction: null,
@@ -41,18 +41,18 @@ function TopicTreeStoreContextProvider ({
 
   const reducer = useRef(
     function (
-      stateMap: Map<string, TopicTreeStoreState>,
-      action: TopicTreeStoreActionUnion
-    ): Map<string, TopicTreeStoreState> {
-      const result = new Map<string, TopicTreeStoreState>(stateMap);
+      stateMap: Map<string, ArticleListStoreState>,
+      action: ArticleListStoreActionUnion
+    ): Map<string, ArticleListStoreState> {
+      const result = new Map<string, ArticleListStoreState>(stateMap);
       const { sliceName, type } = action;
       const state = result.get(sliceName)!;
 
       switch (type) {
-        case TopicTreeStoreActionType.Clear:
+        case ArticleListStoreActionType.Clear:
           result.set(sliceName, initialState.get(sliceName)!);
           break;
-        case TopicTreeStoreActionType.Load:
+        case ArticleListStoreActionType.Load:
           result.set(
             sliceName,
             {
@@ -62,7 +62,7 @@ function TopicTreeStoreContextProvider ({
             }
           );
           break;
-        case TopicTreeStoreActionType.LoadCompleted:
+        case ArticleListStoreActionType.LoadCompleted:
           result.set(
             sliceName,
             {
@@ -73,7 +73,7 @@ function TopicTreeStoreContextProvider ({
             }
           );
           break;
-        case TopicTreeStoreActionType.Set:
+        case ArticleListStoreActionType.Set:
           result.set(
             sliceName,
             {
@@ -91,10 +91,10 @@ function TopicTreeStoreContextProvider ({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <TopicTreeStoreStateContext.Provider value={state}>
-      <TopicTreeStoreDispatchContext.Provider value={dispatch}>
+    <ArticleListStoreStateContext.Provider value={state}>
+      <ArticleListStoreDispatchContext.Provider value={dispatch}>
         {children}
-      </TopicTreeStoreDispatchContext.Provider>
-    </TopicTreeStoreStateContext.Provider>
+      </ArticleListStoreDispatchContext.Provider>
+    </ArticleListStoreStateContext.Provider>
   );
 });

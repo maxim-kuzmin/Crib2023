@@ -26,7 +26,7 @@ import { useStoreSetActionDispatch } from './Hooks/Actions/Set/ArticleItemStoreS
 import { useStoreSetActionOutput } from './Hooks/Actions/Set/ArticleItemStoreSetActionOutputHook';
 import { useStoreState } from './Hooks/ArticleItemStoreStateHook';
 import { getArticleItemStoreResourcePath } from './ArticleItemStoreResource';
-import { ArticleItemStoreDispatchContext, ArticleItemStoreStateContext } from './ArticleItemStoreContext';
+import { ArticleItemStoreDispatchContext, ArticleItemStoreStateContext } from './Context';
 import { type ArticleItemStoreActionUnion } from './ArticleItemStoreActionUnion';
 
 export function createArticleItemStoreHooks (): ArticleItemStoreHooks {

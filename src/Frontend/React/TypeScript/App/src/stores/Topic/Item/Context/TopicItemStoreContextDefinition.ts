@@ -1,6 +1,6 @@
 import { type Dispatch, createContext } from 'react';
-import { type TopicItemStoreState } from '../../../features';
-import { type TopicItemStoreActionUnion } from './TopicItemStoreActionUnion';
+import { type TopicItemStoreState } from '../../../../features';
+import { type TopicItemStoreActionUnion } from '../TopicItemStoreActionUnion';
 
 export const TopicItemStoreDispatchContext = createContext<
   Dispatch<TopicItemStoreActionUnion> | null

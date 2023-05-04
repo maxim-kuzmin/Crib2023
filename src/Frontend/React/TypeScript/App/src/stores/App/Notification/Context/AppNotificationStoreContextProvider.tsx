@@ -4,17 +4,17 @@ import React, {
   useReducer,
   useRef,
 } from 'react';
-import { useAppInstance } from '../../../app';
+import { useAppInstance } from '../../../../app';
 import {
   AppNotificationStoreSliceName,
   type AppNotificationStoreState
-} from '../../../features';
-import { AppNotificationStoreActionType } from './AppNotificationStoreActionType';
-import { type AppNotificationStoreActionUnion } from './AppNotificationStoreActionUnion';
+} from '../../../../features';
+import { AppNotificationStoreActionType } from '../AppNotificationStoreActionType';
+import { type AppNotificationStoreActionUnion } from '../AppNotificationStoreActionUnion';
 import {
   AppNotificationStoreDispatchContext,
   AppNotificationStoreStateContext
-} from './AppNotificationStoreContext';
+} from './AppNotificationStoreContextDefinition';
 
 export const AppNotificationStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function AppNotificationStoreContextProvider ({

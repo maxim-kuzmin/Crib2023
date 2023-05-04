@@ -17,7 +17,7 @@ import { useStoreSetActionOutput } from './Hooks/Actions/Set/ArticleListStoreSet
 import { useStoreState } from './Hooks/ArticleListStoreStateHook';
 import { getArticleListStoreResourcePath } from './ArticleListStoreResource';
 import { type ArticleListStoreActionUnion } from './ArticleListStoreActionUnion';
-import { ArticleListStoreDispatchContext, ArticleListStoreStateContext } from './ArticleListStoreContext';
+import { ArticleListStoreDispatchContext, ArticleListStoreStateContext } from './Context/ArticleListStoreContextDefinition';
 
 export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
