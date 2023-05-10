@@ -23,6 +23,7 @@
     "jest"
   ],
   "rules": {
+    "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/semi": "off",
     "@typescript-eslint/comma-dangle": "off",
     "@typescript-eslint/indent": "off",
