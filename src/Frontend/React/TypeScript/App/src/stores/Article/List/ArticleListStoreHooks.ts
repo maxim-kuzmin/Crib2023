@@ -66,7 +66,7 @@ export function useArticleListStoreDispatch (): Dispatch<ArticleListStoreActionU
 }
 
 export function useArticleListStoreState (
-  sliceName: string
+  storeKey: string
 ): ArticleListStoreState {
-  return useContext(ArticleListStoreStateContext)!.get(sliceName)!;
+  return useContext(ArticleListStoreStateContext)!.get(storeKey)!;
 }

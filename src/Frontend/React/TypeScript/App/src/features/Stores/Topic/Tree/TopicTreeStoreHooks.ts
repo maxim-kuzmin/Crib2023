@@ -21,39 +21,39 @@ export interface TopicTreeStoreHooks {
   readonly useResource: () => TopicTreeStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicTreeStoreClearActionOptions
   ) => TopicTreeStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: TopicTreeStoreClearActionInput
   ) => TopicTreeStoreClearActionOutput;
 
   readonly useStoreLoadActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicTreeStoreLoadActionOptions
   ) => TopicTreeStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: TopicTreeStoreLoadActionInput
   ) => TopicTreeStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicTreeStoreLoadCompletedActionOptions
   ) => TopicTreeStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicTreeStoreSetActionOptions
   ) => TopicTreeStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: TopicTreeStoreSetActionInput
   ) => TopicTreeStoreSetActionOutput;
 
-  readonly useStoreState: (sliceName: string) => TopicTreeStoreState;
+  readonly useStoreState: (storeKey: string) => TopicTreeStoreState;
 }

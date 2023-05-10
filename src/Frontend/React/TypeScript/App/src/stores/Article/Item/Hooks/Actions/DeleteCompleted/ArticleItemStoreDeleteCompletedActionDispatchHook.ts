@@ -14,18 +14,18 @@ interface Options {
   readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreDeleteCompletedActionPayload;
-  readonly sliceName: string;
+  readonly storeKey: string;
 }
 
 export function runDeleteCompletedAction ({
   callback,
   dispatch,
   payload,
-  sliceName
+  storeKey
 }: Options) {
   dispatch({
     payload,
-    sliceName,
+    storeKey,
     type: ArticleItemStoreActionType.DeleteCompleted
   });
 
@@ -35,7 +35,7 @@ export function runDeleteCompletedAction ({
 }
 
 export function useStoreDeleteCompletedActionDispatch (
-  sliceName: string,
+  storeKey: string,
   {
     callback,
     dispatchType,
@@ -51,7 +51,7 @@ export function useStoreDeleteCompletedActionDispatch (
           callback,
           dispatch,
           payload: payloadOfDeleteCompletedAction,
-          sliceName,
+          storeKey,
       });
       };
 
@@ -61,7 +61,7 @@ export function useStoreDeleteCompletedActionDispatch (
             callback,
             dispatch,
             payload: payloadOfDeleteCompletedAction,
-            sliceName,
+            storeKey,
           });
         }
       };
@@ -71,7 +71,7 @@ export function useStoreDeleteCompletedActionDispatch (
       dispatch,
       dispatchType,
       payloadOfDeleteCompletedAction,
-      sliceName
+      storeKey
     ]
   );
 
@@ -80,7 +80,7 @@ export function useStoreDeleteCompletedActionDispatch (
       callback,
       dispatch,
       payload,
-      sliceName
+      storeKey
     });
   }
 

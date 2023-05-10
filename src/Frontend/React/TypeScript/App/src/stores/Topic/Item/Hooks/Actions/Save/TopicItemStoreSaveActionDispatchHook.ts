@@ -27,7 +27,7 @@ interface Options {
   readonly resourceOfApiResponse: ApiResponseResource;
   readonly resourceOfTopicItemStore: TopicItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
-  readonly sliceName: string;
+  readonly storeKey: string;
 }
 
 async function runSaveAction ({
@@ -39,7 +39,7 @@ async function runSaveAction ({
   resourceOfApiResponse,
   resourceOfTopicItemStore,
   shouldBeCanceled,
-  sliceName,
+  storeKey,
 }: Options): Promise<void> {
   if (shouldBeCanceled()) {
     return;
@@ -48,7 +48,7 @@ async function runSaveAction ({
   dispatch({
     type: TopicItemStoreActionType.Save,
     payload,
-    sliceName
+    storeKey
   });
 
   const response = payload
@@ -73,12 +73,12 @@ async function runSaveAction ({
     callback,
     dispatch,
     payload: response,
-    sliceName
+    storeKey
   });
 }
 
 export function useStoreSaveActionDispatch (
-  sliceName: string,
+  storeKey: string,
   {
     callback,
     dispatchType,
@@ -114,7 +114,7 @@ export function useStoreSaveActionDispatch (
           resourceOfApiResponse,
           resourceOfTopicItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
-          sliceName
+          storeKey
         });
       }
 
@@ -129,7 +129,7 @@ export function useStoreSaveActionDispatch (
             resourceOfApiResponse,
             resourceOfTopicItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
-            sliceName
+            storeKey
             });
         } else {
           isCanceledInner = true;
@@ -146,7 +146,7 @@ export function useStoreSaveActionDispatch (
       requestHandler,
       resourceOfApiResponse,
       resourceOfTopicItemStore,
-      sliceName
+      storeKey
     ]
   );
 
@@ -163,7 +163,7 @@ export function useStoreSaveActionDispatch (
       resourceOfApiResponse,
       resourceOfTopicItemStore,
       shouldBeCanceled,
-      sliceName
+      storeKey
     });
   }
 

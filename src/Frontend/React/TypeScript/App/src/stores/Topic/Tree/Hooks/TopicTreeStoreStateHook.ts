@@ -1,6 +1,6 @@
 import { type TopicTreeStoreState } from '../../../../features';
 import { useTopicTreeStoreState } from '../TopicTreeStoreHooks';
 
-export function useStoreState (sliceName: string): TopicTreeStoreState {
-  return useTopicTreeStoreState(sliceName);
+export function useStoreState (storeKey: string): TopicTreeStoreState {
+  return useTopicTreeStoreState(storeKey);
 }

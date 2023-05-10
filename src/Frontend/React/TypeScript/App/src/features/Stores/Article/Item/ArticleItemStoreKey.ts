@@ -1,3 +1,3 @@
-export enum ArticleItemStoreSliceName {
+export enum ArticleItemStoreKey {
   ArticleItemView = 'ArticleItemView'
 }

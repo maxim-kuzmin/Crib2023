@@ -8,7 +8,7 @@ import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreSetActionDispatch } from './ArticleItemStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  sliceName: string,
+  storeKey: string,
   input: ArticleItemStoreSetActionInput
 ): ArticleItemStoreSetActionOutput {
   const { onActionCompleted } = input;
@@ -22,9 +22,9 @@ export function useStoreSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(storeKey, { callback });
 
-  const { payloadOfSetAction } = useStoreState(sliceName);
+  const { payloadOfSetAction } = useStoreState(storeKey);
 
   return {
     dispatchOfSetAction,

@@ -14,18 +14,18 @@ interface Options {
   readonly callback?: ArticleListStoreLoadCompletedActionCallback;
   readonly dispatch: Dispatch<ArticleListStoreActionUnion>;
   readonly payload: ArticleListStoreLoadCompletedActionPayload;
-  readonly sliceName: string;
+  readonly storeKey: string;
 }
 
 export function runLoadCompletedAction ({
   callback,
   dispatch,
   payload,
-  sliceName
+  storeKey
 }: Options) {
   dispatch({
     payload,
-    sliceName,
+    storeKey,
     type: ArticleListStoreActionType.LoadCompleted
   });
 
@@ -35,7 +35,7 @@ export function runLoadCompletedAction ({
 }
 
 export function useStoreLoadCompletedActionDispatch (
-  sliceName: string,
+  storeKey: string,
   {
     callback,
     dispatchType,
@@ -51,7 +51,7 @@ export function useStoreLoadCompletedActionDispatch (
           callback,
           dispatch,
           payload: payloadOfLoadCompletedAction,
-          sliceName
+          storeKey
         });
       };
 
@@ -61,7 +61,7 @@ export function useStoreLoadCompletedActionDispatch (
             callback,
             dispatch,
             payload: payloadOfLoadCompletedAction,
-            sliceName
+            storeKey
           });
         }
       };
@@ -71,7 +71,7 @@ export function useStoreLoadCompletedActionDispatch (
       dispatch,
       dispatchType,
       payloadOfLoadCompletedAction,
-      sliceName
+      storeKey
     ]
   );
 
@@ -80,7 +80,7 @@ export function useStoreLoadCompletedActionDispatch (
       callback,
       dispatch,
       payload,
-      sliceName
+      storeKey
     });
   }
 

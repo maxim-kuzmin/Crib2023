@@ -33,69 +33,69 @@ export interface TopicItemStoreHooks {
   readonly useResource: () => TopicItemStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicItemStoreClearActionOptions
   ) => TopicItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: TopicItemStoreClearActionInput
   ) => TopicItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicItemStoreDeleteActionOptions
   ) => TopicItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input?: TopicItemStoreDeleteActionInput
   ) => TopicItemStoreDeleteActionOutput;
 
   readonly useStoreDeleteCompletedActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicItemStoreDeleteCompletedActionOptions
   ) => TopicItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicItemStoreLoadActionOptions
   ) => TopicItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: TopicItemStoreLoadActionInput
   ) => TopicItemStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicItemStoreLoadCompletedActionOptions
   ) => TopicItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicItemStoreSaveActionOptions
   ) => TopicItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input?: TopicItemStoreSaveActionInput
   ) => TopicItemStoreSaveActionOutput;
 
   readonly useStoreSaveCompletedActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicItemStoreSaveCompletedActionOptions
   ) => TopicItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: TopicItemStoreSetActionOptions
   ) => TopicItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: TopicItemStoreSetActionInput
   ) => TopicItemStoreSetActionOutput;
 
-  readonly useStoreState: (sliceName: string) => TopicItemStoreState;
+  readonly useStoreState: (storeKey: string) => TopicItemStoreState;
 }

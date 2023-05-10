@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  ArticleItemStoreSliceName,
+  ArticleItemStoreKey,
   type ArticleItemStoreState
 } from '../../../../features';
 import { ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
@@ -25,7 +25,7 @@ function ArticleItemStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<ArticleItemStoreState>(
-      [ArticleItemStoreSliceName.ArticleItemView],
+      [ArticleItemStoreKey.ArticleItemView],
       () => {
         const result: ArticleItemStoreState = {
           payloadOfDeleteAction: null,
@@ -51,16 +51,16 @@ function ArticleItemStoreContextProvider ({
       action: ArticleItemStoreActionUnion
     ): Map<string, ArticleItemStoreState> {
       const result = new Map<string, ArticleItemStoreState>(stateMap);
-      const { sliceName, type } = action;
-      const state = result.get(sliceName)!;
+      const { storeKey, type } = action;
+      const state = result.get(storeKey)!;
 
       switch (type) {
         case ArticleItemStoreActionType.Clear:
-          result.set(sliceName, initialState.get(sliceName)!);
+          result.set(storeKey, initialState.get(storeKey)!);
           break;
         case ArticleItemStoreActionType.Delete:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfDeleteAction: action.payload,
@@ -70,7 +70,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.DeleteCompleted:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfDeleteCompletedAction: action.payload,
@@ -81,7 +81,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Load:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -91,7 +91,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.LoadCompleted:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -102,7 +102,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Save:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfSaveAction: action.payload,
@@ -112,7 +112,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.SaveCompleted:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfSaveCompletedAction: action.payload,
@@ -123,7 +123,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Set:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfSetAction: action.payload

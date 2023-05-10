@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  ArticleListStoreSliceName,
+  ArticleListStoreKey,
   type ArticleListStoreState
 } from '../../../../features';
 import { ArticleListStoreActionType } from '../ArticleListStoreActionType';
@@ -25,7 +25,7 @@ function ArticleListStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<ArticleListStoreState>(
-      [ArticleListStoreSliceName.ArticleTableView],
+      [ArticleListStoreKey.ArticleTableView],
       () => {
         const result: ArticleListStoreState = {
           payloadOfLoadAction: null,
@@ -45,16 +45,16 @@ function ArticleListStoreContextProvider ({
       action: ArticleListStoreActionUnion
     ): Map<string, ArticleListStoreState> {
       const result = new Map<string, ArticleListStoreState>(stateMap);
-      const { sliceName, type } = action;
-      const state = result.get(sliceName)!;
+      const { storeKey, type } = action;
+      const state = result.get(storeKey)!;
 
       switch (type) {
         case ArticleListStoreActionType.Clear:
-          result.set(sliceName, initialState.get(sliceName)!);
+          result.set(storeKey, initialState.get(storeKey)!);
           break;
         case ArticleListStoreActionType.Load:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -64,7 +64,7 @@ function ArticleListStoreContextProvider ({
           break;
         case ArticleListStoreActionType.LoadCompleted:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -75,7 +75,7 @@ function ArticleListStoreContextProvider ({
           break;
         case ArticleListStoreActionType.Set:
           result.set(
-            sliceName,
+            storeKey,
             {
               ...state,
               payloadOfSetAction: action.payload

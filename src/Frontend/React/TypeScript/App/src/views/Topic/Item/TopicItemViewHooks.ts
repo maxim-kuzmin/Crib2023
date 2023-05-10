@@ -10,7 +10,7 @@ import {
   type TopicItemStoreSetActionInput,
   type TopicItemStoreSetActionOutput,
   type TopicItemStoreHooks,
-  TopicItemStoreSliceName,
+  TopicItemStoreKey,
   type TopicItemStoreState,
 } from '../../../features';
 
@@ -45,30 +45,30 @@ interface Options {
 export function createTopicItemViewHooks ({
   hooksOfTopicItemStore
 }: Options): TopicItemViewHooks {
-  const sliceName = TopicItemStoreSliceName.TopicItemView;
+  const storeKey = TopicItemStoreKey.TopicItemView;
 
   function useStoreClearActionOutput (input: TopicItemStoreClearActionInput): TopicItemStoreClearActionOutput {
-    return hooksOfTopicItemStore.useStoreClearActionOutput(sliceName, input);
+    return hooksOfTopicItemStore.useStoreClearActionOutput(storeKey, input);
   }
 
   function useStoreDeleteActionOutput (input?: TopicItemStoreDeleteActionInput): TopicItemStoreDeleteActionOutput {
-    return hooksOfTopicItemStore.useStoreDeleteActionOutput(sliceName, input);
+    return hooksOfTopicItemStore.useStoreDeleteActionOutput(storeKey, input);
   }
 
   function useStoreLoadActionOutput (input: TopicItemStoreLoadActionInput): TopicItemStoreLoadActionOutput {
-    return hooksOfTopicItemStore.useStoreLoadActionOutput(sliceName, input);
+    return hooksOfTopicItemStore.useStoreLoadActionOutput(storeKey, input);
   }
 
   function useStoreSaveActionOutput (input?: TopicItemStoreSaveActionInput): TopicItemStoreSaveActionOutput {
-    return hooksOfTopicItemStore.useStoreSaveActionOutput(sliceName, input);
+    return hooksOfTopicItemStore.useStoreSaveActionOutput(storeKey, input);
   }
 
   function useStoreSetActionOutput (input: TopicItemStoreSetActionInput): TopicItemStoreSetActionOutput {
-    return hooksOfTopicItemStore.useStoreSetActionOutput(sliceName, input);
+    return hooksOfTopicItemStore.useStoreSetActionOutput(storeKey, input);
   }
 
   function useStoreState (): TopicItemStoreState {
-    return hooksOfTopicItemStore.useStoreState(sliceName);
+    return hooksOfTopicItemStore.useStoreState(storeKey);
   }
 
   return {

@@ -21,39 +21,39 @@ export interface ArticleListStoreHooks {
   readonly useResource: () => ArticleListStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleListStoreClearActionOptions
   ) => ArticleListStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: ArticleListStoreClearActionInput
   ) => ArticleListStoreClearActionOutput;
 
   readonly useStoreLoadActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleListStoreLoadActionOptions
   ) => ArticleListStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: ArticleListStoreLoadActionInput
   ) => ArticleListStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleListStoreLoadCompletedActionOptions
   ) => ArticleListStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleListStoreSetActionOptions
   ) => ArticleListStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: ArticleListStoreSetActionInput
   ) => ArticleListStoreSetActionOutput;
 
-  readonly useStoreState: (sliceName: string) => ArticleListStoreState;
+  readonly useStoreState: (storeKey: string) => ArticleListStoreState;
 }

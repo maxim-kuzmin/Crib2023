@@ -12,7 +12,7 @@ import {
   type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreHooks,
-  ArticleItemStoreSliceName,
+  ArticleItemStoreKey,
   type ArticleItemStoreState,
 } from '../../../features';
 import {
@@ -90,30 +90,30 @@ export function createArticleItemViewHooks ({
     );
   }
 
-  const sliceName = ArticleItemStoreSliceName.ArticleItemView;
+  const storeKey = ArticleItemStoreKey.ArticleItemView;
 
   function useStoreClearActionOutput (input: ArticleItemStoreClearActionInput): ArticleItemStoreClearActionOutput {
-    return hooksOfArticleItemStore.useStoreClearActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreClearActionOutput(storeKey, input);
   }
 
   function useStoreDeleteActionOutput (input?: ArticleItemStoreDeleteActionInput): ArticleItemStoreDeleteActionOutput {
-    return hooksOfArticleItemStore.useStoreDeleteActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreDeleteActionOutput(storeKey, input);
   }
 
   function useStoreLoadActionOutput (input: ArticleItemStoreLoadActionInput): ArticleItemStoreLoadActionOutput {
-    return hooksOfArticleItemStore.useStoreLoadActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreLoadActionOutput(storeKey, input);
   }
 
   function useStoreSaveActionOutput (input?: ArticleItemStoreSaveActionInput): ArticleItemStoreSaveActionOutput {
-    return hooksOfArticleItemStore.useStoreSaveActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreSaveActionOutput(storeKey, input);
   }
 
   function useStoreSetActionOutput (input: ArticleItemStoreSetActionInput): ArticleItemStoreSetActionOutput {
-    return hooksOfArticleItemStore.useStoreSetActionOutput(sliceName, input);
+    return hooksOfArticleItemStore.useStoreSetActionOutput(storeKey, input);
   }
 
   function useStoreState (): ArticleItemStoreState {
-    return hooksOfArticleItemStore.useStoreState(sliceName);
+    return hooksOfArticleItemStore.useStoreState(storeKey);
   }
 
   return {

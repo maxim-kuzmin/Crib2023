@@ -1,3 +1,3 @@
-export enum AppNotificationStoreSliceName {
+export enum AppNotificationStoreKey {
   AppNotificationView = 'AppNotificationView'
 }

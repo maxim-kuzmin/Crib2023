@@ -1,3 +1,3 @@
 export interface StoreAction {
-  sliceName: string;
+  storeKey: string;
 }

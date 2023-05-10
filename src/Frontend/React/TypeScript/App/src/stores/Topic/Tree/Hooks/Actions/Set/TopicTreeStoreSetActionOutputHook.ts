@@ -8,7 +8,7 @@ import { useStoreState } from '../../TopicTreeStoreStateHook';
 import { useStoreSetActionDispatch } from './TopicTreeStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  sliceName: string,
+  storeKey: string,
   input: TopicTreeStoreSetActionInput
 ): TopicTreeStoreSetActionOutput {
   const { onActionCompleted } = input;
@@ -22,9 +22,9 @@ export function useStoreSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(storeKey, { callback });
 
-  const { payloadOfSetAction } = useStoreState(sliceName);
+  const { payloadOfSetAction } = useStoreState(storeKey);
 
   return {
     dispatchOfSetAction,

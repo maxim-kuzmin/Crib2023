@@ -7,7 +7,7 @@ import {
 import { useStoreClearActionDispatch } from './TopicTreeStoreClearActionDispatchHook';
 
 export function useStoreClearActionOutput (
-  sliceName: string,
+  storeKey: string,
   input: TopicTreeStoreClearActionInput
 ): TopicTreeStoreClearActionOutput {
   const { onActionCompleted } = input;
@@ -22,7 +22,7 @@ export function useStoreClearActionOutput (
   );
 
   const dispatchOfClearAction = useStoreClearActionDispatch(
-    sliceName,
+    storeKey,
     {
       callback,
       dispatchType: StoreDispatchType.Unmount

@@ -14,18 +14,18 @@ interface Options {
   readonly callback?: TopicItemStoreSetActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreSetActionPayload;
-  readonly sliceName: string;
+  readonly storeKey: string;
 }
 
 function runSetAction ({
   callback,
   dispatch,
   payload,
-  sliceName
+  storeKey
 }: Options) {
   dispatch({
     payload,
-    sliceName,
+    storeKey,
     type: TopicItemStoreActionType.Set
   });
 
@@ -35,7 +35,7 @@ function runSetAction ({
 }
 
 export function useStoreSetActionDispatch (
-  sliceName: string,
+  storeKey: string,
   {
     callback,
     dispatchType,
@@ -51,7 +51,7 @@ export function useStoreSetActionDispatch (
           callback,
           dispatch,
           payload: payloadOfSetAction,
-          sliceName
+          storeKey
         });
       };
 
@@ -61,7 +61,7 @@ export function useStoreSetActionDispatch (
             callback,
             dispatch,
             payload: payloadOfSetAction,
-            sliceName
+            storeKey
           });
         }
       };
@@ -71,7 +71,7 @@ export function useStoreSetActionDispatch (
       dispatch,
       dispatchType,
       payloadOfSetAction,
-      sliceName
+      storeKey
     ]
   );
 
@@ -80,7 +80,7 @@ export function useStoreSetActionDispatch (
       callback,
       dispatch,
       payload,
-      sliceName
+      storeKey
     });
   }
 

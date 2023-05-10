@@ -33,69 +33,69 @@ export interface ArticleItemStoreHooks {
   readonly useResource: () => ArticleItemStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleItemStoreClearActionOptions
   ) => ArticleItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: ArticleItemStoreClearActionInput
   ) => ArticleItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleItemStoreDeleteActionOptions
   ) => ArticleItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input?: ArticleItemStoreDeleteActionInput
   ) => ArticleItemStoreDeleteActionOutput;
 
   readonly useStoreDeleteCompletedActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleItemStoreDeleteCompletedActionOptions
   ) => ArticleItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleItemStoreLoadActionOptions
   ) => ArticleItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: ArticleItemStoreLoadActionInput
   ) => ArticleItemStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleItemStoreLoadCompletedActionOptions
   ) => ArticleItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleItemStoreSaveActionOptions
   ) => ArticleItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input?: ArticleItemStoreSaveActionInput
   ) => ArticleItemStoreSaveActionOutput;
 
   readonly useStoreSaveCompletedActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleItemStoreSaveCompletedActionOptions
   ) => ArticleItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    sliceName: string,
+    storeKey: string,
     options: ArticleItemStoreSetActionOptions
   ) => ArticleItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    sliceName: string,
+    storeKey: string,
     input: ArticleItemStoreSetActionInput
   ) => ArticleItemStoreSetActionOutput;
 
-  readonly useStoreState: (sliceName: string) => ArticleItemStoreState;
+  readonly useStoreState: (storeKey: string) => ArticleItemStoreState;
 }

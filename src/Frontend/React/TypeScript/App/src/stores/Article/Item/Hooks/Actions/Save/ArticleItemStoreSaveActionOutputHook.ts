@@ -9,7 +9,7 @@ import { useStoreSaveActionDispatch } from './ArticleItemStoreSaveActionDispatch
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 
 export function useStoreSaveActionOutput (
-  sliceName: string,
+  storeKey: string,
   input: ArticleItemStoreSaveActionInput = {}
 ): ArticleItemStoreSaveActionOutput {
   const { onActionCompleted } = input;
@@ -23,9 +23,9 @@ export function useStoreSaveActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSaveAction = useStoreSaveActionDispatch(sliceName, { callback });
+  const dispatchOfSaveAction = useStoreSaveActionDispatch(storeKey, { callback });
 
-  const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(sliceName);
+  const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(storeKey);
 
   return {
     dispatchOfSaveAction,

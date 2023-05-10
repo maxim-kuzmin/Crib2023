@@ -88,7 +88,7 @@ export function useArticleItemStoreDispatch (): Dispatch<ArticleItemStoreActionU
 }
 
 export function useArticleItemStoreState (
-  sliceName: string
+  storeKey: string
 ): ArticleItemStoreState {
-  return useContext(ArticleItemStoreStateContext)!.get(sliceName)!;
+  return useContext(ArticleItemStoreStateContext)!.get(storeKey)!;
 }

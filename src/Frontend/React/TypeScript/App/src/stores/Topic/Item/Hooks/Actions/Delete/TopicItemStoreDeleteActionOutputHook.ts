@@ -9,7 +9,7 @@ import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreDeleteActionDispatch } from './TopicItemStoreDeleteActionDispatchHook';
 
 export function useStoreDeleteActionOutput (
-  sliceName: string,
+  storeKey: string,
   input: TopicItemStoreDeleteActionInput = {}
 ): TopicItemStoreDeleteActionOutput {
   const { onActionCompleted } = input;
@@ -23,9 +23,9 @@ export function useStoreDeleteActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(sliceName, { callback });
+  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(storeKey, { callback });
 
-  const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(sliceName);
+  const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(storeKey);
 
   return {
     dispatchOfDeleteAction,

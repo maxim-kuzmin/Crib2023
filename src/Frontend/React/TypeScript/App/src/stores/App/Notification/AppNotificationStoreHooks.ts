@@ -26,7 +26,7 @@ export function useAppNotificationStoreDispatch (): Dispatch<AppNotificationStor
 }
 
 export function useAppNotificationStoreState (
-  sliceName: string
+  storeKey: string
 ): AppNotificationStoreState {
-  return useContext(AppNotificationStoreStateContext)!.get(sliceName)!;
+  return useContext(AppNotificationStoreStateContext)!.get(storeKey)!;
 }
