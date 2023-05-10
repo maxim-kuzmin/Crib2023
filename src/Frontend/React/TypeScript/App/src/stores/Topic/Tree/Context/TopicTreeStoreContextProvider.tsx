@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  TopicTreeStoreKey,
+  TopicTreeStoreOwner,
   type TopicTreeStoreState
 } from '../../../../features';
 import { TopicTreeStoreActionType } from '../TopicTreeStoreActionType';
@@ -25,7 +25,7 @@ function TopicTreeStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<TopicTreeStoreState>(
-      [TopicTreeStoreKey.TopicTreeView],
+      [TopicTreeStoreOwner.TopicTreeView],
       () => {
         const result: TopicTreeStoreState = {
           payloadOfLoadAction: null,
@@ -45,16 +45,16 @@ function TopicTreeStoreContextProvider ({
       action: TopicTreeStoreActionUnion
     ): Map<string, TopicTreeStoreState> {
       const result = new Map<string, TopicTreeStoreState>(stateMap);
-      const { storeKey, type } = action;
-      const state = result.get(storeKey)!;
+      const { owner, type } = action;
+      const state = result.get(owner)!;
 
       switch (type) {
         case TopicTreeStoreActionType.Clear:
-          result.set(storeKey, initialState.get(storeKey)!);
+          result.set(owner, initialState.get(owner)!);
           break;
         case TopicTreeStoreActionType.Load:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -64,7 +64,7 @@ function TopicTreeStoreContextProvider ({
           break;
         case TopicTreeStoreActionType.LoadCompleted:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -75,7 +75,7 @@ function TopicTreeStoreContextProvider ({
           break;
         case TopicTreeStoreActionType.Set:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfSetAction: action.payload

@@ -88,7 +88,7 @@ export function useArticleItemStoreDispatch (): Dispatch<ArticleItemStoreActionU
 }
 
 export function useArticleItemStoreState (
-  storeKey: string
+  owner: string
 ): ArticleItemStoreState {
-  return useContext(ArticleItemStoreStateContext)!.get(storeKey)!;
+  return useContext(ArticleItemStoreStateContext)!.get(owner)!;
 }

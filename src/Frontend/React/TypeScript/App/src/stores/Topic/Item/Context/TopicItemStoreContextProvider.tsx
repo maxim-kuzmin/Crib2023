@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  TopicItemStoreKey,
+  TopicItemStoreOwner,
   type TopicItemStoreState
 } from '../../../../features';
 import { TopicItemStoreActionType } from '../TopicItemStoreActionType';
@@ -25,7 +25,7 @@ function TopicItemStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<TopicItemStoreState>(
-      [TopicItemStoreKey.TopicItemView],
+      [TopicItemStoreOwner.TopicItemView],
       () => {
         const result: TopicItemStoreState = {
           payloadOfDeleteAction: null,
@@ -51,16 +51,16 @@ function TopicItemStoreContextProvider ({
       action: TopicItemStoreActionUnion
     ): Map<string, TopicItemStoreState> {
       const result = new Map<string, TopicItemStoreState>(stateMap);
-      const { storeKey, type } = action;
-      const state = result.get(storeKey)!;
+      const { owner, type } = action;
+      const state = result.get(owner)!;
 
       switch (type) {
         case TopicItemStoreActionType.Clear:
-          result.set(storeKey, initialState.get(storeKey)!);
+          result.set(owner, initialState.get(owner)!);
           break;
         case TopicItemStoreActionType.Delete:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfDeleteAction: action.payload,
@@ -70,7 +70,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.DeleteCompleted:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfDeleteCompletedAction: action.payload,
@@ -81,7 +81,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.Load:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -91,7 +91,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.LoadCompleted:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -102,7 +102,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.Save:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfSaveAction: action.payload,
@@ -112,7 +112,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.SaveCompleted:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfSaveCompletedAction: action.payload,
@@ -123,7 +123,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.Set:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfSetAction: action.payload

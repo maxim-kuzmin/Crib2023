@@ -14,18 +14,18 @@ interface Options {
   readonly callback?: TopicItemStoreSaveCompletedActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreSaveCompletedActionPayload;
-  readonly storeKey: string;
+  readonly owner: string;
 }
 
 export function runSaveCompletedAction ({
   callback,
   dispatch,
   payload,
-  storeKey
+  owner
 }: Options) {
   dispatch({
     payload,
-    storeKey,
+    owner,
     type: TopicItemStoreActionType.SaveCompleted
   });
 
@@ -35,7 +35,7 @@ export function runSaveCompletedAction ({
 }
 
 export function useStoreSaveCompletedActionDispatch (
-  storeKey: string,
+  owner: string,
   {
     callback,
     dispatchType,
@@ -51,7 +51,7 @@ export function useStoreSaveCompletedActionDispatch (
           callback,
           dispatch,
           payload: payloadOfSaveCompletedAction,
-          storeKey
+          owner
         });
       };
 
@@ -61,7 +61,7 @@ export function useStoreSaveCompletedActionDispatch (
             callback,
             dispatch,
             payload: payloadOfSaveCompletedAction,
-            storeKey
+            owner
           });
         }
       };
@@ -71,7 +71,7 @@ export function useStoreSaveCompletedActionDispatch (
       dispatch,
       dispatchType,
       payloadOfSaveCompletedAction,
-      storeKey
+      owner
     ]
   );
 
@@ -80,7 +80,7 @@ export function useStoreSaveCompletedActionDispatch (
       callback,
       dispatch,
       payload,
-      storeKey,
+      owner,
     });
   }
 

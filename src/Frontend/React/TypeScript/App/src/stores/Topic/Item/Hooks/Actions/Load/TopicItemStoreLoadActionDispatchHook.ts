@@ -27,7 +27,7 @@ interface Options {
   readonly resourceOfApiResponse: ApiResponseResource;
   readonly resourceOfTopicItemStore: TopicItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
-  readonly storeKey: string;
+  readonly owner: string;
 }
 
 async function runLoadAction ({
@@ -39,7 +39,7 @@ async function runLoadAction ({
   resourceOfApiResponse,
   resourceOfTopicItemStore,
   shouldBeCanceled,
-  storeKey,
+  owner,
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -47,7 +47,7 @@ async function runLoadAction ({
 
   dispatch({
     payload,
-    storeKey,
+    owner,
     type: TopicItemStoreActionType.Load
   });
 
@@ -73,12 +73,12 @@ async function runLoadAction ({
     callback,
     dispatch,
     payload: response,
-    storeKey
+    owner
   });
 }
 
 export function useStoreLoadActionDispatch (
-  storeKey: string,
+  owner: string,
   {
     callback,
     dispatchType,
@@ -114,7 +114,7 @@ export function useStoreLoadActionDispatch (
           resourceOfApiResponse,
           resourceOfTopicItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
-          storeKey
+          owner
         });
       }
 
@@ -129,7 +129,7 @@ export function useStoreLoadActionDispatch (
             resourceOfApiResponse,
             resourceOfTopicItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
-            storeKey
+            owner
             });
         } else {
           isCanceledInner = true;
@@ -146,7 +146,7 @@ export function useStoreLoadActionDispatch (
       requestHandler,
       resourceOfApiResponse,
       resourceOfTopicItemStore,
-      storeKey
+      owner
     ]
   );
 
@@ -163,7 +163,7 @@ export function useStoreLoadActionDispatch (
       resourceOfApiResponse,
       resourceOfTopicItemStore,
       shouldBeCanceled,
-      storeKey
+      owner
     });
   }
 

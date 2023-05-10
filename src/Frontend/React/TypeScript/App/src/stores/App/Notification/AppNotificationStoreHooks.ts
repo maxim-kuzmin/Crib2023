@@ -26,7 +26,7 @@ export function useAppNotificationStoreDispatch (): Dispatch<AppNotificationStor
 }
 
 export function useAppNotificationStoreState (
-  storeKey: string
+  owner: string
 ): AppNotificationStoreState {
-  return useContext(AppNotificationStoreStateContext)!.get(storeKey)!;
+  return useContext(AppNotificationStoreStateContext)!.get(owner)!;
 }

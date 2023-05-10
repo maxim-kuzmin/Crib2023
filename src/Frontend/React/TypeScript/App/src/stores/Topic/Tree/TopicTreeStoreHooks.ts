@@ -69,7 +69,7 @@ export function useTopicTreeStoreDispatch (): Dispatch<TopicTreeStoreActionUnion
 }
 
 export function useTopicTreeStoreState (
-  storeKey: string
+  owner: string
 ): TopicTreeStoreState {
-  return useContext(TopicTreeStoreStateContext)!.get(storeKey)!;
+  return useContext(TopicTreeStoreStateContext)!.get(owner)!;
 }

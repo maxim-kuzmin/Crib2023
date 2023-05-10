@@ -9,7 +9,7 @@ import { useStoreState } from '../../ArticleListStoreStateHook';
 import { useStoreLoadActionDispatch } from './ArticleListStoreLoadActionDispatchHook';
 
 export function useStoreLoadActionOutput (
-  storeKey: string,
+  owner: string,
   input: ArticleListStoreLoadActionInput
 ): ArticleListStoreLoadActionOutput {
   const { isCanceled, onActionCompleted, payloadOfLoadAction } = input;
@@ -24,7 +24,7 @@ export function useStoreLoadActionOutput (
   );
 
   const dispatchOfLoadAction = useStoreLoadActionDispatch(
-    storeKey,
+    owner,
     {
       callback,
       dispatchType: StoreDispatchType.MountOrUpdate,
@@ -33,7 +33,7 @@ export function useStoreLoadActionOutput (
     }
   );
 
-  const { payloadOfLoadCompletedAction, statusOfLoadAction } = useStoreState(storeKey);
+  const { payloadOfLoadCompletedAction, statusOfLoadAction } = useStoreState(owner);
 
   return {
     dispatchOfLoadAction,

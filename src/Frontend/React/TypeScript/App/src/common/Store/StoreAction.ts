@@ -1,3 +1,3 @@
 export interface StoreAction {
-  storeKey: string;
+  owner: string;
 }

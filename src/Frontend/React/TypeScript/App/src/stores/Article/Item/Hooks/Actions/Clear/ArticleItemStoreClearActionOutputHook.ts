@@ -7,7 +7,7 @@ import {
 import { useStoreClearActionDispatch } from './ArticleItemStoreClearActionDispatchHook';
 
 export function useStoreClearActionOutput (
-  storeKey: string,
+  owner: string,
   input: ArticleItemStoreClearActionInput
 ): ArticleItemStoreClearActionOutput {
   const { onActionCompleted } = input;
@@ -22,7 +22,7 @@ export function useStoreClearActionOutput (
   );
 
   const dispatchOfClearAction = useStoreClearActionDispatch(
-    storeKey,
+    owner,
     {
       callback,
       dispatchType: StoreDispatchType.Unmount

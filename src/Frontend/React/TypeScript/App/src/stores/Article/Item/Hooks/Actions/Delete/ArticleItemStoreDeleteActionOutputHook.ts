@@ -9,7 +9,7 @@ import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreDeleteActionDispatch } from './ArticleItemStoreDeleteActionDispatchHook';
 
 export function useStoreDeleteActionOutput (
-  storeKey: string,
+  owner: string,
   input: ArticleItemStoreDeleteActionInput = {}
 ): ArticleItemStoreDeleteActionOutput {
   const { onActionCompleted } = input;
@@ -23,9 +23,9 @@ export function useStoreDeleteActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(storeKey, { callback });
+  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(owner, { callback });
 
-  const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(storeKey);
+  const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(owner);
 
   return {
     dispatchOfDeleteAction,

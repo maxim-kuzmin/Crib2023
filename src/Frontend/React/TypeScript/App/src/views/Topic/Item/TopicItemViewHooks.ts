@@ -10,7 +10,7 @@ import {
   type TopicItemStoreSetActionInput,
   type TopicItemStoreSetActionOutput,
   type TopicItemStoreHooks,
-  TopicItemStoreKey,
+  TopicItemStoreOwner,
   type TopicItemStoreState,
 } from '../../../features';
 
@@ -45,30 +45,30 @@ interface Options {
 export function createTopicItemViewHooks ({
   hooksOfTopicItemStore
 }: Options): TopicItemViewHooks {
-  const storeKey = TopicItemStoreKey.TopicItemView;
+  const owner = TopicItemStoreOwner.TopicItemView;
 
   function useStoreClearActionOutput (input: TopicItemStoreClearActionInput): TopicItemStoreClearActionOutput {
-    return hooksOfTopicItemStore.useStoreClearActionOutput(storeKey, input);
+    return hooksOfTopicItemStore.useStoreClearActionOutput(owner, input);
   }
 
   function useStoreDeleteActionOutput (input?: TopicItemStoreDeleteActionInput): TopicItemStoreDeleteActionOutput {
-    return hooksOfTopicItemStore.useStoreDeleteActionOutput(storeKey, input);
+    return hooksOfTopicItemStore.useStoreDeleteActionOutput(owner, input);
   }
 
   function useStoreLoadActionOutput (input: TopicItemStoreLoadActionInput): TopicItemStoreLoadActionOutput {
-    return hooksOfTopicItemStore.useStoreLoadActionOutput(storeKey, input);
+    return hooksOfTopicItemStore.useStoreLoadActionOutput(owner, input);
   }
 
   function useStoreSaveActionOutput (input?: TopicItemStoreSaveActionInput): TopicItemStoreSaveActionOutput {
-    return hooksOfTopicItemStore.useStoreSaveActionOutput(storeKey, input);
+    return hooksOfTopicItemStore.useStoreSaveActionOutput(owner, input);
   }
 
   function useStoreSetActionOutput (input: TopicItemStoreSetActionInput): TopicItemStoreSetActionOutput {
-    return hooksOfTopicItemStore.useStoreSetActionOutput(storeKey, input);
+    return hooksOfTopicItemStore.useStoreSetActionOutput(owner, input);
   }
 
   function useStoreState (): TopicItemStoreState {
-    return hooksOfTopicItemStore.useStoreState(storeKey);
+    return hooksOfTopicItemStore.useStoreState(owner);
   }
 
   return {

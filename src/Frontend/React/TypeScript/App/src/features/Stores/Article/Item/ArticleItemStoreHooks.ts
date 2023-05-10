@@ -33,69 +33,69 @@ export interface ArticleItemStoreHooks {
   readonly useResource: () => ArticleItemStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    storeKey: string,
+    owner: string,
     options: ArticleItemStoreClearActionOptions
   ) => ArticleItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    storeKey: string,
+    owner: string,
     input: ArticleItemStoreClearActionInput
   ) => ArticleItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionDispatch: (
-    storeKey: string,
+    owner: string,
     options: ArticleItemStoreDeleteActionOptions
   ) => ArticleItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
-    storeKey: string,
+    owner: string,
     input?: ArticleItemStoreDeleteActionInput
   ) => ArticleItemStoreDeleteActionOutput;
 
   readonly useStoreDeleteCompletedActionDispatch: (
-    storeKey: string,
+    owner: string,
     options: ArticleItemStoreDeleteCompletedActionOptions
   ) => ArticleItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
-    storeKey: string,
+    owner: string,
     options: ArticleItemStoreLoadActionOptions
   ) => ArticleItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    storeKey: string,
+    owner: string,
     input: ArticleItemStoreLoadActionInput
   ) => ArticleItemStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    storeKey: string,
+    owner: string,
     options: ArticleItemStoreLoadCompletedActionOptions
   ) => ArticleItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
-    storeKey: string,
+    owner: string,
     options: ArticleItemStoreSaveActionOptions
   ) => ArticleItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
-    storeKey: string,
+    owner: string,
     input?: ArticleItemStoreSaveActionInput
   ) => ArticleItemStoreSaveActionOutput;
 
   readonly useStoreSaveCompletedActionDispatch: (
-    storeKey: string,
+    owner: string,
     options: ArticleItemStoreSaveCompletedActionOptions
   ) => ArticleItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    storeKey: string,
+    owner: string,
     options: ArticleItemStoreSetActionOptions
   ) => ArticleItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    storeKey: string,
+    owner: string,
     input: ArticleItemStoreSetActionInput
   ) => ArticleItemStoreSetActionOutput;
 
-  readonly useStoreState: (storeKey: string) => ArticleItemStoreState;
+  readonly useStoreState: (owner: string) => ArticleItemStoreState;
 }

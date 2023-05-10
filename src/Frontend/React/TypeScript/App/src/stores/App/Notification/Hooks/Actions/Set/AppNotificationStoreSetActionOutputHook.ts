@@ -8,7 +8,7 @@ import { useStoreState } from '../../AppNotificationStoreStateHook';
 import { useStoreSetActionDispatch } from './AppNotificationStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  storeKey: string,
+  owner: string,
   input: AppNotificationStoreSetActionInput
 ): AppNotificationStoreSetActionOutput {
   const { onActionCompleted } = input;
@@ -22,9 +22,9 @@ export function useStoreSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useStoreSetActionDispatch(storeKey, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(owner, { callback });
 
-  const { payloadOfSetAction } = useStoreState(storeKey);
+  const { payloadOfSetAction } = useStoreState(owner);
 
   return {
     dispatchOfSetAction,

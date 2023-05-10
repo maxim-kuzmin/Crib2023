@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import { useAppInstance } from '../../../../app';
 import {
-  AppNotificationStoreKey,
+  AppNotificationStoreOwner,
   type AppNotificationStoreState
 } from '../../../../features';
 import { AppNotificationStoreActionType } from '../AppNotificationStoreActionType';
@@ -24,7 +24,7 @@ function AppNotificationStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<AppNotificationStoreState>(
-      [AppNotificationStoreKey.AppNotificationView],
+      [AppNotificationStoreOwner.AppNotificationView],
       () => {
         const result: AppNotificationStoreState = {
           payloadOfSetAction: null
@@ -41,16 +41,16 @@ function AppNotificationStoreContextProvider ({
       action: AppNotificationStoreActionUnion
     ): Map<string, AppNotificationStoreState> {
       const result = new Map<string, AppNotificationStoreState>(stateMap);
-      const { storeKey, type } = action;
-      const state = result.get(storeKey)!;
+      const { owner, type } = action;
+      const state = result.get(owner)!;
 
       switch (type) {
         case AppNotificationStoreActionType.Clear:
-          result.set(storeKey, initialState.get(storeKey)!);
+          result.set(owner, initialState.get(owner)!);
           break;
         case AppNotificationStoreActionType.Set:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfSetAction: action.payload

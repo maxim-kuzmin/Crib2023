@@ -1,3 +1,3 @@
-export enum TopicTreeStoreKey {
+export enum TopicTreeStoreOwner {
   TopicTreeView = 'TopicTreeView'
 }

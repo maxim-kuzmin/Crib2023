@@ -9,7 +9,7 @@ import { useStoreSaveActionDispatch } from './TopicItemStoreSaveActionDispatchHo
 import { useStoreState } from '../../TopicItemStoreStateHook';
 
 export function useStoreSaveActionOutput (
-  storeKey: string,
+  owner: string,
   input: TopicItemStoreSaveActionInput = {}
 ): TopicItemStoreSaveActionOutput {
   const { onActionCompleted } = input;
@@ -23,9 +23,9 @@ export function useStoreSaveActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSaveAction = useStoreSaveActionDispatch(storeKey, { callback });
+  const dispatchOfSaveAction = useStoreSaveActionDispatch(owner, { callback });
 
-  const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(storeKey);
+  const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(owner);
 
   return {
     dispatchOfSaveAction,

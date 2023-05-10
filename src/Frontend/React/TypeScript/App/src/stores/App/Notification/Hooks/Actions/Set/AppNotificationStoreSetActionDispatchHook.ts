@@ -14,18 +14,18 @@ interface Options {
   readonly callback?: AppNotificationStoreSetActionCallback;
   readonly dispatch: Dispatch<AppNotificationStoreActionUnion>;
   readonly payload: AppNotificationStoreSetActionPayload;
-  readonly storeKey: string;
+  readonly owner: string;
 }
 
 function runSetAction ({
   callback,
   dispatch,
   payload,
-  storeKey
+  owner
 }: Options) {
   dispatch({
     payload,
-    storeKey,
+    owner,
     type: AppNotificationStoreActionType.Set
   });
 
@@ -35,7 +35,7 @@ function runSetAction ({
 }
 
 export function useStoreSetActionDispatch (
-  storeKey: string,
+  owner: string,
   {
     callback,
     dispatchType,
@@ -51,7 +51,7 @@ export function useStoreSetActionDispatch (
           callback,
           dispatch,
           payload: payloadOfSetAction,
-          storeKey
+          owner
         });
       };
 
@@ -61,7 +61,7 @@ export function useStoreSetActionDispatch (
             callback,
             dispatch,
             payload: payloadOfSetAction,
-            storeKey
+            owner
           });
         }
       };
@@ -71,7 +71,7 @@ export function useStoreSetActionDispatch (
       dispatch,
       dispatchType,
       payloadOfSetAction,
-      storeKey
+      owner
     ]
   );
 
@@ -80,7 +80,7 @@ export function useStoreSetActionDispatch (
       callback,
       dispatch,
       payload,
-      storeKey
+      owner
     });
   }
 

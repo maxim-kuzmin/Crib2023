@@ -6,7 +6,7 @@ import {
   type TopicTreeStoreSetActionInput,
   type TopicTreeStoreSetActionOutput,
   type TopicTreeStoreHooks,
-  TopicTreeStoreKey,
+  TopicTreeStoreOwner,
   type TopicTreeStoreState,
 } from '../../../features';
 
@@ -33,22 +33,22 @@ interface Options {
 export function createTopicTreeViewHooks ({
   hooksOfTopicTreeStore
 }: Options): TopicTreeViewHooks {
-  const storeKey = TopicTreeStoreKey.TopicTreeView;
+  const owner = TopicTreeStoreOwner.TopicTreeView;
 
   function useStoreClearActionOutput (input: TopicTreeStoreClearActionInput): TopicTreeStoreClearActionOutput {
-    return hooksOfTopicTreeStore.useStoreClearActionOutput(storeKey, input);
+    return hooksOfTopicTreeStore.useStoreClearActionOutput(owner, input);
   }
 
   function useStoreLoadActionOutput (input: TopicTreeStoreLoadActionInput): TopicTreeStoreLoadActionOutput {
-    return hooksOfTopicTreeStore.useStoreLoadActionOutput(storeKey, input);
+    return hooksOfTopicTreeStore.useStoreLoadActionOutput(owner, input);
   }
 
   function useStoreSetActionOutput (input: TopicTreeStoreSetActionInput): TopicTreeStoreSetActionOutput {
-    return hooksOfTopicTreeStore.useStoreSetActionOutput(storeKey, input);
+    return hooksOfTopicTreeStore.useStoreSetActionOutput(owner, input);
   }
 
   function useStoreState (): TopicTreeStoreState {
-    return hooksOfTopicTreeStore.useStoreState(storeKey);
+    return hooksOfTopicTreeStore.useStoreState(owner);
   }
 
   return {

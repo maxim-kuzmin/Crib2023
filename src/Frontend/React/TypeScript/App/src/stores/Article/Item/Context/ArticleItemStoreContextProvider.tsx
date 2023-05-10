@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  ArticleItemStoreKey,
+  ArticleItemStoreOwner,
   type ArticleItemStoreState
 } from '../../../../features';
 import { ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
@@ -25,7 +25,7 @@ function ArticleItemStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<ArticleItemStoreState>(
-      [ArticleItemStoreKey.ArticleItemView],
+      [ArticleItemStoreOwner.ArticleItemView],
       () => {
         const result: ArticleItemStoreState = {
           payloadOfDeleteAction: null,
@@ -51,16 +51,16 @@ function ArticleItemStoreContextProvider ({
       action: ArticleItemStoreActionUnion
     ): Map<string, ArticleItemStoreState> {
       const result = new Map<string, ArticleItemStoreState>(stateMap);
-      const { storeKey, type } = action;
-      const state = result.get(storeKey)!;
+      const { owner, type } = action;
+      const state = result.get(owner)!;
 
       switch (type) {
         case ArticleItemStoreActionType.Clear:
-          result.set(storeKey, initialState.get(storeKey)!);
+          result.set(owner, initialState.get(owner)!);
           break;
         case ArticleItemStoreActionType.Delete:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfDeleteAction: action.payload,
@@ -70,7 +70,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.DeleteCompleted:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfDeleteCompletedAction: action.payload,
@@ -81,7 +81,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Load:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -91,7 +91,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.LoadCompleted:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -102,7 +102,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Save:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfSaveAction: action.payload,
@@ -112,7 +112,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.SaveCompleted:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfSaveCompletedAction: action.payload,
@@ -123,7 +123,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Set:
           result.set(
-            storeKey,
+            owner,
             {
               ...state,
               payloadOfSetAction: action.payload

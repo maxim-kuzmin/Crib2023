@@ -66,7 +66,7 @@ export function useArticleListStoreDispatch (): Dispatch<ArticleListStoreActionU
 }
 
 export function useArticleListStoreState (
-  storeKey: string
+  owner: string
 ): ArticleListStoreState {
-  return useContext(ArticleListStoreStateContext)!.get(storeKey)!;
+  return useContext(ArticleListStoreStateContext)!.get(owner)!;
 }

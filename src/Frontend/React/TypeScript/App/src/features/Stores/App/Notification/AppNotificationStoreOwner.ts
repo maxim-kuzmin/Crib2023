@@ -1,3 +1,3 @@
-export enum AppNotificationStoreKey {
+export enum AppNotificationStoreOwner {
   AppNotificationView = 'AppNotificationView'
 }

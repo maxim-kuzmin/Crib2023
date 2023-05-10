@@ -12,16 +12,16 @@ import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 interface Options {
   readonly callback?: ArticleItemStoreClearActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
-  readonly storeKey: string;
+  readonly owner: string;
 }
 
 function runClearAction ({
   callback,
   dispatch,
-  storeKey
+  owner
 }: Options) {
   dispatch({
-    storeKey,
+    owner,
     type: ArticleItemStoreActionType.Clear
   });
 
@@ -31,7 +31,7 @@ function runClearAction ({
 }
 
 export function useStoreClearActionDispatch (
-  storeKey: string,
+  owner: string,
   {
     callback,
     dispatchType
@@ -45,7 +45,7 @@ export function useStoreClearActionDispatch (
         runClearAction({
           callback,
           dispatch,
-          storeKey
+          owner
         });
       };
 
@@ -54,7 +54,7 @@ export function useStoreClearActionDispatch (
           runClearAction({
             callback,
             dispatch,
-            storeKey
+            owner
           });
         }
       };
@@ -63,7 +63,7 @@ export function useStoreClearActionDispatch (
       callback,
       dispatch,
       dispatchType,
-      storeKey
+      owner
     ]
   );
 
@@ -71,7 +71,7 @@ export function useStoreClearActionDispatch (
     runClearAction({
       callback,
       dispatch,
-      storeKey
+      owner
     });
   }
 
