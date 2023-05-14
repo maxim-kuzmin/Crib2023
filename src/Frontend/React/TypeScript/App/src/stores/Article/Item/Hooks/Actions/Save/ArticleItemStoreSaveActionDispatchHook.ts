@@ -12,7 +12,7 @@ import {
   type ArticleItemStoreSaveActionOptions,
   type ArticleItemStoreSaveActionPayload,
   type ArticleItemStoreResource,
-  type ArticleItemStoreOwner,
+  type ArticleItemStoreSlice,
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
@@ -28,7 +28,7 @@ interface Options {
   readonly resourceOfApiResponse: ApiResponseResource;
   readonly resourceOfArticleItemStore: ArticleItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
-  readonly owner: string;
+  readonly slice: string;
 }
 
 async function runSaveAction ({
@@ -40,7 +40,7 @@ async function runSaveAction ({
   resourceOfApiResponse,
   resourceOfArticleItemStore,
   shouldBeCanceled,
-  owner,
+  slice,
 }: Options): Promise<void> {
   if (shouldBeCanceled()) {
     return;
@@ -49,7 +49,7 @@ async function runSaveAction ({
   dispatch({
     type: ArticleItemStoreActionType.Save,
     payload,
-    owner
+    slice
   });
 
   const response = payload
@@ -74,12 +74,12 @@ async function runSaveAction ({
     callback,
     dispatch,
     payload: response,
-    owner
+    slice
   });
 }
 
 export function useStoreSaveActionDispatch (
-  owner: ArticleItemStoreOwner,
+  slice: ArticleItemStoreSlice,
   {
     callback,
     dispatchType,
@@ -115,7 +115,7 @@ export function useStoreSaveActionDispatch (
           resourceOfApiResponse,
           resourceOfArticleItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
-          owner
+          slice
         });
       }
 
@@ -130,7 +130,7 @@ export function useStoreSaveActionDispatch (
             resourceOfApiResponse,
             resourceOfArticleItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
-            owner
+            slice
             });
         } else {
           isCanceledInner = true;
@@ -147,7 +147,7 @@ export function useStoreSaveActionDispatch (
       requestHandler,
       resourceOfApiResponse,
       resourceOfArticleItemStore,
-      owner
+      slice
     ]
   );
 
@@ -164,7 +164,7 @@ export function useStoreSaveActionDispatch (
       resourceOfApiResponse,
       resourceOfArticleItemStore,
       shouldBeCanceled,
-      owner
+      slice
     });
   }
 

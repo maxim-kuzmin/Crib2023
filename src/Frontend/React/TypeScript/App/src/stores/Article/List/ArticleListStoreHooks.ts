@@ -4,7 +4,7 @@ import {
   type ArticleListStoreResource,
   type ArticleListStoreHooks,
   type ArticleListStoreState,
-  type ArticleListStoreOwner
+  type ArticleListStoreSlice
 } from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/ArticleListStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/ArticleListStoreClearActionOutputHook';
@@ -67,7 +67,7 @@ export function useArticleListStoreDispatch (): Dispatch<ArticleListStoreActionU
 }
 
 export function useArticleListStoreState (
-  owner: ArticleListStoreOwner
+  slice: ArticleListStoreSlice
 ): ArticleListStoreState {
-  return useContext(ArticleListStoreStateContext)!.get(owner)!;
+  return useContext(ArticleListStoreStateContext)!.get(slice)!;
 }

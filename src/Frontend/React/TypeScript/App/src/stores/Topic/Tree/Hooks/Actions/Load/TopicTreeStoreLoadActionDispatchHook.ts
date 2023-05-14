@@ -12,7 +12,7 @@ import {
   type TopicTreeStoreLoadActionOptions,
   type TopicTreeStoreLoadActionPayload,
   type TopicTreeStoreResource,
-  type TopicTreeStoreOwner
+  type TopicTreeStoreSlice
 } from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
@@ -28,7 +28,7 @@ interface Options {
   readonly resourceOfApiResponse: ApiResponseResource;
   readonly resourceOfTopicTreeStore: TopicTreeStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
-  readonly owner: string;
+  readonly slice: string;
 }
 
 async function runLoadAction ({
@@ -40,7 +40,7 @@ async function runLoadAction ({
   resourceOfApiResponse,
   resourceOfTopicTreeStore,
   shouldBeCanceled,
-  owner,
+  slice,
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -48,7 +48,7 @@ async function runLoadAction ({
 
   dispatch({
     payload,
-    owner,
+    slice,
     type: TopicTreeStoreActionType.Load
   });
 
@@ -73,12 +73,12 @@ async function runLoadAction ({
     callback,
     dispatch,
     payload: response,
-    owner
+    slice
   });
 }
 
 export function useStoreLoadActionDispatch (
-  owner: TopicTreeStoreOwner,
+  slice: TopicTreeStoreSlice,
   {
     callback,
     dispatchType,
@@ -114,7 +114,7 @@ export function useStoreLoadActionDispatch (
           resourceOfApiResponse,
           resourceOfTopicTreeStore,
           shouldBeCanceled: shouldBeCanceledInner,
-          owner
+          slice
         });
       }
 
@@ -129,7 +129,7 @@ export function useStoreLoadActionDispatch (
             resourceOfApiResponse,
             resourceOfTopicTreeStore,
             shouldBeCanceled: shouldBeCanceledInner,
-            owner
+            slice
             });
         } else {
           isCanceledInner = true;
@@ -146,7 +146,7 @@ export function useStoreLoadActionDispatch (
       requestHandler,
       resourceOfApiResponse,
       resourceOfTopicTreeStore,
-      owner
+      slice
     ]
   );
 
@@ -163,7 +163,7 @@ export function useStoreLoadActionDispatch (
       resourceOfApiResponse,
       resourceOfTopicTreeStore,
       shouldBeCanceled,
-      owner
+      slice
     });
   }
 

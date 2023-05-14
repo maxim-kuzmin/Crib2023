@@ -8,7 +8,7 @@ import {
   type ArticleListStoreSetActionInput,
   type ArticleListStoreSetActionOutput,
   type ArticleListStoreHooks,
-  ArticleListStoreOwner,
+  ArticleListStoreSlice,
   type ArticleListStoreState,
 } from '../../../features';
 import {
@@ -89,22 +89,22 @@ export function createArticleTableViewHooks ({
     );
   }
 
-  const owner = ArticleListStoreOwner.ArticleTableView;
+  const slice = ArticleListStoreSlice.Default;
 
   function useStoreClearActionOutput (input: ArticleListStoreClearActionInput): ArticleListStoreClearActionOutput {
-    return hooksOfArticleListStore.useStoreClearActionOutput(owner, input);
+    return hooksOfArticleListStore.useStoreClearActionOutput(slice, input);
   }
 
   function useStoreLoadActionOutput (input: ArticleListStoreLoadActionInput): ArticleListStoreLoadActionOutput {
-    return hooksOfArticleListStore.useStoreLoadActionOutput(owner, input);
+    return hooksOfArticleListStore.useStoreLoadActionOutput(slice, input);
   }
 
   function useStoreSetActionOutput (input: ArticleListStoreSetActionInput): ArticleListStoreSetActionOutput {
-    return hooksOfArticleListStore.useStoreSetActionOutput(owner, input);
+    return hooksOfArticleListStore.useStoreSetActionOutput(slice, input);
   }
 
   function useStoreState (): ArticleListStoreState {
-    return hooksOfArticleListStore.useStoreState(owner);
+    return hooksOfArticleListStore.useStoreState(slice);
   }
 
   return {

@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleListStoreOwner,
+  type ArticleListStoreSlice,
   type ArticleListStoreClearActionCallback,
   type ArticleListStoreClearActionDispatch,
   type ArticleListStoreClearActionOptions,
@@ -13,16 +13,16 @@ import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 interface Options {
   readonly callback?: ArticleListStoreClearActionCallback;
   readonly dispatch: Dispatch<ArticleListStoreActionUnion>;
-  readonly owner: string;
+  readonly slice: string;
 }
 
 function runClearAction ({
   callback,
   dispatch,
-  owner
+  slice
 }: Options) {
   dispatch({
-    owner,
+    slice,
     type: ArticleListStoreActionType.Clear
   });
 
@@ -32,7 +32,7 @@ function runClearAction ({
 }
 
 export function useStoreClearActionDispatch (
-  owner: ArticleListStoreOwner,
+  slice: ArticleListStoreSlice,
   {
     callback,
     dispatchType
@@ -46,7 +46,7 @@ export function useStoreClearActionDispatch (
         runClearAction({
           callback,
           dispatch,
-          owner
+          slice
         });
       };
 
@@ -55,7 +55,7 @@ export function useStoreClearActionDispatch (
           runClearAction({
             callback,
             dispatch,
-            owner
+            slice
           });
         }
       };
@@ -64,7 +64,7 @@ export function useStoreClearActionDispatch (
       callback,
       dispatch,
       dispatchType,
-      owner
+      slice
     ]
   );
 
@@ -72,7 +72,7 @@ export function useStoreClearActionDispatch (
     runClearAction({
       callback,
       dispatch,
-      owner
+      slice
     });
   }
 

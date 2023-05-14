@@ -14,7 +14,7 @@ import {
   type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreSetActionOutput
 } from './Actions';
-import { type TopicTreeStoreOwner } from './TopicTreeStoreOwner';
+import { type TopicTreeStoreSlice } from './TopicTreeStoreSlice';
 import { type TopicTreeStoreResource } from './TopicTreeStoreResource';
 import { type TopicTreeStoreState } from './TopicTreeStoreState';
 
@@ -22,39 +22,39 @@ export interface TopicTreeStoreHooks {
   readonly useResource: () => TopicTreeStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    owner: TopicTreeStoreOwner,
+    slice: TopicTreeStoreSlice,
     options: TopicTreeStoreClearActionOptions
   ) => TopicTreeStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    owner: TopicTreeStoreOwner,
+    slice: TopicTreeStoreSlice,
     input: TopicTreeStoreClearActionInput
   ) => TopicTreeStoreClearActionOutput;
 
   readonly useStoreLoadActionDispatch: (
-    owner: TopicTreeStoreOwner,
+    slice: TopicTreeStoreSlice,
     options: TopicTreeStoreLoadActionOptions
   ) => TopicTreeStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    owner: TopicTreeStoreOwner,
+    slice: TopicTreeStoreSlice,
     input: TopicTreeStoreLoadActionInput
   ) => TopicTreeStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    owner: TopicTreeStoreOwner,
+    slice: TopicTreeStoreSlice,
     options: TopicTreeStoreLoadCompletedActionOptions
   ) => TopicTreeStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    owner: TopicTreeStoreOwner,
+    slice: TopicTreeStoreSlice,
     options: TopicTreeStoreSetActionOptions
   ) => TopicTreeStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    owner: TopicTreeStoreOwner,
+    slice: TopicTreeStoreSlice,
     input: TopicTreeStoreSetActionInput
   ) => TopicTreeStoreSetActionOutput;
 
-  readonly useStoreState: (owner: TopicTreeStoreOwner) => TopicTreeStoreState;
+  readonly useStoreState: (slice: TopicTreeStoreSlice) => TopicTreeStoreState;
 }

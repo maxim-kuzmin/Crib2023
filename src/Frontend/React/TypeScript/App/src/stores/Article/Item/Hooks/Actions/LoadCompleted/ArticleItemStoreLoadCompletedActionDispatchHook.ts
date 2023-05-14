@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleItemStoreOwner,
+  type ArticleItemStoreSlice,
   type ArticleItemStoreLoadCompletedActionCallback,
   type ArticleItemStoreLoadCompletedActionDispatch,
   type ArticleItemStoreLoadCompletedActionOptions,
@@ -15,18 +15,18 @@ interface Options {
   readonly callback?: ArticleItemStoreLoadCompletedActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreLoadCompletedActionPayload;
-  readonly owner: string;
+  readonly slice: string;
 }
 
 export function runLoadCompletedAction ({
   callback,
   dispatch,
   payload,
-  owner
+  slice
 }: Options) {
   dispatch({
     payload,
-    owner,
+    slice,
     type: ArticleItemStoreActionType.LoadCompleted
   });
 
@@ -36,7 +36,7 @@ export function runLoadCompletedAction ({
 }
 
 export function useStoreLoadCompletedActionDispatch (
-  owner: ArticleItemStoreOwner,
+  slice: ArticleItemStoreSlice,
   {
     callback,
     dispatchType,
@@ -52,7 +52,7 @@ export function useStoreLoadCompletedActionDispatch (
           callback,
           dispatch,
           payload: payloadOfLoadCompletedAction,
-          owner
+          slice
         });
       };
 
@@ -62,7 +62,7 @@ export function useStoreLoadCompletedActionDispatch (
             callback,
             dispatch,
             payload: payloadOfLoadCompletedAction,
-            owner
+            slice
           });
         }
       };
@@ -72,7 +72,7 @@ export function useStoreLoadCompletedActionDispatch (
       dispatch,
       dispatchType,
       payloadOfLoadCompletedAction,
-      owner
+      slice
     ]
   );
 
@@ -81,7 +81,7 @@ export function useStoreLoadCompletedActionDispatch (
       callback,
       dispatch,
       payload,
-      owner
+      slice
     });
   }
 

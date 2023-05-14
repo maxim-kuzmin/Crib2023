@@ -1,6 +1,6 @@
-import { type TopicItemStoreOwner, type TopicItemStoreState } from '../../../../features';
+import { type TopicItemStoreSlice, type TopicItemStoreState } from '../../../../features';
 import { useTopicItemStoreState } from '../TopicItemStoreHooks';
 
-export function useStoreState (owner: TopicItemStoreOwner): TopicItemStoreState {
-  return useTopicItemStoreState(owner);
+export function useStoreState (slice: TopicItemStoreSlice): TopicItemStoreState {
+  return useTopicItemStoreState(slice);
 }

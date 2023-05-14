@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  TopicTreeStoreOwner,
+  TopicTreeStoreSlice,
   type TopicTreeStoreState
 } from '../../../../features';
 import { TopicTreeStoreActionType } from '../TopicTreeStoreActionType';
@@ -25,7 +25,7 @@ function TopicTreeStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<TopicTreeStoreState>(
-      [TopicTreeStoreOwner.TopicTreeView],
+      [TopicTreeStoreSlice.Default],
       () => {
         const result: TopicTreeStoreState = {
           payloadOfLoadAction: null,
@@ -45,16 +45,16 @@ function TopicTreeStoreContextProvider ({
       action: TopicTreeStoreActionUnion
     ): Map<string, TopicTreeStoreState> {
       const result = new Map<string, TopicTreeStoreState>(stateMap);
-      const { owner, type } = action;
-      const state = result.get(owner)!;
+      const { slice, type } = action;
+      const state = result.get(slice)!;
 
       switch (type) {
         case TopicTreeStoreActionType.Clear:
-          result.set(owner, initialState.get(owner)!);
+          result.set(slice, initialState.get(slice)!);
           break;
         case TopicTreeStoreActionType.Load:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -64,7 +64,7 @@ function TopicTreeStoreContextProvider ({
           break;
         case TopicTreeStoreActionType.LoadCompleted:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -75,7 +75,7 @@ function TopicTreeStoreContextProvider ({
           break;
         case TopicTreeStoreActionType.Set:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfSetAction: action.payload

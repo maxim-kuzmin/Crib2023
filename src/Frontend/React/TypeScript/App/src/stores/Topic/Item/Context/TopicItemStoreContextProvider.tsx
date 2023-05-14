@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  TopicItemStoreOwner,
+  TopicItemStoreSlice,
   type TopicItemStoreState
 } from '../../../../features';
 import { TopicItemStoreActionType } from '../TopicItemStoreActionType';
@@ -25,7 +25,7 @@ function TopicItemStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<TopicItemStoreState>(
-      [TopicItemStoreOwner.TopicItemView],
+      [TopicItemStoreSlice.Default],
       () => {
         const result: TopicItemStoreState = {
           payloadOfDeleteAction: null,
@@ -51,16 +51,16 @@ function TopicItemStoreContextProvider ({
       action: TopicItemStoreActionUnion
     ): Map<string, TopicItemStoreState> {
       const result = new Map<string, TopicItemStoreState>(stateMap);
-      const { owner, type } = action;
-      const state = result.get(owner)!;
+      const { slice, type } = action;
+      const state = result.get(slice)!;
 
       switch (type) {
         case TopicItemStoreActionType.Clear:
-          result.set(owner, initialState.get(owner)!);
+          result.set(slice, initialState.get(slice)!);
           break;
         case TopicItemStoreActionType.Delete:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfDeleteAction: action.payload,
@@ -70,7 +70,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.DeleteCompleted:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfDeleteCompletedAction: action.payload,
@@ -81,7 +81,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.Load:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -91,7 +91,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.LoadCompleted:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -102,7 +102,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.Save:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfSaveAction: action.payload,
@@ -112,7 +112,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.SaveCompleted:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfSaveCompletedAction: action.payload,
@@ -123,7 +123,7 @@ function TopicItemStoreContextProvider ({
           break;
         case TopicItemStoreActionType.Set:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfSetAction: action.payload

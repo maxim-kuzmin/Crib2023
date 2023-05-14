@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import {
-  type TopicTreeStoreOwner,
+  type TopicTreeStoreSlice,
   type TopicTreeStoreLoadActionInput,
   type TopicTreeStoreLoadActionOutput,
   type TopicTreeStoreLoadCompletedActionPayload,
@@ -10,7 +10,7 @@ import { useStoreState } from '../../TopicTreeStoreStateHook';
 import { useStoreLoadActionDispatch } from './TopicTreeStoreLoadActionDispatchHook';
 
 export function useStoreLoadActionOutput (
-  owner: TopicTreeStoreOwner,
+  slice: TopicTreeStoreSlice,
   input: TopicTreeStoreLoadActionInput
 ): TopicTreeStoreLoadActionOutput {
   const { isCanceled, onActionCompleted, payloadOfLoadAction } = input;
@@ -25,7 +25,7 @@ export function useStoreLoadActionOutput (
   );
 
   const dispatchOfLoadAction = useStoreLoadActionDispatch(
-    owner,
+    slice,
     {
       callback,
       dispatchType: StoreDispatchType.MountOrUpdate,
@@ -34,7 +34,7 @@ export function useStoreLoadActionOutput (
     }
   );
 
-  const { payloadOfLoadCompletedAction, statusOfLoadAction } = useStoreState(owner);
+  const { payloadOfLoadCompletedAction, statusOfLoadAction } = useStoreState(slice);
 
   return {
     dispatchOfLoadAction,

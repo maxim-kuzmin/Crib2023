@@ -1,6 +1,6 @@
-import { type ArticleListStoreOwner, type ArticleListStoreState } from '../../../../features';
+import { type ArticleListStoreSlice, type ArticleListStoreState } from '../../../../features';
 import { useArticleListStoreState } from '../ArticleListStoreHooks';
 
-export function useStoreState (owner: ArticleListStoreOwner): ArticleListStoreState {
-  return useArticleListStoreState(owner);
+export function useStoreState (slice: ArticleListStoreSlice): ArticleListStoreState {
+  return useArticleListStoreState(slice);
 }

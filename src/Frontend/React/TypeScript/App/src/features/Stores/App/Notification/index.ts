@@ -1,4 +1,4 @@
 export * from './Actions';
 export { type AppNotificationStoreHooks } from './AppNotificationStoreHooks';
-export { AppNotificationStoreOwner } from './AppNotificationStoreOwner';
+export { AppNotificationStoreSlice } from './AppNotificationStoreSlice';
 export { type AppNotificationStoreState } from './AppNotificationStoreState';

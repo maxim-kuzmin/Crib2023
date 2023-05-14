@@ -26,7 +26,7 @@ import {
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionOutput
 } from './Actions';
-import { type ArticleItemStoreOwner } from './ArticleItemStoreOwner';
+import { type ArticleItemStoreSlice } from './ArticleItemStoreSlice';
 import { type ArticleItemStoreResource } from './ArticleItemStoreResource';
 import { type ArticleItemStoreState } from './ArticleItemStoreState';
 
@@ -34,69 +34,69 @@ export interface ArticleItemStoreHooks {
   readonly useResource: () => ArticleItemStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     options: ArticleItemStoreClearActionOptions
   ) => ArticleItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     input: ArticleItemStoreClearActionInput
   ) => ArticleItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionDispatch: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     options: ArticleItemStoreDeleteActionOptions
   ) => ArticleItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     input?: ArticleItemStoreDeleteActionInput
   ) => ArticleItemStoreDeleteActionOutput;
 
   readonly useStoreDeleteCompletedActionDispatch: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     options: ArticleItemStoreDeleteCompletedActionOptions
   ) => ArticleItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     options: ArticleItemStoreLoadActionOptions
   ) => ArticleItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     input: ArticleItemStoreLoadActionInput
   ) => ArticleItemStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     options: ArticleItemStoreLoadCompletedActionOptions
   ) => ArticleItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     options: ArticleItemStoreSaveActionOptions
   ) => ArticleItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     input?: ArticleItemStoreSaveActionInput
   ) => ArticleItemStoreSaveActionOutput;
 
   readonly useStoreSaveCompletedActionDispatch: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     options: ArticleItemStoreSaveCompletedActionOptions
   ) => ArticleItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     options: ArticleItemStoreSetActionOptions
   ) => ArticleItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    owner: ArticleItemStoreOwner,
+    slice: ArticleItemStoreSlice,
     input: ArticleItemStoreSetActionInput
   ) => ArticleItemStoreSetActionOutput;
 
-  readonly useStoreState: (owner: ArticleItemStoreOwner) => ArticleItemStoreState;
+  readonly useStoreState: (slice: ArticleItemStoreSlice) => ArticleItemStoreState;
 }

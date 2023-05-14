@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { OperationStatus } from '../../../../../../common';
 import {
-  type TopicItemStoreOwner,
+  type TopicItemStoreSlice,
   type TopicItemStoreSaveActionInput,
   type TopicItemStoreSaveActionOutput,
   type TopicItemStoreSaveCompletedActionPayload,
@@ -10,7 +10,7 @@ import { useStoreSaveActionDispatch } from './TopicItemStoreSaveActionDispatchHo
 import { useStoreState } from '../../TopicItemStoreStateHook';
 
 export function useStoreSaveActionOutput (
-  owner: TopicItemStoreOwner,
+  slice: TopicItemStoreSlice,
   input: TopicItemStoreSaveActionInput = {}
 ): TopicItemStoreSaveActionOutput {
   const { onActionCompleted } = input;
@@ -24,9 +24,9 @@ export function useStoreSaveActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSaveAction = useStoreSaveActionDispatch(owner, { callback });
+  const dispatchOfSaveAction = useStoreSaveActionDispatch(slice, { callback });
 
-  const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(owner);
+  const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(slice);
 
   return {
     dispatchOfSaveAction,

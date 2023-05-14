@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type AppNotificationStoreOwner,
+  type AppNotificationStoreSlice,
   type AppNotificationStoreClearActionInput,
   type AppNotificationStoreClearActionOutput
 } from '../../../../../../features';
 import { useStoreClearActionDispatch } from './AppNotificationStoreClearActionDispatchHook';
 
 export function useStoreClearActionOutput (
-  owner: AppNotificationStoreOwner,
+  slice: AppNotificationStoreSlice,
   input: AppNotificationStoreClearActionInput
 ): AppNotificationStoreClearActionOutput {
   const { onActionCompleted } = input;
@@ -23,7 +23,7 @@ export function useStoreClearActionOutput (
   );
 
   const dispatchOfClearAction = useStoreClearActionDispatch(
-    owner,
+    slice,
     {
       callback,
       dispatchType: StoreDispatchType.Unmount

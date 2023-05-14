@@ -88,7 +88,7 @@ export function useTopicItemStoreDispatch (): Dispatch<TopicItemStoreActionUnion
 }
 
 export function useTopicItemStoreState (
-  owner: string
+  slice: string
 ): TopicItemStoreState {
-  return useContext(TopicItemStoreStateContext)!.get(owner)!;
+  return useContext(TopicItemStoreStateContext)!.get(slice)!;
 }

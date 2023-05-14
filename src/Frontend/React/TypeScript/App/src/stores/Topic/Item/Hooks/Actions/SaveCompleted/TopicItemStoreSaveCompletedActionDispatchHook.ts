@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type TopicItemStoreOwner,
+  type TopicItemStoreSlice,
   type TopicItemStoreSaveCompletedActionCallback,
   type TopicItemStoreSaveCompletedActionDispatch,
   type TopicItemStoreSaveCompletedActionOptions,
@@ -15,18 +15,18 @@ interface Options {
   readonly callback?: TopicItemStoreSaveCompletedActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
   readonly payload: TopicItemStoreSaveCompletedActionPayload;
-  readonly owner: string;
+  readonly slice: string;
 }
 
 export function runSaveCompletedAction ({
   callback,
   dispatch,
   payload,
-  owner
+  slice
 }: Options) {
   dispatch({
     payload,
-    owner,
+    slice,
     type: TopicItemStoreActionType.SaveCompleted
   });
 
@@ -36,7 +36,7 @@ export function runSaveCompletedAction ({
 }
 
 export function useStoreSaveCompletedActionDispatch (
-  owner: TopicItemStoreOwner,
+  slice: TopicItemStoreSlice,
   {
     callback,
     dispatchType,
@@ -52,7 +52,7 @@ export function useStoreSaveCompletedActionDispatch (
           callback,
           dispatch,
           payload: payloadOfSaveCompletedAction,
-          owner
+          slice
         });
       };
 
@@ -62,7 +62,7 @@ export function useStoreSaveCompletedActionDispatch (
             callback,
             dispatch,
             payload: payloadOfSaveCompletedAction,
-            owner
+            slice
           });
         }
       };
@@ -72,7 +72,7 @@ export function useStoreSaveCompletedActionDispatch (
       dispatch,
       dispatchType,
       payloadOfSaveCompletedAction,
-      owner
+      slice
     ]
   );
 
@@ -81,7 +81,7 @@ export function useStoreSaveCompletedActionDispatch (
       callback,
       dispatch,
       payload,
-      owner,
+      slice,
     });
   }
 

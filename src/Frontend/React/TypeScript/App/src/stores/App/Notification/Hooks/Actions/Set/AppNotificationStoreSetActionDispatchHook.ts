@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type AppNotificationStoreOwner,
+  type AppNotificationStoreSlice,
   type AppNotificationStoreSetActionCallback,
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionOptions,
@@ -15,18 +15,18 @@ interface Options {
   readonly callback?: AppNotificationStoreSetActionCallback;
   readonly dispatch: Dispatch<AppNotificationStoreActionUnion>;
   readonly payload: AppNotificationStoreSetActionPayload;
-  readonly owner: string;
+  readonly slice: string;
 }
 
 function runSetAction ({
   callback,
   dispatch,
   payload,
-  owner
+  slice
 }: Options) {
   dispatch({
     payload,
-    owner,
+    slice,
     type: AppNotificationStoreActionType.Set
   });
 
@@ -36,7 +36,7 @@ function runSetAction ({
 }
 
 export function useStoreSetActionDispatch (
-  owner: AppNotificationStoreOwner,
+  slice: AppNotificationStoreSlice,
   {
     callback,
     dispatchType,
@@ -52,7 +52,7 @@ export function useStoreSetActionDispatch (
           callback,
           dispatch,
           payload: payloadOfSetAction,
-          owner
+          slice
         });
       };
 
@@ -62,7 +62,7 @@ export function useStoreSetActionDispatch (
             callback,
             dispatch,
             payload: payloadOfSetAction,
-            owner
+            slice
           });
         }
       };
@@ -72,7 +72,7 @@ export function useStoreSetActionDispatch (
       dispatch,
       dispatchType,
       payloadOfSetAction,
-      owner
+      slice
     ]
   );
 
@@ -81,7 +81,7 @@ export function useStoreSetActionDispatch (
       callback,
       dispatch,
       payload,
-      owner
+      slice
     });
   }
 

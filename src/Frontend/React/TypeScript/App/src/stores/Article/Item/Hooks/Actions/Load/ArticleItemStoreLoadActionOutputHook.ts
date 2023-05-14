@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import {
-  type ArticleItemStoreOwner,
+  type ArticleItemStoreSlice,
   type ArticleItemStoreLoadActionInput,
   type ArticleItemStoreLoadActionOutput,
   type ArticleItemStoreLoadCompletedActionPayload,
@@ -10,7 +10,7 @@ import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreLoadActionDispatch } from './ArticleItemStoreLoadActionDispatchHook';
 
 export function useStoreLoadActionOutput (
-  owner: ArticleItemStoreOwner,
+  slice: ArticleItemStoreSlice,
   input: ArticleItemStoreLoadActionInput
 ): ArticleItemStoreLoadActionOutput {
   const { isCanceled, onActionCompleted, payloadOfLoadAction } = input;
@@ -25,7 +25,7 @@ export function useStoreLoadActionOutput (
   );
 
   const dispatchOfLoadAction = useStoreLoadActionDispatch(
-    owner,
+    slice,
     {
       callback,
       dispatchType: StoreDispatchType.MountOrUpdate,
@@ -34,7 +34,7 @@ export function useStoreLoadActionOutput (
     }
   );
 
-  const { payloadOfLoadCompletedAction, statusOfLoadAction } = useStoreState(owner);
+  const { payloadOfLoadCompletedAction, statusOfLoadAction } = useStoreState(slice);
 
   return {
     dispatchOfLoadAction,

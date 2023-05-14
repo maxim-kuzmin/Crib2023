@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  ArticleListStoreOwner,
+  ArticleListStoreSlice,
   type ArticleListStoreState
 } from '../../../../features';
 import { ArticleListStoreActionType } from '../ArticleListStoreActionType';
@@ -25,7 +25,7 @@ function ArticleListStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<ArticleListStoreState>(
-      [ArticleListStoreOwner.ArticleTableView],
+      [ArticleListStoreSlice.Default],
       () => {
         const result: ArticleListStoreState = {
           payloadOfLoadAction: null,
@@ -45,16 +45,16 @@ function ArticleListStoreContextProvider ({
       action: ArticleListStoreActionUnion
     ): Map<string, ArticleListStoreState> {
       const result = new Map<string, ArticleListStoreState>(stateMap);
-      const { owner, type } = action;
-      const state = result.get(owner)!;
+      const { slice, type } = action;
+      const state = result.get(slice)!;
 
       switch (type) {
         case ArticleListStoreActionType.Clear:
-          result.set(owner, initialState.get(owner)!);
+          result.set(slice, initialState.get(slice)!);
           break;
         case ArticleListStoreActionType.Load:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -64,7 +64,7 @@ function ArticleListStoreContextProvider ({
           break;
         case ArticleListStoreActionType.LoadCompleted:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -75,7 +75,7 @@ function ArticleListStoreContextProvider ({
           break;
         case ArticleListStoreActionType.Set:
           result.set(
-            owner,
+            slice,
             {
               ...state,
               payloadOfSetAction: action.payload

@@ -4,7 +4,7 @@ import {
   type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput,
   type AppNotificationStoreHooks,
-  AppNotificationStoreOwner,
+  AppNotificationStoreSlice,
   type AppNotificationStoreState,
 } from '../../../features';
 
@@ -27,22 +27,22 @@ interface Options {
 export function createAppNotificationViewHooks ({
   hooksOfAppNotificationStore
 }: Options): AppNotificationViewHooks {
-  const owner = AppNotificationStoreOwner.AppNotificationView;
+  const slice = AppNotificationStoreSlice.Default;
 
   function useStoreClearActionOutput (
     input: AppNotificationStoreClearActionInput
   ): AppNotificationStoreClearActionOutput {
-    return hooksOfAppNotificationStore.useStoreClearActionOutput(owner, input);
+    return hooksOfAppNotificationStore.useStoreClearActionOutput(slice, input);
   }
 
   function useStoreSetActionOutput (
     input: AppNotificationStoreSetActionInput
   ): AppNotificationStoreSetActionOutput {
-    return hooksOfAppNotificationStore.useStoreSetActionOutput(owner, input);
+    return hooksOfAppNotificationStore.useStoreSetActionOutput(slice, input);
   }
 
   function useStoreState (): AppNotificationStoreState {
-    return hooksOfAppNotificationStore.useStoreState(owner);
+    return hooksOfAppNotificationStore.useStoreState(slice);
   }
 
   return {
