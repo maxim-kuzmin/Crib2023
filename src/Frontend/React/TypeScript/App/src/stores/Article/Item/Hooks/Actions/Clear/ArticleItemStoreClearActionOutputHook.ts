@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleItemStoreSlice,
+  type ArticleItemStoreSliceName,
   type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput
 } from '../../../../../../features';
 import { useStoreClearActionDispatch } from './ArticleItemStoreClearActionDispatchHook';
 
 export function useStoreClearActionOutput (
-  slice: ArticleItemStoreSlice,
+  sliceName: ArticleItemStoreSliceName,
   input: ArticleItemStoreClearActionInput
 ): ArticleItemStoreClearActionOutput {
   const { onActionCompleted } = input;
@@ -23,7 +23,7 @@ export function useStoreClearActionOutput (
   );
 
   const dispatchOfClearAction = useStoreClearActionDispatch(
-    slice,
+    sliceName,
     {
       callback,
       dispatchType: StoreDispatchType.Unmount

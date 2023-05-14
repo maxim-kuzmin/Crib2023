@@ -26,7 +26,7 @@ import {
   type TopicItemStoreSetActionOptions,
   type TopicItemStoreSetActionOutput
 } from './Actions';
-import { type TopicItemStoreSlice } from './TopicItemStoreSlice';
+import { type TopicItemStoreSliceName } from './Slice/TopicItemStoreSliceName';
 import { type TopicItemStoreResource } from './TopicItemStoreResource';
 import { type TopicItemStoreState } from './TopicItemStoreState';
 
@@ -34,69 +34,69 @@ export interface TopicItemStoreHooks {
   readonly useResource: () => TopicItemStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     options: TopicItemStoreClearActionOptions
   ) => TopicItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     input: TopicItemStoreClearActionInput
   ) => TopicItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionDispatch: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     options: TopicItemStoreDeleteActionOptions
   ) => TopicItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     input?: TopicItemStoreDeleteActionInput
   ) => TopicItemStoreDeleteActionOutput;
 
   readonly useStoreDeleteCompletedActionDispatch: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     options: TopicItemStoreDeleteCompletedActionOptions
   ) => TopicItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     options: TopicItemStoreLoadActionOptions
   ) => TopicItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     input: TopicItemStoreLoadActionInput
   ) => TopicItemStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     options: TopicItemStoreLoadCompletedActionOptions
   ) => TopicItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     options: TopicItemStoreSaveActionOptions
   ) => TopicItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     input?: TopicItemStoreSaveActionInput
   ) => TopicItemStoreSaveActionOutput;
 
   readonly useStoreSaveCompletedActionDispatch: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     options: TopicItemStoreSaveCompletedActionOptions
   ) => TopicItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     options: TopicItemStoreSetActionOptions
   ) => TopicItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    slice: TopicItemStoreSlice,
+    sliceName: TopicItemStoreSliceName,
     input: TopicItemStoreSetActionInput
   ) => TopicItemStoreSetActionOutput;
 
-  readonly useStoreState: (slice: TopicItemStoreSlice) => TopicItemStoreState;
+  readonly useStoreState: (sliceName: TopicItemStoreSliceName) => TopicItemStoreState;
 }

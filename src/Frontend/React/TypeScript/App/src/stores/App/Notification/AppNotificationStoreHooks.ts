@@ -2,7 +2,7 @@ import { type Dispatch, useContext } from 'react';
 import {
   type AppNotificationStoreState,
   type AppNotificationStoreHooks,
-  type AppNotificationStoreSlice
+  type AppNotificationStoreSliceName
 } from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/AppNotificationStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/AppNotificationStoreClearActionOutputHook';
@@ -30,7 +30,7 @@ export function useAppNotificationStoreDispatch (): Dispatch<AppNotificationStor
 }
 
 export function useAppNotificationStoreState (
-  slice: AppNotificationStoreSlice
+  sliceName: AppNotificationStoreSliceName
 ): AppNotificationStoreState {
-  return useContext(AppNotificationStoreStateContext)!.get(slice)!;
+  return useContext(AppNotificationStoreStateContext)!.get(sliceName)!;
 }

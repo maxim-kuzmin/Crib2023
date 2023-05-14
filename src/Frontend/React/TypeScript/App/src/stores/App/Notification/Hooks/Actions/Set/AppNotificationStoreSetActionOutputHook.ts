@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import {
-  type AppNotificationStoreSlice,
+  type AppNotificationStoreSliceName,
   type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput,
   type AppNotificationStoreSetActionPayload,
@@ -9,7 +9,7 @@ import { useStoreState } from '../../AppNotificationStoreStateHook';
 import { useStoreSetActionDispatch } from './AppNotificationStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  slice: AppNotificationStoreSlice,
+  sliceName: AppNotificationStoreSliceName,
   input: AppNotificationStoreSetActionInput
 ): AppNotificationStoreSetActionOutput {
   const { onActionCompleted } = input;
@@ -23,9 +23,9 @@ export function useStoreSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useStoreSetActionDispatch(slice, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
 
-  const { payloadOfSetAction } = useStoreState(slice);
+  const { payloadOfSetAction } = useStoreState(sliceName);
 
   return {
     dispatchOfSetAction,

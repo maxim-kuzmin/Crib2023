@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type TopicItemStoreSlice,
+  type TopicItemStoreSliceName,
   type TopicItemStoreClearActionCallback,
   type TopicItemStoreClearActionDispatch,
   type TopicItemStoreClearActionOptions,
@@ -13,16 +13,16 @@ import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 interface Options {
   readonly callback?: TopicItemStoreClearActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
-  readonly slice: string;
+  readonly sliceName: string;
 }
 
 function runClearAction ({
   callback,
   dispatch,
-  slice
+  sliceName
 }: Options) {
   dispatch({
-    slice,
+    sliceName,
     type: TopicItemStoreActionType.Clear
   });
 
@@ -32,7 +32,7 @@ function runClearAction ({
 }
 
 export function useStoreClearActionDispatch (
-  slice: TopicItemStoreSlice,
+  sliceName: TopicItemStoreSliceName,
   {
     callback,
     dispatchType
@@ -46,7 +46,7 @@ export function useStoreClearActionDispatch (
         runClearAction({
           callback,
           dispatch,
-          slice
+          sliceName
         });
       };
 
@@ -55,7 +55,7 @@ export function useStoreClearActionDispatch (
           runClearAction({
             callback,
             dispatch,
-            slice
+            sliceName
           });
         }
       };
@@ -64,7 +64,7 @@ export function useStoreClearActionDispatch (
       callback,
       dispatch,
       dispatchType,
-      slice
+      sliceName
     ]
   );
 
@@ -72,7 +72,7 @@ export function useStoreClearActionDispatch (
     runClearAction({
       callback,
       dispatch,
-      slice
+      sliceName
     });
   }
 

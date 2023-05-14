@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import {
-  type TopicTreeStoreSlice,
+  type TopicTreeStoreSliceName,
   type TopicTreeStoreSetActionInput,
   type TopicTreeStoreSetActionOutput,
   type TopicTreeStoreSetActionPayload,
@@ -9,7 +9,7 @@ import { useStoreState } from '../../TopicTreeStoreStateHook';
 import { useStoreSetActionDispatch } from './TopicTreeStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  slice: TopicTreeStoreSlice,
+  sliceName: TopicTreeStoreSliceName,
   input: TopicTreeStoreSetActionInput
 ): TopicTreeStoreSetActionOutput {
   const { onActionCompleted } = input;
@@ -23,9 +23,9 @@ export function useStoreSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useStoreSetActionDispatch(slice, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
 
-  const { payloadOfSetAction } = useStoreState(slice);
+  const { payloadOfSetAction } = useStoreState(sliceName);
 
   return {
     dispatchOfSetAction,

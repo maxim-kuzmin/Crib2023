@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { OperationStatus } from '../../../../../../common';
 import {
-  type TopicItemStoreSlice,
+  type TopicItemStoreSliceName,
   type TopicItemStoreDeleteActionInput,
   type TopicItemStoreDeleteActionOutput,
   type TopicItemStoreDeleteCompletedActionPayload,
@@ -10,7 +10,7 @@ import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreDeleteActionDispatch } from './TopicItemStoreDeleteActionDispatchHook';
 
 export function useStoreDeleteActionOutput (
-  slice: TopicItemStoreSlice,
+  sliceName: TopicItemStoreSliceName,
   input: TopicItemStoreDeleteActionInput = {}
 ): TopicItemStoreDeleteActionOutput {
   const { onActionCompleted } = input;
@@ -24,9 +24,9 @@ export function useStoreDeleteActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(slice, { callback });
+  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(sliceName, { callback });
 
-  const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(slice);
+  const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(sliceName);
 
   return {
     dispatchOfDeleteAction,

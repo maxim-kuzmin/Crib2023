@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleListStoreSlice,
+  type ArticleListStoreSliceName,
   type ArticleListStoreSetActionCallback,
   type ArticleListStoreSetActionDispatch,
   type ArticleListStoreSetActionOptions,
@@ -15,18 +15,18 @@ interface Options {
   readonly callback?: ArticleListStoreSetActionCallback;
   readonly dispatch: Dispatch<ArticleListStoreActionUnion>;
   readonly payload: ArticleListStoreSetActionPayload;
-  readonly slice: string;
+  readonly sliceName: string;
 }
 
 function runSetAction ({
   callback,
   dispatch,
   payload,
-  slice
+  sliceName
 }: Options) {
   dispatch({
     payload,
-    slice,
+    sliceName,
     type: ArticleListStoreActionType.Set
   });
 
@@ -36,7 +36,7 @@ function runSetAction ({
 }
 
 export function useStoreSetActionDispatch (
-  slice: ArticleListStoreSlice,
+  sliceName: ArticleListStoreSliceName,
   {
     callback,
     dispatchType,
@@ -52,7 +52,7 @@ export function useStoreSetActionDispatch (
           callback,
           dispatch,
           payload: payloadOfSetAction,
-          slice
+          sliceName
         });
       };
 
@@ -62,7 +62,7 @@ export function useStoreSetActionDispatch (
             callback,
             dispatch,
             payload: payloadOfSetAction,
-            slice
+            sliceName
           });
         }
       };
@@ -72,7 +72,7 @@ export function useStoreSetActionDispatch (
       dispatch,
       dispatchType,
       payloadOfSetAction,
-      slice
+      sliceName
     ]
   );
 
@@ -81,7 +81,7 @@ export function useStoreSetActionDispatch (
       callback,
       dispatch,
       payload,
-      slice
+      sliceName
     });
   }
 

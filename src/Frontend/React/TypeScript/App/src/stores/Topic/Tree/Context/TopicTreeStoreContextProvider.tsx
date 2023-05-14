@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  TopicTreeStoreSlice,
+  TopicTreeStoreSliceName,
   type TopicTreeStoreState
 } from '../../../../features';
 import { TopicTreeStoreActionType } from '../TopicTreeStoreActionType';
@@ -25,7 +25,7 @@ function TopicTreeStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<TopicTreeStoreState>(
-      [TopicTreeStoreSlice.Default],
+      [TopicTreeStoreSliceName.Default],
       () => {
         const result: TopicTreeStoreState = {
           payloadOfLoadAction: null,
@@ -45,16 +45,16 @@ function TopicTreeStoreContextProvider ({
       action: TopicTreeStoreActionUnion
     ): Map<string, TopicTreeStoreState> {
       const result = new Map<string, TopicTreeStoreState>(stateMap);
-      const { slice, type } = action;
-      const state = result.get(slice)!;
+      const { sliceName, type } = action;
+      const state = result.get(sliceName)!;
 
       switch (type) {
         case TopicTreeStoreActionType.Clear:
-          result.set(slice, initialState.get(slice)!);
+          result.set(sliceName, initialState.get(sliceName)!);
           break;
         case TopicTreeStoreActionType.Load:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -64,7 +64,7 @@ function TopicTreeStoreContextProvider ({
           break;
         case TopicTreeStoreActionType.LoadCompleted:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -75,7 +75,7 @@ function TopicTreeStoreContextProvider ({
           break;
         case TopicTreeStoreActionType.Set:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfSetAction: action.payload

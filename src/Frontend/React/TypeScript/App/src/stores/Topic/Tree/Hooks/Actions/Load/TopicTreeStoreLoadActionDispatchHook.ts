@@ -12,7 +12,7 @@ import {
   type TopicTreeStoreLoadActionOptions,
   type TopicTreeStoreLoadActionPayload,
   type TopicTreeStoreResource,
-  type TopicTreeStoreSlice
+  type TopicTreeStoreSliceName
 } from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
@@ -28,7 +28,7 @@ interface Options {
   readonly resourceOfApiResponse: ApiResponseResource;
   readonly resourceOfTopicTreeStore: TopicTreeStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
-  readonly slice: string;
+  readonly sliceName: string;
 }
 
 async function runLoadAction ({
@@ -40,7 +40,7 @@ async function runLoadAction ({
   resourceOfApiResponse,
   resourceOfTopicTreeStore,
   shouldBeCanceled,
-  slice,
+  sliceName,
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -48,7 +48,7 @@ async function runLoadAction ({
 
   dispatch({
     payload,
-    slice,
+    sliceName,
     type: TopicTreeStoreActionType.Load
   });
 
@@ -73,12 +73,12 @@ async function runLoadAction ({
     callback,
     dispatch,
     payload: response,
-    slice
+    sliceName
   });
 }
 
 export function useStoreLoadActionDispatch (
-  slice: TopicTreeStoreSlice,
+  sliceName: TopicTreeStoreSliceName,
   {
     callback,
     dispatchType,
@@ -114,7 +114,7 @@ export function useStoreLoadActionDispatch (
           resourceOfApiResponse,
           resourceOfTopicTreeStore,
           shouldBeCanceled: shouldBeCanceledInner,
-          slice
+          sliceName
         });
       }
 
@@ -129,7 +129,7 @@ export function useStoreLoadActionDispatch (
             resourceOfApiResponse,
             resourceOfTopicTreeStore,
             shouldBeCanceled: shouldBeCanceledInner,
-            slice
+            sliceName
             });
         } else {
           isCanceledInner = true;
@@ -146,7 +146,7 @@ export function useStoreLoadActionDispatch (
       requestHandler,
       resourceOfApiResponse,
       resourceOfTopicTreeStore,
-      slice
+      sliceName
     ]
   );
 
@@ -163,7 +163,7 @@ export function useStoreLoadActionDispatch (
       resourceOfApiResponse,
       resourceOfTopicTreeStore,
       shouldBeCanceled,
-      slice
+      sliceName
     });
   }
 

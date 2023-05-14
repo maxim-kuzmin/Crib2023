@@ -14,7 +14,7 @@ import {
   type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreSetActionOutput
 } from './Actions';
-import { type TopicTreeStoreSlice } from './TopicTreeStoreSlice';
+import { type TopicTreeStoreSliceName } from './Slice/TopicTreeStoreSliceName';
 import { type TopicTreeStoreResource } from './TopicTreeStoreResource';
 import { type TopicTreeStoreState } from './TopicTreeStoreState';
 
@@ -22,39 +22,39 @@ export interface TopicTreeStoreHooks {
   readonly useResource: () => TopicTreeStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    slice: TopicTreeStoreSlice,
+    sliceName: TopicTreeStoreSliceName,
     options: TopicTreeStoreClearActionOptions
   ) => TopicTreeStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    slice: TopicTreeStoreSlice,
+    sliceName: TopicTreeStoreSliceName,
     input: TopicTreeStoreClearActionInput
   ) => TopicTreeStoreClearActionOutput;
 
   readonly useStoreLoadActionDispatch: (
-    slice: TopicTreeStoreSlice,
+    sliceName: TopicTreeStoreSliceName,
     options: TopicTreeStoreLoadActionOptions
   ) => TopicTreeStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    slice: TopicTreeStoreSlice,
+    sliceName: TopicTreeStoreSliceName,
     input: TopicTreeStoreLoadActionInput
   ) => TopicTreeStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    slice: TopicTreeStoreSlice,
+    sliceName: TopicTreeStoreSliceName,
     options: TopicTreeStoreLoadCompletedActionOptions
   ) => TopicTreeStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    slice: TopicTreeStoreSlice,
+    sliceName: TopicTreeStoreSliceName,
     options: TopicTreeStoreSetActionOptions
   ) => TopicTreeStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    slice: TopicTreeStoreSlice,
+    sliceName: TopicTreeStoreSliceName,
     input: TopicTreeStoreSetActionInput
   ) => TopicTreeStoreSetActionOutput;
 
-  readonly useStoreState: (slice: TopicTreeStoreSlice) => TopicTreeStoreState;
+  readonly useStoreState: (sliceName: TopicTreeStoreSliceName) => TopicTreeStoreState;
 }

@@ -4,21 +4,12 @@ import {
   type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput,
   type AppNotificationStoreHooks,
-  AppNotificationStoreSlice,
+  type AppNotificationStoreSliceHooks,
+  AppNotificationStoreSliceName,
   type AppNotificationStoreState,
 } from '../../../features';
 
-export interface AppNotificationViewHooks {
-  readonly useStoreClearActionOutput: (
-    input: AppNotificationStoreClearActionInput
-  ) => AppNotificationStoreClearActionOutput;
-
-  readonly useStoreSetActionOutput: (
-    input: AppNotificationStoreSetActionInput
-  ) => AppNotificationStoreSetActionOutput;
-
-  readonly useStoreState: () => AppNotificationStoreState;
-}
+export interface AppNotificationViewHooks extends AppNotificationStoreSliceHooks {}
 
 interface Options {
   readonly hooksOfAppNotificationStore: AppNotificationStoreHooks;
@@ -27,22 +18,22 @@ interface Options {
 export function createAppNotificationViewHooks ({
   hooksOfAppNotificationStore
 }: Options): AppNotificationViewHooks {
-  const slice = AppNotificationStoreSlice.Default;
+  const sliceName = AppNotificationStoreSliceName.Default;
 
   function useStoreClearActionOutput (
     input: AppNotificationStoreClearActionInput
   ): AppNotificationStoreClearActionOutput {
-    return hooksOfAppNotificationStore.useStoreClearActionOutput(slice, input);
+    return hooksOfAppNotificationStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (
     input: AppNotificationStoreSetActionInput
   ): AppNotificationStoreSetActionOutput {
-    return hooksOfAppNotificationStore.useStoreSetActionOutput(slice, input);
+    return hooksOfAppNotificationStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): AppNotificationStoreState {
-    return hooksOfAppNotificationStore.useStoreState(slice);
+    return hooksOfAppNotificationStore.useStoreState(sliceName);
   }
 
   return {

@@ -26,7 +26,7 @@ import {
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionOutput
 } from './Actions';
-import { type ArticleItemStoreSlice } from './ArticleItemStoreSlice';
+import { type ArticleItemStoreSliceName } from './Slice';
 import { type ArticleItemStoreResource } from './ArticleItemStoreResource';
 import { type ArticleItemStoreState } from './ArticleItemStoreState';
 
@@ -34,69 +34,69 @@ export interface ArticleItemStoreHooks {
   readonly useResource: () => ArticleItemStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     options: ArticleItemStoreClearActionOptions
   ) => ArticleItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     input: ArticleItemStoreClearActionInput
   ) => ArticleItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionDispatch: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     options: ArticleItemStoreDeleteActionOptions
   ) => ArticleItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     input?: ArticleItemStoreDeleteActionInput
   ) => ArticleItemStoreDeleteActionOutput;
 
   readonly useStoreDeleteCompletedActionDispatch: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     options: ArticleItemStoreDeleteCompletedActionOptions
   ) => ArticleItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     options: ArticleItemStoreLoadActionOptions
   ) => ArticleItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     input: ArticleItemStoreLoadActionInput
   ) => ArticleItemStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     options: ArticleItemStoreLoadCompletedActionOptions
   ) => ArticleItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     options: ArticleItemStoreSaveActionOptions
   ) => ArticleItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     input?: ArticleItemStoreSaveActionInput
   ) => ArticleItemStoreSaveActionOutput;
 
   readonly useStoreSaveCompletedActionDispatch: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     options: ArticleItemStoreSaveCompletedActionOptions
   ) => ArticleItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     options: ArticleItemStoreSetActionOptions
   ) => ArticleItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    slice: ArticleItemStoreSlice,
+    sliceName: ArticleItemStoreSliceName,
     input: ArticleItemStoreSetActionInput
   ) => ArticleItemStoreSetActionOutput;
 
-  readonly useStoreState: (slice: ArticleItemStoreSlice) => ArticleItemStoreState;
+  readonly useStoreState: (sliceName: ArticleItemStoreSliceName) => ArticleItemStoreState;
 }

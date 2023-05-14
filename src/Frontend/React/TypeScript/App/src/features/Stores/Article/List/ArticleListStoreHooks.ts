@@ -14,7 +14,7 @@ import {
   type ArticleListStoreSetActionOptions,
   type ArticleListStoreSetActionOutput
 } from './Actions';
-import { type ArticleListStoreSlice } from './ArticleListStoreSlice';
+import { type ArticleListStoreSliceName } from './Slice/ArticleListStoreSliceName';
 import { type ArticleListStoreResource } from './ArticleListStoreResource';
 import { type ArticleListStoreState } from './ArticleListStoreState';
 
@@ -22,39 +22,39 @@ export interface ArticleListStoreHooks {
   readonly useResource: () => ArticleListStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    slice: ArticleListStoreSlice,
+    sliceName: ArticleListStoreSliceName,
     options: ArticleListStoreClearActionOptions
   ) => ArticleListStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    slice: ArticleListStoreSlice,
+    sliceName: ArticleListStoreSliceName,
     input: ArticleListStoreClearActionInput
   ) => ArticleListStoreClearActionOutput;
 
   readonly useStoreLoadActionDispatch: (
-    slice: ArticleListStoreSlice,
+    sliceName: ArticleListStoreSliceName,
     options: ArticleListStoreLoadActionOptions
   ) => ArticleListStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    slice: ArticleListStoreSlice,
+    sliceName: ArticleListStoreSliceName,
     input: ArticleListStoreLoadActionInput
   ) => ArticleListStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    slice: ArticleListStoreSlice,
+    sliceName: ArticleListStoreSliceName,
     options: ArticleListStoreLoadCompletedActionOptions
   ) => ArticleListStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    slice: ArticleListStoreSlice,
+    sliceName: ArticleListStoreSliceName,
     options: ArticleListStoreSetActionOptions
   ) => ArticleListStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    slice: ArticleListStoreSlice,
+    sliceName: ArticleListStoreSliceName,
     input: ArticleListStoreSetActionInput
   ) => ArticleListStoreSetActionOutput;
 
-  readonly useStoreState: (slice: ArticleListStoreSlice) => ArticleListStoreState;
+  readonly useStoreState: (sliceName: ArticleListStoreSliceName) => ArticleListStoreState;
 }

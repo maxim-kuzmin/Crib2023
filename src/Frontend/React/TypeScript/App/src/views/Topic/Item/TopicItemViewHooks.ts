@@ -10,33 +10,12 @@ import {
   type TopicItemStoreSetActionInput,
   type TopicItemStoreSetActionOutput,
   type TopicItemStoreHooks,
-  TopicItemStoreSlice,
+  type TopicItemStoreSliceHooks,
+  TopicItemStoreSliceName,
   type TopicItemStoreState,
 } from '../../../features';
 
-export interface TopicItemViewHooks {
-  readonly useStoreClearActionOutput: (
-    input: TopicItemStoreClearActionInput
-  ) => TopicItemStoreClearActionOutput;
-
-  readonly useStoreDeleteActionOutput: (
-    input?: TopicItemStoreDeleteActionInput
-  ) => TopicItemStoreDeleteActionOutput;
-
-  readonly useStoreLoadActionOutput: (
-    input: TopicItemStoreLoadActionInput
-  ) => TopicItemStoreLoadActionOutput;
-
-  readonly useStoreSaveActionOutput: (
-    input?: TopicItemStoreSaveActionInput
-  ) => TopicItemStoreSaveActionOutput;
-
-  readonly useStoreSetActionOutput: (
-    input: TopicItemStoreSetActionInput
-  ) => TopicItemStoreSetActionOutput;
-
-  readonly useStoreState: () => TopicItemStoreState;
-}
+export interface TopicItemViewHooks extends TopicItemStoreSliceHooks {}
 
 interface Options {
   readonly hooksOfTopicItemStore: TopicItemStoreHooks;
@@ -45,30 +24,30 @@ interface Options {
 export function createTopicItemViewHooks ({
   hooksOfTopicItemStore
 }: Options): TopicItemViewHooks {
-  const slice = TopicItemStoreSlice.Default;
+  const sliceName = TopicItemStoreSliceName.Default;
 
   function useStoreClearActionOutput (input: TopicItemStoreClearActionInput): TopicItemStoreClearActionOutput {
-    return hooksOfTopicItemStore.useStoreClearActionOutput(slice, input);
+    return hooksOfTopicItemStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreDeleteActionOutput (input?: TopicItemStoreDeleteActionInput): TopicItemStoreDeleteActionOutput {
-    return hooksOfTopicItemStore.useStoreDeleteActionOutput(slice, input);
+    return hooksOfTopicItemStore.useStoreDeleteActionOutput(sliceName, input);
   }
 
   function useStoreLoadActionOutput (input: TopicItemStoreLoadActionInput): TopicItemStoreLoadActionOutput {
-    return hooksOfTopicItemStore.useStoreLoadActionOutput(slice, input);
+    return hooksOfTopicItemStore.useStoreLoadActionOutput(sliceName, input);
   }
 
   function useStoreSaveActionOutput (input?: TopicItemStoreSaveActionInput): TopicItemStoreSaveActionOutput {
-    return hooksOfTopicItemStore.useStoreSaveActionOutput(slice, input);
+    return hooksOfTopicItemStore.useStoreSaveActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (input: TopicItemStoreSetActionInput): TopicItemStoreSetActionOutput {
-    return hooksOfTopicItemStore.useStoreSetActionOutput(slice, input);
+    return hooksOfTopicItemStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): TopicItemStoreState {
-    return hooksOfTopicItemStore.useStoreState(slice);
+    return hooksOfTopicItemStore.useStoreState(sliceName);
   }
 
   return {

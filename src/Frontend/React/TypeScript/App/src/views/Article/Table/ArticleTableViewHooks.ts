@@ -8,7 +8,8 @@ import {
   type ArticleListStoreSetActionInput,
   type ArticleListStoreSetActionOutput,
   type ArticleListStoreHooks,
-  ArticleListStoreSlice,
+  type ArticleListStoreSliceHooks,
+  ArticleListStoreSliceName,
   type ArticleListStoreState,
 } from '../../../features';
 import {
@@ -16,22 +17,8 @@ import {
   getArticleTableViewResourcePath
 } from './ArticleTableViewResource';
 
-export interface ArticleTableViewHooks {
+export interface ArticleTableViewHooks extends ArticleListStoreSliceHooks {
   readonly useResource: () => ArticleTableViewResource;
-
-  readonly useStoreClearActionOutput: (
-    input: ArticleListStoreClearActionInput
-  ) => ArticleListStoreClearActionOutput;
-
-  readonly useStoreLoadActionOutput: (
-    input: ArticleListStoreLoadActionInput
-  ) => ArticleListStoreLoadActionOutput;
-
-  readonly useStoreSetActionOutput: (
-    input: ArticleListStoreSetActionInput
-  ) => ArticleListStoreSetActionOutput;
-
-  readonly useStoreState: () => ArticleListStoreState;
 }
 
 interface Options {
@@ -89,22 +76,22 @@ export function createArticleTableViewHooks ({
     );
   }
 
-  const slice = ArticleListStoreSlice.Default;
+  const sliceName = ArticleListStoreSliceName.Default;
 
   function useStoreClearActionOutput (input: ArticleListStoreClearActionInput): ArticleListStoreClearActionOutput {
-    return hooksOfArticleListStore.useStoreClearActionOutput(slice, input);
+    return hooksOfArticleListStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreLoadActionOutput (input: ArticleListStoreLoadActionInput): ArticleListStoreLoadActionOutput {
-    return hooksOfArticleListStore.useStoreLoadActionOutput(slice, input);
+    return hooksOfArticleListStore.useStoreLoadActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (input: ArticleListStoreSetActionInput): ArticleListStoreSetActionOutput {
-    return hooksOfArticleListStore.useStoreSetActionOutput(slice, input);
+    return hooksOfArticleListStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): ArticleListStoreState {
-    return hooksOfArticleListStore.useStoreState(slice);
+    return hooksOfArticleListStore.useStoreState(sliceName);
   }
 
   return {

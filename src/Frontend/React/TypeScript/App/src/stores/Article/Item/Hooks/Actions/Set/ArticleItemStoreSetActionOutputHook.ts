@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import {
-  type ArticleItemStoreSlice,
+  type ArticleItemStoreSliceName,
   type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreSetActionPayload,
@@ -9,7 +9,7 @@ import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreSetActionDispatch } from './ArticleItemStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  slice: ArticleItemStoreSlice,
+  sliceName: ArticleItemStoreSliceName,
   input: ArticleItemStoreSetActionInput
 ): ArticleItemStoreSetActionOutput {
   const { onActionCompleted } = input;
@@ -23,9 +23,9 @@ export function useStoreSetActionOutput (
     [onActionCompleted]
   );
 
-  const dispatchOfSetAction = useStoreSetActionDispatch(slice, { callback });
+  const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
 
-  const { payloadOfSetAction } = useStoreState(slice);
+  const { payloadOfSetAction } = useStoreState(sliceName);
 
   return {
     dispatchOfSetAction,

@@ -1,16 +1,16 @@
 export interface StoreService {
   readonly createInitialState: <TState>(
-    slices: string[],
+    sliceNameNames: string[],
     functionToCreateState: () => TState
   ) => Map<string, TState>;
 }
 
 class Implementation implements StoreService {
-  createInitialState<TState>(slices: string[], functionToCreateState: () => TState): Map<string, TState> {
+  createInitialState<TState>(sliceNameNames: string[], functionToCreateState: () => TState): Map<string, TState> {
     const result = new Map<string, TState>();
 
-    slices.forEach((slice) => {
-      result.set(slice, functionToCreateState());
+    sliceNameNames.forEach((sliceName) => {
+      result.set(sliceName, functionToCreateState());
     });
 
     return result;

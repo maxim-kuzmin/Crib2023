@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleItemStoreSlice,
+  type ArticleItemStoreSliceName,
   type ArticleItemStoreDeleteCompletedActionCallback,
   type ArticleItemStoreDeleteCompletedActionDispatch,
   type ArticleItemStoreDeleteCompletedActionOptions,
@@ -15,18 +15,18 @@ interface Options {
   readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
   readonly payload: ArticleItemStoreDeleteCompletedActionPayload;
-  readonly slice: string;
+  readonly sliceName: string;
 }
 
 export function runDeleteCompletedAction ({
   callback,
   dispatch,
   payload,
-  slice
+  sliceName
 }: Options) {
   dispatch({
     payload,
-    slice,
+    sliceName,
     type: ArticleItemStoreActionType.DeleteCompleted
   });
 
@@ -36,7 +36,7 @@ export function runDeleteCompletedAction ({
 }
 
 export function useStoreDeleteCompletedActionDispatch (
-  slice: ArticleItemStoreSlice,
+  sliceName: ArticleItemStoreSliceName,
   {
     callback,
     dispatchType,
@@ -52,7 +52,7 @@ export function useStoreDeleteCompletedActionDispatch (
           callback,
           dispatch,
           payload: payloadOfDeleteCompletedAction,
-          slice,
+          sliceName,
       });
       };
 
@@ -62,7 +62,7 @@ export function useStoreDeleteCompletedActionDispatch (
             callback,
             dispatch,
             payload: payloadOfDeleteCompletedAction,
-            slice,
+            sliceName,
           });
         }
       };
@@ -72,7 +72,7 @@ export function useStoreDeleteCompletedActionDispatch (
       dispatch,
       dispatchType,
       payloadOfDeleteCompletedAction,
-      slice
+      sliceName
     ]
   );
 
@@ -81,7 +81,7 @@ export function useStoreDeleteCompletedActionDispatch (
       callback,
       dispatch,
       payload,
-      slice
+      sliceName
     });
   }
 

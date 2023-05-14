@@ -12,7 +12,7 @@ import {
   type ArticleListStoreLoadActionOptions,
   type ArticleListStoreLoadActionPayload,
   type ArticleListStoreResource,
-  type ArticleListStoreSlice,
+  type ArticleListStoreSliceName,
 } from '../../../../../../features';
 import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
 import { type ArticleListStoreActionUnion } from '../../../ArticleListStoreActionUnion';
@@ -28,7 +28,7 @@ interface Options {
   readonly resourceOfApiResponse: ApiResponseResource;
   readonly resourceOfArticleListStore: ArticleListStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
-  readonly slice: string;
+  readonly sliceName: string;
 }
 
 async function runLoadAction ({
@@ -40,7 +40,7 @@ async function runLoadAction ({
   resourceOfApiResponse,
   resourceOfArticleListStore,
   shouldBeCanceled,
-  slice,
+  sliceName,
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -48,7 +48,7 @@ async function runLoadAction ({
 
   dispatch({
     payload,
-    slice,
+    sliceName,
     type: ArticleListStoreActionType.Load
   });
 
@@ -74,12 +74,12 @@ async function runLoadAction ({
     callback,
     dispatch,
     payload: response,
-    slice
+    sliceName
   });
 }
 
 export function useStoreLoadActionDispatch (
-  slice: ArticleListStoreSlice,
+  sliceName: ArticleListStoreSliceName,
   {
     callback,
     dispatchType,
@@ -115,7 +115,7 @@ export function useStoreLoadActionDispatch (
           resourceOfApiResponse,
           resourceOfArticleListStore,
           shouldBeCanceled: shouldBeCanceledInner,
-          slice
+          sliceName
         });
       }
 
@@ -130,7 +130,7 @@ export function useStoreLoadActionDispatch (
             resourceOfApiResponse,
             resourceOfArticleListStore,
             shouldBeCanceled: shouldBeCanceledInner,
-            slice
+            sliceName
             });
         } else {
           isCanceledInner = true;
@@ -147,7 +147,7 @@ export function useStoreLoadActionDispatch (
       requestHandler,
       resourceOfApiResponse,
       resourceOfArticleListStore,
-      slice
+      sliceName
     ]
   );
 
@@ -164,7 +164,7 @@ export function useStoreLoadActionDispatch (
       resourceOfApiResponse,
       resourceOfArticleListStore,
       shouldBeCanceled,
-      slice
+      sliceName
     });
   }
 

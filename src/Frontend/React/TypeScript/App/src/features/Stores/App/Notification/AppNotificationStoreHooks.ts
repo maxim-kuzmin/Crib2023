@@ -8,29 +8,29 @@ import {
   type AppNotificationStoreSetActionOptions,
   type AppNotificationStoreSetActionOutput
 } from './Actions';
-import { type AppNotificationStoreSlice } from './AppNotificationStoreSlice';
+import { type AppNotificationStoreSliceName } from './Slice';
 import { type AppNotificationStoreState } from './AppNotificationStoreState';
 
 export interface AppNotificationStoreHooks {
   readonly useStoreClearActionDispatch: (
-    slice: AppNotificationStoreSlice,
+    sliceName: AppNotificationStoreSliceName,
     options: AppNotificationStoreClearActionOptions
   ) => AppNotificationStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    slice: AppNotificationStoreSlice,
+    sliceName: AppNotificationStoreSliceName,
     input: AppNotificationStoreClearActionInput
   ) => AppNotificationStoreClearActionOutput;
 
   readonly useStoreSetActionDispatch: (
-    slice: AppNotificationStoreSlice,
+    sliceName: AppNotificationStoreSliceName,
     options: AppNotificationStoreSetActionOptions
   ) => AppNotificationStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    slice: AppNotificationStoreSlice,
+    sliceName: AppNotificationStoreSliceName,
     input: AppNotificationStoreSetActionInput
   ) => AppNotificationStoreSetActionOutput;
 
-  readonly useStoreState: (slice: AppNotificationStoreSlice) => AppNotificationStoreState;
+  readonly useStoreState: (sliceName: AppNotificationStoreSliceName) => AppNotificationStoreState;
 }

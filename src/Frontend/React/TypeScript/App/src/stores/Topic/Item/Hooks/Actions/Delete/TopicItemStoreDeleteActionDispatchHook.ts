@@ -12,7 +12,7 @@ import {
   type TopicItemStoreDeleteActionOptions,
   type TopicItemStoreDeleteActionPayload,
   type TopicItemStoreResource,
-  type TopicItemStoreSlice,
+  type TopicItemStoreSliceName,
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
@@ -28,7 +28,7 @@ interface Options {
   readonly resourceOfApiResponse: ApiResponseResource;
   readonly resourceOfTopicItemStore: TopicItemStoreResource;
   readonly shouldBeCanceled: ShouldBeCanceled;
-  readonly slice: string;
+  readonly sliceName: string;
 }
 
 async function runDeleteAction ({
@@ -40,7 +40,7 @@ async function runDeleteAction ({
   resourceOfApiResponse,
   resourceOfTopicItemStore,
   shouldBeCanceled,
-  slice,
+  sliceName,
 }: Options) {
   if (shouldBeCanceled()) {
     return;
@@ -48,7 +48,7 @@ async function runDeleteAction ({
 
   dispatch({
     payload,
-    slice,
+    sliceName,
     type: TopicItemStoreActionType.Delete
   });
 
@@ -74,12 +74,12 @@ async function runDeleteAction ({
     callback,
     dispatch,
     payload: response,
-    slice
+    sliceName
   });
 }
 
 export function useStoreDeleteActionDispatch (
-  slice: TopicItemStoreSlice,
+  sliceName: TopicItemStoreSliceName,
   {
     callback,
     dispatchType,
@@ -115,7 +115,7 @@ export function useStoreDeleteActionDispatch (
           resourceOfApiResponse,
           resourceOfTopicItemStore,
           shouldBeCanceled: shouldBeCanceledInner,
-          slice
+          sliceName
       });
       }
 
@@ -130,7 +130,7 @@ export function useStoreDeleteActionDispatch (
             resourceOfApiResponse,
             resourceOfTopicItemStore,
             shouldBeCanceled: shouldBeCanceledInner,
-            slice
+            sliceName
           });
         } else {
           isCanceledInner = true;
@@ -147,7 +147,7 @@ export function useStoreDeleteActionDispatch (
       requestHandler,
       resourceOfApiResponse,
       resourceOfTopicItemStore,
-      slice
+      sliceName
     ]
   );
 
@@ -164,7 +164,7 @@ export function useStoreDeleteActionDispatch (
       resourceOfApiResponse,
       resourceOfTopicItemStore,
       shouldBeCanceled,
-      slice
+      sliceName
     });
   }
 

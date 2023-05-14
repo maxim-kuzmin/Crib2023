@@ -12,7 +12,8 @@ import {
   type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreHooks,
-  ArticleItemStoreSlice,
+  type ArticleItemStoreSliceHooks,
+  ArticleItemStoreSliceName,
   type ArticleItemStoreState,
 } from '../../../features';
 import {
@@ -22,32 +23,10 @@ import {
 import { createArticleItemEditViewHooks } from './Edit/ArticleItemEditViewHooks';
 import { type ArticleItemEditViewHooks } from './Edit';
 
-export interface ArticleItemViewHooks {
+export interface ArticleItemViewHooks extends ArticleItemStoreSliceHooks {
   readonly Edit: ArticleItemEditViewHooks;
 
   readonly useResource: () => ArticleItemViewResource;
-
-  readonly useStoreClearActionOutput: (
-    input: ArticleItemStoreClearActionInput
-  ) => ArticleItemStoreClearActionOutput;
-
-  readonly useStoreDeleteActionOutput: (
-    input?: ArticleItemStoreDeleteActionInput
-  ) => ArticleItemStoreDeleteActionOutput;
-
-  readonly useStoreLoadActionOutput: (
-    input: ArticleItemStoreLoadActionInput
-  ) => ArticleItemStoreLoadActionOutput;
-
-  readonly useStoreSaveActionOutput: (
-    input?: ArticleItemStoreSaveActionInput
-  ) => ArticleItemStoreSaveActionOutput;
-
-  readonly useStoreSetActionOutput: (
-    input: ArticleItemStoreSetActionInput
-  ) => ArticleItemStoreSetActionOutput;
-
-  readonly useStoreState: () => ArticleItemStoreState;
 }
 
 interface Options {
@@ -90,30 +69,30 @@ export function createArticleItemViewHooks ({
     );
   }
 
-  const slice = ArticleItemStoreSlice.Default;
+  const sliceName = ArticleItemStoreSliceName.Default;
 
   function useStoreClearActionOutput (input: ArticleItemStoreClearActionInput): ArticleItemStoreClearActionOutput {
-    return hooksOfArticleItemStore.useStoreClearActionOutput(slice, input);
+    return hooksOfArticleItemStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreDeleteActionOutput (input?: ArticleItemStoreDeleteActionInput): ArticleItemStoreDeleteActionOutput {
-    return hooksOfArticleItemStore.useStoreDeleteActionOutput(slice, input);
+    return hooksOfArticleItemStore.useStoreDeleteActionOutput(sliceName, input);
   }
 
   function useStoreLoadActionOutput (input: ArticleItemStoreLoadActionInput): ArticleItemStoreLoadActionOutput {
-    return hooksOfArticleItemStore.useStoreLoadActionOutput(slice, input);
+    return hooksOfArticleItemStore.useStoreLoadActionOutput(sliceName, input);
   }
 
   function useStoreSaveActionOutput (input?: ArticleItemStoreSaveActionInput): ArticleItemStoreSaveActionOutput {
-    return hooksOfArticleItemStore.useStoreSaveActionOutput(slice, input);
+    return hooksOfArticleItemStore.useStoreSaveActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (input: ArticleItemStoreSetActionInput): ArticleItemStoreSetActionOutput {
-    return hooksOfArticleItemStore.useStoreSetActionOutput(slice, input);
+    return hooksOfArticleItemStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): ArticleItemStoreState {
-    return hooksOfArticleItemStore.useStoreState(slice);
+    return hooksOfArticleItemStore.useStoreState(sliceName);
   }
 
   return {

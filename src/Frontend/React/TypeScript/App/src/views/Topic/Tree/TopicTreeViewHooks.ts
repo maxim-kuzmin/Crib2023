@@ -6,25 +6,12 @@ import {
   type TopicTreeStoreSetActionInput,
   type TopicTreeStoreSetActionOutput,
   type TopicTreeStoreHooks,
-  TopicTreeStoreSlice,
+  type TopicTreeStoreSliceHooks,
+  TopicTreeStoreSliceName,
   type TopicTreeStoreState,
 } from '../../../features';
 
-export interface TopicTreeViewHooks {
-  readonly useStoreClearActionOutput: (
-    input: TopicTreeStoreClearActionInput
-  ) => TopicTreeStoreClearActionOutput;
-
-  readonly useStoreLoadActionOutput: (
-    input: TopicTreeStoreLoadActionInput
-  ) => TopicTreeStoreLoadActionOutput;
-
-  readonly useStoreSetActionOutput: (
-    input: TopicTreeStoreSetActionInput
-  ) => TopicTreeStoreSetActionOutput;
-
-  readonly useStoreState: () => TopicTreeStoreState;
-}
+export interface TopicTreeViewHooks extends TopicTreeStoreSliceHooks {}
 
 interface Options {
   readonly hooksOfTopicTreeStore: TopicTreeStoreHooks;
@@ -33,22 +20,22 @@ interface Options {
 export function createTopicTreeViewHooks ({
   hooksOfTopicTreeStore
 }: Options): TopicTreeViewHooks {
-  const slice = TopicTreeStoreSlice.Default;
+  const sliceName = TopicTreeStoreSliceName.Default;
 
   function useStoreClearActionOutput (input: TopicTreeStoreClearActionInput): TopicTreeStoreClearActionOutput {
-    return hooksOfTopicTreeStore.useStoreClearActionOutput(slice, input);
+    return hooksOfTopicTreeStore.useStoreClearActionOutput(sliceName, input);
   }
 
   function useStoreLoadActionOutput (input: TopicTreeStoreLoadActionInput): TopicTreeStoreLoadActionOutput {
-    return hooksOfTopicTreeStore.useStoreLoadActionOutput(slice, input);
+    return hooksOfTopicTreeStore.useStoreLoadActionOutput(sliceName, input);
   }
 
   function useStoreSetActionOutput (input: TopicTreeStoreSetActionInput): TopicTreeStoreSetActionOutput {
-    return hooksOfTopicTreeStore.useStoreSetActionOutput(slice, input);
+    return hooksOfTopicTreeStore.useStoreSetActionOutput(sliceName, input);
   }
 
   function useStoreState (): TopicTreeStoreState {
-    return hooksOfTopicTreeStore.useStoreState(slice);
+    return hooksOfTopicTreeStore.useStoreState(sliceName);
   }
 
   return {

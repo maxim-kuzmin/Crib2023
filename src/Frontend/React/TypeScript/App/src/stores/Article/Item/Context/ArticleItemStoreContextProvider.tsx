@@ -7,7 +7,7 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
-  ArticleItemStoreSlice,
+  ArticleItemStoreSliceName,
   type ArticleItemStoreState
 } from '../../../../features';
 import { ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
@@ -25,7 +25,7 @@ function ArticleItemStoreContextProvider ({
 
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<ArticleItemStoreState>(
-      [ArticleItemStoreSlice.Default],
+      [ArticleItemStoreSliceName.Default],
       () => {
         const result: ArticleItemStoreState = {
           payloadOfDeleteAction: null,
@@ -51,16 +51,16 @@ function ArticleItemStoreContextProvider ({
       action: ArticleItemStoreActionUnion
     ): Map<string, ArticleItemStoreState> {
       const result = new Map<string, ArticleItemStoreState>(stateMap);
-      const { slice, type } = action;
-      const state = result.get(slice)!;
+      const { sliceName, type } = action;
+      const state = result.get(sliceName)!;
 
       switch (type) {
         case ArticleItemStoreActionType.Clear:
-          result.set(slice, initialState.get(slice)!);
+          result.set(sliceName, initialState.get(sliceName)!);
           break;
         case ArticleItemStoreActionType.Delete:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfDeleteAction: action.payload,
@@ -70,7 +70,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.DeleteCompleted:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfDeleteCompletedAction: action.payload,
@@ -81,7 +81,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Load:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfLoadAction: action.payload,
@@ -91,7 +91,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.LoadCompleted:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfLoadCompletedAction: action.payload,
@@ -102,7 +102,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Save:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfSaveAction: action.payload,
@@ -112,7 +112,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.SaveCompleted:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfSaveCompletedAction: action.payload,
@@ -123,7 +123,7 @@ function ArticleItemStoreContextProvider ({
           break;
         case ArticleItemStoreActionType.Set:
           result.set(
-            slice,
+            sliceName,
             {
               ...state,
               payloadOfSetAction: action.payload

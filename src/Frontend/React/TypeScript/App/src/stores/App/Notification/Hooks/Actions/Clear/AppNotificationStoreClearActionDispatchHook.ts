@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type AppNotificationStoreSlice,
+  type AppNotificationStoreSliceName,
   type AppNotificationStoreClearActionCallback,
   type AppNotificationStoreClearActionDispatch,
   type AppNotificationStoreClearActionOptions,
@@ -13,16 +13,16 @@ import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHo
 interface Options {
   readonly callback?: AppNotificationStoreClearActionCallback;
   readonly dispatch: Dispatch<AppNotificationStoreActionUnion>;
-  readonly slice: string;
+  readonly sliceName: string;
 }
 
 function runClearAction ({
   callback,
   dispatch,
-  slice
+  sliceName
 }: Options) {
   dispatch({
-    slice,
+    sliceName,
     type: AppNotificationStoreActionType.Clear
   });
 
@@ -32,7 +32,7 @@ function runClearAction ({
 }
 
 export function useStoreClearActionDispatch (
-  slice: AppNotificationStoreSlice,
+  sliceName: AppNotificationStoreSliceName,
   {
     callback,
     dispatchType
@@ -46,7 +46,7 @@ export function useStoreClearActionDispatch (
         runClearAction({
           callback,
           dispatch,
-          slice
+          sliceName
         });
       };
 
@@ -55,7 +55,7 @@ export function useStoreClearActionDispatch (
           runClearAction({
             callback,
             dispatch,
-            slice
+            sliceName
           });
         }
       };
@@ -64,7 +64,7 @@ export function useStoreClearActionDispatch (
       callback,
       dispatch,
       dispatchType,
-      slice
+      sliceName
     ]
   );
 
@@ -72,7 +72,7 @@ export function useStoreClearActionDispatch (
     runClearAction({
       callback,
       dispatch,
-      slice
+      sliceName
     });
   }
 

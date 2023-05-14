@@ -1,4 +1,4 @@
-import { type AppNotificationStoreHooks, AppNotificationStoreSlice } from '../../features';
+import { type AppNotificationStoreHooks, AppNotificationStoreSliceName } from '../../features';
 import { type OperationHandler, createOperationHandler } from './OperationHandler';
 import { type OperationHandlerConfig } from './OperationHandlerConfig';
 
@@ -17,7 +17,7 @@ export function createOperationHooks ({
     const { shouldBeLogged, shouldBeNotified } = config;
 
     const { run } = hooksOfAppNotificationStore.useStoreSetActionDispatch(
-      AppNotificationStoreSlice.Default,
+      AppNotificationStoreSliceName.Default,
       {}
     );
 
