@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import {
+  type AppNotificationStoreOwner,
   type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput,
   type AppNotificationStoreSetActionPayload,
@@ -8,7 +9,7 @@ import { useStoreState } from '../../AppNotificationStoreStateHook';
 import { useStoreSetActionDispatch } from './AppNotificationStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  owner: string,
+  owner: AppNotificationStoreOwner,
   input: AppNotificationStoreSetActionInput
 ): AppNotificationStoreSetActionOutput {
   const { onActionCompleted } = input;

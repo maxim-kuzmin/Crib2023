@@ -1,6 +1,6 @@
 import { type TopicStoreHooks } from '../../features';
-import { createTopicItemStoreHooks } from './Item/TopicItemStoreHooks';
-import { createTopicTreeStoreHooks } from './Tree/TopicTreeStoreHooks';
+import { createTopicItemStoreHooks } from './Item';
+import { createTopicTreeStoreHooks } from './Tree';
 
 export function createTopicStoreHooks (): TopicStoreHooks {
   const hooksOfItem = createTopicItemStoreHooks();

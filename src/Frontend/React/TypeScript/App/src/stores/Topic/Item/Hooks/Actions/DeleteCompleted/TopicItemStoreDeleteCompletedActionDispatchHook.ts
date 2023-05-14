@@ -1,6 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
+  type TopicItemStoreOwner,
   type TopicItemStoreDeleteCompletedActionCallback,
   type TopicItemStoreDeleteCompletedActionDispatch,
   type TopicItemStoreDeleteCompletedActionOptions,
@@ -35,7 +36,7 @@ export function runDeleteCompletedAction ({
 }
 
 export function useStoreDeleteCompletedActionDispatch (
-  owner: string,
+  owner: TopicItemStoreOwner,
   {
     callback,
     dispatchType,

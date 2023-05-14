@@ -1,10 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { ContextProvider } from './app';
-import { createAppInstance } from './app/AppInstance';
-import { createAppSetup } from './app/AppSetup';
+import { ContextProvider, createAppInstance, createAppSetup } from './app';
 import { ArticlePage, NotFoundPage, TopicPage } from './pages';
 import { AppRootView, ArticleItemViewMode } from './views';
 import { reportWebVitals } from './reportWebVitals';
@@ -49,9 +47,9 @@ const router = createBrowserRouter([{
 },
 ]);
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const container = document.getElementById('root')!;
+const root = createRoot(container);
+
 root.render(
   <React.StrictMode>
     <HelmetProvider>

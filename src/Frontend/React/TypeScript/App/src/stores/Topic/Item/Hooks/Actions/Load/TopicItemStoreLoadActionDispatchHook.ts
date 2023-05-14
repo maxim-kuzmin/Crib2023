@@ -12,6 +12,7 @@ import {
   type TopicItemStoreLoadActionOptions,
   type TopicItemStoreLoadActionPayload,
   type TopicItemStoreResource,
+  type TopicItemStoreOwner,
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
@@ -78,7 +79,7 @@ async function runLoadAction ({
 }
 
 export function useStoreLoadActionDispatch (
-  owner: string,
+  owner: TopicItemStoreOwner,
   {
     callback,
     dispatchType,

@@ -1,13 +1,14 @@
 import { useCallback } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
+  type ArticleItemStoreOwner,
   type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput
 } from '../../../../../../features';
 import { useStoreClearActionDispatch } from './ArticleItemStoreClearActionDispatchHook';
 
 export function useStoreClearActionOutput (
-  owner: string,
+  owner: ArticleItemStoreOwner,
   input: ArticleItemStoreClearActionInput
 ): ArticleItemStoreClearActionOutput {
   const { onActionCompleted } = input;

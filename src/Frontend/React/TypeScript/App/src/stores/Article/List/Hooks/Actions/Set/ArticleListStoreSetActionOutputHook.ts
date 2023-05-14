@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import {
+  type ArticleListStoreOwner,
   type ArticleListStoreSetActionInput,
   type ArticleListStoreSetActionOutput,
   type ArticleListStoreSetActionPayload,
@@ -8,7 +9,7 @@ import { useStoreState } from '../../ArticleListStoreStateHook';
 import { useStoreSetActionDispatch } from './ArticleListStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  owner: string,
+  owner: ArticleListStoreOwner,
   input: ArticleListStoreSetActionInput
 ): ArticleListStoreSetActionOutput {
   const { onActionCompleted } = input;

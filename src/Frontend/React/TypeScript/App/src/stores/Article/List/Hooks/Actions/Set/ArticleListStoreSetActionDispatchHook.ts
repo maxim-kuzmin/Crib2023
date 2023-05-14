@@ -1,6 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
+  type ArticleListStoreOwner,
   type ArticleListStoreSetActionCallback,
   type ArticleListStoreSetActionDispatch,
   type ArticleListStoreSetActionOptions,
@@ -35,7 +36,7 @@ function runSetAction ({
 }
 
 export function useStoreSetActionDispatch (
-  owner: string,
+  owner: ArticleListStoreOwner,
   {
     callback,
     dispatchType,

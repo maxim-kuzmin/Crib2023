@@ -1,6 +1,6 @@
 import { type ArticleStoreHooks } from '../../features';
-import { createArticleItemStoreHooks } from './Item/ArticleItemStoreHooks';
-import { createArticleListStoreHooks } from './List/ArticleListStoreHooks';
+import { createArticleItemStoreHooks } from './Item';
+import { createArticleListStoreHooks } from './List';
 
 export function createArticleStoreHooks (): ArticleStoreHooks {
   const hooksOfItem = createArticleItemStoreHooks();

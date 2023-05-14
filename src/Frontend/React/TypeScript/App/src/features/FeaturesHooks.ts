@@ -1,6 +1,5 @@
-import { createStoresHooks } from '../stores/StoresHooks';
-import { type LocalizationHooks } from './Localization';
-import { createLocalizationHooks } from './Localization/LocalizationHooks';
+import { createStoresHooks } from '../stores';
+import { type LocalizationHooks, createLocalizationHooks } from './Localization';
 import { type StoresHooks } from './Stores';
 
 export interface FeaturesHooks {

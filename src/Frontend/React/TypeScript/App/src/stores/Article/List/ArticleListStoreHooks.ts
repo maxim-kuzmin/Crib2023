@@ -3,7 +3,8 @@ import { useAppInstance } from '../../../app';
 import {
   type ArticleListStoreResource,
   type ArticleListStoreHooks,
-  type ArticleListStoreState
+  type ArticleListStoreState,
+  type ArticleListStoreOwner
 } from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/ArticleListStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/ArticleListStoreClearActionOutputHook';
@@ -66,7 +67,7 @@ export function useArticleListStoreDispatch (): Dispatch<ArticleListStoreActionU
 }
 
 export function useArticleListStoreState (
-  owner: string
+  owner: ArticleListStoreOwner
 ): ArticleListStoreState {
   return useContext(ArticleListStoreStateContext)!.get(owner)!;
 }

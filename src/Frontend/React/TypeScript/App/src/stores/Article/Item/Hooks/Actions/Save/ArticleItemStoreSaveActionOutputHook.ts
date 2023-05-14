@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { OperationStatus } from '../../../../../../common';
 import {
+  type ArticleItemStoreOwner,
   type ArticleItemStoreSaveActionInput,
   type ArticleItemStoreSaveActionOutput,
   type ArticleItemStoreSaveCompletedActionPayload,
@@ -9,7 +10,7 @@ import { useStoreSaveActionDispatch } from './ArticleItemStoreSaveActionDispatch
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 
 export function useStoreSaveActionOutput (
-  owner: string,
+  owner: ArticleItemStoreOwner,
   input: ArticleItemStoreSaveActionInput = {}
 ): ArticleItemStoreSaveActionOutput {
   const { onActionCompleted } = input;

@@ -1,6 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
+  type AppNotificationStoreOwner,
   type AppNotificationStoreSetActionCallback,
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionOptions,
@@ -35,7 +36,7 @@ function runSetAction ({
 }
 
 export function useStoreSetActionDispatch (
-  owner: string,
+  owner: AppNotificationStoreOwner,
   {
     callback,
     dispatchType,

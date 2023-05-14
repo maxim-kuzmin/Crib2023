@@ -11,7 +11,8 @@ import {
   type TopicTreeStoreLoadActionDispatch,
   type TopicTreeStoreLoadActionOptions,
   type TopicTreeStoreLoadActionPayload,
-  type TopicTreeStoreResource
+  type TopicTreeStoreResource,
+  type TopicTreeStoreOwner
 } from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
@@ -77,7 +78,7 @@ async function runLoadAction ({
 }
 
 export function useStoreLoadActionDispatch (
-  owner: string,
+  owner: TopicTreeStoreOwner,
   {
     callback,
     dispatchType,

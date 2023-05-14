@@ -12,6 +12,7 @@ import {
   type TopicItemStoreDeleteActionOptions,
   type TopicItemStoreDeleteActionPayload,
   type TopicItemStoreResource,
+  type TopicItemStoreOwner,
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
@@ -78,7 +79,7 @@ async function runDeleteAction ({
 }
 
 export function useStoreDeleteActionDispatch (
-  owner: string,
+  owner: TopicItemStoreOwner,
   {
     callback,
     dispatchType,

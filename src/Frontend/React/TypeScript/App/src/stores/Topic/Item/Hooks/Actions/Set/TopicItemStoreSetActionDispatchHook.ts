@@ -1,6 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
+  type TopicItemStoreOwner,
   type TopicItemStoreSetActionCallback,
   type TopicItemStoreSetActionDispatch,
   type TopicItemStoreSetActionOptions,
@@ -35,7 +36,7 @@ function runSetAction ({
 }
 
 export function useStoreSetActionDispatch (
-  owner: string,
+  owner: TopicItemStoreOwner,
   {
     callback,
     dispatchType,

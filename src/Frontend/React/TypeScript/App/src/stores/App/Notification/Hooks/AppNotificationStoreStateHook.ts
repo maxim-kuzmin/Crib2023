@@ -1,6 +1,6 @@
-import { type AppNotificationStoreState } from '../../../../features';
+import { type AppNotificationStoreOwner, type AppNotificationStoreState } from '../../../../features';
 import { useAppNotificationStoreState } from '../AppNotificationStoreHooks';
 
-export function useStoreState (owner: string): AppNotificationStoreState {
+export function useStoreState (owner: AppNotificationStoreOwner): AppNotificationStoreState {
   return useAppNotificationStoreState(owner);
 }

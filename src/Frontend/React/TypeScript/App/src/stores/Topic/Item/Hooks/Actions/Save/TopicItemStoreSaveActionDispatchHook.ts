@@ -11,7 +11,8 @@ import {
   type TopicItemStoreSaveActionDispatch,
   type TopicItemStoreSaveActionOptions,
   type TopicItemStoreSaveActionPayload,
-  type TopicItemStoreResource
+  type TopicItemStoreResource,
+  type TopicItemStoreOwner
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
@@ -78,7 +79,7 @@ async function runSaveAction ({
 }
 
 export function useStoreSaveActionDispatch (
-  owner: string,
+  owner: TopicItemStoreOwner,
   {
     callback,
     dispatchType,

@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { OperationStatus } from '../../../../../../common';
 import {
+  type TopicItemStoreOwner,
   type TopicItemStoreDeleteActionInput,
   type TopicItemStoreDeleteActionOutput,
   type TopicItemStoreDeleteCompletedActionPayload,
@@ -9,7 +10,7 @@ import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreDeleteActionDispatch } from './TopicItemStoreDeleteActionDispatchHook';
 
 export function useStoreDeleteActionOutput (
-  owner: string,
+  owner: TopicItemStoreOwner,
   input: TopicItemStoreDeleteActionInput = {}
 ): TopicItemStoreDeleteActionOutput {
   const { onActionCompleted } = input;

@@ -14,6 +14,7 @@ import {
   type ArticleListStoreSetActionOptions,
   type ArticleListStoreSetActionOutput
 } from './Actions';
+import { type ArticleListStoreOwner } from './ArticleListStoreOwner';
 import { type ArticleListStoreResource } from './ArticleListStoreResource';
 import { type ArticleListStoreState } from './ArticleListStoreState';
 
@@ -21,39 +22,39 @@ export interface ArticleListStoreHooks {
   readonly useResource: () => ArticleListStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    owner: string,
+    owner: ArticleListStoreOwner,
     options: ArticleListStoreClearActionOptions
   ) => ArticleListStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    owner: string,
+    owner: ArticleListStoreOwner,
     input: ArticleListStoreClearActionInput
   ) => ArticleListStoreClearActionOutput;
 
   readonly useStoreLoadActionDispatch: (
-    owner: string,
+    owner: ArticleListStoreOwner,
     options: ArticleListStoreLoadActionOptions
   ) => ArticleListStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    owner: string,
+    owner: ArticleListStoreOwner,
     input: ArticleListStoreLoadActionInput
   ) => ArticleListStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    owner: string,
+    owner: ArticleListStoreOwner,
     options: ArticleListStoreLoadCompletedActionOptions
   ) => ArticleListStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    owner: string,
+    owner: ArticleListStoreOwner,
     options: ArticleListStoreSetActionOptions
   ) => ArticleListStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    owner: string,
+    owner: ArticleListStoreOwner,
     input: ArticleListStoreSetActionInput
   ) => ArticleListStoreSetActionOutput;
 
-  readonly useStoreState: (owner: string) => ArticleListStoreState;
+  readonly useStoreState: (owner: ArticleListStoreOwner) => ArticleListStoreState;
 }

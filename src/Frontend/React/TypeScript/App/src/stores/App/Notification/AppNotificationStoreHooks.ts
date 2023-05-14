@@ -1,5 +1,9 @@
 import { type Dispatch, useContext } from 'react';
-import { type AppNotificationStoreState, type AppNotificationStoreHooks } from '../../../features';
+import {
+  type AppNotificationStoreState,
+  type AppNotificationStoreHooks,
+  type AppNotificationStoreOwner
+} from '../../../features';
 import { useStoreClearActionDispatch } from './Hooks/Actions/Clear/AppNotificationStoreClearActionDispatchHook';
 import { useStoreClearActionOutput } from './Hooks/Actions/Clear/AppNotificationStoreClearActionOutputHook';
 import { useStoreSetActionDispatch } from './Hooks/Actions/Set/AppNotificationStoreSetActionDispatchHook';
@@ -26,7 +30,7 @@ export function useAppNotificationStoreDispatch (): Dispatch<AppNotificationStor
 }
 
 export function useAppNotificationStoreState (
-  owner: string
+  owner: AppNotificationStoreOwner
 ): AppNotificationStoreState {
   return useContext(AppNotificationStoreStateContext)!.get(owner)!;
 }

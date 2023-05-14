@@ -1,6 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
+  type TopicItemStoreOwner,
   type TopicItemStoreLoadCompletedActionCallback,
   type TopicItemStoreLoadCompletedActionDispatch,
   type TopicItemStoreLoadCompletedActionOptions,
@@ -35,7 +36,7 @@ export function runLoadCompletedAction ({
 }
 
 export function useStoreLoadCompletedActionDispatch (
-  owner: string,
+  owner: TopicItemStoreOwner,
   {
     callback,
     dispatchType,

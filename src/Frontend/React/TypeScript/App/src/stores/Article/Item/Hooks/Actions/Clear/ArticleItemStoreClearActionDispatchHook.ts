@@ -1,6 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
+  type ArticleItemStoreOwner,
   type ArticleItemStoreClearActionCallback,
   type ArticleItemStoreClearActionDispatch,
   type ArticleItemStoreClearActionOptions,
@@ -31,7 +32,7 @@ function runClearAction ({
 }
 
 export function useStoreClearActionDispatch (
-  owner: string,
+  owner: ArticleItemStoreOwner,
   {
     callback,
     dispatchType

@@ -12,6 +12,7 @@ import {
   type ArticleItemStoreSaveActionOptions,
   type ArticleItemStoreSaveActionPayload,
   type ArticleItemStoreResource,
+  type ArticleItemStoreOwner,
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
@@ -78,7 +79,7 @@ async function runSaveAction ({
 }
 
 export function useStoreSaveActionDispatch (
-  owner: string,
+  owner: ArticleItemStoreOwner,
   {
     callback,
     dispatchType,

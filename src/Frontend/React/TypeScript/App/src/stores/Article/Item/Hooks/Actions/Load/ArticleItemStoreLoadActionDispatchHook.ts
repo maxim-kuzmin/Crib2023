@@ -12,6 +12,7 @@ import {
   type ArticleItemStoreLoadActionOptions,
   type ArticleItemStoreLoadActionPayload,
   type ArticleItemStoreResource,
+  type ArticleItemStoreOwner,
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
@@ -78,7 +79,7 @@ async function runLoadAction ({
 }
 
 export function useStoreLoadActionDispatch (
-  owner: string,
+  owner: ArticleItemStoreOwner,
   {
     callback,
     dispatchType,

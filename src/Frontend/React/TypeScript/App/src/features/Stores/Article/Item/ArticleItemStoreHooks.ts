@@ -26,6 +26,7 @@ import {
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionOutput
 } from './Actions';
+import { type ArticleItemStoreOwner } from './ArticleItemStoreOwner';
 import { type ArticleItemStoreResource } from './ArticleItemStoreResource';
 import { type ArticleItemStoreState } from './ArticleItemStoreState';
 
@@ -33,69 +34,69 @@ export interface ArticleItemStoreHooks {
   readonly useResource: () => ArticleItemStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     options: ArticleItemStoreClearActionOptions
   ) => ArticleItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     input: ArticleItemStoreClearActionInput
   ) => ArticleItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionDispatch: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     options: ArticleItemStoreDeleteActionOptions
   ) => ArticleItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     input?: ArticleItemStoreDeleteActionInput
   ) => ArticleItemStoreDeleteActionOutput;
 
   readonly useStoreDeleteCompletedActionDispatch: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     options: ArticleItemStoreDeleteCompletedActionOptions
   ) => ArticleItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     options: ArticleItemStoreLoadActionOptions
   ) => ArticleItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     input: ArticleItemStoreLoadActionInput
   ) => ArticleItemStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     options: ArticleItemStoreLoadCompletedActionOptions
   ) => ArticleItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     options: ArticleItemStoreSaveActionOptions
   ) => ArticleItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     input?: ArticleItemStoreSaveActionInput
   ) => ArticleItemStoreSaveActionOutput;
 
   readonly useStoreSaveCompletedActionDispatch: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     options: ArticleItemStoreSaveCompletedActionOptions
   ) => ArticleItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     options: ArticleItemStoreSetActionOptions
   ) => ArticleItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    owner: string,
+    owner: ArticleItemStoreOwner,
     input: ArticleItemStoreSetActionInput
   ) => ArticleItemStoreSetActionOutput;
 
-  readonly useStoreState: (owner: string) => ArticleItemStoreState;
+  readonly useStoreState: (owner: ArticleItemStoreOwner) => ArticleItemStoreState;
 }

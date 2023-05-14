@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { OperationStatus } from '../../../../../../common';
 import {
+  type ArticleItemStoreOwner,
   type ArticleItemStoreDeleteActionInput,
   type ArticleItemStoreDeleteActionOutput,
   type ArticleItemStoreDeleteCompletedActionPayload,
@@ -9,7 +10,7 @@ import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreDeleteActionDispatch } from './ArticleItemStoreDeleteActionDispatchHook';
 
 export function useStoreDeleteActionOutput (
-  owner: string,
+  owner: ArticleItemStoreOwner,
   input: ArticleItemStoreDeleteActionInput = {}
 ): ArticleItemStoreDeleteActionOutput {
   const { onActionCompleted } = input;

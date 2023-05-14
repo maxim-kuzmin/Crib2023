@@ -1,6 +1,6 @@
-import { createAppStoreHooks } from './App/AppStoreHooks';
-import { createArticleStoreHooks } from './Article/ArticleStoreHooks';
-import { createTopicStoreHooks } from './Topic/TopicStoreHooks';
+import { createAppStoreHooks } from './App';
+import { createArticleStoreHooks } from './Article';
+import { createTopicStoreHooks } from './Topic';
 
 export function createStoresHooks () {
   const hooksOfApp = createAppStoreHooks();

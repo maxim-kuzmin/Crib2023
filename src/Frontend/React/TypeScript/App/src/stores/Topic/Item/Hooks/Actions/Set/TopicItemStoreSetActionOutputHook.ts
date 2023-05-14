@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import {
+  type TopicItemStoreOwner,
   type TopicItemStoreSetActionInput,
   type TopicItemStoreSetActionOutput,
   type TopicItemStoreSetActionPayload,
@@ -8,7 +9,7 @@ import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreSetActionDispatch } from './TopicItemStoreSetActionDispatchHook';
 
 export function useStoreSetActionOutput (
-  owner: string,
+  owner: TopicItemStoreOwner,
   input: TopicItemStoreSetActionInput
 ): TopicItemStoreSetActionOutput {
   const { onActionCompleted } = input;

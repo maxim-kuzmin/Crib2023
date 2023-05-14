@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import {
+  type TopicItemStoreOwner,
   type TopicItemStoreLoadActionInput,
   type TopicItemStoreLoadActionOutput,
   type TopicItemStoreLoadCompletedActionPayload,
@@ -9,7 +10,7 @@ import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreLoadActionDispatch } from './TopicItemStoreLoadActionDispatchHook';
 
 export function useStoreLoadActionOutput (
-  owner: string,
+  owner: TopicItemStoreOwner,
   input: TopicItemStoreLoadActionInput
 ): TopicItemStoreLoadActionOutput {
   const { isCanceled, onActionCompleted, payloadOfLoadAction } = input;

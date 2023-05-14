@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import {
+  type TopicTreeStoreOwner,
   type TopicTreeStoreLoadActionInput,
   type TopicTreeStoreLoadActionOutput,
   type TopicTreeStoreLoadCompletedActionPayload,
@@ -9,7 +10,7 @@ import { useStoreState } from '../../TopicTreeStoreStateHook';
 import { useStoreLoadActionDispatch } from './TopicTreeStoreLoadActionDispatchHook';
 
 export function useStoreLoadActionOutput (
-  owner: string,
+  owner: TopicTreeStoreOwner,
   input: TopicTreeStoreLoadActionInput
 ): TopicTreeStoreLoadActionOutput {
   const { isCanceled, onActionCompleted, payloadOfLoadAction } = input;

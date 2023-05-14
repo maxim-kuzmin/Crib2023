@@ -26,6 +26,7 @@ import {
   type TopicItemStoreSetActionOptions,
   type TopicItemStoreSetActionOutput
 } from './Actions';
+import { type TopicItemStoreOwner } from './TopicItemStoreOwner';
 import { type TopicItemStoreResource } from './TopicItemStoreResource';
 import { type TopicItemStoreState } from './TopicItemStoreState';
 
@@ -33,69 +34,69 @@ export interface TopicItemStoreHooks {
   readonly useResource: () => TopicItemStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     options: TopicItemStoreClearActionOptions
   ) => TopicItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     input: TopicItemStoreClearActionInput
   ) => TopicItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionDispatch: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     options: TopicItemStoreDeleteActionOptions
   ) => TopicItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     input?: TopicItemStoreDeleteActionInput
   ) => TopicItemStoreDeleteActionOutput;
 
   readonly useStoreDeleteCompletedActionDispatch: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     options: TopicItemStoreDeleteCompletedActionOptions
   ) => TopicItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     options: TopicItemStoreLoadActionOptions
   ) => TopicItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     input: TopicItemStoreLoadActionInput
   ) => TopicItemStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     options: TopicItemStoreLoadCompletedActionOptions
   ) => TopicItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     options: TopicItemStoreSaveActionOptions
   ) => TopicItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     input?: TopicItemStoreSaveActionInput
   ) => TopicItemStoreSaveActionOutput;
 
   readonly useStoreSaveCompletedActionDispatch: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     options: TopicItemStoreSaveCompletedActionOptions
   ) => TopicItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     options: TopicItemStoreSetActionOptions
   ) => TopicItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    owner: string,
+    owner: TopicItemStoreOwner,
     input: TopicItemStoreSetActionInput
   ) => TopicItemStoreSetActionOutput;
 
-  readonly useStoreState: (owner: string) => TopicItemStoreState;
+  readonly useStoreState: (owner: TopicItemStoreOwner) => TopicItemStoreState;
 }

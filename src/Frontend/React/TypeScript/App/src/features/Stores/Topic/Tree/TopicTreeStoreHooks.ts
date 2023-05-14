@@ -14,6 +14,7 @@ import {
   type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreSetActionOutput
 } from './Actions';
+import { type TopicTreeStoreOwner } from './TopicTreeStoreOwner';
 import { type TopicTreeStoreResource } from './TopicTreeStoreResource';
 import { type TopicTreeStoreState } from './TopicTreeStoreState';
 
@@ -21,39 +22,39 @@ export interface TopicTreeStoreHooks {
   readonly useResource: () => TopicTreeStoreResource;
 
   readonly useStoreClearActionDispatch: (
-    owner: string,
+    owner: TopicTreeStoreOwner,
     options: TopicTreeStoreClearActionOptions
   ) => TopicTreeStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
-    owner: string,
+    owner: TopicTreeStoreOwner,
     input: TopicTreeStoreClearActionInput
   ) => TopicTreeStoreClearActionOutput;
 
   readonly useStoreLoadActionDispatch: (
-    owner: string,
+    owner: TopicTreeStoreOwner,
     options: TopicTreeStoreLoadActionOptions
   ) => TopicTreeStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
-    owner: string,
+    owner: TopicTreeStoreOwner,
     input: TopicTreeStoreLoadActionInput
   ) => TopicTreeStoreLoadActionOutput;
 
   readonly useStoreLoadCompletedActionDispatch: (
-    owner: string,
+    owner: TopicTreeStoreOwner,
     options: TopicTreeStoreLoadCompletedActionOptions
   ) => TopicTreeStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
-    owner: string,
+    owner: TopicTreeStoreOwner,
     options: TopicTreeStoreSetActionOptions
   ) => TopicTreeStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (
-    owner: string,
+    owner: TopicTreeStoreOwner,
     input: TopicTreeStoreSetActionInput
   ) => TopicTreeStoreSetActionOutput;
 
-  readonly useStoreState: (owner: string) => TopicTreeStoreState;
+  readonly useStoreState: (owner: TopicTreeStoreOwner) => TopicTreeStoreState;
 }

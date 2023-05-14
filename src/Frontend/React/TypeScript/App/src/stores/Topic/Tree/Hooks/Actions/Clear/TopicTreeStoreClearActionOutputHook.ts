@@ -1,13 +1,14 @@
 import { useCallback } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
+  type TopicTreeStoreOwner,
   type TopicTreeStoreClearActionInput,
   type TopicTreeStoreClearActionOutput
 } from '../../../../../../features';
 import { useStoreClearActionDispatch } from './TopicTreeStoreClearActionDispatchHook';
 
 export function useStoreClearActionOutput (
-  owner: string,
+  owner: TopicTreeStoreOwner,
   input: TopicTreeStoreClearActionInput
 ): TopicTreeStoreClearActionOutput {
   const { onActionCompleted } = input;

@@ -1,5 +1,5 @@
 export * from './Localization';
 export * from './Stores';
 export * from './Test';
-export { type FeaturesHooks } from './FeaturesHooks';
-export { type FeaturesModules } from './FeaturesModules';
+export { type FeaturesHooks, createFeaturesHooks } from './FeaturesHooks';
+export { type FeaturesModules, createFeaturesModules } from './FeaturesModules';
