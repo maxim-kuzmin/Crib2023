@@ -1,5 +1,5 @@
+import { createLocalizationSetup } from '../features';
 import { type AppInstance } from '.';
-import { createLocalizationSetup } from '../features/Localization/LocalizationSetup';
 
 export interface AppSetup {
   readonly run: () => void;
