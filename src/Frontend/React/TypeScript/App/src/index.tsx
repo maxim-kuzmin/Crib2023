@@ -44,8 +44,7 @@ const router = createBrowserRouter([{
       element: <NotFoundPage />
     }
   ],
-},
-]);
+}]);
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
