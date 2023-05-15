@@ -1,3 +1,4 @@
+export * from './App';
 export * from './Article';
 export * from './NotFound';
 export * from './Topic';

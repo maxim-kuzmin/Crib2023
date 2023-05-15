@@ -12,8 +12,8 @@ import {
   createTopicDomainTreeGetOperationRequest
 } from '../../../domains';
 import { type TopicTreeStoreLoadActionPayload } from '../../../features';
+import { type TopicTreeViewProps } from './TopicTreeViewProps';
 import styles from './TopicTreeView.module.css';
-import { type TopicPageService } from '../../../pages';
 
 const topicInput: TopicDomainTreeGetOperationInput = {
   axis: TreeGetOperationAxisForList.Child,
@@ -21,10 +21,17 @@ const topicInput: TopicDomainTreeGetOperationInput = {
   sortDirection: OperationSortDirection.Asc,
 };
 
-function convertToControlNodes (
-  topicId: number,
-  serviceOfTopicPage: TopicPageService,
-  entities?: TopicDomainEntityForTree[]
+interface ConvertToControlNodesOptions {
+  createTopicPageUrl: (topicId: number) => string;
+  entities?: TopicDomainEntityForTree[];
+  topicId: number;
+}
+
+function convertToControlNodes ({
+  createTopicPageUrl,
+  entities,
+  topicId,
+}: ConvertToControlNodesOptions
 ): TreeControlNode[] {
   return entities
     ? entities.map((entity) => {
@@ -32,13 +39,19 @@ function convertToControlNodes (
       const { id, name } = data;
 
       const result: TreeControlNode = {
-        href: serviceOfTopicPage.createUrl({ topicId: Number(id) }),
+        href: createTopicPageUrl(Number(id)),
         isLeaf: !treeHasChildren,
         isExpanded: treeIsExpanded,
         isSelected: id === topicId,
         key: id,
         title: name,
-        children: treeChildren.length > 0 ? convertToControlNodes(topicId, serviceOfTopicPage, treeChildren) : []
+        children: treeChildren.length > 0
+          ? convertToControlNodes({
+              topicId,
+              createTopicPageUrl,
+              entities: treeChildren
+            })
+          : []
       };
 
       return result;
@@ -46,9 +59,11 @@ function convertToControlNodes (
   : [];
 }
 
-export const TopicTreeView: React.FC = memo(
-function TopicTreeView (): React.ReactElement | null {
-  const { controls, factories, hooks, modules } = useAppInstance();
+export const TopicTreeView: React.FC<TopicTreeViewProps> = memo(
+function TopicTreeView ({
+  createTopicPageUrl
+}: TopicTreeViewProps): React.ReactElement<TopicTreeViewProps> | null {
+  const { controls, factories, hooks } = useAppInstance();
 
   const factoryOfApiResponse = factories.Data.Api.Response;
 
@@ -84,11 +99,9 @@ function TopicTreeView (): React.ReactElement | null {
 
   const entities = payloadOfLoadCompletedAction?.data?.nodes;
 
-  const serviceOfTopicPage = modules.Pages.Topic.getService();
-
   const controlNodes = useMemo(
-    () => convertToControlNodes(topicId, serviceOfTopicPage, entities),
-    [entities, serviceOfTopicPage, topicId]
+    () => convertToControlNodes({ createTopicPageUrl, entities, topicId }),
+    [createTopicPageUrl, entities, topicId]
   );
 
   const requestHandler = useRef(hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
@@ -109,14 +122,18 @@ function TopicTreeView (): React.ReactElement | null {
         () => false
       );
 
-      return convertToControlNodes(topicId, serviceOfTopicPage, response?.data?.nodes);
+      return convertToControlNodes({
+        topicId,
+        createTopicPageUrl,
+        entities: response?.data?.nodes
+      });
     },
     [
+      createTopicPageUrl,
       factoryOfApiResponse,
       requestHandler,
       resourceOfApiResponse,
       resourceOfTopicTreeStore,
-      serviceOfTopicPage,
       topicId
     ]
   );

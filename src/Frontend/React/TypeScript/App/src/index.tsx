@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ContextProvider, createAppInstance, createAppSetup } from './app';
-import { ArticlePage, NotFoundPage, TopicPage } from './pages';
-import { AppRootView, ArticleItemViewMode } from './views';
+import { AppPage, ArticlePage, NotFoundPage, TopicPage } from './pages';
+import { ArticleItemViewMode } from './views';
 import { reportWebVitals } from './reportWebVitals';
 
 import './index.css';
@@ -17,7 +17,7 @@ setupOfApp.run();
 
 const router = createBrowserRouter([{
   path: '/',
-  element: <AppRootView />,
+  element: <AppPage />,
   children: [
     {
       path: '',

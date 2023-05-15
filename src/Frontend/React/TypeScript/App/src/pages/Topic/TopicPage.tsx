@@ -3,7 +3,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { useAppInstance } from '../../app';
 import { TreeGetOperationAxisForItem, type TableControlPagination } from '../../common';
 import { type TopicItemStoreLoadActionPayload } from '../../features';
-import { ArticleTableView } from '../../views';
+import { ArticleItemViewMode, ArticleTableView } from '../../views';
 
 export const TopicPage: React.FC = memo(
 function TopicPage (): React.ReactElement | null {
@@ -19,18 +19,20 @@ function TopicPage (): React.ReactElement | null {
 
   const { hooks, modules } = useAppInstance();
 
-  const topicPageService = modules.Pages.Topic.getService();
+  const serviceOfArticlePage = modules.Pages.Article.getService();
 
-  const topicPageSearch = topicPageService.getUrlSearch(searchParams);
+  const serviceOfTopicPage = modules.Pages.Topic.getService();
 
-  const topicPageLastUrl = topicPageService.createUrl({ topicId, search: topicPageSearch });
+  const topicPageSearch = serviceOfTopicPage.getUrlSearch(searchParams);
+
+  const topicPageLastUrl = serviceOfTopicPage.createUrl({ topicId, search: topicPageSearch });
 
   useEffect(() => {
       return () => {
-        topicPageService.lastUrl = topicPageLastUrl;
+        serviceOfTopicPage.lastUrl = topicPageLastUrl;
       };
     },
-    [topicPageLastUrl, topicPageService]
+    [topicPageLastUrl, serviceOfTopicPage]
   );
 
   const { pageNumber, pageSize } = topicPageSearch;
@@ -62,8 +64,32 @@ function TopicPage (): React.ReactElement | null {
     setSearchParams(searchParams);
   }, [modules, searchParams, setSearchParams]);
 
+  const createArticlePageUrl = useCallback(
+    (articleId: number) => serviceOfArticlePage.createUrl({ articleId }),
+    [serviceOfArticlePage]
+  );
+
+  const createArticleEditPageUrl = useCallback(
+    (articleId: number) => serviceOfArticlePage.createUrl({ articleId, mode: ArticleItemViewMode.Edit }),
+    [serviceOfArticlePage]
+  );
+
+  const createArticleNewPageUrl = useCallback(
+    (topicId: number) => serviceOfArticlePage.createUrl({ search: { topicId } }),
+    [serviceOfArticlePage]
+  );
+
+  const createTopicPageUrl = useCallback(
+    (topicId: number) => serviceOfTopicPage.createUrl({ topicId }),
+    [serviceOfTopicPage]
+  );
+
   return (
     <ArticleTableView
+      createArticlePageUrl={createArticlePageUrl}
+      createArticleEditPageUrl={createArticleEditPageUrl}
+      createArticleNewPageUrl={createArticleNewPageUrl}
+      createTopicPageUrl={createTopicPageUrl}
       onTableChange={onTableChange}
       pageNumber={pageNumber}
       pageSize={pageSize}

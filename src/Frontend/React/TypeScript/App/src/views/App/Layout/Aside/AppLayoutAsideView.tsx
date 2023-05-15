@@ -6,6 +6,7 @@ import styles from './AppLayoutAsideView.module.css';
 
 export const AppLayoutAsideView: React.FC<AppLayoutAsideViewProps> = memo(
 function AppLayoutAsideView ({
+  createTopicPageUrl,
   logoUrl
 }: AppLayoutAsideViewProps): React.ReactElement<AppLayoutAsideViewProps> | null {
   return (
@@ -15,7 +16,7 @@ function AppLayoutAsideView ({
           <div className={styles.logo} style={{ backgroundImage: `url(${logoUrl})` }}/>
         </Link>
       </div>
-      <TopicTreeView/>
+      <TopicTreeView createTopicPageUrl={createTopicPageUrl}/>
     </>
   );
 });

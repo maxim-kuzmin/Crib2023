@@ -2,17 +2,17 @@ import React, { memo, useMemo } from 'react';
 import { useAppInstance } from '../../../app';
 import { type BreadcrumbControlItem } from '../../../common';
 import { type TopicDomainEntityForItem } from '../../../domains';
-import { type TopicPageService } from '../../../pages';
+import { type TopicPathViewProps } from './TopicPathViewProps';
 import styles from './TopicPathView.module.css';
 
 interface ConvertToControlItemsOptions {
+  createTopicPageUrl: (topicId: number) => string;
   entity?: TopicDomainEntityForItem;
-  serviceOfTopicPage: TopicPageService;
   titleForRoot: string;
 }
 
 function convertToControlItems (options: ConvertToControlItemsOptions): BreadcrumbControlItem[] {
-  const { entity, serviceOfTopicPage, titleForRoot } = options;
+  const { entity, createTopicPageUrl, titleForRoot } = options;
 
   const root: BreadcrumbControlItem = { title: titleForRoot, key: 0 };
 
@@ -25,7 +25,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
       const { id, name } = valueObject;
 
       return {
-        href: serviceOfTopicPage.createUrl({ topicId: Number(id) }),
+        href: createTopicPageUrl(Number(id)),
         key: id,
         title: name
       };
@@ -36,7 +36,7 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
     const { id, name } = entity.data;
 
     result.push({
-      href: serviceOfTopicPage.createUrl({ topicId: Number(id) }),
+      href: createTopicPageUrl(Number(id)),
       key: id,
       title: name
     });
@@ -45,9 +45,11 @@ function convertToControlItems (options: ConvertToControlItemsOptions): Breadcru
   return result;
 }
 
-export const TopicPathView: React.FC = memo(
-function TopicPathView (): React.ReactElement | null {
-  const { controls, hooks, modules } = useAppInstance();
+export const TopicPathView: React.FC<TopicPathViewProps> = memo(
+function TopicPathView ({
+  createTopicPageUrl
+}: TopicPathViewProps): React.ReactElement<TopicPathViewProps> | null {
+  const { controls, hooks } = useAppInstance();
 
   const topicPathViewResource = hooks.Views.Topic.Path.useResource();
 
@@ -57,13 +59,11 @@ function TopicPathView (): React.ReactElement | null {
 
   const entity = topicItemResponse?.data?.item;
 
-  const serviceOfTopicPage = modules.Pages.Topic.getService();
-
   const titleForRoot = topicPathViewResource.getTitleForRoot();
 
   const controlItems = useMemo(
-    () => convertToControlItems({ entity, serviceOfTopicPage, titleForRoot }),
-    [entity, serviceOfTopicPage, titleForRoot]
+    () => convertToControlItems({ createTopicPageUrl, entity, titleForRoot }),
+    [createTopicPageUrl, entity, titleForRoot]
   );
 
   const currentItemKey = entity?.data.id ?? 0;

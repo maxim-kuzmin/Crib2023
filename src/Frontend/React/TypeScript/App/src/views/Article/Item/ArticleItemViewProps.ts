@@ -5,6 +5,7 @@ import {
 
 export interface ArticleItemViewProps {
   articleId: number;
+  articleEditPageUrl: string;
   onArticleItemClearActionCompleted?: ArticleItemStoreClearActionCallback;
   onArticleItemLoadActionCompleted?: ArticleItemStoreLoadCompletedActionCallback;
   topicPageLastUrl?: string;

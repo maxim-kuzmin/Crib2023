@@ -10,7 +10,6 @@ import {
 } from '../../../common';
 import { type ArticleDomainEntityForList } from '../../../domains';
 import { type ArticleListStoreLoadActionPayload } from '../../../features';
-import { ArticleItemViewMode } from '../Item';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
@@ -21,6 +20,10 @@ function getRowKey (row: any): Key {
 
 export const ArticleTableView: React.FC<ArticleTableViewProps> = memo(
 function ArticleTableView ({
+  createArticlePageUrl,
+  createArticleEditPageUrl,
+  createArticleNewPageUrl,
+  createTopicPageUrl,
   onTableChange,
   pageNumber,
   pageSize,
@@ -32,7 +35,7 @@ function ArticleTableView ({
 
   const deletingId = useRef(0);
 
-  const { components, controls, hooks, modules } = useAppInstance();
+  const { components, controls, hooks } = useAppInstance();
 
   const resourceOfConfirmControl = hooks.Controls.Confirm.useResource();
 
@@ -106,8 +109,6 @@ function ArticleTableView ({
   );
 
   const componentOfConfirmControl = components.Controls.Confirm;
-  const serviceOfArticlePage = modules.Pages.Article.getService();
-  const serviceOfTopicPage = modules.Pages.Topic.getService();
 
   const controlColumns: TableControlColumn[] = useMemo(
     () => {
@@ -125,7 +126,7 @@ function ArticleTableView ({
             const { id, title } = viewRow;
 
             return (
-              <Link to={ serviceOfArticlePage.createUrl({ articleId: Number(id) })}>{title}</Link>
+              <Link to={ createArticlePageUrl(Number(id))}>{title}</Link>
             );
           }
         },
@@ -141,7 +142,7 @@ function ArticleTableView ({
               const { id, name } = item;
 
               return {
-                href: serviceOfTopicPage.createUrl({ topicId: Number(id) }),
+                href: createTopicPageUrl(Number(id)),
                 key: id,
                 title: name
               };
@@ -162,7 +163,7 @@ function ArticleTableView ({
                   {
                     topicId > 0
                       ? <Link
-                          to={serviceOfArticlePage.createUrl({ search: { topicId } })}
+                          to={createArticleNewPageUrl(topicId)}
                         >
                           {resourceOfArticleTableView.getActionForNew()}
                         </Link>
@@ -183,13 +184,13 @@ function ArticleTableView ({
               <div className={styles.actions}>
                 <Link
                   className={styles.action}
-                  to={serviceOfArticlePage.createUrl({ articleId: Number(id) })}
+                  to={createArticlePageUrl(Number(id))}
                 >
                   {resourceOfArticleTableView.getActionForDisplay()}
                 </Link>
                 <Link
                   className={styles.action}
-                  to={serviceOfArticlePage.createUrl({ articleId: Number(id), mode: ArticleItemViewMode.Edit })}
+                  to={createArticleEditPageUrl(Number(id))}
                 >
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
@@ -225,14 +226,16 @@ function ArticleTableView ({
     [
       componentOfConfirmControl,
       controls,
+      createArticleEditPageUrl,
+      createArticleNewPageUrl,
+      createArticlePageUrl,
+      createTopicPageUrl,
       dispatchOfDeleteAction,
       dispatchOfLoadAction,
       payloadOfLoadAction,
       pendingOfDeleteAction,
       resourceOfArticleTableView,
       resourceOfConfirmControl,
-      serviceOfArticlePage,
-      serviceOfTopicPage,
       topicId
     ]
   );

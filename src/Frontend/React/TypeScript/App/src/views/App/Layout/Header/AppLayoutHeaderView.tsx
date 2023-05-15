@@ -1,11 +1,13 @@
 import React, { memo } from 'react';
-import { TopicPathView } from '../../..';
+import { type AppLayoutHeaderViewProps, TopicPathView } from '../../..';
 import { useAppInstance } from '../../../../app';
 import { type SelectControlOption } from '../../../../common';
 import styles from './AppLayoutHeaderView.module.css';
 
-export const AppLayoutHeaderView: React.FC = memo(
-function AppLayoutHeaderView (): React.ReactElement | null {
+export const AppLayoutHeaderView: React.FC<AppLayoutHeaderViewProps> = memo(
+function AppLayoutHeaderView ({
+  createTopicPageUrl
+}: AppLayoutHeaderViewProps): React.ReactElement<AppLayoutHeaderViewProps> | null {
   const { controls, hooks } = useAppInstance();
 
   const serviceOfLocalization = hooks.Features.Localization.useService();
@@ -43,7 +45,7 @@ function AppLayoutHeaderView (): React.ReactElement | null {
 
   return (
     <div className={styles.root}>
-      <TopicPathView/>
+      <TopicPathView createTopicPageUrl={createTopicPageUrl}/>
       <controls.Select
         className={styles.select}
         defaultValue={serviceOfLocalization.getCurrentLanguage()}

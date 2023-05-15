@@ -8,18 +8,18 @@ import {
 } from '../../../common';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../data';
 import { type ArticleItemStoreLoadActionPayload } from '../../../features';
-import { ArticleItemViewMode } from './ArticleItemViewMode';
 import { type ArticleItemViewProps } from './ArticleItemViewProps';
 import styles from './ArticleItemView.module.css';
 
 export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({
   articleId,
+  articleEditPageUrl,
   onArticleItemClearActionCompleted,
   onArticleItemLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps): React.ReactElement<ArticleItemViewProps> | null {
-  const { controls, hooks, modules } = useAppInstance();
+  const { controls, hooks } = useAppInstance();
 
   const resourceOfArticleItemView = hooks.Views.Article.Item.useResource();
 
@@ -53,8 +53,6 @@ function ArticleItemView ({
     [loadedEntity]
   );
 
-  const serviceOfArticlePage = modules.Pages.Article.getService();
-
   const controlActions: CardControlAction[] = useMemo(
     () => {
       const result: CardControlAction[] = [];
@@ -70,7 +68,7 @@ function ArticleItemView ({
       }
 
       const actionToEdit: CardControlAction = {
-        href: serviceOfArticlePage.createUrl({ articleId, mode: ArticleItemViewMode.Edit }),
+        href: articleEditPageUrl,
         key: 'edit',
         title: resourceOfArticleItemView.getActionForEdit()
       };
@@ -79,7 +77,11 @@ function ArticleItemView ({
 
       return result;
     },
-    [articleId, resourceOfArticleItemView, serviceOfArticlePage, topicPageLastUrl]
+    [
+      articleEditPageUrl,
+      resourceOfArticleItemView,
+      topicPageLastUrl
+    ]
   );
 
   const tLabelForId: string = resourceOfArticleItemView.getLabelForId();
@@ -105,7 +107,7 @@ function ArticleItemView ({
               title={entity.title}
               type={CardControlType.Main}
             >
-                { entity.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
+              { entity.body.split('\n').map((x, i) => <p key={i}>{x}</p>) }
             </controls.Card>
           : null
       }

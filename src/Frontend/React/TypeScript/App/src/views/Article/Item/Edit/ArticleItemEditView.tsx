@@ -16,6 +16,7 @@ import styles from './ArticleItemEditView.module.css';
 export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({
   articleId,
+  articlePageUrl,
   onArticleItemClearActionCompleted,
   onArticleItemLoadActionCompleted,
   topicId,
@@ -77,8 +78,6 @@ function ArticleItemEditView ({
     fieldNameForTopicId
   } = modules.Views.Article.Item.Edit.getService();
 
-  const serviceOfArticlePage = modules.Pages.Article.getService();
-
   const controlActions = useMemo(
     () => {
       const result: FormControlAction[] = [];
@@ -104,7 +103,7 @@ function ArticleItemEditView ({
 
       if (articleId > 0) {
         const actionToDisplay: FormControlAction = {
-          href: serviceOfArticlePage.createUrl({ articleId }),
+          href: articlePageUrl,
           key: 'display',
           title: resourceOfArticleItemEditView.getActionForDisplay(),
           type: FormControlActionType.None
@@ -128,11 +127,11 @@ function ArticleItemEditView ({
     },
     [
       articleId,
+      articlePageUrl,
       pendingOfLoadAction,
       pendingOfSaveAction,
       resourceOfArticleItemEditView,
-      serviceOfArticlePage,
-      topicPageLastUrl,
+      topicPageLastUrl
     ]
   );
 

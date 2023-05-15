@@ -64,15 +64,29 @@ function ArticlePage ({
 
   const topicPageLastUrl = modules.Pages.Topic.getService().lastUrl;
 
+  const serviceOfArticlePage = modules.Pages.Article.getService();
+
+  const articlePageUrl = useMemo(
+    () => serviceOfArticlePage.createUrl({ articleId }),
+    [articleId, serviceOfArticlePage]
+  );
+
+  const articleEditPageUrl = useMemo(
+    () => serviceOfArticlePage.createUrl({ articleId, mode: ArticleItemViewMode.Edit }),
+    [articleId, serviceOfArticlePage]
+  );
+
   return (
     mode === ArticleItemViewMode.Display
       ? <ArticleItemView
           articleId={articleId}
+          articleEditPageUrl={articleEditPageUrl}
           onArticleItemLoadActionCompleted={handleArticleItemLoadActionCompleted}
           topicPageLastUrl={topicPageLastUrl}
         />
       : <ArticleItemEditView
           articleId={articleId}
+          articlePageUrl={articlePageUrl}
           onArticleItemLoadActionCompleted={handleArticleItemLoadActionCompleted}
           topicId={topicId}
           topicPageLastUrl={topicPageLastUrl}
