@@ -1,10 +1,12 @@
 import { type CommonOptions } from '../common';
 import { type ApiResponseFactory, type ApiClient } from '../data';
 import { type TestService } from '../features';
-import { type ArticleDomainModule } from './Article';
-import { createArticleDomainModule } from './Article/ArticleDomainModule';
-import { type TopicDomainModule } from './Topic';
-import { createTopicDomainModule } from './Topic/TopicDomainModule';
+import {
+  type ArticleDomainModule,
+  type TopicDomainModule,
+  createArticleDomainModule,
+  createTopicDomainModule,
+} from '.';
 
 export interface DomainsModules {
   readonly Article: ArticleDomainModule;
@@ -18,28 +20,31 @@ interface Options {
   readonly serviceOfTest: TestService;
 }
 
-export function createDomainsModules ({
-  apiClient,
-  factoryOfApiResponse,
-  optionsOfCommon,
-  serviceOfTest,
-}: Options): DomainsModules {
-  const moduleOfArticle = createArticleDomainModule({
+class Implementation implements DomainsModules {
+  readonly Article: ArticleDomainModule;
+  readonly Topic: TopicDomainModule;
+
+  constructor ({
     apiClient,
     factoryOfApiResponse,
     optionsOfCommon,
     serviceOfTest,
-  });
+  }: Options) {
+    this.Article = createArticleDomainModule({
+      apiClient,
+      factoryOfApiResponse,
+      optionsOfCommon,
+      serviceOfTest,
+    });
 
-  const moduleOfTopic = createTopicDomainModule({
-    apiClient,
-    factoryOfApiResponse,
-    optionsOfCommon,
-    serviceOfTest,
-  });
-
-  return {
-    Article: moduleOfArticle,
-    Topic: moduleOfTopic,
-  };
+    this.Topic = createTopicDomainModule({
+      apiClient,
+      factoryOfApiResponse,
+      optionsOfCommon,
+      serviceOfTest,
+    });
+  }
+}
+export function createDomainsModules (options: Options): DomainsModules {
+  return new Implementation(options);
 }

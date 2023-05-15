@@ -16,7 +16,7 @@ interface Options {
 }
 
 class Implementation implements TopicDomainModule {
-  private readonly implOfRepository: TopicDomainRepository;
+  private readonly repository: TopicDomainRepository;
 
   constructor ({
     apiClient,
@@ -24,13 +24,13 @@ class Implementation implements TopicDomainModule {
     optionsOfCommon,
     serviceOfTest,
   }: Options) {
-    this.implOfRepository = optionsOfCommon.isTestModeEnabled
+    this.repository = optionsOfCommon.isTestModeEnabled
       ? createTestTopicDomainRepository({ factoryOfApiResponse, serviceOfTest })
       : createTopicDomainRepository({ apiClient });
   }
 
   getRepository (): TopicDomainRepository {
-    return this.implOfRepository;
+    return this.repository;
   }
 }
 

@@ -1,6 +1,6 @@
 export * from './Api';
 export * from './Types';
-export { type DataFactories } from './DataFactories';
-export { type DataHooks } from './DataHooks';
-export { type DataModules } from './DataModules';
+export { type DataFactories, createDataFactories } from './DataFactories';
+export { type DataHooks, createDataHooks } from './DataHooks';
+export { type DataModules, createDataModules } from './DataModules';
 export { type DataOptions } from './DataOptions';

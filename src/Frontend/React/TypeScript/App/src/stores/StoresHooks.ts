@@ -1,15 +1,27 @@
-import { createAppStoreHooks } from './App';
-import { createArticleStoreHooks } from './Article';
-import { createTopicStoreHooks } from './Topic';
+import {
+  type AppStoreHooks,
+  type ArticleStoreHooks,
+  type TopicStoreHooks,
+  type StoresHooks
+} from '../features';
+import {
+  createAppStoreHooks,
+  createArticleStoreHooks,
+  createTopicStoreHooks,
+} from '.';
+
+class Implementation implements StoresHooks {
+  readonly App: AppStoreHooks;
+  readonly Article: ArticleStoreHooks;
+  readonly Topic: TopicStoreHooks;
+
+  constructor () {
+    this.App = createAppStoreHooks();
+    this.Article = createArticleStoreHooks();
+    this.Topic = createTopicStoreHooks();
+  }
+}
 
 export function createStoresHooks () {
-  const hooksOfApp = createAppStoreHooks();
-  const hooksOfArticle = createArticleStoreHooks();
-  const hooksOfTopic = createTopicStoreHooks();
-
-  return {
-    App: hooksOfApp,
-    Article: hooksOfArticle,
-    Topic: hooksOfTopic,
-  };
+  return new Implementation();
 }

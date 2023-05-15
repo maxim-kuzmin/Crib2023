@@ -1,10 +1,13 @@
-import { type ControlsComponents } from '../common';
+import { type ConfirmControlComponent, type ControlsComponents } from '../common';
 import { createConfirmControlComponent } from './Confirm/ConfirmControlComponent';
 
-export function createControlsComponents (): ControlsComponents {
-  const componentOfConfirm = createConfirmControlComponent();
+class Implementation implements ControlsComponents {
+  readonly Confirm: ConfirmControlComponent;
 
-  return {
-    Confirm: componentOfConfirm,
-  };
+  constructor () {
+    this.Confirm = createConfirmControlComponent();
+  }
+}
+export function createControlsComponents (): ControlsComponents {
+  return new Implementation();
 }

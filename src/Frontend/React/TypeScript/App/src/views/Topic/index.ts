@@ -1,4 +1,4 @@
 export * from './Item';
 export * from './Path';
 export * from './Tree';
-export { type TopicViewHooks } from './TopicViewHooks';
+export { type TopicViewHooks, createTopicViewHooks } from './TopicViewHooks';

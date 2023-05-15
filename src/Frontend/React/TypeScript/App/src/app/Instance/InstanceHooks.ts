@@ -1,13 +1,9 @@
-import { type CommonHooks, type ControlsHooks } from '../../common';
-import { createCommonHooks } from '../../common/CommonHooks';
-import { createControlsHooks } from '../../controls/ControlsHooks';
-import { type DataHooks } from '../../data';
-import { createDataHooks } from '../../data/DataHooks';
-import { type DomainsHooks } from '../../domains';
-import { createDomainsHooks } from '../../domains/DomainsHooks';
+import { type CommonHooks, type ControlsHooks, createCommonHooks } from '../../common';
+import { createControlsHooks } from '../../controls';
+import { type DataHooks, createDataHooks } from '../../data';
+import { type DomainsHooks, createDomainsHooks } from '../../domains';
 import { type FeaturesHooks, createFeaturesHooks } from '../../features';
-import { type ViewsHooks } from '../../views';
-import { createViewsHooks } from '../../views/ViewsHooks';
+import { type ViewsHooks, createViewsHooks } from '../../views';
 import { type InstanceComponents } from './InstanceComponents';
 import { type InstanceModules } from './InstanceModules';
 
@@ -25,44 +21,47 @@ interface Options {
   readonly modules: InstanceModules;
 }
 
-export function createInstanceHooks ({
-  components,
-  modules
-}: Options): InstanceHooks {
-  const hooksOfControls = createControlsHooks();
+class Implementation implements InstanceHooks {
+  readonly Common: CommonHooks;
+  readonly Controls: ControlsHooks;
+  readonly Data: DataHooks;
+  readonly Domains: DomainsHooks;
+  readonly Features: FeaturesHooks;
+  readonly Views: ViewsHooks;
 
-  const hooksOfFeatures = createFeaturesHooks();
+  constructor ({
+    components,
+    modules
+  }: Options) {
+    this.Controls = createControlsHooks();
 
-  const hooksOfViews = createViewsHooks({
-    hooksOfAppNotificationStore: hooksOfFeatures.Stores.App.Notification,
-    hooksOfArticleItemStore: hooksOfFeatures.Stores.Article.Item,
-    hooksOfArticleListStore: hooksOfFeatures.Stores.Article.List,
-    hooksOfTopicItemStore: hooksOfFeatures.Stores.Topic.Item,
-    hooksOfTopicTreeStore: hooksOfFeatures.Stores.Topic.Tree,
-  });
+    this.Features = createFeaturesHooks();
 
-  const hooksOfCommon = createCommonHooks({
-    componentOfConfirmControl: components.Controls.Confirm,
-    hooksOfAppNotificationStore: hooksOfFeatures.Stores.App.Notification,
-    hooksOfConfirmControl: hooksOfControls.Confirm,
-  });
+    this.Views = createViewsHooks({
+      hooksOfAppNotificationStore: this.Features.Stores.App.Notification,
+      hooksOfArticleItemStore: this.Features.Stores.Article.Item,
+      hooksOfArticleListStore: this.Features.Stores.Article.List,
+      hooksOfTopicItemStore: this.Features.Stores.Topic.Item,
+      hooksOfTopicTreeStore: this.Features.Stores.Topic.Tree,
+    });
 
-  const hooksOfData = createDataHooks({
-    hooksOfOperation: hooksOfCommon.Operation
-  });
+    this.Common = createCommonHooks({
+      componentOfConfirmControl: components.Controls.Confirm,
+      hooksOfAppNotificationStore: this.Features.Stores.App.Notification,
+      hooksOfConfirmControl: this.Controls.Confirm,
+    });
 
-  const hooksOfDomains = createDomainsHooks({
-    hooksOfApiRequest: hooksOfData.Api.Request,
-    moduleOfArticleDomain: modules.Domains.Article,
-    moduleOfTopicDomain: modules.Domains.Topic,
-  });
+    this.Data = createDataHooks({
+      hooksOfOperation: this.Common.Operation
+    });
 
-  return {
-    Common: hooksOfCommon,
-    Controls: hooksOfControls,
-    Data: hooksOfData,
-    Domains: hooksOfDomains,
-    Features: hooksOfFeatures,
-    Views: hooksOfViews,
-  };
+    this.Domains = createDomainsHooks({
+      hooksOfApiRequest: this.Data.Api.Request,
+      moduleOfArticleDomain: modules.Domains.Article,
+      moduleOfTopicDomain: modules.Domains.Topic,
+    });
+  }
+}
+export function createInstanceHooks (options: Options): InstanceHooks {
+  return new Implementation(options);
 }

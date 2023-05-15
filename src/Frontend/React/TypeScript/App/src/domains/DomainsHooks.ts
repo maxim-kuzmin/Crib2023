@@ -1,8 +1,12 @@
 import { type ApiRequestHooks } from '../data';
-import { type ArticleDomainHooks, type ArticleDomainModule } from './Article';
-import { createArticleDomainHooks } from './Article/ArticleDomainHooks';
-import { type TopicDomainHooks, type TopicDomainModule } from './Topic';
-import { createTopicDomainHooks } from './Topic/TopicDomainHooks';
+import {
+  type ArticleDomainHooks,
+  type ArticleDomainModule,
+  type TopicDomainHooks,
+  type TopicDomainModule,
+  createArticleDomainHooks,
+  createTopicDomainHooks,
+} from '.';
 
 export interface DomainsHooks {
   readonly Article: ArticleDomainHooks;
@@ -15,23 +19,27 @@ interface Options {
   readonly moduleOfTopicDomain: TopicDomainModule;
 }
 
-export function createDomainsHooks ({
-  hooksOfApiRequest,
-  moduleOfArticleDomain,
-  moduleOfTopicDomain,
-}: Options): DomainsHooks {
-  const hooksOfArticle = createArticleDomainHooks({
+class Implementation implements DomainsHooks {
+  readonly Article: ArticleDomainHooks;
+  readonly Topic: TopicDomainHooks;
+
+  constructor ({
     hooksOfApiRequest,
     moduleOfArticleDomain,
-  });
-
-  const hooksOfTopic = createTopicDomainHooks({
-    hooksOfApiRequest,
     moduleOfTopicDomain,
-  });
+  }: Options) {
+    this.Article = createArticleDomainHooks({
+      hooksOfApiRequest,
+      moduleOfArticleDomain,
+    });
 
-  return {
-    Article: hooksOfArticle,
-    Topic: hooksOfTopic,
-  };
+    this.Topic = createTopicDomainHooks({
+      hooksOfApiRequest,
+      moduleOfTopicDomain,
+    });
+  }
+}
+
+export function createDomainsHooks (options: Options): DomainsHooks {
+  return new Implementation(options);
 }

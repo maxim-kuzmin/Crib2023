@@ -1,14 +1,17 @@
-import { type ApiResponseFactory } from '.';
-import { createApiResponseFactory } from './Response/ApiResponseFactory'
+import { type ApiResponseFactory, createApiResponseFactory } from '.';
 
 export interface ApiFactories {
   readonly Response: ApiResponseFactory;
 }
 
-export function createApiFactories (): ApiFactories {
-  const factoryOfResponse = createApiResponseFactory();
+class Implementation implements ApiFactories {
+  readonly Response: ApiResponseFactory;
 
-  return {
-    Response: factoryOfResponse
-  };
+  constructor () {
+    this.Response = createApiResponseFactory();
+  }
+}
+
+export function createApiFactories (): ApiFactories {
+  return new Implementation();
 }

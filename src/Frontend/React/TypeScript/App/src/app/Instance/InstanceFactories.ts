@@ -1,14 +1,17 @@
-import { type DataFactories } from '../../data';
-import { createDataFactories } from '../../data/DataFactories';
+import { type DataFactories, createDataFactories } from '../../data';
 
 export interface InstanceFactories {
   readonly Data: DataFactories;
 }
 
-export function createInstanceFactories (): InstanceFactories {
-  const factoriesOfData = createDataFactories();
+class Implementation implements InstanceFactories {
+  readonly Data: DataFactories;
 
-  return {
-    Data: factoriesOfData
-  };
+  constructor () {
+    this.Data = createDataFactories();
+  }
+}
+
+export function createInstanceFactories (): InstanceFactories {
+  return new Implementation();
 }

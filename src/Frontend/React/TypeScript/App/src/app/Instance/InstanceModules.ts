@@ -1,14 +1,9 @@
-import { type CommonModules } from '../../common';
-import { createCommonModules } from '../../common/CommonModules';
-import { type DataModules } from '../../data';
-import { createDataModules } from '../../data/DataModules';
-import { type DomainsModules } from '../../domains';
-import { createDomainsModules } from '../../domains/DomainsModules';
+import { type CommonModules, createCommonModules } from '../../common';
+import { type DataModules, createDataModules } from '../../data';
+import { type DomainsModules, createDomainsModules } from '../../domains';
 import { type FeaturesModules, createFeaturesModules } from '../../features';
-import { type PagesModules } from '../../pages';
-import { createPagesModules } from '../../pages/PagesModules';
-import { type ViewsModules } from '../../views';
-import { createViewsModules } from '../../views/ViewsModules';
+import { type PagesModules, createPagesModules } from '../../pages';
+import { type ViewsModules, createViewsModules } from '../../views';
 import { type InstanceFactories } from './InstanceFactories';
 import { type InstanceOptions } from './InstanceOptions';
 
@@ -26,37 +21,41 @@ interface Options {
   readonly options: InstanceOptions;
 }
 
-export function createInstanceModules ({
-  factories,
-  options,
-}: Options): InstanceModules {
-  const modulesOfCommon = createCommonModules();
+class Implementation implements InstanceModules {
+  readonly Common: CommonModules;
+  readonly Data: DataModules;
+  readonly Domains: DomainsModules;
+  readonly Features: FeaturesModules;
+  readonly Pages: PagesModules;
+  readonly Views: ViewsModules;
 
-  const modulesOfFeatures = createFeaturesModules();
-  const modulesOfViews = createViewsModules();
+  constructor ({
+    factories,
+    options,
+  }: Options) {
+    this.Common = createCommonModules();
 
-  const modulesOfData = createDataModules({
-    httpClient: modulesOfCommon.Http.getClient(),
-    optionsOfApi: options.Data.Api,
-  });
+    this.Features = createFeaturesModules();
+    this.Views = createViewsModules();
 
-  const modulesOfDomains = createDomainsModules({
-    apiClient: modulesOfData.Api.getClient(),
-    factoryOfApiResponse: factories.Data.Api.Response,
-    optionsOfCommon: options.Common,
-    serviceOfTest: modulesOfFeatures.Test.getService(),
-  });
+    this.Data = createDataModules({
+      httpClient: this.Common.Http.getClient(),
+      optionsOfApi: options.Data.Api,
+    });
 
-  const modulesOfPages = createPagesModules({
-    optionsOfTableControl: options.Common.Controls.Table
-  });
+    this.Domains = createDomainsModules({
+      apiClient: this.Data.Api.getClient(),
+      factoryOfApiResponse: factories.Data.Api.Response,
+      optionsOfCommon: options.Common,
+      serviceOfTest: this.Features.Test.getService(),
+    });
 
-  return {
-    Common: modulesOfCommon,
-    Data: modulesOfData,
-    Domains: modulesOfDomains,
-    Features: modulesOfFeatures,
-    Pages: modulesOfPages,
-    Views: modulesOfViews,
-  };
+    this.Pages = createPagesModules({
+      optionsOfTableControl: options.Common.Controls.Table
+    });
+  }
+}
+
+export function createInstanceModules (options: Options): InstanceModules {
+  return new Implementation(options);
 }

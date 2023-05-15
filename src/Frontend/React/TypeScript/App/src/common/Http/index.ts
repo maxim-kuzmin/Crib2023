@@ -1,3 +1,3 @@
 export * from './Request';
-export { type HttpClient } from './HttpClient';
-export { type HttpModule } from './HttpModule';
+export { type HttpClient, createHttpClient } from './HttpClient';
+export { type HttpModule, createHttpModule } from './HttpModule';

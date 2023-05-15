@@ -1,16 +1,27 @@
-import { type ControlsHooks } from '../common';
-import { createConfirmControlHooks } from './Confirm/ConfirmControlHooks';
-import { createNotificationControlHooks } from './Notification/NotificationControlHooks';
-import { createTableControlHooks } from './Table/TableControlHooks';
+import {
+  type ConfirmControlHooks,
+  type NotificationControlHooks,
+  type ControlsHooks,
+  type TableControlHooks,
+} from '../common';
+import {
+  createConfirmControlHooks,
+  createNotificationControlHooks,
+  createTableControlHooks,
+} from '.';
+
+class Implementation implements ControlsHooks {
+  readonly Confirm: ConfirmControlHooks;
+  readonly Notification: NotificationControlHooks;
+  readonly Table: TableControlHooks;
+
+  constructor () {
+    this.Confirm = createConfirmControlHooks();
+    this.Notification = createNotificationControlHooks();
+    this.Table = createTableControlHooks();
+  }
+}
 
 export function createControlsHooks (): ControlsHooks {
-  const hooksOfConfirm = createConfirmControlHooks();
-  const hooksOfNotification = createNotificationControlHooks();
-  const hooksOfTable = createTableControlHooks();
-
-  return {
-    Confirm: hooksOfConfirm,
-    Notification: hooksOfNotification,
-    Table: hooksOfTable
-  };
+  return new Implementation();
 }

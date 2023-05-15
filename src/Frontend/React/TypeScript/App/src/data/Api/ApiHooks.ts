@@ -1,8 +1,10 @@
 import { type OperationHooks } from '../../common';
-import { type ApiRequestHooks } from './Request';
-import { createApiRequestHooks } from './Request/ApiRequestHooks';
-import { type ApiResponseHooks } from './Response';
-import { createApiResponseHooks } from './Response/ApiResponseHooks';
+import {
+  type ApiRequestHooks,
+  type ApiResponseHooks,
+  createApiResponseHooks,
+  createApiRequestHooks,
+} from '.';
 
 export interface ApiHooks {
   readonly Request: ApiRequestHooks;
@@ -13,14 +15,18 @@ interface Options {
   readonly hooksOfOperation: OperationHooks;
 }
 
-export function createApiHooks ({
-  hooksOfOperation
-}: Options): ApiHooks {
-  const hooksOfRequest = createApiRequestHooks({ hooksOfOperation });
-  const hooksOfResponse = createApiResponseHooks();
+class Implementation implements ApiHooks {
+  readonly Request: ApiRequestHooks;
+  readonly Response: ApiResponseHooks;
 
-  return {
-    Request: hooksOfRequest,
-    Response: hooksOfResponse,
-  };
+  constructor ({
+    hooksOfOperation
+  }: Options) {
+    this.Request = createApiRequestHooks({ hooksOfOperation });
+    this.Response = createApiResponseHooks();
+  }
+}
+
+export function createApiHooks (options: Options): ApiHooks {
+  return new Implementation(options);
 }

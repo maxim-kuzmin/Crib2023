@@ -1,6 +1,5 @@
 import { type OperationHooks } from '../common';
-import { type ApiHooks } from './Api';
-import { createApiHooks } from './Api/ApiHooks';
+import { type ApiHooks, createApiHooks } from './Api';
 
 export interface DataHooks {
   readonly Api: ApiHooks;
@@ -10,14 +9,18 @@ interface Options {
   readonly hooksOfOperation: OperationHooks;
 }
 
-export function createDataHooks ({
-  hooksOfOperation
-}: Options): DataHooks {
-  const hooksOfApi = createApiHooks({
-    hooksOfOperation
-  });
+class Implementation implements DataHooks {
+  readonly Api: ApiHooks;
 
-  return {
-    Api: hooksOfApi,
-  };
+  constructor ({
+    hooksOfOperation
+  }: Options) {
+    this.Api = createApiHooks({
+      hooksOfOperation
+    });
+  }
+}
+
+export function createDataHooks (options: Options): DataHooks {
+  return new Implementation(options);
 }

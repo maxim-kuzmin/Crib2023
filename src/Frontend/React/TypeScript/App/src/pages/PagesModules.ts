@@ -1,8 +1,10 @@
 import { type TableControlOptions } from '../common';
-import { type ArticlePageModule } from './Article';
-import { createArticlePageModule } from './Article/ArticlePageModule';
-import { type TopicPageModule } from './Topic';
-import { createTopicPageModule } from './Topic/TopicPageModule';
+import {
+  type ArticlePageModule,
+  type TopicPageModule,
+  createArticlePageModule,
+  createTopicPageModule
+} from '.';
 
 export interface PagesModules {
   readonly Article: ArticlePageModule;
@@ -13,14 +15,18 @@ interface Options {
   optionsOfTableControl: TableControlOptions;
 }
 
-export function createPagesModules ({
-  optionsOfTableControl
-}: Options): PagesModules {
-  const moduleOfArticle = createArticlePageModule();
-  const moduleOfTopic = createTopicPageModule({ optionsOfTableControl });
+class Implementation implements PagesModules {
+  readonly Article: ArticlePageModule;
+  readonly Topic: TopicPageModule;
 
-  return {
-    Article: moduleOfArticle,
-    Topic: moduleOfTopic,
-  };
+  constructor ({
+    optionsOfTableControl
+  }: Options) {
+    this.Article = createArticlePageModule();
+    this.Topic = createTopicPageModule({ optionsOfTableControl });
+  }
+}
+
+export function createPagesModules (options: Options): PagesModules {
+  return new Implementation(options);
 }

@@ -1,6 +1,6 @@
-export { type InstanceComponents } from './InstanceComponents';
-export { type InstanceControls } from './InstanceControls';
-export { type InstanceFactories } from './InstanceFactories';
-export { type InstanceHooks } from './InstanceHooks';
-export { type InstanceModules } from './InstanceModules';
-export { type InstanceOptions } from './InstanceOptions';
+export { type InstanceComponents, createInstanceComponents } from './InstanceComponents';
+export { type InstanceControls, createInstanceControls } from './InstanceControls';
+export { type InstanceFactories, createInstanceFactories } from './InstanceFactories';
+export { type InstanceHooks, createInstanceHooks } from './InstanceHooks';
+export { type InstanceModules, createInstanceModules } from './InstanceModules';
+export { type InstanceOptions, createInstanceOptions } from './InstanceOptions';

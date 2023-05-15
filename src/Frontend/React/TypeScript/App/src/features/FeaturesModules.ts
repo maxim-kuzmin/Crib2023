@@ -1,14 +1,16 @@
-import { type TestModule } from './Test';
-import { createTestModule } from './Test/TestModule';
+import { type TestModule, createTestModule } from '.';
 
 export interface FeaturesModules {
   readonly Test: TestModule;
 }
 
-export function createFeaturesModules (): FeaturesModules {
-  const moduleOfTest = createTestModule();
+class Implementation implements FeaturesModules {
+  readonly Test: TestModule;
 
-  return {
-    Test: moduleOfTest,
-  };
+  constructor () {
+    this.Test = createTestModule();
+  }
+}
+export function createFeaturesModules (): FeaturesModules {
+  return new Implementation();
 }

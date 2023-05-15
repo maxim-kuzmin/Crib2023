@@ -7,10 +7,13 @@ export interface ArticleItemViewModules {
   readonly Edit: ArticleItemEditViewModule;
 }
 
-export function createArticleItemViewModules (): ArticleItemViewModules {
-  const moduleOfEdit = createArticleItemEditViewModule();
+class Implementation implements ArticleItemViewModules {
+  readonly Edit: ArticleItemEditViewModule;
 
-  return {
-    Edit: moduleOfEdit
-  };
+  constructor () {
+    this.Edit = createArticleItemEditViewModule();
+  }
+}
+export function createArticleItemViewModules (): ArticleItemViewModules {
+  return new Implementation();
 }

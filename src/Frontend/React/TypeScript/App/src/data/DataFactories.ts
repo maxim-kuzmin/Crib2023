@@ -1,14 +1,16 @@
-import { type ApiFactories } from './Api';
-import { createApiFactories } from './Api/ApiFactories';
+import { type ApiFactories, createApiFactories } from './Api';
 
 export interface DataFactories {
   readonly Api: ApiFactories;
 }
 
-export function createDataFactories (): DataFactories {
-  const factoriesOfApi = createApiFactories();
+class Implementation implements DataFactories {
+  readonly Api: ApiFactories;
 
-  return {
-    Api: factoriesOfApi,
-  };
+  constructor () {
+    this.Api = createApiFactories();
+  }
+}
+export function createDataFactories (): DataFactories {
+  return new Implementation();
 }

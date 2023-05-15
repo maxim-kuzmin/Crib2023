@@ -5,10 +5,10 @@ export interface ArticleItemEditViewModule {
 }
 
 class Implementation implements ArticleItemEditViewModule {
-  private readonly implOfService = createArticleItemEditViewService();
+  private readonly service = createArticleItemEditViewService();
 
   getService (): ArticleItemEditViewService {
-    return this.implOfService;
+    return this.service;
   }
 }
 

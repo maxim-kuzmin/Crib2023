@@ -1,2 +1,3 @@
 export { type LocalizationHooks, createLocalizationHooks } from './LocalizationHooks';
-export { type LocalizationSetup } from './LocalizationSetup';
+export { createLocalizationService } from './LocalizationService';
+export { type LocalizationSetup, createLocalizationSetup } from './LocalizationSetup';

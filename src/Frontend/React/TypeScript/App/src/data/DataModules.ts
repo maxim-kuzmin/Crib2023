@@ -1,6 +1,5 @@
 import { type HttpClient } from '../common';
-import { type ApiModule, type ApiOptions } from './Api';
-import { createApiModule } from './Api/ApiModule';
+import { type ApiModule, type ApiOptions, createApiModule } from './Api';
 
 export interface DataModules {
   readonly Api: ApiModule;
@@ -11,16 +10,20 @@ interface Options {
   readonly optionsOfApi: ApiOptions;
 }
 
-export function createDataModules ({
-  httpClient,
-  optionsOfApi,
-}: Options): DataModules {
-  const moduleOfApi = createApiModule({
+class Implementation implements DataModules {
+  readonly Api: ApiModule;
+
+  constructor ({
     httpClient,
     optionsOfApi,
-  });
+  }: Options) {
+    this.Api = createApiModule({
+      httpClient,
+      optionsOfApi,
+    });
+  }
+}
 
-  return {
-    Api: moduleOfApi,
-  };
+export function createDataModules (options: Options): DataModules {
+  return new Implementation(options);
 }

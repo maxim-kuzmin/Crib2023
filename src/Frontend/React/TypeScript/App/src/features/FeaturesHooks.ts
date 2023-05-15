@@ -1,18 +1,25 @@
 import { createStoresHooks } from '../stores';
-import { type LocalizationHooks, createLocalizationHooks } from './Localization';
-import { type StoresHooks } from './Stores';
+import {
+  type LocalizationHooks,
+  type StoresHooks,
+  createLocalizationHooks,
+} from '.';
 
 export interface FeaturesHooks {
   readonly Localization: LocalizationHooks;
   readonly Stores: StoresHooks;
 }
 
-export function createFeaturesHooks (): FeaturesHooks {
-  const hooksOfLocalization = createLocalizationHooks();
-  const hooksOfStores = createStoresHooks();
+class Implementation implements FeaturesHooks {
+  readonly Localization: LocalizationHooks;
+  readonly Stores: StoresHooks;
 
-  return {
-    Localization: hooksOfLocalization,
-    Stores: hooksOfStores,
-  };
+  constructor () {
+    this.Localization = createLocalizationHooks();
+    this.Stores = createStoresHooks();
+  }
+}
+
+export function createFeaturesHooks (): FeaturesHooks {
+  return new Implementation();
 }

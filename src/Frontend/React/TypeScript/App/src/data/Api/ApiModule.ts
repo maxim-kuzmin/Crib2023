@@ -1,6 +1,5 @@
 import { type HttpClient } from '../../common';
-import { type ApiClient, createApiClient } from './ApiClient';
-import { type ApiOptions } from './ApiOptions';
+import { type ApiClient, type ApiOptions, createApiClient } from '.';
 
 export interface ApiModule {
   readonly getClient: () => ApiClient;

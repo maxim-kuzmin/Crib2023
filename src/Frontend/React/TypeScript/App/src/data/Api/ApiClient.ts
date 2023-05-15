@@ -3,16 +3,12 @@ import {
   type HttpRequestConfig,
   type HttpRequestResult
 } from '../../common';
-import { type ApiOptions } from './ApiOptions';
 import {
+  type ApiOptions,
   type ApiOperationResponse,
-  type ApiOperationResponseWithData
-} from './Operation';
-import {
+  type ApiOperationResponseWithData,
   type ApiRequestOptionsWithBody,
-  type ApiRequestOptions
-} from './Request';
-import {
+  type ApiRequestOptions,
   type ApiResponse,
   type ApiResponseDataWithDetails,
   type ApiResponseDataWithMessages,
@@ -20,11 +16,9 @@ import {
   type ApiResponseFactory,
   type ApiResponseResource,
   type ApiResponseWithData,
-} from './Response';
-import {
   type ApiResponseWithDetails,
   type ApiResponseWithMessages
-} from './Responses';
+} from '.';
 
 export interface ApiClient {
   readonly delete: (options: ApiRequestOptions) => Promise<ApiOperationResponse>;

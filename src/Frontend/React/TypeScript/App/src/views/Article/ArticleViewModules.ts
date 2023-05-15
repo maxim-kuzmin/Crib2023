@@ -1,14 +1,17 @@
-import { type ArticleItemViewModules } from './Item';
-import { createArticleItemViewModules } from './Item/ArticleItemViewModules';
+import { type ArticleItemViewModules, createArticleItemViewModules } from './Item';
 
 export interface ArticleViewModules {
   readonly Item: ArticleItemViewModules;
 }
 
-export function createArticleViewModules (): ArticleViewModules {
-  const modulesOfItem = createArticleItemViewModules();
+class Implementation implements ArticleViewModules {
+  readonly Item: ArticleItemViewModules;
 
-  return {
-    Item: modulesOfItem
-  };
+  constructor () {
+    this.Item = createArticleItemViewModules();
+  }
+}
+
+export function createArticleViewModules (): ArticleViewModules {
+  return new Implementation();
 }

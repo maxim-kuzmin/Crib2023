@@ -8,6 +8,6 @@ export * from './Store';
 export * from './ValueObjects';
 export { type CommonComponents } from './CommonComponents';
 export { type ShouldBeCanceled } from './CommonFunctions';
-export { type CommonHooks } from './CommonHooks';
-export { type CommonModules } from './CommonModules';
+export { type CommonHooks, createCommonHooks } from './CommonHooks';
+export { type CommonModules, createCommonModules } from './CommonModules';
 export { type CommonOptions } from './CommonOptions';

@@ -1,14 +1,18 @@
 import { type ControlsComponents } from '../../common';
-import { createControlsComponents } from '../../controls/ControlsComponents';
+import { createControlsComponents } from '../../controls';
 
 export interface InstanceComponents {
   readonly Controls: ControlsComponents;
 }
 
-export function createInstanceComponents (): InstanceComponents {
-  const componentsOfControls = createControlsComponents();
+class Implementation implements InstanceComponents {
+  readonly Controls: ControlsComponents;
 
-  return {
-    Controls: componentsOfControls
-  };
+  constructor () {
+    this.Controls = createControlsComponents();
+  }
+}
+
+export function createInstanceComponents (): InstanceComponents {
+  return new Implementation();
 }

@@ -1,19 +1,21 @@
-import { type HttpModule } from './Http';
-import { createHttpModule } from './Http/HttpModule';
-import { type StoreModule } from './Store';
-import { createStoreModule } from './Store/StoreModule';
+import { type HttpModule, createHttpModule } from './Http';
+import { type StoreModule, createStoreModule } from './Store';
 
 export interface CommonModules {
   readonly Http: HttpModule;
   readonly Store: StoreModule;
 }
 
-export function createCommonModules (): CommonModules {
-  const moduleOfHttp = createHttpModule();
-  const moduleOfStore = createStoreModule();
+class Implementation implements CommonModules {
+  readonly Http: HttpModule;
+  readonly Store: StoreModule;
 
-  return {
-    Http: moduleOfHttp,
-    Store: moduleOfStore,
-  };
+  constructor () {
+    this.Http = createHttpModule();
+    this.Store = createStoreModule();
+  }
+}
+
+export function createCommonModules (): CommonModules {
+  return new Implementation();
 }
