@@ -6,5 +6,5 @@ export enum ArticleItemStoreActionType {
   LoadCompleted = 'LoadCompleted',
   Save = 'Save',
   SaveCompleted = 'SaveCompleted',
-  Set = 'Set'
+  Set = 'Set',
 }

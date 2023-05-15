@@ -1,4 +1,4 @@
 export enum OperationSortDirection {
   Asc = 'asc',
-  Desc = 'desc'
+  Desc = 'desc',
 }

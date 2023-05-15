@@ -1,4 +1,4 @@
 export enum StoreDispatchType {
   MountOrUpdate = 1,
-  Unmount = 2
+  Unmount = 2,
 }

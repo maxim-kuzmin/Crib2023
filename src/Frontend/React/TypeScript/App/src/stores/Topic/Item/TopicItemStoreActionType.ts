@@ -6,5 +6,5 @@ export enum TopicItemStoreActionType {
   LoadCompleted = 'LoadCompleted',
   Save = 'Save',
   SaveCompleted = 'SaveCompleted',
-  Set = 'Set'
+  Set = 'Set',
 }

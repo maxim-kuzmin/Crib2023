@@ -1,3 +1,3 @@
 export enum TopicItemStoreSliceName {
-  Default = 'Default'
+  Default = 'DefaultTopicItem',
 }

@@ -1,4 +1,4 @@
 export enum CardControlType {
-  Default = 1,
-  Main = 2
+  Default = 'DefaultCardControl',
+  Main = 'MainCardControl',
 }

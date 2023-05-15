@@ -1,3 +1,3 @@
 export enum ArticleItemStoreSliceName {
-  Default = 'Default'
+  Default = 'DefaultArticleItem',
 }

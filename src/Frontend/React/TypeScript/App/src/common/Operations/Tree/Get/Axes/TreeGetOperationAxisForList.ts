@@ -7,5 +7,5 @@ export enum TreeGetOperationAxisForList {
     ChildOrSelf = 6,
     Descendant = 7,
     DescendantOrSelf = 8,
-    ParentOrSelf = 9
+    ParentOrSelf = 9,
 }
