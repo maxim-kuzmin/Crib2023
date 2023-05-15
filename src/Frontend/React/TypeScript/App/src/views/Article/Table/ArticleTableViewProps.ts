@@ -1,7 +1,6 @@
-import { type PropsWithChildren } from 'react';
 import { type TableControlPagination } from '../../../common';
 
-export interface ArticleTableViewProps extends PropsWithChildren {
+export interface ArticleTableViewProps {
   onTableChange: (pagination: TableControlPagination) => void;
   pageNumber: number;
   pageSize: number;
