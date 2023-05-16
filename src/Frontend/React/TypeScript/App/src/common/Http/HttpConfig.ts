@@ -1,4 +1,4 @@
-export interface HttpRequestConfig {
+export interface HttpConfig {
   init?: RequestInit;
   query?: any;
 }

@@ -1,6 +1,6 @@
 export * from './Data';
 export { type ApiResponse } from './ApiResponse';
-export { type ApiResponseError } from './ApiResponseError';
+export { type ApiResponseError, createApiResponseError } from './ApiResponseError';
 export { type ApiResponseErrorOptions } from './ApiResponseErrorOptions';
 export { type ApiResponseFactory, createApiResponseFactory } from './ApiResponseFactory';
 export { type ApiResponseHooks, createApiResponseHooks } from './ApiResponseHooks';

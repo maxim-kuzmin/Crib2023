@@ -1,15 +1,15 @@
 import queryString from 'query-string';
-import { type HttpRequestConfig, type HttpRequestResult } from './Request';
+import { type HttpConfig, type HttpResponse } from '.';
 
 export interface HttpClient {
-  readonly delete: (url: string, config?: HttpRequestConfig) => Promise<HttpRequestResult>;
-  readonly get: (url: string, config?: HttpRequestConfig) => Promise<HttpRequestResult>;
-  readonly post: (url: string, body: any, config?: HttpRequestConfig) => Promise<HttpRequestResult>;
-  readonly put: (url: string, body: any, config?: HttpRequestConfig) => Promise<HttpRequestResult>;
+  readonly delete: (url: string, config?: HttpConfig) => Promise<HttpResponse>;
+  readonly get: (url: string, config?: HttpConfig) => Promise<HttpResponse>;
+  readonly post: (url: string, body: any, config?: HttpConfig) => Promise<HttpResponse>;
+  readonly put: (url: string, body: any, config?: HttpConfig) => Promise<HttpResponse>;
 }
 
-function createRequestConfigValue (method: string, config?: HttpRequestConfig, body?: any) {
-  const result: HttpRequestConfig = { ...config };
+function createRequestConfigValue (method: string, config?: HttpConfig, body?: any) {
+  const result: HttpConfig = { ...config };
 
   result.init = { method, ...result.init };
 
@@ -19,23 +19,23 @@ function createRequestConfigValue (method: string, config?: HttpRequestConfig, b
 }
 
 class Implementation implements HttpClient {
-  async delete (url: string, config?: HttpRequestConfig) {
+  async delete (url: string, config?: HttpConfig) {
     return await this.request(url, createRequestConfigValue('DELETE', config));
   }
 
-  async get (url: string, config?: HttpRequestConfig) {
+  async get (url: string, config?: HttpConfig) {
     return await this.request(url, createRequestConfigValue('GET', config));
   }
 
-  async post (url: string, body: any, config?: HttpRequestConfig) {
+  async post (url: string, body: any, config?: HttpConfig) {
     return await this.request(url, createRequestConfigValue('POST', config, body));
   }
 
-  async put (url: string, body: any, config?: HttpRequestConfig) {
+  async put (url: string, body: any, config?: HttpConfig) {
     return await this.request(url, createRequestConfigValue('PUT', config, body));
   }
 
-  private async request (url: string, config: HttpRequestConfig): Promise<HttpRequestResult> {
+  private async request (url: string, config: HttpConfig): Promise<HttpResponse> {
     const { init, query } = config;
 
     const input = query ? queryString.stringifyUrl({ url, query }) : url;
@@ -44,14 +44,16 @@ class Implementation implements HttpClient {
 
     const value = await response.json();
 
-    const { ok, status, statusText } = response;
+    const { headers, ok, status, statusText } = response;
 
     return {
+      headers,
       ok,
       status,
       statusText,
-      value
-    }
+      value,
+      url: response.url,
+    };
   }
 }
 

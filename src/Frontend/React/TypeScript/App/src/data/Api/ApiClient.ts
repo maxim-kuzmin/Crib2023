@@ -1,7 +1,7 @@
 import {
   type HttpClient,
-  type HttpRequestConfig,
-  type HttpRequestResult
+  type HttpConfig,
+  type HttpResponse
 } from '../../common';
 import {
   type ApiOptions,
@@ -34,20 +34,20 @@ interface Options {
 
 interface RequestOptions {
   readonly factoryOfApiResponse: ApiResponseFactory;
-  readonly getRequestResult: () => Promise<HttpRequestResult>;
+  readonly getRequestResult: () => Promise<HttpResponse>;
   readonly operationName: string;
   readonly operationCode: string;
   readonly resourceOfApiResponse: ApiResponseResource;
 }
 
-interface RequestConfigOptions {
+interface HttpConfigOptions {
   readonly language: string;
   readonly operationCode: string;
   readonly optionsOfApi: ApiOptions;
   readonly query?: any;
 }
 
-function createRequestConfig ({
+function createHttpConfig ({
   language,
   operationCode,
   optionsOfApi:
@@ -56,7 +56,7 @@ function createRequestConfig ({
     queryStringKeyForUICulture
   },
   query,
-}: RequestConfigOptions): HttpRequestConfig {
+}: HttpConfigOptions): HttpConfig {
   return {
     query: {
       ...query,
@@ -98,7 +98,7 @@ class Implementation implements ApiClient {
       factoryOfApiResponse,
       getRequestResult: async () => await this.httpClient.delete(
         this.createUrl(endpoint),
-        createRequestConfig({
+        createHttpConfig({
           language,
           operationCode,
           optionsOfApi: this.optionsOfApi,
@@ -125,7 +125,7 @@ class Implementation implements ApiClient {
       factoryOfApiResponse,
       getRequestResult: async () => await this.httpClient.get(
         this.createUrl(endpoint),
-        createRequestConfig({
+        createHttpConfig({
           language,
           operationCode,
           optionsOfApi: this.optionsOfApi,
@@ -154,7 +154,7 @@ class Implementation implements ApiClient {
       getRequestResult: async () => await this.httpClient.post(
         this.createUrl(endpoint),
         body,
-        createRequestConfig({
+        createHttpConfig({
           language,
           operationCode,
           optionsOfApi: this.optionsOfApi,
@@ -183,7 +183,7 @@ class Implementation implements ApiClient {
       getRequestResult: async () => await this.httpClient.put(
         this.createUrl(endpoint),
         body,
-        createRequestConfig({
+        createHttpConfig({
           language,
           operationCode,
           optionsOfApi: this.optionsOfApi,

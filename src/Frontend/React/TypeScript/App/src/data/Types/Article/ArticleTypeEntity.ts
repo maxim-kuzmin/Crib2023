@@ -5,10 +5,10 @@ export interface ArticleTypeEntity extends ArticleTypeEntityForList {
 }
 
 export function createArticleTypeEntity (options?: Partial<ArticleTypeEntity>): ArticleTypeEntity {
-  const entityForList = createArticleTypeEntityForList(options);
+  const base = createArticleTypeEntityForList(options);
 
   return {
-    ...entityForList,
+    ...base,
     body: options?.body ?? ''
   };
 }

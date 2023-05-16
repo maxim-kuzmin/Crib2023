@@ -1,5 +1,4 @@
-import { type ApiResponseError } from './ApiResponseError';
-import { ApiResponseErrorImpl } from './ApiResponseErrorImpl';
+import { type ApiResponseError, createApiResponseError } from './ApiResponseError';
 import { type ApiResponseErrorOptions } from './ApiResponseErrorOptions';
 
 export interface ApiResponseFactory {
@@ -8,7 +7,7 @@ export interface ApiResponseFactory {
 
 class Implementation implements ApiResponseFactory {
   createError (options: ApiResponseErrorOptions): ApiResponseError {
-    return new ApiResponseErrorImpl(options);
+    return createApiResponseError(options);
   }
 }
 
