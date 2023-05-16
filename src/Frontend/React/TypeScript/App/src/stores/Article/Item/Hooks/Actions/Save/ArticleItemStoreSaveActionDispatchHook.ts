@@ -93,7 +93,7 @@ export function useStoreSaveActionDispatch (
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
-  const resourceOfArticleItemStore = hooks.Features.Stores.Article.Item.useResource();
+  const resourceOfArticleItemStore = hooks.Features.Article.Item.Store.useResource();
 
   const dispatch = useArticleItemStoreDispatch();
 

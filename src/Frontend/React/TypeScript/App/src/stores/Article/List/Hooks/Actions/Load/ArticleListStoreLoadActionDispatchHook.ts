@@ -93,7 +93,7 @@ export function useStoreLoadActionDispatch (
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
-  const resourceOfArticleListStore = hooks.Features.Stores.Article.List.useResource();
+  const resourceOfArticleListStore = hooks.Features.Article.List.Store.useResource();
 
   const dispatch = useArticleListStoreDispatch();
 

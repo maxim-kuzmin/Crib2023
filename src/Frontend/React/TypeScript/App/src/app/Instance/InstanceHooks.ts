@@ -3,7 +3,13 @@ import { createControlsHooks } from '../../controls';
 import { type DataHooks, createDataHooks } from '../../data';
 import { type DomainsHooks, createDomainsHooks } from '../../domains';
 import { type FeaturesHooks, createFeaturesHooks } from '../../features';
-import { createAppNotificationStoreHooks } from '../../stores';
+import {
+  createAppNotificationStoreHooks,
+  createArticleItemStoreHooks,
+  createArticleListStoreHooks,
+  createTopicItemStoreHooks,
+  createTopicTreeStoreHooks,
+} from '../../stores';
 import { type ViewsHooks, createViewsHooks } from '../../views';
 import { type InstanceComponents } from './InstanceComponents';
 import { type InstanceModules } from './InstanceModules';
@@ -37,15 +43,19 @@ class Implementation implements InstanceHooks {
     this.Controls = createControlsHooks();
 
     this.Features = createFeaturesHooks({
-      createAppNotificationStoreHooks
+      createAppNotificationStoreHooks,
+      createArticleItemStoreHooks,
+      createArticleListStoreHooks,
+      createTopicItemStoreHooks,
+      createTopicTreeStoreHooks,
     });
 
     this.Views = createViewsHooks({
       hooksOfAppNotificationStore: this.Features.App.Notification.Store,
-      hooksOfArticleItemStore: this.Features.Stores.Article.Item,
-      hooksOfArticleListStore: this.Features.Stores.Article.List,
-      hooksOfTopicItemStore: this.Features.Stores.Topic.Item,
-      hooksOfTopicTreeStore: this.Features.Stores.Topic.Tree,
+      hooksOfArticleItemStore: this.Features.Article.Item.Store,
+      hooksOfArticleListStore: this.Features.Article.List.Store,
+      hooksOfTopicItemStore: this.Features.Topic.Item.Store,
+      hooksOfTopicTreeStore: this.Features.Topic.Tree.Store,
     });
 
     this.Common = createCommonHooks({

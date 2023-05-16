@@ -1,3 +1,4 @@
 export * from './App';
-export * from './Stores';
+export * from './Article';
+export * from './Topic';
 export { type FeaturesHooks, createFeaturesHooks } from './FeaturesHooks';

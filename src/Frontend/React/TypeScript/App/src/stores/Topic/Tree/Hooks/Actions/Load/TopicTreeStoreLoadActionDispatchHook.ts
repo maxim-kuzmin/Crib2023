@@ -92,7 +92,7 @@ export function useStoreLoadActionDispatch (
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
-  const resourceOfTopicTreeStore = hooks.Features.Stores.Topic.Tree.useResource();
+  const resourceOfTopicTreeStore = hooks.Features.Topic.Tree.Store.useResource();
 
   const dispatch = useTopicTreeStoreDispatch();
 

@@ -5,7 +5,7 @@ import {
   ArticleListStoreContextProvider,
   TopicItemStoreContextProvider,
   TopicTreeStoreContextProvider,
-} from '../../stores';
+} from '.';
 
 export const StoresContextProvider: React.FC<PropsWithChildren> = memo(
 function StoresContextProvider ({
