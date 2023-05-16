@@ -26,7 +26,7 @@ export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getTopicTreeStoreResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getTopicTreeStoreResourcePath());
 
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');
     const tOperationNameForGetChildren = translator.translate('@@OperationNameForGetChildren');

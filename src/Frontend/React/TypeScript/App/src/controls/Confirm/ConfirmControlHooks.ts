@@ -10,7 +10,7 @@ export function createConfirmControlHooks (): ConfirmControlHooks {
   function useResource (): ConfirmControlResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getConfirmControlResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getConfirmControlResourcePath());
 
     const tCancelButtonText = translator.translate('@@CancelButtonText');
     const tDeleteConfirmContent = translator.translate('@@DeleteConfirmContent');

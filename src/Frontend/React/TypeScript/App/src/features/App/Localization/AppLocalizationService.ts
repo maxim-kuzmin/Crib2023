@@ -1,6 +1,6 @@
 import { type i18n } from 'i18next';
 import { type NavigateFunction } from 'react-router-dom';
-import { type LocalizationService } from '../../common';
+import { type LocalizationService } from '../../../common';
 
 interface Options {
   readonly i18n: i18n;
@@ -61,6 +61,6 @@ class Implementation implements LocalizationService {
   }
 }
 
-export function createLocalizationService (options: Options): LocalizationService {
+export function createAppLocalizationService (options: Options): LocalizationService {
   return new Implementation(options);
 }

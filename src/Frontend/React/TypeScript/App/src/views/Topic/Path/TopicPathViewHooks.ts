@@ -10,7 +10,7 @@ export function createTopicPathViewHooks (): TopicPathViewHooks {
   function useResource (): TopicPathViewResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getTopicPathViewResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getTopicPathViewResourcePath());
 
     const tTitleForRoot: string = translator.translate('@@TitleForRoot');
 

@@ -3,6 +3,7 @@ import { createControlsHooks } from '../../controls';
 import { type DataHooks, createDataHooks } from '../../data';
 import { type DomainsHooks, createDomainsHooks } from '../../domains';
 import { type FeaturesHooks, createFeaturesHooks } from '../../features';
+import { createAppNotificationStoreHooks } from '../../stores';
 import { type ViewsHooks, createViewsHooks } from '../../views';
 import { type InstanceComponents } from './InstanceComponents';
 import { type InstanceModules } from './InstanceModules';
@@ -35,10 +36,12 @@ class Implementation implements InstanceHooks {
   }: Options) {
     this.Controls = createControlsHooks();
 
-    this.Features = createFeaturesHooks();
+    this.Features = createFeaturesHooks({
+      createAppNotificationStoreHooks
+    });
 
     this.Views = createViewsHooks({
-      hooksOfAppNotificationStore: this.Features.Stores.App.Notification,
+      hooksOfAppNotificationStore: this.Features.App.Notification.Store,
       hooksOfArticleItemStore: this.Features.Stores.Article.Item,
       hooksOfArticleListStore: this.Features.Stores.Article.List,
       hooksOfTopicItemStore: this.Features.Stores.Topic.Item,
@@ -47,7 +50,7 @@ class Implementation implements InstanceHooks {
 
     this.Common = createCommonHooks({
       componentOfConfirmControl: components.Controls.Confirm,
-      hooksOfAppNotificationStore: this.Features.Stores.App.Notification,
+      hooksOfAppNotificationStore: this.Features.App.Notification.Store,
       hooksOfConfirmControl: this.Controls.Confirm,
     });
 

@@ -13,7 +13,7 @@ export function createArticleItemEditViewHooks (): ArticleItemEditViewHooks {
   function useResource (): ArticleItemEditViewResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getArticleItemEditViewResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getArticleItemEditViewResourcePath());
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForDisplay: string = translator.translate('@@ActionForDisplay');

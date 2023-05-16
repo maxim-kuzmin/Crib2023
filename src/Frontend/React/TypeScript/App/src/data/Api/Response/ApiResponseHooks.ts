@@ -13,7 +13,7 @@ export function createApiResponseHooks (): ApiResponseHooks {
   function useResource (): ApiResponseResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getApiResponseResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getApiResponseResourcePath());
 
     const tErrorMessageForDefault = translator.translate('@@ErrorMessageForDefault');
     const tErrorMessageForHttp400 = translator.translate('@@ErrorMessageForHttp400');

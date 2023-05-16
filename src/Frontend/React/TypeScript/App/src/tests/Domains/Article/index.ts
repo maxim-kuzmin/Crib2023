@@ -1,0 +1,1 @@
+export { createArticleDomainTestRepository } from './ArticleDomainTestRepository';

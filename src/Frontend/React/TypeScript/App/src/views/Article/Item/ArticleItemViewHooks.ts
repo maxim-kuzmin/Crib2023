@@ -39,7 +39,7 @@ export function createArticleItemViewHooks ({
   function useResource (): ArticleItemViewResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getArticleItemViewResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getArticleItemViewResourcePath());
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForEdit: string = translator.translate('@@ActionForEdit');

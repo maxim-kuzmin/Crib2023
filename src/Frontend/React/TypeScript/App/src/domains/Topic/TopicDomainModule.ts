@@ -1,7 +1,6 @@
-import { type CommonOptions } from '../../common';
+import { type CommonOptions, type TestService } from '../../common';
 import { type ApiResponseFactory, type ApiClient } from '../../data';
-import { type TestService } from '../../features';
-import { createTestTopicDomainRepository } from '../../features/Test/Domains/Topic/TestTopicDomainRepository';
+import { createTopicDomainTestRepository } from '../../tests';
 import { type TopicDomainRepository, createTopicDomainRepository } from './TopicDomainRepository';
 
 export interface TopicDomainModule {
@@ -25,7 +24,7 @@ class Implementation implements TopicDomainModule {
     serviceOfTest,
   }: Options) {
     this.repository = optionsOfCommon.isTestModeEnabled
-      ? createTestTopicDomainRepository({ factoryOfApiResponse, serviceOfTest })
+      ? createTopicDomainTestRepository({ factoryOfApiResponse, serviceOfTest })
       : createTopicDomainRepository({ apiClient });
   }
 

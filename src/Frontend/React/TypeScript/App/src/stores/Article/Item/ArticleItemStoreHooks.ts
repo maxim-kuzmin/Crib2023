@@ -36,7 +36,7 @@ export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
   function useResource (): ArticleItemStoreResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getArticleItemStoreResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getArticleItemStoreResourcePath());
 
     const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');

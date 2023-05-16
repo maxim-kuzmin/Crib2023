@@ -27,7 +27,7 @@ export function createArticleListStoreHooks (): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getArticleListStoreResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getArticleListStoreResourcePath());
 
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');
 

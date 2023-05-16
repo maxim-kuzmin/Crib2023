@@ -1,7 +1,6 @@
 import { type CommonModules, createCommonModules } from '../../common';
 import { type DataModules, createDataModules } from '../../data';
 import { type DomainsModules, createDomainsModules } from '../../domains';
-import { type FeaturesModules, createFeaturesModules } from '../../features';
 import { type PagesModules, createPagesModules } from '../../pages';
 import { type ViewsModules, createViewsModules } from '../../views';
 import { type InstanceFactories } from './InstanceFactories';
@@ -11,7 +10,6 @@ export interface InstanceModules {
   readonly Common: CommonModules;
   readonly Data: DataModules;
   readonly Domains: DomainsModules;
-  readonly Features: FeaturesModules;
   readonly Pages: PagesModules;
   readonly Views: ViewsModules;
 }
@@ -25,7 +23,6 @@ class Implementation implements InstanceModules {
   readonly Common: CommonModules;
   readonly Data: DataModules;
   readonly Domains: DomainsModules;
-  readonly Features: FeaturesModules;
   readonly Pages: PagesModules;
   readonly Views: ViewsModules;
 
@@ -35,7 +32,6 @@ class Implementation implements InstanceModules {
   }: Options) {
     this.Common = createCommonModules();
 
-    this.Features = createFeaturesModules();
     this.Views = createViewsModules();
 
     this.Data = createDataModules({
@@ -47,7 +43,7 @@ class Implementation implements InstanceModules {
       apiClient: this.Data.Api.getClient(),
       factoryOfApiResponse: factories.Data.Api.Response,
       optionsOfCommon: options.Common,
-      serviceOfTest: this.Features.Test.getService(),
+      serviceOfTest: this.Common.Test.getService(),
     });
 
     this.Pages = createPagesModules({

@@ -13,7 +13,7 @@ export const AppPage: React.FC = memo(
 function AppPage (): React.ReactElement | null {
   const { controls, hooks, modules } = useAppInstance();
 
-  const serviceOfLocalization = hooks.Features.Localization.useService();
+  const serviceOfLocalization = hooks.Features.App.Localization.useService();
 
   const serviceOfTopicPage = modules.Pages.Topic.getService();
 

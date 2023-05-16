@@ -10,7 +10,7 @@ export function createTableControlHooks (): TableControlHooks {
   function useResource (): TableControlResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getTableControlResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getTableControlResourcePath());
 
     const tPaginationPartForFrom: string = translator.translate('@@PaginationPartForFrom');
     const tPaginationPartForJumpTo: string = translator.translate('@@PaginationPartForJumpTo');

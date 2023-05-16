@@ -5,6 +5,7 @@ export * from './Localization';
 export * from './Operation';
 export * from './Operations';
 export * from './Store';
+export * from './Test';
 export * from './ValueObjects';
 export { type CommonComponents } from './CommonComponents';
 export { type ShouldBeCanceled } from './CommonFunctions';

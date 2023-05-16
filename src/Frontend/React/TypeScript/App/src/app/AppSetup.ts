@@ -1,4 +1,4 @@
-import { createLocalizationSetup } from '../features';
+import { createAppLocalizationSetup } from '../features';
 import { type AppInstance } from '.';
 
 export interface AppSetup {
@@ -19,7 +19,7 @@ class Implementation implements AppSetup {
   }
 
   run () {
-    const setupOfLocalization = createLocalizationSetup();
+    const setupOfLocalization = createAppLocalizationSetup();
 
     setupOfLocalization.run();
   }

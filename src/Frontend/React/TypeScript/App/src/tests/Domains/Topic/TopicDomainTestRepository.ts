@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
+import { type TestService } from '../../../common';
 import {
   type ApiResponseFactory,
   type ApiOperationResponse,
   type ApiResponseError
-} from '../../../../data';
+} from '../../../data';
 import {
   type TopicDomainItemGetOperationRequest,
   type TopicDomainEntityForItem,
@@ -19,8 +20,7 @@ import {
   type TopicDomainTreeGetOperationResponse,
   type TopicDomainTreeGetOperationOutput,
   type TopicDomainItemSaveOperationRequest
-} from '../../../../domains';
-import { type TestService } from '../../TestService';
+} from '../../../domains';
 
 let maxId = 0;
 
@@ -219,6 +219,6 @@ class Implementation implements TopicDomainRepository {
   }
 }
 
-export function createTestTopicDomainRepository (options: Options): TopicDomainRepository {
+export function createTopicDomainTestRepository (options: Options): TopicDomainRepository {
     return new Implementation(options);
 }

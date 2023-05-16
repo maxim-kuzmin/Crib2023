@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
+import { type TestService } from '../../../common';
 import {
   type ApiResponseFactory,
   type ApiOperationResponse,
   type ApiResponseError
-} from '../../../../data';
+} from '../../../data';
 import {
   type ArticleDomainItemSaveOperationRequest,
   type ArticleDomainEntityForItem,
@@ -14,8 +15,7 @@ import {
   type ArticleDomainListGetOperationRequest,
   type ArticleDomainListGetOperationResponse,
   type ArticleDomainRepository
-} from '../../../../domains';
-import { type TestService } from '../../TestService';
+} from '../../../domains';
 
 let maxId = 0;
 
@@ -158,6 +158,6 @@ class Implementation implements ArticleDomainRepository {
   }
 }
 
-export function createTestArticleDomainRepository (options: Options): ArticleDomainRepository {
+export function createArticleDomainTestRepository (options: Options): ArticleDomainRepository {
   return new Implementation(options);
 }

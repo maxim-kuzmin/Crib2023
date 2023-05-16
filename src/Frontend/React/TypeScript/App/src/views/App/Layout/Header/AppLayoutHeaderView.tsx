@@ -10,7 +10,7 @@ function AppLayoutHeaderView ({
 }: AppLayoutHeaderViewProps): React.ReactElement<AppLayoutHeaderViewProps> | null {
   const { controls, hooks } = useAppInstance();
 
-  const serviceOfLocalization = hooks.Features.Localization.useService();
+  const serviceOfLocalization = hooks.Features.App.Localization.useService();
 
   const languages: Array<{ label: string; value: string; }> = [];
 

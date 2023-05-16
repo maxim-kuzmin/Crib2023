@@ -31,7 +31,7 @@ export function createArticleTableViewHooks ({
   function useResource (): ArticleTableViewResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.Localization.useTranslator(getArticleTableViewResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(getArticleTableViewResourcePath());
 
     const tTitle: string = translator.translate('@@Title');
     const tLabelForActions: string = translator.translate('@@LabelForActions');

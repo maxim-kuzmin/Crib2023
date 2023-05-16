@@ -5,26 +5,26 @@ import Backend from 'i18next-http-backend';
 import {
   getConfirmControlResourcePath,
   getTableControlResourcePath,
-} from '../../controls';
-import { getApiResponseResourcePath } from '../../data';
+} from '../../../controls';
+import { getApiResponseResourcePath } from '../../../data';
 import {
   getArticleItemStoreResourcePath,
   getArticleListStoreResourcePath,
   getTopicItemStoreResourcePath,
   getTopicTreeStoreResourcePath,
-} from '../../stores';
+} from '../../../stores';
 import {
   getArticleItemViewResourcePath,
   getArticleItemEditViewResourcePath,
   getArticleTableViewResourcePath,
   getTopicPathViewResourcePath,
-} from '../../views';
+} from '../../../views';
 
-export interface LocalizationSetup {
+export interface AppLocalizationSetup {
   readonly run: () => void;
 }
 
-class Implementation implements LocalizationSetup {
+class Implementation implements AppLocalizationSetup {
   run () {
     i18next
     .use(Backend)
@@ -62,6 +62,6 @@ class Implementation implements LocalizationSetup {
   }
 }
 
-export function createLocalizationSetup (): LocalizationSetup {
+export function createAppLocalizationSetup (): AppLocalizationSetup {
   return new Implementation();
 }

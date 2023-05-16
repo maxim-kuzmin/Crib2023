@@ -1,5 +1,5 @@
 import { type TFunction } from 'i18next';
-import { type LocalizationTranslator } from '../../common';
+import { type LocalizationTranslator } from '../../../common';
 
 interface Options {
   readonly functionToTranslate: TFunction;
@@ -23,6 +23,6 @@ class Implementation implements LocalizationTranslator {
   }
 }
 
-export function createLocalizationTranslator (options: Options): LocalizationTranslator {
+export function createAppLocalizationTranslator (options: Options): LocalizationTranslator {
   return new Implementation(options);
 }

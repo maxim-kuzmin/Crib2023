@@ -1,6 +1,5 @@
-import { type CommonOptions } from '../common';
+import { type CommonOptions, type TestService } from '../common';
 import { type ApiResponseFactory, type ApiClient } from '../data';
-import { type TestService } from '../features';
 import {
   type ArticleDomainModule,
   type TopicDomainModule,

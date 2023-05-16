@@ -1,7 +1,6 @@
-import { type CommonOptions } from '../../common';
+import { type CommonOptions, type TestService } from '../../common';
 import { type ApiResponseFactory, type ApiClient } from '../../data';
-import { type TestService } from '../../features';
-import { createTestArticleDomainRepository } from '../../features/Test/Domains/Article/TestArticleDomainRepository';
+import { createArticleDomainTestRepository } from '../../tests';
 import { type ArticleDomainRepository, createArticleDomainRepository } from './ArticleDomainRepository';
 
 export interface ArticleDomainModule {
@@ -25,7 +24,7 @@ class Implementation implements ArticleDomainModule {
     serviceOfTest,
   }: Options) {
     this.repository = optionsOfCommon.isTestModeEnabled
-      ? createTestArticleDomainRepository({ factoryOfApiResponse, serviceOfTest })
+      ? createArticleDomainTestRepository({ factoryOfApiResponse, serviceOfTest })
       : createArticleDomainRepository({ apiClient });
   }
 
