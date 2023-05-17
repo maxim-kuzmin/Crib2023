@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppComponent } from './app/AppDefinition';
+import { AppComponent } from './app';
 import { reportWebVitals } from './reportWebVitals';
 
 import './index.css';

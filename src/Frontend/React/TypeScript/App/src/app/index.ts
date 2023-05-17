@@ -1,2 +1,2 @@
-export * from './Instance';
+export { AppComponent } from './AppDefinition';
 export { useAppInstance } from './AppHooks';

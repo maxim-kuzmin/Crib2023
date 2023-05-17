@@ -11,7 +11,7 @@ import {
   createInstanceHooks,
   createInstanceModules,
   createInstanceOptions,
-} from '.';
+} from './Instance';
 
 export interface AppInstance {
   readonly components: InstanceComponents;
