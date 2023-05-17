@@ -14,8 +14,8 @@ setupOfApp.run();
 
 export const AppContext = createContext<AppInstance | null>(null);
 
-export const AppComponent: React.FC = memo(
-function AppComponent (): React.ReactElement | null {
+export const AppRoot: React.FC = memo(
+function AppRoot (): React.ReactElement | null {
   return (
     <React.StrictMode>
       <AppContext.Provider value={instanceOfApp}>
