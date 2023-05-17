@@ -2,17 +2,12 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { ContextProvider, createAppSetup } from './app';
-import { instanceOfApp } from './app/AppDefinition';
+import { AppContextProvider } from './app/AppDefinition';
 import { AppPage, ArticlePage, NotFoundPage, TopicPage } from './pages';
 import { ArticleItemViewMode } from './views';
 import { reportWebVitals } from './reportWebVitals';
 
 import './index.css';
-
-const setupOfApp = createAppSetup({ instanceOfApp });
-
-setupOfApp.run();
 
 const router = createBrowserRouter([{
   path: '/',
@@ -51,9 +46,9 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <ContextProvider instanceOfApp={instanceOfApp}>
+      <AppContextProvider>
         <RouterProvider router={router} />
-      </ContextProvider>
+      </AppContextProvider>
     </HelmetProvider>
   </React.StrictMode>
 );

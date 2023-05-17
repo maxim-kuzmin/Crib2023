@@ -1,5 +1,5 @@
 import { createAppLocalizationSetup } from '../features';
-import { type AppInstance } from '.';
+import { type AppInstance } from './AppInstance';
 
 export interface AppSetup {
   readonly run: () => void;
@@ -19,6 +19,7 @@ class Implementation implements AppSetup {
   }
 
   run () {
+    console.log('1111111');
     const setupOfLocalization = createAppLocalizationSetup();
 
     setupOfLocalization.run();

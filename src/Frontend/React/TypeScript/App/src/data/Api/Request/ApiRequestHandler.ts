@@ -167,10 +167,10 @@ class Implementation implements ApiRequestHandler {
 
       if (result) {
         if (!shouldBeCanceled()) {
-          const { operationCode, data } = result;
+          const { operationCode, data, error } = result;
 
-          if (result.error) {
-            this.operationHandler.handleError(result.error);
+          if (error && error.responseStatus !== 404) {
+            this.operationHandler.handleError(error);
           } else {
             this.operationHandler.handleSuccess({
               operationCode,
