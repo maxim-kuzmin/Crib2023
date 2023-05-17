@@ -26,5 +26,5 @@ function AppComponent (): React.ReactElement | null {
         </StoresContextProvider>
       </AppContext.Provider>
     </React.StrictMode>
-  )
+  );
 });
