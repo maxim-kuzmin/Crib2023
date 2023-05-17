@@ -1,57 +1,14 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import { AppContextProvider } from './app/AppDefinition';
-import { AppPage, ArticlePage, NotFoundPage, TopicPage } from './pages';
-import { ArticleItemViewMode } from './views';
+import { AppComponent } from './app/AppDefinition';
 import { reportWebVitals } from './reportWebVitals';
 
 import './index.css';
 
-const router = createBrowserRouter([{
-  path: '/',
-  element: <AppPage />,
-  children: [
-    {
-      path: '',
-      element: <TopicPage />
-    },
-    {
-      path: 'topic/:topicId',
-      element: <TopicPage />
-    },
-    {
-      path: 'article',
-      element: <ArticlePage mode={ArticleItemViewMode.New} />
-    },
-    {
-      path: 'article/:articleId',
-      element: <ArticlePage mode={ArticleItemViewMode.Display} />
-    },
-    {
-      path: 'article/:articleId/edit',
-      element: <ArticlePage mode={ArticleItemViewMode.Edit} />
-    },
-    {
-      path: '*',
-      element: <NotFoundPage />
-    }
-  ],
-}]);
-
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
-root.render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <AppContextProvider>
-        <RouterProvider router={router} />
-      </AppContextProvider>
-    </HelmetProvider>
-  </React.StrictMode>
-);
+root.render(<AppComponent/>);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
