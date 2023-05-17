@@ -2,14 +2,13 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { ContextProvider, createAppInstance, createAppSetup } from './app';
+import { ContextProvider, createAppSetup } from './app';
+import { instanceOfApp } from './app/AppDefinition';
 import { AppPage, ArticlePage, NotFoundPage, TopicPage } from './pages';
 import { ArticleItemViewMode } from './views';
 import { reportWebVitals } from './reportWebVitals';
 
 import './index.css';
-
-const instanceOfApp = createAppInstance();
 
 const setupOfApp = createAppSetup({ instanceOfApp });
 
