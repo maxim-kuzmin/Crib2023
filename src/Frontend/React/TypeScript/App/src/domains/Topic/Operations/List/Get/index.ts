@@ -7,4 +7,7 @@ export {
 } from './TopicDomainListGetOperationRequestHandler';
 export { type TopicDomainListGetOperationInput } from './TopicDomainListGetOperationInput';
 export { type TopicDomainListGetOperationOutput } from './TopicDomainListGetOperationOutput';
-export { type TopicDomainListGetOperationResponse } from './TopicDomainListGetOperationResponse';
+export {
+  type TopicDomainListGetOperationResponse,
+  createTopicDomainListGetOperationResponse,
+} from './TopicDomainListGetOperationResponse';

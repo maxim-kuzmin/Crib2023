@@ -1,4 +1,4 @@
-import { type ApiOperationResponse, type ApiClient, type ApiRequestOptionsWithBody } from '../../data';
+import { type ApiClient, type ApiOperationResponse, type ApiRequestOptionsWithBody } from '../../data';
 import {
   type ArticleDomainItemDeleteOperationRequest,
   type ArticleDomainItemGetOperationOutput,
@@ -8,6 +8,7 @@ import {
   type ArticleDomainListGetOperationRequest,
   type ArticleDomainListGetOperationResponse,
   type ArticleDomainListGetOperationOutput,
+  createArticleDomainItemGetOperationResponse,
   createArticleDomainListGetOperationResponse,
 } from './Operations';
 
@@ -49,12 +50,22 @@ class Implementation implements ArticleDomainRepository {
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
-    return await this.clientOfApi.delete({
-      endpoint,
-      operationName,
-      operationCode,
-      resourceOfApiResponse
-    });
+    try {
+      return await this.clientOfApi.delete({
+        endpoint,
+        operationName,
+        operationCode,
+        resourceOfApiResponse
+      });
+    } catch (error: unknown) {
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return response;
+      }
+
+      throw error;
+    }
   }
 
   async getItem (
@@ -64,12 +75,24 @@ class Implementation implements ArticleDomainRepository {
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
-    return await this.clientOfApi.get<ArticleDomainItemGetOperationOutput>({
-      endpoint,
-      operationName,
-      operationCode,
-      resourceOfApiResponse
-    });
+    try {
+      const response = await this.clientOfApi.get<ArticleDomainItemGetOperationOutput>({
+        endpoint,
+        operationName,
+        operationCode,
+        resourceOfApiResponse
+      });
+
+      return createArticleDomainItemGetOperationResponse(response);
+    } catch (error: unknown) {
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return createArticleDomainItemGetOperationResponse(response);
+      }
+
+      throw error;
+    }
   }
 
   async getList (
@@ -90,7 +113,13 @@ class Implementation implements ArticleDomainRepository {
 
       return createArticleDomainListGetOperationResponse(response);
     } catch (error: unknown) {
-      return createArticleDomainListGetOperationResponse(error as ApiOperationResponse);
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return createArticleDomainListGetOperationResponse(response);
+      }
+
+      throw error;
     }
   }
 
@@ -111,9 +140,21 @@ class Implementation implements ArticleDomainRepository {
       resourceOfApiResponse
     };
 
-    return id > 0
-      ? await this.clientOfApi.put<ArticleDomainItemGetOperationOutput>(options)
-      : await this.clientOfApi.post<ArticleDomainItemGetOperationOutput>(options);
+    try {
+      const response = id > 0
+        ? await this.clientOfApi.put<ArticleDomainItemGetOperationOutput>(options)
+        : await this.clientOfApi.post<ArticleDomainItemGetOperationOutput>(options);
+
+      return createArticleDomainItemGetOperationResponse(response);
+    } catch (error: unknown) {
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return createArticleDomainItemGetOperationResponse(response);
+      }
+
+      throw error;
+    }
   }
 }
 

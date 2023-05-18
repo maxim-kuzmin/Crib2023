@@ -1,4 +1,4 @@
-import { type ApiOperationResponse, type ApiClient, type ApiRequestOptionsWithBody } from '../../data';
+import { type ApiClient, type ApiOperationResponse, type ApiRequestOptionsWithBody } from '../../data';
 import {
   type TopicDomainItemDeleteOperationRequest,
   type TopicDomainItemGetOperationOutput,
@@ -11,6 +11,9 @@ import {
   type TopicDomainTreeGetOperationRequest,
   type TopicDomainTreeGetOperationResponse,
   type TopicDomainTreeGetOperationOutput,
+  createTopicDomainItemGetOperationResponse,
+  createTopicDomainListGetOperationResponse,
+  createTopicDomainTreeGetOperationResponse,
 } from './Operations';
 
 export interface TopicDomainRepository {
@@ -55,12 +58,22 @@ class Implementation implements TopicDomainRepository {
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
-    return await this.clientOfApi.delete({
-      endpoint,
-      operationName,
-      operationCode,
-      resourceOfApiResponse
-    });
+    try {
+      return await this.clientOfApi.delete({
+        endpoint,
+        operationName,
+        operationCode,
+        resourceOfApiResponse
+      });
+    } catch (error: unknown) {
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return response;
+      }
+
+      throw error;
+    }
   }
 
   async getItem (
@@ -70,12 +83,24 @@ class Implementation implements TopicDomainRepository {
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`
 
-    return await this.clientOfApi.get<TopicDomainItemGetOperationOutput>({
-      endpoint,
-      operationName,
-      operationCode,
-      resourceOfApiResponse
-    });
+    try {
+      const response = await this.clientOfApi.get<TopicDomainItemGetOperationOutput>({
+        endpoint,
+        operationName,
+        operationCode,
+        resourceOfApiResponse
+      });
+
+      return createTopicDomainItemGetOperationResponse(response);
+    } catch (error: unknown) {
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return createTopicDomainItemGetOperationResponse(response);
+      }
+
+      throw error;
+    }
   }
 
   async getList (
@@ -85,13 +110,25 @@ class Implementation implements TopicDomainRepository {
 
     const endpoint = `${controller}List`;
 
-    return await this.clientOfApi.get<TopicDomainListGetOperationOutput>({
-      endpoint,
-      operationName,
-      operationCode,
-      query,
-      resourceOfApiResponse
-    });
+    try {
+      const response = await this.clientOfApi.get<TopicDomainListGetOperationOutput>({
+        endpoint,
+        operationName,
+        operationCode,
+        query,
+        resourceOfApiResponse
+      });
+
+      return createTopicDomainListGetOperationResponse(response);
+    } catch (error: unknown) {
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return createTopicDomainListGetOperationResponse(response);
+      }
+
+      throw error;
+    }
   }
 
   async getTree (
@@ -101,13 +138,25 @@ class Implementation implements TopicDomainRepository {
 
     const endpoint = `${controller}Tree`;
 
-    return await this.clientOfApi.get<TopicDomainTreeGetOperationOutput>({
-      endpoint,
-      operationName,
-      operationCode,
-      query,
-      resourceOfApiResponse
-    });
+    try {
+      const response = await this.clientOfApi.get<TopicDomainTreeGetOperationOutput>({
+        endpoint,
+        operationName,
+        operationCode,
+        query,
+        resourceOfApiResponse
+      });
+
+      return createTopicDomainTreeGetOperationResponse(response);
+    } catch (error: unknown) {
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return createTopicDomainTreeGetOperationResponse(response);
+      }
+
+      throw error;
+    }
   }
 
   async saveItem (
@@ -127,9 +176,21 @@ class Implementation implements TopicDomainRepository {
       resourceOfApiResponse
     };
 
-    return id > 0
-      ? await this.clientOfApi.put<TopicDomainItemGetOperationOutput>(options)
-      : await this.clientOfApi.post<TopicDomainItemGetOperationOutput>(options);
+    try {
+      const response = id > 0
+        ? await this.clientOfApi.put<TopicDomainItemGetOperationOutput>(options)
+        : await this.clientOfApi.post<TopicDomainItemGetOperationOutput>(options);
+
+      return createTopicDomainItemGetOperationResponse(response);
+    } catch (error: unknown) {
+      const response = error as ApiOperationResponse;
+
+      if (response) {
+        return createTopicDomainItemGetOperationResponse(response);
+      }
+
+      throw error;
+    }
   }
 }
 
