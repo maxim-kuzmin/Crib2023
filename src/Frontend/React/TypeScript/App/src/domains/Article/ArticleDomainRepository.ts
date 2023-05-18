@@ -31,26 +31,25 @@ export interface ArticleDomainRepository {
 const controller = 'CatalogArticle';
 
 interface Options {
-  apiClient: ApiClient;
+  clientOfApi: ApiClient;
 }
 
 class Implementation implements ArticleDomainRepository {
-  private readonly apiClient: ApiClient;
+  private readonly clientOfApi: ApiClient;
 
   constructor (options: Options) {
-    this.apiClient = options.apiClient;
+    this.clientOfApi = options.clientOfApi;
   }
 
   async deleteItem (
     request: ArticleDomainItemDeleteOperationRequest
   ): Promise<ApiOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
-    return await this.apiClient.delete({
+    return await this.clientOfApi.delete({
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
@@ -60,13 +59,12 @@ class Implementation implements ArticleDomainRepository {
   async getItem (
     request: ArticleDomainItemGetOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
-    return await this.apiClient.get<ArticleDomainItemGetOperationOutput>({
+    return await this.clientOfApi.get<ArticleDomainItemGetOperationOutput>({
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
@@ -76,13 +74,12 @@ class Implementation implements ArticleDomainRepository {
   async getList (
     request: ArticleDomainListGetOperationRequest
   ): Promise<ArticleDomainListGetOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: query } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
     const endpoint = `${controller}List`;
 
-    return await this.apiClient.get<ArticleDomainListGetOperationOutput>({
+    return await this.clientOfApi.get<ArticleDomainListGetOperationOutput>({
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       query,
@@ -93,7 +90,7 @@ class Implementation implements ArticleDomainRepository {
   async saveItem (
     request: ArticleDomainItemSaveOperationRequest
   ): Promise<ArticleDomainItemGetOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: body } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input: body } = request;
 
     const id = Number(body.id ?? 0);
 
@@ -102,15 +99,14 @@ class Implementation implements ArticleDomainRepository {
     const options: ApiRequestOptionsWithBody = {
       body,
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
     };
 
     return id > 0
-      ? await this.apiClient.put<ArticleDomainItemGetOperationOutput>(options)
-      : await this.apiClient.post<ArticleDomainItemGetOperationOutput>(options);
+      ? await this.clientOfApi.put<ArticleDomainItemGetOperationOutput>(options)
+      : await this.clientOfApi.post<ArticleDomainItemGetOperationOutput>(options);
   }
 }
 

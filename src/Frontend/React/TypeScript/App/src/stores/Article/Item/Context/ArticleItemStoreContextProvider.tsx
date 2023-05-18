@@ -8,7 +8,8 @@ import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
   ArticleItemStoreSliceName,
-  type ArticleItemStoreState
+  type ArticleItemStoreState,
+  createArticleItemStoreState,
 } from '../../../../features';
 import { ArticleItemStoreActionType } from '../ArticleItemStoreActionType';
 import { type ArticleItemStoreActionUnion } from '../ArticleItemStoreActionUnion';
@@ -26,22 +27,7 @@ function ArticleItemStoreContextProvider ({
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<ArticleItemStoreState>(
       [ArticleItemStoreSliceName.Default],
-      () => {
-        const result: ArticleItemStoreState = {
-          payloadOfDeleteAction: null,
-          payloadOfDeleteCompletedAction: null,
-          payloadOfLoadAction: null,
-          payloadOfLoadCompletedAction: null,
-          payloadOfSaveAction: null,
-          payloadOfSaveCompletedAction: null,
-          payloadOfSetAction: null,
-          statusOfDeleteAction: OperationStatus.Initial,
-          statusOfLoadAction: OperationStatus.Initial,
-          statusOfSaveAction: OperationStatus.Initial
-        };
-
-        return result;
-      }
+      () => createArticleItemStoreState(),
     )
   ).current;
 

@@ -6,17 +6,17 @@ import { type ArticleDomainItemDeleteOperationRequest } from './ArticleDomainIte
 import { type ArticleDomainItemDeleteOperationRequestHandler } from './ArticleDomainItemDeleteOperationRequestHandler';
 
 interface Options {
-  apiRequestHandler: ApiRequestHandler;
+  handlerOfApiRequest: ApiRequestHandler;
   repository: ArticleDomainRepository;
 }
 
 export class ArticleDomainItemDeleteOperationRequestHandlerImpl
   implements ArticleDomainItemDeleteOperationRequestHandler {
-  private readonly apiRequestHandler: ApiRequestHandler;
+  private readonly handlerOfApiRequest: ApiRequestHandler;
   private readonly repository: ArticleDomainRepository;
 
   constructor (options: Options) {
-    this.apiRequestHandler = options.apiRequestHandler;
+    this.handlerOfApiRequest = options.handlerOfApiRequest;
     this.repository = options.repository;
   }
 
@@ -24,7 +24,7 @@ export class ArticleDomainItemDeleteOperationRequestHandlerImpl
     request: ArticleDomainItemDeleteOperationRequest,
     shouldBeCanceled: ShouldBeCanceled
   ): Promise<ApiOperationResponse | null> {
-    return await this.apiRequestHandler.handleWithInput<
+    return await this.handlerOfApiRequest.handleWithInput<
       ArticleDomainItemGetOperationInput,
       ArticleDomainItemDeleteOperationRequest,
       ApiOperationResponse

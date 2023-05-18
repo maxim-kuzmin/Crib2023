@@ -42,7 +42,7 @@ export function createTopicDomainHooks ({
 }: Options): TopicDomainHooks {
   function useItemDeleteOperationRequestHandler (): TopicDomainItemDeleteOperationRequestHandler {
     return new TopicDomainItemDeleteOperationRequestHandlerImpl({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: true
       }),
@@ -52,7 +52,7 @@ export function createTopicDomainHooks ({
 
   function useItemGetOperationRequestHandler (): TopicDomainItemGetOperationRequestHandler {
     return createTopicDomainItemGetOperationRequestHandler({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),
@@ -62,7 +62,7 @@ export function createTopicDomainHooks ({
 
   function useItemSaveOperationRequestHandler (): TopicDomainItemSaveOperationRequestHandler {
     return createTopicDomainItemSaveOperationRequestHandler({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: true
       }),
@@ -72,7 +72,7 @@ export function createTopicDomainHooks ({
 
   function useListGetOperationRequestHandler (): TopicDomainListGetOperationRequestHandler {
     return createTopicDomainListGetOperationRequestHandler({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),
@@ -82,7 +82,7 @@ export function createTopicDomainHooks ({
 
   function useTreeGetOperationRequestHandler (): TopicDomainTreeGetOperationRequestHandler {
     return createTopicDomainTreeGetOperationRequestHandler({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),

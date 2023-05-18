@@ -1,5 +1,5 @@
 import { type CommonOptions, type TestService } from '../../common';
-import { type ApiResponseFactory, type ApiClient } from '../../data';
+import { type ApiClient } from '../../data';
 import { createArticleDomainTestRepository } from '../../tests';
 import { type ArticleDomainRepository, createArticleDomainRepository } from './ArticleDomainRepository';
 
@@ -8,8 +8,7 @@ export interface ArticleDomainModule {
 }
 
 interface Options {
-  readonly apiClient: ApiClient;
-  readonly factoryOfApiResponse: ApiResponseFactory;
+  readonly clientOfApi: ApiClient;
   readonly optionsOfCommon: CommonOptions;
   readonly serviceOfTest: TestService;
 }
@@ -18,14 +17,13 @@ class Implementation implements ArticleDomainModule {
   private readonly repository: ArticleDomainRepository;
 
   constructor ({
-    apiClient,
-    factoryOfApiResponse,
+    clientOfApi,
     optionsOfCommon,
     serviceOfTest,
   }: Options) {
     this.repository = optionsOfCommon.isTestModeEnabled
-      ? createArticleDomainTestRepository({ factoryOfApiResponse, serviceOfTest })
-      : createArticleDomainRepository({ apiClient });
+      ? createArticleDomainTestRepository({ serviceOfTest })
+      : createArticleDomainRepository({ clientOfApi });
   }
 
   getRepository (): ArticleDomainRepository {

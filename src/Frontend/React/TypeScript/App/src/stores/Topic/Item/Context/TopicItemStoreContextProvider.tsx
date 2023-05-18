@@ -8,7 +8,8 @@ import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
   TopicItemStoreSliceName,
-  type TopicItemStoreState
+  type TopicItemStoreState,
+  createTopicItemStoreState,
 } from '../../../../features';
 import { TopicItemStoreActionType } from '../TopicItemStoreActionType';
 import { type TopicItemStoreActionUnion } from '../TopicItemStoreActionUnion';
@@ -26,22 +27,7 @@ function TopicItemStoreContextProvider ({
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<TopicItemStoreState>(
       [TopicItemStoreSliceName.Default],
-      () => {
-        const result: TopicItemStoreState = {
-          payloadOfDeleteAction: null,
-          payloadOfDeleteCompletedAction: null,
-          payloadOfLoadAction: null,
-          payloadOfLoadCompletedAction: null,
-          payloadOfSaveAction: null,
-          payloadOfSaveCompletedAction: null,
-          payloadOfSetAction: null,
-          statusOfDeleteAction: OperationStatus.Initial,
-          statusOfLoadAction: OperationStatus.Initial,
-          statusOfSaveAction: OperationStatus.Initial
-        };
-
-        return result;
-      }
+      () => createTopicItemStoreState(),
     )
   ).current;
 

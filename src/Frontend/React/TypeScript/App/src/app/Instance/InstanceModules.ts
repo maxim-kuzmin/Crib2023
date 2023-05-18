@@ -3,7 +3,6 @@ import { type DataModules, createDataModules } from '../../data';
 import { type DomainsModules, createDomainsModules } from '../../domains';
 import { type PagesModules, createPagesModules } from '../../pages';
 import { type ViewsModules, createViewsModules } from '../../views';
-import { type InstanceFactories } from './InstanceFactories';
 import { type InstanceOptions } from './InstanceOptions';
 
 export interface InstanceModules {
@@ -15,7 +14,6 @@ export interface InstanceModules {
 }
 
 interface Options {
-  readonly factories: InstanceFactories;
   readonly options: InstanceOptions;
 }
 
@@ -27,7 +25,6 @@ class Implementation implements InstanceModules {
   readonly Views: ViewsModules;
 
   constructor ({
-    factories,
     options,
   }: Options) {
     this.Common = createCommonModules();
@@ -40,8 +37,7 @@ class Implementation implements InstanceModules {
     });
 
     this.Domains = createDomainsModules({
-      apiClient: this.Data.Api.getClient(),
-      factoryOfApiResponse: factories.Data.Api.Response,
+      clientOfApi: this.Data.Api.getClient(),
       optionsOfCommon: options.Common,
       serviceOfTest: this.Common.Test.getService(),
     });

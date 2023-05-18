@@ -37,7 +37,7 @@ export function createArticleDomainHooks ({
 }: HooksOptions): ArticleDomainHooks {
   function useItemDeleteOperationRequestHandler (): ArticleDomainItemDeleteOperationRequestHandler {
     return new ArticleDomainItemDeleteOperationRequestHandlerImpl({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: true
       }),
@@ -47,7 +47,7 @@ export function createArticleDomainHooks ({
 
   function useItemGetOperationRequestHandler (): ArticleDomainItemGetOperationRequestHandler {
     return createArticleDomainItemGetOperationRequestHandler({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),
@@ -57,7 +57,7 @@ export function createArticleDomainHooks ({
 
   function useItemSaveOperationRequestHandler (): ArticleDomainItemSaveOperationRequestHandler {
     return createArticleDomainItemSaveOperationRequestHandler({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: true
       }),
@@ -67,7 +67,7 @@ export function createArticleDomainHooks ({
 
   function useListGetOperationRequestHandler (): ArticleDomainListGetOperationRequestHandler {
     return createArticleDomainListGetOperationRequestHandler({
-      apiRequestHandler: hooksOfApiRequest.useHandler({
+      handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: false
       }),

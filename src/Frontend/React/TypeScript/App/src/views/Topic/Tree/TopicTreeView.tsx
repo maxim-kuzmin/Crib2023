@@ -63,9 +63,7 @@ export const TopicTreeView: React.FC<TopicTreeViewProps> = memo(
 function TopicTreeView ({
   createTopicPageUrl
 }: TopicTreeViewProps): React.ReactElement<TopicTreeViewProps> | null {
-  const { controls, factories, hooks } = useAppInstance();
-
-  const factoryOfApiResponse = factories.Data.Api.Response;
+  const { controls, hooks } = useAppInstance();
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
@@ -114,7 +112,6 @@ function TopicTreeView ({
             rootNodeId: Number(key)
           },
           {
-            factoryOfApiResponse,
             operationName: resourceOfTopicTreeStore.getOperationNameForGetChildren(),
             resourceOfApiResponse
           }
@@ -130,7 +127,6 @@ function TopicTreeView ({
     },
     [
       createTopicPageUrl,
-      factoryOfApiResponse,
       requestHandler,
       resourceOfApiResponse,
       resourceOfTopicTreeStore,

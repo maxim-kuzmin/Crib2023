@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainItemSaveOperationRequestHandler,
   createArticleDomainItemSaveOperationRequest
@@ -22,7 +22,6 @@ import { runSaveCompletedAction } from '../SaveCompleted/ArticleItemStoreSaveCom
 interface Options {
   readonly callback?: ArticleItemStoreSetActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
-  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly payload: ArticleItemStoreSaveActionPayload;
   readonly requestHandler: ArticleDomainItemSaveOperationRequestHandler;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -34,7 +33,6 @@ interface Options {
 async function runSaveAction ({
   callback,
   dispatch,
-  factoryOfApiResponse,
   payload,
   requestHandler,
   resourceOfApiResponse,
@@ -57,7 +55,6 @@ async function runSaveAction ({
         createArticleDomainItemSaveOperationRequest(
           payload,
           {
-            factoryOfApiResponse,
             operationName: resourceOfArticleItemStore.getOperationNameForSave(),
             resourceOfApiResponse
           }
@@ -87,9 +84,7 @@ export function useStoreSaveActionDispatch (
     payloadOfSaveAction
   }: ArticleItemStoreSaveActionOptions
 ): ArticleItemStoreSaveActionDispatch {
-  const { factories, hooks } = useAppInstance();
-
-  const factoryOfApiResponse = factories.Data.Api.Response;
+  const { hooks } = useAppInstance();
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
@@ -109,7 +104,6 @@ export function useStoreSaveActionDispatch (
         runSaveAction({
           callback,
           dispatch,
-          factoryOfApiResponse,
           payload: payloadOfSaveAction,
           requestHandler,
           resourceOfApiResponse,
@@ -124,7 +118,6 @@ export function useStoreSaveActionDispatch (
           runSaveAction({
             callback,
             dispatch,
-            factoryOfApiResponse,
             payload: payloadOfSaveAction,
             requestHandler,
             resourceOfApiResponse,
@@ -141,7 +134,6 @@ export function useStoreSaveActionDispatch (
       callback,
       dispatch,
       dispatchType,
-      factoryOfApiResponse,
       isCanceled,
       payloadOfSaveAction,
       requestHandler,
@@ -158,7 +150,6 @@ export function useStoreSaveActionDispatch (
     await runSaveAction({
       callback,
       dispatch,
-      factoryOfApiResponse,
       payload,
       requestHandler,
       resourceOfApiResponse,

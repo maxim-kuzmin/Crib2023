@@ -1,5 +1,5 @@
 import { type CommonOptions, type TestService } from '../common';
-import { type ApiResponseFactory, type ApiClient } from '../data';
+import { type ApiClient } from '../data';
 import {
   type ArticleDomainModule,
   type TopicDomainModule,
@@ -13,8 +13,7 @@ export interface DomainsModules {
 }
 
 interface Options {
-  readonly apiClient: ApiClient;
-  readonly factoryOfApiResponse: ApiResponseFactory;
+  readonly clientOfApi: ApiClient;
   readonly optionsOfCommon: CommonOptions;
   readonly serviceOfTest: TestService;
 }
@@ -24,21 +23,18 @@ class Implementation implements DomainsModules {
   readonly Topic: TopicDomainModule;
 
   constructor ({
-    apiClient,
-    factoryOfApiResponse,
+    clientOfApi,
     optionsOfCommon,
     serviceOfTest,
   }: Options) {
     this.Article = createArticleDomainModule({
-      apiClient,
-      factoryOfApiResponse,
+      clientOfApi,
       optionsOfCommon,
       serviceOfTest,
     });
 
     this.Topic = createTopicDomainModule({
-      apiClient,
-      factoryOfApiResponse,
+      clientOfApi,
       optionsOfCommon,
       serviceOfTest,
     });

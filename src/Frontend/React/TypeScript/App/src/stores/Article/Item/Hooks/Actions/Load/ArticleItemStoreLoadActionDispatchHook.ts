@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type ArticleDomainItemGetOperationRequestHandler,
   createArticleDomainItemGetOperationRequest
@@ -22,7 +22,6 @@ import { runLoadCompletedAction } from '../LoadCompleted/ArticleItemStoreLoadCom
 interface Options {
   readonly callback?: ArticleItemStoreSetActionCallback;
   readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
-  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly payload: ArticleItemStoreLoadActionPayload;
   readonly requestHandler: ArticleDomainItemGetOperationRequestHandler;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -34,7 +33,6 @@ interface Options {
 async function runLoadAction ({
   callback,
   dispatch,
-  factoryOfApiResponse,
   payload,
   requestHandler,
   resourceOfApiResponse,
@@ -57,7 +55,6 @@ async function runLoadAction ({
         createArticleDomainItemGetOperationRequest(
           payload,
           {
-            factoryOfApiResponse,
             operationName: resourceOfArticleItemStore.getOperationNameForGet(),
             resourceOfApiResponse
           }
@@ -87,9 +84,7 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: ArticleItemStoreLoadActionOptions = {}
 ): ArticleItemStoreLoadActionDispatch {
-  const { factories, hooks } = useAppInstance();
-
-  const factoryOfApiResponse = factories.Data.Api.Response;
+  const { hooks } = useAppInstance();
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
@@ -109,7 +104,6 @@ export function useStoreLoadActionDispatch (
         runLoadAction({
           callback,
           dispatch,
-          factoryOfApiResponse,
           payload: payloadOfLoadAction,
           requestHandler,
           resourceOfApiResponse,
@@ -124,7 +118,6 @@ export function useStoreLoadActionDispatch (
           runLoadAction({
             callback,
             dispatch,
-            factoryOfApiResponse,
             payload: payloadOfLoadAction,
             requestHandler,
             resourceOfApiResponse,
@@ -141,7 +134,6 @@ export function useStoreLoadActionDispatch (
       callback,
       dispatch,
       dispatchType,
-      factoryOfApiResponse,
       isCanceled,
       payloadOfLoadAction,
       requestHandler,
@@ -158,7 +150,6 @@ export function useStoreLoadActionDispatch (
     await runLoadAction({
       callback,
       dispatch,
-      factoryOfApiResponse,
       payload,
       requestHandler,
       resourceOfApiResponse,

@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainItemDeleteOperationRequestHandler,
   createTopicDomainItemDeleteOperationRequest,
@@ -22,7 +22,6 @@ import { runDeleteCompletedAction } from '../DeleteCompleted/TopicItemStoreDelet
 interface Options {
   readonly callback?: TopicItemStoreDeleteCompletedActionCallback;
   readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
-  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly payload: TopicItemStoreDeleteActionPayload;
   readonly requestHandler: TopicDomainItemDeleteOperationRequestHandler;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -34,7 +33,6 @@ interface Options {
 async function runDeleteAction ({
   callback,
   dispatch,
-  factoryOfApiResponse,
   payload,
   requestHandler,
   resourceOfApiResponse,
@@ -57,7 +55,6 @@ async function runDeleteAction ({
         createTopicDomainItemDeleteOperationRequest(
           payload,
           {
-            factoryOfApiResponse,
             operationName: resourceOfTopicItemStore.getOperationNameForDelete(),
             resourceOfApiResponse
           }
@@ -87,9 +84,7 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: TopicItemStoreDeleteActionOptions = {}
 ): TopicItemStoreDeleteActionDispatch {
-  const { factories, hooks } = useAppInstance();
-
-  const factoryOfApiResponse = factories.Data.Api.Response;
+  const { hooks } = useAppInstance();
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
@@ -109,7 +104,6 @@ export function useStoreDeleteActionDispatch (
         runDeleteAction({
           callback,
           dispatch,
-          factoryOfApiResponse,
           payload: payloadOfDeleteAction,
           requestHandler,
           resourceOfApiResponse,
@@ -124,7 +118,6 @@ export function useStoreDeleteActionDispatch (
           runDeleteAction({
             callback,
             dispatch,
-            factoryOfApiResponse,
             payload: payloadOfDeleteAction,
             requestHandler,
             resourceOfApiResponse,
@@ -141,7 +134,6 @@ export function useStoreDeleteActionDispatch (
       callback,
       dispatch,
       dispatchType,
-      factoryOfApiResponse,
       isCanceled,
       payloadOfDeleteAction,
       requestHandler,
@@ -158,7 +150,6 @@ export function useStoreDeleteActionDispatch (
     await runDeleteAction({
       callback,
       dispatch,
-      factoryOfApiResponse,
       payload,
       requestHandler,
       resourceOfApiResponse,

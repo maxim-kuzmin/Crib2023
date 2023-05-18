@@ -38,26 +38,25 @@ export interface TopicDomainRepository {
 const controller = 'CatalogTopic';
 
 interface Options {
-  apiClient: ApiClient;
+  clientOfApi: ApiClient;
 }
 
 class Implementation implements TopicDomainRepository {
-  private readonly apiClient: ApiClient;
+  private readonly clientOfApi: ApiClient;
 
   constructor (options: Options) {
-    this.apiClient = options.apiClient;
+    this.clientOfApi = options.clientOfApi;
   }
 
   async deleteItem (
     request: TopicDomainItemDeleteOperationRequest
   ): Promise<ApiOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`;
 
-    return await this.apiClient.delete({
+    return await this.clientOfApi.delete({
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
@@ -67,13 +66,12 @@ class Implementation implements TopicDomainRepository {
   async getItem (
     request: TopicDomainItemGetOperationRequest
   ): Promise<TopicDomainItemGetOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
     const endpoint = `${controller}Item-${Number(input.id ?? 0)}`
 
-    return await this.apiClient.get<TopicDomainItemGetOperationOutput>({
+    return await this.clientOfApi.get<TopicDomainItemGetOperationOutput>({
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
@@ -83,13 +81,12 @@ class Implementation implements TopicDomainRepository {
   async getList (
     request: TopicDomainListGetOperationRequest
   ): Promise<TopicDomainListGetOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: query } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
     const endpoint = `${controller}List`;
 
-    return await this.apiClient.get<TopicDomainListGetOperationOutput>({
+    return await this.clientOfApi.get<TopicDomainListGetOperationOutput>({
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       query,
@@ -100,13 +97,12 @@ class Implementation implements TopicDomainRepository {
   async getTree (
     request: TopicDomainTreeGetOperationRequest
   ): Promise<TopicDomainTreeGetOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: query } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
     const endpoint = `${controller}Tree`;
 
-    return await this.apiClient.get<TopicDomainTreeGetOperationOutput>({
+    return await this.clientOfApi.get<TopicDomainTreeGetOperationOutput>({
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       query,
@@ -117,7 +113,7 @@ class Implementation implements TopicDomainRepository {
   async saveItem (
     request: TopicDomainItemSaveOperationRequest
   ): Promise<TopicDomainItemGetOperationResponse> {
-    const { factoryOfApiResponse, operationCode, operationName, resourceOfApiResponse, input: body } = request;
+    const { operationCode, operationName, resourceOfApiResponse, input: body } = request;
 
     const id = Number(body.id ?? 0);
 
@@ -126,15 +122,14 @@ class Implementation implements TopicDomainRepository {
     const options: ApiRequestOptionsWithBody = {
       body,
       endpoint,
-      factoryOfApiResponse,
       operationName,
       operationCode,
       resourceOfApiResponse
     };
 
     return id > 0
-      ? await this.apiClient.put<TopicDomainItemGetOperationOutput>(options)
-      : await this.apiClient.post<TopicDomainItemGetOperationOutput>(options);
+      ? await this.clientOfApi.put<TopicDomainItemGetOperationOutput>(options)
+      : await this.clientOfApi.post<TopicDomainItemGetOperationOutput>(options);
   }
 }
 

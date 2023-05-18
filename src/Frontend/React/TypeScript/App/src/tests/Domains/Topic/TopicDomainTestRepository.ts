@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { type TestService } from '../../../common';
 import {
-  type ApiResponseFactory,
   type ApiOperationResponse,
-  type ApiResponseError
+  type ApiResponseError,
+  createApiResponseError
 } from '../../../data';
 import {
   type TopicDomainItemGetOperationRequest,
@@ -26,21 +26,17 @@ let maxId = 0;
 
 interface Options {
   readonly serviceOfTest: TestService;
-  readonly factoryOfApiResponse: ApiResponseFactory;
 }
 
 class Implementation implements TopicDomainRepository {
   private entitiesForItem: TopicDomainEntityForItem[] = [];
   private readonly entitiesForList: TopicDomainEntityForList[] = [];
   private readonly entitiesForTree: TopicDomainEntityForTree[] = [];
-  private readonly factoryOfApiResponse: ApiResponseFactory;
   private readonly serviceOfTest: TestService;
 
   constructor ({
-    factoryOfApiResponse,
     serviceOfTest,
   }: Options) {
-    this.factoryOfApiResponse = factoryOfApiResponse;
     this.serviceOfTest = serviceOfTest;
 
     for (let id = 1; id < 101; id++) {
@@ -124,7 +120,7 @@ class Implementation implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = this.factoryOfApiResponse.createError({ responseStatus: status, resourceOfApiResponse });
+      error = createApiResponseError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {
@@ -205,7 +201,7 @@ class Implementation implements TopicDomainRepository {
     let error: ApiResponseError | null = null;
 
     if (status === 404) {
-      error = this.factoryOfApiResponse.createError({ responseStatus: status, resourceOfApiResponse });
+      error = createApiResponseError({ responseStatus: status, resourceOfApiResponse });
     }
 
     const result: TopicDomainItemGetOperationResponse = {

@@ -1,7 +1,7 @@
 import { type Dispatch, useEffect, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
 import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseFactory, type ApiResponseResource } from '../../../../../../data';
+import { type ApiResponseResource } from '../../../../../../data';
 import {
   type TopicDomainTreeGetOperationRequestHandler,
   createTopicDomainTreeGetOperationRequest
@@ -22,7 +22,6 @@ import { runLoadCompletedAction } from '../LoadCompleted/TopicTreeStoreLoadCompl
 interface Options {
   readonly callback?: TopicTreeStoreSetActionCallback;
   readonly dispatch: Dispatch<TopicTreeStoreActionUnion>;
-  readonly factoryOfApiResponse: ApiResponseFactory;
   readonly payload: TopicTreeStoreLoadActionPayload;
   readonly requestHandler: TopicDomainTreeGetOperationRequestHandler;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -34,7 +33,6 @@ interface Options {
 async function runLoadAction ({
   callback,
   dispatch,
-  factoryOfApiResponse,
   payload,
   requestHandler,
   resourceOfApiResponse,
@@ -57,7 +55,6 @@ async function runLoadAction ({
         createTopicDomainTreeGetOperationRequest(
           payload,
           {
-            factoryOfApiResponse,
             operationName: resourceOfTopicTreeStore.getOperationNameForGet(),
             resourceOfApiResponse
           }),
@@ -86,9 +83,7 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: TopicTreeStoreLoadActionOptions = {}
 ): TopicTreeStoreLoadActionDispatch {
-  const { factories, hooks } = useAppInstance();
-
-  const factoryOfApiResponse = factories.Data.Api.Response;
+  const { hooks } = useAppInstance();
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
 
@@ -108,7 +103,6 @@ export function useStoreLoadActionDispatch (
         runLoadAction({
           callback,
           dispatch,
-          factoryOfApiResponse,
           payload: payloadOfLoadAction,
           requestHandler,
           resourceOfApiResponse,
@@ -123,7 +117,6 @@ export function useStoreLoadActionDispatch (
           runLoadAction({
             callback,
             dispatch,
-            factoryOfApiResponse,
             payload: payloadOfLoadAction,
             requestHandler,
             resourceOfApiResponse,
@@ -140,7 +133,6 @@ export function useStoreLoadActionDispatch (
       callback,
       dispatch,
       dispatchType,
-      factoryOfApiResponse,
       isCanceled,
       payloadOfLoadAction,
       requestHandler,
@@ -157,7 +149,6 @@ export function useStoreLoadActionDispatch (
     await runLoadAction({
       callback,
       dispatch,
-      factoryOfApiResponse,
       payload,
       requestHandler,
       resourceOfApiResponse,

@@ -1,4 +1,4 @@
-import { type OperationStatus } from '../../../../common';
+import { OperationStatus } from '../../../../common';
 import {
   type ArticleListStoreLoadActionPayload,
   type ArticleListStoreLoadCompletedActionPayload,
@@ -10,4 +10,15 @@ export interface ArticleListStoreState {
   payloadOfLoadCompletedAction: ArticleListStoreLoadCompletedActionPayload;
   payloadOfSetAction: ArticleListStoreSetActionPayload;
   statusOfLoadAction: OperationStatus;
+}
+
+export function createArticleListStoreState (
+  options?: Partial<ArticleListStoreState>
+): ArticleListStoreState {
+  return {
+    payloadOfLoadAction: options?.payloadOfLoadAction ?? null,
+    payloadOfLoadCompletedAction: options?.payloadOfLoadCompletedAction ?? null,
+    payloadOfSetAction: options?.payloadOfSetAction ?? null,
+    statusOfLoadAction: options?.statusOfLoadAction ?? OperationStatus.Initial,
+  };
 }

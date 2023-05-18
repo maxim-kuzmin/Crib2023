@@ -8,7 +8,8 @@ import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
   TopicTreeStoreSliceName,
-  type TopicTreeStoreState
+  type TopicTreeStoreState,
+  createTopicTreeStoreState
 } from '../../../../features';
 import { TopicTreeStoreActionType } from '../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../TopicTreeStoreActionUnion';
@@ -26,16 +27,7 @@ function TopicTreeStoreContextProvider ({
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<TopicTreeStoreState>(
       [TopicTreeStoreSliceName.Default],
-      () => {
-        const result: TopicTreeStoreState = {
-          payloadOfLoadAction: null,
-          payloadOfLoadCompletedAction: null,
-          payloadOfSetAction: null,
-          statusOfLoadAction: OperationStatus.Initial
-        };
-
-        return result;
-      }
+      () => createTopicTreeStoreState(),
     )
   ).current;
 

@@ -6,7 +6,6 @@ import {
   type ArticleListStoreSetActionInput,
   type ArticleListStoreSetActionOutput
 } from '../Actions';
-import { type ArticleListStoreResource } from '../ArticleListStoreResource';
 import { type ArticleListStoreState } from '../ArticleListStoreState';
 
 export interface ArticleListStoreSliceHooks {

@@ -2,4 +2,4 @@ export * from './Actions';
 export * from './Slice';
 export { type ArticleListStoreHooks } from './ArticleListStoreHooks';
 export { type ArticleListStoreResource } from './ArticleListStoreResource';
-export { type ArticleListStoreState } from './ArticleListStoreState';
+export { type ArticleListStoreState, createArticleListStoreState } from './ArticleListStoreState';

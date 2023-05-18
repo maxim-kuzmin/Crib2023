@@ -1,4 +1,4 @@
-import { type OperationStatus } from '../../../../common';
+import { OperationStatus } from '../../../../common';
 import {
   type TopicTreeStoreLoadActionPayload,
   type TopicTreeStoreLoadCompletedActionPayload,
@@ -10,4 +10,15 @@ export interface TopicTreeStoreState {
   payloadOfLoadCompletedAction: TopicTreeStoreLoadCompletedActionPayload;
   payloadOfSetAction: TopicTreeStoreSetActionPayload;
   statusOfLoadAction: OperationStatus;
+}
+
+export function createTopicTreeStoreState (
+  options?: Partial<TopicTreeStoreState>
+): TopicTreeStoreState {
+  return {
+    payloadOfLoadAction: options?.payloadOfLoadAction ?? null,
+    payloadOfLoadCompletedAction: options?.payloadOfLoadCompletedAction ?? null,
+    payloadOfSetAction: options?.payloadOfSetAction ?? null,
+    statusOfLoadAction: options?.statusOfLoadAction ?? OperationStatus.Initial,
+  };
 }

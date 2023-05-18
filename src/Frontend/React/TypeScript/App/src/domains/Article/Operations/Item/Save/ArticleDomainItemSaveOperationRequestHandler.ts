@@ -12,16 +12,16 @@ export interface ArticleDomainItemSaveOperationRequestHandler {
 }
 
 interface Options {
-  apiRequestHandler: ApiRequestHandler;
+  handlerOfApiRequest: ApiRequestHandler;
   repository: ArticleDomainRepository;
 }
 
 class Implementation implements ArticleDomainItemSaveOperationRequestHandler {
-  private readonly apiRequestHandler: ApiRequestHandler;
+  private readonly handlerOfApiRequest: ApiRequestHandler;
   private readonly repository: ArticleDomainRepository;
 
   constructor (options: Options) {
-    this.apiRequestHandler = options.apiRequestHandler;
+    this.handlerOfApiRequest = options.handlerOfApiRequest;
     this.repository = options.repository;
   }
 
@@ -29,7 +29,7 @@ class Implementation implements ArticleDomainItemSaveOperationRequestHandler {
     request: ArticleDomainItemSaveOperationRequest,
     shouldBeCanceled: ShouldBeCanceled
   ): Promise<ArticleDomainItemGetOperationResponse | null> {
-    return await this.apiRequestHandler.handleWithInputAndOutput<
+    return await this.handlerOfApiRequest.handleWithInputAndOutput<
       ArticleTypeEntity,
       ArticleDomainItemSaveOperationRequest,
       ArticleDomainItemGetOperationOutput,

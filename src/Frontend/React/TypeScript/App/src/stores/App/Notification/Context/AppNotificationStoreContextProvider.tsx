@@ -7,7 +7,8 @@ import React, {
 import { useAppInstance } from '../../../../app';
 import {
   AppNotificationStoreSliceName,
-  type AppNotificationStoreState
+  type AppNotificationStoreState,
+  createAppNotificationStoreState,
 } from '../../../../features';
 import { AppNotificationStoreActionType } from '../AppNotificationStoreActionType';
 import { type AppNotificationStoreActionUnion } from '../AppNotificationStoreActionUnion';
@@ -25,13 +26,7 @@ function AppNotificationStoreContextProvider ({
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<AppNotificationStoreState>(
       [AppNotificationStoreSliceName.Default],
-      () => {
-        const result: AppNotificationStoreState = {
-          payloadOfSetAction: null
-        };
-
-        return result;
-      }
+      () => createAppNotificationStoreState(),
     )
   ).current;
 

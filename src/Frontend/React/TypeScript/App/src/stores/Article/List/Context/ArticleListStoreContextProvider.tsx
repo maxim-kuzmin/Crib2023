@@ -8,7 +8,8 @@ import { useAppInstance } from '../../../../app';
 import { OperationStatus } from '../../../../common';
 import {
   ArticleListStoreSliceName,
-  type ArticleListStoreState
+  type ArticleListStoreState,
+  createArticleListStoreState,
 } from '../../../../features';
 import { ArticleListStoreActionType } from '../ArticleListStoreActionType';
 import { type ArticleListStoreActionUnion } from '../ArticleListStoreActionUnion';
@@ -26,16 +27,7 @@ function ArticleListStoreContextProvider ({
   const initialState = useRef(
     modules.Common.Store.getService().createInitialState<ArticleListStoreState>(
       [ArticleListStoreSliceName.Default],
-      () => {
-        const result: ArticleListStoreState = {
-          payloadOfLoadAction: null,
-          payloadOfLoadCompletedAction: null,
-          payloadOfSetAction: null,
-          statusOfLoadAction: OperationStatus.Initial
-        };
-
-        return result;
-      }
+      () => createArticleListStoreState(),
     )
   ).current;
 

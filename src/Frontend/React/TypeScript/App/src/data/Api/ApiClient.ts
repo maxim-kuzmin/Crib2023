@@ -13,11 +13,11 @@ import {
   type ApiResponseDataWithDetails,
   type ApiResponseDataWithMessages,
   type ApiResponseError,
-  type ApiResponseFactory,
   type ApiResponseResource,
   type ApiResponseWithData,
   type ApiResponseWithDetails,
-  type ApiResponseWithMessages
+  type ApiResponseWithMessages,
+  createApiResponseError
 } from '.';
 
 export interface ApiClient {
@@ -33,8 +33,7 @@ interface Options {
 }
 
 interface RequestOptions {
-  readonly factoryOfApiResponse: ApiResponseFactory;
-  readonly getRequestResult: () => Promise<HttpResponse>;
+  readonly getResponse: () => Promise<HttpResponse>;
   readonly operationName: string;
   readonly operationCode: string;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -86,7 +85,6 @@ class Implementation implements ApiClient {
 
   async delete ({
     endpoint,
-    factoryOfApiResponse,
     operationName,
     operationCode,
     query,
@@ -95,8 +93,7 @@ class Implementation implements ApiClient {
     const { language } = resourceOfApiResponse;
 
     return await this.request({
-      factoryOfApiResponse,
-      getRequestResult: async () => await this.httpClient.delete(
+      getResponse: async () => await this.httpClient.delete(
         this.createUrl(endpoint),
         createHttpConfig({
           language,
@@ -113,7 +110,6 @@ class Implementation implements ApiClient {
 
   async get<TData> ({
     endpoint,
-    factoryOfApiResponse,
     operationName,
     operationCode,
     query,
@@ -122,8 +118,7 @@ class Implementation implements ApiClient {
     const { language } = resourceOfApiResponse;
 
     return await this.requestWithData({
-      factoryOfApiResponse,
-      getRequestResult: async () => await this.httpClient.get(
+      getResponse: async () => await this.httpClient.get(
         this.createUrl(endpoint),
         createHttpConfig({
           language,
@@ -141,7 +136,6 @@ class Implementation implements ApiClient {
   async post<TData> ({
     body,
     endpoint,
-    factoryOfApiResponse,
     operationName,
     operationCode,
     query,
@@ -150,8 +144,7 @@ class Implementation implements ApiClient {
     const { language } = resourceOfApiResponse;
 
     return await this.requestWithData({
-      factoryOfApiResponse,
-      getRequestResult: async () => await this.httpClient.post(
+      getResponse: async () => await this.httpClient.post(
         this.createUrl(endpoint),
         body,
         createHttpConfig({
@@ -170,7 +163,6 @@ class Implementation implements ApiClient {
   async put<TData> ({
     body,
     endpoint,
-    factoryOfApiResponse,
     operationName,
     operationCode,
     query,
@@ -179,8 +171,7 @@ class Implementation implements ApiClient {
     const { language } = resourceOfApiResponse;
 
     return await this.requestWithData({
-      factoryOfApiResponse,
-      getRequestResult: async () => await this.httpClient.put(
+      getResponse: async () => await this.httpClient.put(
         this.createUrl(endpoint),
         body,
         createHttpConfig({
@@ -201,13 +192,12 @@ class Implementation implements ApiClient {
   }
 
   private async request ({
-    factoryOfApiResponse,
-    getRequestResult,
+    getResponse,
     operationName,
     operationCode,
     resourceOfApiResponse
   }: RequestOptions): Promise<ApiOperationResponse> {
-    const { ok, value, status } = await getRequestResult();
+    const { ok, value, status } = await getResponse();
 
     const response: ApiResponse = value;
 
@@ -234,7 +224,7 @@ class Implementation implements ApiClient {
           }
       }
 
-      error = factoryOfApiResponse.createError({
+      error = createApiResponseError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,
@@ -250,13 +240,12 @@ class Implementation implements ApiClient {
   }
 
   private async requestWithData<TData> ({
-    factoryOfApiResponse,
-    getRequestResult,
+    getResponse,
     operationName,
     operationCode,
     resourceOfApiResponse
   }: RequestOptions): Promise<ApiOperationResponseWithData<TData>> {
-    const { ok, value, status } = await getRequestResult();
+    const { ok, value, status } = await getResponse();
 
     const response: ApiResponse = value;
 
@@ -286,7 +275,7 @@ class Implementation implements ApiClient {
           }
       }
 
-      error = factoryOfApiResponse.createError({
+      error = createApiResponseError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,

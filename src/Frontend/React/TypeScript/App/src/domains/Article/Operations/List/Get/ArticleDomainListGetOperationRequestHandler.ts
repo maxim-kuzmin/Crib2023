@@ -14,16 +14,16 @@ export interface ArticleDomainListGetOperationRequestHandler {
 }
 
 interface Options {
-  apiRequestHandler: ApiRequestHandler;
+  handlerOfApiRequest: ApiRequestHandler;
   repository: ArticleDomainRepository;
 }
 
 class Implementation implements ArticleDomainListGetOperationRequestHandler {
-  private readonly apiRequestHandler: ApiRequestHandler;
+  private readonly handlerOfApiRequest: ApiRequestHandler;
   private readonly repository: ArticleDomainRepository;
 
   constructor (options: Options) {
-    this.apiRequestHandler = options.apiRequestHandler;
+    this.handlerOfApiRequest = options.handlerOfApiRequest;
     this.repository = options.repository;
   }
 
@@ -31,7 +31,7 @@ class Implementation implements ArticleDomainListGetOperationRequestHandler {
     request: ArticleDomainListGetOperationRequest,
     shouldBeCanceled: ShouldBeCanceled
   ): Promise<ArticleDomainListGetOperationResponse | null> {
-    return await this.apiRequestHandler.handleWithInputAndOutput<
+    return await this.handlerOfApiRequest.handleWithInputAndOutput<
       ArticleDomainListGetOperationInput,
       ArticleDomainListGetOperationRequest,
       ArticleDomainListGetOperationOutput,
