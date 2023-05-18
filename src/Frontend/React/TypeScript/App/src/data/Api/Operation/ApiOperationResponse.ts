@@ -5,3 +5,11 @@ export interface ApiOperationResponse {
   readonly operationCode: string;
   readonly operationName: string;
 }
+
+export function createApiOperationResponse (options?: Partial<ApiOperationResponse>): ApiOperationResponse {
+  return {
+    error: options?.error,
+    operationCode: options?.operationCode ?? '',
+    operationName: options?.operationName ?? '',
+  }
+}

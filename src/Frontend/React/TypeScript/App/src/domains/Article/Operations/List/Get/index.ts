@@ -7,4 +7,7 @@ export {
 } from './ArticleDomainListGetOperationRequestHandler';
 export { type ArticleDomainListGetOperationInput } from './ArticleDomainListGetOperationInput';
 export { type ArticleDomainListGetOperationOutput } from './ArticleDomainListGetOperationOutput';
-export { type ArticleDomainListGetOperationResponse } from './ArticleDomainListGetOperationResponse';
+export {
+  type ArticleDomainListGetOperationResponse,
+  createArticleDomainListGetOperationResponse,
+} from './ArticleDomainListGetOperationResponse';

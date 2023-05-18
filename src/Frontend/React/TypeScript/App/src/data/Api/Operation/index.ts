@@ -1,2 +1,2 @@
-export { type ApiOperationResponse } from './ApiOperationResponse';
-export { type ApiOperationResponseWithData } from './ApiOperationResponseWithData';
+export { type ApiOperationResponse, createApiOperationResponse } from './ApiOperationResponse';
+export { type ApiOperationResponseWithData, createApiOperationResponseWithData } from './ApiOperationResponseWithData';
