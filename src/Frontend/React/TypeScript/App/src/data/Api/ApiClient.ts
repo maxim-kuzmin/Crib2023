@@ -17,7 +17,9 @@ import {
   type ApiResponseWithData,
   type ApiResponseWithDetails,
   type ApiResponseWithMessages,
-  createApiResponseError
+  createApiResponseError,
+  createApiOperationResponse,
+  createApiOperationResponseWithData,
 } from '.';
 
 export interface ApiClient {
@@ -197,19 +199,26 @@ class Implementation implements ApiClient {
     operationCode,
     resourceOfApiResponse
   }: RequestOptions): Promise<ApiOperationResponse> {
-    const { ok, value, status } = await getResponse();
-
-    const response: ApiResponse = value;
-
     let responseWithDetails: ApiResponseWithDetails | null = null;
     let responseDataWithDetails: ApiResponseDataWithDetails | null = null;
 
     let responseWithMessages: ApiResponseWithMessages | null = null;
     let responseDataWithMessages: ApiResponseDataWithMessages | null = null;
 
-    let error: ApiResponseError | null = null;
+    let errorOfApiResponse: ApiResponseError | null = null;
 
-    if (!ok) {
+    try {
+      const { ok, value, status } = await getResponse();
+
+      const response: ApiResponse = value;
+
+      if (ok) {
+        return createApiOperationResponse({
+          operationCode: response.operationCode ?? operationCode,
+          operationName
+        });
+      }
+
       if (status === 400) {
           responseWithDetails = value;
 
@@ -224,19 +233,26 @@ class Implementation implements ApiClient {
           }
       }
 
-      error = createApiResponseError({
+      errorOfApiResponse = createApiResponseError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,
         responseDataWithMessages
       });
+    } catch (error: unknown) {
+      errorOfApiResponse = createApiResponseError({
+        message: (error instanceof Error) ? error.message : '',
+        resourceOfApiResponse
+      });
     }
 
-    return {
-      error,
-      operationCode: response.operationCode ?? operationCode,
-      operationName
-    };
+    return await Promise.reject(
+      createApiOperationResponse({
+        error: errorOfApiResponse,
+        operationCode,
+        operationName,
+      })
+    );
   }
 
   private async requestWithData<TData> ({
@@ -245,10 +261,6 @@ class Implementation implements ApiClient {
     operationCode,
     resourceOfApiResponse
   }: RequestOptions): Promise<ApiOperationResponseWithData<TData>> {
-    const { ok, value, status } = await getResponse();
-
-    const response: ApiResponse = value;
-
     let responseWithData: ApiResponseWithData<TData> | null = null;
     let data: TData | null = null;
 
@@ -258,9 +270,28 @@ class Implementation implements ApiClient {
     let responseWithMessages: ApiResponseWithMessages | null = null;
     let responseDataWithMessages: ApiResponseDataWithMessages | null = null;
 
-    let error: ApiResponseError | null = null;
+    let errorOfApiResponse: ApiResponseError | null = null;
 
-    if (!ok) {
+    try {
+      const { ok, value, status } = await getResponse();
+
+      const response: ApiResponse = value;
+
+      if (ok) {
+        responseWithData = value;
+
+        if (responseWithData) {
+          data = responseWithData.data;
+        }
+
+        return createApiOperationResponseWithData({
+          data,
+          error: errorOfApiResponse,
+          operationCode: response.operationCode ?? operationCode,
+          operationName
+        });
+      }
+
       if (status === 400) {
         responseWithDetails = value;
 
@@ -275,26 +306,26 @@ class Implementation implements ApiClient {
           }
       }
 
-      error = createApiResponseError({
+      errorOfApiResponse = createApiResponseError({
         resourceOfApiResponse,
         responseStatus: status,
         responseDataWithDetails,
         responseDataWithMessages
       });
-    } else {
-      responseWithData = value;
-
-      if (responseWithData) {
-        data = responseWithData.data;
-      }
+    } catch (error: unknown) {
+      errorOfApiResponse = createApiResponseError({
+        message: (error instanceof Error) ? error.message : '',
+        resourceOfApiResponse
+      });
     }
 
-    return {
-      data,
-      error,
-      operationCode: response.operationCode ?? operationCode,
-      operationName
-    };
+    return await Promise.reject(
+      createApiOperationResponse({
+        error: errorOfApiResponse,
+        operationCode,
+        operationName,
+      })
+    );
   }
 }
 

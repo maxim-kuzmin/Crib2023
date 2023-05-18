@@ -179,7 +179,7 @@ class Implementation implements ApiRequestHandler {
           }
         }
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (!shouldBeCanceled()) {
         this.operationHandler.handleError(error);
       }

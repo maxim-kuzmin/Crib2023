@@ -207,7 +207,7 @@ function ArticleItemEditView ({
     []
   )
   const handleSubmitFailed = useCallback(
-    (error: any) => {
+    (error: unknown) => {
       console.log('MAKC:onSubmitFailed:error', error);
     },
     []

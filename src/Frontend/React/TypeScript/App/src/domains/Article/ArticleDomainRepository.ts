@@ -8,6 +8,7 @@ import {
   type ArticleDomainListGetOperationRequest,
   type ArticleDomainListGetOperationResponse,
   type ArticleDomainListGetOperationOutput,
+  createArticleDomainListGetOperationResponse,
 } from './Operations';
 
 export interface ArticleDomainRepository {
@@ -78,13 +79,19 @@ class Implementation implements ArticleDomainRepository {
 
     const endpoint = `${controller}List`;
 
-    return await this.clientOfApi.get<ArticleDomainListGetOperationOutput>({
-      endpoint,
-      operationName,
-      operationCode,
-      query,
-      resourceOfApiResponse
-    });
+    try {
+      const response = await this.clientOfApi.get<ArticleDomainListGetOperationOutput>({
+        endpoint,
+        operationName,
+        operationCode,
+        query,
+        resourceOfApiResponse
+      });
+
+      return createArticleDomainListGetOperationResponse(response);
+    } catch (error: unknown) {
+      return createArticleDomainListGetOperationResponse(error as ApiOperationResponse);
+    }
   }
 
   async saveItem (

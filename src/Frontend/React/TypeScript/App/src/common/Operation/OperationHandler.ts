@@ -5,7 +5,7 @@ import { type OperationInput } from './OperationInput';
 import { type OperationResult } from './OperationResult';
 
 export interface OperationHandler {
-  readonly handleError: (error: any) => void;
+  readonly handleError: (error: unknown) => void;
   readonly handleStart: (operationInput: OperationInput) => void;
   readonly handleSuccess: (operationResult: OperationResult) => void;
   readonly operationCode: string;
@@ -26,7 +26,7 @@ class Implementation implements OperationHandler {
     return this._operationCode;
   }
 
-  handleError (error: any) {
+  handleError (error: unknown) {
     const { functionToSetNotification, shouldBeLogged, shouldBeNotified } = this.options;
 
     const title = this.createTitle();
@@ -39,7 +39,7 @@ class Implementation implements OperationHandler {
       functionToSetNotification({
         type: NotificationControlType.Error,
         message: title,
-        description: error.message
+        description: (error instanceof Error) ? error.message : ''
       });
     }
   }

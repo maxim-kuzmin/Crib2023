@@ -14,12 +14,13 @@ class Implementation extends Error implements ApiResponseError {
 
   constructor ({
     cause,
+    message: errorMessage,
     resourceOfApiResponse,
     responseDataWithDetails,
     responseDataWithMessages,
     responseStatus,
   }: ApiResponseErrorOptions) {
-    let message = resourceOfApiResponse.getErrorMessageForDefault();
+    let message = errorMessage ?? resourceOfApiResponse.getErrorMessageForDefault(); ;
 
     switch (responseStatus) {
       case 400:
@@ -47,7 +48,7 @@ class Implementation extends Error implements ApiResponseError {
 
     super(message, { cause });
 
-    this.responseStatus = responseStatus;
+    this.responseStatus = responseStatus ?? 0;
 
     if (responseDataWithDetails) {
       this.responseDataWithDetails = responseDataWithDetails;
