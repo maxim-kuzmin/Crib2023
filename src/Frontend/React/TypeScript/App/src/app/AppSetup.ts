@@ -1,4 +1,21 @@
+import {
+  getConfirmControlResourcePath,
+  getTableControlResourcePath,
+} from '../controls';
+import { getApiResponseResourcePath } from '../data';
 import { createAppLocalizationSetup } from '../features';
+import {
+  getArticleItemStoreResourcePath,
+  getArticleListStoreResourcePath,
+  getTopicItemStoreResourcePath,
+  getTopicTreeStoreResourcePath,
+} from '../stores';
+import {
+  getArticleItemViewResourcePath,
+  getArticleItemEditViewResourcePath,
+  getArticleTableViewResourcePath,
+  getTopicPathViewResourcePath,
+} from '../views';
 import { type AppInstance } from './AppInstance';
 
 export interface AppSetup {
@@ -19,8 +36,21 @@ class Implementation implements AppSetup {
   }
 
   run () {
-    console.log('1111111');
-    const setupOfLocalization = createAppLocalizationSetup();
+    const setupOfLocalization = createAppLocalizationSetup({
+      paths: [
+        getApiResponseResourcePath(),
+        getArticleItemStoreResourcePath(),
+        getArticleItemViewResourcePath(),
+        getArticleItemEditViewResourcePath(),
+        getArticleListStoreResourcePath(),
+        getArticleTableViewResourcePath(),
+        getConfirmControlResourcePath(),
+        getTableControlResourcePath(),
+        getTopicItemStoreResourcePath(),
+        getTopicPathViewResourcePath(),
+        getTopicTreeStoreResourcePath(),
+      ]
+    });
 
     setupOfLocalization.run();
   }

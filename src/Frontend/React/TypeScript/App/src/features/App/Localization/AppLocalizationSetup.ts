@@ -2,29 +2,24 @@ import { initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
-import {
-  getConfirmControlResourcePath,
-  getTableControlResourcePath,
-} from '../../../controls';
-import { getApiResponseResourcePath } from '../../../data';
-import {
-  getArticleItemStoreResourcePath,
-  getArticleListStoreResourcePath,
-  getTopicItemStoreResourcePath,
-  getTopicTreeStoreResourcePath,
-} from '../../../stores';
-import {
-  getArticleItemViewResourcePath,
-  getArticleItemEditViewResourcePath,
-  getArticleTableViewResourcePath,
-  getTopicPathViewResourcePath,
-} from '../../../views';
 
 export interface AppLocalizationSetup {
   readonly run: () => void;
 }
 
+interface Options {
+  readonly paths: string[];
+}
+
 class Implementation implements AppLocalizationSetup {
+  private readonly paths: string[];
+
+  constructor ({
+    paths
+  }: Options) {
+    this.paths = paths;
+  }
+
   run () {
     i18next
     .use(Backend)
@@ -45,23 +40,11 @@ class Implementation implements AppLocalizationSetup {
       backend: {
         loadPath: '/ResourceFiles/{{ns}}.{{lng}}.json',
       },
-      ns: [
-        getApiResponseResourcePath(),
-        getArticleItemStoreResourcePath(),
-        getArticleItemViewResourcePath(),
-        getArticleItemEditViewResourcePath(),
-        getArticleListStoreResourcePath(),
-        getArticleTableViewResourcePath(),
-        getConfirmControlResourcePath(),
-        getTableControlResourcePath(),
-        getTopicItemStoreResourcePath(),
-        getTopicPathViewResourcePath(),
-        getTopicTreeStoreResourcePath(),
-      ],
+      ns: this.paths,
     });
   }
 }
 
-export function createAppLocalizationSetup (): AppLocalizationSetup {
-  return new Implementation();
+export function createAppLocalizationSetup (options: Options): AppLocalizationSetup {
+  return new Implementation(options);
 }
