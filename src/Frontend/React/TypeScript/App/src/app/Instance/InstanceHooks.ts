@@ -1,8 +1,17 @@
-import { type CommonHooks, type ControlsHooks, createCommonHooks } from '../../common';
+import {
+  type CommonHooks,
+  type ControlsHooks,
+  type SetNotification,
+  createCommonHooks,
+} from '../../common';
 import { createControlsHooks } from '../../controls';
 import { type DataHooks, createDataHooks } from '../../data';
 import { type DomainsHooks, createDomainsHooks } from '../../domains';
-import { type FeaturesHooks, createFeaturesHooks } from '../../features';
+import {
+  AppNotificationStoreSliceName,
+  type FeaturesHooks,
+  createFeaturesHooks
+} from '../../features';
 import {
   createAppNotificationStoreHooks,
   createArticleItemStoreHooks,
@@ -50,17 +59,28 @@ class Implementation implements InstanceHooks {
       createTopicTreeStoreHooks,
     });
 
+    const hooksOfAppNotificationStore = this.Features.App.Notification.Store;
+
     this.Views = createViewsHooks({
-      hooksOfAppNotificationStore: this.Features.App.Notification.Store,
+      hooksOfAppNotificationStore,
       hooksOfArticleItemStore: this.Features.Article.Item.Store,
       hooksOfArticleListStore: this.Features.Article.List.Store,
       hooksOfTopicItemStore: this.Features.Topic.Item.Store,
       hooksOfTopicTreeStore: this.Features.Topic.Tree.Store,
     });
 
+    function getFunctionToSetNotification (): SetNotification {
+      const { run } = hooksOfAppNotificationStore.useStoreSetActionDispatch(
+        AppNotificationStoreSliceName.Default,
+        {}
+      );
+
+      return run;
+    }
+
     this.Common = createCommonHooks({
       componentOfConfirmControl: components.Controls.Confirm,
-      hooksOfAppNotificationStore: this.Features.App.Notification.Store,
+      getFunctionToSetNotification,
       hooksOfConfirmControl: this.Controls.Confirm,
     });
 
@@ -75,6 +95,7 @@ class Implementation implements InstanceHooks {
     });
   }
 }
+
 export function createInstanceHooks (options: Options): InstanceHooks {
   return new Implementation(options);
 }

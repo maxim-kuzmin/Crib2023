@@ -1,4 +1,4 @@
-import { type AppNotificationStoreHooks } from '../features';
+import { type SetNotification } from './CommonFunctions';
 import { type ConfirmControlComponent, type ConfirmControlHooks } from './Controls';
 import { useLeaveFormBlocker as useLeaveFormBlockerInner } from './Hooks/LeaveFormBlockerHook';
 import { type OperationHooks } from './Operation';
@@ -11,17 +11,17 @@ export interface CommonHooks {
 
 interface Options {
   readonly componentOfConfirmControl: ConfirmControlComponent;
-  readonly hooksOfAppNotificationStore: AppNotificationStoreHooks;
+  readonly getFunctionToSetNotification: () => SetNotification;
   readonly hooksOfConfirmControl: ConfirmControlHooks;
 }
 
 export function createCommonHooks ({
   componentOfConfirmControl,
-  hooksOfAppNotificationStore,
+  getFunctionToSetNotification,
   hooksOfConfirmControl,
 }: Options): CommonHooks {
   const hooksOfOperation = createOperationHooks({
-    hooksOfAppNotificationStore
+    getFunctionToSetNotification
   });
 
   function useLeaveFormBlocker (shouldBlock: boolean) {

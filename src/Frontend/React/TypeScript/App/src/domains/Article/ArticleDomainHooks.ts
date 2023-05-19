@@ -26,7 +26,7 @@ export interface ArticleDomainHooks {
   readonly useListGetOperationRequestHandler: () => ArticleDomainListGetOperationRequestHandler;
 }
 
-interface HooksOptions {
+interface Options {
   readonly hooksOfApiRequest: ApiRequestHooks;
   readonly moduleOfArticleDomain: ArticleDomainModule;
 }
@@ -34,7 +34,7 @@ interface HooksOptions {
 export function createArticleDomainHooks ({
   hooksOfApiRequest,
   moduleOfArticleDomain
-}: HooksOptions): ArticleDomainHooks {
+}: Options): ArticleDomainHooks {
   function useItemDeleteOperationRequestHandler (): ArticleDomainItemDeleteOperationRequestHandler {
     return new ArticleDomainItemDeleteOperationRequestHandlerImpl({
       handlerOfApiRequest: hooksOfApiRequest.useHandler({
