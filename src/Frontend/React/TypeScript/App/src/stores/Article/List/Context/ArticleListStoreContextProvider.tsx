@@ -2,7 +2,6 @@ import React, { type PropsWithChildren, memo, useReducer } from 'react';
 import { OperationStatus, createStoreStateMap } from '../../../../common';
 import {
   ArticleListStoreSliceName,
-  type ArticleListStoreState,
   type ArticleListStoreStateMap,
   createArticleListStoreState,
 } from '../../../../features';
@@ -24,7 +23,7 @@ function reducer (stateMap: StateMap, action: ArticleListStoreActionUnion): Stat
   const result: StateMap = createStoreStateMap({ stateMap });
   const { sliceName, type } = action;
 
-  let state: ArticleListStoreState = result[sliceName];
+  let state = result[sliceName];
 
   switch (type) {
     case ArticleListStoreActionType.Clear:

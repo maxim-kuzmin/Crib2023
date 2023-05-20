@@ -2,7 +2,6 @@ import React, { type PropsWithChildren, memo, useReducer } from 'react';
 import { createStoreStateMap } from '../../../../common';
 import {
   AppNotificationStoreSliceName,
-  type AppNotificationStoreState,
   type AppNotificationStoreStateMap,
   createAppNotificationStoreState,
 } from '../../../../features';
@@ -24,7 +23,7 @@ function reducer (stateMap: StateMap, action: AppNotificationStoreActionUnion): 
   const result: StateMap = createStoreStateMap({ stateMap });
   const { sliceName, type } = action;
 
-  let state: AppNotificationStoreState = result[sliceName];
+  let state = result[sliceName];
 
   switch (type) {
     case AppNotificationStoreActionType.Clear:

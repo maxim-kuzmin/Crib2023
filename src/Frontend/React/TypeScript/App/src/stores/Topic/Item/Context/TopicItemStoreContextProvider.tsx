@@ -2,7 +2,6 @@ import React, { type PropsWithChildren, memo, useReducer } from 'react';
 import { OperationStatus, createStoreStateMap } from '../../../../common';
 import {
   TopicItemStoreSliceName,
-  type TopicItemStoreState,
   type TopicItemStoreStateMap,
   createTopicItemStoreState,
 } from '../../../../features';
@@ -24,7 +23,7 @@ function reducer (stateMap: StateMap, action: TopicItemStoreActionUnion): StateM
   const result: StateMap = createStoreStateMap({ stateMap });
   const { sliceName, type } = action;
 
-  let state: TopicItemStoreState = result[sliceName];
+  let state = result[sliceName];
 
   switch (type) {
     case TopicItemStoreActionType.Clear:
