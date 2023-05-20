@@ -1,5 +1,5 @@
 import { type Dispatch, createContext } from 'react';
-import { type TopicTreeStoreState } from '../../../../features';
+import { type TopicTreeStoreStateMap } from '../../../../features';
 import { type TopicTreeStoreActionUnion } from '../TopicTreeStoreActionUnion';
 
 export const TopicTreeStoreDispatchContext = createContext<
@@ -7,5 +7,5 @@ export const TopicTreeStoreDispatchContext = createContext<
 >(null);
 
 export const TopicTreeStoreStateContext = createContext<
-  Map<string, TopicTreeStoreState> | null
+TopicTreeStoreStateMap | null
 >(null);

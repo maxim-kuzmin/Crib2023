@@ -32,5 +32,5 @@ export function useAppNotificationStoreDispatch (): Dispatch<AppNotificationStor
 export function useAppNotificationStoreState (
   sliceName: AppNotificationStoreSliceName
 ): AppNotificationStoreState {
-  return useContext(AppNotificationStoreStateContext)!.get(sliceName)!;
+  return useContext(AppNotificationStoreStateContext)![sliceName];
 }

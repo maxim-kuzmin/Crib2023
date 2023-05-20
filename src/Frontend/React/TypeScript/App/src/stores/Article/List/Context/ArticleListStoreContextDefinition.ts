@@ -1,5 +1,5 @@
 import { type Dispatch, createContext } from 'react';
-import { type ArticleListStoreState } from '../../../../features';
+import { type ArticleListStoreStateMap } from '../../../../features';
 import { type ArticleListStoreActionUnion } from '../ArticleListStoreActionUnion';
 
 export const ArticleListStoreDispatchContext = createContext<
@@ -7,5 +7,5 @@ export const ArticleListStoreDispatchContext = createContext<
 >(null);
 
 export const ArticleListStoreStateContext = createContext<
-  Map<string, ArticleListStoreState> | null
+ArticleListStoreStateMap | null
 >(null);

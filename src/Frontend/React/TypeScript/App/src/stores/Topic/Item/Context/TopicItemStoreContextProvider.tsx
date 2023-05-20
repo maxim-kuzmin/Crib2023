@@ -1,14 +1,9 @@
-import React, {
-  type PropsWithChildren,
-  memo,
-  useReducer,
-  useRef,
-} from 'react';
-import { useAppInstance } from '../../../../app';
-import { OperationStatus } from '../../../../common';
+import React, { type PropsWithChildren, memo, useReducer } from 'react';
+import { OperationStatus, createStoreStateMap } from '../../../../common';
 import {
   TopicItemStoreSliceName,
   type TopicItemStoreState,
+  type TopicItemStoreStateMap,
   createTopicItemStoreState,
 } from '../../../../features';
 import { TopicItemStoreActionType } from '../TopicItemStoreActionType';
@@ -18,110 +13,85 @@ import {
   TopicItemStoreStateContext
 } from './TopicItemStoreContextDefinition';
 
+type StateMap = TopicItemStoreStateMap;
+
+const initialState: StateMap = createStoreStateMap({
+  functionToCreateState: () => createTopicItemStoreState(),
+  sliceNames: [TopicItemStoreSliceName.Default],
+});
+
+function reducer (stateMap: StateMap, action: TopicItemStoreActionUnion): StateMap {
+  const result: StateMap = createStoreStateMap({ stateMap });
+  const { sliceName, type } = action;
+
+  let state: TopicItemStoreState = result[sliceName];
+
+  switch (type) {
+    case TopicItemStoreActionType.Clear:
+      state = initialState[sliceName];
+      break;
+    case TopicItemStoreActionType.Delete:
+      state = {
+        ...state,
+        payloadOfDeleteAction: action.payload,
+        statusOfDeleteAction: OperationStatus.Pending
+      };
+      break;
+    case TopicItemStoreActionType.DeleteCompleted:
+      state = {
+        ...state,
+        payloadOfDeleteCompletedAction: action.payload,
+        statusOfDeleteAction: OperationStatus.Fulfilled,
+        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : null
+      };
+      break;
+    case TopicItemStoreActionType.Load:
+      state = {
+        ...state,
+        payloadOfLoadAction: action.payload,
+        statusOfLoadAction: OperationStatus.Pending
+      };
+      break;
+    case TopicItemStoreActionType.LoadCompleted:
+      state = {
+        ...state,
+        payloadOfLoadCompletedAction: action.payload,
+        statusOfLoadAction: OperationStatus.Fulfilled,
+        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+      };
+      break;
+    case TopicItemStoreActionType.Save:
+      state = {
+        ...state,
+        payloadOfSaveAction: action.payload,
+        statusOfSaveAction: OperationStatus.Pending
+      };
+      break;
+    case TopicItemStoreActionType.SaveCompleted:
+      state = {
+        ...state,
+        payloadOfSaveCompletedAction: action.payload,
+        statusOfSaveAction: OperationStatus.Fulfilled,
+        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+      };
+      break;
+    case TopicItemStoreActionType.Set:
+      state = {
+        ...state,
+        payloadOfSetAction: action.payload
+      };
+      break;
+  }
+
+  result[sliceName] = state;
+
+  return result;
+}
+
 export const TopicItemStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function TopicItemStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
-  const { modules } = useAppInstance();
-
-  const initialState = useRef(
-    modules.Common.Store.getService().createInitialState<TopicItemStoreState>(
-      [TopicItemStoreSliceName.Default],
-      () => createTopicItemStoreState(),
-    )
-  ).current;
-
-  const reducer = useRef(
-    function (
-      stateMap: Map<string, TopicItemStoreState>,
-      action: TopicItemStoreActionUnion
-    ): Map<string, TopicItemStoreState> {
-      const result = new Map<string, TopicItemStoreState>(stateMap);
-      const { sliceName, type } = action;
-      const state = result.get(sliceName)!;
-
-      switch (type) {
-        case TopicItemStoreActionType.Clear:
-          result.set(sliceName, initialState.get(sliceName)!);
-          break;
-        case TopicItemStoreActionType.Delete:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfDeleteAction: action.payload,
-              statusOfDeleteAction: OperationStatus.Pending
-            }
-          );
-          break;
-        case TopicItemStoreActionType.DeleteCompleted:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfDeleteCompletedAction: action.payload,
-              statusOfDeleteAction: OperationStatus.Fulfilled,
-              payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : null
-            }
-          );
-          break;
-        case TopicItemStoreActionType.Load:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfLoadAction: action.payload,
-              statusOfLoadAction: OperationStatus.Pending
-            }
-          );
-          break;
-        case TopicItemStoreActionType.LoadCompleted:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfLoadCompletedAction: action.payload,
-              statusOfLoadAction: OperationStatus.Fulfilled,
-              payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
-            }
-          );
-          break;
-        case TopicItemStoreActionType.Save:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfSaveAction: action.payload,
-              statusOfSaveAction: OperationStatus.Pending
-            }
-          );
-          break;
-        case TopicItemStoreActionType.SaveCompleted:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfSaveCompletedAction: action.payload,
-              statusOfSaveAction: OperationStatus.Fulfilled,
-              payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
-            }
-          );
-          break;
-        case TopicItemStoreActionType.Set:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfSetAction: action.payload
-            }
-          );
-          break;
-      }
-
-      return result;
-    }
-  ).current;
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (

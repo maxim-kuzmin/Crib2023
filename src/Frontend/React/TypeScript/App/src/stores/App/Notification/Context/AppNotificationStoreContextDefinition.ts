@@ -1,5 +1,5 @@
 import { type Dispatch, createContext, } from 'react';
-import { type AppNotificationStoreState } from '../../../../features';
+import { type AppNotificationStoreStateMap } from '../../../../features';
 import { type AppNotificationStoreActionUnion } from '../AppNotificationStoreActionUnion';
 
 export const AppNotificationStoreDispatchContext = createContext<
@@ -7,5 +7,5 @@ export const AppNotificationStoreDispatchContext = createContext<
 >(null);
 
 export const AppNotificationStoreStateContext = createContext<
-  Map<string, AppNotificationStoreState> | null
+  AppNotificationStoreStateMap | null
 >(null);

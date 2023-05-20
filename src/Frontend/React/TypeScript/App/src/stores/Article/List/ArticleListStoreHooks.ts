@@ -69,5 +69,5 @@ export function useArticleListStoreDispatch (): Dispatch<ArticleListStoreActionU
 export function useArticleListStoreState (
   sliceName: ArticleListStoreSliceName
 ): ArticleListStoreState {
-  return useContext(ArticleListStoreStateContext)!.get(sliceName)!;
+  return useContext(ArticleListStoreStateContext)![sliceName];
 }

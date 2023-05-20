@@ -1,14 +1,9 @@
-import React, {
-  type PropsWithChildren,
-  memo,
-  useReducer,
-  useRef,
-} from 'react';
-import { useAppInstance } from '../../../../app';
-import { OperationStatus } from '../../../../common';
+import React, { type PropsWithChildren, memo, useReducer } from 'react';
+import { OperationStatus, createStoreStateMap } from '../../../../common';
 import {
   ArticleListStoreSliceName,
   type ArticleListStoreState,
+  type ArticleListStoreStateMap,
   createArticleListStoreState,
 } from '../../../../features';
 import { ArticleListStoreActionType } from '../ArticleListStoreActionType';
@@ -18,68 +13,55 @@ import {
   ArticleListStoreStateContext
 } from './ArticleListStoreContextDefinition';
 
+type StateMap = ArticleListStoreStateMap;
+
+const initialState = createStoreStateMap({
+  functionToCreateState: () => createArticleListStoreState(),
+  sliceNames: [ArticleListStoreSliceName.Default],
+});
+
+function reducer (stateMap: StateMap, action: ArticleListStoreActionUnion): StateMap {
+  const result: StateMap = createStoreStateMap({ stateMap });
+  const { sliceName, type } = action;
+
+  let state: ArticleListStoreState = result[sliceName];
+
+  switch (type) {
+    case ArticleListStoreActionType.Clear:
+      state = initialState[sliceName];
+      break;
+    case ArticleListStoreActionType.Load:
+      state = {
+        ...state,
+        payloadOfLoadAction: action.payload,
+        statusOfLoadAction: OperationStatus.Pending
+      };
+      break;
+    case ArticleListStoreActionType.LoadCompleted:
+      state = {
+        ...state,
+        payloadOfLoadCompletedAction: action.payload,
+        statusOfLoadAction: OperationStatus.Fulfilled,
+        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+      };
+      break;
+    case ArticleListStoreActionType.Set:
+      state = {
+        ...state,
+        payloadOfSetAction: action.payload
+      };
+      break;
+  }
+
+  result[sliceName] = state;
+
+  return result;
+}
+
 export const ArticleListStoreContextProvider: React.FC<PropsWithChildren> = memo(
 function ArticleListStoreContextProvider ({
   children
 }: PropsWithChildren): React.ReactElement<PropsWithChildren> | null {
-  const { modules } = useAppInstance();
-
-  const initialState = useRef(
-    modules.Common.Store.getService().createInitialState<ArticleListStoreState>(
-      [ArticleListStoreSliceName.Default],
-      () => createArticleListStoreState(),
-    )
-  ).current;
-
-  const reducer = useRef(
-    function (
-      stateMap: Map<string, ArticleListStoreState>,
-      action: ArticleListStoreActionUnion
-    ): Map<string, ArticleListStoreState> {
-      const result = new Map<string, ArticleListStoreState>(stateMap);
-      const { sliceName, type } = action;
-      const state = result.get(sliceName)!;
-
-      switch (type) {
-        case ArticleListStoreActionType.Clear:
-          result.set(sliceName, initialState.get(sliceName)!);
-          break;
-        case ArticleListStoreActionType.Load:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfLoadAction: action.payload,
-              statusOfLoadAction: OperationStatus.Pending
-            }
-          );
-          break;
-        case ArticleListStoreActionType.LoadCompleted:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfLoadCompletedAction: action.payload,
-              statusOfLoadAction: OperationStatus.Fulfilled,
-              payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
-            }
-          );
-          break;
-        case ArticleListStoreActionType.Set:
-          result.set(
-            sliceName,
-            {
-              ...state,
-              payloadOfSetAction: action.payload
-            }
-          );
-          break;
-      }
-
-      return result;
-    }
-  ).current;
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (

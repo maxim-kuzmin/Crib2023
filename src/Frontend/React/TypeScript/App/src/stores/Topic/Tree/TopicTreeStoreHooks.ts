@@ -71,5 +71,5 @@ export function useTopicTreeStoreDispatch (): Dispatch<TopicTreeStoreActionUnion
 export function useTopicTreeStoreState (
   sliceName: string
 ): TopicTreeStoreState {
-  return useContext(TopicTreeStoreStateContext)!.get(sliceName)!;
+  return useContext(TopicTreeStoreStateContext)![sliceName];
 }

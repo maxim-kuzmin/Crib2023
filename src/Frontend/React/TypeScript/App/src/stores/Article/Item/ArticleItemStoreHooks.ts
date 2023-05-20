@@ -90,5 +90,5 @@ export function useArticleItemStoreDispatch (): Dispatch<ArticleItemStoreActionU
 export function useArticleItemStoreState (
   sliceName: string
 ): ArticleItemStoreState {
-  return useContext(ArticleItemStoreStateContext)!.get(sliceName)!;
+  return useContext(ArticleItemStoreStateContext)![sliceName];
 }
