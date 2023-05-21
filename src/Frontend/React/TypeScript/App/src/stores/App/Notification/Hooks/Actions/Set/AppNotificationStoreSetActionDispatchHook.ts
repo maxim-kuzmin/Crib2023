@@ -1,39 +1,13 @@
-import { type Dispatch, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
   type AppNotificationStoreSliceName,
-  type AppNotificationStoreSetActionCallback,
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionOptions,
   type AppNotificationStoreSetActionPayload,
 } from '../../../../../../features';
 import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
-import { type AppNotificationStoreActionUnion } from '../../../AppNotificationStoreActionUnion';
 import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHooks';
-
-interface Options {
-  readonly callback?: AppNotificationStoreSetActionCallback;
-  readonly dispatch: Dispatch<AppNotificationStoreActionUnion>;
-  readonly payload: AppNotificationStoreSetActionPayload;
-  readonly sliceName: string;
-}
-
-function runSetAction ({
-  callback,
-  dispatch,
-  payload,
-  sliceName
-}: Options) {
-  dispatch({
-    payload,
-    sliceName,
-    type: AppNotificationStoreActionType.Set
-  });
-
-  if (callback) {
-    callback(payload);
-  }
-}
 
 export function useStoreSetActionDispatch (
   sliceName: AppNotificationStoreSliceName,
@@ -45,47 +19,31 @@ export function useStoreSetActionDispatch (
 ): AppNotificationStoreSetActionDispatch {
   const dispatch = useAppNotificationStoreDispatch();
 
+  const run = useCallback(
+    (payload: AppNotificationStoreSetActionPayload) => {
+      dispatch({ payload, sliceName, type: AppNotificationStoreActionType.Set });
+
+      if (callback) {
+        callback(payload);
+      }
+    },
+    [callback, dispatch, sliceName]
+  );
+
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSetAction) {
-        runSetAction({
-          callback,
-          dispatch,
-          payload: payloadOfSetAction,
-          sliceName
-        });
+        run(payloadOfSetAction);
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfSetAction) {
-          runSetAction({
-            callback,
-            dispatch,
-            payload: payloadOfSetAction,
-            sliceName
-          });
+          run(payloadOfSetAction);
         }
       };
     },
-    [
-      callback,
-      dispatch,
-      dispatchType,
-      payloadOfSetAction,
-      sliceName
-    ]
+    [dispatchType, payloadOfSetAction, run]
   );
 
-  function run (payload: AppNotificationStoreSetActionPayload) {
-    runSetAction({
-      callback,
-      dispatch,
-      payload,
-      sliceName
-    });
-  }
-
-  return useRef({
-    run
-  }).current;
+  return useMemo<AppNotificationStoreSetActionDispatch>(() => ({ run }), [run]);
 }
