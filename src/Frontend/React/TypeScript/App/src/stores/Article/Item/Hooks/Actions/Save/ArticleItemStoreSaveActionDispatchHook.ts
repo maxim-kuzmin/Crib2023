@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
-import { type ShouldBeCanceled, StoreDispatchType, shouldNotBeCanceled } from '../../../../../../common';
+import { StoreDispatchType } from '../../../../../../common';
 import { createArticleDomainItemSaveOperationRequest } from '../../../../../../domains';
 import {
   type ArticleItemStoreSaveActionDispatch,
@@ -16,7 +16,7 @@ export function useStoreSaveActionDispatch (
   {
     callback,
     dispatchType,
-    isCanceled,
+    abortController,
     payloadOfSaveAction
   }: ArticleItemStoreSaveActionOptions = {}
 ): ArticleItemStoreSaveActionDispatch {
@@ -36,9 +36,9 @@ export function useStoreSaveActionDispatch (
   const run = useCallback(
     async (
       payload: ArticleItemStoreSaveActionPayload,
-      shouldBeCanceled: ShouldBeCanceled = shouldNotBeCanceled
+      abortController = new AbortController()
     ) => {
-      if (shouldBeCanceled()) {
+      if (abortController.signal.aborted) {
         return;
       }
 
@@ -53,11 +53,11 @@ export function useStoreSaveActionDispatch (
                 resourceOfApiResponse
               }
             ),
-            shouldBeCanceled
+            abortController
           )
         : null;
 
-      if (shouldBeCanceled()) {
+        if (abortController.signal.aborted) {
         return;
       }
 
@@ -68,23 +68,21 @@ export function useStoreSaveActionDispatch (
 
   useEffect(
     () => {
-      let isCanceledInner = isCanceled ?? false;
-
-      const shouldBeCanceledInner = () => isCanceledInner;
+      const abortControllerInner = abortController ?? new AbortController();
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSaveAction) {
-        run(payloadOfSaveAction, shouldBeCanceledInner);
+        run(payloadOfSaveAction, abortControllerInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfSaveAction) {
-          run(payloadOfSaveAction, shouldBeCanceledInner);
+          run(payloadOfSaveAction, abortControllerInner);
         } else {
-          isCanceledInner = true;
+          abortControllerInner.abort();
         }
       };
     },
-    [dispatchType, isCanceled, payloadOfSaveAction, run]
+    [abortController, dispatchType, payloadOfSaveAction, run]
   );
 
   return useMemo<ArticleItemStoreSaveActionDispatch>(() => ({ run }), [run]);

@@ -1,10 +1,57 @@
-import { type ShouldBeCanceled } from '../../../../../common';
-import { type ApiOperationResponse } from '../../../../../data';
+import { type ApiOperationResponse, type ApiRequestHandler } from '../../../../../data';
+import { type ArticleDomainRepository } from '../../../ArticleDomainRepository';
+import { type ArticleDomainItemGetOperationInput } from '../Get';
 import { type ArticleDomainItemDeleteOperationRequest } from './ArticleDomainItemDeleteOperationRequest';
 
 export interface ArticleDomainItemDeleteOperationRequestHandler {
   handle: (
     request: ArticleDomainItemDeleteOperationRequest,
-    shouldBeCanceled: ShouldBeCanceled
+    abortController: AbortController
   ) => Promise<ApiOperationResponse | null>;
+}
+
+interface Options {
+  handlerOfApiRequest: ApiRequestHandler;
+  repository: ArticleDomainRepository;
+}
+
+class Implementation implements ArticleDomainItemDeleteOperationRequestHandler {
+  private readonly handlerOfApiRequest: ApiRequestHandler;
+  private readonly repository: ArticleDomainRepository;
+
+  constructor (options: Options) {
+    this.handlerOfApiRequest = options.handlerOfApiRequest;
+    this.repository = options.repository;
+  }
+
+  async handle (
+    request: ArticleDomainItemDeleteOperationRequest,
+    abortController: AbortController
+  ): Promise<ApiOperationResponse | null> {
+    return await this.handlerOfApiRequest.handleWithInput<
+      ArticleDomainItemGetOperationInput,
+      ArticleDomainItemDeleteOperationRequest,
+      ApiOperationResponse
+    >(
+      request,
+      async () => {
+        const { id, title, topicId } = request.input;
+
+        const isInputValid = Number(id ?? 0) > 0 || (title && Number(topicId ?? 0) > 0);
+
+        if (isInputValid) {
+          return await this.repository.deleteItem(request);
+        }
+
+        return null;
+      },
+      abortController
+    );
+  }
+}
+
+export function createArticleDomainItemDeleteOperationRequestHandler (
+  options: Options
+): ArticleDomainItemDeleteOperationRequestHandler {
+  return new Implementation(options);
 }

@@ -3,5 +3,6 @@ export {
   createArticleDomainItemDeleteOperationRequest
 } from './ArticleDomainItemDeleteOperationRequest';
 export {
-  type ArticleDomainItemDeleteOperationRequestHandler
+  type ArticleDomainItemDeleteOperationRequestHandler,
+  createArticleDomainItemDeleteOperationRequestHandler
 } from './ArticleDomainItemDeleteOperationRequestHandler';

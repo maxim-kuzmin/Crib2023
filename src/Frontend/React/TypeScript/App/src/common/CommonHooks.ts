@@ -1,4 +1,4 @@
-import { type SetNotification } from './CommonFunctions';
+import { type FunctionToSetNotification } from './CommonFunctions';
 import { type ConfirmControlComponent, type ConfirmControlHooks } from './Controls';
 import { useLeaveFormBlocker as useLeaveFormBlockerInner } from './Hooks/LeaveFormBlockerHook';
 import { type OperationHooks } from './Operation';
@@ -11,7 +11,7 @@ export interface CommonHooks {
 
 interface Options {
   readonly componentOfConfirmControl: ConfirmControlComponent;
-  readonly getFunctionToSetNotification: () => SetNotification;
+  readonly getFunctionToSetNotification: () => FunctionToSetNotification;
   readonly hooksOfConfirmControl: ConfirmControlHooks;
 }
 

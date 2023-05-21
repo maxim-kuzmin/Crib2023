@@ -1,4 +1,4 @@
-import { type SetNotification } from '../CommonFunctions';
+import { type FunctionToSetNotification } from '../CommonFunctions';
 import { type OperationHandler, createOperationHandler } from './OperationHandler';
 import { type OperationHandlerConfig } from './OperationHandlerConfig';
 
@@ -7,7 +7,7 @@ export interface OperationHooks {
 }
 
 interface Options {
-  readonly getFunctionToSetNotification: () => SetNotification;
+  readonly getFunctionToSetNotification: () => FunctionToSetNotification;
 }
 
 export function createOperationHooks ({

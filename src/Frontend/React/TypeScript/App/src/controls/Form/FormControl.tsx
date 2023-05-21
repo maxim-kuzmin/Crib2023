@@ -148,7 +148,7 @@ function FormControl ({
     forceUpdate({});
   }, []);
 
-  const isFieldsTouched = useRef(false);
+  const isFieldsTouchedRef = useRef(false);
 
   return (
     <Form
@@ -180,8 +180,8 @@ function FormControl ({
 
                     const isFieldsTouchedCurrent = form.isFieldsTouched();
 
-                    if (onFieldsTouched && isFieldsTouchedCurrent !== isFieldsTouched.current) {
-                      isFieldsTouched.current = isFieldsTouchedCurrent;
+                    if (onFieldsTouched && isFieldsTouchedCurrent !== isFieldsTouchedRef.current) {
+                      isFieldsTouchedRef.current = isFieldsTouchedCurrent;
                       onFieldsTouched(isFieldsTouchedCurrent);
                     }
 

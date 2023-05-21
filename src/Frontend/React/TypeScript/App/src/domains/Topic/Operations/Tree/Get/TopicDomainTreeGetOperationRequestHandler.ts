@@ -1,4 +1,3 @@
-import { type ShouldBeCanceled } from '../../../../../common';
 import { type ApiRequestHandler } from '../../../../../data';
 import { type TopicDomainRepository } from '../../../TopicDomainRepository';
 import { type TopicDomainTreeGetOperationInput } from './TopicDomainTreeGetOperationInput';
@@ -9,7 +8,7 @@ import { type TopicDomainTreeGetOperationResponse } from './TopicDomainTreeGetOp
 export interface TopicDomainTreeGetOperationRequestHandler {
   handle: (
     request: TopicDomainTreeGetOperationRequest,
-    shouldBeCanceled: ShouldBeCanceled
+    abortController: AbortController
   ) => Promise<TopicDomainTreeGetOperationResponse | null>;
 }
 
@@ -29,7 +28,7 @@ class Implementation implements TopicDomainTreeGetOperationRequestHandler {
 
   async handle (
     request: TopicDomainTreeGetOperationRequest,
-    shouldBeCanceled: ShouldBeCanceled
+    abortController: AbortController
   ): Promise<TopicDomainTreeGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       TopicDomainTreeGetOperationInput,
@@ -39,7 +38,7 @@ class Implementation implements TopicDomainTreeGetOperationRequestHandler {
     >(
       request,
       async () => await this.repository.getTree(request),
-      shouldBeCanceled
+      abortController
     );
   }
 }

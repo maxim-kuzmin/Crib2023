@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
-import { type ShouldBeCanceled, StoreDispatchType, shouldNotBeCanceled } from '../../../../../../common';
+import { StoreDispatchType } from '../../../../../../common';
 import { createArticleDomainItemDeleteOperationRequest } from '../../../../../../domains';
 import {
   type ArticleItemStoreDeleteActionDispatch,
@@ -16,7 +16,7 @@ export function useStoreDeleteActionDispatch (
   {
     callback,
     dispatchType,
-    isCanceled,
+    abortController,
     payloadOfDeleteAction
   }: ArticleItemStoreDeleteActionOptions = {}
 ): ArticleItemStoreDeleteActionDispatch {
@@ -36,9 +36,9 @@ export function useStoreDeleteActionDispatch (
   const run = useCallback(
     async (
       payload: ArticleItemStoreDeleteActionPayload,
-      shouldBeCanceled: ShouldBeCanceled = shouldNotBeCanceled
+      abortController = new AbortController()
     ) => {
-      if (shouldBeCanceled()) {
+      if (abortController.signal.aborted) {
         return;
       }
 
@@ -53,11 +53,11 @@ export function useStoreDeleteActionDispatch (
                 resourceOfApiResponse
               }
             ),
-            shouldBeCanceled
+            abortController
           )
         : null;
 
-      if (shouldBeCanceled()) {
+      if (abortController.signal.aborted) {
         return;
       }
 
@@ -68,23 +68,21 @@ export function useStoreDeleteActionDispatch (
 
   useEffect(
     () => {
-      let isCanceledInner = isCanceled ?? false;
-
-      const shouldBeCanceledInner = () => isCanceledInner;
+      const abortControllerInner = abortController ?? new AbortController();
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfDeleteAction) {
-        run(payloadOfDeleteAction, shouldBeCanceledInner);
+        run(payloadOfDeleteAction, abortControllerInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfDeleteAction) {
-          run(payloadOfDeleteAction, shouldBeCanceledInner);
+          run(payloadOfDeleteAction, abortControllerInner);
         } else {
-          isCanceledInner = true;
+          abortControllerInner.abort();
         }
       };
     },
-    [dispatchType, isCanceled, payloadOfDeleteAction, run]
+    [abortController, dispatchType, payloadOfDeleteAction, run]
   );
 
   return useMemo<ArticleItemStoreDeleteActionDispatch>(() => ({ run }), [run]);

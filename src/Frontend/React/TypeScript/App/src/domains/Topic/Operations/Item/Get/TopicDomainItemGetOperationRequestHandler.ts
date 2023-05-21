@@ -1,4 +1,3 @@
-import { type ShouldBeCanceled } from '../../../../../common';
 import { type ApiRequestHandler } from '../../../../../data';
 import { type TopicDomainRepository } from '../../../TopicDomainRepository';
 import { type TopicDomainItemGetOperationInput } from './TopicDomainItemGetOperationInput';
@@ -9,7 +8,7 @@ import { type TopicDomainItemGetOperationResponse } from './TopicDomainItemGetOp
 export interface TopicDomainItemGetOperationRequestHandler {
   handle: (
     request: TopicDomainItemGetOperationRequest,
-    shouldBeCanceled: ShouldBeCanceled
+    abortController: AbortController
   ) => Promise<TopicDomainItemGetOperationResponse | null>;
 }
 
@@ -29,7 +28,7 @@ class Implementation implements TopicDomainItemGetOperationRequestHandler {
 
   async handle (
     request: TopicDomainItemGetOperationRequest,
-    shouldBeCanceled: ShouldBeCanceled
+    abortController: AbortController
   ): Promise<TopicDomainItemGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       TopicDomainItemGetOperationInput,
@@ -49,7 +48,7 @@ class Implementation implements TopicDomainItemGetOperationRequestHandler {
 
         return null;
       },
-      shouldBeCanceled
+      abortController
     );
   }
 }

@@ -1,9 +1,8 @@
-import { type ShouldBeCanceled } from '../../../../../../common';
 import { type TopicItemStoreDeleteActionPayload } from './TopicItemStoreDeleteActionPayload';
 
 export interface TopicItemStoreDeleteActionDispatch {
   readonly run: (
     payload: TopicItemStoreDeleteActionPayload,
-    shouldBeCanceled?: ShouldBeCanceled
+    abortController?: AbortController
   ) => Promise<void>;
 }

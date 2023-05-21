@@ -33,7 +33,7 @@ function ArticleTableView ({
   let totalCount = 0;
   let controlRows: ArticleTableViewRow[] = [];
 
-  const deletingId = useRef(0);
+  const deletingIdRef = useRef(0);
 
   const { components, controls, hooks } = useAppInstance();
 
@@ -195,18 +195,18 @@ function ArticleTableView ({
                   {resourceOfArticleTableView.getActionForEdit()}
                 </Link>
                 <controls.Button
-                  disabled={id !== deletingId.current && pendingOfDeleteAction}
-                  loading={id === deletingId.current && pendingOfDeleteAction}
+                  disabled={id !== deletingIdRef.current && pendingOfDeleteAction}
+                  loading={id === deletingIdRef.current && pendingOfDeleteAction}
                   onClick={
                     () => {
-                      deletingId.current = id;
+                      deletingIdRef.current = id;
 
                       componentOfConfirmControl.show({
                         resourceOfConfirmControl,
                         onOk: () => {
                           dispatchOfDeleteAction.run({ id })
                           .then(() => {
-                            deletingId.current = 0;
+                            deletingIdRef.current = 0;
                             dispatchOfLoadAction.run(payloadOfLoadAction);
                           });
                         },

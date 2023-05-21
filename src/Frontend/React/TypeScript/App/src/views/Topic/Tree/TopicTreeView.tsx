@@ -87,12 +87,26 @@ function TopicTreeView ({
     },
     [topicId]
   )
+
+  const abortControllerOfLoadCompletedAction = useMemo(
+    () => {
+      const result = new AbortController();
+
+      if (topicItemStatus !== OperationStatus.Fulfilled) {
+        result.abort();
+      }
+
+      return result;
+    },
+    [topicItemStatus]
+  );
+
   const {
     payloadOfLoadCompletedAction,
     pendingOfLoadAction
   } = hooks.Views.Topic.Tree.useStoreLoadActionOutput({
     payloadOfLoadAction,
-    isCanceled: topicItemStatus !== OperationStatus.Fulfilled
+    abortController: abortControllerOfLoadCompletedAction
   });
 
   const entities = payloadOfLoadCompletedAction?.data?.nodes;
@@ -102,11 +116,12 @@ function TopicTreeView ({
     [createTopicPageUrl, entities, topicId]
   );
 
-  const requestHandler = useRef(hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
+  const requestHandlerOfLoadChildrenAction = useRef(hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
+  const abortControllerOfLoadChildrenAction = useRef(new AbortController()).current;
 
   const getChildren = useCallback(
     async (key: string) => {
-      const response = await requestHandler.handle(
+      const response = await requestHandlerOfLoadChildrenAction.handle(
         createTopicDomainTreeGetOperationRequest({
             ...topicInput,
             rootNodeId: Number(key)
@@ -116,7 +131,7 @@ function TopicTreeView ({
             resourceOfApiResponse
           }
         ),
-        () => false
+        abortControllerOfLoadChildrenAction
       );
 
       return convertToControlNodes({
@@ -126,8 +141,9 @@ function TopicTreeView ({
       });
     },
     [
+      abortControllerOfLoadChildrenAction,
       createTopicPageUrl,
-      requestHandler,
+      requestHandlerOfLoadChildrenAction,
       resourceOfApiResponse,
       resourceOfTopicTreeStore,
       topicId

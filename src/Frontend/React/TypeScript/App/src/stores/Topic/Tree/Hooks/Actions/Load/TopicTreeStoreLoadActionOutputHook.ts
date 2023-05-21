@@ -13,7 +13,7 @@ export function useStoreLoadActionOutput (
   sliceName: TopicTreeStoreSliceName,
   input: TopicTreeStoreLoadActionInput
 ): TopicTreeStoreLoadActionOutput {
-  const { isCanceled, onActionCompleted, payloadOfLoadAction } = input;
+  const { abortController, onActionCompleted, payloadOfLoadAction } = input;
 
   const callback = useCallback(
     (payload: TopicTreeStoreLoadCompletedActionPayload) => {
@@ -27,9 +27,9 @@ export function useStoreLoadActionOutput (
   const dispatchOfLoadAction = useStoreLoadActionDispatch(
     sliceName,
     {
+      abortController,
       callback,
       dispatchType: StoreDispatchType.MountOrUpdate,
-      isCanceled,
       payloadOfLoadAction
     }
   );

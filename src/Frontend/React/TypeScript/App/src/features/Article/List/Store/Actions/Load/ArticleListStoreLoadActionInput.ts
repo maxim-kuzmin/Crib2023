@@ -2,7 +2,7 @@ import { type ArticleListStoreLoadCompletedActionCallback } from '../LoadComplet
 import { type ArticleListStoreLoadActionPayload } from './ArticleListStoreLoadActionPayload';
 
 export interface ArticleListStoreLoadActionInput {
-  readonly isCanceled?: boolean;
+  readonly abortController?: AbortController;
   readonly onActionCompleted?: ArticleListStoreLoadCompletedActionCallback;
   readonly payloadOfLoadAction: ArticleListStoreLoadActionPayload;
 }

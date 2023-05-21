@@ -1,4 +1,3 @@
-import { type ShouldBeCanceled } from '../../../../../common';
 import { type ArticleTypeEntity, type ApiRequestHandler } from '../../../../../data';
 import { type ArticleDomainRepository } from '../../../ArticleDomainRepository';
 import { type ArticleDomainItemGetOperationOutput, type ArticleDomainItemGetOperationResponse } from '../Get';
@@ -7,7 +6,7 @@ import { type ArticleDomainItemSaveOperationRequest } from './ArticleDomainItemS
 export interface ArticleDomainItemSaveOperationRequestHandler {
   handle: (
     request: ArticleDomainItemSaveOperationRequest,
-    shouldBeCanceled: ShouldBeCanceled
+    abortController: AbortController
   ) => Promise<ArticleDomainItemGetOperationResponse | null>;
 }
 
@@ -27,7 +26,7 @@ class Implementation implements ArticleDomainItemSaveOperationRequestHandler {
 
   async handle (
     request: ArticleDomainItemSaveOperationRequest,
-    shouldBeCanceled: ShouldBeCanceled
+    abortController: AbortController
   ): Promise<ArticleDomainItemGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       ArticleTypeEntity,
@@ -47,7 +46,7 @@ class Implementation implements ArticleDomainItemSaveOperationRequestHandler {
 
         return null;
       },
-      shouldBeCanceled
+      abortController
     );
   }
 }

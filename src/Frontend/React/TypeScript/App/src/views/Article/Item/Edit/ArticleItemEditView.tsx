@@ -30,6 +30,8 @@ function ArticleItemEditView ({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
+  const isUpdating = articleId > 0;
+
   const payloadOfLoadAction: ArticleItemStoreLoadActionPayload = useMemo(
     () => {
       const result: ArticleItemStoreLoadActionPayload = {
@@ -101,7 +103,7 @@ function ArticleItemEditView ({
 
       result.push(actionToReset);
 
-      if (articleId > 0) {
+      if (isUpdating) {
         const actionToDisplay: FormControlAction = {
           href: articlePageUrl,
           key: 'display',
@@ -126,8 +128,8 @@ function ArticleItemEditView ({
       return result;
     },
     [
-      articleId,
       articlePageUrl,
+      isUpdating,
       pendingOfLoadAction,
       pendingOfSaveAction,
       resourceOfArticleItemEditView,
@@ -140,7 +142,7 @@ function ArticleItemEditView ({
       const fieldForId: FormControlField = {
         label: resourceOfArticleItemEditView.getLabelForId(),
         name: fieldNameForId,
-        type: articleId > 0 ? FormControlFieldType.Readonly : FormControlFieldType.Hidden
+        type: isUpdating ? FormControlFieldType.Readonly : FormControlFieldType.Hidden
       };
 
       const fieldForTitle: FormControlField = {
@@ -174,11 +176,11 @@ function ArticleItemEditView ({
       ];
     },
     [
-      articleId,
       fieldNameForBody,
       fieldNameForId,
       fieldNameForTitle,
       fieldNameForTopicId,
+      isUpdating,
       resourceOfArticleItemEditView,
     ]
   );
@@ -198,11 +200,11 @@ function ArticleItemEditView ({
     [isFormFieldsTouched]
   );
 
-  const form = useRef<{ reset?: () => void; }>({});
+  const formRef = useRef<{ reset?: () => void; }>({});
 
   const handleGetFunctionToResetFields = useCallback(
     (functionToResetFields: () => void) => {
-      form.current.reset = functionToResetFields;
+      formRef.current.reset = functionToResetFields;
     },
     []
   )
@@ -218,15 +220,15 @@ function ArticleItemEditView ({
       const entity = serviceOfArticleItemEditView.convertToEntity(values);
 
       dispatchOfSaveAction.run(entity).then(() => {
-          if (form.current.reset) {
-            form.current.reset();
+          if (!isUpdating && formRef.current.reset) {
+            formRef.current.reset();
           }
       });
     },
-    [dispatchOfSaveAction, serviceOfArticleItemEditView]
+    [dispatchOfSaveAction, isUpdating, serviceOfArticleItemEditView]
   );
 
-  const title = articleId > 0
+  const title = isUpdating
     ? resourceOfArticleItemEditView.getTitleForEdit()
     : resourceOfArticleItemEditView.getTitleForNew();
 

@@ -21,7 +21,7 @@ function ArticlePage ({
 
   const [searchParams] = useSearchParams();
 
-  const articleItemIsLoaded = useRef(false);
+  const articleItemIsLoadedRef = useRef(false);
 
   const { hooks, modules } = useAppInstance();
 
@@ -34,7 +34,7 @@ function ArticlePage ({
         setTopicId(payload?.data?.item?.data.topicId ?? 0);
       }
 
-      articleItemIsLoaded.current = true;
+      articleItemIsLoadedRef.current = true;
     },
     [mode]
   );
@@ -57,9 +57,24 @@ function ArticlePage ({
     [topicId]
   );
 
+  const articleItemIsLoaded = articleItemIsLoadedRef.current;
+
+  const abortControllerOfLoadActionForTreeItem = useMemo(
+    () => {
+      const result = new AbortController();
+
+      if (!articleItemIsLoaded) {
+        result.abort();
+      }
+
+      return result;
+    },
+    [articleItemIsLoaded]
+  );
+
   hooks.Views.Topic.Item.useStoreLoadActionOutput({
     payloadOfLoadAction: payloadOfLoadActionForTreeItem,
-    isCanceled: !articleItemIsLoaded.current
+    abortController: abortControllerOfLoadActionForTreeItem
   });
 
   const topicPageLastUrl = modules.Pages.Topic.getService().lastUrl;

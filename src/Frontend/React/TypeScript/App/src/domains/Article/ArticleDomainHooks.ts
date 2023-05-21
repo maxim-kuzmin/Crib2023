@@ -7,8 +7,8 @@ import {
   type ArticleDomainListGetOperationRequestHandler,
 } from './Operations';
 import {
-  ArticleDomainItemDeleteOperationRequestHandlerImpl
-} from './Operations/Item/Delete/ArticleDomainItemDeleteOperationRequestHandlerImpl';
+  createArticleDomainItemDeleteOperationRequestHandler
+} from './Operations/Item/Delete/ArticleDomainItemDeleteOperationRequestHandler';
 import {
   createArticleDomainItemGetOperationRequestHandler
 } from './Operations/Item/Get/ArticleDomainItemGetOperationRequestHandler';
@@ -36,7 +36,7 @@ export function createArticleDomainHooks ({
   moduleOfArticleDomain
 }: Options): ArticleDomainHooks {
   function useItemDeleteOperationRequestHandler (): ArticleDomainItemDeleteOperationRequestHandler {
-    return new ArticleDomainItemDeleteOperationRequestHandlerImpl({
+    return createArticleDomainItemDeleteOperationRequestHandler({
       handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: true

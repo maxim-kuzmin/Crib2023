@@ -7,8 +7,8 @@ import {
   type TopicDomainListGetOperationRequestHandler
 } from './Operations';
 import {
-  TopicDomainItemDeleteOperationRequestHandlerImpl
-} from './Operations/Item/Delete/TopicDomainItemDeleteOperationRequestHandlerImpl';
+  createTopicDomainItemDeleteOperationRequestHandler
+} from './Operations/Item/Delete/TopicDomainItemDeleteOperationRequestHandler';
 import {
   createTopicDomainItemGetOperationRequestHandler
 } from './Operations/Item/Get/TopicDomainItemGetOperationRequestHandler';
@@ -41,7 +41,7 @@ export function createTopicDomainHooks ({
   moduleOfTopicDomain,
 }: Options): TopicDomainHooks {
   function useItemDeleteOperationRequestHandler (): TopicDomainItemDeleteOperationRequestHandler {
-    return new TopicDomainItemDeleteOperationRequestHandlerImpl({
+    return createTopicDomainItemDeleteOperationRequestHandler({
       handlerOfApiRequest: hooksOfApiRequest.useHandler({
         shouldBeLogged: true,
         shouldBeNotified: true

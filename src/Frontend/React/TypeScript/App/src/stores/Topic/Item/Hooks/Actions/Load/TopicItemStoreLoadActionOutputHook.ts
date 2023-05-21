@@ -13,7 +13,7 @@ export function useStoreLoadActionOutput (
   sliceName: TopicItemStoreSliceName,
   input: TopicItemStoreLoadActionInput
 ): TopicItemStoreLoadActionOutput {
-  const { isCanceled, onActionCompleted, payloadOfLoadAction } = input;
+  const { abortController, onActionCompleted, payloadOfLoadAction } = input;
 
   const callback = useCallback(
     (payload: TopicItemStoreLoadCompletedActionPayload) => {
@@ -27,9 +27,9 @@ export function useStoreLoadActionOutput (
   const dispatchOfLoadAction = useStoreLoadActionDispatch(
     sliceName,
     {
+      abortController,
       callback,
       dispatchType: StoreDispatchType.MountOrUpdate,
-      isCanceled,
       payloadOfLoadAction
     }
   );

@@ -1,7 +1,7 @@
 import {
   type CommonHooks,
   type ControlsHooks,
-  type SetNotification,
+  type FunctionToSetNotification,
   createCommonHooks,
 } from '../../common';
 import { createControlsHooks } from '../../controls';
@@ -69,7 +69,7 @@ class Implementation implements InstanceHooks {
       hooksOfTopicTreeStore: this.Features.Topic.Tree.Store,
     });
 
-    function getFunctionToSetNotification (): SetNotification {
+    function getFunctionToSetNotification (): FunctionToSetNotification {
       const { run } = hooksOfAppNotificationStore.useStoreSetActionDispatch(
         AppNotificationStoreSliceName.Default,
         {}

@@ -3,5 +3,6 @@ export {
   createTopicDomainItemDeleteOperationRequest
 } from './TopicDomainItemDeleteOperationRequest';
 export {
-  type TopicDomainItemDeleteOperationRequestHandler
+  type TopicDomainItemDeleteOperationRequestHandler,
+  createTopicDomainItemDeleteOperationRequestHandler
 } from './TopicDomainItemDeleteOperationRequestHandler';
