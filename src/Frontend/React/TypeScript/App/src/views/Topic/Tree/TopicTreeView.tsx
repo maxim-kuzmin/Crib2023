@@ -117,7 +117,6 @@ function TopicTreeView ({
   );
 
   const requestHandlerOfLoadChildrenAction = useRef(hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
-  const abortControllerOfLoadChildrenAction = useRef(new AbortController()).current;
 
   const getChildren = useCallback(
     async (key: string) => {
@@ -130,8 +129,7 @@ function TopicTreeView ({
             operationName: resourceOfTopicTreeStore.getOperationNameForGetChildren(),
             resourceOfApiResponse
           }
-        ),
-        abortControllerOfLoadChildrenAction
+        )
       );
 
       return convertToControlNodes({
@@ -141,7 +139,6 @@ function TopicTreeView ({
       });
     },
     [
-      abortControllerOfLoadChildrenAction,
       createTopicPageUrl,
       requestHandlerOfLoadChildrenAction,
       resourceOfApiResponse,

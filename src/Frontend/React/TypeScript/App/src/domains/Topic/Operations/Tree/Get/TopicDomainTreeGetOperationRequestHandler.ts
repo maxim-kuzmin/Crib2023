@@ -8,7 +8,7 @@ import { type TopicDomainTreeGetOperationResponse } from './TopicDomainTreeGetOp
 export interface TopicDomainTreeGetOperationRequestHandler {
   handle: (
     request: TopicDomainTreeGetOperationRequest,
-    abortController: AbortController
+    abortController?: AbortController
   ) => Promise<TopicDomainTreeGetOperationResponse | null>;
 }
 
@@ -28,7 +28,7 @@ class Implementation implements TopicDomainTreeGetOperationRequestHandler {
 
   async handle (
     request: TopicDomainTreeGetOperationRequest,
-    abortController: AbortController
+    abortController?: AbortController
   ): Promise<TopicDomainTreeGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       TopicDomainTreeGetOperationInput,
@@ -37,7 +37,7 @@ class Implementation implements TopicDomainTreeGetOperationRequestHandler {
       TopicDomainTreeGetOperationResponse
     >(
       request,
-      async () => await this.repository.getTree(request),
+      async () => await this.repository.getTree(request, abortController),
       abortController
     );
   }

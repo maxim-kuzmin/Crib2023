@@ -18,23 +18,28 @@ import {
 
 export interface TopicDomainRepository {
   deleteItem: (
-    request: TopicDomainItemGetOperationRequest
+    request: TopicDomainItemGetOperationRequest,
+    abortController?: AbortController
   ) => Promise<ApiOperationResponse>;
 
   getItem: (
-    request: TopicDomainItemGetOperationRequest
+    request: TopicDomainItemGetOperationRequest,
+    abortController?: AbortController
   ) => Promise<TopicDomainItemGetOperationResponse>;
 
   getList: (
-    request: TopicDomainListGetOperationRequest
+    request: TopicDomainListGetOperationRequest,
+    abortController?: AbortController
   ) => Promise<TopicDomainListGetOperationResponse>;
 
   getTree: (
-    request: TopicDomainTreeGetOperationRequest
+    request: TopicDomainTreeGetOperationRequest,
+    abortController?: AbortController
   ) => Promise<TopicDomainTreeGetOperationResponse>;
 
   saveItem: (
-    request: TopicDomainItemSaveOperationRequest
+    request: TopicDomainItemSaveOperationRequest,
+    abortController?: AbortController
   ) => Promise<TopicDomainItemGetOperationResponse>;
 }
 
@@ -52,7 +57,8 @@ class Implementation implements TopicDomainRepository {
   }
 
   async deleteItem (
-    request: TopicDomainItemDeleteOperationRequest
+    request: TopicDomainItemDeleteOperationRequest,
+    abortController?: AbortController
   ): Promise<ApiOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
@@ -60,6 +66,7 @@ class Implementation implements TopicDomainRepository {
 
     try {
       return await this.clientOfApi.delete({
+        abortController,
         endpoint,
         operationName,
         operationCode,
@@ -77,7 +84,8 @@ class Implementation implements TopicDomainRepository {
   }
 
   async getItem (
-    request: TopicDomainItemGetOperationRequest
+    request: TopicDomainItemGetOperationRequest,
+    abortController?: AbortController
   ): Promise<TopicDomainItemGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
@@ -85,6 +93,7 @@ class Implementation implements TopicDomainRepository {
 
     try {
       const response = await this.clientOfApi.get<TopicDomainItemGetOperationOutput>({
+        abortController,
         endpoint,
         operationName,
         operationCode,
@@ -104,7 +113,8 @@ class Implementation implements TopicDomainRepository {
   }
 
   async getList (
-    request: TopicDomainListGetOperationRequest
+    request: TopicDomainListGetOperationRequest,
+    abortController?: AbortController
   ): Promise<TopicDomainListGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
@@ -112,6 +122,7 @@ class Implementation implements TopicDomainRepository {
 
     try {
       const response = await this.clientOfApi.get<TopicDomainListGetOperationOutput>({
+        abortController,
         endpoint,
         operationName,
         operationCode,
@@ -132,7 +143,8 @@ class Implementation implements TopicDomainRepository {
   }
 
   async getTree (
-    request: TopicDomainTreeGetOperationRequest
+    request: TopicDomainTreeGetOperationRequest,
+    abortController?: AbortController
   ): Promise<TopicDomainTreeGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
@@ -140,6 +152,7 @@ class Implementation implements TopicDomainRepository {
 
     try {
       const response = await this.clientOfApi.get<TopicDomainTreeGetOperationOutput>({
+        abortController,
         endpoint,
         operationName,
         operationCode,
@@ -160,7 +173,8 @@ class Implementation implements TopicDomainRepository {
   }
 
   async saveItem (
-    request: TopicDomainItemSaveOperationRequest
+    request: TopicDomainItemSaveOperationRequest,
+    abortController?: AbortController
   ): Promise<TopicDomainItemGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input: body } = request;
 
@@ -169,6 +183,7 @@ class Implementation implements TopicDomainRepository {
     const endpoint = id > 0 ? `${controller}Item-${id}` : `${controller}Item`;
 
     const options: ApiRequestOptionsWithBody = {
+      abortController,
       body,
       endpoint,
       operationName,

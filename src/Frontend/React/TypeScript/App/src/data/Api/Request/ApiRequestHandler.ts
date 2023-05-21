@@ -11,7 +11,7 @@ export interface ApiRequestHandler {
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ) => Promise<TResponse | null>;
 
   readonly handleWithInputAndOutput: <
@@ -22,7 +22,7 @@ export interface ApiRequestHandler {
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ) => Promise<TResponse | null>;
 
   readonly handleWithOutput: <
@@ -32,7 +32,7 @@ export interface ApiRequestHandler {
   >(
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ) => Promise<TResponse | null>;
 
   readonly handleWithoutInputAndOutput: <
@@ -41,7 +41,7 @@ export interface ApiRequestHandler {
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ) => Promise<TResponse | null>;
 }
 
@@ -63,7 +63,7 @@ class Implementation implements ApiRequestHandler {
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ): Promise<TResponse | null> {
     const { operationCode, operationName, input } = request;
 
@@ -87,7 +87,7 @@ class Implementation implements ApiRequestHandler {
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ): Promise<TResponse | null> {
     const { operationCode, operationName, input } = request;
 
@@ -110,7 +110,7 @@ class Implementation implements ApiRequestHandler {
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ): Promise<TResponse | null> {
     const { operationCode, operationName } = request;
 
@@ -131,7 +131,7 @@ class Implementation implements ApiRequestHandler {
   > (
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ): Promise<TResponse | null> {
     const { operationCode, operationName } = request;
 
@@ -154,7 +154,7 @@ class Implementation implements ApiRequestHandler {
     operationInput: OperationInput,
     request: TRequest,
     getResult: () => Promise<TResponse | null>,
-    abortController: AbortController
+    abortController?: AbortController
   ): Promise<TResponse | null> {
     let result: TResponse | null = null;
 
@@ -166,7 +166,7 @@ class Implementation implements ApiRequestHandler {
       result = await getResult();
 
       if (result) {
-        if (!abortController.signal.aborted) {
+        if (!abortController?.signal.aborted) {
           const { operationCode, data, error } = result;
 
           if (error && error.responseStatus !== 404) {
@@ -180,7 +180,7 @@ class Implementation implements ApiRequestHandler {
         }
       }
     } catch (error: unknown) {
-      if (!abortController.signal.aborted) {
+      if (!abortController?.signal.aborted) {
         this.operationHandler.handleError(error);
       }
     }

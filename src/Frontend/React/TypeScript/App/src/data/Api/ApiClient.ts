@@ -42,6 +42,7 @@ interface RequestOptions {
 }
 
 interface HttpConfigOptions {
+  readonly abortController?: AbortController;
   readonly language: string;
   readonly operationCode: string;
   readonly optionsOfApi: ApiOptions;
@@ -49,6 +50,7 @@ interface HttpConfigOptions {
 }
 
 function createHttpConfig ({
+  abortController,
   language,
   operationCode,
   optionsOfApi:
@@ -58,18 +60,24 @@ function createHttpConfig ({
   },
   query,
 }: HttpConfigOptions): HttpConfig {
+  const init: RequestInit = {
+    headers: {
+      'Content-Type': 'application/json',
+      OperationCode: operationCode
+    }
+  };
+
+  if (abortController) {
+    init.signal = abortController.signal;
+  }
+
   return {
     query: {
       ...query,
       [queryStringKeyForCulture]: language,
       [queryStringKeyForUICulture]: language
     },
-    init: {
-      headers: {
-        'Content-Type': 'application/json',
-        OperationCode: operationCode
-      }
-    }
+    init
   }
 };
 
@@ -86,6 +94,7 @@ class Implementation implements ApiClient {
   }
 
   async delete ({
+    abortController,
     endpoint,
     operationName,
     operationCode,
@@ -98,6 +107,7 @@ class Implementation implements ApiClient {
       getResponse: async () => await this.httpClient.delete(
         this.createUrl(endpoint),
         createHttpConfig({
+          abortController,
           language,
           operationCode,
           optionsOfApi: this.optionsOfApi,
@@ -111,6 +121,7 @@ class Implementation implements ApiClient {
   }
 
   async get<TData> ({
+    abortController,
     endpoint,
     operationName,
     operationCode,
@@ -123,6 +134,7 @@ class Implementation implements ApiClient {
       getResponse: async () => await this.httpClient.get(
         this.createUrl(endpoint),
         createHttpConfig({
+          abortController,
           language,
           operationCode,
           optionsOfApi: this.optionsOfApi,
@@ -136,6 +148,7 @@ class Implementation implements ApiClient {
   }
 
   async post<TData> ({
+    abortController,
     body,
     endpoint,
     operationName,
@@ -150,6 +163,7 @@ class Implementation implements ApiClient {
         this.createUrl(endpoint),
         body,
         createHttpConfig({
+          abortController,
           language,
           operationCode,
           optionsOfApi: this.optionsOfApi,
@@ -163,6 +177,7 @@ class Implementation implements ApiClient {
   }
 
   async put<TData> ({
+    abortController,
     body,
     endpoint,
     operationName,
@@ -177,6 +192,7 @@ class Implementation implements ApiClient {
         this.createUrl(endpoint),
         body,
         createHttpConfig({
+          abortController,
           language,
           operationCode,
           optionsOfApi: this.optionsOfApi,

@@ -36,9 +36,9 @@ export function useStoreLoadActionDispatch (
   const run = useCallback(
     async (
       payload: TopicItemStoreLoadActionPayload,
-      abortController = new AbortController()
+      abortController?: AbortController
     ) => {
-      if (abortController.signal.aborted) {
+      if (abortController?.signal.aborted) {
         return;
       }
 
@@ -57,7 +57,7 @@ export function useStoreLoadActionDispatch (
           )
         : null;
 
-        if (abortController.signal.aborted) {
+        if (abortController?.signal.aborted) {
         return;
       }
 
@@ -68,17 +68,15 @@ export function useStoreLoadActionDispatch (
 
   useEffect(
     () => {
-      const abortControllerInner = abortController ?? new AbortController();
-
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadAction) {
-        run(payloadOfLoadAction, abortControllerInner);
+        run(payloadOfLoadAction, abortController);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadAction) {
-          run(payloadOfLoadAction, abortControllerInner);
+          run(payloadOfLoadAction, abortController);
         } else {
-          abortControllerInner.abort();
+          abortController?.abort();
         }
       };
     },

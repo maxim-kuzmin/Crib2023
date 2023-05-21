@@ -1,5 +1,6 @@
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 import { useAppInstance } from '../../../../app';
 import {
   type FormControlAction,
@@ -23,6 +24,22 @@ function ArticleItemEditView ({
   topicPageLastUrl
 }: ArticleItemEditViewProps): React.ReactElement<ArticleItemEditViewProps> | null {
   const { controls, hooks, modules } = useAppInstance();
+
+  const shouldBeNavigetedToArticlePageRef = useRef(false);
+
+  const [isFormFieldsTouched, setIsFormFieldsTouched] = useState(false);
+
+  hooks.Common.useLeaveFormBlocker(isFormFieldsTouched);
+
+  const navigate = useNavigate();
+
+  useEffect(
+    () => {
+      if (shouldBeNavigetedToArticlePageRef.current) {
+        navigate(articlePageUrl);
+      }
+    }
+  );
 
   const resourceOfArticleItemEditView = hooks.Views.Article.Item.Edit.useResource();
 
@@ -185,16 +202,12 @@ function ArticleItemEditView ({
     ]
   );
 
-  const [isFormFieldsTouched, setIsFormFieldsTouched] = useState(false);
-
-  hooks.Common.useLeaveFormBlocker(isFormFieldsTouched);
-
   const handleFieldsTouched = useCallback(
     (isFieldsTouched: boolean) => {
       if (isFieldsTouched !== isFormFieldsTouched) {
         setTimeout(() => {
           setIsFormFieldsTouched(isFieldsTouched);
-        }, 0);
+        });
       }
     },
     [isFormFieldsTouched]
@@ -220,9 +233,12 @@ function ArticleItemEditView ({
       const entity = serviceOfArticleItemEditView.convertToEntity(values);
 
       dispatchOfSaveAction.run(entity).then(() => {
-          if (!isUpdating && formRef.current.reset) {
-            formRef.current.reset();
-          }
+        if (isUpdating) {
+          setIsFormFieldsTouched(false);
+          shouldBeNavigetedToArticlePageRef.current = true;
+        } else if (formRef.current.reset) {
+          formRef.current.reset();
+        }
       });
     },
     [dispatchOfSaveAction, isUpdating, serviceOfArticleItemEditView]
