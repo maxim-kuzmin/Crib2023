@@ -1,39 +1,13 @@
-import { type Dispatch, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
   type TopicItemStoreSliceName,
-  type TopicItemStoreSetActionCallback,
   type TopicItemStoreSetActionDispatch,
   type TopicItemStoreSetActionOptions,
   type TopicItemStoreSetActionPayload,
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
-import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
-
-interface Options {
-  readonly callback?: TopicItemStoreSetActionCallback;
-  readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
-  readonly payload: TopicItemStoreSetActionPayload;
-  readonly sliceName: string;
-}
-
-function runSetAction ({
-  callback,
-  dispatch,
-  payload,
-  sliceName
-}: Options) {
-  dispatch({
-    payload,
-    sliceName,
-    type: TopicItemStoreActionType.Set
-  });
-
-  if (callback) {
-    callback(payload);
-  }
-}
 
 export function useStoreSetActionDispatch (
   sliceName: TopicItemStoreSliceName,
@@ -41,51 +15,35 @@ export function useStoreSetActionDispatch (
     callback,
     dispatchType,
     payloadOfSetAction
-  }: TopicItemStoreSetActionOptions
+  }: TopicItemStoreSetActionOptions = {}
 ): TopicItemStoreSetActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
+
+  const run = useCallback(
+    (payload: TopicItemStoreSetActionPayload) => {
+      dispatch({ payload, sliceName, type: TopicItemStoreActionType.Set });
+
+      if (callback) {
+        callback(payload);
+      }
+    },
+    [callback, dispatch, sliceName]
+  );
 
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSetAction) {
-        runSetAction({
-          callback,
-          dispatch,
-          payload: payloadOfSetAction,
-          sliceName
-        });
+        run(payloadOfSetAction);
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfSetAction) {
-          runSetAction({
-            callback,
-            dispatch,
-            payload: payloadOfSetAction,
-            sliceName
-          });
+          run(payloadOfSetAction);
         }
       };
     },
-    [
-      callback,
-      dispatch,
-      dispatchType,
-      payloadOfSetAction,
-      sliceName
-    ]
+    [dispatchType, payloadOfSetAction, run]
   );
 
-  function run (payload: TopicItemStoreSetActionPayload) {
-    runSetAction({
-      callback,
-      dispatch,
-      payload,
-      sliceName
-    });
-  }
-
-  return useRef({
-    run
-  }).current;
+  return useMemo<TopicItemStoreSetActionDispatch>(() => ({ run }), [run]);
 }

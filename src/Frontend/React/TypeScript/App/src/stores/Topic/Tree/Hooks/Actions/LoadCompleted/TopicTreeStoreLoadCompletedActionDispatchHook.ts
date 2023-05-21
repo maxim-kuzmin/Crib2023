@@ -1,39 +1,13 @@
-import { type Dispatch, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
   type TopicTreeStoreSliceName,
-  type TopicTreeStoreLoadCompletedActionCallback,
   type TopicTreeStoreLoadCompletedActionDispatch,
   type TopicTreeStoreLoadCompletedActionOptions,
   type TopicTreeStoreLoadCompletedActionPayload,
 } from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
-import { type TopicTreeStoreActionUnion } from '../../../TopicTreeStoreActionUnion';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
-
-interface Options {
-  readonly callback?: TopicTreeStoreLoadCompletedActionCallback;
-  readonly dispatch: Dispatch<TopicTreeStoreActionUnion>;
-  readonly payload: TopicTreeStoreLoadCompletedActionPayload;
-  readonly sliceName: string;
-}
-
-export function runLoadCompletedAction ({
-  callback,
-  dispatch,
-  payload,
-  sliceName
-}: Options) {
-  dispatch({
-    payload,
-    sliceName,
-    type: TopicTreeStoreActionType.LoadCompleted
-  });
-
-  if (callback) {
-    callback(payload);
-  }
-}
 
 export function useStoreLoadCompletedActionDispatch (
   sliceName: TopicTreeStoreSliceName,
@@ -45,47 +19,35 @@ export function useStoreLoadCompletedActionDispatch (
 ): TopicTreeStoreLoadCompletedActionDispatch {
   const dispatch = useTopicTreeStoreDispatch();
 
+  const run = useCallback(
+    (payload: TopicTreeStoreLoadCompletedActionPayload) => {
+      dispatch({
+        payload,
+        sliceName,
+        type: TopicTreeStoreActionType.LoadCompleted
+      });
+
+      if (callback) {
+        callback(payload);
+      }
+    },
+    [callback, dispatch, sliceName]
+  );
+
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadCompletedAction) {
-        runLoadCompletedAction({
-          callback,
-          dispatch,
-          payload: payloadOfLoadCompletedAction,
-          sliceName
-        });
+        run(payloadOfLoadCompletedAction);
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadCompletedAction) {
-          runLoadCompletedAction({
-            callback,
-            dispatch,
-            payload: payloadOfLoadCompletedAction,
-            sliceName
-          });
+          run(payloadOfLoadCompletedAction);
         }
       };
     },
-    [
-      callback,
-      dispatch,
-      dispatchType,
-      payloadOfLoadCompletedAction,
-      sliceName
-    ]
+    [dispatchType, payloadOfLoadCompletedAction, run]
   );
 
-  function run (payload: TopicTreeStoreLoadCompletedActionPayload) {
-    runLoadCompletedAction({
-      callback,
-      dispatch,
-      payload,
-      sliceName
-    });
-  }
-
-  return useRef({
-    run
-  }).current;
+  return useMemo<TopicTreeStoreLoadCompletedActionDispatch>(() => ({ run }), [run]);
 }

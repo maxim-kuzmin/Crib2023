@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
-import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
+import { type ShouldBeCanceled, StoreDispatchType, shouldNotBeCanceled } from '../../../../../../common';
 import { createArticleDomainItemDeleteOperationRequest } from '../../../../../../domains';
 import {
   type ArticleItemStoreDeleteActionDispatch,
@@ -27,22 +27,22 @@ export function useStoreDeleteActionDispatch (
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
   const resourceOfArticleItemStore = hooks.Features.Article.Item.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Article.useItemDeleteOperationRequestHandler()).current;
-  const hooksOfArticleItemStore = hooks.Features.Article.Item.Store;
+
+  const { run: complete } = hooks.Features.Article.Item.Store.useStoreDeleteCompletedActionDispatch(
+    sliceName,
+    { callback }
+  );
 
   const run = useCallback(
     async (
       payload: ArticleItemStoreDeleteActionPayload,
-      shouldBeCanceled: ShouldBeCanceled = () => false
+      shouldBeCanceled: ShouldBeCanceled = shouldNotBeCanceled
     ) => {
       if (shouldBeCanceled()) {
         return;
       }
 
-      dispatch({
-        payload,
-        sliceName,
-        type: ArticleItemStoreActionType.Delete
-      });
+      dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Delete });
 
       const response = payload
         ? await requestHandler.handle(
@@ -61,22 +61,9 @@ export function useStoreDeleteActionDispatch (
         return;
       }
 
-      const { run } = hooksOfArticleItemStore.useStoreDeleteCompletedActionDispatch(
-        sliceName,
-        { callback }
-      );
-
-      run(response);
+      complete(response);
     },
-    [
-      callback,
-      dispatch,
-      hooksOfArticleItemStore,
-      requestHandler,
-      resourceOfApiResponse,
-      resourceOfArticleItemStore,
-      sliceName
-    ]
+    [complete, dispatch, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
   );
 
   useEffect(

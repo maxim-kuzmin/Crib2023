@@ -23,7 +23,7 @@ export interface TopicTreeStoreHooks {
 
   readonly useStoreClearActionDispatch: (
     sliceName: TopicTreeStoreSliceName,
-    options: TopicTreeStoreClearActionOptions
+    options?: TopicTreeStoreClearActionOptions
   ) => TopicTreeStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
@@ -33,7 +33,7 @@ export interface TopicTreeStoreHooks {
 
   readonly useStoreLoadActionDispatch: (
     sliceName: TopicTreeStoreSliceName,
-    options: TopicTreeStoreLoadActionOptions
+    options?: TopicTreeStoreLoadActionOptions
   ) => TopicTreeStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
@@ -43,12 +43,12 @@ export interface TopicTreeStoreHooks {
 
   readonly useStoreLoadCompletedActionDispatch: (
     sliceName: TopicTreeStoreSliceName,
-    options: TopicTreeStoreLoadCompletedActionOptions
+    options?: TopicTreeStoreLoadCompletedActionOptions
   ) => TopicTreeStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
     sliceName: TopicTreeStoreSliceName,
-    options: TopicTreeStoreSetActionOptions
+    options?: TopicTreeStoreSetActionOptions
   ) => TopicTreeStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (

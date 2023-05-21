@@ -1,39 +1,13 @@
-import { type Dispatch, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
   type ArticleItemStoreSliceName,
-  type ArticleItemStoreSaveCompletedActionCallback,
   type ArticleItemStoreSaveCompletedActionDispatch,
   type ArticleItemStoreSaveCompletedActionOptions,
   type ArticleItemStoreSaveCompletedActionPayload,
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
-import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
-
-interface Options {
-  readonly callback?: ArticleItemStoreSaveCompletedActionCallback;
-  readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
-  readonly payload: ArticleItemStoreSaveCompletedActionPayload;
-  readonly sliceName: string;
-}
-
-export function runSaveCompletedAction ({
-  callback,
-  dispatch,
-  payload,
-  sliceName
-}: Options) {
-  dispatch({
-    payload,
-    sliceName,
-    type: ArticleItemStoreActionType.SaveCompleted
-  });
-
-  if (callback) {
-    callback(payload);
-  }
-}
 
 export function useStoreSaveCompletedActionDispatch (
   sliceName: ArticleItemStoreSliceName,
@@ -45,47 +19,35 @@ export function useStoreSaveCompletedActionDispatch (
 ): ArticleItemStoreSaveCompletedActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
 
+  const run = useCallback(
+    (payload: ArticleItemStoreSaveCompletedActionPayload) => {
+      dispatch({
+        payload,
+        sliceName,
+        type: ArticleItemStoreActionType.SaveCompleted
+      });
+
+      if (callback) {
+        callback(payload);
+      }
+    },
+    [callback, dispatch, sliceName]
+  );
+
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSaveCompletedAction) {
-        runSaveCompletedAction({
-          callback,
-          dispatch,
-          payload: payloadOfSaveCompletedAction,
-          sliceName
-        });
+        run(payloadOfSaveCompletedAction);
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfSaveCompletedAction) {
-          runSaveCompletedAction({
-            callback,
-            dispatch,
-            payload: payloadOfSaveCompletedAction,
-            sliceName
-          });
+          run(payloadOfSaveCompletedAction);
         }
       };
     },
-    [
-      callback,
-      dispatch,
-      dispatchType,
-      payloadOfSaveCompletedAction,
-      sliceName
-    ]
+    [dispatchType, payloadOfSaveCompletedAction, run]
   );
 
-  function run (payload: ArticleItemStoreSaveCompletedActionPayload) {
-    runSaveCompletedAction({
-      callback,
-      dispatch,
-      payload,
-      sliceName,
-    });
-  }
-
-  return useRef({
-    run
-  }).current;
+  return useMemo<ArticleItemStoreSaveCompletedActionDispatch>(() => ({ run }), [run]);
 }

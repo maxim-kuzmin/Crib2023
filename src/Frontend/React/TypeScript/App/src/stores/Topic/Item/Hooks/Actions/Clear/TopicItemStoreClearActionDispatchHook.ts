@@ -1,35 +1,12 @@
-import { type Dispatch, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
   type TopicItemStoreSliceName,
-  type TopicItemStoreClearActionCallback,
   type TopicItemStoreClearActionDispatch,
   type TopicItemStoreClearActionOptions,
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
-import { type TopicItemStoreActionUnion } from '../../../TopicItemStoreActionUnion';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
-
-interface Options {
-  readonly callback?: TopicItemStoreClearActionCallback;
-  readonly dispatch: Dispatch<TopicItemStoreActionUnion>;
-  readonly sliceName: string;
-}
-
-function runClearAction ({
-  callback,
-  dispatch,
-  sliceName
-}: Options) {
-  dispatch({
-    sliceName,
-    type: TopicItemStoreActionType.Clear
-  });
-
-  if (callback) {
-    callback();
-  }
-}
 
 export function useStoreClearActionDispatch (
   sliceName: TopicItemStoreSliceName,
@@ -40,43 +17,31 @@ export function useStoreClearActionDispatch (
 ): TopicItemStoreClearActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
 
+  const run = useCallback(
+    () => {
+      dispatch({ sliceName, type: TopicItemStoreActionType.Clear });
+
+      if (callback) {
+        callback();
+      }
+    },
+    [callback, dispatch, sliceName]
+  );
+
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        runClearAction({
-          callback,
-          dispatch,
-          sliceName
-        });
+        run();
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          runClearAction({
-            callback,
-            dispatch,
-            sliceName
-          });
+          run();
         }
       };
     },
-    [
-      callback,
-      dispatch,
-      dispatchType,
-      sliceName
-    ]
+    [dispatchType, run]
   );
 
-  function run () {
-    runClearAction({
-      callback,
-      dispatch,
-      sliceName
-    });
-  }
-
-  return useRef({
-    run
-  }).current;
+  return useMemo<TopicItemStoreClearActionDispatch>(() => ({ run }), [run]);
 }

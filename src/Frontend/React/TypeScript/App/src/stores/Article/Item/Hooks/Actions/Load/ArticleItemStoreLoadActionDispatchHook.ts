@@ -1,79 +1,15 @@
-import { type Dispatch, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
-import { type ShouldBeCanceled, StoreDispatchType } from '../../../../../../common';
-import { type ApiResponseResource } from '../../../../../../data';
+import { type ShouldBeCanceled, StoreDispatchType, shouldNotBeCanceled } from '../../../../../../common';
+import { createArticleDomainItemGetOperationRequest } from '../../../../../../domains';
 import {
-  type ArticleDomainItemGetOperationRequestHandler,
-  createArticleDomainItemGetOperationRequest
-} from '../../../../../../domains';
-import {
-  type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreLoadActionDispatch,
   type ArticleItemStoreLoadActionOptions,
   type ArticleItemStoreLoadActionPayload,
-  type ArticleItemStoreResource,
   type ArticleItemStoreSliceName,
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
-import { type ArticleItemStoreActionUnion } from '../../../ArticleItemStoreActionUnion';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
-import { runLoadCompletedAction } from '../LoadCompleted/ArticleItemStoreLoadCompletedActionDispatchHook';
-
-interface Options {
-  readonly callback?: ArticleItemStoreSetActionCallback;
-  readonly dispatch: Dispatch<ArticleItemStoreActionUnion>;
-  readonly payload: ArticleItemStoreLoadActionPayload;
-  readonly requestHandler: ArticleDomainItemGetOperationRequestHandler;
-  readonly resourceOfApiResponse: ApiResponseResource;
-  readonly resourceOfArticleItemStore: ArticleItemStoreResource;
-  readonly shouldBeCanceled: ShouldBeCanceled;
-  readonly sliceName: string;
-}
-
-async function runLoadAction ({
-  callback,
-  dispatch,
-  payload,
-  requestHandler,
-  resourceOfApiResponse,
-  resourceOfArticleItemStore,
-  shouldBeCanceled,
-  sliceName,
-}: Options) {
-  if (shouldBeCanceled()) {
-    return;
-  }
-
-  dispatch({
-    payload,
-    sliceName,
-    type: ArticleItemStoreActionType.Load
-  });
-
-  const response = payload
-    ? await requestHandler.handle(
-        createArticleDomainItemGetOperationRequest(
-          payload,
-          {
-            operationName: resourceOfArticleItemStore.getOperationNameForGet(),
-            resourceOfApiResponse
-          }
-        ),
-        shouldBeCanceled
-      )
-    : null;
-
-  if (shouldBeCanceled()) {
-    return;
-  }
-
-  runLoadCompletedAction({
-    callback,
-    dispatch,
-    payload: response,
-    sliceName
-  });
-}
 
 export function useStoreLoadActionDispatch (
   sliceName: ArticleItemStoreSliceName,
@@ -84,15 +20,51 @@ export function useStoreLoadActionDispatch (
     payloadOfLoadAction
   }: ArticleItemStoreLoadActionOptions = {}
 ): ArticleItemStoreLoadActionDispatch {
+  const dispatch = useArticleItemStoreDispatch();
+
   const { hooks } = useAppInstance();
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
-
   const resourceOfArticleItemStore = hooks.Features.Article.Item.Store.useResource();
-
-  const dispatch = useArticleItemStoreDispatch();
-
   const requestHandler = useRef(hooks.Domains.Article.useItemGetOperationRequestHandler()).current;
+
+  const { run: complete } = hooks.Features.Article.Item.Store.useStoreLoadCompletedActionDispatch(
+    sliceName,
+    { callback }
+  );
+
+  const run = useCallback(
+    async (
+      payload: ArticleItemStoreLoadActionPayload,
+      shouldBeCanceled: ShouldBeCanceled = shouldNotBeCanceled
+    ) => {
+      if (shouldBeCanceled()) {
+        return;
+      }
+
+      dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Load });
+
+      const response = payload
+        ? await requestHandler.handle(
+            createArticleDomainItemGetOperationRequest(
+              payload,
+              {
+                operationName: resourceOfArticleItemStore.getOperationNameForGet(),
+                resourceOfApiResponse
+              }
+            ),
+            shouldBeCanceled
+          )
+        : null;
+
+      if (shouldBeCanceled()) {
+        return;
+      }
+
+      complete(response);
+    },
+    [complete, dispatch, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
+  );
 
   useEffect(
     () => {
@@ -101,67 +73,19 @@ export function useStoreLoadActionDispatch (
       const shouldBeCanceledInner = () => isCanceledInner;
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadAction) {
-        runLoadAction({
-          callback,
-          dispatch,
-          payload: payloadOfLoadAction,
-          requestHandler,
-          resourceOfApiResponse,
-          resourceOfArticleItemStore,
-          shouldBeCanceled: shouldBeCanceledInner,
-          sliceName
-        });
+        run(payloadOfLoadAction, shouldBeCanceledInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadAction) {
-          runLoadAction({
-            callback,
-            dispatch,
-            payload: payloadOfLoadAction,
-            requestHandler,
-            resourceOfApiResponse,
-            resourceOfArticleItemStore,
-            shouldBeCanceled: shouldBeCanceledInner,
-            sliceName
-            });
+          run(payloadOfLoadAction, shouldBeCanceledInner);
         } else {
           isCanceledInner = true;
         }
       };
     },
-    [
-      callback,
-      dispatch,
-      dispatchType,
-      isCanceled,
-      payloadOfLoadAction,
-      requestHandler,
-      resourceOfApiResponse,
-      resourceOfArticleItemStore,
-      sliceName
-    ]
+    [dispatchType, isCanceled, payloadOfLoadAction, run]
   );
 
-  async function run (
-    payload: ArticleItemStoreLoadActionPayload,
-    shouldBeCanceled: ShouldBeCanceled = () => false
-  ): Promise<void> {
-    await runLoadAction({
-      callback,
-      dispatch,
-      payload,
-      requestHandler,
-      resourceOfApiResponse,
-      resourceOfArticleItemStore,
-      shouldBeCanceled,
-      sliceName
-    });
-  }
-
-  const result: ArticleItemStoreLoadActionDispatch = {
-    run
-  };
-
-  return useRef(result).current;
+  return useMemo<ArticleItemStoreLoadActionDispatch>(() => ({ run }), [run]);
 }

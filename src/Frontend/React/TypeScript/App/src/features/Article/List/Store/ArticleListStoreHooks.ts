@@ -23,7 +23,7 @@ export interface ArticleListStoreHooks {
 
   readonly useStoreClearActionDispatch: (
     sliceName: ArticleListStoreSliceName,
-    options: ArticleListStoreClearActionOptions
+    options?: ArticleListStoreClearActionOptions
   ) => ArticleListStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
@@ -33,7 +33,7 @@ export interface ArticleListStoreHooks {
 
   readonly useStoreLoadActionDispatch: (
     sliceName: ArticleListStoreSliceName,
-    options: ArticleListStoreLoadActionOptions
+    options?: ArticleListStoreLoadActionOptions
   ) => ArticleListStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
@@ -43,12 +43,12 @@ export interface ArticleListStoreHooks {
 
   readonly useStoreLoadCompletedActionDispatch: (
     sliceName: ArticleListStoreSliceName,
-    options: ArticleListStoreLoadCompletedActionOptions
+    options?: ArticleListStoreLoadCompletedActionOptions
   ) => ArticleListStoreLoadCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
     sliceName: ArticleListStoreSliceName,
-    options: ArticleListStoreSetActionOptions
+    options?: ArticleListStoreSetActionOptions
   ) => ArticleListStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (

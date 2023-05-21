@@ -8,7 +8,7 @@ export * from './Store';
 export * from './Test';
 export * from './ValueObjects';
 export { type CommonComponents } from './CommonComponents';
-export { type SetNotification, type ShouldBeCanceled } from './CommonFunctions';
+export { type SetNotification, type ShouldBeCanceled, shouldNotBeCanceled } from './CommonFunctions';
 export { type CommonHooks, createCommonHooks } from './CommonHooks';
 export { type CommonModules, createCommonModules } from './CommonModules';
 export { type CommonOptions } from './CommonOptions';
