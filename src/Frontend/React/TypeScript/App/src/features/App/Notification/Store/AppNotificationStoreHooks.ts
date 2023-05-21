@@ -14,7 +14,7 @@ import { type AppNotificationStoreState } from './AppNotificationStoreState';
 export interface AppNotificationStoreHooks {
   readonly useStoreClearActionDispatch: (
     sliceName: AppNotificationStoreSliceName,
-    options: AppNotificationStoreClearActionOptions
+    options?: AppNotificationStoreClearActionOptions
   ) => AppNotificationStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
@@ -24,7 +24,7 @@ export interface AppNotificationStoreHooks {
 
   readonly useStoreSetActionDispatch: (
     sliceName: AppNotificationStoreSliceName,
-    options: AppNotificationStoreSetActionOptions
+    options?: AppNotificationStoreSetActionOptions
   ) => AppNotificationStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (

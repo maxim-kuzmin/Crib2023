@@ -15,7 +15,7 @@ export function useStoreSetActionDispatch (
     callback,
     dispatchType,
     payloadOfSetAction
-  }: AppNotificationStoreSetActionOptions
+  }: AppNotificationStoreSetActionOptions = {}
 ): AppNotificationStoreSetActionDispatch {
   const dispatch = useAppNotificationStoreDispatch();
 

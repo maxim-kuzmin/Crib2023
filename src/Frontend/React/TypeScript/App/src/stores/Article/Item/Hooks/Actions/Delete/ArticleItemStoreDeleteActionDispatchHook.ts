@@ -10,7 +10,6 @@ import {
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
-import { runDeleteCompletedAction } from '../DeleteCompleted/ArticleItemStoreDeleteCompletedActionDispatchHook';
 
 export function useStoreDeleteActionDispatch (
   sliceName: ArticleItemStoreSliceName,
@@ -21,15 +20,14 @@ export function useStoreDeleteActionDispatch (
     payloadOfDeleteAction
   }: ArticleItemStoreDeleteActionOptions = {}
 ): ArticleItemStoreDeleteActionDispatch {
+  const dispatch = useArticleItemStoreDispatch();
+
   const { hooks } = useAppInstance();
 
   const resourceOfApiResponse = hooks.Data.Api.Response.useResource();
-
   const resourceOfArticleItemStore = hooks.Features.Article.Item.Store.useResource();
-
-  const dispatch = useArticleItemStoreDispatch();
-
   const requestHandler = useRef(hooks.Domains.Article.useItemDeleteOperationRequestHandler()).current;
+  const hooksOfArticleItemStore = hooks.Features.Article.Item.Store;
 
   const run = useCallback(
     async (
@@ -63,14 +61,22 @@ export function useStoreDeleteActionDispatch (
         return;
       }
 
-      runDeleteCompletedAction({
-        callback,
-        dispatch,
-        payload: response,
-        sliceName
-      });
+      const { run } = hooksOfArticleItemStore.useStoreDeleteCompletedActionDispatch(
+        sliceName,
+        { callback }
+      );
+
+      run(response);
     },
-    [callback, dispatch, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
+    [
+      callback,
+      dispatch,
+      hooksOfArticleItemStore,
+      requestHandler,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
+      sliceName
+    ]
   );
 
   useEffect(

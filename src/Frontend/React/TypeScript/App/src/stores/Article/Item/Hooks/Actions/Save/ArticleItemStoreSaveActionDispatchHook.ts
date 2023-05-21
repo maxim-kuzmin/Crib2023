@@ -82,7 +82,7 @@ export function useStoreSaveActionDispatch (
     dispatchType,
     isCanceled,
     payloadOfSaveAction
-  }: ArticleItemStoreSaveActionOptions
+  }: ArticleItemStoreSaveActionOptions = {}
 ): ArticleItemStoreSaveActionDispatch {
   const { hooks } = useAppInstance();
 

@@ -35,7 +35,7 @@ export interface ArticleItemStoreHooks {
 
   readonly useStoreClearActionDispatch: (
     sliceName: ArticleItemStoreSliceName,
-    options: ArticleItemStoreClearActionOptions
+    options?: ArticleItemStoreClearActionOptions
   ) => ArticleItemStoreClearActionDispatch;
 
   readonly useStoreClearActionOutput: (
@@ -45,7 +45,7 @@ export interface ArticleItemStoreHooks {
 
   readonly useStoreDeleteActionDispatch: (
     sliceName: ArticleItemStoreSliceName,
-    options: ArticleItemStoreDeleteActionOptions
+    options?: ArticleItemStoreDeleteActionOptions
   ) => ArticleItemStoreDeleteActionDispatch;
 
   readonly useStoreDeleteActionOutput: (
@@ -55,12 +55,12 @@ export interface ArticleItemStoreHooks {
 
   readonly useStoreDeleteCompletedActionDispatch: (
     sliceName: ArticleItemStoreSliceName,
-    options: ArticleItemStoreDeleteCompletedActionOptions
+    options?: ArticleItemStoreDeleteCompletedActionOptions
   ) => ArticleItemStoreDeleteCompletedActionDispatch;
 
   readonly useStoreLoadActionDispatch: (
     sliceName: ArticleItemStoreSliceName,
-    options: ArticleItemStoreLoadActionOptions
+    options?: ArticleItemStoreLoadActionOptions
   ) => ArticleItemStoreLoadActionDispatch;
 
   readonly useStoreLoadActionOutput: (
@@ -70,12 +70,12 @@ export interface ArticleItemStoreHooks {
 
   readonly useStoreLoadCompletedActionDispatch: (
     sliceName: ArticleItemStoreSliceName,
-    options: ArticleItemStoreLoadCompletedActionOptions
+    options?: ArticleItemStoreLoadCompletedActionOptions
   ) => ArticleItemStoreLoadCompletedActionDispatch;
 
   readonly useStoreSaveActionDispatch: (
     sliceName: ArticleItemStoreSliceName,
-    options: ArticleItemStoreSaveActionOptions
+    options?: ArticleItemStoreSaveActionOptions
   ) => ArticleItemStoreSaveActionDispatch;
 
   readonly useStoreSaveActionOutput: (
@@ -85,12 +85,12 @@ export interface ArticleItemStoreHooks {
 
   readonly useStoreSaveCompletedActionDispatch: (
     sliceName: ArticleItemStoreSliceName,
-    options: ArticleItemStoreSaveCompletedActionOptions
+    options?: ArticleItemStoreSaveCompletedActionOptions
   ) => ArticleItemStoreSaveCompletedActionDispatch;
 
   readonly useStoreSetActionDispatch: (
     sliceName: ArticleItemStoreSliceName,
-    options: ArticleItemStoreSetActionOptions
+    options?: ArticleItemStoreSetActionOptions
   ) => ArticleItemStoreSetActionDispatch;
 
   readonly useStoreSetActionOutput: (

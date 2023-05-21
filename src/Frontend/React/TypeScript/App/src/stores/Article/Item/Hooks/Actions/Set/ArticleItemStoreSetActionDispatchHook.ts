@@ -41,7 +41,7 @@ export function useStoreSetActionDispatch (
     callback,
     dispatchType,
     payloadOfSetAction
-  }: ArticleItemStoreSetActionOptions
+  }: ArticleItemStoreSetActionOptions = {}
 ): ArticleItemStoreSetActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
 
