@@ -8,7 +8,7 @@ import { type ArticleDomainItemGetOperationResponse } from './ArticleDomainItemG
 export interface ArticleDomainItemGetOperationRequestHandler {
   handle: (
     request: ArticleDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ArticleDomainItemGetOperationResponse | null>;
 }
 
@@ -28,7 +28,7 @@ class Implementation implements ArticleDomainItemGetOperationRequestHandler {
 
   async handle (
     request: ArticleDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ArticleDomainItemGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       ArticleDomainItemGetOperationInput,
@@ -43,12 +43,12 @@ class Implementation implements ArticleDomainItemGetOperationRequestHandler {
         const isInputValid = Number(id ?? 0) > 0 || (title && Number(topicId ?? 0) > 0);
 
         if (isInputValid) {
-          return await this.repository.getItem(request, abortController);
+          return await this.repository.getItem(request, abortSignal);
         }
 
         return null;
       },
-      abortController
+      abortSignal
     );
   }
 }

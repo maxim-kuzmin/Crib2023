@@ -6,7 +6,7 @@ import { type ArticleDomainItemSaveOperationRequest } from './ArticleDomainItemS
 export interface ArticleDomainItemSaveOperationRequestHandler {
   handle: (
     request: ArticleDomainItemSaveOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ArticleDomainItemGetOperationResponse | null>;
 }
 
@@ -26,7 +26,7 @@ class Implementation implements ArticleDomainItemSaveOperationRequestHandler {
 
   async handle (
     request: ArticleDomainItemSaveOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ArticleDomainItemGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       ArticleTypeEntity,
@@ -41,12 +41,12 @@ class Implementation implements ArticleDomainItemSaveOperationRequestHandler {
         const isInputValid = title && Number(topicId ?? 0) > 0;
 
         if (isInputValid) {
-          return await this.repository.saveItem(request, abortController);
+          return await this.repository.saveItem(request, abortSignal);
         }
 
         return null;
       },
-      abortController
+      abortSignal
     );
   }
 }

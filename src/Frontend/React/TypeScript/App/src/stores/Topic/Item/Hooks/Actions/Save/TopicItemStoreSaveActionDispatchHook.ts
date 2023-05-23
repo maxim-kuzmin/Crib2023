@@ -38,7 +38,9 @@ export function useStoreSaveActionDispatch (
       payload: TopicItemStoreSaveActionPayload,
       abortController?: AbortController
     ) => {
-      if (abortController?.signal.aborted) {
+      const abortSignal = abortController?.signal;
+
+      if (abortSignal?.aborted) {
         return;
       }
 
@@ -53,11 +55,11 @@ export function useStoreSaveActionDispatch (
                 resourceOfApiResponse
               }
             ),
-            abortController
+            abortSignal
           )
         : null;
 
-        if (abortController?.signal.aborted) {
+        if (abortSignal?.aborted) {
         return;
       }
 
@@ -68,15 +70,17 @@ export function useStoreSaveActionDispatch (
 
   useEffect(
     () => {
+      const abortControllerInner = abortController ?? new AbortController();
+
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSaveAction) {
-        run(payloadOfSaveAction, abortController);
+        run(payloadOfSaveAction, abortControllerInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfSaveAction) {
-          run(payloadOfSaveAction, abortController);
+          run(payloadOfSaveAction, abortControllerInner);
         } else {
-          abortController?.abort();
+          abortControllerInner.abort();
         }
       };
     },

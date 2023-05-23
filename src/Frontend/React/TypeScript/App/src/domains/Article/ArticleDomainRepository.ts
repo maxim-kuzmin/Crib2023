@@ -15,22 +15,22 @@ import {
 export interface ArticleDomainRepository {
   deleteItem: (
     request: ArticleDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ApiOperationResponse>;
 
   getItem: (
     request: ArticleDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ArticleDomainItemGetOperationResponse>;
 
   getList: (
     request: ArticleDomainListGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ArticleDomainListGetOperationResponse>;
 
   saveItem: (
     request: ArticleDomainItemSaveOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ArticleDomainItemGetOperationResponse>;
 }
 
@@ -49,7 +49,7 @@ class Implementation implements ArticleDomainRepository {
 
   async deleteItem (
     request: ArticleDomainItemDeleteOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ApiOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
@@ -57,7 +57,7 @@ class Implementation implements ArticleDomainRepository {
 
     try {
       return await this.clientOfApi.delete({
-        abortController,
+        abortSignal,
         endpoint,
         operationName,
         operationCode,
@@ -76,7 +76,7 @@ class Implementation implements ArticleDomainRepository {
 
   async getItem (
     request: ArticleDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ArticleDomainItemGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
@@ -84,7 +84,7 @@ class Implementation implements ArticleDomainRepository {
 
     try {
       const response = await this.clientOfApi.get<ArticleDomainItemGetOperationOutput>({
-        abortController,
+        abortSignal,
         endpoint,
         operationName,
         operationCode,
@@ -105,7 +105,7 @@ class Implementation implements ArticleDomainRepository {
 
   async getList (
     request: ArticleDomainListGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ArticleDomainListGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
@@ -113,7 +113,7 @@ class Implementation implements ArticleDomainRepository {
 
     try {
       const response = await this.clientOfApi.get<ArticleDomainListGetOperationOutput>({
-        abortController,
+        abortSignal,
         endpoint,
         operationName,
         operationCode,
@@ -135,7 +135,7 @@ class Implementation implements ArticleDomainRepository {
 
   async saveItem (
     request: ArticleDomainItemSaveOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ArticleDomainItemGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input: body } = request;
 
@@ -144,7 +144,7 @@ class Implementation implements ArticleDomainRepository {
     const endpoint = id > 0 ? `${controller}Item-${id}` : `${controller}Item`;
 
     const options: ApiRequestOptionsWithBody = {
-      abortController,
+      abortSignal,
       body,
       endpoint,
       operationName,

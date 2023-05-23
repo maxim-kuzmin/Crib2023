@@ -6,7 +6,7 @@ import { type TopicDomainItemSaveOperationRequest } from './TopicDomainItemSaveO
 export interface TopicDomainItemSaveOperationRequestHandler {
   handle: (
     request: TopicDomainItemSaveOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<TopicDomainItemGetOperationResponse | null>;
 }
 
@@ -26,7 +26,7 @@ class Implementation implements TopicDomainItemSaveOperationRequestHandler {
 
   async handle (
     request: TopicDomainItemSaveOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<TopicDomainItemGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       TopicTypeEntity,
@@ -41,12 +41,12 @@ class Implementation implements TopicDomainItemSaveOperationRequestHandler {
         const isInputValid = !!name;
 
         if (isInputValid) {
-          return await this.repository.saveItem(request, abortController);
+          return await this.repository.saveItem(request, abortSignal);
         }
 
         return null;
       },
-      abortController
+      abortSignal
     );
   }
 }

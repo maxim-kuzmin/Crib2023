@@ -8,7 +8,7 @@ import { type ArticleDomainListGetOperationResponse } from './ArticleDomainListG
 export interface ArticleDomainListGetOperationRequestHandler {
   handle: (
     request: ArticleDomainListGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ArticleDomainListGetOperationResponse | null>;
 }
 
@@ -28,7 +28,7 @@ class Implementation implements ArticleDomainListGetOperationRequestHandler {
 
   async handle (
     request: ArticleDomainListGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ArticleDomainListGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       ArticleDomainListGetOperationInput,
@@ -37,8 +37,8 @@ class Implementation implements ArticleDomainListGetOperationRequestHandler {
       ArticleDomainListGetOperationResponse
     >(
       request,
-      async () => await this.repository.getList(request, abortController),
-      abortController
+      async () => await this.repository.getList(request, abortSignal),
+      abortSignal
     );
   }
 }

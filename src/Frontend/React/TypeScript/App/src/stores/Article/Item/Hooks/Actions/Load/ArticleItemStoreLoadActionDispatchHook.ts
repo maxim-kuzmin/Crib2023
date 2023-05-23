@@ -38,7 +38,9 @@ export function useStoreLoadActionDispatch (
       payload: ArticleItemStoreLoadActionPayload,
       abortController?: AbortController
     ) => {
-      if (abortController?.signal.aborted) {
+      const abortSignal = abortController?.signal;
+
+      if (abortSignal?.aborted) {
         return;
       }
 
@@ -53,11 +55,11 @@ export function useStoreLoadActionDispatch (
                 resourceOfApiResponse
               }
             ),
-            abortController
+            abortSignal
           )
         : null;
 
-      if (abortController?.signal.aborted) {
+      if (abortSignal?.aborted) {
         return;
       }
 
@@ -68,15 +70,17 @@ export function useStoreLoadActionDispatch (
 
   useEffect(
     () => {
+      const abortControllerInner = abortController ?? new AbortController();
+
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadAction) {
-        run(payloadOfLoadAction, abortController);
+        run(payloadOfLoadAction, abortControllerInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadAction) {
-          run(payloadOfLoadAction, abortController);
+          run(payloadOfLoadAction, abortControllerInner);
         } else {
-          abortController?.abort();
+          abortControllerInner.abort();
         }
       };
     },

@@ -6,7 +6,7 @@ import { type ArticleDomainItemDeleteOperationRequest } from './ArticleDomainIte
 export interface ArticleDomainItemDeleteOperationRequestHandler {
   handle: (
     request: ArticleDomainItemDeleteOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ApiOperationResponse | null>;
 }
 
@@ -26,7 +26,7 @@ class Implementation implements ArticleDomainItemDeleteOperationRequestHandler {
 
   async handle (
     request: ArticleDomainItemDeleteOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ApiOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInput<
       ArticleDomainItemGetOperationInput,
@@ -40,12 +40,12 @@ class Implementation implements ArticleDomainItemDeleteOperationRequestHandler {
         const isInputValid = Number(id ?? 0) > 0 || (title && Number(topicId ?? 0) > 0);
 
         if (isInputValid) {
-          return await this.repository.deleteItem(request, abortController);
+          return await this.repository.deleteItem(request, abortSignal);
         }
 
         return null;
       },
-      abortController
+      abortSignal
     );
   }
 }

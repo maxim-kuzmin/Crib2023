@@ -19,27 +19,27 @@ import {
 export interface TopicDomainRepository {
   deleteItem: (
     request: TopicDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<ApiOperationResponse>;
 
   getItem: (
     request: TopicDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<TopicDomainItemGetOperationResponse>;
 
   getList: (
     request: TopicDomainListGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<TopicDomainListGetOperationResponse>;
 
   getTree: (
     request: TopicDomainTreeGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<TopicDomainTreeGetOperationResponse>;
 
   saveItem: (
     request: TopicDomainItemSaveOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<TopicDomainItemGetOperationResponse>;
 }
 
@@ -58,7 +58,7 @@ class Implementation implements TopicDomainRepository {
 
   async deleteItem (
     request: TopicDomainItemDeleteOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<ApiOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
@@ -66,7 +66,7 @@ class Implementation implements TopicDomainRepository {
 
     try {
       return await this.clientOfApi.delete({
-        abortController,
+        abortSignal,
         endpoint,
         operationName,
         operationCode,
@@ -85,7 +85,7 @@ class Implementation implements TopicDomainRepository {
 
   async getItem (
     request: TopicDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<TopicDomainItemGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input } = request;
 
@@ -93,7 +93,7 @@ class Implementation implements TopicDomainRepository {
 
     try {
       const response = await this.clientOfApi.get<TopicDomainItemGetOperationOutput>({
-        abortController,
+        abortSignal,
         endpoint,
         operationName,
         operationCode,
@@ -114,7 +114,7 @@ class Implementation implements TopicDomainRepository {
 
   async getList (
     request: TopicDomainListGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<TopicDomainListGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
@@ -122,7 +122,7 @@ class Implementation implements TopicDomainRepository {
 
     try {
       const response = await this.clientOfApi.get<TopicDomainListGetOperationOutput>({
-        abortController,
+        abortSignal,
         endpoint,
         operationName,
         operationCode,
@@ -144,7 +144,7 @@ class Implementation implements TopicDomainRepository {
 
   async getTree (
     request: TopicDomainTreeGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<TopicDomainTreeGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input: query } = request;
 
@@ -152,7 +152,7 @@ class Implementation implements TopicDomainRepository {
 
     try {
       const response = await this.clientOfApi.get<TopicDomainTreeGetOperationOutput>({
-        abortController,
+        abortSignal,
         endpoint,
         operationName,
         operationCode,
@@ -174,7 +174,7 @@ class Implementation implements TopicDomainRepository {
 
   async saveItem (
     request: TopicDomainItemSaveOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<TopicDomainItemGetOperationResponse> {
     const { operationCode, operationName, resourceOfApiResponse, input: body } = request;
 
@@ -183,7 +183,7 @@ class Implementation implements TopicDomainRepository {
     const endpoint = id > 0 ? `${controller}Item-${id}` : `${controller}Item`;
 
     const options: ApiRequestOptionsWithBody = {
-      abortController,
+      abortSignal,
       body,
       endpoint,
       operationName,

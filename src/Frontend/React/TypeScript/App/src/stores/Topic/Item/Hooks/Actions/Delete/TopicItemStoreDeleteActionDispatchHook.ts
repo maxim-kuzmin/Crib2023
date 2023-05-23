@@ -38,7 +38,9 @@ export function useStoreDeleteActionDispatch (
       payload: TopicItemStoreDeleteActionPayload,
       abortController?: AbortController
     ) => {
-      if (abortController?.signal.aborted) {
+      const abortSignal = abortController?.signal;
+
+      if (abortSignal?.aborted) {
         return;
       }
 
@@ -53,11 +55,11 @@ export function useStoreDeleteActionDispatch (
                 resourceOfApiResponse
               }
             ),
-            abortController
+            abortSignal
           )
         : null;
 
-        if (abortController?.signal.aborted) {
+        if (abortSignal?.aborted) {
         return;
       }
 
@@ -68,15 +70,17 @@ export function useStoreDeleteActionDispatch (
 
   useEffect(
     () => {
+      const abortControllerInner = abortController ?? new AbortController();
+
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfDeleteAction) {
-        run(payloadOfDeleteAction, abortController);
+        run(payloadOfDeleteAction, abortControllerInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfDeleteAction) {
-          run(payloadOfDeleteAction, abortController);
+          run(payloadOfDeleteAction, abortControllerInner);
         } else {
-          abortController?.abort();
+          abortControllerInner.abort();
         }
       };
     },

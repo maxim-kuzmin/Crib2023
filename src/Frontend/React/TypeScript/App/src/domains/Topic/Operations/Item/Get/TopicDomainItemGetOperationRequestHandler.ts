@@ -8,7 +8,7 @@ import { type TopicDomainItemGetOperationResponse } from './TopicDomainItemGetOp
 export interface TopicDomainItemGetOperationRequestHandler {
   handle: (
     request: TopicDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ) => Promise<TopicDomainItemGetOperationResponse | null>;
 }
 
@@ -28,7 +28,7 @@ class Implementation implements TopicDomainItemGetOperationRequestHandler {
 
   async handle (
     request: TopicDomainItemGetOperationRequest,
-    abortController?: AbortController
+    abortSignal?: AbortSignal
   ): Promise<TopicDomainItemGetOperationResponse | null> {
     return await this.handlerOfApiRequest.handleWithInputAndOutput<
       TopicDomainItemGetOperationInput,
@@ -43,12 +43,12 @@ class Implementation implements TopicDomainItemGetOperationRequestHandler {
         const isInputValid = Number(id ?? 0) > 0 || (name && Number(parentId ?? 0) > 0);
 
         if (isInputValid) {
-          return await this.repository.getItem(request, abortController);
+          return await this.repository.getItem(request, abortSignal);
         }
 
         return null;
       },
-      abortController
+      abortSignal
     );
   }
 }
