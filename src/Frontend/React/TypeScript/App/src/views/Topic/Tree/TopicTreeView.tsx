@@ -88,7 +88,7 @@ function TopicTreeView ({
     [topicId]
   );
 
-  const abortControllerOfLoadCompletedAction = useMemo(
+  const abortControllerOfLoadAction = useMemo(
     () => {
       const result = new AbortController();
 
@@ -106,7 +106,7 @@ function TopicTreeView ({
     pendingOfLoadAction
   } = hooks.Views.Topic.Tree.useStoreLoadActionOutput({
     payloadOfLoadAction,
-    abortController: abortControllerOfLoadCompletedAction
+    abortController: abortControllerOfLoadAction
   });
 
   const entities = payloadOfLoadCompletedAction?.data?.nodes;
