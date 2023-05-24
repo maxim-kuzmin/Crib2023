@@ -34,12 +34,9 @@ export function useStoreLoadActionDispatch (
   );
 
   const run = useCallback(
-    async (
-      payload: TopicTreeStoreLoadActionPayload,
-      abortController?: AbortController
-    ) => {
-      const abortSignal = abortController?.signal;
-
+    async (payload: TopicTreeStoreLoadActionPayload, abortSignal?: AbortSignal) => {
+      console.log('payload', payload);
+      console.log('aborted', abortSignal?.aborted);
       if (abortSignal?.aborted) {
         return;
       }
@@ -73,12 +70,12 @@ export function useStoreLoadActionDispatch (
       const abortControllerInner = abortController ?? new AbortController();
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadAction) {
-        run(payloadOfLoadAction, abortControllerInner);
+        run(payloadOfLoadAction, abortControllerInner.signal);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadAction) {
-          run(payloadOfLoadAction, abortControllerInner);
+          run(payloadOfLoadAction, abortControllerInner.signal);
         } else {
           abortControllerInner.abort();
         }

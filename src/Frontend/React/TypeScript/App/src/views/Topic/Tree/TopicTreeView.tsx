@@ -86,7 +86,7 @@ function TopicTreeView ({
       return result;
     },
     [topicId]
-  )
+  );
 
   const abortControllerOfLoadCompletedAction = useMemo(
     () => {

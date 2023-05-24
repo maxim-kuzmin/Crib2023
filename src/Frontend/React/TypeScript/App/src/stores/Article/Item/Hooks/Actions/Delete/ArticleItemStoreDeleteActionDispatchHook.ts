@@ -34,12 +34,7 @@ export function useStoreDeleteActionDispatch (
   );
 
   const run = useCallback(
-    async (
-      payload: ArticleItemStoreDeleteActionPayload,
-      abortController?: AbortController
-    ) => {
-      const abortSignal = abortController?.signal;
-
+    async (payload: ArticleItemStoreDeleteActionPayload, abortSignal?: AbortSignal) => {
       if (abortSignal?.aborted) {
         return;
       }
@@ -73,12 +68,12 @@ export function useStoreDeleteActionDispatch (
       const abortControllerInner = abortController ?? new AbortController();
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfDeleteAction) {
-        run(payloadOfDeleteAction, abortControllerInner);
+        run(payloadOfDeleteAction, abortControllerInner.signal);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount && payloadOfDeleteAction) {
-          run(payloadOfDeleteAction, abortControllerInner);
+          run(payloadOfDeleteAction, abortControllerInner.signal);
         } else {
           abortControllerInner.abort();
         }

@@ -1,8 +1,5 @@
 import { type ArticleItemStoreSaveActionPayload } from './ArticleItemStoreSaveActionPayload';
 
 export interface ArticleItemStoreSaveActionDispatch {
-  readonly run: (
-    payload: ArticleItemStoreSaveActionPayload,
-    abortController?: AbortController
-  ) => Promise<void>;
+  readonly run: (payload: ArticleItemStoreSaveActionPayload, abortSignal?: AbortSignal) => Promise<void>;
 }
