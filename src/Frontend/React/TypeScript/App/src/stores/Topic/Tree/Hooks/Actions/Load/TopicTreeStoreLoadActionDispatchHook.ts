@@ -35,8 +35,6 @@ export function useStoreLoadActionDispatch (
 
   const run = useCallback(
     async (payload: TopicTreeStoreLoadActionPayload, abortSignal?: AbortSignal) => {
-      console.log('payload', payload);
-      console.log('aborted', abortSignal?.aborted);
       if (abortSignal?.aborted) {
         return;
       }
@@ -67,7 +65,11 @@ export function useStoreLoadActionDispatch (
 
   useEffect(
     () => {
-      const abortControllerInner = abortController ?? new AbortController();
+      if (abortController?.signal.aborted) {
+        return;
+      }
+
+      const abortControllerInner = new AbortController();
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadAction) {
         run(payloadOfLoadAction, abortControllerInner.signal);

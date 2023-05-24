@@ -65,7 +65,11 @@ export function useStoreLoadActionDispatch (
 
   useEffect(
     () => {
-      const abortControllerInner = abortController ?? new AbortController();
+      if (abortController?.signal.aborted) {
+        return;
+      }
+
+      const abortControllerInner = new AbortController();
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadAction) {
         run(payloadOfLoadAction, abortControllerInner.signal);

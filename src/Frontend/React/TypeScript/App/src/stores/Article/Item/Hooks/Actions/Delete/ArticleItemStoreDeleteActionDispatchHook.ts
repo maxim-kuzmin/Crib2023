@@ -65,7 +65,11 @@ export function useStoreDeleteActionDispatch (
 
   useEffect(
     () => {
-      const abortControllerInner = abortController ?? new AbortController();
+      if (abortController?.signal.aborted) {
+        return;
+      }
+
+      const abortControllerInner = new AbortController();
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfDeleteAction) {
         run(payloadOfDeleteAction, abortControllerInner.signal);

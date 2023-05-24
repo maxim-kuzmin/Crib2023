@@ -65,7 +65,11 @@ export function useStoreSaveActionDispatch (
 
   useEffect(
     () => {
-      const abortControllerInner = abortController ?? new AbortController();
+      if (abortController?.signal.aborted) {
+        return;
+      }
+
+      const abortControllerInner = new AbortController();
 
       if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSaveAction) {
         run(payloadOfSaveAction, abortControllerInner.signal);
