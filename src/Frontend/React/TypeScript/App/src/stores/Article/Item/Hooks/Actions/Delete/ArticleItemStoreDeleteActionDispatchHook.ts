@@ -6,7 +6,9 @@ import {
   type ArticleItemStoreDeleteActionDispatch,
   type ArticleItemStoreDeleteActionOptions,
   type ArticleItemStoreDeleteActionPayload,
+  type ArticleItemStoreDeleteActionResult,
   type ArticleItemStoreSliceName,
+  createArticleItemStoreDeleteActionPayload,
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
@@ -17,7 +19,7 @@ export function useStoreDeleteActionDispatch (
     callback,
     dispatchType,
     abortController,
-    payloadOfDeleteAction
+    resultOfDeleteAction
   }: ArticleItemStoreDeleteActionOptions = {}
 ): ArticleItemStoreDeleteActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
@@ -28,23 +30,41 @@ export function useStoreDeleteActionDispatch (
   const resourceOfArticleItemStore = hooks.Features.Article.Item.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Article.useItemDeleteOperationRequestHandler()).current;
 
+  const payloadOfDeleteAction = useMemo(
+    () => createArticleItemStoreDeleteActionPayload({
+      actionResult: resultOfDeleteAction,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
+      requestHandler
+    }),
+    [resultOfDeleteAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore]
+  );
+
   const { run: complete } = hooks.Features.Article.Item.Store.useStoreDeleteCompletedActionDispatch(
     sliceName,
     { callback }
   );
 
   const run = useCallback(
-    async (payload: ArticleItemStoreDeleteActionPayload, abortSignal?: AbortSignal) => {
+    async (payload: ArticleItemStoreDeleteActionPayload) => {
+      const {
+        abortSignal,
+        actionResult,
+        requestHandler,
+        resourceOfApiResponse,
+        resourceOfArticleItemStore
+      } = payload;
+
       if (abortSignal?.aborted) {
         return;
       }
 
       dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Delete });
 
-      const response = payload
+      const response = actionResult
         ? await requestHandler.handle(
             createArticleDomainItemDeleteOperationRequest(
-              payload,
+              actionResult,
               {
                 operationName: resourceOfArticleItemStore.getOperationNameForDelete(),
                 resourceOfApiResponse
@@ -60,7 +80,7 @@ export function useStoreDeleteActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
+    [complete, dispatch, sliceName]
   );
 
   useEffect(
@@ -71,13 +91,18 @@ export function useStoreDeleteActionDispatch (
 
       const abortControllerInner = new AbortController();
 
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfDeleteAction) {
-        run(payloadOfDeleteAction, abortControllerInner.signal);
+      const payloadOfDeleteActionInner = createArticleItemStoreDeleteActionPayload({
+        ...payloadOfDeleteAction,
+        abortSignal: abortControllerInner.signal,
+      });
+
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
+        run(payloadOfDeleteActionInner);
       }
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfDeleteAction) {
-          run(payloadOfDeleteAction, abortControllerInner.signal);
+        if (dispatchType === StoreDispatchType.Unmount) {
+          run(payloadOfDeleteActionInner);
         } else {
           abortControllerInner.abort();
         }
@@ -86,5 +111,18 @@ export function useStoreDeleteActionDispatch (
     [abortController, dispatchType, payloadOfDeleteAction, run]
   );
 
-  return useMemo<ArticleItemStoreDeleteActionDispatch>(() => ({ run }), [run]);
+  return useMemo<ArticleItemStoreDeleteActionDispatch>(
+    () => ({
+      run: async (actionResult: ArticleItemStoreDeleteActionResult, abortSignal?: AbortSignal) => {
+        const payloadOfDeleteActionInner = createArticleItemStoreDeleteActionPayload({
+          ...payloadOfDeleteAction,
+          abortSignal,
+          actionResult
+        });
+
+        await run(payloadOfDeleteActionInner);
+      }
+    }),
+    [payloadOfDeleteAction, run]
+  );
 }

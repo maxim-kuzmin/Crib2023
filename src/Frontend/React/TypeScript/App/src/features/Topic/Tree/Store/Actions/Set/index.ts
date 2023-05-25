@@ -3,4 +3,8 @@ export { type TopicTreeStoreSetActionDispatch } from './TopicTreeStoreSetActionD
 export { type TopicTreeStoreSetActionInput } from './TopicTreeStoreSetActionInput';
 export { type TopicTreeStoreSetActionOptions } from './TopicTreeStoreSetActionOptions';
 export { type TopicTreeStoreSetActionOutput } from './TopicTreeStoreSetActionOutput';
-export { type TopicTreeStoreSetActionPayload } from './TopicTreeStoreSetActionPayload';
+export {
+  type TopicTreeStoreSetActionPayload,
+  createTopicTreeStoreSetActionPayload
+} from './TopicTreeStoreSetActionPayload';
+export { type TopicTreeStoreSetActionResult } from './TopicTreeStoreSetActionResult';

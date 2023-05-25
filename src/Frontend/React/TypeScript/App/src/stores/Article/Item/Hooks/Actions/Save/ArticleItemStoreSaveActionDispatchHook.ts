@@ -7,6 +7,8 @@ import {
   type ArticleItemStoreSaveActionOptions,
   type ArticleItemStoreSaveActionPayload,
   type ArticleItemStoreSliceName,
+  type ArticleItemStoreSaveActionResult,
+  createArticleItemStoreSaveActionPayload,
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
@@ -17,7 +19,7 @@ export function useStoreSaveActionDispatch (
     callback,
     dispatchType,
     abortController,
-    payloadOfSaveAction
+    resultOfSaveAction
   }: ArticleItemStoreSaveActionOptions = {}
 ): ArticleItemStoreSaveActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
@@ -28,23 +30,41 @@ export function useStoreSaveActionDispatch (
   const resourceOfArticleItemStore = hooks.Features.Article.Item.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Article.useItemSaveOperationRequestHandler()).current;
 
+  const payloadOfSaveAction = useMemo(
+    () => createArticleItemStoreSaveActionPayload({
+      actionResult: resultOfSaveAction,
+      resourceOfApiResponse,
+      resourceOfArticleItemStore,
+      requestHandler
+    }),
+    [resultOfSaveAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore]
+  );
+
   const { run: complete } = hooks.Features.Article.Item.Store.useStoreSaveCompletedActionDispatch(
     sliceName,
     { callback }
   );
 
   const run = useCallback(
-    async (payload: ArticleItemStoreSaveActionPayload, abortSignal?: AbortSignal) => {
+    async (payload: ArticleItemStoreSaveActionPayload) => {
+      const {
+        abortSignal,
+        actionResult,
+        requestHandler,
+        resourceOfApiResponse,
+        resourceOfArticleItemStore
+      } = payload;
+
       if (abortSignal?.aborted) {
         return;
       }
 
       dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Save });
 
-      const response = payload
+      const response = actionResult
         ? await requestHandler.handle(
             createArticleDomainItemSaveOperationRequest(
-              payload,
+              actionResult,
               {
                 operationName: resourceOfArticleItemStore.getOperationNameForGet(),
                 resourceOfApiResponse
@@ -54,13 +74,13 @@ export function useStoreSaveActionDispatch (
           )
         : null;
 
-        if (abortSignal?.aborted) {
+      if (abortSignal?.aborted) {
         return;
       }
 
       complete(response);
     },
-    [complete, dispatch, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
+    [complete, dispatch, sliceName]
   );
 
   useEffect(
@@ -71,13 +91,18 @@ export function useStoreSaveActionDispatch (
 
       const abortControllerInner = new AbortController();
 
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSaveAction) {
-        run(payloadOfSaveAction, abortControllerInner.signal);
+      const payloadOfSaveActionInner = createArticleItemStoreSaveActionPayload({
+        ...payloadOfSaveAction,
+        abortSignal: abortControllerInner.signal,
+      });
+
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
+        run(payloadOfSaveActionInner);
       }
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfSaveAction) {
-          run(payloadOfSaveAction, abortControllerInner.signal);
+        if (dispatchType === StoreDispatchType.Unmount) {
+          run(payloadOfSaveActionInner);
         } else {
           abortControllerInner.abort();
         }
@@ -86,5 +111,18 @@ export function useStoreSaveActionDispatch (
     [abortController, dispatchType, payloadOfSaveAction, run]
   );
 
-  return useMemo<ArticleItemStoreSaveActionDispatch>(() => ({ run }), [run]);
+  return useMemo<ArticleItemStoreSaveActionDispatch>(
+    () => ({
+      run: async (actionResult: ArticleItemStoreSaveActionResult, abortSignal?: AbortSignal) => {
+        const payloadOfSaveActionInner = createArticleItemStoreSaveActionPayload({
+          ...payloadOfSaveAction,
+          abortSignal,
+          actionResult
+        });
+
+        await run(payloadOfSaveActionInner);
+      }
+    }),
+    [payloadOfSaveAction, run]
+  );
 }

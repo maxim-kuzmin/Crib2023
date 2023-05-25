@@ -5,6 +5,8 @@ import {
   type ArticleItemStoreSetActionDispatch,
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionPayload,
+  type ArticleItemStoreSetActionResult,
+  createArticleItemStoreSetActionPayload,
 } from '../../../../../../features';
 import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
@@ -14,17 +16,22 @@ export function useStoreSetActionDispatch (
   {
     callback,
     dispatchType,
-    payloadOfSetAction
+    resultOfSetAction
   }: ArticleItemStoreSetActionOptions = {}
 ): ArticleItemStoreSetActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
+
+  const payloadOfSetAction = useMemo(
+    () => createArticleItemStoreSetActionPayload({ actionResult: resultOfSetAction }),
+    [resultOfSetAction]
+  );
 
   const run = useCallback(
     (payload: ArticleItemStoreSetActionPayload) => {
       dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Set });
 
       if (callback) {
-        callback(payload);
+        callback(payload.actionResult);
       }
     },
     [callback, dispatch, sliceName]
@@ -32,12 +39,12 @@ export function useStoreSetActionDispatch (
 
   useEffect(
     () => {
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSetAction) {
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
         run(payloadOfSetAction);
       };
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfSetAction) {
+        if (dispatchType === StoreDispatchType.Unmount) {
           run(payloadOfSetAction);
         }
       };
@@ -45,5 +52,17 @@ export function useStoreSetActionDispatch (
     [dispatchType, payloadOfSetAction, run]
   );
 
-  return useMemo<ArticleItemStoreSetActionDispatch>(() => ({ run }), [run]);
+  return useMemo<ArticleItemStoreSetActionDispatch>(
+    () => ({
+      run: (actionResult: ArticleItemStoreSetActionResult) => {
+        const payloadOfSetActionInner = createArticleItemStoreSetActionPayload({
+          ...payloadOfSetAction,
+          actionResult
+        });
+
+        run(payloadOfSetActionInner);
+      }
+    }),
+    [payloadOfSetAction, run]
+  );
 }

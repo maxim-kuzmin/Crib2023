@@ -4,7 +4,7 @@ import {
   type ArticleItemStoreSliceName,
   type ArticleItemStoreSaveActionInput,
   type ArticleItemStoreSaveActionOutput,
-  type ArticleItemStoreSaveCompletedActionPayload,
+  type ArticleItemStoreSaveCompletedActionResult,
 } from '../../../../../../features';
 import { useStoreSaveActionDispatch } from './ArticleItemStoreSaveActionDispatchHook';
 import { useStoreState } from '../../ArticleItemStoreStateHook';
@@ -16,9 +16,9 @@ export function useStoreSaveActionOutput (
   const { onActionCompleted } = input;
 
   const callback = useCallback(
-    (payload: ArticleItemStoreSaveCompletedActionPayload) => {
+    (data: ArticleItemStoreSaveCompletedActionResult) => {
       if (onActionCompleted) {
-        onActionCompleted(payload);
+        onActionCompleted(data);
       }
     },
     [onActionCompleted]
@@ -26,11 +26,11 @@ export function useStoreSaveActionOutput (
 
   const dispatchOfSaveAction = useStoreSaveActionDispatch(sliceName, { callback });
 
-  const { payloadOfSaveCompletedAction, statusOfSaveAction } = useStoreState(sliceName);
+  const { resultOfSaveCompletedAction, statusOfSaveAction } = useStoreState(sliceName);
 
   return {
     dispatchOfSaveAction,
-    payloadOfSaveCompletedAction,
-    pendingOfSaveAction: statusOfSaveAction === OperationStatus.Pending
+    pendingOfSaveAction: statusOfSaveAction === OperationStatus.Pending,
+    resultOfSaveCompletedAction,
   };
 }

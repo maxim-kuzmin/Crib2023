@@ -1,3 +1,5 @@
-import { type TopicTreeStoreLoadCompletedActionPayload } from './TopicTreeStoreLoadCompletedActionPayload';
+import { type TopicTreeStoreLoadCompletedActionResult } from './TopicTreeStoreLoadCompletedActionResult';
 
-export type TopicTreeStoreLoadCompletedActionCallback = (payload: TopicTreeStoreLoadCompletedActionPayload) => void;
+export type TopicTreeStoreLoadCompletedActionCallback = (
+  actionResult: TopicTreeStoreLoadCompletedActionResult
+) => void;

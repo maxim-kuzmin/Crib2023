@@ -1,7 +1,7 @@
 import { type TopicItemStoreSetActionDispatch } from './TopicItemStoreSetActionDispatch';
-import { type TopicItemStoreSetActionPayload } from './TopicItemStoreSetActionPayload';
+import { type TopicItemStoreSetActionResult } from './TopicItemStoreSetActionResult';
 
 export interface TopicItemStoreSetActionOutput {
   readonly dispatchOfSetAction: TopicItemStoreSetActionDispatch;
-  readonly payloadOfSetAction: TopicItemStoreSetActionPayload;
+  readonly resultOfSetAction: TopicItemStoreSetActionResult;
 }

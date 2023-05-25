@@ -1,3 +1,5 @@
-import { type AppNotificationStoreSetActionPayload } from './AppNotificationStoreSetActionPayload';
+import { type AppNotificationStoreSetActionResult } from './AppNotificationStoreSetActionResult';
 
-export type AppNotificationStoreSetActionCallback = (payload: AppNotificationStoreSetActionPayload) => void;
+export type AppNotificationStoreSetActionCallback = (
+  actionResult: AppNotificationStoreSetActionResult
+) => void;

@@ -1,5 +1,5 @@
-import { type AppNotificationStoreSetActionPayload } from './AppNotificationStoreSetActionPayload';
+import { type AppNotificationStoreSetActionResult } from './AppNotificationStoreSetActionResult';
 
 export interface AppNotificationStoreSetActionDispatch {
-  readonly run: (payload: AppNotificationStoreSetActionPayload) => void;
+  readonly run: (actionResult: AppNotificationStoreSetActionResult) => void;
 }

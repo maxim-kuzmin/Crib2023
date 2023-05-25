@@ -1,3 +1,13 @@
-import { type ArticleDomainItemGetOperationResponse } from '../../../../../../domains';
+import { type ArticleItemStoreLoadCompletedActionResult } from './ArticleItemStoreLoadCompletedActionResult';
 
-export type ArticleItemStoreLoadCompletedActionPayload = ArticleDomainItemGetOperationResponse | null;
+export interface ArticleItemStoreLoadCompletedActionPayload {
+  actionResult: ArticleItemStoreLoadCompletedActionResult;
+}
+
+export function createArticleItemStoreLoadCompletedActionPayload (
+  options: Partial<ArticleItemStoreLoadCompletedActionPayload>
+): ArticleItemStoreLoadCompletedActionPayload {
+  return {
+    actionResult: options?.actionResult ?? null,
+  };
+}

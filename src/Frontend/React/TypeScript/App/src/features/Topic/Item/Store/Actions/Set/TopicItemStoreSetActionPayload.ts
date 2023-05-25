@@ -1,3 +1,13 @@
-import { type TopicDomainItemGetOperationResponse } from '../../../../../../domains';
+import { type TopicItemStoreSetActionResult } from './TopicItemStoreSetActionResult';
 
-export type TopicItemStoreSetActionPayload = TopicDomainItemGetOperationResponse | null;
+export interface TopicItemStoreSetActionPayload {
+  actionResult: TopicItemStoreSetActionResult;
+}
+
+export function createTopicItemStoreSetActionPayload (
+  options: Partial<TopicItemStoreSetActionPayload>
+): TopicItemStoreSetActionPayload {
+  return {
+    actionResult: options?.actionResult ?? null,
+  };
+}

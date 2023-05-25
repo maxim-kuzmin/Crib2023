@@ -1,14 +1,14 @@
 import { OperationStatus } from '../../../../common';
 import {
-  type TopicTreeStoreLoadActionPayload,
-  type TopicTreeStoreLoadCompletedActionPayload,
-  type TopicTreeStoreSetActionPayload
+  type TopicTreeStoreLoadActionResult,
+  type TopicTreeStoreLoadCompletedActionResult,
+  type TopicTreeStoreSetActionResult
 } from './Actions';
 
 export interface TopicTreeStoreState {
-  payloadOfLoadAction: TopicTreeStoreLoadActionPayload;
-  payloadOfLoadCompletedAction: TopicTreeStoreLoadCompletedActionPayload;
-  payloadOfSetAction: TopicTreeStoreSetActionPayload;
+  resultOfLoadAction: TopicTreeStoreLoadActionResult;
+  resultOfLoadCompletedAction: TopicTreeStoreLoadCompletedActionResult;
+  resultOfSetAction: TopicTreeStoreSetActionResult;
   statusOfLoadAction: OperationStatus;
 }
 
@@ -16,9 +16,9 @@ export function createTopicTreeStoreState (
   options?: Partial<TopicTreeStoreState>
 ): TopicTreeStoreState {
   return {
-    payloadOfLoadAction: options?.payloadOfLoadAction ?? null,
-    payloadOfLoadCompletedAction: options?.payloadOfLoadCompletedAction ?? null,
-    payloadOfSetAction: options?.payloadOfSetAction ?? null,
+    resultOfLoadAction: options?.resultOfLoadAction ?? null,
+    resultOfLoadCompletedAction: options?.resultOfLoadCompletedAction ?? null,
+    resultOfSetAction: options?.resultOfSetAction ?? null,
     statusOfLoadAction: options?.statusOfLoadAction ?? OperationStatus.Initial,
   };
 }

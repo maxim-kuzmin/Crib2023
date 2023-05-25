@@ -26,7 +26,7 @@ import {
   type TopicItemStoreSetActionOptions,
   type TopicItemStoreSetActionOutput
 } from './Actions';
-import { type TopicItemStoreSliceName } from './Slice/TopicItemStoreSliceName';
+import { type TopicItemStoreSliceName } from './Slice';
 import { type TopicItemStoreResource } from './TopicItemStoreResource';
 import { type TopicItemStoreState } from './TopicItemStoreState';
 

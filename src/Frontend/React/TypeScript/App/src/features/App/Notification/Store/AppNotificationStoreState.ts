@@ -1,13 +1,13 @@
-import { type AppNotificationStoreSetActionPayload } from './Actions';
+import { type AppNotificationStoreSetActionResult } from './Actions';
 
 export interface AppNotificationStoreState {
-  payloadOfSetAction: AppNotificationStoreSetActionPayload;
+  resultOfSetAction: AppNotificationStoreSetActionResult;
 }
 
 export function createAppNotificationStoreState (
   options?: Partial<AppNotificationStoreState>
 ): AppNotificationStoreState {
   return {
-    payloadOfSetAction: options?.payloadOfSetAction ?? null,
+    resultOfSetAction: options?.resultOfSetAction ?? null,
   };
 }

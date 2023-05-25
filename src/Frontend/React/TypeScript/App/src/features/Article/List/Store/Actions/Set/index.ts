@@ -3,4 +3,8 @@ export { type ArticleListStoreSetActionDispatch } from './ArticleListStoreSetAct
 export { type ArticleListStoreSetActionInput } from './ArticleListStoreSetActionInput';
 export { type ArticleListStoreSetActionOptions } from './ArticleListStoreSetActionOptions';
 export { type ArticleListStoreSetActionOutput } from './ArticleListStoreSetActionOutput';
-export { type ArticleListStoreSetActionPayload } from './ArticleListStoreSetActionPayload';
+export {
+  type ArticleListStoreSetActionPayload,
+  createArticleListStoreSetActionPayload
+} from './ArticleListStoreSetActionPayload';
+export { type ArticleListStoreSetActionResult } from './ArticleListStoreSetActionResult';

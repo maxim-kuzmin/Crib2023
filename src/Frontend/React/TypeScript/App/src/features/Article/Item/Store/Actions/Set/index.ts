@@ -3,4 +3,8 @@ export { type ArticleItemStoreSetActionDispatch } from './ArticleItemStoreSetAct
 export { type ArticleItemStoreSetActionInput } from './ArticleItemStoreSetActionInput';
 export { type ArticleItemStoreSetActionOptions } from './ArticleItemStoreSetActionOptions';
 export { type ArticleItemStoreSetActionOutput } from './ArticleItemStoreSetActionOutput';
-export { type ArticleItemStoreSetActionPayload } from './ArticleItemStoreSetActionPayload';
+export {
+  type ArticleItemStoreSetActionPayload,
+  createArticleItemStoreSetActionPayload
+} from './ArticleItemStoreSetActionPayload';
+export { type ArticleItemStoreSetActionResult } from './ArticleItemStoreSetActionResult';

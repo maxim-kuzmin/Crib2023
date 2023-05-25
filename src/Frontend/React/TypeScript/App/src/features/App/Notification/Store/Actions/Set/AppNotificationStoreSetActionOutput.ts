@@ -1,7 +1,7 @@
 import { type AppNotificationStoreSetActionDispatch } from './AppNotificationStoreSetActionDispatch';
-import { type AppNotificationStoreSetActionPayload } from './AppNotificationStoreSetActionPayload';
+import { type AppNotificationStoreSetActionResult } from './AppNotificationStoreSetActionResult';
 
 export interface AppNotificationStoreSetActionOutput {
   readonly dispatchOfSetAction: AppNotificationStoreSetActionDispatch;
-  readonly payloadOfSetAction: AppNotificationStoreSetActionPayload;
+  readonly resultOfSetAction: AppNotificationStoreSetActionResult;
 }

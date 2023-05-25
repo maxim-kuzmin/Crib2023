@@ -4,7 +4,7 @@ import {
   type TopicItemStoreSliceName,
   type TopicItemStoreDeleteActionInput,
   type TopicItemStoreDeleteActionOutput,
-  type TopicItemStoreDeleteCompletedActionPayload,
+  type TopicItemStoreDeleteCompletedActionResult,
 } from '../../../../../../features';
 import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreDeleteActionDispatch } from './TopicItemStoreDeleteActionDispatchHook';
@@ -16,9 +16,9 @@ export function useStoreDeleteActionOutput (
   const { onActionCompleted } = input;
 
   const callback = useCallback(
-    (payload: TopicItemStoreDeleteCompletedActionPayload) => {
+    (data: TopicItemStoreDeleteCompletedActionResult) => {
       if (onActionCompleted) {
-        onActionCompleted(payload);
+        onActionCompleted(data);
       }
     },
     [onActionCompleted]
@@ -26,11 +26,11 @@ export function useStoreDeleteActionOutput (
 
   const dispatchOfDeleteAction = useStoreDeleteActionDispatch(sliceName, { callback });
 
-  const { payloadOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(sliceName);
+  const { resultOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(sliceName);
 
   return {
     dispatchOfDeleteAction,
-    payloadOfDeleteCompletedAction,
-    pendingOfDeleteAction: statusOfDeleteAction === OperationStatus.Pending
+    pendingOfDeleteAction: statusOfDeleteAction === OperationStatus.Pending,
+    resultOfDeleteCompletedAction,
   };
 }

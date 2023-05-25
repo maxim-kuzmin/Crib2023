@@ -1,8 +1,8 @@
 import { type ArticleListStoreLoadCompletedActionCallback } from '../LoadCompleted';
-import { type ArticleListStoreLoadActionPayload } from './ArticleListStoreLoadActionPayload';
+import { type ArticleListStoreLoadActionResult } from './ArticleListStoreLoadActionResult';
 
 export interface ArticleListStoreLoadActionInput {
   readonly abortController?: AbortController;
   readonly onActionCompleted?: ArticleListStoreLoadCompletedActionCallback;
-  readonly payloadOfLoadAction: ArticleListStoreLoadActionPayload;
+  readonly resultOfLoadAction: ArticleListStoreLoadActionResult;
 }

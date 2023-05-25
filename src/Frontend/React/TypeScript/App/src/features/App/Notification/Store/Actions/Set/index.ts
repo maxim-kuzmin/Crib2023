@@ -3,4 +3,8 @@ export { type AppNotificationStoreSetActionDispatch } from './AppNotificationSto
 export { type AppNotificationStoreSetActionInput } from './AppNotificationStoreSetActionInput';
 export { type AppNotificationStoreSetActionOptions } from './AppNotificationStoreSetActionOptions';
 export { type AppNotificationStoreSetActionOutput } from './AppNotificationStoreSetActionOutput';
-export { type AppNotificationStoreSetActionPayload } from './AppNotificationStoreSetActionPayload';
+export {
+  type AppNotificationStoreSetActionPayload,
+  createAppNotificationStoreSetActionPayload
+} from './AppNotificationStoreSetActionPayload';
+export { type AppNotificationStoreSetActionResult } from './AppNotificationStoreSetActionResult';

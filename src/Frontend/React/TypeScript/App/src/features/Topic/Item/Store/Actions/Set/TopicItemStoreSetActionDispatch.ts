@@ -1,5 +1,5 @@
-import { type TopicItemStoreSetActionPayload } from './TopicItemStoreSetActionPayload';
+import { type TopicItemStoreSetActionResult } from './TopicItemStoreSetActionResult';
 
 export interface TopicItemStoreSetActionDispatch {
-  readonly run: (payload: TopicItemStoreSetActionPayload) => void;
+  readonly run: (actionResult: TopicItemStoreSetActionResult) => void;
 }

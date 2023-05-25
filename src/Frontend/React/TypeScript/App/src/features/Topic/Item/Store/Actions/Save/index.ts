@@ -2,4 +2,8 @@ export { type TopicItemStoreSaveActionDispatch } from './TopicItemStoreSaveActio
 export { type TopicItemStoreSaveActionInput } from './TopicItemStoreSaveActionInput';
 export { type TopicItemStoreSaveActionOptions } from './TopicItemStoreSaveActionOptions';
 export { type TopicItemStoreSaveActionOutput } from './TopicItemStoreSaveActionOutput'
-export { type TopicItemStoreSaveActionPayload } from './TopicItemStoreSaveActionPayload';
+export {
+  type TopicItemStoreSaveActionPayload,
+  createTopicItemStoreSaveActionPayload
+} from './TopicItemStoreSaveActionPayload';
+export { type TopicItemStoreSaveActionResult } from './TopicItemStoreSaveActionResult';

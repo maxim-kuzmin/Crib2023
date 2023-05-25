@@ -7,5 +7,5 @@ export const TopicTreeStoreDispatchContext = createContext<
 >(null);
 
 export const TopicTreeStoreStateContext = createContext<
-TopicTreeStoreStateMap | null
+  TopicTreeStoreStateMap | null
 >(null);

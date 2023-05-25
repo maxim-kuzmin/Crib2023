@@ -12,15 +12,16 @@ import {
   ArticleListStoreStateContext
 } from './ArticleListStoreContextDefinition';
 
-type StateMap = ArticleListStoreStateMap;
-
-const initialState = createStoreStateMap({
+const initialState: ArticleListStoreStateMap = createStoreStateMap({
   functionToCreateState: () => createArticleListStoreState(),
   sliceNames: [ArticleListStoreSliceName.Default],
 });
 
-function reducer (stateMap: StateMap, action: ArticleListStoreActionUnion): StateMap {
-  const result: StateMap = createStoreStateMap({ stateMap });
+function reducer (
+  stateMap: ArticleListStoreStateMap,
+  action: ArticleListStoreActionUnion
+): ArticleListStoreStateMap {
+  const result: ArticleListStoreStateMap = createStoreStateMap({ stateMap });
   const { sliceName, type } = action;
 
   let state = result[sliceName];
@@ -32,22 +33,22 @@ function reducer (stateMap: StateMap, action: ArticleListStoreActionUnion): Stat
     case ArticleListStoreActionType.Load:
       state = {
         ...state,
-        payloadOfLoadAction: action.payload,
+        resultOfLoadAction: action.payload.actionResult,
         statusOfLoadAction: OperationStatus.Pending
       };
       break;
     case ArticleListStoreActionType.LoadCompleted:
       state = {
         ...state,
-        payloadOfLoadCompletedAction: action.payload,
+        resultOfLoadCompletedAction: action.payload.actionResult,
         statusOfLoadAction: OperationStatus.Fulfilled,
-        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
       };
       break;
     case ArticleListStoreActionType.Set:
       state = {
         ...state,
-        payloadOfSetAction: action.payload
+        resultOfSetAction: action.payload.actionResult
       };
       break;
   }

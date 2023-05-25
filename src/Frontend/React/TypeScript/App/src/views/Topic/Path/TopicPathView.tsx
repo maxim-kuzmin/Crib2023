@@ -54,7 +54,7 @@ function TopicPathView ({
   const topicPathViewResource = hooks.Views.Topic.Path.useResource();
 
   const {
-    payloadOfSetAction: topicItemResponse
+    resultOfSetAction: topicItemResponse
   } = hooks.Views.Topic.Item.useStoreState();
 
   const entity = topicItemResponse?.data?.item;

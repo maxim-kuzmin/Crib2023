@@ -1,8 +1,8 @@
 import { type StoreActionOptions } from '../../../../../../common';
 import { type ArticleItemStoreSetActionCallback } from '../Set';
-import { type ArticleItemStoreSaveActionPayload } from './ArticleItemStoreSaveActionPayload';
+import { type ArticleItemStoreSaveActionResult } from './ArticleItemStoreSaveActionResult';
 
 export interface ArticleItemStoreSaveActionOptions extends StoreActionOptions {
   readonly callback?: ArticleItemStoreSetActionCallback;
-  readonly payloadOfSaveAction?: ArticleItemStoreSaveActionPayload;
+  readonly resultOfSaveAction?: ArticleItemStoreSaveActionResult;
 }

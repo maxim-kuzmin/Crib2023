@@ -12,15 +12,16 @@ import {
   TopicItemStoreStateContext
 } from './TopicItemStoreContextDefinition';
 
-type StateMap = TopicItemStoreStateMap;
-
-const initialState: StateMap = createStoreStateMap({
+const initialState: TopicItemStoreStateMap = createStoreStateMap({
   functionToCreateState: () => createTopicItemStoreState(),
   sliceNames: [TopicItemStoreSliceName.Default],
 });
 
-function reducer (stateMap: StateMap, action: TopicItemStoreActionUnion): StateMap {
-  const result: StateMap = createStoreStateMap({ stateMap });
+function reducer (
+  stateMap: TopicItemStoreStateMap,
+  action: TopicItemStoreActionUnion
+): TopicItemStoreStateMap {
+  const result: TopicItemStoreStateMap = createStoreStateMap({ stateMap });
   const { sliceName, type } = action;
 
   let state = result[sliceName];
@@ -32,52 +33,52 @@ function reducer (stateMap: StateMap, action: TopicItemStoreActionUnion): StateM
     case TopicItemStoreActionType.Delete:
       state = {
         ...state,
-        payloadOfDeleteAction: action.payload,
-        statusOfDeleteAction: OperationStatus.Pending
+        resultOfDeleteAction: action.payload.actionResult,
+        statusOfDeleteAction: OperationStatus.Pending,
       };
       break;
     case TopicItemStoreActionType.DeleteCompleted:
       state = {
         ...state,
-        payloadOfDeleteCompletedAction: action.payload,
+        resultOfDeleteCompletedAction: action.payload.actionResult,
         statusOfDeleteAction: OperationStatus.Fulfilled,
-        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : null
+        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : null
       };
       break;
     case TopicItemStoreActionType.Load:
       state = {
         ...state,
-        payloadOfLoadAction: action.payload,
+        resultOfLoadAction: action.payload.actionResult,
         statusOfLoadAction: OperationStatus.Pending
       };
       break;
     case TopicItemStoreActionType.LoadCompleted:
       state = {
         ...state,
-        payloadOfLoadCompletedAction: action.payload,
+        resultOfLoadCompletedAction: action.payload.actionResult,
         statusOfLoadAction: OperationStatus.Fulfilled,
-        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
       };
       break;
     case TopicItemStoreActionType.Save:
       state = {
         ...state,
-        payloadOfSaveAction: action.payload,
+        resultOfSaveAction: action.payload.actionResult,
         statusOfSaveAction: OperationStatus.Pending
       };
       break;
     case TopicItemStoreActionType.SaveCompleted:
       state = {
         ...state,
-        payloadOfSaveCompletedAction: action.payload,
+        resultOfSaveCompletedAction: action.payload.actionResult,
         statusOfSaveAction: OperationStatus.Fulfilled,
-        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
       };
       break;
     case TopicItemStoreActionType.Set:
       state = {
         ...state,
-        payloadOfSetAction: action.payload
+        resultOfSetAction: action.payload.actionResult
       };
       break;
   }

@@ -2,4 +2,8 @@ export { type TopicItemStoreDeleteActionDispatch } from './TopicItemStoreDeleteA
 export { type TopicItemStoreDeleteActionInput } from './TopicItemStoreDeleteActionInput';
 export { type TopicItemStoreDeleteActionOptions } from './TopicItemStoreDeleteActionOptions';
 export { type TopicItemStoreDeleteActionOutput } from './TopicItemStoreDeleteActionOutput'
-export { type TopicItemStoreDeleteActionPayload } from './TopicItemStoreDeleteActionPayload';
+export {
+  type TopicItemStoreDeleteActionPayload,
+  createTopicItemStoreDeleteActionPayload
+} from './TopicItemStoreDeleteActionPayload';
+export { type TopicItemStoreDeleteActionResult } from './TopicItemStoreDeleteActionResult';

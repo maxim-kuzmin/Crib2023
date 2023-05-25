@@ -6,7 +6,9 @@ import {
   type ArticleListStoreLoadActionDispatch,
   type ArticleListStoreLoadActionOptions,
   type ArticleListStoreLoadActionPayload,
+  type ArticleListStoreLoadActionResult,
   type ArticleListStoreSliceName,
+  createArticleListStoreLoadActionPayload,
 } from '../../../../../../features';
 import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
@@ -17,7 +19,7 @@ export function useStoreLoadActionDispatch (
     callback,
     dispatchType,
     abortController,
-    payloadOfLoadAction
+    resultOfLoadAction
   }: ArticleListStoreLoadActionOptions = {}
 ): ArticleListStoreLoadActionDispatch {
   const dispatch = useArticleListStoreDispatch();
@@ -28,23 +30,41 @@ export function useStoreLoadActionDispatch (
   const resourceOfArticleListStore = hooks.Features.Article.List.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Article.useListGetOperationRequestHandler()).current;
 
+  const payloadOfLoadAction = useMemo(
+    () => createArticleListStoreLoadActionPayload({
+      actionResult: resultOfLoadAction,
+      resourceOfApiResponse,
+      resourceOfArticleListStore,
+      requestHandler
+    }),
+    [resultOfLoadAction, requestHandler, resourceOfApiResponse, resourceOfArticleListStore]
+  );
+
   const { run: complete } = hooks.Features.Article.List.Store.useStoreLoadCompletedActionDispatch(
     sliceName,
     { callback }
   );
 
   const run = useCallback(
-    async (payload: ArticleListStoreLoadActionPayload, abortSignal?: AbortSignal) => {
+    async (payload: ArticleListStoreLoadActionPayload) => {
+      const {
+        abortSignal,
+        actionResult,
+        requestHandler,
+        resourceOfApiResponse,
+        resourceOfArticleListStore
+      } = payload;
+
       if (abortSignal?.aborted) {
         return;
       }
 
       dispatch({ payload, sliceName, type: ArticleListStoreActionType.Load });
 
-      const response = payload
+      const response = actionResult
         ? await requestHandler.handle(
             createArticleDomainListGetOperationRequest(
-              payload,
+              actionResult,
               {
                 operationName: resourceOfArticleListStore.getOperationNameForGet(),
                 resourceOfApiResponse
@@ -60,7 +80,7 @@ export function useStoreLoadActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, requestHandler, resourceOfApiResponse, resourceOfArticleListStore, sliceName]
+    [complete, dispatch, sliceName]
   );
 
   useEffect(
@@ -71,13 +91,18 @@ export function useStoreLoadActionDispatch (
 
       const abortControllerInner = new AbortController();
 
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadAction) {
-        run(payloadOfLoadAction, abortControllerInner.signal);
+      const payloadOfLoadActionInner = createArticleListStoreLoadActionPayload({
+        ...payloadOfLoadAction,
+        abortSignal: abortControllerInner.signal,
+      });
+
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
+        run(payloadOfLoadActionInner);
       }
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadAction) {
-          run(payloadOfLoadAction, abortControllerInner.signal);
+        if (dispatchType === StoreDispatchType.Unmount) {
+          run(payloadOfLoadActionInner);
         } else {
           abortControllerInner.abort();
         }
@@ -86,5 +111,18 @@ export function useStoreLoadActionDispatch (
     [abortController, dispatchType, payloadOfLoadAction, run]
   );
 
-  return useMemo<ArticleListStoreLoadActionDispatch>(() => ({ run }), [run]);
+  return useMemo<ArticleListStoreLoadActionDispatch>(
+    () => ({
+      run: async (actionResult: ArticleListStoreLoadActionResult, abortSignal?: AbortSignal) => {
+        const payloadOfLoadActionInner = createArticleListStoreLoadActionPayload({
+          ...payloadOfLoadAction,
+          abortSignal,
+          actionResult
+        });
+
+        await run(payloadOfLoadActionInner);
+      }
+    }),
+    [payloadOfLoadAction, run]
+  );
 }

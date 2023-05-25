@@ -12,15 +12,16 @@ import {
   ArticleItemStoreStateContext
 } from './ArticleItemStoreContextDefinition';
 
-type StateMap = ArticleItemStoreStateMap;
-
-const initialState: StateMap = createStoreStateMap({
+const initialState: ArticleItemStoreStateMap = createStoreStateMap({
   functionToCreateState: () => createArticleItemStoreState(),
   sliceNames: [ArticleItemStoreSliceName.Default],
 });
 
-function reducer (stateMap: StateMap, action: ArticleItemStoreActionUnion): StateMap {
-  const result: StateMap = createStoreStateMap({ stateMap });
+function reducer (
+  stateMap: ArticleItemStoreStateMap,
+  action: ArticleItemStoreActionUnion
+): ArticleItemStoreStateMap {
+  const result: ArticleItemStoreStateMap = createStoreStateMap({ stateMap });
   const { sliceName, type } = action;
 
   let state = result[sliceName];
@@ -32,52 +33,52 @@ function reducer (stateMap: StateMap, action: ArticleItemStoreActionUnion): Stat
     case ArticleItemStoreActionType.Delete:
       state = {
         ...state,
-        payloadOfDeleteAction: action.payload,
+        resultOfDeleteAction: action.payload.actionResult,
         statusOfDeleteAction: OperationStatus.Pending,
       };
       break;
     case ArticleItemStoreActionType.DeleteCompleted:
       state = {
         ...state,
-        payloadOfDeleteCompletedAction: action.payload,
+        resultOfDeleteCompletedAction: action.payload.actionResult,
         statusOfDeleteAction: OperationStatus.Fulfilled,
-        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : null
+        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : null
       };
       break;
     case ArticleItemStoreActionType.Load:
       state = {
         ...state,
-        payloadOfLoadAction: action.payload,
+        resultOfLoadAction: action.payload.actionResult,
         statusOfLoadAction: OperationStatus.Pending
       };
       break;
     case ArticleItemStoreActionType.LoadCompleted:
       state = {
         ...state,
-        payloadOfLoadCompletedAction: action.payload,
+        resultOfLoadCompletedAction: action.payload.actionResult,
         statusOfLoadAction: OperationStatus.Fulfilled,
-        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
       };
       break;
     case ArticleItemStoreActionType.Save:
       state = {
         ...state,
-        payloadOfSaveAction: action.payload,
+        resultOfSaveAction: action.payload.actionResult,
         statusOfSaveAction: OperationStatus.Pending
       };
       break;
     case ArticleItemStoreActionType.SaveCompleted:
       state = {
         ...state,
-        payloadOfSaveCompletedAction: action.payload,
+        resultOfSaveCompletedAction: action.payload.actionResult,
         statusOfSaveAction: OperationStatus.Fulfilled,
-        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
       };
       break;
     case ArticleItemStoreActionType.Set:
       state = {
         ...state,
-        payloadOfSetAction: action.payload
+        resultOfSetAction: action.payload.actionResult
       };
       break;
   }

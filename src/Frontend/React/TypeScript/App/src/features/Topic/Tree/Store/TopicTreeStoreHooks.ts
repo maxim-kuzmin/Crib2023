@@ -14,7 +14,7 @@ import {
   type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreSetActionOutput
 } from './Actions';
-import { type TopicTreeStoreSliceName } from './Slice/TopicTreeStoreSliceName';
+import { type TopicTreeStoreSliceName } from './Slice';
 import { type TopicTreeStoreResource } from './TopicTreeStoreResource';
 import { type TopicTreeStoreState } from './TopicTreeStoreState';
 

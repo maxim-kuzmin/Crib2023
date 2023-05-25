@@ -1,8 +1,8 @@
 import { type TopicItemStoreLoadCompletedActionCallback } from '../LoadCompleted';
-import { type TopicItemStoreLoadActionPayload } from './TopicItemStoreLoadActionPayload';
+import { type TopicItemStoreLoadActionResult } from './TopicItemStoreLoadActionResult';
 
 export interface TopicItemStoreLoadActionInput {
   readonly abortController?: AbortController;
   readonly onActionCompleted?: TopicItemStoreLoadCompletedActionCallback;
-  readonly payloadOfLoadAction: TopicItemStoreLoadActionPayload;
+  readonly resultOfLoadAction: TopicItemStoreLoadActionResult;
 }

@@ -1,5 +1,5 @@
-import { type ArticleItemStoreDeleteCompletedActionPayload } from './ArticleItemStoreDeleteCompletedActionPayload';
+import { type ArticleItemStoreDeleteCompletedActionResult } from './ArticleItemStoreDeleteCompletedActionResult';
 
 export type ArticleItemStoreDeleteCompletedActionCallback = (
-  payload: ArticleItemStoreDeleteCompletedActionPayload
+  data: ArticleItemStoreDeleteCompletedActionResult
 ) => void;

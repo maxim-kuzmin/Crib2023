@@ -1,3 +1,5 @@
-import { type ArticleListStoreSetActionPayload } from './ArticleListStoreSetActionPayload';
+import { type ArticleListStoreSetActionResult } from './ArticleListStoreSetActionResult';
 
-export type ArticleListStoreSetActionCallback = (payload: ArticleListStoreSetActionPayload) => void;
+export type ArticleListStoreSetActionCallback = (
+  data: ArticleListStoreSetActionResult
+) => void;

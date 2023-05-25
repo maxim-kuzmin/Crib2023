@@ -1,3 +1,5 @@
-import { type ArticleListStoreLoadCompletedActionPayload } from './ArticleListStoreLoadCompletedActionPayload';
+import { type ArticleListStoreLoadCompletedActionResult } from './ArticleListStoreLoadCompletedActionResult';
 
-export type ArticleListStoreLoadCompletedActionCallback = (payload: ArticleListStoreLoadCompletedActionPayload) => void;
+export type ArticleListStoreLoadCompletedActionCallback = (
+  actionResult: ArticleListStoreLoadCompletedActionResult
+) => void;

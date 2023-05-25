@@ -1,5 +1,5 @@
-import { type ArticleListStoreLoadActionPayload } from './ArticleListStoreLoadActionPayload';
+import { type ArticleListStoreLoadActionResult } from './ArticleListStoreLoadActionResult';
 
 export interface ArticleListStoreLoadActionDispatch {
-  readonly run: (payload: ArticleListStoreLoadActionPayload, abortSignal?: AbortSignal) => Promise<void>;
+  readonly run: (actionResult: ArticleListStoreLoadActionResult, abortSignal?: AbortSignal) => Promise<void>;
 }

@@ -1,3 +1,13 @@
-import { type ArticleDomainListGetOperationResponse } from '../../../../../../domains';
+import { type ArticleListStoreSetActionResult } from './ArticleListStoreSetActionResult';
 
-export type ArticleListStoreSetActionPayload = ArticleDomainListGetOperationResponse | null;
+export interface ArticleListStoreSetActionPayload {
+  actionResult: ArticleListStoreSetActionResult;
+}
+
+export function createArticleListStoreSetActionPayload (
+  options: Partial<ArticleListStoreSetActionPayload>
+): ArticleListStoreSetActionPayload {
+  return {
+    actionResult: options?.actionResult ?? null,
+  };
+}

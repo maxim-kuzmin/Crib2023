@@ -1,14 +1,14 @@
 import { OperationStatus } from '../../../../common';
 import {
-  type ArticleListStoreLoadActionPayload,
-  type ArticleListStoreLoadCompletedActionPayload,
-  type ArticleListStoreSetActionPayload
+  type ArticleListStoreLoadActionResult,
+  type ArticleListStoreLoadCompletedActionResult,
+  type ArticleListStoreSetActionResult
 } from './Actions';
 
 export interface ArticleListStoreState {
-  payloadOfLoadAction: ArticleListStoreLoadActionPayload;
-  payloadOfLoadCompletedAction: ArticleListStoreLoadCompletedActionPayload;
-  payloadOfSetAction: ArticleListStoreSetActionPayload;
+  resultOfLoadAction: ArticleListStoreLoadActionResult;
+  resultOfLoadCompletedAction: ArticleListStoreLoadCompletedActionResult;
+  resultOfSetAction: ArticleListStoreSetActionResult;
   statusOfLoadAction: OperationStatus;
 }
 
@@ -16,9 +16,9 @@ export function createArticleListStoreState (
   options?: Partial<ArticleListStoreState>
 ): ArticleListStoreState {
   return {
-    payloadOfLoadAction: options?.payloadOfLoadAction ?? null,
-    payloadOfLoadCompletedAction: options?.payloadOfLoadCompletedAction ?? null,
-    payloadOfSetAction: options?.payloadOfSetAction ?? null,
+    resultOfLoadAction: options?.resultOfLoadAction ?? null,
+    resultOfLoadCompletedAction: options?.resultOfLoadCompletedAction ?? null,
+    resultOfSetAction: options?.resultOfSetAction ?? null,
     statusOfLoadAction: options?.statusOfLoadAction ?? OperationStatus.Initial,
   };
 }

@@ -11,7 +11,7 @@ import {
   type TopicDomainTreeGetOperationInput,
   createTopicDomainTreeGetOperationRequest
 } from '../../../domains';
-import { type TopicTreeStoreLoadActionPayload } from '../../../features';
+import { type TopicTreeStoreLoadActionResult } from '../../../features';
 import { type TopicTreeViewProps } from './TopicTreeViewProps';
 import styles from './TopicTreeView.module.css';
 
@@ -70,15 +70,15 @@ function TopicTreeView ({
   const resourceOfTopicTreeStore = hooks.Features.Topic.Tree.Store.useResource();
 
   const {
-    payloadOfSetAction: topicItemResponse,
+    resultOfSetAction: topicItemResponse,
     statusOfLoadAction: topicItemStatus
   } = hooks.Views.Topic.Item.useStoreState();
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const payloadOfLoadAction: TopicTreeStoreLoadActionPayload = useMemo(
+  const resultOfLoadAction: TopicTreeStoreLoadActionResult = useMemo(
     () => {
-      const result: TopicTreeStoreLoadActionPayload = {
+      const result: TopicTreeStoreLoadActionResult = {
         ...topicInput,
         expandedNodeId: topicId
       };
@@ -102,14 +102,14 @@ function TopicTreeView ({
   );
 
   const {
-    payloadOfLoadCompletedAction,
+    resultOfLoadCompletedAction,
     pendingOfLoadAction
   } = hooks.Views.Topic.Tree.useStoreLoadActionOutput({
-    payloadOfLoadAction,
+    resultOfLoadAction,
     abortController: abortControllerOfLoadAction
   });
 
-  const entities = payloadOfLoadCompletedAction?.data?.nodes;
+  const entities = resultOfLoadCompletedAction?.data?.nodes;
 
   const controlNodes = useMemo(
     () => convertToControlNodes({ createTopicPageUrl, entities, topicId }),

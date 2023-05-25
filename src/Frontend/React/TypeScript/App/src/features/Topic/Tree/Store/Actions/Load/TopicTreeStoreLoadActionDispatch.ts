@@ -1,5 +1,5 @@
-import { type TopicTreeStoreLoadActionPayload } from './TopicTreeStoreLoadActionPayload';
+import { type TopicTreeStoreLoadActionResult } from './TopicTreeStoreLoadActionResult';
 
 export interface TopicTreeStoreLoadActionDispatch {
-  readonly run: (payload: TopicTreeStoreLoadActionPayload, abortSignal?: AbortSignal) => Promise<void>;
+  readonly run: (actionResult: TopicTreeStoreLoadActionResult, abortSignal?: AbortSignal) => Promise<void>;
 }

@@ -3,7 +3,7 @@ import { OperationStatus, createStoreStateMap } from '../../../../common';
 import {
   TopicTreeStoreSliceName,
   type TopicTreeStoreStateMap,
-  createTopicTreeStoreState
+  createTopicTreeStoreState,
 } from '../../../../features';
 import { TopicTreeStoreActionType } from '../TopicTreeStoreActionType';
 import { type TopicTreeStoreActionUnion } from '../TopicTreeStoreActionUnion';
@@ -12,15 +12,16 @@ import {
   TopicTreeStoreStateContext
 } from './TopicTreeStoreContextDefinition';
 
-type StateMap = TopicTreeStoreStateMap;
-
-const initialState: StateMap = createStoreStateMap({
+const initialState: TopicTreeStoreStateMap = createStoreStateMap({
   functionToCreateState: () => createTopicTreeStoreState(),
   sliceNames: [TopicTreeStoreSliceName.Default],
 });
 
-function reducer (stateMap: StateMap, action: TopicTreeStoreActionUnion): StateMap {
-  const result: StateMap = createStoreStateMap({ stateMap });
+function reducer (
+  stateMap: TopicTreeStoreStateMap,
+  action: TopicTreeStoreActionUnion
+): TopicTreeStoreStateMap {
+  const result: TopicTreeStoreStateMap = createStoreStateMap({ stateMap });
   const { sliceName, type } = action;
 
   let state = result[sliceName];
@@ -32,22 +33,22 @@ function reducer (stateMap: StateMap, action: TopicTreeStoreActionUnion): StateM
     case TopicTreeStoreActionType.Load:
       state = {
         ...state,
-        payloadOfLoadAction: action.payload,
+        resultOfLoadAction: action.payload.actionResult,
         statusOfLoadAction: OperationStatus.Pending
       };
       break;
     case TopicTreeStoreActionType.LoadCompleted:
       state = {
         ...state,
-        payloadOfLoadCompletedAction: action.payload,
+        resultOfLoadCompletedAction: action.payload.actionResult,
         statusOfLoadAction: OperationStatus.Fulfilled,
-        payloadOfSetAction: action.payload?.error ? state.payloadOfSetAction : action.payload
+        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
       };
       break;
     case TopicTreeStoreActionType.Set:
       state = {
         ...state,
-        payloadOfSetAction: action.payload
+        resultOfSetAction: action.payload.actionResult
       };
       break;
   }

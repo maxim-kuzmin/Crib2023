@@ -1,8 +1,8 @@
 import { type StoreActionOptions } from '../../../../../../common';
 import { type ArticleListStoreLoadCompletedActionCallback } from './ArticleListStoreLoadCompletedActionCallback';
-import { type ArticleListStoreLoadCompletedActionPayload } from './ArticleListStoreLoadCompletedActionPayload';
+import { type ArticleListStoreLoadCompletedActionResult } from './ArticleListStoreLoadCompletedActionResult';
 
 export interface ArticleListStoreLoadCompletedActionOptions extends StoreActionOptions {
   readonly callback?: ArticleListStoreLoadCompletedActionCallback;
-  readonly payloadOfLoadCompletedAction?: ArticleListStoreLoadCompletedActionPayload;
+  readonly resultOfLoadCompletedAction?: ArticleListStoreLoadCompletedActionResult;
 }

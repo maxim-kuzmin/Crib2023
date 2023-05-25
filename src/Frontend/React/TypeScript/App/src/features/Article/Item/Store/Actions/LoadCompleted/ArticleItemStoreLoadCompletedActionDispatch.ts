@@ -1,5 +1,5 @@
-import { type ArticleItemStoreLoadCompletedActionPayload } from './ArticleItemStoreLoadCompletedActionPayload';
+import { type ArticleItemStoreLoadCompletedActionResult } from './ArticleItemStoreLoadCompletedActionResult';
 
 export interface ArticleItemStoreLoadCompletedActionDispatch {
-  readonly run: (payload: ArticleItemStoreLoadCompletedActionPayload) => void;
+  readonly run: (actionResult: ArticleItemStoreLoadCompletedActionResult) => void;
 }

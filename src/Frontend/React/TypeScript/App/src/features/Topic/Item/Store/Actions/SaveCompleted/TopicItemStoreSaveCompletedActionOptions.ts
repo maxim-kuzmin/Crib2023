@@ -1,8 +1,8 @@
 import { type StoreActionOptions } from '../../../../../../common';
 import { type TopicItemStoreSaveCompletedActionCallback } from './TopicItemStoreSaveCompletedActionCallback';
-import { type TopicItemStoreSaveCompletedActionPayload } from './TopicItemStoreSaveCompletedActionPayload';
+import { type TopicItemStoreSaveCompletedActionResult } from './TopicItemStoreSaveCompletedActionResult';
 
 export interface TopicItemStoreSaveCompletedActionOptions extends StoreActionOptions {
   readonly callback?: TopicItemStoreSaveCompletedActionCallback;
-  readonly payloadOfSaveCompletedAction?: TopicItemStoreSaveCompletedActionPayload;
+  readonly resultOfSaveCompletedAction?: TopicItemStoreSaveCompletedActionResult;
 }

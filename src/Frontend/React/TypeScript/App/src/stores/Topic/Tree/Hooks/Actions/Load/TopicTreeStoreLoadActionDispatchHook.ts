@@ -6,7 +6,9 @@ import {
   type TopicTreeStoreLoadActionDispatch,
   type TopicTreeStoreLoadActionOptions,
   type TopicTreeStoreLoadActionPayload,
+  type TopicTreeStoreLoadActionResult,
   type TopicTreeStoreSliceName,
+  createTopicTreeStoreLoadActionPayload,
 } from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
@@ -17,7 +19,7 @@ export function useStoreLoadActionDispatch (
     callback,
     dispatchType,
     abortController,
-    payloadOfLoadAction
+    resultOfLoadAction
   }: TopicTreeStoreLoadActionOptions = {}
 ): TopicTreeStoreLoadActionDispatch {
   const dispatch = useTopicTreeStoreDispatch();
@@ -28,23 +30,41 @@ export function useStoreLoadActionDispatch (
   const resourceOfTopicTreeStore = hooks.Features.Topic.Tree.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
 
+  const payloadOfLoadAction = useMemo(
+    () => createTopicTreeStoreLoadActionPayload({
+      actionResult: resultOfLoadAction,
+      resourceOfApiResponse,
+      resourceOfTopicTreeStore,
+      requestHandler
+    }),
+    [resultOfLoadAction, requestHandler, resourceOfApiResponse, resourceOfTopicTreeStore]
+  );
+
   const { run: complete } = hooks.Features.Topic.Tree.Store.useStoreLoadCompletedActionDispatch(
     sliceName,
     { callback }
   );
 
   const run = useCallback(
-    async (payload: TopicTreeStoreLoadActionPayload, abortSignal?: AbortSignal) => {
+    async (payload: TopicTreeStoreLoadActionPayload) => {
+      const {
+        abortSignal,
+        actionResult,
+        requestHandler,
+        resourceOfApiResponse,
+        resourceOfTopicTreeStore
+      } = payload;
+
       if (abortSignal?.aborted) {
         return;
       }
 
       dispatch({ payload, sliceName, type: TopicTreeStoreActionType.Load });
 
-      const response = payload
+      const response = actionResult
         ? await requestHandler.handle(
             createTopicDomainTreeGetOperationRequest(
-              payload,
+              actionResult,
               {
                 operationName: resourceOfTopicTreeStore.getOperationNameForGet(),
                 resourceOfApiResponse
@@ -60,7 +80,7 @@ export function useStoreLoadActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, requestHandler, resourceOfApiResponse, resourceOfTopicTreeStore, sliceName]
+    [complete, dispatch, sliceName]
   );
 
   useEffect(
@@ -71,13 +91,18 @@ export function useStoreLoadActionDispatch (
 
       const abortControllerInner = new AbortController();
 
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadAction) {
-        run(payloadOfLoadAction, abortControllerInner.signal);
+      const payloadOfLoadActionInner = createTopicTreeStoreLoadActionPayload({
+        ...payloadOfLoadAction,
+        abortSignal: abortControllerInner.signal,
+      });
+
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
+        run(payloadOfLoadActionInner);
       }
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadAction) {
-          run(payloadOfLoadAction, abortControllerInner.signal);
+        if (dispatchType === StoreDispatchType.Unmount) {
+          run(payloadOfLoadActionInner);
         } else {
           abortControllerInner.abort();
         }
@@ -86,5 +111,18 @@ export function useStoreLoadActionDispatch (
     [abortController, dispatchType, payloadOfLoadAction, run]
   );
 
-  return useMemo<TopicTreeStoreLoadActionDispatch>(() => ({ run }), [run]);
+  return useMemo<TopicTreeStoreLoadActionDispatch>(
+    () => ({
+      run: async (actionResult: TopicTreeStoreLoadActionResult, abortSignal?: AbortSignal) => {
+        const payloadOfLoadActionInner = createTopicTreeStoreLoadActionPayload({
+          ...payloadOfLoadAction,
+          abortSignal,
+          actionResult
+        });
+
+        await run(payloadOfLoadActionInner);
+      }
+    }),
+    [payloadOfLoadAction, run]
+  );
 }

@@ -6,7 +6,9 @@ import {
   type TopicItemStoreDeleteActionDispatch,
   type TopicItemStoreDeleteActionOptions,
   type TopicItemStoreDeleteActionPayload,
+  type TopicItemStoreDeleteActionResult,
   type TopicItemStoreSliceName,
+  createTopicItemStoreDeleteActionPayload,
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
@@ -17,7 +19,7 @@ export function useStoreDeleteActionDispatch (
     callback,
     dispatchType,
     abortController,
-    payloadOfDeleteAction
+    resultOfDeleteAction
   }: TopicItemStoreDeleteActionOptions = {}
 ): TopicItemStoreDeleteActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
@@ -28,23 +30,41 @@ export function useStoreDeleteActionDispatch (
   const resourceOfTopicItemStore = hooks.Features.Topic.Item.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Topic.useItemDeleteOperationRequestHandler()).current;
 
+  const payloadOfDeleteAction = useMemo(
+    () => createTopicItemStoreDeleteActionPayload({
+      actionResult: resultOfDeleteAction,
+      resourceOfApiResponse,
+      resourceOfTopicItemStore,
+      requestHandler
+    }),
+    [resultOfDeleteAction, requestHandler, resourceOfApiResponse, resourceOfTopicItemStore]
+  );
+
   const { run: complete } = hooks.Features.Topic.Item.Store.useStoreDeleteCompletedActionDispatch(
     sliceName,
     { callback }
   );
 
   const run = useCallback(
-    async (payload: TopicItemStoreDeleteActionPayload, abortSignal?: AbortSignal) => {
+    async (payload: TopicItemStoreDeleteActionPayload) => {
+      const {
+        abortSignal,
+        actionResult,
+        requestHandler,
+        resourceOfApiResponse,
+        resourceOfTopicItemStore
+      } = payload;
+
       if (abortSignal?.aborted) {
         return;
       }
 
       dispatch({ payload, sliceName, type: TopicItemStoreActionType.Delete });
 
-      const response = payload
+      const response = actionResult
         ? await requestHandler.handle(
             createTopicDomainItemDeleteOperationRequest(
-              payload,
+              actionResult,
               {
                 operationName: resourceOfTopicItemStore.getOperationNameForDelete(),
                 resourceOfApiResponse
@@ -54,13 +74,13 @@ export function useStoreDeleteActionDispatch (
           )
         : null;
 
-        if (abortSignal?.aborted) {
+      if (abortSignal?.aborted) {
         return;
       }
 
       complete(response);
     },
-    [complete, dispatch, requestHandler, resourceOfApiResponse, resourceOfTopicItemStore, sliceName]
+    [complete, dispatch, sliceName]
   );
 
   useEffect(
@@ -71,13 +91,18 @@ export function useStoreDeleteActionDispatch (
 
       const abortControllerInner = new AbortController();
 
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfDeleteAction) {
-        run(payloadOfDeleteAction, abortControllerInner.signal);
+      const payloadOfDeleteActionInner = createTopicItemStoreDeleteActionPayload({
+        ...payloadOfDeleteAction,
+        abortSignal: abortControllerInner.signal,
+      });
+
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
+        run(payloadOfDeleteActionInner);
       }
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfDeleteAction) {
-          run(payloadOfDeleteAction, abortControllerInner.signal);
+        if (dispatchType === StoreDispatchType.Unmount) {
+          run(payloadOfDeleteActionInner);
         } else {
           abortControllerInner.abort();
         }
@@ -86,5 +111,18 @@ export function useStoreDeleteActionDispatch (
     [abortController, dispatchType, payloadOfDeleteAction, run]
   );
 
-  return useMemo<TopicItemStoreDeleteActionDispatch>(() => ({ run }), [run]);
+  return useMemo<TopicItemStoreDeleteActionDispatch>(
+    () => ({
+      run: async (actionResult: TopicItemStoreDeleteActionResult, abortSignal?: AbortSignal) => {
+        const payloadOfDeleteActionInner = createTopicItemStoreDeleteActionPayload({
+          ...payloadOfDeleteAction,
+          abortSignal,
+          actionResult
+        });
+
+        await run(payloadOfDeleteActionInner);
+      }
+    }),
+    [payloadOfDeleteAction, run]
+  );
 }

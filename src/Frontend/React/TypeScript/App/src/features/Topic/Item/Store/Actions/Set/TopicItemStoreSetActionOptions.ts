@@ -1,8 +1,8 @@
 import { type StoreActionOptions } from '../../../../../../common';
 import { type TopicItemStoreSetActionCallback } from './TopicItemStoreSetActionCallback';
-import { type TopicItemStoreSetActionPayload } from './TopicItemStoreSetActionPayload';
+import { type TopicItemStoreSetActionResult } from './TopicItemStoreSetActionResult';
 
 export interface TopicItemStoreSetActionOptions extends StoreActionOptions {
   readonly callback?: TopicItemStoreSetActionCallback;
-  readonly payloadOfSetAction?: TopicItemStoreSetActionPayload;
+  readonly resultOfSetAction?: TopicItemStoreSetActionResult;
 }

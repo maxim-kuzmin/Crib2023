@@ -1,5 +1,5 @@
-import { type ArticleItemStoreSaveActionPayload } from './ArticleItemStoreSaveActionPayload';
+import { type ArticleItemStoreSaveActionResult } from './ArticleItemStoreSaveActionResult';
 
 export interface ArticleItemStoreSaveActionDispatch {
-  readonly run: (payload: ArticleItemStoreSaveActionPayload, abortSignal?: AbortSignal) => Promise<void>;
+  readonly run: (actionResult: ArticleItemStoreSaveActionResult, abortSignal?: AbortSignal) => Promise<void>;
 }

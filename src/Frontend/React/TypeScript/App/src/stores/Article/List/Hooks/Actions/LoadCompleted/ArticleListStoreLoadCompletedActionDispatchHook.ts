@@ -5,6 +5,8 @@ import {
   type ArticleListStoreLoadCompletedActionDispatch,
   type ArticleListStoreLoadCompletedActionOptions,
   type ArticleListStoreLoadCompletedActionPayload,
+  type ArticleListStoreLoadCompletedActionResult,
+  createArticleListStoreLoadCompletedActionPayload,
 } from '../../../../../../features';
 import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
@@ -14,10 +16,17 @@ export function useStoreLoadCompletedActionDispatch (
   {
     callback,
     dispatchType,
-    payloadOfLoadCompletedAction
+    resultOfLoadCompletedAction
   }: ArticleListStoreLoadCompletedActionOptions = {}
 ): ArticleListStoreLoadCompletedActionDispatch {
   const dispatch = useArticleListStoreDispatch();
+
+  const payloadOfLoadCompletedAction = useMemo(
+    () => createArticleListStoreLoadCompletedActionPayload({
+      actionResult: resultOfLoadCompletedAction,
+    }),
+    [resultOfLoadCompletedAction]
+  );
 
   const run = useCallback(
     (payload: ArticleListStoreLoadCompletedActionPayload) => {
@@ -28,7 +37,7 @@ export function useStoreLoadCompletedActionDispatch (
       });
 
       if (callback) {
-        callback(payload);
+        callback(payload.actionResult);
       }
     },
     [callback, dispatch, sliceName]
@@ -36,12 +45,12 @@ export function useStoreLoadCompletedActionDispatch (
 
   useEffect(
     () => {
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadCompletedAction) {
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
         run(payloadOfLoadCompletedAction);
       };
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadCompletedAction) {
+        if (dispatchType === StoreDispatchType.Unmount) {
           run(payloadOfLoadCompletedAction);
         }
       };
@@ -49,5 +58,17 @@ export function useStoreLoadCompletedActionDispatch (
     [dispatchType, payloadOfLoadCompletedAction, run]
   );
 
-  return useMemo<ArticleListStoreLoadCompletedActionDispatch>(() => ({ run }), [run]);
+  return useMemo<ArticleListStoreLoadCompletedActionDispatch>(
+    () => ({
+      run: (actionResult: ArticleListStoreLoadCompletedActionResult) => {
+        const payloadOfLoadCompletedActionInner = createArticleListStoreLoadCompletedActionPayload({
+          ...payloadOfLoadCompletedAction,
+          actionResult
+        });
+
+        run(payloadOfLoadCompletedActionInner);
+      }
+    }),
+    [payloadOfLoadCompletedAction, run]
+  );
 }

@@ -5,6 +5,8 @@ import {
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionOptions,
   type AppNotificationStoreSetActionPayload,
+  type AppNotificationStoreSetActionResult,
+  createAppNotificationStoreSetActionPayload,
 } from '../../../../../../features';
 import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
 import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHooks';
@@ -14,17 +16,22 @@ export function useStoreSetActionDispatch (
   {
     callback,
     dispatchType,
-    payloadOfSetAction
+    resultOfSetAction
   }: AppNotificationStoreSetActionOptions = {}
 ): AppNotificationStoreSetActionDispatch {
   const dispatch = useAppNotificationStoreDispatch();
+
+  const payloadOfSetAction = useMemo(
+    () => createAppNotificationStoreSetActionPayload({ actionResult: resultOfSetAction }),
+    [resultOfSetAction]
+  );
 
   const run = useCallback(
     (payload: AppNotificationStoreSetActionPayload) => {
       dispatch({ payload, sliceName, type: AppNotificationStoreActionType.Set });
 
       if (callback) {
-        callback(payload);
+        callback(payload.actionResult);
       }
     },
     [callback, dispatch, sliceName]
@@ -32,12 +39,12 @@ export function useStoreSetActionDispatch (
 
   useEffect(
     () => {
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSetAction) {
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
         run(payloadOfSetAction);
       };
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfSetAction) {
+        if (dispatchType === StoreDispatchType.Unmount) {
           run(payloadOfSetAction);
         }
       };
@@ -45,5 +52,17 @@ export function useStoreSetActionDispatch (
     [dispatchType, payloadOfSetAction, run]
   );
 
-  return useMemo<AppNotificationStoreSetActionDispatch>(() => ({ run }), [run]);
+  return useMemo<AppNotificationStoreSetActionDispatch>(
+    () => ({
+      run: (actionResult: AppNotificationStoreSetActionResult) => {
+        const payloadOfSetActionInner = createAppNotificationStoreSetActionPayload({
+          ...payloadOfSetAction,
+          actionResult
+        });
+
+        run(payloadOfSetActionInner);
+      }
+    }),
+    [payloadOfSetAction, run]
+  );
 }

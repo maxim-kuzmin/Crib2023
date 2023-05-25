@@ -12,15 +12,16 @@ import {
   AppNotificationStoreStateContext
 } from './AppNotificationStoreContextDefinition';
 
-type StateMap = AppNotificationStoreStateMap;
-
 const initialState: AppNotificationStoreStateMap = createStoreStateMap({
   functionToCreateState: () => createAppNotificationStoreState(),
   sliceNames: [AppNotificationStoreSliceName.Default],
 });
 
-function reducer (stateMap: StateMap, action: AppNotificationStoreActionUnion): StateMap {
-  const result: StateMap = createStoreStateMap({ stateMap });
+function reducer (
+  stateMap: AppNotificationStoreStateMap,
+  action: AppNotificationStoreActionUnion
+): AppNotificationStoreStateMap {
+  const result: AppNotificationStoreStateMap = createStoreStateMap({ stateMap });
   const { sliceName, type } = action;
 
   let state = result[sliceName];
@@ -32,7 +33,7 @@ function reducer (stateMap: StateMap, action: AppNotificationStoreActionUnion): 
     case AppNotificationStoreActionType.Set:
       state = {
         ...state,
-        payloadOfSetAction: action.payload
+        resultOfSetAction: action.payload.actionResult
       };
       break;
   }

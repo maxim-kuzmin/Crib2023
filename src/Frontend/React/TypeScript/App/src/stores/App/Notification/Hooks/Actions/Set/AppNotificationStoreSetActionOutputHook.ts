@@ -3,7 +3,7 @@ import {
   type AppNotificationStoreSliceName,
   type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput,
-  type AppNotificationStoreSetActionPayload,
+  type AppNotificationStoreSetActionResult,
 } from '../../../../../../features';
 import { useStoreState } from '../../AppNotificationStoreStateHook';
 import { useStoreSetActionDispatch } from './AppNotificationStoreSetActionDispatchHook';
@@ -15,9 +15,9 @@ export function useStoreSetActionOutput (
   const { onActionCompleted } = input;
 
   const callback = useCallback(
-    (payload: AppNotificationStoreSetActionPayload) => {
+    (data: AppNotificationStoreSetActionResult) => {
       if (onActionCompleted) {
-        onActionCompleted(payload);
+        onActionCompleted(data);
       }
     },
     [onActionCompleted]
@@ -25,10 +25,10 @@ export function useStoreSetActionOutput (
 
   const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
 
-  const { payloadOfSetAction } = useStoreState(sliceName);
+  const { resultOfSetAction } = useStoreState(sliceName);
 
   return {
     dispatchOfSetAction,
-    payloadOfSetAction
+    resultOfSetAction,
   };
 }

@@ -14,7 +14,7 @@ import {
   type ArticleListStoreSetActionOptions,
   type ArticleListStoreSetActionOutput
 } from './Actions';
-import { type ArticleListStoreSliceName } from './Slice/ArticleListStoreSliceName';
+import { type ArticleListStoreSliceName } from './Slice';
 import { type ArticleListStoreResource } from './ArticleListStoreResource';
 import { type ArticleListStoreState } from './ArticleListStoreState';
 

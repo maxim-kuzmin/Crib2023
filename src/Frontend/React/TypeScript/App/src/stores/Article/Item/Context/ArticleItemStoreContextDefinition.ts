@@ -7,5 +7,5 @@ export const ArticleItemStoreDispatchContext = createContext<
 >(null);
 
 export const ArticleItemStoreStateContext = createContext<
-ArticleItemStoreStateMap | null
+  ArticleItemStoreStateMap | null
 >(null);

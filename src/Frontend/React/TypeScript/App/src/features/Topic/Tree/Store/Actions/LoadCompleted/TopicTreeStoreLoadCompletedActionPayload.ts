@@ -1,3 +1,13 @@
-import { type TopicDomainTreeGetOperationResponse } from '../../../../../../domains';
+import { type TopicTreeStoreLoadCompletedActionResult } from './TopicTreeStoreLoadCompletedActionResult';
 
-export type TopicTreeStoreLoadCompletedActionPayload = TopicDomainTreeGetOperationResponse | null;
+export interface TopicTreeStoreLoadCompletedActionPayload {
+  actionResult: TopicTreeStoreLoadCompletedActionResult;
+}
+
+export function createTopicTreeStoreLoadCompletedActionPayload (
+  options: Partial<TopicTreeStoreLoadCompletedActionPayload>
+): TopicTreeStoreLoadCompletedActionPayload {
+  return {
+    actionResult: options?.actionResult ?? null,
+  };
+}

@@ -7,7 +7,7 @@ import {
   CardControlType
 } from '../../../common';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../data';
-import { type ArticleItemStoreLoadActionPayload } from '../../../features';
+import { type ArticleItemStoreLoadActionResult } from '../../../features';
 import { type ArticleItemViewProps } from './ArticleItemViewProps';
 import styles from './ArticleItemView.module.css';
 
@@ -27,9 +27,9 @@ function ArticleItemView ({
     onActionCompleted: onArticleItemClearActionCompleted
   });
 
-  const payloadOfLoadAction: ArticleItemStoreLoadActionPayload = useMemo(
+  const resultOfLoadAction: ArticleItemStoreLoadActionResult = useMemo(
     () => {
-      const result: ArticleItemStoreLoadActionPayload = {
+      const result: ArticleItemStoreLoadActionResult = {
         id: articleId
       };
 
@@ -39,14 +39,14 @@ function ArticleItemView ({
   );
 
   const {
-    payloadOfLoadCompletedAction,
+    resultOfLoadCompletedAction,
     pendingOfLoadAction
   } = hooks.Views.Article.Item.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
-    payloadOfLoadAction
+    resultOfLoadAction
   });
 
-  const loadedEntity = payloadOfLoadCompletedAction?.data?.item.data;
+  const loadedEntity = resultOfLoadCompletedAction?.data?.item.data;
 
   const entity: ArticleTypeEntity = useMemo(
     () => loadedEntity ?? createArticleTypeEntity(),

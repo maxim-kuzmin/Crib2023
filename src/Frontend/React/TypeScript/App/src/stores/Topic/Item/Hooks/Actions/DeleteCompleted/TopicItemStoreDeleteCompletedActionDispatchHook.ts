@@ -5,6 +5,8 @@ import {
   type TopicItemStoreDeleteCompletedActionDispatch,
   type TopicItemStoreDeleteCompletedActionOptions,
   type TopicItemStoreDeleteCompletedActionPayload,
+  type TopicItemStoreDeleteCompletedActionResult,
+  createTopicItemStoreDeleteCompletedActionPayload,
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
@@ -14,10 +16,17 @@ export function useStoreDeleteCompletedActionDispatch (
   {
     callback,
     dispatchType,
-    payloadOfDeleteCompletedAction
+    resultOfDeleteCompletedAction
   }: TopicItemStoreDeleteCompletedActionOptions = {}
 ): TopicItemStoreDeleteCompletedActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
+
+  const payloadOfDeleteCompletedAction = useMemo(
+    () => createTopicItemStoreDeleteCompletedActionPayload({
+      actionResult: resultOfDeleteCompletedAction,
+    }),
+    [resultOfDeleteCompletedAction]
+  );
 
   const run = useCallback(
     (payload: TopicItemStoreDeleteCompletedActionPayload) => {
@@ -28,7 +37,7 @@ export function useStoreDeleteCompletedActionDispatch (
       });
 
       if (callback) {
-        callback(payload);
+        callback(payload.actionResult);
       }
     },
     [callback, dispatch, sliceName]
@@ -36,12 +45,12 @@ export function useStoreDeleteCompletedActionDispatch (
 
   useEffect(
     () => {
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfDeleteCompletedAction) {
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
         run(payloadOfDeleteCompletedAction);
       };
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfDeleteCompletedAction) {
+        if (dispatchType === StoreDispatchType.Unmount) {
           run(payloadOfDeleteCompletedAction);
         }
       };
@@ -49,5 +58,17 @@ export function useStoreDeleteCompletedActionDispatch (
     [dispatchType, payloadOfDeleteCompletedAction, run]
   );
 
-  return useMemo<TopicItemStoreDeleteCompletedActionDispatch>(() => ({ run }), [run]);
+  return useMemo<TopicItemStoreDeleteCompletedActionDispatch>(
+    () => ({
+      run: (actionResult: TopicItemStoreDeleteCompletedActionResult) => {
+        const payloadOfDeleteCompletedActionInner = createTopicItemStoreDeleteCompletedActionPayload({
+          ...payloadOfDeleteCompletedAction,
+          actionResult
+        });
+
+        run(payloadOfDeleteCompletedActionInner);
+      }
+    }),
+    [payloadOfDeleteCompletedAction, run]
+  );
 }

@@ -2,4 +2,8 @@ export { type ArticleItemStoreSaveActionDispatch } from './ArticleItemStoreSaveA
 export { type ArticleItemStoreSaveActionInput } from './ArticleItemStoreSaveActionInput';
 export { type ArticleItemStoreSaveActionOptions } from './ArticleItemStoreSaveActionOptions';
 export { type ArticleItemStoreSaveActionOutput } from './ArticleItemStoreSaveActionOutput'
-export { type ArticleItemStoreSaveActionPayload } from './ArticleItemStoreSaveActionPayload';
+export {
+  type ArticleItemStoreSaveActionPayload,
+  createArticleItemStoreSaveActionPayload
+} from './ArticleItemStoreSaveActionPayload';
+export { type ArticleItemStoreSaveActionResult } from './ArticleItemStoreSaveActionResult';

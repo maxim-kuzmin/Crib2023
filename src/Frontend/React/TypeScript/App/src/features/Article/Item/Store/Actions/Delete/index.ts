@@ -2,4 +2,8 @@ export { type ArticleItemStoreDeleteActionDispatch } from './ArticleItemStoreDel
 export { type ArticleItemStoreDeleteActionInput } from './ArticleItemStoreDeleteActionInput';
 export { type ArticleItemStoreDeleteActionOptions } from './ArticleItemStoreDeleteActionOptions';
 export { type ArticleItemStoreDeleteActionOutput } from './ArticleItemStoreDeleteActionOutput'
-export { type ArticleItemStoreDeleteActionPayload } from './ArticleItemStoreDeleteActionPayload';
+export {
+  type ArticleItemStoreDeleteActionPayload,
+  createArticleItemStoreDeleteActionPayload
+} from './ArticleItemStoreDeleteActionPayload';
+export { type ArticleItemStoreDeleteActionResult } from './ArticleItemStoreDeleteActionResult';

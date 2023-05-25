@@ -1,5 +1,5 @@
-import { type ArticleItemStoreDeleteCompletedActionPayload } from './ArticleItemStoreDeleteCompletedActionPayload';
+import { type ArticleItemStoreDeleteCompletedActionResult } from './ArticleItemStoreDeleteCompletedActionResult';
 
 export interface ArticleItemStoreDeleteCompletedActionDispatch {
-  run: (payload: ArticleItemStoreDeleteCompletedActionPayload) => void;
+  run: (actionResult: ArticleItemStoreDeleteCompletedActionResult) => void;
 }

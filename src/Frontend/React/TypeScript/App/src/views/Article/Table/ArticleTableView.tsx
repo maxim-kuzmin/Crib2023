@@ -9,7 +9,7 @@ import {
   type TableControlPagination
 } from '../../../common';
 import { type ArticleDomainEntityForList } from '../../../domains';
-import { type ArticleListStoreLoadActionPayload } from '../../../features';
+import { type ArticleListStoreLoadActionResult } from '../../../features';
 import { type ArticleTableViewRow } from './ArticleTableViewRow';
 import { type ArticleTableViewProps } from './ArticleTableViewProps';
 import styles from './ArticleTableView.module.css';
@@ -46,9 +46,9 @@ function ArticleTableView ({
 
   const resourceOfArticleTableView = hooks.Views.Article.Table.useResource();
 
-  const payloadOfLoadAction: ArticleListStoreLoadActionPayload = useMemo(
+  const resultOfLoadAction: ArticleListStoreLoadActionResult = useMemo(
     () => {
-      const result: ArticleListStoreLoadActionPayload = {
+      const result: ArticleListStoreLoadActionResult = {
         pageNumber,
         pageSize,
         topicId
@@ -65,14 +65,14 @@ function ArticleTableView ({
 
   const {
     dispatchOfLoadAction,
-    payloadOfLoadCompletedAction,
+    resultOfLoadCompletedAction,
     pendingOfLoadAction
   } = hooks.Views.Article.Table.useStoreLoadActionOutput({
-    payloadOfLoadAction
+    resultOfLoadAction
   });
 
-  if (payloadOfLoadCompletedAction?.data) {
-    const { data } = payloadOfLoadCompletedAction;
+  if (resultOfLoadCompletedAction?.data) {
+    const { data } = resultOfLoadCompletedAction;
 
     items = data.items;
     totalCount = data.totalCount;
@@ -207,7 +207,7 @@ function ArticleTableView ({
                           dispatchOfDeleteAction.run({ id })
                           .then(() => {
                             deletingIdRef.current = 0;
-                            dispatchOfLoadAction.run(payloadOfLoadAction);
+                            dispatchOfLoadAction.run(resultOfLoadAction);
                           });
                         },
                         type: ConfirmControlType.Delete
@@ -232,7 +232,7 @@ function ArticleTableView ({
       createTopicPageUrl,
       dispatchOfDeleteAction,
       dispatchOfLoadAction,
-      payloadOfLoadAction,
+      resultOfLoadAction,
       pendingOfDeleteAction,
       resourceOfArticleTableView,
       resourceOfConfirmControl,

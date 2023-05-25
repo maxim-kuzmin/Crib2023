@@ -10,7 +10,7 @@ import {
   FormControlValidationRuleType
 } from '../../../../common';
 import { createArticleTypeEntity, type ArticleTypeEntity } from '../../../../data';
-import { type ArticleItemStoreLoadActionPayload } from '../../../../features';
+import { type ArticleItemStoreLoadActionResult } from '../../../../features';
 import { type ArticleItemEditViewProps } from './ArticleItemEditViewProps';
 import styles from './ArticleItemEditView.module.css';
 
@@ -49,9 +49,9 @@ function ArticleItemEditView ({
 
   const isUpdating = articleId > 0;
 
-  const payloadOfLoadAction: ArticleItemStoreLoadActionPayload = useMemo(
+  const resultOfLoadAction: ArticleItemStoreLoadActionResult = useMemo(
     () => {
-      const result: ArticleItemStoreLoadActionPayload = {
+      const result: ArticleItemStoreLoadActionResult = {
         id: articleId
       };
 
@@ -61,22 +61,22 @@ function ArticleItemEditView ({
   );
 
   const {
-    payloadOfLoadCompletedAction,
+    resultOfLoadCompletedAction,
     pendingOfLoadAction
   } = hooks.Views.Article.Item.useStoreLoadActionOutput({
     onActionCompleted: onArticleItemLoadActionCompleted,
-    payloadOfLoadAction
+    resultOfLoadAction
   });
 
-  const loadedEntity = payloadOfLoadCompletedAction?.data?.item.data;
+  const loadedEntity = resultOfLoadCompletedAction?.data?.item.data;
 
   const {
+    resultOfSaveCompletedAction,
     dispatchOfSaveAction,
-    payloadOfSaveCompletedAction,
     pendingOfSaveAction
   } = hooks.Views.Article.Item.useStoreSaveActionOutput();
 
-  const savedEntity = payloadOfSaveCompletedAction?.data?.item.data;
+  const savedEntity = resultOfSaveCompletedAction?.data?.item.data;
 
   const entity: ArticleTypeEntity = useMemo(
     () => savedEntity ?? loadedEntity ?? createArticleTypeEntity({ topicId }),

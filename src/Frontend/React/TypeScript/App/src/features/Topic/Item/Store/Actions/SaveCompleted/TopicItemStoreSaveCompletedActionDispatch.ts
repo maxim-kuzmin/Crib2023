@@ -1,5 +1,5 @@
-import { type TopicItemStoreSaveCompletedActionPayload } from './TopicItemStoreSaveCompletedActionPayload';
+import { type TopicItemStoreSaveCompletedActionResult } from './TopicItemStoreSaveCompletedActionResult';
 
 export interface TopicItemStoreSaveCompletedActionDispatch {
-  readonly run: (payload: TopicItemStoreSaveCompletedActionPayload) => void;
+  readonly run: (actionResult: TopicItemStoreSaveCompletedActionResult) => void;
 }

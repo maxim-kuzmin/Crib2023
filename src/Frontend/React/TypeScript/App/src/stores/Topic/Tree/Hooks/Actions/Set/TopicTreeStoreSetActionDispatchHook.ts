@@ -5,6 +5,8 @@ import {
   type TopicTreeStoreSetActionDispatch,
   type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreSetActionPayload,
+  type TopicTreeStoreSetActionResult,
+  createTopicTreeStoreSetActionPayload,
 } from '../../../../../../features';
 import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
@@ -14,17 +16,22 @@ export function useStoreSetActionDispatch (
   {
     callback,
     dispatchType,
-    payloadOfSetAction
+    resultOfSetAction
   }: TopicTreeStoreSetActionOptions = {}
 ): TopicTreeStoreSetActionDispatch {
   const dispatch = useTopicTreeStoreDispatch();
+
+  const payloadOfSetAction = useMemo(
+    () => createTopicTreeStoreSetActionPayload({ actionResult: resultOfSetAction }),
+    [resultOfSetAction]
+  );
 
   const run = useCallback(
     (payload: TopicTreeStoreSetActionPayload) => {
       dispatch({ payload, sliceName, type: TopicTreeStoreActionType.Set });
 
       if (callback) {
-        callback(payload);
+        callback(payload.actionResult);
       }
     },
     [callback, dispatch, sliceName]
@@ -32,12 +39,12 @@ export function useStoreSetActionDispatch (
 
   useEffect(
     () => {
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfSetAction) {
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
         run(payloadOfSetAction);
       };
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfSetAction) {
+        if (dispatchType === StoreDispatchType.Unmount) {
           run(payloadOfSetAction);
         }
       };
@@ -45,5 +52,17 @@ export function useStoreSetActionDispatch (
     [dispatchType, payloadOfSetAction, run]
   );
 
-  return useMemo<TopicTreeStoreSetActionDispatch>(() => ({ run }), [run]);
+  return useMemo<TopicTreeStoreSetActionDispatch>(
+    () => ({
+      run: (actionResult: TopicTreeStoreSetActionResult) => {
+        const payloadOfSetActionInner = createTopicTreeStoreSetActionPayload({
+          ...payloadOfSetAction,
+          actionResult
+        });
+
+        run(payloadOfSetActionInner);
+      }
+    }),
+    [payloadOfSetAction, run]
+  );
 }

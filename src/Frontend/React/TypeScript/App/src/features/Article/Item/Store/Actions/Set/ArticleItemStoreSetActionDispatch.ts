@@ -1,5 +1,5 @@
-import { type ArticleItemStoreSetActionPayload } from './ArticleItemStoreSetActionPayload';
+import { type ArticleItemStoreSetActionResult } from './ArticleItemStoreSetActionResult';
 
 export interface ArticleItemStoreSetActionDispatch {
-  readonly run: (payload: ArticleItemStoreSetActionPayload) => void;
+  readonly run: (actionResult: ArticleItemStoreSetActionResult) => void;
 }

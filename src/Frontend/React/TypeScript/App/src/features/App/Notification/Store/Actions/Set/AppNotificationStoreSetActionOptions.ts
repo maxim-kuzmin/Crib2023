@@ -1,8 +1,8 @@
 import { type StoreActionOptions } from '../../../../../../common';
 import { type AppNotificationStoreSetActionCallback } from './AppNotificationStoreSetActionCallback';
-import { type AppNotificationStoreSetActionPayload } from './AppNotificationStoreSetActionPayload';
+import { type AppNotificationStoreSetActionResult } from './AppNotificationStoreSetActionResult';
 
 export interface AppNotificationStoreSetActionOptions extends StoreActionOptions {
   readonly callback?: AppNotificationStoreSetActionCallback;
-  readonly payloadOfSetAction?: AppNotificationStoreSetActionPayload;
+  readonly resultOfSetAction?: AppNotificationStoreSetActionResult;
 }

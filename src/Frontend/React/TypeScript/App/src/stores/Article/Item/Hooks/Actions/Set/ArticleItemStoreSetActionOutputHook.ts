@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import {
   type ArticleItemStoreSliceName,
+  type ArticleItemStoreSetActionResult,
   type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput,
-  type ArticleItemStoreSetActionPayload,
 } from '../../../../../../features';
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreSetActionDispatch } from './ArticleItemStoreSetActionDispatchHook';
@@ -15,9 +15,9 @@ export function useStoreSetActionOutput (
   const { onActionCompleted } = input;
 
   const callback = useCallback(
-    (payload: ArticleItemStoreSetActionPayload) => {
+    (data: ArticleItemStoreSetActionResult) => {
       if (onActionCompleted) {
-        onActionCompleted(payload);
+        onActionCompleted(data);
       }
     },
     [onActionCompleted]
@@ -25,10 +25,10 @@ export function useStoreSetActionOutput (
 
   const dispatchOfSetAction = useStoreSetActionDispatch(sliceName, { callback });
 
-  const { payloadOfSetAction } = useStoreState(sliceName);
+  const { resultOfSetAction } = useStoreState(sliceName);
 
   return {
     dispatchOfSetAction,
-    payloadOfSetAction
+    resultOfSetAction,
   };
 }

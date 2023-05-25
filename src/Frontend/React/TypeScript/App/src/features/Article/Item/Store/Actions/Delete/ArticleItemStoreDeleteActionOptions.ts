@@ -1,8 +1,8 @@
 import { type StoreActionOptions } from '../../../../../../common';
 import { type ArticleItemStoreDeleteCompletedActionCallback } from '../DeleteCompleted';
-import { type ArticleItemStoreDeleteActionPayload } from './ArticleItemStoreDeleteActionPayload';
+import { type ArticleItemStoreDeleteActionResult } from './ArticleItemStoreDeleteActionResult';
 
 export interface ArticleItemStoreDeleteActionOptions extends StoreActionOptions {
   readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
-  readonly payloadOfDeleteAction?: ArticleItemStoreDeleteActionPayload;
+  readonly resultOfDeleteAction?: ArticleItemStoreDeleteActionResult;
 }

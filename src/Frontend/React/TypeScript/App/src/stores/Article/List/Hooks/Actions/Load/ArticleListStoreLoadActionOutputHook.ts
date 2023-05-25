@@ -4,7 +4,7 @@ import {
   type ArticleListStoreSliceName,
   type ArticleListStoreLoadActionInput,
   type ArticleListStoreLoadActionOutput,
-  type ArticleListStoreLoadCompletedActionPayload,
+  type ArticleListStoreLoadCompletedActionResult,
 } from '../../../../../../features';
 import { useStoreState } from '../../ArticleListStoreStateHook';
 import { useStoreLoadActionDispatch } from './ArticleListStoreLoadActionDispatchHook';
@@ -13,12 +13,12 @@ export function useStoreLoadActionOutput (
   sliceName: ArticleListStoreSliceName,
   input: ArticleListStoreLoadActionInput
 ): ArticleListStoreLoadActionOutput {
-  const { abortController, onActionCompleted, payloadOfLoadAction } = input;
+  const { abortController, onActionCompleted, resultOfLoadAction } = input;
 
   const callback = useCallback(
-    (payload: ArticleListStoreLoadCompletedActionPayload) => {
+    (data: ArticleListStoreLoadCompletedActionResult) => {
       if (onActionCompleted) {
-        onActionCompleted(payload);
+        onActionCompleted(data);
       }
     },
     [onActionCompleted]
@@ -30,15 +30,15 @@ export function useStoreLoadActionOutput (
       abortController,
       callback,
       dispatchType: StoreDispatchType.MountOrUpdate,
-      payloadOfLoadAction
+      resultOfLoadAction
     }
   );
 
-  const { payloadOfLoadCompletedAction, statusOfLoadAction } = useStoreState(sliceName);
+  const { resultOfLoadCompletedAction, statusOfLoadAction } = useStoreState(sliceName);
 
   return {
     dispatchOfLoadAction,
-    payloadOfLoadCompletedAction,
-    pendingOfLoadAction: statusOfLoadAction === OperationStatus.Pending
+    pendingOfLoadAction: statusOfLoadAction === OperationStatus.Pending,
+    resultOfLoadCompletedAction,
   };
 }

@@ -2,6 +2,7 @@ import {
   type CommonHooks,
   type ControlsHooks,
   type FunctionToSetNotification,
+  type NotificationControlProps,
   createCommonHooks,
 } from '../../common';
 import { createControlsHooks } from '../../controls';
@@ -10,7 +11,7 @@ import { type DomainsHooks, createDomainsHooks } from '../../domains';
 import {
   AppNotificationStoreSliceName,
   type FeaturesHooks,
-  createFeaturesHooks
+  createFeaturesHooks,
 } from '../../features';
 import {
   createAppNotificationStoreHooks,
@@ -75,7 +76,9 @@ class Implementation implements InstanceHooks {
         {}
       );
 
-      return run;
+      return (data: NotificationControlProps) => {
+        run(data);
+      }
     }
 
     this.Common = createCommonHooks({

@@ -1,5 +1,5 @@
-import { type ArticleItemStoreDeleteActionPayload } from './ArticleItemStoreDeleteActionPayload';
+import { type ArticleItemStoreDeleteActionResult } from './ArticleItemStoreDeleteActionResult';
 
 export interface ArticleItemStoreDeleteActionDispatch {
-  readonly run: (payload: ArticleItemStoreDeleteActionPayload, abortSignal?: AbortSignal) => Promise<void>;
+  readonly run: (actionResult: ArticleItemStoreDeleteActionResult, abortSignal?: AbortSignal) => Promise<void>;
 }

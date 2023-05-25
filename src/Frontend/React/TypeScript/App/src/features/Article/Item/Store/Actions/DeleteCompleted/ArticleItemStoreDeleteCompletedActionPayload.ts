@@ -1,3 +1,13 @@
-import { type ApiOperationResponse } from '../../../../../../data';
+import { type ArticleItemStoreDeleteCompletedActionResult } from './ArticleItemStoreDeleteCompletedActionResult';
 
-export type ArticleItemStoreDeleteCompletedActionPayload = ApiOperationResponse | null;
+export interface ArticleItemStoreDeleteCompletedActionPayload {
+  actionResult: ArticleItemStoreDeleteCompletedActionResult;
+}
+
+export function createArticleItemStoreDeleteCompletedActionPayload (
+  options: Partial<ArticleItemStoreDeleteCompletedActionPayload>
+): ArticleItemStoreDeleteCompletedActionPayload {
+  return {
+    actionResult: options?.actionResult ?? null,
+  };
+}

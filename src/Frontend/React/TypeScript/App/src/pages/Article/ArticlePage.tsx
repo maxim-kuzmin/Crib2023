@@ -3,8 +3,8 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { useAppInstance } from '../../app';
 import { TreeGetOperationAxisForItem } from '../../common';
 import {
-  type TopicItemStoreLoadActionPayload,
-  type ArticleItemStoreSetActionPayload
+  type ArticleItemStoreSetActionResult,
+  type TopicItemStoreLoadActionResult,
 } from '../../features';
 import {
   ArticleItemEditView,
@@ -29,9 +29,9 @@ function ArticlePage ({
     modules.Pages.Article.getService().getUrlSearch(searchParams).topicId
   );
 
-  const handleArticleItemLoadActionCompleted = useCallback((payload: ArticleItemStoreSetActionPayload) => {
+  const handleArticleItemLoadActionCompleted = useCallback((actionResult: ArticleItemStoreSetActionResult) => {
       if (mode !== ArticleItemViewMode.New) {
-        setTopicId(payload?.data?.item?.data.topicId ?? 0);
+        setTopicId(actionResult?.data?.item?.data.topicId ?? 0);
       }
 
       articleItemIsLoadedRef.current = true;
@@ -45,9 +45,9 @@ function ArticlePage ({
     articleId = 0;
   }
 
-  const payloadOfLoadActionForTreeItem: TopicItemStoreLoadActionPayload = useMemo(
+  const resultOfLoadActionForTreeItem: TopicItemStoreLoadActionResult = useMemo(
     () => {
-      const result: TopicItemStoreLoadActionPayload = {
+      const result: TopicItemStoreLoadActionResult = {
         id: topicId,
         axis: TreeGetOperationAxisForItem.Self
       };
@@ -73,7 +73,7 @@ function ArticlePage ({
   );
 
   hooks.Views.Topic.Item.useStoreLoadActionOutput({
-    payloadOfLoadAction: payloadOfLoadActionForTreeItem,
+    resultOfLoadAction: resultOfLoadActionForTreeItem,
     abortController: abortControllerOfLoadActionForTreeItem
   });
 

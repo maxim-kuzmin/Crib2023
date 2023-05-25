@@ -5,6 +5,8 @@ import {
   type TopicItemStoreLoadCompletedActionDispatch,
   type TopicItemStoreLoadCompletedActionOptions,
   type TopicItemStoreLoadCompletedActionPayload,
+  type TopicItemStoreLoadCompletedActionResult,
+  createTopicItemStoreLoadCompletedActionPayload,
 } from '../../../../../../features';
 import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
@@ -14,10 +16,17 @@ export function useStoreLoadCompletedActionDispatch (
   {
     callback,
     dispatchType,
-    payloadOfLoadCompletedAction
+    resultOfLoadCompletedAction
   }: TopicItemStoreLoadCompletedActionOptions = {}
 ): TopicItemStoreLoadCompletedActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
+
+  const payloadOfLoadCompletedAction = useMemo(
+    () => createTopicItemStoreLoadCompletedActionPayload({
+      actionResult: resultOfLoadCompletedAction,
+    }),
+    [resultOfLoadCompletedAction]
+  );
 
   const run = useCallback(
     (payload: TopicItemStoreLoadCompletedActionPayload) => {
@@ -28,7 +37,7 @@ export function useStoreLoadCompletedActionDispatch (
       });
 
       if (callback) {
-        callback(payload);
+        callback(payload.actionResult);
       }
     },
     [callback, dispatch, sliceName]
@@ -36,12 +45,12 @@ export function useStoreLoadCompletedActionDispatch (
 
   useEffect(
     () => {
-      if (dispatchType === StoreDispatchType.MountOrUpdate && payloadOfLoadCompletedAction) {
+      if (dispatchType === StoreDispatchType.MountOrUpdate) {
         run(payloadOfLoadCompletedAction);
       };
 
       return () => {
-        if (dispatchType === StoreDispatchType.Unmount && payloadOfLoadCompletedAction) {
+        if (dispatchType === StoreDispatchType.Unmount) {
           run(payloadOfLoadCompletedAction);
         }
       };
@@ -49,5 +58,17 @@ export function useStoreLoadCompletedActionDispatch (
     [dispatchType, payloadOfLoadCompletedAction, run]
   );
 
-  return useMemo<TopicItemStoreLoadCompletedActionDispatch>(() => ({ run }), [run]);
+  return useMemo<TopicItemStoreLoadCompletedActionDispatch>(
+    () => ({
+      run: (actionResult: TopicItemStoreLoadCompletedActionResult) => {
+        const payloadOfLoadCompletedActionInner = createTopicItemStoreLoadCompletedActionPayload({
+          ...payloadOfLoadCompletedAction,
+          actionResult
+        });
+
+        run(payloadOfLoadCompletedActionInner);
+      }
+    }),
+    [payloadOfLoadCompletedAction, run]
+  );
 }
