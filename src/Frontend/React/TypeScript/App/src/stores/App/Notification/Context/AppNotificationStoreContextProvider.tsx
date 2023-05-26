@@ -22,7 +22,7 @@ function reducer (
   action: AppNotificationStoreActionUnion
 ): AppNotificationStoreStateMap {
   const result: AppNotificationStoreStateMap = createStoreStateMap({ stateMap });
-  const { sliceName, type } = action;
+  const { payload: { sliceName }, type } = action;
 
   let state = result[sliceName];
 

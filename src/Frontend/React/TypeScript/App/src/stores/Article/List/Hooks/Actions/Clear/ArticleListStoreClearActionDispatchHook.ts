@@ -4,8 +4,9 @@ import {
   type ArticleListStoreSliceName,
   type ArticleListStoreClearActionDispatch,
   type ArticleListStoreClearActionOptions,
+  createArticleListStoreClearActionPayload,
 } from '../../../../../../features';
-import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
+import { createArticleListStoreClearAction } from '../../../Actions';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 
 export function useStoreClearActionDispatch (
@@ -17,15 +18,20 @@ export function useStoreClearActionDispatch (
 ): ArticleListStoreClearActionDispatch {
   const dispatch = useArticleListStoreDispatch();
 
+  const payloadOfClearAction = useMemo(
+    () => createArticleListStoreClearActionPayload({ sliceName }),
+    [sliceName]
+  );
+
   const run = useCallback(
     () => {
-      dispatch({ sliceName, type: ArticleListStoreActionType.Clear });
+      dispatch(createArticleListStoreClearAction({ payload: payloadOfClearAction }));
 
       if (callback) {
         callback();
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch, payloadOfClearAction]
   );
 
   useEffect(

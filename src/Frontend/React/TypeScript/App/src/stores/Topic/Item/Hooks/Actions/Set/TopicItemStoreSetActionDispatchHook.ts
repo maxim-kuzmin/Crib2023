@@ -8,7 +8,7 @@ import {
   type TopicItemStoreSetActionResult,
   createTopicItemStoreSetActionPayload,
 } from '../../../../../../features';
-import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
+import { createTopicItemStoreSetAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
 export function useStoreSetActionDispatch (
@@ -22,19 +22,19 @@ export function useStoreSetActionDispatch (
   const dispatch = useTopicItemStoreDispatch();
 
   const payloadOfSetAction = useMemo(
-    () => createTopicItemStoreSetActionPayload({ actionResult: resultOfSetAction }),
-    [resultOfSetAction]
+    () => createTopicItemStoreSetActionPayload({ actionResult: resultOfSetAction, sliceName }),
+    [resultOfSetAction, sliceName]
   );
 
   const run = useCallback(
     (payload: TopicItemStoreSetActionPayload) => {
-      dispatch({ payload, sliceName, type: TopicItemStoreActionType.Set });
+      dispatch(createTopicItemStoreSetAction({ payload }));
 
       if (callback) {
         callback(payload.actionResult);
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch]
   );
 
   useEffect(

@@ -1,9 +1,12 @@
+import { type StoreActionPayload, createStoreActionPayload } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import { type ArticleDomainItemGetOperationRequestHandler } from '../../../../../../domains';
 import { type ArticleItemStoreResource } from '../../ArticleItemStoreResource';
+import { type ArticleItemStoreSliceName } from '../../Slice';
 import { type ArticleItemStoreLoadActionResult } from './ArticleItemStoreLoadActionResult';
 
-export interface ArticleItemStoreLoadActionPayload {
+export interface ArticleItemStoreLoadActionPayload
+  extends StoreActionPayload<ArticleItemStoreSliceName> {
   readonly abortSignal?: AbortSignal;
   readonly actionResult: ArticleItemStoreLoadActionResult;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -11,26 +14,29 @@ export interface ArticleItemStoreLoadActionPayload {
   readonly requestHandler: ArticleDomainItemGetOperationRequestHandler;
 }
 
+interface Options extends Omit<ArticleItemStoreLoadActionPayload, 'actionResult'> {
+  readonly actionResult?: ArticleItemStoreLoadActionResult;
+}
+
 export function createArticleItemStoreLoadActionPayload (
-  options?: Partial<ArticleItemStoreLoadActionPayload>
+  options: Options
 ): ArticleItemStoreLoadActionPayload {
-  if (!options?.resourceOfApiResponse) {
-    throw new Error('resourceOfApiResponse is undefined');
-  }
+  const {
+    abortSignal,
+    actionResult,
+    resourceOfApiResponse,
+    resourceOfArticleItemStore,
+    requestHandler,
+  } = options;
 
-  if (!options?.resourceOfArticleItemStore) {
-    throw new Error('resourceOfArticleItemStore is undefined');
-  }
-
-  if (!options?.requestHandler) {
-    throw new Error('requestHandler is undefined');
-  }
+  const base = createStoreActionPayload(options);
 
   return {
-    abortSignal: options?.abortSignal,
-    actionResult: options?.actionResult ?? null,
-    resourceOfApiResponse: options?.resourceOfApiResponse,
-    resourceOfArticleItemStore: options?.resourceOfArticleItemStore,
-    requestHandler: options?.requestHandler,
+    ...base,
+    abortSignal,
+    actionResult: actionResult ?? null,
+    resourceOfApiResponse,
+    resourceOfArticleItemStore,
+    requestHandler,
   };
 }

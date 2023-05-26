@@ -4,8 +4,9 @@ import {
   type AppNotificationStoreSliceName,
   type AppNotificationStoreClearActionDispatch,
   type AppNotificationStoreClearActionOptions,
+  createAppNotificationStoreClearActionPayload,
 } from '../../../../../../features';
-import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
+import { createAppNotificationStoreClearAction } from '../../../Actions';
 import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHooks';
 
 export function useStoreClearActionDispatch (
@@ -17,15 +18,20 @@ export function useStoreClearActionDispatch (
 ): AppNotificationStoreClearActionDispatch {
   const dispatch = useAppNotificationStoreDispatch();
 
+  const payloadOfClearAction = useMemo(
+    () => createAppNotificationStoreClearActionPayload({ sliceName }),
+    [sliceName]
+  );
+
   const run = useCallback(
     () => {
-      dispatch({ sliceName, type: AppNotificationStoreActionType.Clear });
+      dispatch(createAppNotificationStoreClearAction({ payload: payloadOfClearAction }));
 
       if (callback) {
         callback();
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch, payloadOfClearAction]
   );
 
   useEffect(

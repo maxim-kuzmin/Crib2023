@@ -8,7 +8,7 @@ import {
   type TopicItemStoreSaveCompletedActionResult,
   createTopicItemStoreSaveCompletedActionPayload,
 } from '../../../../../../features';
-import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
+import { createTopicItemStoreSaveCompletedAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
 export function useStoreSaveCompletedActionDispatch (
@@ -24,23 +24,20 @@ export function useStoreSaveCompletedActionDispatch (
   const payloadOfSaveCompletedAction = useMemo(
     () => createTopicItemStoreSaveCompletedActionPayload({
       actionResult: resultOfSaveCompletedAction,
+      sliceName,
     }),
-    [resultOfSaveCompletedAction]
+    [resultOfSaveCompletedAction, sliceName]
   );
 
   const run = useCallback(
     (payload: TopicItemStoreSaveCompletedActionPayload) => {
-      dispatch({
-        payload,
-        sliceName,
-        type: TopicItemStoreActionType.SaveCompleted
-      });
+      dispatch(createTopicItemStoreSaveCompletedAction({ payload }));
 
       if (callback) {
         callback(payload.actionResult);
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch]
   );
 
   useEffect(

@@ -22,7 +22,7 @@ function reducer (
   action: TopicItemStoreActionUnion
 ): TopicItemStoreStateMap {
   const result: TopicItemStoreStateMap = createStoreStateMap({ stateMap });
-  const { sliceName, type } = action;
+  const { payload: { sliceName }, type } = action;
 
   let state = result[sliceName];
 

@@ -10,7 +10,7 @@ import {
   type TopicItemStoreSaveActionResult,
   createTopicItemStoreSaveActionPayload,
 } from '../../../../../../features';
-import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
+import { createTopicItemStoreSaveAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
 export function useStoreSaveActionDispatch (
@@ -35,9 +35,10 @@ export function useStoreSaveActionDispatch (
       actionResult: resultOfSaveAction,
       resourceOfApiResponse,
       resourceOfTopicItemStore,
-      requestHandler
+      requestHandler,
+      sliceName,
     }),
-    [resultOfSaveAction, requestHandler, resourceOfApiResponse, resourceOfTopicItemStore]
+    [resultOfSaveAction, requestHandler, resourceOfApiResponse, resourceOfTopicItemStore, sliceName]
   );
 
   const { run: complete } = hooks.Features.Topic.Item.Store.useStoreSaveCompletedActionDispatch(
@@ -59,7 +60,7 @@ export function useStoreSaveActionDispatch (
         return;
       }
 
-      dispatch({ payload, sliceName, type: TopicItemStoreActionType.Save });
+      dispatch(createTopicItemStoreSaveAction({ payload }));
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -80,7 +81,7 @@ export function useStoreSaveActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, sliceName]
+    [complete, dispatch]
   );
 
   useEffect(

@@ -10,7 +10,7 @@ import {
   type ArticleItemStoreSliceName,
   createArticleItemStoreDeleteActionPayload,
 } from '../../../../../../features';
-import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
+import { createArticleItemStoreDeleteAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
 export function useStoreDeleteActionDispatch (
@@ -35,9 +35,10 @@ export function useStoreDeleteActionDispatch (
       actionResult: resultOfDeleteAction,
       resourceOfApiResponse,
       resourceOfArticleItemStore,
-      requestHandler
+      requestHandler,
+      sliceName,
     }),
-    [resultOfDeleteAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore]
+    [resultOfDeleteAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
   );
 
   const { run: complete } = hooks.Features.Article.Item.Store.useStoreDeleteCompletedActionDispatch(
@@ -59,7 +60,7 @@ export function useStoreDeleteActionDispatch (
         return;
       }
 
-      dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Delete });
+      dispatch(createArticleItemStoreDeleteAction({ payload }));
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -80,7 +81,7 @@ export function useStoreDeleteActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, sliceName]
+    [complete, dispatch]
   );
 
   useEffect(

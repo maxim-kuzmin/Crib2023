@@ -8,7 +8,7 @@ import {
   type TopicTreeStoreLoadCompletedActionResult,
   createTopicTreeStoreLoadCompletedActionPayload,
 } from '../../../../../../features';
-import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
+import { createTopicTreeStoreLoadCompletedAction } from '../../../Actions';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
 
 export function useStoreLoadCompletedActionDispatch (
@@ -24,23 +24,20 @@ export function useStoreLoadCompletedActionDispatch (
   const payloadOfLoadCompletedAction = useMemo(
     () => createTopicTreeStoreLoadCompletedActionPayload({
       actionResult: resultOfLoadCompletedAction,
+      sliceName,
     }),
-    [resultOfLoadCompletedAction]
+    [resultOfLoadCompletedAction, sliceName]
   );
 
   const run = useCallback(
     (payload: TopicTreeStoreLoadCompletedActionPayload) => {
-      dispatch({
-        payload,
-        sliceName,
-        type: TopicTreeStoreActionType.LoadCompleted
-      });
+      dispatch(createTopicTreeStoreLoadCompletedAction({ payload }));
 
       if (callback) {
         callback(payload.actionResult);
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch]
   );
 
   useEffect(

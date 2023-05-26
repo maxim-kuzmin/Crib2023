@@ -1,4 +1,4 @@
-import { type StoreDispatchType } from './StoreDispatchType';
+import { type StoreDispatchType } from '../StoreDispatchType';
 
 export interface StoreActionOptions {
   readonly dispatchType?: StoreDispatchType;

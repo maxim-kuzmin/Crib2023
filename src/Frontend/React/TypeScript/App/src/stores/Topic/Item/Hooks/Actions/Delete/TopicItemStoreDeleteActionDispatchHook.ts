@@ -10,7 +10,7 @@ import {
   type TopicItemStoreSliceName,
   createTopicItemStoreDeleteActionPayload,
 } from '../../../../../../features';
-import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
+import { createTopicItemStoreDeleteAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
 export function useStoreDeleteActionDispatch (
@@ -35,9 +35,10 @@ export function useStoreDeleteActionDispatch (
       actionResult: resultOfDeleteAction,
       resourceOfApiResponse,
       resourceOfTopicItemStore,
-      requestHandler
+      requestHandler,
+      sliceName,
     }),
-    [resultOfDeleteAction, requestHandler, resourceOfApiResponse, resourceOfTopicItemStore]
+    [resultOfDeleteAction, requestHandler, resourceOfApiResponse, resourceOfTopicItemStore, sliceName]
   );
 
   const { run: complete } = hooks.Features.Topic.Item.Store.useStoreDeleteCompletedActionDispatch(
@@ -59,7 +60,7 @@ export function useStoreDeleteActionDispatch (
         return;
       }
 
-      dispatch({ payload, sliceName, type: TopicItemStoreActionType.Delete });
+      dispatch(createTopicItemStoreDeleteAction({ payload }));
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -80,7 +81,7 @@ export function useStoreDeleteActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, sliceName]
+    [complete, dispatch]
   );
 
   useEffect(

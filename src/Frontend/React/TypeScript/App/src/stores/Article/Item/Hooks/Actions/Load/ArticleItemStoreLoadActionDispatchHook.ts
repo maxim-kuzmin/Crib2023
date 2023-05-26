@@ -10,7 +10,7 @@ import {
   type ArticleItemStoreSliceName,
   createArticleItemStoreLoadActionPayload,
 } from '../../../../../../features';
-import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
+import { createArticleItemStoreLoadAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
 export function useStoreLoadActionDispatch (
@@ -35,9 +35,10 @@ export function useStoreLoadActionDispatch (
       actionResult: resultOfLoadAction,
       resourceOfApiResponse,
       resourceOfArticleItemStore,
-      requestHandler
+      requestHandler,
+      sliceName,
     }),
-    [resultOfLoadAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore]
+    [resultOfLoadAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
   );
 
   const { run: complete } = hooks.Features.Article.Item.Store.useStoreLoadCompletedActionDispatch(
@@ -59,7 +60,7 @@ export function useStoreLoadActionDispatch (
         return;
       }
 
-      dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Load });
+      dispatch(createArticleItemStoreLoadAction({ payload }));
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -80,7 +81,7 @@ export function useStoreLoadActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, sliceName]
+    [complete, dispatch]
   );
 
   useEffect(

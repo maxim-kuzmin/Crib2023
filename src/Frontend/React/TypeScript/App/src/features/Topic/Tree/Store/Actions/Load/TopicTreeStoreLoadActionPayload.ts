@@ -1,9 +1,12 @@
+import { type StoreActionPayload, createStoreActionPayload } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import { type TopicDomainTreeGetOperationRequestHandler } from '../../../../../../domains';
+import { type TopicTreeStoreSliceName } from '../../Slice';
 import { type TopicTreeStoreResource } from '../../TopicTreeStoreResource';
 import { type TopicTreeStoreLoadActionResult } from './TopicTreeStoreLoadActionResult';
 
-export interface TopicTreeStoreLoadActionPayload {
+export interface TopicTreeStoreLoadActionPayload
+  extends StoreActionPayload<TopicTreeStoreSliceName> {
   readonly abortSignal?: AbortSignal;
   readonly actionResult: TopicTreeStoreLoadActionResult;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -11,26 +14,29 @@ export interface TopicTreeStoreLoadActionPayload {
   readonly requestHandler: TopicDomainTreeGetOperationRequestHandler;
 }
 
+interface Options extends Omit<TopicTreeStoreLoadActionPayload, 'actionResult'> {
+  readonly actionResult?: TopicTreeStoreLoadActionResult;
+}
+
 export function createTopicTreeStoreLoadActionPayload (
-  options?: Partial<TopicTreeStoreLoadActionPayload>
+  options: Options
 ): TopicTreeStoreLoadActionPayload {
-  if (!options?.resourceOfApiResponse) {
-    throw new Error('resourceOfApiResponse is undefined');
-  }
+  const {
+    abortSignal,
+    actionResult,
+    resourceOfApiResponse,
+    resourceOfTopicTreeStore,
+    requestHandler,
+  } = options;
 
-  if (!options?.resourceOfTopicTreeStore) {
-    throw new Error('resourceOfTopicTreeStore is undefined');
-  }
-
-  if (!options?.requestHandler) {
-    throw new Error('requestHandler is undefined');
-  }
+  const base = createStoreActionPayload(options);
 
   return {
-    abortSignal: options?.abortSignal,
-    actionResult: options?.actionResult ?? null,
-    resourceOfApiResponse: options?.resourceOfApiResponse,
-    resourceOfTopicTreeStore: options?.resourceOfTopicTreeStore,
-    requestHandler: options?.requestHandler,
+    ...base,
+    abortSignal,
+    actionResult: actionResult ?? null,
+    resourceOfApiResponse,
+    resourceOfTopicTreeStore,
+    requestHandler,
   };
 }

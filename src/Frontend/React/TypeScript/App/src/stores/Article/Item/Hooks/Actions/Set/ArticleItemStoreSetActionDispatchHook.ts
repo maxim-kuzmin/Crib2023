@@ -8,7 +8,7 @@ import {
   type ArticleItemStoreSetActionResult,
   createArticleItemStoreSetActionPayload,
 } from '../../../../../../features';
-import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
+import { createArticleItemStoreSetAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
 export function useStoreSetActionDispatch (
@@ -22,19 +22,19 @@ export function useStoreSetActionDispatch (
   const dispatch = useArticleItemStoreDispatch();
 
   const payloadOfSetAction = useMemo(
-    () => createArticleItemStoreSetActionPayload({ actionResult: resultOfSetAction }),
-    [resultOfSetAction]
+    () => createArticleItemStoreSetActionPayload({ actionResult: resultOfSetAction, sliceName }),
+    [resultOfSetAction, sliceName]
   );
 
   const run = useCallback(
     (payload: ArticleItemStoreSetActionPayload) => {
-      dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Set });
+      dispatch(createArticleItemStoreSetAction({ payload }));
 
       if (callback) {
         callback(payload.actionResult);
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch]
   );
 
   useEffect(

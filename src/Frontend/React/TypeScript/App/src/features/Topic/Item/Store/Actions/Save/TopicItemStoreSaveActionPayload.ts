@@ -1,9 +1,12 @@
+import { type StoreActionPayload, createStoreActionPayload } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import { type TopicDomainItemSaveOperationRequestHandler } from '../../../../../../domains';
+import { type TopicItemStoreSliceName } from '../../Slice';
 import { type TopicItemStoreResource } from '../../TopicItemStoreResource';
 import { type TopicItemStoreSaveActionResult } from './TopicItemStoreSaveActionResult';
 
-export interface TopicItemStoreSaveActionPayload {
+export interface TopicItemStoreSaveActionPayload
+  extends StoreActionPayload<TopicItemStoreSliceName> {
   readonly abortSignal?: AbortSignal;
   readonly actionResult: TopicItemStoreSaveActionResult;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -11,26 +14,29 @@ export interface TopicItemStoreSaveActionPayload {
   readonly requestHandler: TopicDomainItemSaveOperationRequestHandler;
 }
 
+interface Options extends Omit<TopicItemStoreSaveActionPayload, 'actionResult'> {
+  readonly actionResult?: TopicItemStoreSaveActionResult;
+}
+
 export function createTopicItemStoreSaveActionPayload (
-  options?: Partial<TopicItemStoreSaveActionPayload>
+  options: Options
 ): TopicItemStoreSaveActionPayload {
-  if (!options?.resourceOfApiResponse) {
-    throw new Error('resourceOfApiResponse is undefined');
-  }
+  const {
+    abortSignal,
+    actionResult,
+    resourceOfApiResponse,
+    resourceOfTopicItemStore,
+    requestHandler,
+  } = options;
 
-  if (!options?.resourceOfTopicItemStore) {
-    throw new Error('resourceOfTopicItemStore is undefined');
-  }
-
-  if (!options?.requestHandler) {
-    throw new Error('requestHandler is undefined');
-  }
+  const base = createStoreActionPayload(options);
 
   return {
-    abortSignal: options?.abortSignal,
-    actionResult: options?.actionResult ?? null,
-    resourceOfApiResponse: options?.resourceOfApiResponse,
-    resourceOfTopicItemStore: options?.resourceOfTopicItemStore,
-    requestHandler: options?.requestHandler,
+    ...base,
+    abortSignal,
+    actionResult: actionResult ?? null,
+    resourceOfApiResponse,
+    resourceOfTopicItemStore,
+    requestHandler,
   };
 }

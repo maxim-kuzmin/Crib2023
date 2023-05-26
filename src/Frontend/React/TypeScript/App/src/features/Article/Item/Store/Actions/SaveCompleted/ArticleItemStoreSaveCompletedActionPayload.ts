@@ -1,13 +1,25 @@
+import { type StoreActionPayload, createStoreActionPayload } from '../../../../../../common';
+import { type ArticleItemStoreSliceName } from '../../Slice';
 import { type ArticleItemStoreSaveCompletedActionResult } from './ArticleItemStoreSaveCompletedActionResult';
 
-export interface ArticleItemStoreSaveCompletedActionPayload {
+export interface ArticleItemStoreSaveCompletedActionPayload
+  extends StoreActionPayload<ArticleItemStoreSliceName> {
   actionResult: ArticleItemStoreSaveCompletedActionResult;
 }
 
+interface Options extends Omit<ArticleItemStoreSaveCompletedActionPayload, 'actionResult'> {
+  readonly actionResult?: ArticleItemStoreSaveCompletedActionResult;
+}
+
 export function createArticleItemStoreSaveCompletedActionPayload (
-  options: Partial<ArticleItemStoreSaveCompletedActionPayload>
+  options: Options
 ): ArticleItemStoreSaveCompletedActionPayload {
+  const { actionResult } = options;
+
+  const base = createStoreActionPayload(options);
+
   return {
-    actionResult: options?.actionResult ?? null,
+    ...base,
+    actionResult: actionResult ?? null,
   };
 }

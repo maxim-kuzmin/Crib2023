@@ -8,7 +8,7 @@ import {
   type AppNotificationStoreSetActionResult,
   createAppNotificationStoreSetActionPayload,
 } from '../../../../../../features';
-import { AppNotificationStoreActionType } from '../../../AppNotificationStoreActionType';
+import { createAppNotificationStoreSetAction } from '../../../Actions';
 import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHooks';
 
 export function useStoreSetActionDispatch (
@@ -22,19 +22,19 @@ export function useStoreSetActionDispatch (
   const dispatch = useAppNotificationStoreDispatch();
 
   const payloadOfSetAction = useMemo(
-    () => createAppNotificationStoreSetActionPayload({ actionResult: resultOfSetAction }),
-    [resultOfSetAction]
+    () => createAppNotificationStoreSetActionPayload({ actionResult: resultOfSetAction, sliceName }),
+    [resultOfSetAction, sliceName]
   );
 
   const run = useCallback(
     (payload: AppNotificationStoreSetActionPayload) => {
-      dispatch({ payload, sliceName, type: AppNotificationStoreActionType.Set });
+      dispatch(createAppNotificationStoreSetAction({ payload }));
 
       if (callback) {
         callback(payload.actionResult);
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch]
   );
 
   useEffect(

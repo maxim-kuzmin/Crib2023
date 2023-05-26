@@ -3,3 +3,7 @@ export { type ArticleItemStoreClearActionDispatch } from './ArticleItemStoreClea
 export { type ArticleItemStoreClearActionInput } from './ArticleItemStoreClearActionInput';
 export { type ArticleItemStoreClearActionOptions } from './ArticleItemStoreClearActionOptions';
 export { type ArticleItemStoreClearActionOutput } from './ArticleItemStoreClearActionOutput';
+export {
+  type ArticleItemStoreClearActionPayload,
+  createArticleItemStoreClearActionPayload
+} from './ArticleItemStoreClearActionPayload';

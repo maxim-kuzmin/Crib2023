@@ -8,7 +8,7 @@ import {
   type TopicTreeStoreSetActionResult,
   createTopicTreeStoreSetActionPayload,
 } from '../../../../../../features';
-import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
+import { createTopicTreeStoreSetAction } from '../../../Actions';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
 
 export function useStoreSetActionDispatch (
@@ -22,19 +22,19 @@ export function useStoreSetActionDispatch (
   const dispatch = useTopicTreeStoreDispatch();
 
   const payloadOfSetAction = useMemo(
-    () => createTopicTreeStoreSetActionPayload({ actionResult: resultOfSetAction }),
-    [resultOfSetAction]
+    () => createTopicTreeStoreSetActionPayload({ actionResult: resultOfSetAction, sliceName }),
+    [resultOfSetAction, sliceName]
   );
 
   const run = useCallback(
     (payload: TopicTreeStoreSetActionPayload) => {
-      dispatch({ payload, sliceName, type: TopicTreeStoreActionType.Set });
+      dispatch(createTopicTreeStoreSetAction({ payload }));
 
       if (callback) {
         callback(payload.actionResult);
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch]
   );
 
   useEffect(

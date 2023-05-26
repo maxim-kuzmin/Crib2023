@@ -1,8 +1,21 @@
-import { type StoreAction } from '../../../../common';
+import { type StoreActionWithPayload, createStoreActionWithPayload } from '../../../../common';
 import { type TopicItemStoreSaveActionPayload } from '../../../../features';
-import { type TopicItemStoreActionType } from '../TopicItemStoreActionType';
+import { TopicItemStoreActionType } from '../TopicItemStoreActionType';
 
-export interface TopicItemStoreSaveAction extends StoreAction {
-  type: TopicItemStoreActionType.Save;
-  payload: TopicItemStoreSaveActionPayload;
+export interface TopicItemStoreSaveAction
+  extends StoreActionWithPayload<TopicItemStoreSaveActionPayload> {
+  readonly type: TopicItemStoreActionType.Save;
+}
+
+export function createTopicItemStoreSaveAction (
+  options: Omit<TopicItemStoreSaveAction, 'type'>
+): TopicItemStoreSaveAction {
+  const { payload } = options;
+
+  const base = createStoreActionWithPayload({ payload });
+
+  return {
+    ...base,
+    type: TopicItemStoreActionType.Save
+  };
 }

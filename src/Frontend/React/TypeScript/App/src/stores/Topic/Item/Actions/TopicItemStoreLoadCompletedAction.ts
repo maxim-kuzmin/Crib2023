@@ -1,8 +1,21 @@
-import { type StoreAction } from '../../../../common';
+import { type StoreActionWithPayload, createStoreActionWithPayload } from '../../../../common';
 import { type TopicItemStoreLoadCompletedActionPayload } from '../../../../features';
-import { type TopicItemStoreActionType } from '../TopicItemStoreActionType';
+import { TopicItemStoreActionType } from '../TopicItemStoreActionType';
 
-export interface TopicItemStoreLoadCompletedAction extends StoreAction {
-  type: TopicItemStoreActionType.LoadCompleted;
-  payload: TopicItemStoreLoadCompletedActionPayload;
+export interface TopicItemStoreLoadCompletedAction
+  extends StoreActionWithPayload<TopicItemStoreLoadCompletedActionPayload> {
+  readonly type: TopicItemStoreActionType.LoadCompleted;
+}
+
+export function createTopicItemStoreLoadCompletedAction (
+  options: Omit<TopicItemStoreLoadCompletedAction, 'type'>
+): TopicItemStoreLoadCompletedAction {
+  const { payload } = options;
+
+  const base = createStoreActionWithPayload({ payload });
+
+  return {
+    ...base,
+    type: TopicItemStoreActionType.LoadCompleted
+  };
 }

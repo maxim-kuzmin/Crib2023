@@ -8,7 +8,7 @@ import {
   type ArticleListStoreLoadCompletedActionResult,
   createArticleListStoreLoadCompletedActionPayload,
 } from '../../../../../../features';
-import { ArticleListStoreActionType } from '../../../ArticleListStoreActionType';
+import { createArticleListStoreLoadCompletedAction } from '../../../Actions';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 
 export function useStoreLoadCompletedActionDispatch (
@@ -24,23 +24,20 @@ export function useStoreLoadCompletedActionDispatch (
   const payloadOfLoadCompletedAction = useMemo(
     () => createArticleListStoreLoadCompletedActionPayload({
       actionResult: resultOfLoadCompletedAction,
+      sliceName,
     }),
-    [resultOfLoadCompletedAction]
+    [resultOfLoadCompletedAction, sliceName]
   );
 
   const run = useCallback(
     (payload: ArticleListStoreLoadCompletedActionPayload) => {
-      dispatch({
-        payload,
-        sliceName,
-        type: ArticleListStoreActionType.LoadCompleted
-      });
+      dispatch(createArticleListStoreLoadCompletedAction({ payload }));
 
       if (callback) {
         callback(payload.actionResult);
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch]
   );
 
   useEffect(

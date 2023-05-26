@@ -4,8 +4,9 @@ import {
   type TopicTreeStoreSliceName,
   type TopicTreeStoreClearActionDispatch,
   type TopicTreeStoreClearActionOptions,
+  createTopicTreeStoreClearActionPayload,
 } from '../../../../../../features';
-import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
+import { createTopicTreeStoreClearAction } from '../../../Actions';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
 
 export function useStoreClearActionDispatch (
@@ -17,15 +18,20 @@ export function useStoreClearActionDispatch (
 ): TopicTreeStoreClearActionDispatch {
   const dispatch = useTopicTreeStoreDispatch();
 
+  const payloadOfClearAction = useMemo(
+    () => createTopicTreeStoreClearActionPayload({ sliceName }),
+    [sliceName]
+  );
+
   const run = useCallback(
     () => {
-      dispatch({ sliceName, type: TopicTreeStoreActionType.Clear });
+      dispatch(createTopicTreeStoreClearAction({ payload: payloadOfClearAction }));
 
       if (callback) {
         callback();
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch, payloadOfClearAction]
   );
 
   useEffect(

@@ -1,8 +1,21 @@
-import { type StoreAction } from '../../../../common';
+import { type StoreActionWithPayload, createStoreActionWithPayload } from '../../../../common';
 import { type ArticleListStoreLoadActionPayload } from '../../../../features';
-import { type ArticleListStoreActionType } from '../ArticleListStoreActionType';
+import { ArticleListStoreActionType } from '../ArticleListStoreActionType';
 
-export interface ArticleListStoreLoadAction extends StoreAction {
-  type: ArticleListStoreActionType.Load;
-  payload: ArticleListStoreLoadActionPayload;
+export interface ArticleListStoreLoadAction
+  extends StoreActionWithPayload<ArticleListStoreLoadActionPayload> {
+  readonly type: ArticleListStoreActionType.Load;
+}
+
+export function createArticleListStoreLoadAction (
+  options: Omit<ArticleListStoreLoadAction, 'type'>
+): ArticleListStoreLoadAction {
+  const { payload } = options;
+
+  const base = createStoreActionWithPayload({ payload });
+
+  return {
+    ...base,
+    type: ArticleListStoreActionType.Load
+  };
 }

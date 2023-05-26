@@ -10,7 +10,7 @@ import {
   type ArticleItemStoreSaveActionResult,
   createArticleItemStoreSaveActionPayload,
 } from '../../../../../../features';
-import { ArticleItemStoreActionType } from '../../../ArticleItemStoreActionType';
+import { createArticleItemStoreSaveAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
 export function useStoreSaveActionDispatch (
@@ -35,9 +35,10 @@ export function useStoreSaveActionDispatch (
       actionResult: resultOfSaveAction,
       resourceOfApiResponse,
       resourceOfArticleItemStore,
-      requestHandler
+      requestHandler,
+      sliceName,
     }),
-    [resultOfSaveAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore]
+    [resultOfSaveAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
   );
 
   const { run: complete } = hooks.Features.Article.Item.Store.useStoreSaveCompletedActionDispatch(
@@ -59,7 +60,7 @@ export function useStoreSaveActionDispatch (
         return;
       }
 
-      dispatch({ payload, sliceName, type: ArticleItemStoreActionType.Save });
+      dispatch(createArticleItemStoreSaveAction({ payload }));
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -80,7 +81,7 @@ export function useStoreSaveActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, sliceName]
+    [complete, dispatch]
   );
 
   useEffect(

@@ -10,7 +10,7 @@ import {
   type TopicTreeStoreSliceName,
   createTopicTreeStoreLoadActionPayload,
 } from '../../../../../../features';
-import { TopicTreeStoreActionType } from '../../../TopicTreeStoreActionType';
+import { createTopicTreeStoreLoadAction } from '../../../Actions';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
 
 export function useStoreLoadActionDispatch (
@@ -35,9 +35,10 @@ export function useStoreLoadActionDispatch (
       actionResult: resultOfLoadAction,
       resourceOfApiResponse,
       resourceOfTopicTreeStore,
-      requestHandler
+      requestHandler,
+      sliceName,
     }),
-    [resultOfLoadAction, requestHandler, resourceOfApiResponse, resourceOfTopicTreeStore]
+    [resultOfLoadAction, requestHandler, resourceOfApiResponse, resourceOfTopicTreeStore, sliceName]
   );
 
   const { run: complete } = hooks.Features.Topic.Tree.Store.useStoreLoadCompletedActionDispatch(
@@ -59,7 +60,7 @@ export function useStoreLoadActionDispatch (
         return;
       }
 
-      dispatch({ payload, sliceName, type: TopicTreeStoreActionType.Load });
+      dispatch(createTopicTreeStoreLoadAction({ payload }));
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -80,7 +81,7 @@ export function useStoreLoadActionDispatch (
 
       complete(response);
     },
-    [complete, dispatch, sliceName]
+    [complete, dispatch]
   );
 
   useEffect(

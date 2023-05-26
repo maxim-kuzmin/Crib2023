@@ -8,7 +8,7 @@ import {
   type TopicItemStoreDeleteCompletedActionResult,
   createTopicItemStoreDeleteCompletedActionPayload,
 } from '../../../../../../features';
-import { TopicItemStoreActionType } from '../../../TopicItemStoreActionType';
+import { createTopicItemStoreDeleteCompletedAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
 export function useStoreDeleteCompletedActionDispatch (
@@ -24,23 +24,20 @@ export function useStoreDeleteCompletedActionDispatch (
   const payloadOfDeleteCompletedAction = useMemo(
     () => createTopicItemStoreDeleteCompletedActionPayload({
       actionResult: resultOfDeleteCompletedAction,
+      sliceName,
     }),
-    [resultOfDeleteCompletedAction]
+    [resultOfDeleteCompletedAction, sliceName]
   );
 
   const run = useCallback(
     (payload: TopicItemStoreDeleteCompletedActionPayload) => {
-      dispatch({
-        payload,
-        sliceName,
-        type: TopicItemStoreActionType.DeleteCompleted
-      });
+      dispatch(createTopicItemStoreDeleteCompletedAction({ payload }));
 
       if (callback) {
         callback(payload.actionResult);
       }
     },
-    [callback, dispatch, sliceName]
+    [callback, dispatch]
   );
 
   useEffect(

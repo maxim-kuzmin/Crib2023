@@ -1,9 +1,12 @@
+import { type StoreActionPayload, createStoreActionPayload } from '../../../../../../common';
 import { type ApiResponseResource } from '../../../../../../data';
 import { type ArticleDomainItemDeleteOperationRequestHandler } from '../../../../../../domains';
 import { type ArticleItemStoreResource } from '../../ArticleItemStoreResource';
+import { type ArticleItemStoreSliceName } from '../../Slice';
 import { type ArticleItemStoreDeleteActionResult } from './ArticleItemStoreDeleteActionResult';
 
-export interface ArticleItemStoreDeleteActionPayload {
+export interface ArticleItemStoreDeleteActionPayload
+  extends StoreActionPayload<ArticleItemStoreSliceName> {
   readonly abortSignal?: AbortSignal;
   readonly actionResult: ArticleItemStoreDeleteActionResult;
   readonly resourceOfApiResponse: ApiResponseResource;
@@ -11,26 +14,29 @@ export interface ArticleItemStoreDeleteActionPayload {
   readonly requestHandler: ArticleDomainItemDeleteOperationRequestHandler;
 }
 
+interface Options extends Omit<ArticleItemStoreDeleteActionPayload, 'actionResult'> {
+  readonly actionResult?: ArticleItemStoreDeleteActionResult;
+}
+
 export function createArticleItemStoreDeleteActionPayload (
-  options?: Partial<ArticleItemStoreDeleteActionPayload>
+  options: Options
 ): ArticleItemStoreDeleteActionPayload {
-  if (!options?.resourceOfApiResponse) {
-    throw new Error('resourceOfApiResponse is undefined');
-  }
+  const {
+    abortSignal,
+    actionResult,
+    resourceOfApiResponse,
+    resourceOfArticleItemStore,
+    requestHandler,
+  } = options;
 
-  if (!options?.resourceOfArticleItemStore) {
-    throw new Error('resourceOfArticleItemStore is undefined');
-  }
-
-  if (!options?.requestHandler) {
-    throw new Error('requestHandler is undefined');
-  }
+  const base = createStoreActionPayload(options);
 
   return {
-    abortSignal: options?.abortSignal,
-    actionResult: options?.actionResult ?? null,
-    resourceOfApiResponse: options?.resourceOfApiResponse,
-    resourceOfArticleItemStore: options?.resourceOfArticleItemStore,
-    requestHandler: options?.requestHandler,
+    ...base,
+    abortSignal,
+    actionResult: actionResult ?? null,
+    resourceOfApiResponse,
+    resourceOfArticleItemStore,
+    requestHandler,
   };
 }
