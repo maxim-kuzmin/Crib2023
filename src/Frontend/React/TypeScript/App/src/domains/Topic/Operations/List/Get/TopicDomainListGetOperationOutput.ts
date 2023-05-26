@@ -4,7 +4,7 @@ import { type TopicDomainEntityForList } from '../../../Entities';
 export interface TopicDomainListGetOperationOutput extends ListGetOperationOutput<TopicDomainEntityForList> {}
 
 export function createTopicDomainListGetOperationOutput (
-  options: TopicDomainListGetOperationOutput
+  options?: Partial<TopicDomainListGetOperationOutput>
 ): TopicDomainListGetOperationOutput {
   return createListGetOperationOutput(options);
 }

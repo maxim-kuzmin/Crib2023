@@ -4,7 +4,7 @@ import { type TopicDomainEntityForTree } from '../../../Entities';
 export interface TopicDomainTreeGetOperationOutput extends TreeGetOperationOutput<TopicDomainEntityForTree> {}
 
 export function createTopicDomainTreeGetOperationOutput (
-  options: TopicDomainTreeGetOperationOutput
+  options?: Partial<TopicDomainTreeGetOperationOutput>
 ): TopicDomainTreeGetOperationOutput {
   return createTreeGetOperationOutput(options);
 }
