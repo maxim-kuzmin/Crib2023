@@ -8,11 +8,9 @@ export interface TopicItemStoreSaveAction
 }
 
 export function createTopicItemStoreSaveAction (
-  options: Omit<TopicItemStoreSaveAction, 'type'>
+  payload: TopicItemStoreSaveActionPayload
 ): TopicItemStoreSaveAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

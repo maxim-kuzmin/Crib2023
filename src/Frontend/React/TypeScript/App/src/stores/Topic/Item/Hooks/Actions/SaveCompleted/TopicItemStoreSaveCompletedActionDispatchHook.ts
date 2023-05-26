@@ -31,7 +31,7 @@ export function useStoreSaveCompletedActionDispatch (
 
   const run = useCallback(
     (payload: TopicItemStoreSaveCompletedActionPayload) => {
-      dispatch(createTopicItemStoreSaveCompletedAction({ payload }));
+      dispatch(createTopicItemStoreSaveCompletedAction(payload));
 
       if (callback) {
         callback(payload.actionResult);

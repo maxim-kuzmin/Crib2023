@@ -8,11 +8,9 @@ export interface ArticleItemStoreLoadAction
 }
 
 export function createArticleItemStoreLoadAction (
-  options: Omit<ArticleItemStoreLoadAction, 'type'>
+  payload: ArticleItemStoreLoadActionPayload
 ): ArticleItemStoreLoadAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

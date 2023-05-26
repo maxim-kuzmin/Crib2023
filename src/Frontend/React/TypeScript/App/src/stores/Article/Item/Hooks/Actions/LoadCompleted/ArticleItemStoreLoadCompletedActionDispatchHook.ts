@@ -31,7 +31,7 @@ export function useStoreLoadCompletedActionDispatch (
 
   const run = useCallback(
     (payload: ArticleItemStoreLoadCompletedActionPayload) => {
-      dispatch(createArticleItemStoreLoadCompletedAction({ payload }));
+      dispatch(createArticleItemStoreLoadCompletedAction(payload));
 
       if (callback) {
         callback(payload.actionResult);

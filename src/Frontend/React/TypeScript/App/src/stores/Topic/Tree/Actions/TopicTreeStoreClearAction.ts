@@ -8,11 +8,9 @@ export interface TopicTreeStoreClearAction
 }
 
 export function createTopicTreeStoreClearAction (
-  options: Omit<TopicTreeStoreClearAction, 'type'>
+  payload: TopicTreeStoreClearActionPayload
 ): TopicTreeStoreClearAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

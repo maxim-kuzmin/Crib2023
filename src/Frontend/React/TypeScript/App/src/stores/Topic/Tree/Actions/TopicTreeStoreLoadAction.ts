@@ -8,11 +8,9 @@ export interface TopicTreeStoreLoadAction
 }
 
 export function createTopicTreeStoreLoadAction (
-  options: Omit<TopicTreeStoreLoadAction, 'type'>
+  payload: TopicTreeStoreLoadActionPayload
 ): TopicTreeStoreLoadAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

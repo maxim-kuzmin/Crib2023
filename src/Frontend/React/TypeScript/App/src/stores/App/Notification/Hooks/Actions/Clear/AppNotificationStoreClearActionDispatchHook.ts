@@ -25,7 +25,7 @@ export function useStoreClearActionDispatch (
 
   const run = useCallback(
     () => {
-      dispatch(createAppNotificationStoreClearAction({ payload: payloadOfClearAction }));
+      dispatch(createAppNotificationStoreClearAction(payloadOfClearAction));
 
       if (callback) {
         callback();

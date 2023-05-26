@@ -25,7 +25,7 @@ export function useStoreClearActionDispatch (
 
   const run = useCallback(
     () => {
-      dispatch(createArticleListStoreClearAction({ payload: payloadOfClearAction }));
+      dispatch(createArticleListStoreClearAction(payloadOfClearAction));
 
       if (callback) {
         callback();

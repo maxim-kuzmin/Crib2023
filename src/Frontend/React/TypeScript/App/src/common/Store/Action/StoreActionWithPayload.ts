@@ -3,9 +3,7 @@ export interface StoreActionWithPayload<TActionPayload> {
 }
 
 export function createStoreActionWithPayload<TActionPayload> (
-  options: StoreActionWithPayload<TActionPayload>
+  payload: TActionPayload
 ): StoreActionWithPayload<TActionPayload> {
-  const { payload } = options;
-
   return { payload };
 }

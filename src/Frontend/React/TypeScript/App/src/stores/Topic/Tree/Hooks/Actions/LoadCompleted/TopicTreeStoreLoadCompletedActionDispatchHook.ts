@@ -31,7 +31,7 @@ export function useStoreLoadCompletedActionDispatch (
 
   const run = useCallback(
     (payload: TopicTreeStoreLoadCompletedActionPayload) => {
-      dispatch(createTopicTreeStoreLoadCompletedAction({ payload }));
+      dispatch(createTopicTreeStoreLoadCompletedAction(payload));
 
       if (callback) {
         callback(payload.actionResult);

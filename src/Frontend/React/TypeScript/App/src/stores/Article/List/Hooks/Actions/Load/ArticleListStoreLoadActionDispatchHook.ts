@@ -60,7 +60,7 @@ export function useStoreLoadActionDispatch (
         return;
       }
 
-      dispatch(createArticleListStoreLoadAction({ payload }));
+      dispatch(createArticleListStoreLoadAction(payload));
 
       const response = actionResult
         ? await requestHandler.handle(

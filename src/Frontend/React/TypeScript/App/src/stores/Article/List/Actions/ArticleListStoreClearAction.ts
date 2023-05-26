@@ -8,11 +8,9 @@ export interface ArticleListStoreClearAction
 }
 
 export function createArticleListStoreClearAction (
-  options: Omit<ArticleListStoreClearAction, 'type'>
+  payload: ArticleListStoreClearActionPayload
 ): ArticleListStoreClearAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

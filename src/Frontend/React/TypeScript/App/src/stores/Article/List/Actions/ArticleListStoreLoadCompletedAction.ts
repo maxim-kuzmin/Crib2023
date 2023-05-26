@@ -8,11 +8,9 @@ export interface ArticleListStoreLoadCompletedAction
 }
 
 export function createArticleListStoreLoadCompletedAction (
-  options: Omit<ArticleListStoreLoadCompletedAction, 'type'>
+  payload: ArticleListStoreLoadCompletedActionPayload
 ): ArticleListStoreLoadCompletedAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

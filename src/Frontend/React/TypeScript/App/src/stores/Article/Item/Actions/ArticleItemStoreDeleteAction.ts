@@ -8,11 +8,9 @@ export interface ArticleItemStoreDeleteAction
 }
 
 export function createArticleItemStoreDeleteAction (
-  options: Omit<ArticleItemStoreDeleteAction, 'type'>
+  payload: ArticleItemStoreDeleteActionPayload
 ): ArticleItemStoreDeleteAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

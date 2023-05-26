@@ -8,11 +8,9 @@ export interface TopicItemStoreDeleteCompletedAction
 }
 
 export function createTopicItemStoreDeleteCompletedAction (
-  options: Omit<TopicItemStoreDeleteCompletedAction, 'type'>
+  payload: TopicItemStoreDeleteCompletedActionPayload
 ): TopicItemStoreDeleteCompletedAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

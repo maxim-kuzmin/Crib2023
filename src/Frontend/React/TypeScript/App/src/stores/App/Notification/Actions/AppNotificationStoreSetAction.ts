@@ -8,11 +8,9 @@ export interface AppNotificationStoreSetAction
 }
 
 export function createAppNotificationStoreSetAction (
-  options: Omit<AppNotificationStoreSetAction, 'type'>
+  payload: AppNotificationStoreSetActionPayload
 ): AppNotificationStoreSetAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

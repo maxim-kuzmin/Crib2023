@@ -8,11 +8,9 @@ export interface TopicItemStoreSaveCompletedAction
 }
 
 export function createTopicItemStoreSaveCompletedAction (
-  options: Omit<TopicItemStoreSaveCompletedAction, 'type'>
+  payload: TopicItemStoreSaveCompletedActionPayload
 ): TopicItemStoreSaveCompletedAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

@@ -31,7 +31,7 @@ export function useStoreDeleteCompletedActionDispatch (
 
   const run = useCallback(
     (payload: TopicItemStoreDeleteCompletedActionPayload) => {
-      dispatch(createTopicItemStoreDeleteCompletedAction({ payload }));
+      dispatch(createTopicItemStoreDeleteCompletedAction(payload));
 
       if (callback) {
         callback(payload.actionResult);

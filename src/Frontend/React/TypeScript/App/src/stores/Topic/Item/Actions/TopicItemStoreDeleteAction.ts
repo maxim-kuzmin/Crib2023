@@ -8,11 +8,9 @@ export interface TopicItemStoreDeleteAction
 }
 
 export function createTopicItemStoreDeleteAction (
-  options: Omit<TopicItemStoreDeleteAction, 'type'>
+  payload: TopicItemStoreDeleteActionPayload
 ): TopicItemStoreDeleteAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

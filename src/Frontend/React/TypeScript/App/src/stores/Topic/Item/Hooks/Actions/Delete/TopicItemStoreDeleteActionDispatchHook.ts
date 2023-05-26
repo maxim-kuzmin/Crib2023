@@ -60,7 +60,7 @@ export function useStoreDeleteActionDispatch (
         return;
       }
 
-      dispatch(createTopicItemStoreDeleteAction({ payload }));
+      dispatch(createTopicItemStoreDeleteAction(payload));
 
       const response = actionResult
         ? await requestHandler.handle(

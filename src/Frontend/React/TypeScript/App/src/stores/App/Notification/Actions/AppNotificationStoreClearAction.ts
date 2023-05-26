@@ -8,11 +8,9 @@ export interface AppNotificationStoreClearAction
 }
 
 export function createAppNotificationStoreClearAction (
-  options: Omit<AppNotificationStoreClearAction, 'type'>
+  payload: AppNotificationStoreClearActionPayload
 ): AppNotificationStoreClearAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

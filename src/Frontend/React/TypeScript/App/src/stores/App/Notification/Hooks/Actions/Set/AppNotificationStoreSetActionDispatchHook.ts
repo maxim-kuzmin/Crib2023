@@ -28,7 +28,7 @@ export function useStoreSetActionDispatch (
 
   const run = useCallback(
     (payload: AppNotificationStoreSetActionPayload) => {
-      dispatch(createAppNotificationStoreSetAction({ payload }));
+      dispatch(createAppNotificationStoreSetAction(payload));
 
       if (callback) {
         callback(payload.actionResult);

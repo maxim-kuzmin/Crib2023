@@ -8,11 +8,9 @@ export interface ArticleItemStoreLoadCompletedAction
 }
 
 export function createArticleItemStoreLoadCompletedAction (
-  options: Omit<ArticleItemStoreLoadCompletedAction, 'type'>
+  payload: ArticleItemStoreLoadCompletedActionPayload
 ): ArticleItemStoreLoadCompletedAction {
-  const { payload } = options;
-
-  const base = createStoreActionWithPayload({ payload });
+  const base = createStoreActionWithPayload(payload);
 
   return {
     ...base,

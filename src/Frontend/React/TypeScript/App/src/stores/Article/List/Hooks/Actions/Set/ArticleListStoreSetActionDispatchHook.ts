@@ -28,7 +28,7 @@ export function useStoreSetActionDispatch (
 
   const run = useCallback(
     (payload: ArticleListStoreSetActionPayload) => {
-      dispatch(createArticleListStoreSetAction({ payload }));
+      dispatch(createArticleListStoreSetAction(payload));
 
       if (callback) {
         callback(payload.actionResult);
