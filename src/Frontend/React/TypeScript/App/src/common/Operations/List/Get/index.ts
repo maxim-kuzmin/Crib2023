@@ -1,2 +1,2 @@
-export { type ListGetOperationInput } from './ListGetOperationInput';
-export { type ListGetOperationOutput } from './ListGetOperationOutput';
+export { type ListGetOperationInput, createListGetOperationInput } from './ListGetOperationInput';
+export { type ListGetOperationOutput, createListGetOperationOutput } from './ListGetOperationOutput';

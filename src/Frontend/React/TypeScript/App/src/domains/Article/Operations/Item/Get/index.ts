@@ -5,8 +5,14 @@ export {
 export {
   type ArticleDomainItemGetOperationRequestHandler
 } from './ArticleDomainItemGetOperationRequestHandler';
-export { type ArticleDomainItemGetOperationInput } from './ArticleDomainItemGetOperationInput';
-export { type ArticleDomainItemGetOperationOutput } from './ArticleDomainItemGetOperationOutput';
+export {
+  type ArticleDomainItemGetOperationInput,
+  createArticleDomainItemGetOperationInput
+} from './ArticleDomainItemGetOperationInput';
+export {
+  type ArticleDomainItemGetOperationOutput,
+  createArticleDomainItemGetOperationOutput
+} from './ArticleDomainItemGetOperationOutput';
 export {
   type ArticleDomainItemGetOperationResponse,
   createArticleDomainItemGetOperationResponse,

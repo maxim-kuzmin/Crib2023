@@ -1,3 +1,3 @@
 export * from './Axes';
-export { type TreeGetOperationInput } from './TreeGetOperationInput';
-export { type TreeGetOperationOutput } from './TreeGetOperationOutput';
+export { type TreeGetOperationInput, createTreeGetOperationInput } from './TreeGetOperationInput';
+export { type TreeGetOperationOutput, createTreeGetOperationOutput } from './TreeGetOperationOutput';

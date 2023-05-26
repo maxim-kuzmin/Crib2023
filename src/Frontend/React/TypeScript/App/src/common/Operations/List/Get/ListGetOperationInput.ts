@@ -6,3 +6,14 @@ export interface ListGetOperationInput {
   sortDirection?: OperationSortDirection;
   sortField?: string;
 }
+
+export function createListGetOperationInput (
+  options?: Partial<ListGetOperationInput>
+): ListGetOperationInput {
+  return {
+    pageNumber: options?.pageNumber,
+    pageSize: options?.pageSize,
+    sortDirection: options?.sortDirection,
+    sortField: options?.sortField,
+  };
+}
