@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import {
-  type ArticleItemStoreSliceName,
   type ArticleItemStoreSetActionResult,
   type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput,
+  type ArticleItemStoreSliceName,
 } from '../../../../../../features';
 import { useStoreState } from '../../ArticleItemStoreStateHook';
 import { useStoreSetActionDispatch } from './ArticleItemStoreSetActionDispatchHook';

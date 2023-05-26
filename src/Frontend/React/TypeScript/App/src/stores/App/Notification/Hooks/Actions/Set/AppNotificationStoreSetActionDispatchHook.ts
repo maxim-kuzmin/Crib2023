@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type AppNotificationStoreSliceName,
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionOptions,
   type AppNotificationStoreSetActionPayload,
   type AppNotificationStoreSetActionResult,
+  type AppNotificationStoreSliceName,
   createAppNotificationStoreSetActionPayload,
 } from '../../../../../../features';
 import { createAppNotificationStoreSetAction } from '../../../Actions';

@@ -30,57 +30,71 @@ function reducer (
     case ArticleItemStoreActionType.Clear:
       state = initialState[sliceName];
       break;
-    case ArticleItemStoreActionType.Delete:
+    case ArticleItemStoreActionType.Delete: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfDeleteAction: action.payload.actionResult,
+        resultOfDeleteAction: actionResult,
         statusOfDeleteAction: OperationStatus.Pending,
       };
-      break;
-    case ArticleItemStoreActionType.DeleteCompleted:
+    } break;
+    case ArticleItemStoreActionType.DeleteCompleted: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfDeleteCompletedAction: action.payload.actionResult,
+        resultOfDeleteCompletedAction: actionResult,
         statusOfDeleteAction: OperationStatus.Fulfilled,
-        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : null
+        resultOfSetAction: actionResult?.error ? state.resultOfSetAction : null
       };
-      break;
-    case ArticleItemStoreActionType.Load:
+    } break;
+    case ArticleItemStoreActionType.Load: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfLoadAction: action.payload.actionResult,
+        resultOfLoadAction: actionResult,
         statusOfLoadAction: OperationStatus.Pending
       };
-      break;
-    case ArticleItemStoreActionType.LoadCompleted:
+    } break;
+    case ArticleItemStoreActionType.LoadCompleted: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfLoadCompletedAction: action.payload.actionResult,
+        resultOfLoadCompletedAction: actionResult,
         statusOfLoadAction: OperationStatus.Fulfilled,
-        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
+        resultOfSetAction: actionResult?.error ? state.resultOfSetAction : actionResult
       };
-      break;
-    case ArticleItemStoreActionType.Save:
+    } break;
+    case ArticleItemStoreActionType.Save: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfSaveAction: action.payload.actionResult,
+        resultOfSaveAction: actionResult,
         statusOfSaveAction: OperationStatus.Pending
       };
-      break;
-    case ArticleItemStoreActionType.SaveCompleted:
+    } break;
+    case ArticleItemStoreActionType.SaveCompleted: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfSaveCompletedAction: action.payload.actionResult,
+        resultOfSaveCompletedAction: actionResult,
         statusOfSaveAction: OperationStatus.Fulfilled,
-        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
+        resultOfSetAction: actionResult?.error ? state.resultOfSetAction : actionResult
       };
-      break;
-    case ArticleItemStoreActionType.Set:
+    } break;
+    case ArticleItemStoreActionType.Set: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfSetAction: action.payload.actionResult
+        resultOfSetAction: actionResult
       };
-      break;
+    } break;
   }
 
   result[sliceName] = state;

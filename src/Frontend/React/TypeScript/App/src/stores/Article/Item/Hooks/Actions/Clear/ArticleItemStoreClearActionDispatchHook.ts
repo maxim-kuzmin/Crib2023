@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleItemStoreSliceName,
   type ArticleItemStoreClearActionDispatch,
   type ArticleItemStoreClearActionOptions,
+  type ArticleItemStoreSliceName,
   createArticleItemStoreClearActionPayload,
 } from '../../../../../../features';
 import { createArticleItemStoreClearAction } from '../../../Actions';

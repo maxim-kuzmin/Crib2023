@@ -30,27 +30,33 @@ function reducer (
     case ArticleListStoreActionType.Clear:
       state = initialState[sliceName];
       break;
-    case ArticleListStoreActionType.Load:
+    case ArticleListStoreActionType.Load: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfLoadAction: action.payload.actionResult,
+        resultOfLoadAction: actionResult,
         statusOfLoadAction: OperationStatus.Pending
       };
-      break;
-    case ArticleListStoreActionType.LoadCompleted:
+    } break;
+    case ArticleListStoreActionType.LoadCompleted: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfLoadCompletedAction: action.payload.actionResult,
+        resultOfLoadCompletedAction: actionResult,
         statusOfLoadAction: OperationStatus.Fulfilled,
-        resultOfSetAction: action.payload.actionResult?.error ? state.resultOfSetAction : action.payload.actionResult
+        resultOfSetAction: actionResult?.error ? state.resultOfSetAction : actionResult
       };
-      break;
-    case ArticleListStoreActionType.Set:
+    } break;
+    case ArticleListStoreActionType.Set: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfSetAction: action.payload.actionResult
+        resultOfSetAction: actionResult
       };
-      break;
+    } break;
   }
 
   result[sliceName] = state;

@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import {
-  type TopicItemStoreSliceName,
   type TopicItemStoreLoadActionInput,
   type TopicItemStoreLoadActionOutput,
   type TopicItemStoreLoadCompletedActionResult,
+  type TopicItemStoreSliceName,
 } from '../../../../../../features';
 import { useStoreState } from '../../TopicItemStoreStateHook';
 import { useStoreLoadActionDispatch } from './TopicItemStoreLoadActionDispatchHook';

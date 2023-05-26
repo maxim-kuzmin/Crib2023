@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import {
-  type AppNotificationStoreSliceName,
   type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput,
   type AppNotificationStoreSetActionResult,
+  type AppNotificationStoreSliceName,
 } from '../../../../../../features';
 import { useStoreState } from '../../AppNotificationStoreStateHook';
 import { useStoreSetActionDispatch } from './AppNotificationStoreSetActionDispatchHook';

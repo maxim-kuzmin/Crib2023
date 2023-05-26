@@ -30,12 +30,14 @@ function reducer (
     case AppNotificationStoreActionType.Clear:
       state = initialState[sliceName];
       break;
-    case AppNotificationStoreActionType.Set:
+    case AppNotificationStoreActionType.Set: {
+      const { payload: { actionResult } } = action;
+
       state = {
         ...state,
-        resultOfSetAction: action.payload.actionResult
+        resultOfSetAction: actionResult
       };
-      break;
+    } break;
   }
 
   result[sliceName] = state;

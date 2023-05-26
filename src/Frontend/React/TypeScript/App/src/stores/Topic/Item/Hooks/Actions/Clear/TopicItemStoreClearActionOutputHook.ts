@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type TopicItemStoreSliceName,
   type TopicItemStoreClearActionInput,
-  type TopicItemStoreClearActionOutput
+  type TopicItemStoreClearActionOutput,
+  type TopicItemStoreSliceName,
 } from '../../../../../../features';
 import { useStoreClearActionDispatch } from './TopicItemStoreClearActionDispatchHook';
 

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type TopicItemStoreSliceName,
   type TopicItemStoreDeleteCompletedActionDispatch,
   type TopicItemStoreDeleteCompletedActionOptions,
   type TopicItemStoreDeleteCompletedActionPayload,
   type TopicItemStoreDeleteCompletedActionResult,
+  type TopicItemStoreSliceName,
   createTopicItemStoreDeleteCompletedActionPayload,
 } from '../../../../../../features';
 import { createTopicItemStoreDeleteCompletedAction } from '../../../Actions';

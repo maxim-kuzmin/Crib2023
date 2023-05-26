@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleItemStoreSliceName,
   type ArticleItemStoreSetActionDispatch,
   type ArticleItemStoreSetActionOptions,
   type ArticleItemStoreSetActionPayload,
   type ArticleItemStoreSetActionResult,
+  type ArticleItemStoreSliceName,
   createArticleItemStoreSetActionPayload,
 } from '../../../../../../features';
 import { createArticleItemStoreSetAction } from '../../../Actions';
