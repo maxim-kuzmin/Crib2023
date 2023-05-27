@@ -3,11 +3,13 @@ import { useAppInstance } from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { createTopicDomainItemSaveOperationRequest } from '../../../../../../domains';
 import {
+  type TopicItemStoreSaveActionData,
   type TopicItemStoreSaveActionDispatch,
   type TopicItemStoreSaveActionOptions,
   type TopicItemStoreSaveActionPayload,
   type TopicItemStoreSaveActionResult,
   type TopicItemStoreSliceName,
+  createTopicItemStoreSaveActionData,
   createTopicItemStoreSaveActionPayload,
 } from '../../../../../../features';
 import { createTopicItemStoreSaveAction } from '../../../Actions';
@@ -30,15 +32,21 @@ export function useStoreSaveActionDispatch (
   const resourceOfTopicItemStore = hooks.Features.Topic.Item.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Topic.useItemSaveOperationRequestHandler()).current;
 
-  const payloadOfSaveAction = useMemo(
-    () => createTopicItemStoreSaveActionPayload({
-      actionResult: resultOfSaveAction,
+  const dataOfSaveAction = useMemo(
+    () => createTopicItemStoreSaveActionData({
       resourceOfApiResponse,
       resourceOfTopicItemStore,
       requestHandler,
+    }),
+    [requestHandler, resourceOfApiResponse, resourceOfTopicItemStore]
+  );
+
+  const payloadOfSaveAction = useMemo(
+    () => createTopicItemStoreSaveActionPayload({
+      actionResult: resultOfSaveAction,
       sliceName,
     }),
-    [resultOfSaveAction, requestHandler, resourceOfApiResponse, resourceOfTopicItemStore, sliceName]
+    [resultOfSaveAction, sliceName]
   );
 
   const { run: complete } = hooks.Features.Topic.Item.Store.useStoreSaveCompletedActionDispatch(
@@ -47,14 +55,18 @@ export function useStoreSaveActionDispatch (
   );
 
   const run = useCallback(
-    async (payload: TopicItemStoreSaveActionPayload) => {
+    async (
+      payload: TopicItemStoreSaveActionPayload,
+      dataOfSaveAction: TopicItemStoreSaveActionData
+    ) => {
       const {
         abortSignal,
-        actionResult,
         requestHandler,
         resourceOfApiResponse,
         resourceOfTopicItemStore
-      } = payload;
+      } = dataOfSaveAction;
+
+      const { actionResult } = payload;
 
       if (abortSignal?.aborted) {
         return;
@@ -67,7 +79,7 @@ export function useStoreSaveActionDispatch (
             createTopicDomainItemSaveOperationRequest(
               actionResult,
               {
-                operationName: resourceOfTopicItemStore.getOperationNameForGet(),
+                operationName: resourceOfTopicItemStore.getOperationNameForSave(),
                 resourceOfApiResponse
               }
             ),
@@ -84,46 +96,52 @@ export function useStoreSaveActionDispatch (
     [complete, dispatch]
   );
 
+  const aborted = abortController?.signal.aborted;
+
   useEffect(
     () => {
-      if (abortController?.signal.aborted) {
+      if (aborted) {
         return;
       }
 
       const abortControllerInner = new AbortController();
 
-      const payloadOfSaveActionInner = createTopicItemStoreSaveActionPayload({
-        ...payloadOfSaveAction,
+      const dataOfSaveActionInner: TopicItemStoreSaveActionData = {
+        ...dataOfSaveAction,
         abortSignal: abortControllerInner.signal,
-      });
+      };
 
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfSaveActionInner);
+        run(payloadOfSaveAction, dataOfSaveActionInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfSaveActionInner);
+          run(payloadOfSaveAction, dataOfSaveActionInner);
         } else {
           abortControllerInner.abort();
         }
       };
     },
-    [abortController, dispatchType, payloadOfSaveAction, run]
+    [aborted, dataOfSaveAction, dispatchType, payloadOfSaveAction, run]
   );
 
   return useMemo<TopicItemStoreSaveActionDispatch>(
     () => ({
       run: async (actionResult: TopicItemStoreSaveActionResult, abortSignal?: AbortSignal) => {
+        const dataOfSaveActionInner = createTopicItemStoreSaveActionData({
+          ...dataOfSaveAction,
+          abortSignal,
+        });
+
         const payloadOfSaveActionInner = createTopicItemStoreSaveActionPayload({
           ...payloadOfSaveAction,
-          abortSignal,
           actionResult
         });
 
-        await run(payloadOfSaveActionInner);
+        await run(payloadOfSaveActionInner, dataOfSaveActionInner);
       }
     }),
-    [payloadOfSaveAction, run]
+    [dataOfSaveAction, payloadOfSaveAction, run]
   );
 }

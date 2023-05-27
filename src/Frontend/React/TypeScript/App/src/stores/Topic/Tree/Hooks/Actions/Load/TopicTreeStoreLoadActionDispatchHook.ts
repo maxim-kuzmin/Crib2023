@@ -3,11 +3,13 @@ import { useAppInstance } from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { createTopicDomainTreeGetOperationRequest } from '../../../../../../domains';
 import {
+  type TopicTreeStoreLoadActionData,
   type TopicTreeStoreLoadActionDispatch,
   type TopicTreeStoreLoadActionOptions,
   type TopicTreeStoreLoadActionPayload,
   type TopicTreeStoreLoadActionResult,
   type TopicTreeStoreSliceName,
+  createTopicTreeStoreLoadActionData,
   createTopicTreeStoreLoadActionPayload,
 } from '../../../../../../features';
 import { createTopicTreeStoreLoadAction } from '../../../Actions';
@@ -30,15 +32,21 @@ export function useStoreLoadActionDispatch (
   const resourceOfTopicTreeStore = hooks.Features.Topic.Tree.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Topic.useTreeGetOperationRequestHandler()).current;
 
-  const payloadOfLoadAction = useMemo(
-    () => createTopicTreeStoreLoadActionPayload({
-      actionResult: resultOfLoadAction,
+  const dataOfLoadAction = useMemo(
+    () => createTopicTreeStoreLoadActionData({
       resourceOfApiResponse,
       resourceOfTopicTreeStore,
       requestHandler,
+    }),
+    [requestHandler, resourceOfApiResponse, resourceOfTopicTreeStore]
+  );
+
+  const payloadOfLoadAction = useMemo(
+    () => createTopicTreeStoreLoadActionPayload({
+      actionResult: resultOfLoadAction,
       sliceName,
     }),
-    [resultOfLoadAction, requestHandler, resourceOfApiResponse, resourceOfTopicTreeStore, sliceName]
+    [resultOfLoadAction, sliceName]
   );
 
   const { run: complete } = hooks.Features.Topic.Tree.Store.useStoreLoadCompletedActionDispatch(
@@ -47,14 +55,18 @@ export function useStoreLoadActionDispatch (
   );
 
   const run = useCallback(
-    async (payload: TopicTreeStoreLoadActionPayload) => {
+    async (
+      payload: TopicTreeStoreLoadActionPayload,
+      dataOfLoadAction: TopicTreeStoreLoadActionData
+    ) => {
       const {
         abortSignal,
-        actionResult,
         requestHandler,
         resourceOfApiResponse,
         resourceOfTopicTreeStore
-      } = payload;
+      } = dataOfLoadAction;
+
+      const { actionResult } = payload;
 
       if (abortSignal?.aborted) {
         return;
@@ -84,46 +96,52 @@ export function useStoreLoadActionDispatch (
     [complete, dispatch]
   );
 
+  const aborted = abortController?.signal.aborted;
+
   useEffect(
     () => {
-      if (abortController?.signal.aborted) {
+      if (aborted) {
         return;
       }
 
       const abortControllerInner = new AbortController();
 
-      const payloadOfLoadActionInner = createTopicTreeStoreLoadActionPayload({
-        ...payloadOfLoadAction,
+      const dataOfLoadActionInner: TopicTreeStoreLoadActionData = {
+        ...dataOfLoadAction,
         abortSignal: abortControllerInner.signal,
-      });
+      };
 
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfLoadActionInner);
+        run(payloadOfLoadAction, dataOfLoadActionInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfLoadActionInner);
+          run(payloadOfLoadAction, dataOfLoadActionInner);
         } else {
           abortControllerInner.abort();
         }
       };
     },
-    [abortController, dispatchType, payloadOfLoadAction, run]
+    [aborted, dataOfLoadAction, dispatchType, payloadOfLoadAction, run]
   );
 
   return useMemo<TopicTreeStoreLoadActionDispatch>(
     () => ({
       run: async (actionResult: TopicTreeStoreLoadActionResult, abortSignal?: AbortSignal) => {
+        const dataOfLoadActionInner = createTopicTreeStoreLoadActionData({
+          ...dataOfLoadAction,
+          abortSignal,
+        });
+
         const payloadOfLoadActionInner = createTopicTreeStoreLoadActionPayload({
           ...payloadOfLoadAction,
-          abortSignal,
           actionResult
         });
 
-        await run(payloadOfLoadActionInner);
+        await run(payloadOfLoadActionInner, dataOfLoadActionInner);
       }
     }),
-    [payloadOfLoadAction, run]
+    [dataOfLoadAction, payloadOfLoadAction, run]
   );
 }

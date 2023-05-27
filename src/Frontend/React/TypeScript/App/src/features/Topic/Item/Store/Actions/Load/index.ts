@@ -1,3 +1,7 @@
+export {
+  type TopicItemStoreLoadActionData,
+  createTopicItemStoreLoadActionData
+} from './TopicItemStoreLoadActionData';
 export { type TopicItemStoreLoadActionDispatch } from './TopicItemStoreLoadActionDispatch';
 export { type TopicItemStoreLoadActionInput } from './TopicItemStoreLoadActionInput';
 export { type TopicItemStoreLoadActionOptions } from './TopicItemStoreLoadActionOptions';

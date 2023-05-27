@@ -3,11 +3,13 @@ import { useAppInstance } from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { createTopicDomainItemDeleteOperationRequest } from '../../../../../../domains';
 import {
+  type TopicItemStoreDeleteActionData,
   type TopicItemStoreDeleteActionDispatch,
   type TopicItemStoreDeleteActionOptions,
   type TopicItemStoreDeleteActionPayload,
   type TopicItemStoreDeleteActionResult,
   type TopicItemStoreSliceName,
+  createTopicItemStoreDeleteActionData,
   createTopicItemStoreDeleteActionPayload,
 } from '../../../../../../features';
 import { createTopicItemStoreDeleteAction } from '../../../Actions';
@@ -30,15 +32,21 @@ export function useStoreDeleteActionDispatch (
   const resourceOfTopicItemStore = hooks.Features.Topic.Item.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Topic.useItemDeleteOperationRequestHandler()).current;
 
-  const payloadOfDeleteAction = useMemo(
-    () => createTopicItemStoreDeleteActionPayload({
-      actionResult: resultOfDeleteAction,
+  const dataOfDeleteAction = useMemo(
+    () => createTopicItemStoreDeleteActionData({
       resourceOfApiResponse,
       resourceOfTopicItemStore,
       requestHandler,
+    }),
+    [requestHandler, resourceOfApiResponse, resourceOfTopicItemStore]
+  );
+
+  const payloadOfDeleteAction = useMemo(
+    () => createTopicItemStoreDeleteActionPayload({
+      actionResult: resultOfDeleteAction,
       sliceName,
     }),
-    [resultOfDeleteAction, requestHandler, resourceOfApiResponse, resourceOfTopicItemStore, sliceName]
+    [resultOfDeleteAction, sliceName]
   );
 
   const { run: complete } = hooks.Features.Topic.Item.Store.useStoreDeleteCompletedActionDispatch(
@@ -47,14 +55,18 @@ export function useStoreDeleteActionDispatch (
   );
 
   const run = useCallback(
-    async (payload: TopicItemStoreDeleteActionPayload) => {
+    async (
+      payload: TopicItemStoreDeleteActionPayload,
+      dataOfDeleteAction: TopicItemStoreDeleteActionData
+    ) => {
       const {
         abortSignal,
-        actionResult,
         requestHandler,
         resourceOfApiResponse,
         resourceOfTopicItemStore
-      } = payload;
+      } = dataOfDeleteAction;
+
+      const { actionResult } = payload;
 
       if (abortSignal?.aborted) {
         return;
@@ -84,46 +96,52 @@ export function useStoreDeleteActionDispatch (
     [complete, dispatch]
   );
 
+  const aborted = abortController?.signal.aborted;
+
   useEffect(
     () => {
-      if (abortController?.signal.aborted) {
+      if (aborted) {
         return;
       }
 
       const abortControllerInner = new AbortController();
 
-      const payloadOfDeleteActionInner = createTopicItemStoreDeleteActionPayload({
-        ...payloadOfDeleteAction,
+      const dataOfDeleteActionInner: TopicItemStoreDeleteActionData = {
+        ...dataOfDeleteAction,
         abortSignal: abortControllerInner.signal,
-      });
+      };
 
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfDeleteActionInner);
+        run(payloadOfDeleteAction, dataOfDeleteActionInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfDeleteActionInner);
+          run(payloadOfDeleteAction, dataOfDeleteActionInner);
         } else {
           abortControllerInner.abort();
         }
       };
     },
-    [abortController, dispatchType, payloadOfDeleteAction, run]
+    [aborted, dataOfDeleteAction, dispatchType, payloadOfDeleteAction, run]
   );
 
   return useMemo<TopicItemStoreDeleteActionDispatch>(
     () => ({
       run: async (actionResult: TopicItemStoreDeleteActionResult, abortSignal?: AbortSignal) => {
+        const dataOfDeleteActionInner = createTopicItemStoreDeleteActionData({
+          ...dataOfDeleteAction,
+          abortSignal,
+        });
+
         const payloadOfDeleteActionInner = createTopicItemStoreDeleteActionPayload({
           ...payloadOfDeleteAction,
-          abortSignal,
           actionResult
         });
 
-        await run(payloadOfDeleteActionInner);
+        await run(payloadOfDeleteActionInner, dataOfDeleteActionInner);
       }
     }),
-    [payloadOfDeleteAction, run]
+    [dataOfDeleteAction, payloadOfDeleteAction, run]
   );
 }

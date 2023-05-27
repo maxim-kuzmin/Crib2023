@@ -3,11 +3,13 @@ import { useAppInstance } from '../../../../../../app';
 import { StoreDispatchType } from '../../../../../../common';
 import { createArticleDomainItemSaveOperationRequest } from '../../../../../../domains';
 import {
+  type ArticleItemStoreSaveActionData,
   type ArticleItemStoreSaveActionDispatch,
   type ArticleItemStoreSaveActionOptions,
   type ArticleItemStoreSaveActionPayload,
   type ArticleItemStoreSaveActionResult,
   type ArticleItemStoreSliceName,
+  createArticleItemStoreSaveActionData,
   createArticleItemStoreSaveActionPayload,
 } from '../../../../../../features';
 import { createArticleItemStoreSaveAction } from '../../../Actions';
@@ -30,15 +32,21 @@ export function useStoreSaveActionDispatch (
   const resourceOfArticleItemStore = hooks.Features.Article.Item.Store.useResource();
   const requestHandler = useRef(hooks.Domains.Article.useItemSaveOperationRequestHandler()).current;
 
-  const payloadOfSaveAction = useMemo(
-    () => createArticleItemStoreSaveActionPayload({
-      actionResult: resultOfSaveAction,
+  const dataOfSaveAction = useMemo(
+    () => createArticleItemStoreSaveActionData({
       resourceOfApiResponse,
       resourceOfArticleItemStore,
       requestHandler,
+    }),
+    [requestHandler, resourceOfApiResponse, resourceOfArticleItemStore]
+  );
+
+  const payloadOfSaveAction = useMemo(
+    () => createArticleItemStoreSaveActionPayload({
+      actionResult: resultOfSaveAction,
       sliceName,
     }),
-    [resultOfSaveAction, requestHandler, resourceOfApiResponse, resourceOfArticleItemStore, sliceName]
+    [resultOfSaveAction, sliceName]
   );
 
   const { run: complete } = hooks.Features.Article.Item.Store.useStoreSaveCompletedActionDispatch(
@@ -47,14 +55,18 @@ export function useStoreSaveActionDispatch (
   );
 
   const run = useCallback(
-    async (payload: ArticleItemStoreSaveActionPayload) => {
+    async (
+      payload: ArticleItemStoreSaveActionPayload,
+      dataOfSaveAction: ArticleItemStoreSaveActionData
+    ) => {
       const {
         abortSignal,
-        actionResult,
         requestHandler,
         resourceOfApiResponse,
         resourceOfArticleItemStore
-      } = payload;
+      } = dataOfSaveAction;
+
+      const { actionResult } = payload;
 
       if (abortSignal?.aborted) {
         return;
@@ -67,7 +79,7 @@ export function useStoreSaveActionDispatch (
             createArticleDomainItemSaveOperationRequest(
               actionResult,
               {
-                operationName: resourceOfArticleItemStore.getOperationNameForGet(),
+                operationName: resourceOfArticleItemStore.getOperationNameForSave(),
                 resourceOfApiResponse
               }
             ),
@@ -84,46 +96,52 @@ export function useStoreSaveActionDispatch (
     [complete, dispatch]
   );
 
+  const aborted = abortController?.signal.aborted;
+
   useEffect(
     () => {
-      if (abortController?.signal.aborted) {
+      if (aborted) {
         return;
       }
 
       const abortControllerInner = new AbortController();
 
-      const payloadOfSaveActionInner = createArticleItemStoreSaveActionPayload({
-        ...payloadOfSaveAction,
+      const dataOfSaveActionInner: ArticleItemStoreSaveActionData = {
+        ...dataOfSaveAction,
         abortSignal: abortControllerInner.signal,
-      });
+      };
 
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfSaveActionInner);
+        run(payloadOfSaveAction, dataOfSaveActionInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfSaveActionInner);
+          run(payloadOfSaveAction, dataOfSaveActionInner);
         } else {
           abortControllerInner.abort();
         }
       };
     },
-    [abortController, dispatchType, payloadOfSaveAction, run]
+    [aborted, dataOfSaveAction, dispatchType, payloadOfSaveAction, run]
   );
 
   return useMemo<ArticleItemStoreSaveActionDispatch>(
     () => ({
       run: async (actionResult: ArticleItemStoreSaveActionResult, abortSignal?: AbortSignal) => {
+        const dataOfSaveActionInner = createArticleItemStoreSaveActionData({
+          ...dataOfSaveAction,
+          abortSignal,
+        });
+
         const payloadOfSaveActionInner = createArticleItemStoreSaveActionPayload({
           ...payloadOfSaveAction,
-          abortSignal,
           actionResult
         });
 
-        await run(payloadOfSaveActionInner);
+        await run(payloadOfSaveActionInner, dataOfSaveActionInner);
       }
     }),
-    [payloadOfSaveAction, run]
+    [dataOfSaveAction, payloadOfSaveAction, run]
   );
 }

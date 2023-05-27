@@ -1,3 +1,7 @@
+export {
+  type TopicItemStoreSaveActionData,
+  createTopicItemStoreSaveActionData
+} from './TopicItemStoreSaveActionData';
 export { type TopicItemStoreSaveActionDispatch } from './TopicItemStoreSaveActionDispatch';
 export { type TopicItemStoreSaveActionInput } from './TopicItemStoreSaveActionInput';
 export { type TopicItemStoreSaveActionOptions } from './TopicItemStoreSaveActionOptions';
