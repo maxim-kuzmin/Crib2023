@@ -19,7 +19,7 @@ import {
 import { type AppInstance } from './AppInstance';
 
 export interface AppSetup {
-  readonly run: () => void;
+  readonly run: () => Promise<void>;
 }
 
 interface Options {
@@ -35,7 +35,7 @@ class Implementation implements AppSetup {
     this.instanceOfApp = instanceOfApp;
   }
 
-  run () {
+  async run () {
     const setupOfLocalization = createAppLocalizationSetup({
       paths: [
         getApiResponseResourcePath(),
@@ -53,6 +53,8 @@ class Implementation implements AppSetup {
     });
 
     setupOfLocalization.run();
+
+    await Promise.resolve();
   }
 }
 

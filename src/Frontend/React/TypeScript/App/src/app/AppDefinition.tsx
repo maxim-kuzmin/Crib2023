@@ -8,23 +8,21 @@ import { createAppSetup } from './AppSetup';
 
 const instanceOfApp = createAppInstance();
 
-const setupOfApp = createAppSetup({ instanceOfApp });
-
-setupOfApp.run();
-
-export const AppContext = createContext<AppInstance | null>(null);
+export const AppInstanceContext = createContext<AppInstance | null>(null);
 
 export const AppRoot: React.FC = memo(
 function AppRoot (): React.ReactElement | null {
   return (
     <React.StrictMode>
-      <AppContext.Provider value={instanceOfApp}>
+      <AppInstanceContext.Provider value={instanceOfApp}>
         <StoresContextProvider>
           <HelmetProvider>
             <RouterProvider router={createAppRouter()} />
           </HelmetProvider>
         </StoresContextProvider>
-      </AppContext.Provider>
+      </AppInstanceContext.Provider>
     </React.StrictMode>
   );
 });
+
+export const setupOfApp = createAppSetup({ instanceOfApp });

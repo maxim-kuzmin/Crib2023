@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { AppContext } from './AppDefinition';
+import { AppInstanceContext } from './AppDefinition';
 import { type AppInstance } from './AppInstance';
 
 export function useAppInstance (): AppInstance {
-  return useContext(AppContext)!;
+  return useContext(AppInstanceContext)!;
 }
