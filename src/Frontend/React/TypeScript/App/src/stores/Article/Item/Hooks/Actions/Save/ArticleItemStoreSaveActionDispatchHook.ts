@@ -54,25 +54,22 @@ export function useStoreSaveActionDispatch (
     { callback }
   );
 
-  const run = useCallback(
-    async (
-      payload: ArticleItemStoreSaveActionPayload,
-      dataOfSaveAction: ArticleItemStoreSaveActionData
-    ) => {
+  const runInner = useCallback(
+    async (payload: ArticleItemStoreSaveActionPayload, data: ArticleItemStoreSaveActionData) => {
       const {
         abortSignal,
         requestHandler,
         resourceOfApiResponse,
         resourceOfArticleItemStore
-      } = dataOfSaveAction;
-
-      const { actionResult } = payload;
+      } = data;
 
       if (abortSignal?.aborted) {
         return;
       }
 
       dispatch(createArticleItemStoreSaveAction(payload));
+
+      const { actionResult } = payload;
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -112,18 +109,18 @@ export function useStoreSaveActionDispatch (
       };
 
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfSaveAction, dataOfSaveActionInner);
+        runInner(payloadOfSaveAction, dataOfSaveActionInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfSaveAction, dataOfSaveActionInner);
+          runInner(payloadOfSaveAction, dataOfSaveActionInner);
         } else {
           abortControllerInner.abort();
         }
       };
     },
-    [aborted, dataOfSaveAction, dispatchType, payloadOfSaveAction, run]
+    [aborted, dataOfSaveAction, dispatchType, payloadOfSaveAction, runInner]
   );
 
   return useMemo<ArticleItemStoreSaveActionDispatch>(
@@ -139,9 +136,9 @@ export function useStoreSaveActionDispatch (
           actionResult
         });
 
-        await run(payloadOfSaveActionInner, dataOfSaveActionInner);
+        await runInner(payloadOfSaveActionInner, dataOfSaveActionInner);
       }
     }),
-    [dataOfSaveAction, payloadOfSaveAction, run]
+    [dataOfSaveAction, payloadOfSaveAction, runInner]
   );
 }

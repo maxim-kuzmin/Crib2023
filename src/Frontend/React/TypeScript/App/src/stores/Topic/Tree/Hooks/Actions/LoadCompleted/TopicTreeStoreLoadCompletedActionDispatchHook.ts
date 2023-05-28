@@ -29,7 +29,7 @@ export function useStoreLoadCompletedActionDispatch (
     [resultOfLoadCompletedAction, sliceName]
   );
 
-  const run = useCallback(
+  const runInner = useCallback(
     (payload: TopicTreeStoreLoadCompletedActionPayload) => {
       dispatch(createTopicTreeStoreLoadCompletedAction(payload));
 
@@ -43,16 +43,16 @@ export function useStoreLoadCompletedActionDispatch (
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfLoadCompletedAction);
+        runInner(payloadOfLoadCompletedAction);
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfLoadCompletedAction);
+          runInner(payloadOfLoadCompletedAction);
         }
       };
     },
-    [dispatchType, payloadOfLoadCompletedAction, run]
+    [dispatchType, payloadOfLoadCompletedAction, runInner]
   );
 
   return useMemo<TopicTreeStoreLoadCompletedActionDispatch>(
@@ -63,9 +63,9 @@ export function useStoreLoadCompletedActionDispatch (
           actionResult
         });
 
-        run(payloadOfLoadCompletedActionInner);
+        runInner(payloadOfLoadCompletedActionInner);
       }
     }),
-    [payloadOfLoadCompletedAction, run]
+    [payloadOfLoadCompletedAction, runInner]
   );
 }

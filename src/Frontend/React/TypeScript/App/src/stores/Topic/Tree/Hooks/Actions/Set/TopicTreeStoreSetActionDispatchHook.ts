@@ -26,7 +26,7 @@ export function useStoreSetActionDispatch (
     [resultOfSetAction, sliceName]
   );
 
-  const run = useCallback(
+  const runInner = useCallback(
     (payload: TopicTreeStoreSetActionPayload) => {
       dispatch(createTopicTreeStoreSetAction(payload));
 
@@ -40,16 +40,16 @@ export function useStoreSetActionDispatch (
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfSetAction);
+        runInner(payloadOfSetAction);
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfSetAction);
+          runInner(payloadOfSetAction);
         }
       };
     },
-    [dispatchType, payloadOfSetAction, run]
+    [dispatchType, payloadOfSetAction, runInner]
   );
 
   return useMemo<TopicTreeStoreSetActionDispatch>(
@@ -60,9 +60,9 @@ export function useStoreSetActionDispatch (
           actionResult
         });
 
-        run(payloadOfSetActionInner);
+        runInner(payloadOfSetActionInner);
       }
     }),
-    [payloadOfSetAction, run]
+    [payloadOfSetAction, runInner]
   );
 }

@@ -23,7 +23,7 @@ export function useStoreClearActionDispatch (
     [sliceName]
   );
 
-  const run = useCallback(
+  const runInner = useCallback(
     () => {
       dispatch(createTopicTreeStoreClearAction(payloadOfClearAction));
 
@@ -37,17 +37,20 @@ export function useStoreClearActionDispatch (
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run();
+        runInner();
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run();
+          runInner();
         }
       };
     },
-    [dispatchType, run]
+    [dispatchType, runInner]
   );
 
-  return useMemo<TopicTreeStoreClearActionDispatch>(() => ({ run }), [run]);
+  return useMemo<TopicTreeStoreClearActionDispatch>(
+    () => ({ run: runInner }),
+    [runInner]
+  );
 }

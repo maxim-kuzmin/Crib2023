@@ -29,7 +29,7 @@ export function useStoreDeleteCompletedActionDispatch (
     [resultOfDeleteCompletedAction, sliceName]
   );
 
-  const run = useCallback(
+  const runInner = useCallback(
     (payload: ArticleItemStoreDeleteCompletedActionPayload) => {
       dispatch(createArticleItemStoreDeleteCompletedAction(payload));
 
@@ -43,16 +43,16 @@ export function useStoreDeleteCompletedActionDispatch (
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfDeleteCompletedAction);
+        runInner(payloadOfDeleteCompletedAction);
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfDeleteCompletedAction);
+          runInner(payloadOfDeleteCompletedAction);
         }
       };
     },
-    [dispatchType, payloadOfDeleteCompletedAction, run]
+    [dispatchType, payloadOfDeleteCompletedAction, runInner]
   );
 
   return useMemo<ArticleItemStoreDeleteCompletedActionDispatch>(
@@ -63,9 +63,9 @@ export function useStoreDeleteCompletedActionDispatch (
           actionResult
         });
 
-        run(payloadOfDeleteCompletedActionInner);
+        runInner(payloadOfDeleteCompletedActionInner);
       }
     }),
-    [payloadOfDeleteCompletedAction, run]
+    [payloadOfDeleteCompletedAction, runInner]
   );
 }

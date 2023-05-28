@@ -54,25 +54,22 @@ export function useStoreDeleteActionDispatch (
     { callback }
   );
 
-  const run = useCallback(
-    async (
-      payload: ArticleItemStoreDeleteActionPayload,
-      dataOfDeleteAction: ArticleItemStoreDeleteActionData
-    ) => {
+  const runInner = useCallback(
+    async (payload: ArticleItemStoreDeleteActionPayload, data: ArticleItemStoreDeleteActionData) => {
       const {
         abortSignal,
         requestHandler,
         resourceOfApiResponse,
         resourceOfArticleItemStore
-      } = dataOfDeleteAction;
-
-      const { actionResult } = payload;
+      } = data;
 
       if (abortSignal?.aborted) {
         return;
       }
 
       dispatch(createArticleItemStoreDeleteAction(payload));
+
+      const { actionResult } = payload;
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -112,18 +109,18 @@ export function useStoreDeleteActionDispatch (
       };
 
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfDeleteAction, dataOfDeleteActionInner);
+        runInner(payloadOfDeleteAction, dataOfDeleteActionInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfDeleteAction, dataOfDeleteActionInner);
+          runInner(payloadOfDeleteAction, dataOfDeleteActionInner);
         } else {
           abortControllerInner.abort();
         }
       };
     },
-    [aborted, dataOfDeleteAction, dispatchType, payloadOfDeleteAction, run]
+    [aborted, dataOfDeleteAction, dispatchType, payloadOfDeleteAction, runInner]
   );
 
   return useMemo<ArticleItemStoreDeleteActionDispatch>(
@@ -139,9 +136,9 @@ export function useStoreDeleteActionDispatch (
           actionResult
         });
 
-        await run(payloadOfDeleteActionInner, dataOfDeleteActionInner);
+        await runInner(payloadOfDeleteActionInner, dataOfDeleteActionInner);
       }
     }),
-    [dataOfDeleteAction, payloadOfDeleteAction, run]
+    [dataOfDeleteAction, payloadOfDeleteAction, runInner]
   );
 }

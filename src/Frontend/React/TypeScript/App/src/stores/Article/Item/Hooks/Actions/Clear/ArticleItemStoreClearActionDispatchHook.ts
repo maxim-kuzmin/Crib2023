@@ -23,7 +23,7 @@ export function useStoreClearActionDispatch (
     [sliceName]
   );
 
-  const run = useCallback(
+  const runInner = useCallback(
     () => {
       dispatch(createArticleItemStoreClearAction(payloadOfClearAction));
 
@@ -37,17 +37,20 @@ export function useStoreClearActionDispatch (
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run();
+        runInner();
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run();
+          runInner();
         }
       };
     },
-    [dispatchType, run]
+    [dispatchType, runInner]
   );
 
-  return useMemo<ArticleItemStoreClearActionDispatch>(() => ({ run }), [run]);
+  return useMemo<ArticleItemStoreClearActionDispatch>(
+    () => ({ run: runInner }),
+    [runInner]
+  );
 }

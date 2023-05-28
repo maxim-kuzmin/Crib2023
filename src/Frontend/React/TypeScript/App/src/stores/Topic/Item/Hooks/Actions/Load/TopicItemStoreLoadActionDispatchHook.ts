@@ -54,25 +54,22 @@ export function useStoreLoadActionDispatch (
     { callback }
   );
 
-  const run = useCallback(
-    async (
-      payload: TopicItemStoreLoadActionPayload,
-      dataOfLoadAction: TopicItemStoreLoadActionData
-    ) => {
+  const runInner = useCallback(
+    async (payload: TopicItemStoreLoadActionPayload, data: TopicItemStoreLoadActionData) => {
       const {
         abortSignal,
         requestHandler,
         resourceOfApiResponse,
         resourceOfTopicItemStore
-      } = dataOfLoadAction;
-
-      const { actionResult } = payload;
+      } = data;
 
       if (abortSignal?.aborted) {
         return;
       }
 
       dispatch(createTopicItemStoreLoadAction(payload));
+
+      const { actionResult } = payload;
 
       const response = actionResult
         ? await requestHandler.handle(
@@ -112,18 +109,18 @@ export function useStoreLoadActionDispatch (
       };
 
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfLoadAction, dataOfLoadActionInner);
+        runInner(payloadOfLoadAction, dataOfLoadActionInner);
       }
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfLoadAction, dataOfLoadActionInner);
+          runInner(payloadOfLoadAction, dataOfLoadActionInner);
         } else {
           abortControllerInner.abort();
         }
       };
     },
-    [aborted, dataOfLoadAction, dispatchType, payloadOfLoadAction, run]
+    [aborted, dataOfLoadAction, dispatchType, payloadOfLoadAction, runInner]
   );
 
   return useMemo<TopicItemStoreLoadActionDispatch>(
@@ -139,9 +136,9 @@ export function useStoreLoadActionDispatch (
           actionResult
         });
 
-        await run(payloadOfLoadActionInner, dataOfLoadActionInner);
+        await runInner(payloadOfLoadActionInner, dataOfLoadActionInner);
       }
     }),
-    [dataOfLoadAction, payloadOfLoadAction, run]
+    [dataOfLoadAction, payloadOfLoadAction, runInner]
   );
 }

@@ -252,7 +252,7 @@ class Implementation implements ApiClient {
       });
     } catch (error: unknown) {
       errorOfApiResponse = createApiResponseError({
-        message: (error instanceof Error) ? error.message : '',
+        errorMessage: (error instanceof Error) ? error.message : '',
         resourceOfApiResponse
       });
     }
@@ -325,7 +325,7 @@ class Implementation implements ApiClient {
       });
     } catch (error: unknown) {
       errorOfApiResponse = createApiResponseError({
-        message: (error instanceof Error) ? error.message : '',
+        errorMessage: (error instanceof Error) ? error.message : '',
         resourceOfApiResponse
       });
     }

@@ -29,7 +29,7 @@ export function useStoreSaveCompletedActionDispatch (
     [resultOfSaveCompletedAction, sliceName]
   );
 
-  const run = useCallback(
+  const runInner = useCallback(
     (payload: ArticleItemStoreSaveCompletedActionPayload) => {
       dispatch(createArticleItemStoreSaveCompletedAction(payload));
 
@@ -43,16 +43,16 @@ export function useStoreSaveCompletedActionDispatch (
   useEffect(
     () => {
       if (dispatchType === StoreDispatchType.MountOrUpdate) {
-        run(payloadOfSaveCompletedAction);
+        runInner(payloadOfSaveCompletedAction);
       };
 
       return () => {
         if (dispatchType === StoreDispatchType.Unmount) {
-          run(payloadOfSaveCompletedAction);
+          runInner(payloadOfSaveCompletedAction);
         }
       };
     },
-    [dispatchType, payloadOfSaveCompletedAction, run]
+    [dispatchType, payloadOfSaveCompletedAction, runInner]
   );
 
   return useMemo<ArticleItemStoreSaveCompletedActionDispatch>(
@@ -63,9 +63,9 @@ export function useStoreSaveCompletedActionDispatch (
           actionResult
         });
 
-        run(payloadOfSaveCompletedActionInner);
+        runInner(payloadOfSaveCompletedActionInner);
       }
     }),
-    [payloadOfSaveCompletedAction, run]
+    [payloadOfSaveCompletedAction, runInner]
   );
 }
