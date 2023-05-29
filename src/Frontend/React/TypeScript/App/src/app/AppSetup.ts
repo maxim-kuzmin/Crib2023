@@ -1,3 +1,4 @@
+import { getOperationHandlerResourcePath } from '../common';
 import {
   getConfirmControlResourcePath,
   getTableControlResourcePath,
@@ -45,6 +46,7 @@ class Implementation implements AppSetup {
         getArticleListStoreResourcePath(),
         getArticleTableViewResourcePath(),
         getConfirmControlResourcePath(),
+        getOperationHandlerResourcePath(),
         getTableControlResourcePath(),
         getTopicItemStoreResourcePath(),
         getTopicPathViewResourcePath(),

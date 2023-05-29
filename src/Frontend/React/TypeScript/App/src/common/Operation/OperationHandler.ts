@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { NotificationControlType } from '../Controls';
-import { type OperationHandlerOptions } from './OperationHandlerOptions';
+import { type NotificationControlProps, NotificationControlType } from '../Controls';
+import { type OperationHandlerConfig, type OperationHandlerResource } from './Handler';
 import { type OperationInput } from './OperationInput';
 import { type OperationResult } from './OperationResult';
 
@@ -11,12 +11,17 @@ export interface OperationHandler {
   readonly operationCode: string;
 }
 
+interface Options extends OperationHandlerConfig {
+  functionToSetNotification: (data: NotificationControlProps) => void;
+  resourceOfOperationHandler: OperationHandlerResource;
+}
+
 class Implementation implements OperationHandler {
   private _operationCode = '';
 
   private operationName = '';
 
-  constructor (private readonly options: OperationHandlerOptions) {}
+  constructor (private readonly options: Options) {}
 
   get operationCode () {
     if (!this._operationCode) {
@@ -45,7 +50,7 @@ class Implementation implements OperationHandler {
   }
 
   handleStart ({ operationCode, operationName, input }: OperationInput) {
-    const { shouldBeLogged } = this.options;
+    const { shouldBeLogged, resourceOfOperationHandler } = this.options;
 
     if (operationCode) {
       this._operationCode = operationCode;
@@ -56,12 +61,12 @@ class Implementation implements OperationHandler {
     const title = this.createTitle();
 
     if (shouldBeLogged) {
-      console.log(`${title}Start`, input);
+      console.log(`${title}${resourceOfOperationHandler.getStart()}`, input);
     }
   }
 
   handleSuccess ({ operationCode, data }: OperationResult) {
-    const { functionToSetNotification, shouldBeLogged, shouldBeNotified } = this.options;
+    const { functionToSetNotification, resourceOfOperationHandler, shouldBeLogged, shouldBeNotified } = this.options;
 
     if (operationCode) {
       this._operationCode = operationCode;
@@ -70,7 +75,7 @@ class Implementation implements OperationHandler {
     const title = this.createTitle();
 
     if (shouldBeLogged) {
-      console.log(`${title}Success`, data);
+      console.log(`${title}${resourceOfOperationHandler.getSuccess()}`, data);
     }
 
     if (shouldBeNotified) {
@@ -82,10 +87,14 @@ class Implementation implements OperationHandler {
   }
 
   private createTitle (): string {
-    return `${this.operationName ?? 'Operation'}. Code: ${this.operationCode}. `
+    const { resourceOfOperationHandler } = this.options;
+
+    const operationName = this.operationName ?? resourceOfOperationHandler.getOperation();
+
+    return `${operationName}. ${resourceOfOperationHandler.getCode()}: ${this.operationCode}. `;
   }
 }
 
-export function createOperationHandler (options: OperationHandlerOptions): OperationHandler {
+export function createOperationHandler (options: Options): OperationHandler {
   return new Implementation(options);
 }
