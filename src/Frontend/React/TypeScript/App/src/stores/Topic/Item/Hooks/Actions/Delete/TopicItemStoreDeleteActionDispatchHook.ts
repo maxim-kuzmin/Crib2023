@@ -14,6 +14,9 @@ import {
 } from '../../../../../../features';
 import { createTopicItemStoreDeleteAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
+import {
+  useStoreDeleteCompletedActionDispatch
+} from '../DeleteCompleted/TopicItemStoreDeleteCompletedActionDispatchHook';
 
 export function useStoreDeleteActionDispatch (
   sliceName: TopicItemStoreSliceName,
@@ -49,10 +52,7 @@ export function useStoreDeleteActionDispatch (
     [resultOfDeleteAction, sliceName]
   );
 
-  const { run: complete } = hooks.Features.Topic.Item.Store.useStoreDeleteCompletedActionDispatch(
-    sliceName,
-    { callback }
-  );
+  const { run: complete } = useStoreDeleteCompletedActionDispatch(sliceName, { callback });
 
   const runInner = useCallback(
     async (payload: TopicItemStoreDeleteActionPayload, data: TopicItemStoreDeleteActionData) => {

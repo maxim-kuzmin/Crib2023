@@ -14,6 +14,9 @@ import {
 } from '../../../../../../features';
 import { createArticleItemStoreDeleteAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
+import {
+  useStoreDeleteCompletedActionDispatch
+} from '../DeleteCompleted/ArticleItemStoreDeleteCompletedActionDispatchHook';
 
 export function useStoreDeleteActionDispatch (
   sliceName: ArticleItemStoreSliceName,
@@ -49,10 +52,7 @@ export function useStoreDeleteActionDispatch (
     [resultOfDeleteAction, sliceName]
   );
 
-  const { run: complete } = hooks.Features.Article.Item.Store.useStoreDeleteCompletedActionDispatch(
-    sliceName,
-    { callback }
-  );
+  const { run: complete } = useStoreDeleteCompletedActionDispatch(sliceName, { callback });
 
   const runInner = useCallback(
     async (payload: ArticleItemStoreDeleteActionPayload, data: ArticleItemStoreDeleteActionData) => {

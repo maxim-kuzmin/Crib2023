@@ -14,6 +14,9 @@ import {
 } from '../../../../../../features';
 import { createTopicItemStoreSaveAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
+import {
+  useStoreSaveCompletedActionDispatch
+} from '../SaveCompleted/TopicItemStoreSaveCompletedActionDispatchHook';
 
 export function useStoreSaveActionDispatch (
   sliceName: TopicItemStoreSliceName,
@@ -49,10 +52,7 @@ export function useStoreSaveActionDispatch (
     [resultOfSaveAction, sliceName]
   );
 
-  const { run: complete } = hooks.Features.Topic.Item.Store.useStoreSaveCompletedActionDispatch(
-    sliceName,
-    { callback }
-  );
+  const { run: complete } = useStoreSaveCompletedActionDispatch(sliceName, { callback });
 
   const runInner = useCallback(
     async (payload: TopicItemStoreSaveActionPayload, data: TopicItemStoreSaveActionData) => {

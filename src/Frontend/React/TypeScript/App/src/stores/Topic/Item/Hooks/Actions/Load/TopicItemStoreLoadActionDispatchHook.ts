@@ -14,6 +14,9 @@ import {
 } from '../../../../../../features';
 import { createTopicItemStoreLoadAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
+import {
+  useStoreLoadCompletedActionDispatch
+} from '../LoadCompleted/TopicItemStoreLoadCompletedActionDispatchHook';
 
 export function useStoreLoadActionDispatch (
   sliceName: TopicItemStoreSliceName,
@@ -49,10 +52,7 @@ export function useStoreLoadActionDispatch (
     [resultOfLoadAction, sliceName]
   );
 
-  const { run: complete } = hooks.Features.Topic.Item.Store.useStoreLoadCompletedActionDispatch(
-    sliceName,
-    { callback }
-  );
+  const { run: complete } = useStoreLoadCompletedActionDispatch(sliceName, { callback });
 
   const runInner = useCallback(
     async (payload: TopicItemStoreLoadActionPayload, data: TopicItemStoreLoadActionData) => {

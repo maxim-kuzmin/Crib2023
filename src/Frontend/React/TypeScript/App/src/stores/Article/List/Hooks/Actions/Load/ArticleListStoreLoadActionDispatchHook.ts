@@ -14,6 +14,9 @@ import {
 } from '../../../../../../features';
 import { createArticleListStoreLoadAction } from '../../../Actions';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
+import {
+  useStoreLoadCompletedActionDispatch
+} from '../LoadCompleted/ArticleListStoreLoadCompletedActionDispatchHook';
 
 export function useStoreLoadActionDispatch (
   sliceName: ArticleListStoreSliceName,
@@ -49,10 +52,7 @@ export function useStoreLoadActionDispatch (
     [resultOfLoadAction, sliceName]
   );
 
-  const { run: complete } = hooks.Features.Article.List.Store.useStoreLoadCompletedActionDispatch(
-    sliceName,
-    { callback }
-  );
+  const { run: complete } = useStoreLoadCompletedActionDispatch(sliceName, { callback });
 
   const runInner = useCallback(
     async (payload: ArticleListStoreLoadActionPayload, data: ArticleListStoreLoadActionData) => {
