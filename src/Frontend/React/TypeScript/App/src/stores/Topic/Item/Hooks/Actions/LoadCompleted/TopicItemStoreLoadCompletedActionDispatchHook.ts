@@ -33,8 +33,10 @@ export function useStoreLoadCompletedActionDispatch (
     (payload: TopicItemStoreLoadCompletedActionPayload) => {
       dispatch(createTopicItemStoreLoadCompletedAction(payload));
 
-      if (callback) {
-        callback(payload.actionResult);
+      const { actionResult } = payload;
+
+      if (callback && !actionResult?.error) {
+        callback(actionResult);
       }
     },
     [callback, dispatch]

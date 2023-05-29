@@ -30,26 +30,31 @@ function reducer (
     case TopicTreeStoreActionType.Clear:
       state = initialState[sliceName];
       break;
-    case TopicTreeStoreActionType.Load: {
-      const { payload: { actionResult } } = action;
+      case TopicTreeStoreActionType.Load: {
+        const { payload: { actionResult } } = action;
 
-      state = {
-        ...state,
-        resultOfLoadAction: actionResult,
-        statusOfLoadAction: OperationStatus.Pending
-      };
-    } break;
-    case TopicTreeStoreActionType.LoadCompleted: {
-      const { payload: { actionResult } } = action;
+        state = {
+          ...state,
+          resultOfLoadAction: actionResult,
+          statusOfLoadAction: OperationStatus.Pending
+        };
+      } break;
+      case TopicTreeStoreActionType.LoadCompleted: {
+        const { payload: { actionResult } } = action;
 
-      state = {
-        ...state,
-        resultOfLoadCompletedAction: actionResult,
-        statusOfLoadAction: OperationStatus.Fulfilled,
-        resultOfSetAction: actionResult?.error ? state.resultOfSetAction : actionResult
-      };
-    } break;
-    case TopicTreeStoreActionType.Set: {
+        state = {
+          ...state,
+          resultOfLoadCompletedAction: actionResult,
+        };
+
+        if (actionResult?.error) {
+          state.statusOfLoadAction = OperationStatus.Rejected;
+        } else {
+          state.statusOfLoadAction = OperationStatus.Fulfilled;
+          state.resultOfSetAction = actionResult;
+        }
+      } break;
+      case TopicTreeStoreActionType.Set: {
       const { payload: { actionResult } } = action;
 
       state = {

@@ -45,9 +45,14 @@ function reducer (
       state = {
         ...state,
         resultOfDeleteCompletedAction: actionResult,
-        statusOfDeleteAction: OperationStatus.Fulfilled,
-        resultOfSetAction: actionResult?.error ? state.resultOfSetAction : null
       };
+
+      if (actionResult?.error) {
+        state.statusOfLoadAction = OperationStatus.Rejected;
+      } else {
+        state.statusOfLoadAction = OperationStatus.Fulfilled;
+        state.resultOfSetAction = null;
+      }
     } break;
     case ArticleItemStoreActionType.Load: {
       const { payload: { actionResult } } = action;
@@ -64,9 +69,14 @@ function reducer (
       state = {
         ...state,
         resultOfLoadCompletedAction: actionResult,
-        statusOfLoadAction: OperationStatus.Fulfilled,
-        resultOfSetAction: actionResult?.error ? state.resultOfSetAction : actionResult
       };
+
+      if (actionResult?.error) {
+        state.statusOfLoadAction = OperationStatus.Rejected;
+      } else {
+        state.statusOfLoadAction = OperationStatus.Fulfilled;
+        state.resultOfSetAction = actionResult;
+      }
     } break;
     case ArticleItemStoreActionType.Save: {
       const { payload: { actionResult } } = action;
@@ -83,9 +93,14 @@ function reducer (
       state = {
         ...state,
         resultOfSaveCompletedAction: actionResult,
-        statusOfSaveAction: OperationStatus.Fulfilled,
-        resultOfSetAction: actionResult?.error ? state.resultOfSetAction : actionResult
       };
+
+      if (actionResult?.error) {
+        state.statusOfSaveAction = OperationStatus.Rejected;
+      } else {
+        state.statusOfSaveAction = OperationStatus.Fulfilled;
+        state.resultOfSetAction = actionResult;
+      }
     } break;
     case ArticleItemStoreActionType.Set: {
       const { payload: { actionResult } } = action;

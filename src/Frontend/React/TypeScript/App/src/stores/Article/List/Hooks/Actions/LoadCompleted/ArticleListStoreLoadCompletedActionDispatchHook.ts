@@ -33,8 +33,10 @@ export function useStoreLoadCompletedActionDispatch (
     (payload: ArticleListStoreLoadCompletedActionPayload) => {
       dispatch(createArticleListStoreLoadCompletedAction(payload));
 
-      if (callback) {
-        callback(payload.actionResult);
+      const { actionResult } = payload;
+
+      if (callback && !actionResult?.error) {
+        callback(actionResult);
       }
     },
     [callback, dispatch]
