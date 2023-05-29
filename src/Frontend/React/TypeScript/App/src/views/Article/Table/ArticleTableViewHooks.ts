@@ -10,10 +10,7 @@ import {
   ArticleListStoreSliceName,
   type ArticleListStoreState,
 } from '../../../features';
-import {
-  type ArticleTableViewResource,
-  getArticleTableViewResourcePath
-} from './ArticleTableViewResource';
+import { type ArticleTableViewResource } from './ArticleTableViewResource';
 
 export interface ArticleTableViewHooks extends ArticleListStoreSliceHooks {
   readonly useResource: () => ArticleTableViewResource;
@@ -21,15 +18,17 @@ export interface ArticleTableViewHooks extends ArticleListStoreSliceHooks {
 
 interface Options {
   readonly hooksOfArticleListStore: ArticleListStoreHooks;
+  readonly pathOfArticleTableViewResource: string;
 }
 
 export function createArticleTableViewHooks ({
-  hooksOfArticleListStore
+  hooksOfArticleListStore,
+  pathOfArticleTableViewResource,
 }: Options): ArticleTableViewHooks {
   function useResource (): ArticleTableViewResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getArticleTableViewResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfArticleTableViewResource);
 
     const tTitle: string = translator.translate('@@Title');
     const tLabelForActions: string = translator.translate('@@LabelForActions');

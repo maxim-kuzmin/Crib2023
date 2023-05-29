@@ -13,7 +13,3 @@ export interface ArticleItemEditViewResource extends LocalizationResource {
   readonly getLabelForTopic: () => string;
   readonly getValidationMessageForTitleRequired: () => string;
 }
-
-export function getArticleItemEditViewResourcePath (): string {
-  return 'views/Article/Item/Edit/ArticleItemEditView';
-}

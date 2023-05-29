@@ -1,17 +1,4 @@
-import { getTableControlResourcePath } from '../controls';
 import { createAppLocalizationSetup } from '../features';
-import {
-  getArticleItemStoreResourcePath,
-  getArticleListStoreResourcePath,
-  getTopicItemStoreResourcePath,
-  getTopicTreeStoreResourcePath,
-} from '../stores';
-import {
-  getArticleItemViewResourcePath,
-  getArticleItemEditViewResourcePath,
-  getArticleTableViewResourcePath,
-  getTopicPathViewResourcePath,
-} from '../views';
 import { type AppInstance } from './AppInstance';
 
 export interface AppSetup {
@@ -34,23 +21,32 @@ class Implementation implements AppSetup {
   async run () {
     const {
       pathOfApiResponseResource,
+      pathOfArticleItemStoreResource,
+      pathOfArticleListStoreResource,
+      pathOfArticleItemViewResource,
+      pathOfArticleItemEditViewResource,
+      pathOfArticleTableViewResource,
       pathOfConfirmControlResource,
       pathOfOperationHandlerResource,
+      pathOfTableControlResource,
+      pathOfTopicItemStoreResource,
+      pathOfTopicPathViewResource,
+      pathOfTopicTreeStoreResource,
     } = this.instanceOfApp.settings.Features.App.Localization;
 
     const setupOfLocalization = createAppLocalizationSetup({
       paths: [
         pathOfApiResponseResource,
-        getArticleItemStoreResourcePath(),
-        getArticleItemViewResourcePath(),
-        getArticleItemEditViewResourcePath(),
-        getArticleListStoreResourcePath(),
-        getArticleTableViewResourcePath(),
+        pathOfArticleItemStoreResource,
+        pathOfArticleItemViewResource,
+        pathOfArticleItemEditViewResource,
+        pathOfArticleListStoreResource,
+        pathOfArticleTableViewResource,
         pathOfConfirmControlResource,
-        getTableControlResourcePath(),
-        getTopicItemStoreResourcePath(),
-        getTopicPathViewResourcePath(),
-        getTopicTreeStoreResourcePath(),
+        pathOfTableControlResource,
+        pathOfTopicItemStoreResource,
+        pathOfTopicPathViewResource,
+        pathOfTopicTreeStoreResource,
         pathOfOperationHandlerResource,
       ]
     });

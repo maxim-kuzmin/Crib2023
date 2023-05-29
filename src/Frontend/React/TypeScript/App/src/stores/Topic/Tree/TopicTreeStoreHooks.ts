@@ -13,14 +13,19 @@ import {
   TopicTreeStoreDispatchContext,
   TopicTreeStoreStateContext,
   type TopicTreeStoreActionUnion,
-  getTopicTreeStoreResourcePath,
 } from '.';
 
-export function createTopicTreeStoreHooks (): TopicTreeStoreHooks {
+interface Options {
+  readonly pathOfTopicTreeStoreResource: string;
+}
+
+export function createTopicTreeStoreHooks ({
+  pathOfTopicTreeStoreResource,
+}: Options): TopicTreeStoreHooks {
   function useResource (): TopicTreeStoreResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getTopicTreeStoreResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfTopicTreeStoreResource);
 
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');
     const tOperationNameForGetChildren = translator.translate('@@OperationNameForGetChildren');

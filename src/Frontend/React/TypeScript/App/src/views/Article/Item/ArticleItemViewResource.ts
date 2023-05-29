@@ -6,7 +6,3 @@ export interface ArticleItemViewResource extends LocalizationResource {
   readonly getLabelForId: () => string;
   readonly getTitle: () => string;
 }
-
-export function getArticleItemViewResourcePath (): string {
-  return 'views/Article/Item/ArticleItemView';
-}

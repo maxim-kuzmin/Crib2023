@@ -24,10 +24,27 @@ export interface FeaturesHooks {
 
 interface Options {
   readonly createAppNotificationStoreHooks: () => AppNotificationStoreHooks;
-  readonly createArticleItemStoreHooks: () => ArticleItemStoreHooks;
-  readonly createArticleListStoreHooks: () => ArticleListStoreHooks;
-  readonly createTopicItemStoreHooks: () => TopicItemStoreHooks;
-  readonly createTopicTreeStoreHooks: () => TopicTreeStoreHooks;
+
+  readonly createArticleItemStoreHooks: (options: {
+    readonly pathOfArticleItemStoreResource: string;
+  }) => ArticleItemStoreHooks;
+
+  readonly createArticleListStoreHooks: (options: {
+    readonly pathOfArticleListStoreResource: string;
+  }) => ArticleListStoreHooks;
+
+  readonly createTopicItemStoreHooks: (options: {
+    readonly pathOfTopicItemStoreResource: string;
+  }) => TopicItemStoreHooks;
+
+  readonly createTopicTreeStoreHooks: (options: {
+    readonly pathOfTopicTreeStoreResource: string;
+  }) => TopicTreeStoreHooks;
+
+  readonly pathOfArticleItemStoreResource: string;
+  readonly pathOfArticleListStoreResource: string;
+  readonly pathOfTopicItemStoreResource: string;
+  readonly pathOfTopicTreeStoreResource: string;
 }
 
 class Implementation implements FeaturesHooks {
@@ -41,10 +58,26 @@ class Implementation implements FeaturesHooks {
     createArticleListStoreHooks,
     createTopicItemStoreHooks,
     createTopicTreeStoreHooks,
+    pathOfArticleItemStoreResource,
+    pathOfArticleListStoreResource,
+    pathOfTopicItemStoreResource,
+    pathOfTopicTreeStoreResource,
   }: Options) {
     this.App = createAppHooks({ createAppNotificationStoreHooks });
-    this.Article = createArticleHooks({ createArticleItemStoreHooks, createArticleListStoreHooks });
-    this.Topic = createTopicHooks({ createTopicItemStoreHooks, createTopicTreeStoreHooks });
+
+    this.Article = createArticleHooks({
+      createArticleItemStoreHooks,
+      createArticleListStoreHooks,
+      pathOfArticleItemStoreResource,
+      pathOfArticleListStoreResource,
+    });
+
+    this.Topic = createTopicHooks({
+      createTopicItemStoreHooks,
+      createTopicTreeStoreHooks,
+      pathOfTopicItemStoreResource,
+      pathOfTopicTreeStoreResource,
+    });
   }
 }
 

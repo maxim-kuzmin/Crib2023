@@ -15,14 +15,19 @@ import {
   ArticleItemStoreDispatchContext,
   ArticleItemStoreStateContext,
   type ArticleItemStoreActionUnion,
-  getArticleItemStoreResourcePath,
 } from '.';
 
-export function createArticleItemStoreHooks (): ArticleItemStoreHooks {
+interface Options {
+  readonly pathOfArticleItemStoreResource: string;
+}
+
+export function createArticleItemStoreHooks ({
+  pathOfArticleItemStoreResource,
+}: Options): ArticleItemStoreHooks {
   function useResource (): ArticleItemStoreResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getArticleItemStoreResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfArticleItemStoreResource);
 
     const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');

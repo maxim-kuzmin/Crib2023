@@ -14,14 +14,19 @@ import {
   ArticleListStoreDispatchContext,
   ArticleListStoreStateContext,
   type ArticleListStoreActionUnion,
-  getArticleListStoreResourcePath,
  } from '.';
 
-export function createArticleListStoreHooks (): ArticleListStoreHooks {
+ interface Options {
+  readonly pathOfArticleListStoreResource: string;
+}
+
+export function createArticleListStoreHooks ({
+  pathOfArticleListStoreResource,
+}: Options): ArticleListStoreHooks {
   function useResource (): ArticleListStoreResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getArticleListStoreResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfArticleListStoreResource);
 
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');
 

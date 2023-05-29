@@ -14,10 +14,7 @@ import {
   ArticleItemStoreSliceName,
   type ArticleItemStoreState,
 } from '../../../features';
-import {
-  type ArticleItemViewResource,
-  getArticleItemViewResourcePath
-} from './ArticleItemViewResource';
+import { type ArticleItemViewResource } from './ArticleItemViewResource';
 import { createArticleItemEditViewHooks } from './Edit/ArticleItemEditViewHooks';
 import { type ArticleItemEditViewHooks } from './Edit';
 
@@ -29,15 +26,19 @@ export interface ArticleItemViewHooks extends ArticleItemStoreSliceHooks {
 
 interface Options {
   readonly hooksOfArticleItemStore: ArticleItemStoreHooks;
+  readonly pathOfArticleItemViewResource: string;
+  readonly pathOfArticleItemEditViewResource: string;
 }
 
 export function createArticleItemViewHooks ({
-  hooksOfArticleItemStore
+  hooksOfArticleItemStore,
+  pathOfArticleItemViewResource,
+  pathOfArticleItemEditViewResource,
 }: Options): ArticleItemViewHooks {
   function useResource (): ArticleItemViewResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getArticleItemViewResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfArticleItemViewResource);
 
     const tActionForBackToList: string = translator.translate('@@ActionForBackToList');
     const tActionForEdit: string = translator.translate('@@ActionForEdit');
@@ -94,7 +95,7 @@ export function createArticleItemViewHooks ({
   }
 
   return {
-    Edit: createArticleItemEditViewHooks(),
+    Edit: createArticleItemEditViewHooks({ pathOfArticleItemEditViewResource }),
     useResource,
     useStoreClearActionOutput,
     useStoreDeleteActionOutput,

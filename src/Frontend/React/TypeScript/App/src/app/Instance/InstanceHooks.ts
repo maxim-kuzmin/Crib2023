@@ -66,11 +66,20 @@ class Implementation implements InstanceHooks {
   }: Options) {
     const {
       pathOfApiResponseResource,
+      pathOfArticleItemStoreResource,
+      pathOfArticleListStoreResource,
+      pathOfArticleItemViewResource,
+      pathOfArticleItemEditViewResource,
+      pathOfArticleTableViewResource,
       pathOfConfirmControlResource,
       pathOfOperationHandlerResource,
+      pathOfTableControlResource,
+      pathOfTopicItemStoreResource,
+      pathOfTopicPathViewResource,
+      pathOfTopicTreeStoreResource,
     } = settings.Features.App.Localization;
 
-    this.Controls = createControlsHooks({ pathOfConfirmControlResource });
+    this.Controls = createControlsHooks({ pathOfConfirmControlResource, pathOfTableControlResource });
 
     this.Features = createFeaturesHooks({
       createAppNotificationStoreHooks,
@@ -78,6 +87,10 @@ class Implementation implements InstanceHooks {
       createArticleListStoreHooks,
       createTopicItemStoreHooks,
       createTopicTreeStoreHooks,
+      pathOfArticleItemStoreResource,
+      pathOfArticleListStoreResource,
+      pathOfTopicItemStoreResource,
+      pathOfTopicTreeStoreResource,
     });
 
     const hooksOfAppNotificationStore = this.Features.App.Notification.Store;
@@ -88,6 +101,10 @@ class Implementation implements InstanceHooks {
       hooksOfArticleListStore: this.Features.Article.List.Store,
       hooksOfTopicItemStore: this.Features.Topic.Item.Store,
       hooksOfTopicTreeStore: this.Features.Topic.Tree.Store,
+      pathOfArticleItemViewResource,
+      pathOfArticleItemEditViewResource,
+      pathOfArticleTableViewResource,
+      pathOfTopicPathViewResource,
     });
 
     this.Common = createCommonHooks({

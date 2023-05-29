@@ -4,4 +4,4 @@ export { type ArticleItemViewHooks, createArticleItemViewHooks } from './Article
 export { ArticleItemViewMode } from './ArticleItemViewMode';
 export { type ArticleItemViewModules, createArticleItemViewModules } from './ArticleItemViewModules';
 export { type ArticleItemViewProps } from './ArticleItemViewProps';
-export { type ArticleItemViewResource, getArticleItemViewResourcePath } from './ArticleItemViewResource';
+export { type ArticleItemViewResource } from './ArticleItemViewResource';

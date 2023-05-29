@@ -11,14 +11,24 @@ export interface ArticleViewHooks {
 interface Options {
   readonly hooksOfArticleItemStore: ArticleItemStoreHooks;
   readonly hooksOfArticleListStore: ArticleListStoreHooks;
+  readonly pathOfArticleItemViewResource: string;
+  readonly pathOfArticleItemEditViewResource: string;
+  readonly pathOfArticleTableViewResource: string;
 }
 
 export function createArticleViewHooks ({
   hooksOfArticleItemStore,
-  hooksOfArticleListStore
+  hooksOfArticleListStore,
+  pathOfArticleItemViewResource,
+  pathOfArticleItemEditViewResource,
+  pathOfArticleTableViewResource,
 }: Options): ArticleViewHooks {
-  const hooksOfItem = createArticleItemViewHooks({ hooksOfArticleItemStore });
-  const hooksOfTable = createArticleTableViewHooks({ hooksOfArticleListStore });
+  const hooksOfItem = createArticleItemViewHooks({
+    hooksOfArticleItemStore,
+    pathOfArticleItemViewResource,
+    pathOfArticleItemEditViewResource,
+  });
+  const hooksOfTable = createArticleTableViewHooks({ hooksOfArticleListStore, pathOfArticleTableViewResource });
 
   return {
     Item: hooksOfItem,

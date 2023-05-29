@@ -1,16 +1,22 @@
 import { useMemo } from 'react';
 import { useAppInstance } from '../../../app';
-import { getTopicPathViewResourcePath, type TopicPathViewResource } from './TopicPathViewResource';
+import { type TopicPathViewResource } from './TopicPathViewResource';
 
 export interface TopicPathViewHooks {
   readonly useResource: () => TopicPathViewResource;
 }
 
-export function createTopicPathViewHooks (): TopicPathViewHooks {
+interface Opttions {
+  readonly pathOfTopicPathViewResource: string;
+}
+
+export function createTopicPathViewHooks ({
+  pathOfTopicPathViewResource,
+}: Opttions): TopicPathViewHooks {
   function useResource (): TopicPathViewResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getTopicPathViewResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfTopicPathViewResource);
 
     const tTitleForRoot: string = translator.translate('@@TitleForRoot');
 

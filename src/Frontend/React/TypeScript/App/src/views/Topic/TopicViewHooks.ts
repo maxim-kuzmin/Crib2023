@@ -15,14 +15,16 @@ export interface TopicViewHooks {
 interface Options {
   readonly hooksOfTopicItemStore: TopicItemStoreHooks;
   readonly hooksOfTopicTreeStore: TopicTreeStoreHooks;
+  readonly pathOfTopicPathViewResource: string;
 }
 
 export function createTopicViewHooks ({
   hooksOfTopicItemStore,
-  hooksOfTopicTreeStore
+  hooksOfTopicTreeStore,
+  pathOfTopicPathViewResource,
 }: Options): TopicViewHooks {
   const hooksOfItem = createTopicItemViewHooks({ hooksOfTopicItemStore });
-  const hooksOfPath = createTopicPathViewHooks();
+  const hooksOfPath = createTopicPathViewHooks({ pathOfTopicPathViewResource });
   const hooksOfTree = createTopicTreeViewHooks({ hooksOfTopicTreeStore });
 
   return {

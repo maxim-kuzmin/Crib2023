@@ -12,6 +12,7 @@ import {
 
 interface Options {
   readonly pathOfConfirmControlResource: string;
+  readonly pathOfTableControlResource: string;
 }
 
 class Implementation implements ControlsHooks {
@@ -21,10 +22,11 @@ class Implementation implements ControlsHooks {
 
   constructor ({
     pathOfConfirmControlResource,
+    pathOfTableControlResource,
   }: Options) {
     this.Confirm = createConfirmControlHooks({ pathOfConfirmControlResource });
     this.Notification = createNotificationControlHooks();
-    this.Table = createTableControlHooks();
+    this.Table = createTableControlHooks({ pathOfTableControlResource });
   }
 }
 

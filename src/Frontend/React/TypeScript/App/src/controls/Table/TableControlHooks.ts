@@ -1,16 +1,18 @@
 import { useMemo } from 'react';
 import { useAppInstance } from '../../app';
-import {
-  type TableControlHooks,
-  type TableControlResource
-} from '../../common';
-import { getTableControlResourcePath } from './TableControlResource';
+import { type TableControlHooks, type TableControlResource } from '../../common';
 
-export function createTableControlHooks (): TableControlHooks {
+interface Options {
+  readonly pathOfTableControlResource: string;
+}
+
+export function createTableControlHooks ({
+  pathOfTableControlResource,
+}: Options): TableControlHooks {
   function useResource (): TableControlResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getTableControlResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfTableControlResource);
 
     const tPaginationPartForFrom: string = translator.translate('@@PaginationPartForFrom');
     const tPaginationPartForJumpTo: string = translator.translate('@@PaginationPartForJumpTo');

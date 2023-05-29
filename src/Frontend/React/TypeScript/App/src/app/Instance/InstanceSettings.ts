@@ -29,8 +29,17 @@ export function createInstanceSettings (): InstanceSettings {
       App: {
         Localization: {
           pathOfApiResponseResource: 'data/Api/Response/ApiResponse',
+          pathOfArticleItemStoreResource: 'stores/Article/Item/ArticleItemStore',
+          pathOfArticleListStoreResource: 'stores/Article/List/ArticleListStore',
+          pathOfArticleItemViewResource: 'views/Article/Item/ArticleItemView',
+          pathOfArticleItemEditViewResource: 'views/Article/Item/Edit/ArticleItemEditView',
+          pathOfArticleTableViewResource: 'views/Article/Table/ArticleTableView',
           pathOfConfirmControlResource: 'controls/Confirm/ConfirmControl',
           pathOfOperationHandlerResource: 'common/Operation/Handler/OperationHandler',
+          pathOfTableControlResource: 'controls/Table/TableControl',
+          pathOfTopicItemStoreResource: 'stores/Topic/Item/TopicItemStore',
+          pathOfTopicPathViewResource: 'views/Topic/Path/TopicPathView',
+          pathOfTopicTreeStoreResource: 'stores/Topic/Tree/TopicTreeStore',
         }
       }
     },

@@ -5,16 +5,21 @@ export interface ArticleListHooks {
 }
 
 interface Options {
-  readonly createArticleListStoreHooks: () => ArticleListStoreHooks;
+  readonly createArticleListStoreHooks: (options: {
+    readonly pathOfArticleListStoreResource: string;
+  }) => ArticleListStoreHooks;
+
+  readonly pathOfArticleListStoreResource: string;
 }
 
 class Implementation implements ArticleListHooks {
   readonly Store: ArticleListStoreHooks;
 
   constructor ({
-    createArticleListStoreHooks
+    createArticleListStoreHooks,
+    pathOfArticleListStoreResource,
   }: Options) {
-    this.Store = createArticleListStoreHooks();
+    this.Store = createArticleListStoreHooks({ pathOfArticleListStoreResource });
   }
 }
 

@@ -15,14 +15,19 @@ import {
   TopicItemStoreDispatchContext,
   TopicItemStoreStateContext,
   type TopicItemStoreActionUnion,
-  getTopicItemStoreResourcePath,
 } from '.';
 
-export function createTopicItemStoreHooks (): TopicItemStoreHooks {
+interface Options {
+  readonly pathOfTopicItemStoreResource: string;
+}
+
+export function createTopicItemStoreHooks ({
+  pathOfTopicItemStoreResource,
+}: Options): TopicItemStoreHooks {
   function useResource (): TopicItemStoreResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getTopicItemStoreResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfTopicItemStoreResource);
 
     const tOperationNameForDelete = translator.translate('@@OperationNameForDelete');
     const tOperationNameForGet = translator.translate('@@OperationNameForGet');

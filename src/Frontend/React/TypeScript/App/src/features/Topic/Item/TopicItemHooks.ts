@@ -5,16 +5,21 @@ export interface TopicItemHooks {
 }
 
 interface Options {
-  readonly createTopicItemStoreHooks: () => TopicItemStoreHooks;
+  readonly createTopicItemStoreHooks: (options: {
+    readonly pathOfTopicItemStoreResource: string;
+  }) => TopicItemStoreHooks;
+
+  readonly pathOfTopicItemStoreResource: string;
 }
 
 class Implementation implements TopicItemHooks {
   readonly Store: TopicItemStoreHooks;
 
   constructor ({
-    createTopicItemStoreHooks
+    createTopicItemStoreHooks,
+    pathOfTopicItemStoreResource
   }: Options) {
-    this.Store = createTopicItemStoreHooks();
+    this.Store = createTopicItemStoreHooks({ pathOfTopicItemStoreResource });
   }
 }
 

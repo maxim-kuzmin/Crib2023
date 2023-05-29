@@ -26,6 +26,10 @@ interface Options {
   readonly hooksOfArticleListStore: ArticleListStoreHooks;
   readonly hooksOfTopicItemStore: TopicItemStoreHooks;
   readonly hooksOfTopicTreeStore: TopicTreeStoreHooks;
+  readonly pathOfArticleItemViewResource: string;
+  readonly pathOfArticleItemEditViewResource: string;
+  readonly pathOfTopicPathViewResource: string;
+  readonly pathOfArticleTableViewResource: string;
 }
 
 class Implementation implements ViewsHooks {
@@ -39,10 +43,26 @@ class Implementation implements ViewsHooks {
     hooksOfArticleListStore,
     hooksOfTopicItemStore,
     hooksOfTopicTreeStore,
+    pathOfArticleItemViewResource,
+    pathOfArticleItemEditViewResource,
+    pathOfArticleTableViewResource,
+    pathOfTopicPathViewResource,
   }: Options) {
     this.App = createAppViewHooks({ hooksOfAppNotificationStore });
-    this.Article = createArticleViewHooks({ hooksOfArticleItemStore, hooksOfArticleListStore });
-    this.Topic = createTopicViewHooks({ hooksOfTopicItemStore, hooksOfTopicTreeStore });
+
+    this.Article = createArticleViewHooks({
+      hooksOfArticleItemStore,
+      hooksOfArticleListStore,
+      pathOfArticleItemViewResource,
+      pathOfArticleItemEditViewResource,
+      pathOfArticleTableViewResource,
+    });
+
+    this.Topic = createTopicViewHooks({
+      hooksOfTopicItemStore,
+      hooksOfTopicTreeStore,
+      pathOfTopicPathViewResource,
+    });
   }
 }
 
