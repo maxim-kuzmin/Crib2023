@@ -1,9 +1,7 @@
-import { useCallback } from 'react';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import {
   type TopicItemStoreLoadActionInput,
   type TopicItemStoreLoadActionOutput,
-  type TopicItemStoreLoadCompletedActionResult,
   type TopicItemStoreSliceName,
 } from '../../../../../../features';
 import { useStoreState } from '../../TopicItemStoreStateHook';
@@ -13,22 +11,12 @@ export function useStoreLoadActionOutput (
   sliceName: TopicItemStoreSliceName,
   input: TopicItemStoreLoadActionInput
 ): TopicItemStoreLoadActionOutput {
-  const { abortController, onActionCompleted, resultOfLoadAction } = input;
-
-  const callback = useCallback(
-    (data: TopicItemStoreLoadCompletedActionResult) => {
-      if (onActionCompleted) {
-        onActionCompleted(data);
-      }
-    },
-    [onActionCompleted]
-  );
+  const { abortController, resultOfLoadAction } = input;
 
   const dispatchOfLoadAction = useStoreLoadActionDispatch(
     sliceName,
     {
       abortController,
-      callback,
       dispatchType: StoreDispatchType.MountOrUpdate,
       resultOfLoadAction
     }

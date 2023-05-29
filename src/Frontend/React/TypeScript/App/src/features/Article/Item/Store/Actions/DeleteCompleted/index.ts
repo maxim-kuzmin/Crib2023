@@ -1,4 +1,3 @@
-export { type ArticleItemStoreDeleteCompletedActionCallback } from './ArticleItemStoreDeleteCompletedActionCallback';
 export { type ArticleItemStoreDeleteCompletedActionDispatch } from './ArticleItemStoreDeleteCompletedActionDispatch';
 export {
   type ArticleItemStoreDeleteCompletedActionPayload,

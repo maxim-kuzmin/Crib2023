@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type TopicItemStoreSaveCompletedActionCallback,
   type TopicItemStoreSaveCompletedActionDispatch,
   type TopicItemStoreSaveCompletedActionPayload,
   type TopicItemStoreSaveCompletedActionResult,
@@ -12,14 +11,12 @@ import { createTopicItemStoreSaveCompletedAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: TopicItemStoreSaveCompletedActionCallback;
   readonly resultOfSaveCompletedAction?: TopicItemStoreSaveCompletedActionResult;
 }
 
 export function useStoreSaveCompletedActionDispatch (
   sliceName: TopicItemStoreSliceName,
   {
-    callback,
     dispatchType,
     resultOfSaveCompletedAction
   }: Options = {}
@@ -37,14 +34,8 @@ export function useStoreSaveCompletedActionDispatch (
   const runInner = useCallback(
     (payload: TopicItemStoreSaveCompletedActionPayload) => {
       dispatch(createTopicItemStoreSaveCompletedAction(payload));
-
-      const { actionResult } = payload;
-
-      if (callback && !actionResult?.error) {
-        callback(actionResult);
-      }
     },
-    [callback, dispatch]
+    [dispatch]
   );
 
   useEffect(

@@ -1,5 +1,4 @@
 import {
-  type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput,
   type ArticleItemStoreDeleteActionInput,
   type ArticleItemStoreDeleteActionOutput,
@@ -7,7 +6,6 @@ import {
   type ArticleItemStoreLoadActionOutput,
   type ArticleItemStoreSaveActionInput,
   type ArticleItemStoreSaveActionOutput,
-  type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput
 } from './Actions';
 import { type ArticleItemStoreSliceName } from './Slice';
@@ -18,8 +16,7 @@ export interface ArticleItemStoreHooks {
   readonly useResource: () => ArticleItemStoreResource;
 
   readonly useStoreClearActionOutput: (
-    sliceName: ArticleItemStoreSliceName,
-    input: ArticleItemStoreClearActionInput
+    sliceName: ArticleItemStoreSliceName
   ) => ArticleItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionOutput: (
@@ -38,8 +35,7 @@ export interface ArticleItemStoreHooks {
   ) => ArticleItemStoreSaveActionOutput;
 
   readonly useStoreSetActionOutput: (
-    sliceName: ArticleItemStoreSliceName,
-    input: ArticleItemStoreSetActionInput
+    sliceName: ArticleItemStoreSliceName
   ) => ArticleItemStoreSetActionOutput;
 
   readonly useStoreState: (sliceName: ArticleItemStoreSliceName) => ArticleItemStoreState;

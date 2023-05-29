@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleListStoreSetActionCallback,
   type ArticleListStoreSetActionDispatch,
   type ArticleListStoreSetActionPayload,
   type ArticleListStoreSetActionResult,
@@ -12,14 +11,12 @@ import { createArticleListStoreSetAction } from '../../../Actions';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: ArticleListStoreSetActionCallback;
   readonly resultOfSetAction?: ArticleListStoreSetActionResult;
 }
 
 export function useStoreSetActionDispatch (
   sliceName: ArticleListStoreSliceName,
   {
-    callback,
     dispatchType,
     resultOfSetAction
   }: Options = {}
@@ -34,12 +31,8 @@ export function useStoreSetActionDispatch (
   const runInner = useCallback(
     (payload: ArticleListStoreSetActionPayload) => {
       dispatch(createArticleListStoreSetAction(payload));
-
-      if (callback) {
-        callback(payload.actionResult);
-      }
     },
-    [callback, dispatch]
+    [dispatch]
   );
 
   useEffect(

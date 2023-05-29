@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppInstance } from '../../../app';
 import {
@@ -22,7 +22,7 @@ function ArticleItemView ({
 
   const resourceOfArticleItemView = hooks.Views.Article.Item.useResource();
 
-  hooks.Views.Article.Item.useStoreClearActionOutput({});
+  hooks.Views.Article.Item.useStoreClearActionOutput();
 
   const resultOfLoadAction: ArticleItemStoreLoadActionResult = useMemo(
     () => {
@@ -42,9 +42,14 @@ function ArticleItemView ({
 
   const loadedEntity = resultOfLoadCompletedAction?.data?.item.data;
 
-  if (onLoadActionCompleted && loadedEntity) {
-    onLoadActionCompleted(loadedEntity);
-  }
+  useEffect(
+    () => {
+      if (onLoadActionCompleted && loadedEntity) {
+        onLoadActionCompleted(loadedEntity);
+      }
+    },
+    [loadedEntity, onLoadActionCompleted]
+  );
 
   const entity: ArticleTypeEntity = useMemo(
     () => loadedEntity ?? createArticleTypeEntity(),

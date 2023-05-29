@@ -3,7 +3,6 @@ import { useAppInstance } from '../../../../../../app';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import { createArticleDomainItemDeleteOperationRequest } from '../../../../../../domains';
 import {
-  type ArticleItemStoreDeleteCompletedActionCallback,
   type ArticleItemStoreDeleteActionData,
   type ArticleItemStoreDeleteActionDispatch,
   type ArticleItemStoreDeleteActionPayload,
@@ -19,14 +18,12 @@ import {
 } from '../DeleteCompleted/ArticleItemStoreDeleteCompletedActionDispatchHook';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
   readonly resultOfDeleteAction?: ArticleItemStoreDeleteActionResult;
 }
 
 export function useStoreDeleteActionDispatch (
   sliceName: ArticleItemStoreSliceName,
   {
-    callback,
     dispatchType,
     abortController,
     resultOfDeleteAction
@@ -57,7 +54,7 @@ export function useStoreDeleteActionDispatch (
     [resultOfDeleteAction, sliceName]
   );
 
-  const { run: complete } = useStoreDeleteCompletedActionDispatch(sliceName, { callback });
+  const { run: complete } = useStoreDeleteCompletedActionDispatch(sliceName);
 
   const runInner = useCallback(
     async (payload: ArticleItemStoreDeleteActionPayload, data: ArticleItemStoreDeleteActionData) => {

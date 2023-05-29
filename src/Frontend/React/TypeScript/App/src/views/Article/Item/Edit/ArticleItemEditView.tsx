@@ -42,7 +42,7 @@ function ArticleItemEditView ({
 
   const resourceOfArticleItemEditView = hooks.Views.Article.Item.Edit.useResource();
 
-  hooks.Views.Article.Item.useStoreClearActionOutput({});
+  hooks.Views.Article.Item.useStoreClearActionOutput();
 
   const isUpdating = articleId > 0;
 
@@ -64,9 +64,14 @@ function ArticleItemEditView ({
 
   const loadedEntity = resultOfLoadCompletedAction?.data?.item.data;
 
-  if (onLoadActionCompleted && loadedEntity) {
-    onLoadActionCompleted(loadedEntity);
-  }
+  useEffect(
+    () => {
+      if (onLoadActionCompleted && loadedEntity) {
+        onLoadActionCompleted(loadedEntity);
+      }
+    },
+    [loadedEntity, onLoadActionCompleted]
+  );
 
   const {
     resultOfSaveCompletedAction,

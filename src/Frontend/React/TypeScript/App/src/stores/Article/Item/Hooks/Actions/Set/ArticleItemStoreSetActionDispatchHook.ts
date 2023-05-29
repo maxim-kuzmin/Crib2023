@@ -14,7 +14,6 @@ import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 export function useStoreSetActionDispatch (
   sliceName: ArticleItemStoreSliceName,
   {
-    callback,
     dispatchType,
     resultOfSetAction
   }: ArticleItemStoreSetActionOptions = {}
@@ -29,12 +28,8 @@ export function useStoreSetActionDispatch (
   const runInner = useCallback(
     (payload: ArticleItemStoreSetActionPayload) => {
       dispatch(createArticleItemStoreSetAction(payload));
-
-      if (callback) {
-        callback(payload.actionResult);
-      }
     },
-    [callback, dispatch]
+    [dispatch]
   );
 
   useEffect(

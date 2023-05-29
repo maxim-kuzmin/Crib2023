@@ -1,5 +1,4 @@
 import {
-  type TopicItemStoreClearActionInput,
   type TopicItemStoreClearActionOutput,
   type TopicItemStoreDeleteActionInput,
   type TopicItemStoreDeleteActionOutput,
@@ -7,7 +6,6 @@ import {
   type TopicItemStoreLoadActionOutput,
   type TopicItemStoreSaveActionInput,
   type TopicItemStoreSaveActionOutput,
-  type TopicItemStoreSetActionInput,
   type TopicItemStoreSetActionOutput,
   type TopicItemStoreHooks,
   type TopicItemStoreSliceHooks,
@@ -26,8 +24,8 @@ export function createTopicItemViewHooks ({
 }: Options): TopicItemViewHooks {
   const sliceName = TopicItemStoreSliceName.Default;
 
-  function useStoreClearActionOutput (input: TopicItemStoreClearActionInput): TopicItemStoreClearActionOutput {
-    return hooksOfTopicItemStore.useStoreClearActionOutput(sliceName, input);
+  function useStoreClearActionOutput (): TopicItemStoreClearActionOutput {
+    return hooksOfTopicItemStore.useStoreClearActionOutput(sliceName);
   }
 
   function useStoreDeleteActionOutput (input?: TopicItemStoreDeleteActionInput): TopicItemStoreDeleteActionOutput {
@@ -42,8 +40,8 @@ export function createTopicItemViewHooks ({
     return hooksOfTopicItemStore.useStoreSaveActionOutput(sliceName, input);
   }
 
-  function useStoreSetActionOutput (input: TopicItemStoreSetActionInput): TopicItemStoreSetActionOutput {
-    return hooksOfTopicItemStore.useStoreSetActionOutput(sliceName, input);
+  function useStoreSetActionOutput (): TopicItemStoreSetActionOutput {
+    return hooksOfTopicItemStore.useStoreSetActionOutput(sliceName);
   }
 
   function useStoreState (): TopicItemStoreState {

@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useAppInstance } from '../../../app';
 
 export const AppNotificationView: React.FC = memo(
@@ -7,19 +7,20 @@ function AppNotificationView (): React.ReactElement | null {
 
   const component = hooks.Controls.Notification.useComponent();
 
+  const { dispatchOfClearAction } = hooks.Views.App.Notification.useStoreClearActionOutput();
+
   const { resultOfSetAction } = hooks.Views.App.Notification.useStoreState();
 
-  const onActionCompleted = useCallback(() => {
+  useEffect(
+    () => {
       if (resultOfSetAction) {
         component.show(resultOfSetAction);
+
+        dispatchOfClearAction.run();
       }
     },
-    [component, resultOfSetAction]
+    [component, dispatchOfClearAction, resultOfSetAction]
   );
-
-  hooks.Views.App.Notification.useStoreClearActionOutput({
-    onActionCompleted
-  });
 
   return (
       <>

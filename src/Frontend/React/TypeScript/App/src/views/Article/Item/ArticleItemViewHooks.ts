@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useAppInstance } from '../../../app';
 import {
-  type ArticleItemStoreClearActionInput,
   type ArticleItemStoreClearActionOutput,
   type ArticleItemStoreDeleteActionInput,
   type ArticleItemStoreDeleteActionOutput,
@@ -9,7 +8,6 @@ import {
   type ArticleItemStoreLoadActionOutput,
   type ArticleItemStoreSaveActionInput,
   type ArticleItemStoreSaveActionOutput,
-  type ArticleItemStoreSetActionInput,
   type ArticleItemStoreSetActionOutput,
   type ArticleItemStoreHooks,
   type ArticleItemStoreSliceHooks,
@@ -71,8 +69,8 @@ export function createArticleItemViewHooks ({
 
   const sliceName = ArticleItemStoreSliceName.Default;
 
-  function useStoreClearActionOutput (input: ArticleItemStoreClearActionInput): ArticleItemStoreClearActionOutput {
-    return hooksOfArticleItemStore.useStoreClearActionOutput(sliceName, input);
+  function useStoreClearActionOutput (): ArticleItemStoreClearActionOutput {
+    return hooksOfArticleItemStore.useStoreClearActionOutput(sliceName);
   }
 
   function useStoreDeleteActionOutput (input?: ArticleItemStoreDeleteActionInput): ArticleItemStoreDeleteActionOutput {
@@ -87,8 +85,8 @@ export function createArticleItemViewHooks ({
     return hooksOfArticleItemStore.useStoreSaveActionOutput(sliceName, input);
   }
 
-  function useStoreSetActionOutput (input: ArticleItemStoreSetActionInput): ArticleItemStoreSetActionOutput {
-    return hooksOfArticleItemStore.useStoreSetActionOutput(sliceName, input);
+  function useStoreSetActionOutput (): ArticleItemStoreSetActionOutput {
+    return hooksOfArticleItemStore.useStoreSetActionOutput(sliceName);
   }
 
   function useStoreState (): ArticleItemStoreState {

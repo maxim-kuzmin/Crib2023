@@ -1,9 +1,7 @@
 import {
-  type TopicTreeStoreClearActionInput,
   type TopicTreeStoreClearActionOutput,
   type TopicTreeStoreLoadActionInput,
   type TopicTreeStoreLoadActionOutput,
-  type TopicTreeStoreSetActionInput,
   type TopicTreeStoreSetActionOutput,
   type TopicTreeStoreHooks,
   type TopicTreeStoreSliceHooks,
@@ -22,16 +20,16 @@ export function createTopicTreeViewHooks ({
 }: Options): TopicTreeViewHooks {
   const sliceName = TopicTreeStoreSliceName.Default;
 
-  function useStoreClearActionOutput (input: TopicTreeStoreClearActionInput): TopicTreeStoreClearActionOutput {
-    return hooksOfTopicTreeStore.useStoreClearActionOutput(sliceName, input);
+  function useStoreClearActionOutput (): TopicTreeStoreClearActionOutput {
+    return hooksOfTopicTreeStore.useStoreClearActionOutput(sliceName);
   }
 
   function useStoreLoadActionOutput (input: TopicTreeStoreLoadActionInput): TopicTreeStoreLoadActionOutput {
     return hooksOfTopicTreeStore.useStoreLoadActionOutput(sliceName, input);
   }
 
-  function useStoreSetActionOutput (input: TopicTreeStoreSetActionInput): TopicTreeStoreSetActionOutput {
-    return hooksOfTopicTreeStore.useStoreSetActionOutput(sliceName, input);
+  function useStoreSetActionOutput (): TopicTreeStoreSetActionOutput {
+    return hooksOfTopicTreeStore.useStoreSetActionOutput(sliceName);
   }
 
   function useStoreState (): TopicTreeStoreState {

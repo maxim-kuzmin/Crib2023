@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type TopicItemStoreSetActionCallback,
   type TopicItemStoreSetActionDispatch,
   type TopicItemStoreSetActionPayload,
   type TopicItemStoreSetActionResult,
@@ -12,14 +11,12 @@ import { createTopicItemStoreSetAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: TopicItemStoreSetActionCallback;
   readonly resultOfSetAction?: TopicItemStoreSetActionResult;
 }
 
 export function useStoreSetActionDispatch (
   sliceName: TopicItemStoreSliceName,
   {
-    callback,
     dispatchType,
     resultOfSetAction
   }: Options = {}
@@ -34,12 +31,8 @@ export function useStoreSetActionDispatch (
   const runInner = useCallback(
     (payload: TopicItemStoreSetActionPayload) => {
       dispatch(createTopicItemStoreSetAction(payload));
-
-      if (callback) {
-        callback(payload.actionResult);
-      }
     },
-    [callback, dispatch]
+    [dispatch]
   );
 
   useEffect(

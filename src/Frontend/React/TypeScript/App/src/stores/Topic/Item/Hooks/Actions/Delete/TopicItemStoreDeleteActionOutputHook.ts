@@ -1,9 +1,7 @@
-import { useCallback } from 'react';
 import { OperationStatus } from '../../../../../../common';
 import {
   type TopicItemStoreDeleteActionInput,
   type TopicItemStoreDeleteActionOutput,
-  type TopicItemStoreDeleteCompletedActionResult,
   type TopicItemStoreSliceName,
 } from '../../../../../../features';
 import { useStoreState } from '../../TopicItemStoreStateHook';
@@ -13,18 +11,9 @@ export function useStoreDeleteActionOutput (
   sliceName: TopicItemStoreSliceName,
   input: TopicItemStoreDeleteActionInput = {}
 ): TopicItemStoreDeleteActionOutput {
-  const { onActionCompleted } = input;
+  const { abortController } = input;
 
-  const callback = useCallback(
-    (data: TopicItemStoreDeleteCompletedActionResult) => {
-      if (onActionCompleted) {
-        onActionCompleted(data);
-      }
-    },
-    [onActionCompleted]
-  );
-
-  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(sliceName, { callback });
+  const dispatchOfDeleteAction = useStoreDeleteActionDispatch(sliceName, { abortController });
 
   const { resultOfDeleteCompletedAction, statusOfDeleteAction } = useStoreState(sliceName);
 

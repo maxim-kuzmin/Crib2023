@@ -1,9 +1,7 @@
-import { useCallback } from 'react';
 import { StoreDispatchType, OperationStatus } from '../../../../../../common';
 import {
   type TopicTreeStoreLoadActionInput,
   type TopicTreeStoreLoadActionOutput,
-  type TopicTreeStoreLoadCompletedActionResult,
   type TopicTreeStoreSliceName,
 } from '../../../../../../features';
 import { useStoreState } from '../../TopicTreeStoreStateHook';
@@ -13,22 +11,12 @@ export function useStoreLoadActionOutput (
   sliceName: TopicTreeStoreSliceName,
   input: TopicTreeStoreLoadActionInput
 ): TopicTreeStoreLoadActionOutput {
-  const { abortController, onActionCompleted, resultOfLoadAction } = input;
-
-  const callback = useCallback(
-    (data: TopicTreeStoreLoadCompletedActionResult) => {
-      if (onActionCompleted) {
-        onActionCompleted(data);
-      }
-    },
-    [onActionCompleted]
-  );
+  const { abortController, resultOfLoadAction } = input;
 
   const dispatchOfLoadAction = useStoreLoadActionDispatch(
     sliceName,
     {
       abortController,
-      callback,
       dispatchType: StoreDispatchType.MountOrUpdate,
       resultOfLoadAction
     }

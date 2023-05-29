@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type TopicTreeStoreLoadCompletedActionCallback,
   type TopicTreeStoreLoadCompletedActionDispatch,
   type TopicTreeStoreLoadCompletedActionPayload,
   type TopicTreeStoreLoadCompletedActionResult,
@@ -12,14 +11,12 @@ import { createTopicTreeStoreLoadCompletedAction } from '../../../Actions';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: TopicTreeStoreLoadCompletedActionCallback;
   readonly resultOfLoadCompletedAction?: TopicTreeStoreLoadCompletedActionResult;
 }
 
 export function useStoreLoadCompletedActionDispatch (
   sliceName: TopicTreeStoreSliceName,
   {
-    callback,
     dispatchType,
     resultOfLoadCompletedAction
   }: Options = {}
@@ -37,14 +34,8 @@ export function useStoreLoadCompletedActionDispatch (
   const runInner = useCallback(
     (payload: TopicTreeStoreLoadCompletedActionPayload) => {
       dispatch(createTopicTreeStoreLoadCompletedAction(payload));
-
-      const { actionResult } = payload;
-
-      if (callback && !actionResult?.error) {
-        callback(actionResult);
-      }
     },
-    [callback, dispatch]
+    [dispatch]
   );
 
   useEffect(

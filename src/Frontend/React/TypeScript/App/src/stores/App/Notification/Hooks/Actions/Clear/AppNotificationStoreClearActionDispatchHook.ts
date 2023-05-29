@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type AppNotificationStoreClearActionCallback,
   type AppNotificationStoreClearActionDispatch,
   type AppNotificationStoreSliceName,
   createAppNotificationStoreClearActionPayload,
@@ -9,16 +8,11 @@ import {
 import { createAppNotificationStoreClearAction } from '../../../Actions';
 import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHooks';
 
-interface Options extends StoreActionOptions {
-  readonly callback?: AppNotificationStoreClearActionCallback;
-}
-
 export function useStoreClearActionDispatch (
   sliceName: AppNotificationStoreSliceName,
   {
-    callback,
     dispatchType
-  }: Options = {}
+  }: StoreActionOptions
 ): AppNotificationStoreClearActionDispatch {
   const dispatch = useAppNotificationStoreDispatch();
 
@@ -30,12 +24,8 @@ export function useStoreClearActionDispatch (
   const runInner = useCallback(
     () => {
       dispatch(createAppNotificationStoreClearAction(payloadOfClearAction));
-
-      if (callback) {
-        callback();
-      }
     },
-    [callback, dispatch, payloadOfClearAction]
+    [dispatch, payloadOfClearAction]
   );
 
   useEffect(

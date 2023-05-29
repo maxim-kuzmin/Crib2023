@@ -1,4 +1,3 @@
-export { type TopicTreeStoreLoadCompletedActionCallback } from './TopicTreeStoreLoadCompletedActionCallback';
 export { type TopicTreeStoreLoadCompletedActionDispatch } from './TopicTreeStoreLoadCompletedActionDispatch';
 export {
   type TopicTreeStoreLoadCompletedActionPayload,

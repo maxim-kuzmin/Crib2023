@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleItemStoreClearActionCallback,
   type ArticleItemStoreClearActionDispatch,
   type ArticleItemStoreSliceName,
   createArticleItemStoreClearActionPayload,
@@ -9,16 +8,11 @@ import {
 import { createArticleItemStoreClearAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
-interface Options extends StoreActionOptions {
-  readonly callback?: ArticleItemStoreClearActionCallback;
-}
-
 export function useStoreClearActionDispatch (
   sliceName: ArticleItemStoreSliceName,
   {
-    callback,
     dispatchType
-  }: Options = {}
+  }: StoreActionOptions = {}
 ): ArticleItemStoreClearActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
 
@@ -30,12 +24,8 @@ export function useStoreClearActionDispatch (
   const runInner = useCallback(
     () => {
       dispatch(createArticleItemStoreClearAction(payloadOfClearAction));
-
-      if (callback) {
-        callback();
-      }
     },
-    [callback, dispatch, payloadOfClearAction]
+    [dispatch, payloadOfClearAction]
   );
 
   useEffect(

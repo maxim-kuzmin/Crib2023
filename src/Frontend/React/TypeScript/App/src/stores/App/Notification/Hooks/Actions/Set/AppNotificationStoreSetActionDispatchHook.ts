@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type AppNotificationStoreSetActionCallback,
   type AppNotificationStoreSetActionDispatch,
   type AppNotificationStoreSetActionPayload,
   type AppNotificationStoreSetActionResult,
@@ -12,14 +11,12 @@ import { createAppNotificationStoreSetAction } from '../../../Actions';
 import { useAppNotificationStoreDispatch } from '../../../AppNotificationStoreHooks';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: AppNotificationStoreSetActionCallback;
   readonly resultOfSetAction?: AppNotificationStoreSetActionResult;
 }
 
 export function useStoreSetActionDispatch (
   sliceName: AppNotificationStoreSliceName,
   {
-    callback,
     dispatchType,
     resultOfSetAction
   }: Options = {}
@@ -34,12 +31,8 @@ export function useStoreSetActionDispatch (
   const runInner = useCallback(
     (payload: AppNotificationStoreSetActionPayload) => {
       dispatch(createAppNotificationStoreSetAction(payload));
-
-      if (callback) {
-        callback(payload.actionResult);
-      }
     },
-    [callback, dispatch]
+    [dispatch]
   );
 
   useEffect(

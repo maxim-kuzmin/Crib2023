@@ -3,7 +3,6 @@ import { useAppInstance } from '../../../../../../app';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import { createTopicDomainItemSaveOperationRequest } from '../../../../../../domains';
 import {
-  type TopicItemStoreSetActionCallback,
   type TopicItemStoreSaveActionData,
   type TopicItemStoreSaveActionDispatch,
   type TopicItemStoreSaveActionPayload,
@@ -19,14 +18,12 @@ import {
 } from '../SaveCompleted/TopicItemStoreSaveCompletedActionDispatchHook';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: TopicItemStoreSetActionCallback;
   readonly resultOfSaveAction?: TopicItemStoreSaveActionResult;
 }
 
 export function useStoreSaveActionDispatch (
   sliceName: TopicItemStoreSliceName,
   {
-    callback,
     dispatchType,
     abortController,
     resultOfSaveAction
@@ -57,7 +54,7 @@ export function useStoreSaveActionDispatch (
     [resultOfSaveAction, sliceName]
   );
 
-  const { run: complete } = useStoreSaveCompletedActionDispatch(sliceName, { callback });
+  const { run: complete } = useStoreSaveCompletedActionDispatch(sliceName);
 
   const runInner = useCallback(
     async (payload: TopicItemStoreSaveActionPayload, data: TopicItemStoreSaveActionData) => {

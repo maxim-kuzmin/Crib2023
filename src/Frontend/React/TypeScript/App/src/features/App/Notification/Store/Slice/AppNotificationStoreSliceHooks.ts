@@ -1,19 +1,13 @@
 import {
-  type AppNotificationStoreClearActionInput,
   type AppNotificationStoreClearActionOutput,
-  type AppNotificationStoreSetActionInput,
   type AppNotificationStoreSetActionOutput
 } from '../Actions';
 import { type AppNotificationStoreState } from '../AppNotificationStoreState';
 
 export interface AppNotificationStoreSliceHooks {
-  readonly useStoreClearActionOutput: (
-    input: AppNotificationStoreClearActionInput
-  ) => AppNotificationStoreClearActionOutput;
+  readonly useStoreClearActionOutput: () => AppNotificationStoreClearActionOutput;
 
-  readonly useStoreSetActionOutput: (
-    input: AppNotificationStoreSetActionInput
-  ) => AppNotificationStoreSetActionOutput;
+  readonly useStoreSetActionOutput: () => AppNotificationStoreSetActionOutput;
 
   readonly useStoreState: () => AppNotificationStoreState;
 }

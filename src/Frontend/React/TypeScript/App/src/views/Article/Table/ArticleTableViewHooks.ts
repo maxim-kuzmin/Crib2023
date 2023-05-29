@@ -1,11 +1,9 @@
 import { useMemo } from 'react';
 import { useAppInstance } from '../../../app';
 import {
-  type ArticleListStoreClearActionInput,
   type ArticleListStoreClearActionOutput,
   type ArticleListStoreLoadActionInput,
   type ArticleListStoreLoadActionOutput,
-  type ArticleListStoreSetActionInput,
   type ArticleListStoreSetActionOutput,
   type ArticleListStoreHooks,
   type ArticleListStoreSliceHooks,
@@ -78,16 +76,16 @@ export function createArticleTableViewHooks ({
 
   const sliceName = ArticleListStoreSliceName.Default;
 
-  function useStoreClearActionOutput (input: ArticleListStoreClearActionInput): ArticleListStoreClearActionOutput {
-    return hooksOfArticleListStore.useStoreClearActionOutput(sliceName, input);
+  function useStoreClearActionOutput (): ArticleListStoreClearActionOutput {
+    return hooksOfArticleListStore.useStoreClearActionOutput(sliceName);
   }
 
   function useStoreLoadActionOutput (input: ArticleListStoreLoadActionInput): ArticleListStoreLoadActionOutput {
     return hooksOfArticleListStore.useStoreLoadActionOutput(sliceName, input);
   }
 
-  function useStoreSetActionOutput (input: ArticleListStoreSetActionInput): ArticleListStoreSetActionOutput {
-    return hooksOfArticleListStore.useStoreSetActionOutput(sliceName, input);
+  function useStoreSetActionOutput (): ArticleListStoreSetActionOutput {
+    return hooksOfArticleListStore.useStoreSetActionOutput(sliceName);
   }
 
   function useStoreState (): ArticleListStoreState {

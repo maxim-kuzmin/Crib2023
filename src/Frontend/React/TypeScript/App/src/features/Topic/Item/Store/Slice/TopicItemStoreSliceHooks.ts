@@ -1,21 +1,17 @@
 import {
-  type TopicItemStoreClearActionInput,
-  type TopicItemStoreClearActionOutput,
+    type TopicItemStoreClearActionOutput,
   type TopicItemStoreDeleteActionInput,
   type TopicItemStoreDeleteActionOutput,
   type TopicItemStoreLoadActionInput,
   type TopicItemStoreLoadActionOutput,
   type TopicItemStoreSaveActionInput,
   type TopicItemStoreSaveActionOutput,
-  type TopicItemStoreSetActionInput,
-  type TopicItemStoreSetActionOutput
+    type TopicItemStoreSetActionOutput
 } from '../Actions';
 import { type TopicItemStoreState } from '../TopicItemStoreState';
 
 export interface TopicItemStoreSliceHooks {
-  readonly useStoreClearActionOutput: (
-    input: TopicItemStoreClearActionInput
-  ) => TopicItemStoreClearActionOutput;
+  readonly useStoreClearActionOutput: () => TopicItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionOutput: (
     input?: TopicItemStoreDeleteActionInput
@@ -29,9 +25,7 @@ export interface TopicItemStoreSliceHooks {
     input?: TopicItemStoreSaveActionInput
   ) => TopicItemStoreSaveActionOutput;
 
-  readonly useStoreSetActionOutput: (
-    input: TopicItemStoreSetActionInput
-  ) => TopicItemStoreSetActionOutput;
+  readonly useStoreSetActionOutput: () => TopicItemStoreSetActionOutput;
 
   readonly useStoreState: () => TopicItemStoreState;
 }

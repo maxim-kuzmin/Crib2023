@@ -3,7 +3,6 @@ import { useAppInstance } from '../../../../../../app';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import { createArticleDomainItemGetOperationRequest } from '../../../../../../domains';
 import {
-  type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreLoadActionData,
   type ArticleItemStoreLoadActionDispatch,
   type ArticleItemStoreLoadActionPayload,
@@ -19,14 +18,12 @@ import {
 } from '../LoadCompleted/ArticleItemStoreLoadCompletedActionDispatchHook';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: ArticleItemStoreSetActionCallback;
   readonly resultOfLoadAction?: ArticleItemStoreLoadActionResult;
 }
 
 export function useStoreLoadActionDispatch (
   sliceName: ArticleItemStoreSliceName,
   {
-    callback,
     dispatchType,
     abortController,
     resultOfLoadAction
@@ -57,7 +54,7 @@ export function useStoreLoadActionDispatch (
     [resultOfLoadAction, sliceName]
   );
 
-  const { run: complete } = useStoreLoadCompletedActionDispatch(sliceName, { callback });
+  const { run: complete } = useStoreLoadCompletedActionDispatch(sliceName);
 
   const runInner = useCallback(
     async (payload: ArticleItemStoreLoadActionPayload, data: ArticleItemStoreLoadActionData) => {

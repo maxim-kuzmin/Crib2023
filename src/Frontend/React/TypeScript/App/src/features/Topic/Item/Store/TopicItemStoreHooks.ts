@@ -1,5 +1,4 @@
 import {
-  type TopicItemStoreClearActionInput,
   type TopicItemStoreClearActionOutput,
   type TopicItemStoreDeleteActionInput,
   type TopicItemStoreDeleteActionOutput,
@@ -7,7 +6,6 @@ import {
   type TopicItemStoreLoadActionOutput,
   type TopicItemStoreSaveActionInput,
   type TopicItemStoreSaveActionOutput,
-  type TopicItemStoreSetActionInput,
   type TopicItemStoreSetActionOutput
 } from './Actions';
 import { type TopicItemStoreSliceName } from './Slice';
@@ -18,8 +16,7 @@ export interface TopicItemStoreHooks {
   readonly useResource: () => TopicItemStoreResource;
 
   readonly useStoreClearActionOutput: (
-    sliceName: TopicItemStoreSliceName,
-    input: TopicItemStoreClearActionInput
+    sliceName: TopicItemStoreSliceName
   ) => TopicItemStoreClearActionOutput;
 
   readonly useStoreDeleteActionOutput: (
@@ -38,8 +35,7 @@ export interface TopicItemStoreHooks {
   ) => TopicItemStoreSaveActionOutput;
 
   readonly useStoreSetActionOutput: (
-    sliceName: TopicItemStoreSliceName,
-    input: TopicItemStoreSetActionInput
+    sliceName: TopicItemStoreSliceName
   ) => TopicItemStoreSetActionOutput;
 
   readonly useStoreState: (sliceName: TopicItemStoreSliceName) => TopicItemStoreState;

@@ -1,9 +1,7 @@
 import {
-  type TopicTreeStoreClearActionInput,
   type TopicTreeStoreClearActionOutput,
   type TopicTreeStoreLoadActionInput,
   type TopicTreeStoreLoadActionOutput,
-  type TopicTreeStoreSetActionInput,
   type TopicTreeStoreSetActionOutput
 } from './Actions';
 import { type TopicTreeStoreSliceName } from './Slice';
@@ -14,8 +12,7 @@ export interface TopicTreeStoreHooks {
   readonly useResource: () => TopicTreeStoreResource;
 
   readonly useStoreClearActionOutput: (
-    sliceName: TopicTreeStoreSliceName,
-    input: TopicTreeStoreClearActionInput
+    sliceName: TopicTreeStoreSliceName
   ) => TopicTreeStoreClearActionOutput;
 
   readonly useStoreLoadActionOutput: (
@@ -24,8 +21,7 @@ export interface TopicTreeStoreHooks {
   ) => TopicTreeStoreLoadActionOutput;
 
   readonly useStoreSetActionOutput: (
-    sliceName: TopicTreeStoreSliceName,
-    input: TopicTreeStoreSetActionInput
+    sliceName: TopicTreeStoreSliceName
   ) => TopicTreeStoreSetActionOutput;
 
   readonly useStoreState: (sliceName: TopicTreeStoreSliceName) => TopicTreeStoreState;

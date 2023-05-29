@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleItemStoreDeleteCompletedActionCallback,
   type ArticleItemStoreDeleteCompletedActionDispatch,
   type ArticleItemStoreDeleteCompletedActionPayload,
   type ArticleItemStoreDeleteCompletedActionResult,
@@ -12,14 +11,12 @@ import { createArticleItemStoreDeleteCompletedAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
   readonly resultOfDeleteCompletedAction?: ArticleItemStoreDeleteCompletedActionResult;
 }
 
 export function useStoreDeleteCompletedActionDispatch (
   sliceName: ArticleItemStoreSliceName,
   {
-    callback,
     dispatchType,
     resultOfDeleteCompletedAction
   }: Options = {}
@@ -37,14 +34,8 @@ export function useStoreDeleteCompletedActionDispatch (
   const runInner = useCallback(
     (payload: ArticleItemStoreDeleteCompletedActionPayload) => {
       dispatch(createArticleItemStoreDeleteCompletedAction(payload));
-
-      const { actionResult } = payload;
-
-      if (callback && !actionResult?.error) {
-        callback(actionResult);
-      }
     },
-    [callback, dispatch]
+    [dispatch]
   );
 
   useEffect(

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
-  type ArticleListStoreLoadCompletedActionCallback,
   type ArticleListStoreLoadCompletedActionDispatch,
   type ArticleListStoreLoadCompletedActionPayload,
   type ArticleListStoreLoadCompletedActionResult,
@@ -12,14 +11,12 @@ import { createArticleListStoreLoadCompletedAction } from '../../../Actions';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: ArticleListStoreLoadCompletedActionCallback;
   readonly resultOfLoadCompletedAction?: ArticleListStoreLoadCompletedActionResult;
 }
 
 export function useStoreLoadCompletedActionDispatch (
   sliceName: ArticleListStoreSliceName,
   {
-    callback,
     dispatchType,
     resultOfLoadCompletedAction
   }: Options = {}
@@ -37,14 +34,8 @@ export function useStoreLoadCompletedActionDispatch (
   const runInner = useCallback(
     (payload: ArticleListStoreLoadCompletedActionPayload) => {
       dispatch(createArticleListStoreLoadCompletedAction(payload));
-
-      const { actionResult } = payload;
-
-      if (callback && !actionResult?.error) {
-        callback(actionResult);
-      }
     },
-    [callback, dispatch]
+    [dispatch]
   );
 
   useEffect(

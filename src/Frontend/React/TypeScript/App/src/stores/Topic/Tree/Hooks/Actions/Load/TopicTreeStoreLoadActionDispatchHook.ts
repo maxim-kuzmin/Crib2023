@@ -3,7 +3,6 @@ import { useAppInstance } from '../../../../../../app';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import { createTopicDomainTreeGetOperationRequest } from '../../../../../../domains';
 import {
-  type TopicTreeStoreSetActionCallback,
   type TopicTreeStoreLoadActionData,
   type TopicTreeStoreLoadActionDispatch,
   type TopicTreeStoreLoadActionPayload,
@@ -19,14 +18,12 @@ import {
 } from '../LoadCompleted/TopicTreeStoreLoadCompletedActionDispatchHook';
 
 interface Options extends StoreActionOptions {
-  readonly callback?: TopicTreeStoreSetActionCallback;
   readonly resultOfLoadAction?: TopicTreeStoreLoadActionResult;
 }
 
 export function useStoreLoadActionDispatch (
   sliceName: TopicTreeStoreSliceName,
   {
-    callback,
     dispatchType,
     abortController,
     resultOfLoadAction
@@ -57,7 +54,7 @@ export function useStoreLoadActionDispatch (
     [resultOfLoadAction, sliceName]
   );
 
-  const { run: complete } = useStoreLoadCompletedActionDispatch(sliceName, { callback });
+  const { run: complete } = useStoreLoadCompletedActionDispatch(sliceName);
 
   const runInner = useCallback(
     async (payload: TopicTreeStoreLoadActionPayload, data: TopicTreeStoreLoadActionData) => {
