@@ -11,17 +11,17 @@ export interface CommonHooks {
 
 interface Options {
   readonly componentOfConfirmControl: ConfirmControlComponent;
-  readonly getFunctionToSetNotification: () => FunctionToSetNotification;
+  readonly useFunctionToSetNotification: () => FunctionToSetNotification;
   readonly hooksOfConfirmControl: ConfirmControlHooks;
 }
 
 export function createCommonHooks ({
   componentOfConfirmControl,
-  getFunctionToSetNotification,
+  useFunctionToSetNotification,
   hooksOfConfirmControl,
 }: Options): CommonHooks {
   const hooksOfOperation = createOperationHooks({
-    getFunctionToSetNotification
+    useFunctionToSetNotification
   });
 
   function useLeaveFormBlocker (shouldBlock: boolean) {

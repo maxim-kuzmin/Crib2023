@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
+  type TopicItemStoreDeleteCompletedActionCallback,
   type TopicItemStoreDeleteCompletedActionDispatch,
-  type TopicItemStoreDeleteCompletedActionOptions,
   type TopicItemStoreDeleteCompletedActionPayload,
   type TopicItemStoreDeleteCompletedActionResult,
   type TopicItemStoreSliceName,
@@ -11,13 +11,18 @@ import {
 import { createTopicItemStoreDeleteCompletedAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: TopicItemStoreDeleteCompletedActionCallback;
+  readonly resultOfDeleteCompletedAction?: TopicItemStoreDeleteCompletedActionResult;
+}
+
 export function useStoreDeleteCompletedActionDispatch (
   sliceName: TopicItemStoreSliceName,
   {
     callback,
     dispatchType,
     resultOfDeleteCompletedAction
-  }: TopicItemStoreDeleteCompletedActionOptions = {}
+  }: Options = {}
 ): TopicItemStoreDeleteCompletedActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
 

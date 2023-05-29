@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
+  type ArticleListStoreSetActionCallback,
   type ArticleListStoreSetActionDispatch,
-  type ArticleListStoreSetActionOptions,
   type ArticleListStoreSetActionPayload,
   type ArticleListStoreSetActionResult,
   type ArticleListStoreSliceName,
@@ -11,13 +11,18 @@ import {
 import { createArticleListStoreSetAction } from '../../../Actions';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: ArticleListStoreSetActionCallback;
+  readonly resultOfSetAction?: ArticleListStoreSetActionResult;
+}
+
 export function useStoreSetActionDispatch (
   sliceName: ArticleListStoreSliceName,
   {
     callback,
     dispatchType,
     resultOfSetAction
-  }: ArticleListStoreSetActionOptions = {}
+  }: Options = {}
 ): ArticleListStoreSetActionDispatch {
   const dispatch = useArticleListStoreDispatch();
 

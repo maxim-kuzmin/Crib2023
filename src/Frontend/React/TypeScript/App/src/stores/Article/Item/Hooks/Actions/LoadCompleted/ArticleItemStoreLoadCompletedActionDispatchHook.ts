@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
+  type ArticleItemStoreLoadCompletedActionCallback,
   type ArticleItemStoreLoadCompletedActionDispatch,
-  type ArticleItemStoreLoadCompletedActionOptions,
   type ArticleItemStoreLoadCompletedActionPayload,
   type ArticleItemStoreLoadCompletedActionResult,
   type ArticleItemStoreSliceName,
@@ -11,13 +11,18 @@ import {
 import { createArticleItemStoreLoadCompletedAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: ArticleItemStoreLoadCompletedActionCallback;
+  readonly resultOfLoadCompletedAction?: ArticleItemStoreLoadCompletedActionResult;
+}
+
 export function useStoreLoadCompletedActionDispatch (
   sliceName: ArticleItemStoreSliceName,
   {
     callback,
     dispatchType,
     resultOfLoadCompletedAction
-  }: ArticleItemStoreLoadCompletedActionOptions = {}
+  }: Options = {}
 ): ArticleItemStoreLoadCompletedActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
 

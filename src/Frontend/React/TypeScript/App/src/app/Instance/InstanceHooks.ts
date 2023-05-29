@@ -20,6 +20,9 @@ import {
   createTopicItemStoreHooks,
   createTopicTreeStoreHooks,
 } from '../../stores';
+import {
+  useStoreSetActionDispatch
+} from '../../stores/App/Notification/Hooks/Actions/Set/AppNotificationStoreSetActionDispatchHook';
 import { type ViewsHooks, createViewsHooks } from '../../views';
 import { type InstanceComponents } from './InstanceComponents';
 import { type InstanceModules } from './InstanceModules';
@@ -70,11 +73,8 @@ class Implementation implements InstanceHooks {
       hooksOfTopicTreeStore: this.Features.Topic.Tree.Store,
     });
 
-    function getFunctionToSetNotification (): FunctionToSetNotification {
-      const { run } = hooksOfAppNotificationStore.useStoreSetActionDispatch(
-        AppNotificationStoreSliceName.Default,
-        {}
-      );
+    function useFunctionToSetNotification (): FunctionToSetNotification {
+      const { run } = useStoreSetActionDispatch(AppNotificationStoreSliceName.Default);
 
       return (data: NotificationControlProps) => {
         run(data);
@@ -83,7 +83,7 @@ class Implementation implements InstanceHooks {
 
     this.Common = createCommonHooks({
       componentOfConfirmControl: components.Controls.Confirm,
-      getFunctionToSetNotification,
+      useFunctionToSetNotification,
       hooksOfConfirmControl: this.Controls.Confirm,
     });
 

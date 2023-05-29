@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
+  type ArticleItemStoreDeleteCompletedActionCallback,
   type ArticleItemStoreDeleteCompletedActionDispatch,
-  type ArticleItemStoreDeleteCompletedActionOptions,
   type ArticleItemStoreDeleteCompletedActionPayload,
   type ArticleItemStoreDeleteCompletedActionResult,
   type ArticleItemStoreSliceName,
@@ -11,13 +11,18 @@ import {
 import { createArticleItemStoreDeleteCompletedAction } from '../../../Actions';
 import { useArticleItemStoreDispatch } from '../../../ArticleItemStoreHooks';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: ArticleItemStoreDeleteCompletedActionCallback;
+  readonly resultOfDeleteCompletedAction?: ArticleItemStoreDeleteCompletedActionResult;
+}
+
 export function useStoreDeleteCompletedActionDispatch (
   sliceName: ArticleItemStoreSliceName,
   {
     callback,
     dispatchType,
     resultOfDeleteCompletedAction
-  }: ArticleItemStoreDeleteCompletedActionOptions = {}
+  }: Options = {}
 ): ArticleItemStoreDeleteCompletedActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
 

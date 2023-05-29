@@ -7,16 +7,16 @@ export interface OperationHooks {
 }
 
 interface Options {
-  readonly getFunctionToSetNotification: () => FunctionToSetNotification;
+  readonly useFunctionToSetNotification: () => FunctionToSetNotification;
 }
 
 export function createOperationHooks ({
-  getFunctionToSetNotification
+  useFunctionToSetNotification
 }: Options): OperationHooks {
   function useOperationHandler (config: OperationHandlerConfig): OperationHandler {
     const { shouldBeLogged, shouldBeNotified } = config;
 
-    const functionToSetNotification = getFunctionToSetNotification();
+    const functionToSetNotification = useFunctionToSetNotification();
 
     return createOperationHandler({
       functionToSetNotification,

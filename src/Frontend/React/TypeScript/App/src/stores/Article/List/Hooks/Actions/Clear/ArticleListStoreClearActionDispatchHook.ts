@@ -1,20 +1,24 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
+  type ArticleListStoreClearActionCallback,
   type ArticleListStoreClearActionDispatch,
-  type ArticleListStoreClearActionOptions,
   type ArticleListStoreSliceName,
   createArticleListStoreClearActionPayload,
 } from '../../../../../../features';
 import { createArticleListStoreClearAction } from '../../../Actions';
 import { useArticleListStoreDispatch } from '../../../ArticleListStoreHooks';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: ArticleListStoreClearActionCallback;
+}
+
 export function useStoreClearActionDispatch (
   sliceName: ArticleListStoreSliceName,
   {
     callback,
     dispatchType
-  }: ArticleListStoreClearActionOptions = {}
+  }: Options = {}
 ): ArticleListStoreClearActionDispatch {
   const dispatch = useArticleListStoreDispatch();
 

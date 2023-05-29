@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
+  type TopicTreeStoreSetActionCallback,
   type TopicTreeStoreSetActionDispatch,
-  type TopicTreeStoreSetActionOptions,
   type TopicTreeStoreSetActionPayload,
   type TopicTreeStoreSetActionResult,
   type TopicTreeStoreSliceName,
@@ -11,13 +11,18 @@ import {
 import { createTopicTreeStoreSetAction } from '../../../Actions';
 import { useTopicTreeStoreDispatch } from '../../../TopicTreeStoreHooks';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: TopicTreeStoreSetActionCallback;
+  readonly resultOfSetAction?: TopicTreeStoreSetActionResult;
+}
+
 export function useStoreSetActionDispatch (
   sliceName: TopicTreeStoreSliceName,
   {
     callback,
     dispatchType,
     resultOfSetAction
-  }: TopicTreeStoreSetActionOptions = {}
+  }: Options = {}
 ): TopicTreeStoreSetActionDispatch {
   const dispatch = useTopicTreeStoreDispatch();
 

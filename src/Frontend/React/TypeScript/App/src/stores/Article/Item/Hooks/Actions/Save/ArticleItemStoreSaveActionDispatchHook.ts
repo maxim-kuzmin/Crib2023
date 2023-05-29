@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import { createArticleDomainItemSaveOperationRequest } from '../../../../../../domains';
 import {
+  type ArticleItemStoreSetActionCallback,
   type ArticleItemStoreSaveActionData,
   type ArticleItemStoreSaveActionDispatch,
-  type ArticleItemStoreSaveActionOptions,
   type ArticleItemStoreSaveActionPayload,
   type ArticleItemStoreSaveActionResult,
   type ArticleItemStoreSliceName,
@@ -18,6 +18,11 @@ import {
   useStoreSaveCompletedActionDispatch
 } from '../SaveCompleted/ArticleItemStoreSaveCompletedActionDispatchHook';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: ArticleItemStoreSetActionCallback;
+  readonly resultOfSaveAction?: ArticleItemStoreSaveActionResult;
+}
+
 export function useStoreSaveActionDispatch (
   sliceName: ArticleItemStoreSliceName,
   {
@@ -25,7 +30,7 @@ export function useStoreSaveActionDispatch (
     dispatchType,
     abortController,
     resultOfSaveAction
-  }: ArticleItemStoreSaveActionOptions = {}
+  }: Options = {}
 ): ArticleItemStoreSaveActionDispatch {
   const dispatch = useArticleItemStoreDispatch();
 

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import { createTopicDomainItemGetOperationRequest } from '../../../../../../domains';
 import {
+  type TopicItemStoreSetActionCallback,
   type TopicItemStoreLoadActionData,
   type TopicItemStoreLoadActionDispatch,
-  type TopicItemStoreLoadActionOptions,
   type TopicItemStoreLoadActionPayload,
   type TopicItemStoreLoadActionResult,
   type TopicItemStoreSliceName,
@@ -18,6 +18,11 @@ import {
   useStoreLoadCompletedActionDispatch
 } from '../LoadCompleted/TopicItemStoreLoadCompletedActionDispatchHook';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: TopicItemStoreSetActionCallback;
+  readonly resultOfLoadAction?: TopicItemStoreLoadActionResult;
+}
+
 export function useStoreLoadActionDispatch (
   sliceName: TopicItemStoreSliceName,
   {
@@ -25,7 +30,7 @@ export function useStoreLoadActionDispatch (
     dispatchType,
     abortController,
     resultOfLoadAction
-  }: TopicItemStoreLoadActionOptions = {}
+  }: Options = {}
 ): TopicItemStoreLoadActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
 

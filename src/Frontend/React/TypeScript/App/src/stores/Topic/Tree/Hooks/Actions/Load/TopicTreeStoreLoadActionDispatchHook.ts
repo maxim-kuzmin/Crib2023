@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import { createTopicDomainTreeGetOperationRequest } from '../../../../../../domains';
 import {
+  type TopicTreeStoreSetActionCallback,
   type TopicTreeStoreLoadActionData,
   type TopicTreeStoreLoadActionDispatch,
-  type TopicTreeStoreLoadActionOptions,
   type TopicTreeStoreLoadActionPayload,
   type TopicTreeStoreLoadActionResult,
   type TopicTreeStoreSliceName,
@@ -18,6 +18,11 @@ import {
   useStoreLoadCompletedActionDispatch
 } from '../LoadCompleted/TopicTreeStoreLoadCompletedActionDispatchHook';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: TopicTreeStoreSetActionCallback;
+  readonly resultOfLoadAction?: TopicTreeStoreLoadActionResult;
+}
+
 export function useStoreLoadActionDispatch (
   sliceName: TopicTreeStoreSliceName,
   {
@@ -25,7 +30,7 @@ export function useStoreLoadActionDispatch (
     dispatchType,
     abortController,
     resultOfLoadAction
-  }: TopicTreeStoreLoadActionOptions = {}
+  }: Options = {}
 ): TopicTreeStoreLoadActionDispatch {
   const dispatch = useTopicTreeStoreDispatch();
 

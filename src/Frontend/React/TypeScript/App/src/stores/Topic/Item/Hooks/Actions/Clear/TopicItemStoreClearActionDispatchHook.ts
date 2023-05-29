@@ -1,20 +1,24 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import {
   type TopicItemStoreClearActionDispatch,
-  type TopicItemStoreClearActionOptions,
   type TopicItemStoreSliceName,
   createTopicItemStoreClearActionPayload,
+  type TopicItemStoreClearActionCallback,
 } from '../../../../../../features';
 import { createTopicItemStoreClearAction } from '../../../Actions';
 import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
+
+interface Options extends StoreActionOptions {
+  readonly callback?: TopicItemStoreClearActionCallback;
+}
 
 export function useStoreClearActionDispatch (
   sliceName: TopicItemStoreSliceName,
   {
     callback,
     dispatchType
-  }: TopicItemStoreClearActionOptions = {}
+  }: Options = {}
 ): TopicItemStoreClearActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
 

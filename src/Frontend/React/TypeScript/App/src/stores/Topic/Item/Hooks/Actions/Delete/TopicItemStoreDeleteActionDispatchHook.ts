@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
-import { StoreDispatchType } from '../../../../../../common';
+import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
 import { createTopicDomainItemDeleteOperationRequest } from '../../../../../../domains';
 import {
+  type TopicItemStoreDeleteCompletedActionCallback,
   type TopicItemStoreDeleteActionData,
   type TopicItemStoreDeleteActionDispatch,
-  type TopicItemStoreDeleteActionOptions,
   type TopicItemStoreDeleteActionPayload,
   type TopicItemStoreDeleteActionResult,
   type TopicItemStoreSliceName,
@@ -18,6 +18,11 @@ import {
   useStoreDeleteCompletedActionDispatch
 } from '../DeleteCompleted/TopicItemStoreDeleteCompletedActionDispatchHook';
 
+interface Options extends StoreActionOptions {
+  readonly callback?: TopicItemStoreDeleteCompletedActionCallback;
+  readonly resultOfDeleteAction?: TopicItemStoreDeleteActionResult;
+}
+
 export function useStoreDeleteActionDispatch (
   sliceName: TopicItemStoreSliceName,
   {
@@ -25,7 +30,7 @@ export function useStoreDeleteActionDispatch (
     dispatchType,
     abortController,
     resultOfDeleteAction
-  }: TopicItemStoreDeleteActionOptions = {}
+  }: Options = {}
 ): TopicItemStoreDeleteActionDispatch {
   const dispatch = useTopicItemStoreDispatch();
 
