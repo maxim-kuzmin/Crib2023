@@ -2,16 +2,14 @@ import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useAppInstance } from '../../app';
 import { TreeGetOperationAxisForItem } from '../../common';
-import {
-  type ArticleItemStoreSetActionResult,
-  type TopicItemStoreLoadActionResult,
-} from '../../features';
+import { type TopicItemStoreLoadActionResult } from '../../features';
 import {
   ArticleItemEditView,
   ArticleItemView,
   ArticleItemViewMode
 } from '../../views';
 import { type ArticlePageProps } from './ArticlePageProps';
+import { type ArticleTypeEntity } from '../../data';
 
 export const ArticlePage: React.FC<ArticlePageProps> = memo(
 function ArticlePage ({
@@ -29,9 +27,9 @@ function ArticlePage ({
     modules.Pages.Article.getService().getUrlSearch(searchParams).topicId
   );
 
-  const handleArticleItemLoadActionCompleted = useCallback((actionResult: ArticleItemStoreSetActionResult) => {
+  const handleArticleItemLoadActionCompleted = useCallback((entity: ArticleTypeEntity) => {
       if (mode !== ArticleItemViewMode.New) {
-        setTopicId(actionResult?.data?.item?.data.topicId ?? 0);
+        setTopicId(entity.topicId);
       }
 
       articleItemIsLoadedRef.current = true;
@@ -96,13 +94,13 @@ function ArticlePage ({
       ? <ArticleItemView
           articleId={articleId}
           articleEditPageUrl={articleEditPageUrl}
-          onArticleItemLoadActionCompleted={handleArticleItemLoadActionCompleted}
+          onLoadActionCompleted={handleArticleItemLoadActionCompleted}
           topicPageLastUrl={topicPageLastUrl}
         />
       : <ArticleItemEditView
           articleId={articleId}
           articlePageUrl={articlePageUrl}
-          onArticleItemLoadActionCompleted={handleArticleItemLoadActionCompleted}
+          onLoadActionCompleted={handleArticleItemLoadActionCompleted}
           topicId={topicId}
           topicPageLastUrl={topicPageLastUrl}
         />

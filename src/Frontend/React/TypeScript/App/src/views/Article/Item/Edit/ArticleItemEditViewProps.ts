@@ -1,13 +1,9 @@
-import {
-  type ArticleItemStoreClearActionCallback,
-  type ArticleItemStoreLoadCompletedActionCallback
-} from '../../../../features';
+import { type ArticleTypeEntity } from '../../../../data';
 
 export interface ArticleItemEditViewProps {
   articleId: number;
   articlePageUrl: string;
-  onArticleItemClearActionCompleted?: ArticleItemStoreClearActionCallback;
-  onArticleItemLoadActionCompleted?: ArticleItemStoreLoadCompletedActionCallback;
+  onLoadActionCompleted?: (entity: ArticleTypeEntity) => void;
   topicId: number;
   topicPageLastUrl?: string;
 }

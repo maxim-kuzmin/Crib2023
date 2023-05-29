@@ -18,8 +18,7 @@ export const ArticleItemEditView: React.FC<ArticleItemEditViewProps> = memo(
 function ArticleItemEditView ({
   articleId,
   articlePageUrl,
-  onArticleItemClearActionCompleted,
-  onArticleItemLoadActionCompleted,
+  onLoadActionCompleted,
   topicId,
   topicPageLastUrl
 }: ArticleItemEditViewProps): React.ReactElement<ArticleItemEditViewProps> | null {
@@ -43,9 +42,7 @@ function ArticleItemEditView ({
 
   const resourceOfArticleItemEditView = hooks.Views.Article.Item.Edit.useResource();
 
-  hooks.Views.Article.Item.useStoreClearActionOutput({
-    onActionCompleted: onArticleItemClearActionCompleted
-  });
+  hooks.Views.Article.Item.useStoreClearActionOutput({});
 
   const isUpdating = articleId > 0;
 
@@ -63,12 +60,13 @@ function ArticleItemEditView ({
   const {
     resultOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooks.Views.Article.Item.useStoreLoadActionOutput({
-    onActionCompleted: onArticleItemLoadActionCompleted,
-    resultOfLoadAction
-  });
+  } = hooks.Views.Article.Item.useStoreLoadActionOutput({ resultOfLoadAction });
 
   const loadedEntity = resultOfLoadCompletedAction?.data?.item.data;
+
+  if (onLoadActionCompleted && loadedEntity) {
+    onLoadActionCompleted(loadedEntity);
+  }
 
   const {
     resultOfSaveCompletedAction,

@@ -15,17 +15,14 @@ export const ArticleItemView: React.FC<ArticleItemViewProps> = memo(
 function ArticleItemView ({
   articleId,
   articleEditPageUrl,
-  onArticleItemClearActionCompleted,
-  onArticleItemLoadActionCompleted,
+  onLoadActionCompleted,
   topicPageLastUrl
 }: ArticleItemViewProps): React.ReactElement<ArticleItemViewProps> | null {
   const { controls, hooks } = useAppInstance();
 
   const resourceOfArticleItemView = hooks.Views.Article.Item.useResource();
 
-  hooks.Views.Article.Item.useStoreClearActionOutput({
-    onActionCompleted: onArticleItemClearActionCompleted
-  });
+  hooks.Views.Article.Item.useStoreClearActionOutput({});
 
   const resultOfLoadAction: ArticleItemStoreLoadActionResult = useMemo(
     () => {
@@ -41,12 +38,13 @@ function ArticleItemView ({
   const {
     resultOfLoadCompletedAction,
     pendingOfLoadAction
-  } = hooks.Views.Article.Item.useStoreLoadActionOutput({
-    onActionCompleted: onArticleItemLoadActionCompleted,
-    resultOfLoadAction
-  });
+  } = hooks.Views.Article.Item.useStoreLoadActionOutput({ resultOfLoadAction });
 
   const loadedEntity = resultOfLoadCompletedAction?.data?.item.data;
+
+  if (onLoadActionCompleted && loadedEntity) {
+    onLoadActionCompleted(loadedEntity);
+  }
 
   const entity: ArticleTypeEntity = useMemo(
     () => loadedEntity ?? createArticleTypeEntity(),
