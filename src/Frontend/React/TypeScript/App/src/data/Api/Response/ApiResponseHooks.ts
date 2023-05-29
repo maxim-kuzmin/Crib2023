@@ -1,19 +1,22 @@
 import { useMemo } from 'react';
 import { useAppInstance } from '../../../app';
-import {
-  type ApiResponseResource,
-  getApiResponseResourcePath
-} from './ApiResponseResource';
+import { type ApiResponseResource } from './ApiResponseResource';
 
 export interface ApiResponseHooks {
   readonly useResource: () => ApiResponseResource;
 }
 
-export function createApiResponseHooks (): ApiResponseHooks {
+interface Options {
+  readonly pathOfApiResponseResource: string;
+}
+
+export function createApiResponseHooks ({
+  pathOfApiResponseResource,
+}: Options): ApiResponseHooks {
   function useResource (): ApiResponseResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getApiResponseResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfApiResponseResource);
 
     const tErrorMessageForDefault = translator.translate('@@ErrorMessageForDefault');
     const tErrorMessageForHttp400 = translator.translate('@@ErrorMessageForHttp400');

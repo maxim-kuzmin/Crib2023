@@ -1,4 +1,4 @@
-import { type TableControlOptions } from '../../common';
+import { type TableControlSettings } from '../../common';
 import { type TopicPageUrlOptions, type TopicPageUrlSearch } from './Url';
 
 export interface TopicPageService {
@@ -13,18 +13,18 @@ const paramNameForPageNumber = 'pn';
 const paramNameForPageSize = 'ps';
 
 interface Options {
-  optionsOfTableControl: TableControlOptions;
+  settingsOfTableControl: TableControlSettings;
 }
 
 class Implementation implements TopicPageService {
-  private readonly optionsOfTableControl: TableControlOptions;
+  private readonly settingsOfTableControl: TableControlSettings;
 
   public lastUrl?: string;
 
   constructor ({
-    optionsOfTableControl
+    settingsOfTableControl
   }: Options) {
-    this.optionsOfTableControl = optionsOfTableControl;
+    this.settingsOfTableControl = settingsOfTableControl;
   }
 
   createUrl (options?: TopicPageUrlOptions): string {
@@ -34,7 +34,7 @@ class Implementation implements TopicPageService {
 
     let search: TopicPageUrlSearch = {
       pageNumber: 1,
-      pageSize: this.optionsOfTableControl.defaultPageSize
+      pageSize: this.settingsOfTableControl.defaultPageSize
     };
 
     if (options) {
@@ -65,7 +65,7 @@ class Implementation implements TopicPageService {
   }
 
   getUrlSearch (searchParams: URLSearchParams): TopicPageUrlSearch {
-    const { defaultPageSize } = this.optionsOfTableControl;
+    const { defaultPageSize } = this.settingsOfTableControl;
 
     return {
       pageNumber: Number(searchParams.get(paramNameForPageNumber) ?? 1),
@@ -76,7 +76,7 @@ class Implementation implements TopicPageService {
   updateURLSearchParams (searchParams: URLSearchParams, urlSearch: TopicPageUrlSearch) {
     const { pageNumber, pageSize } = urlSearch;
 
-    const { defaultPageSize } = this.optionsOfTableControl;
+    const { defaultPageSize } = this.settingsOfTableControl;
 
     if (pageNumber > 1) {
       searchParams.set(paramNameForPageNumber, pageNumber.toString());

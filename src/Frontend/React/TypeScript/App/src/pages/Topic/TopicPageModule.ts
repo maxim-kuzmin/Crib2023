@@ -1,4 +1,4 @@
-import { type TableControlOptions } from '../../common';
+import { type TableControlSettings } from '../../common';
 import { type TopicPageService, createTopicPageService } from './TopicPageService';
 
 export interface TopicPageModule {
@@ -6,16 +6,16 @@ export interface TopicPageModule {
 }
 
 interface Options {
-  optionsOfTableControl: TableControlOptions;
+  settingsOfTableControl: TableControlSettings;
 }
 
 class Implementation implements TopicPageModule {
   private readonly service: TopicPageService;
 
   constructor ({
-    optionsOfTableControl
+    settingsOfTableControl
   }: Options) {
-    this.service = createTopicPageService({ optionsOfTableControl });
+    this.service = createTopicPageService({ settingsOfTableControl });
   }
 
   getService (): TopicPageService {

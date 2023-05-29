@@ -72,7 +72,7 @@ function TableControl ({
   onChange,
   loading
 }: TableControlProps): React.ReactElement<TableControlProps> | null {
-  const { hooks, options } = useAppInstance();
+  const { hooks, settings } = useAppInstance();
 
   const resourceOfTableControl = hooks.Controls.Table.useResource();
 
@@ -81,7 +81,7 @@ function TableControl ({
     [controlColumns]
   );
 
-  const { defaultPageSize } = options.Common.Controls.Table;
+  const { defaultPageSize } = settings.Common.Controls.Table;
 
   const tPaginationPartForFrom = resourceOfTableControl.getPaginationPartForFrom();
   const tPaginationPartForPerPage = resourceOfTableControl.getPaginationPartForPerPage();

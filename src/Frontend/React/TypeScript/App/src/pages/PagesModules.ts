@@ -1,4 +1,4 @@
-import { type TableControlOptions } from '../common';
+import { type TableControlSettings } from '../common';
 import {
   type ArticlePageModule,
   type TopicPageModule,
@@ -12,7 +12,7 @@ export interface PagesModules {
 }
 
 interface Options {
-  optionsOfTableControl: TableControlOptions;
+  settingsOfTableControl: TableControlSettings;
 }
 
 class Implementation implements PagesModules {
@@ -20,10 +20,10 @@ class Implementation implements PagesModules {
   readonly Topic: TopicPageModule;
 
   constructor ({
-    optionsOfTableControl
+    settingsOfTableControl
   }: Options) {
     this.Article = createArticlePageModule();
-    this.Topic = createTopicPageModule({ optionsOfTableControl });
+    this.Topic = createTopicPageModule({ settingsOfTableControl });
   }
 }
 

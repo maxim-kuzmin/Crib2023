@@ -4,7 +4,7 @@ import {
   type HttpResponse
 } from '../../common';
 import {
-  type ApiOptions,
+  type ApiSettings,
   type ApiOperationResponse,
   type ApiOperationResponseWithData,
   type ApiRequestOptionsWithBody,
@@ -31,7 +31,7 @@ export interface ApiClient {
 
 interface Options {
   readonly httpClient: HttpClient;
-  readonly optionsOfApi: ApiOptions;
+  readonly settingsOfApi: ApiSettings;
 }
 
 interface RequestOptions {
@@ -45,7 +45,7 @@ interface HttpConfigOptions {
   readonly abortSignal?: AbortSignal;
   readonly language: string;
   readonly operationCode: string;
-  readonly optionsOfApi: ApiOptions;
+  readonly settingsOfApi: ApiSettings;
   readonly query?: any;
 }
 
@@ -53,7 +53,7 @@ function createHttpConfig ({
   abortSignal,
   language,
   operationCode,
-  optionsOfApi:
+  settingsOfApi:
   {
     queryStringKeyForCulture,
     queryStringKeyForUICulture
@@ -78,14 +78,14 @@ function createHttpConfig ({
 
 class Implementation implements ApiClient {
   private readonly httpClient: HttpClient;
-  private readonly optionsOfApi: ApiOptions;
+  private readonly settingsOfApi: ApiSettings;
 
   constructor ({
     httpClient,
-    optionsOfApi,
+    settingsOfApi,
   }: Options) {
     this.httpClient = httpClient;
-    this.optionsOfApi = optionsOfApi;
+    this.settingsOfApi = settingsOfApi;
   }
 
   async delete ({
@@ -105,7 +105,7 @@ class Implementation implements ApiClient {
           abortSignal,
           language,
           operationCode,
-          optionsOfApi: this.optionsOfApi,
+          settingsOfApi: this.settingsOfApi,
           query,
         })
       ),
@@ -132,7 +132,7 @@ class Implementation implements ApiClient {
           abortSignal,
           language,
           operationCode,
-          optionsOfApi: this.optionsOfApi,
+          settingsOfApi: this.settingsOfApi,
           query,
         })
       ),
@@ -161,7 +161,7 @@ class Implementation implements ApiClient {
           abortSignal,
           language,
           operationCode,
-          optionsOfApi: this.optionsOfApi,
+          settingsOfApi: this.settingsOfApi,
           query,
         })
       ),
@@ -190,7 +190,7 @@ class Implementation implements ApiClient {
           abortSignal,
           language,
           operationCode,
-          optionsOfApi: this.optionsOfApi,
+          settingsOfApi: this.settingsOfApi,
           query,
         })
       ),
@@ -201,7 +201,7 @@ class Implementation implements ApiClient {
   }
 
   private createUrl (endpoint: string) {
-    return `${this.optionsOfApi.url}/${endpoint}`;
+    return `${this.settingsOfApi.url}/${endpoint}`;
   }
 
   private async request ({

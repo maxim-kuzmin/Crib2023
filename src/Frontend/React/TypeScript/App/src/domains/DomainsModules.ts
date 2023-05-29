@@ -1,4 +1,4 @@
-import { type CommonOptions, type TestService } from '../common';
+import { type CommonSettings, type TestService } from '../common';
 import { type ApiClient } from '../data';
 import {
   type ArticleDomainModule,
@@ -14,7 +14,7 @@ export interface DomainsModules {
 
 interface Options {
   readonly clientOfApi: ApiClient;
-  readonly optionsOfCommon: CommonOptions;
+  readonly settingsOfCommon: CommonSettings;
   readonly serviceOfTest: TestService;
 }
 
@@ -24,18 +24,18 @@ class Implementation implements DomainsModules {
 
   constructor ({
     clientOfApi,
-    optionsOfCommon,
+    settingsOfCommon,
     serviceOfTest,
   }: Options) {
     this.Article = createArticleDomainModule({
       clientOfApi,
-      optionsOfCommon,
+      settingsOfCommon,
       serviceOfTest,
     });
 
     this.Topic = createTopicDomainModule({
       clientOfApi,
-      optionsOfCommon,
+      settingsOfCommon,
       serviceOfTest,
     });
   }

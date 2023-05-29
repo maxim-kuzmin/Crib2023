@@ -6,7 +6,3 @@ export interface OperationHandlerResource extends LocalizationResource {
   readonly getStart: () => string;
   readonly getSuccess: () => string;
 }
-
-export function getOperationHandlerResourcePath (): string {
-  return 'common/Operation/Handler/OperationHandler';
-}

@@ -13,6 +13,7 @@ export interface ApiHooks {
 
 interface Options {
   readonly hooksOfOperation: OperationHooks;
+  readonly pathOfApiResponseResource: string;
 }
 
 class Implementation implements ApiHooks {
@@ -20,10 +21,11 @@ class Implementation implements ApiHooks {
   readonly Response: ApiResponseHooks;
 
   constructor ({
-    hooksOfOperation
+    hooksOfOperation,
+    pathOfApiResponseResource,
   }: Options) {
     this.Request = createApiRequestHooks({ hooksOfOperation });
-    this.Response = createApiResponseHooks();
+    this.Response = createApiResponseHooks({ pathOfApiResponseResource });
   }
 }
 

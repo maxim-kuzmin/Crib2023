@@ -1,5 +1,5 @@
 import {
-  type InstanceOptions,
+  type InstanceSettings,
   type InstanceComponents,
   type InstanceControls,
   type InstanceHooks,
@@ -8,7 +8,7 @@ import {
   createInstanceControls,
   createInstanceHooks,
   createInstanceModules,
-  createInstanceOptions,
+  createInstanceSettings,
 } from './Instance';
 
 export interface AppInstance {
@@ -16,7 +16,7 @@ export interface AppInstance {
   readonly controls: InstanceControls;
   readonly hooks: InstanceHooks;
   readonly modules: InstanceModules;
-  readonly options: InstanceOptions;
+  readonly settings: InstanceSettings;
 }
 
 class Implementation implements AppInstance {
@@ -24,20 +24,21 @@ class Implementation implements AppInstance {
   readonly controls: InstanceControls;
   readonly hooks: InstanceHooks;
   readonly modules: InstanceModules;
-  readonly options: InstanceOptions;
+  readonly settings: InstanceSettings;
 
   constructor () {
-    this.options = createInstanceOptions();
+    this.settings = createInstanceSettings();
     this.components = createInstanceComponents();
     this.controls = createInstanceControls();
 
     this.modules = createInstanceModules({
-      options: this.options,
+      settings: this.settings,
     });
 
     this.hooks = createInstanceHooks({
       components: this.components,
-      modules: this.modules
+      modules: this.modules,
+      settings: this.settings,
     });
   }
 }

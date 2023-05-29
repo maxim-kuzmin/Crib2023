@@ -7,16 +7,19 @@ export interface DataHooks {
 
 interface Options {
   readonly hooksOfOperation: OperationHooks;
+  readonly pathOfApiResponseResource: string;
 }
 
 class Implementation implements DataHooks {
   readonly Api: ApiHooks;
 
   constructor ({
-    hooksOfOperation
+    hooksOfOperation,
+    pathOfApiResponseResource,
   }: Options) {
     this.Api = createApiHooks({
-      hooksOfOperation
+      hooksOfOperation,
+      pathOfApiResponseResource,
     });
   }
 }

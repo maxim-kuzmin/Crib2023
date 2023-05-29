@@ -11,4 +11,4 @@ export { type CommonComponents } from './CommonComponents';
 export { type FunctionToSetNotification } from './CommonFunctions';
 export { type CommonHooks, createCommonHooks } from './CommonHooks';
 export { type CommonModules, createCommonModules } from './CommonModules';
-export { type CommonOptions } from './CommonOptions';
+export { type CommonSettings } from './CommonSettings';

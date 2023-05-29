@@ -1,4 +1,4 @@
-export interface ApiOptions {
+export interface ApiSettings {
   readonly queryStringKeyForCulture: string;
   readonly queryStringKeyForUICulture: string;
   readonly url: string;

@@ -3,7 +3,7 @@ import { type DataModules, createDataModules } from '../../data';
 import { type DomainsModules, createDomainsModules } from '../../domains';
 import { type PagesModules, createPagesModules } from '../../pages';
 import { type ViewsModules, createViewsModules } from '../../views';
-import { type InstanceOptions } from './InstanceOptions';
+import { type InstanceSettings } from './InstanceSettings';
 
 export interface InstanceModules {
   readonly Common: CommonModules;
@@ -14,7 +14,7 @@ export interface InstanceModules {
 }
 
 interface Options {
-  readonly options: InstanceOptions;
+  readonly settings: InstanceSettings;
 }
 
 class Implementation implements InstanceModules {
@@ -25,7 +25,7 @@ class Implementation implements InstanceModules {
   readonly Views: ViewsModules;
 
   constructor ({
-    options,
+    settings,
   }: Options) {
     this.Common = createCommonModules();
 
@@ -33,17 +33,17 @@ class Implementation implements InstanceModules {
 
     this.Data = createDataModules({
       httpClient: this.Common.Http.getClient(),
-      optionsOfApi: options.Data.Api,
+      settingsOfApi: settings.Data.Api,
     });
 
     this.Domains = createDomainsModules({
       clientOfApi: this.Data.Api.getClient(),
-      optionsOfCommon: options.Common,
+      settingsOfCommon: settings.Common,
       serviceOfTest: this.Common.Test.getService(),
     });
 
     this.Pages = createPagesModules({
-      optionsOfTableControl: options.Common.Controls.Table
+      settingsOfTableControl: settings.Common.Controls.Table
     });
   }
 }

@@ -1,5 +1,5 @@
 import { type HttpClient } from '../common';
-import { type ApiModule, type ApiOptions, createApiModule } from './Api';
+import { type ApiModule, type ApiSettings, createApiModule } from './Api';
 
 export interface DataModules {
   readonly Api: ApiModule;
@@ -7,7 +7,7 @@ export interface DataModules {
 
 interface Options {
   readonly httpClient: HttpClient;
-  readonly optionsOfApi: ApiOptions;
+  readonly settingsOfApi: ApiSettings;
 }
 
 class Implementation implements DataModules {
@@ -15,11 +15,11 @@ class Implementation implements DataModules {
 
   constructor ({
     httpClient,
-    optionsOfApi,
+    settingsOfApi,
   }: Options) {
     this.Api = createApiModule({
       httpClient,
-      optionsOfApi,
+      settingsOfApi,
     });
   }
 }

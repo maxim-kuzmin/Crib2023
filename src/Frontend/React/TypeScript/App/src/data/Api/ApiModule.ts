@@ -1,5 +1,5 @@
 import { type HttpClient } from '../../common';
-import { type ApiClient, type ApiOptions, createApiClient } from '.';
+import { type ApiClient, type ApiSettings, createApiClient } from '.';
 
 export interface ApiModule {
   readonly getClient: () => ApiClient;
@@ -7,7 +7,7 @@ export interface ApiModule {
 
 interface Options {
   readonly httpClient: HttpClient;
-  readonly optionsOfApi: ApiOptions;
+  readonly settingsOfApi: ApiSettings;
 }
 
 class Implementation implements ApiModule {
@@ -15,11 +15,11 @@ class Implementation implements ApiModule {
 
   constructor ({
     httpClient,
-    optionsOfApi,
+    settingsOfApi,
   }: Options) {
     this.client = createApiClient({
       httpClient,
-      optionsOfApi,
+      settingsOfApi,
     });
   }
 

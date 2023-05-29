@@ -11,16 +11,19 @@ export interface CommonHooks {
 
 interface Options {
   readonly componentOfConfirmControl: ConfirmControlComponent;
-  readonly useFunctionToSetNotification: () => FunctionToSetNotification;
   readonly hooksOfConfirmControl: ConfirmControlHooks;
+  readonly pathOfOperationHandlerResource: string;
+  readonly useFunctionToSetNotification: () => FunctionToSetNotification;
 }
 
 export function createCommonHooks ({
   componentOfConfirmControl,
-  useFunctionToSetNotification,
   hooksOfConfirmControl,
+  pathOfOperationHandlerResource,
+  useFunctionToSetNotification,
 }: Options): CommonHooks {
   const hooksOfOperation = createOperationHooks({
+    pathOfOperationHandlerResource,
     useFunctionToSetNotification
   });
 

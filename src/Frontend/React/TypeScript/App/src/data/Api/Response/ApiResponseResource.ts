@@ -6,7 +6,3 @@ export interface ApiResponseResource extends LocalizationResource {
   readonly getErrorMessageForHttp404: () => string;
   readonly getErrorMessageForHttp500: () => string;
 }
-
-export function getApiResponseResourcePath (): string {
-  return 'data/Api/Response/ApiResponse';
-}

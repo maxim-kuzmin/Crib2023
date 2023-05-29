@@ -1,9 +1,4 @@
-import { getOperationHandlerResourcePath } from '../common';
-import {
-  getConfirmControlResourcePath,
-  getTableControlResourcePath,
-} from '../controls';
-import { getApiResponseResourcePath } from '../data';
+import { getTableControlResourcePath } from '../controls';
 import { createAppLocalizationSetup } from '../features';
 import {
   getArticleItemStoreResourcePath,
@@ -37,20 +32,26 @@ class Implementation implements AppSetup {
   }
 
   async run () {
+    const {
+      pathOfApiResponseResource,
+      pathOfConfirmControlResource,
+      pathOfOperationHandlerResource,
+    } = this.instanceOfApp.settings.Features.App.Localization;
+
     const setupOfLocalization = createAppLocalizationSetup({
       paths: [
-        getApiResponseResourcePath(),
+        pathOfApiResponseResource,
         getArticleItemStoreResourcePath(),
         getArticleItemViewResourcePath(),
         getArticleItemEditViewResourcePath(),
         getArticleListStoreResourcePath(),
         getArticleTableViewResourcePath(),
-        getConfirmControlResourcePath(),
-        getOperationHandlerResourcePath(),
+        pathOfConfirmControlResource,
         getTableControlResourcePath(),
         getTopicItemStoreResourcePath(),
         getTopicPathViewResourcePath(),
         getTopicTreeStoreResourcePath(),
+        pathOfOperationHandlerResource,
       ]
     });
 

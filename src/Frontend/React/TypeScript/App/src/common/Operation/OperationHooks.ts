@@ -9,10 +9,12 @@ export interface OperationHooks {
 }
 
 interface Options {
+  readonly pathOfOperationHandlerResource: string;
   readonly useFunctionToSetNotification: () => FunctionToSetNotification;
 }
 
 export function createOperationHooks ({
+  pathOfOperationHandlerResource,
   useFunctionToSetNotification
 }: Options): OperationHooks {
   function useOperationHandler (config: OperationHandlerConfig): OperationHandler {
@@ -33,7 +35,7 @@ export function createOperationHooks ({
   }
 
   return {
-    Handler: createOperationHandlerHooks(),
+    Handler: createOperationHandlerHooks({ pathOfOperationHandlerResource }),
     useOperationHandler
   };
 }

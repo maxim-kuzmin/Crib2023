@@ -1,16 +1,18 @@
 import { useMemo } from 'react';
 import { useAppInstance } from '../../app';
-import {
-  type ConfirmControlHooks,
-  type ConfirmControlResource,
-} from '../../common';
-import { getConfirmControlResourcePath } from './ConfirmControlResource';
+import { type ConfirmControlHooks, type ConfirmControlResource } from '../../common';
 
-export function createConfirmControlHooks (): ConfirmControlHooks {
+interface Options {
+  readonly pathOfConfirmControlResource: string;
+}
+
+export function createConfirmControlHooks ({
+  pathOfConfirmControlResource,
+}: Options): ConfirmControlHooks {
   function useResource (): ConfirmControlResource {
     const { hooks } = useAppInstance();
 
-    const translator = hooks.Features.App.Localization.useTranslator(getConfirmControlResourcePath());
+    const translator = hooks.Features.App.Localization.useTranslator(pathOfConfirmControlResource);
 
     const tCancelButtonText = translator.translate('@@CancelButtonText');
     const tDeleteConfirmContent = translator.translate('@@DeleteConfirmContent');
