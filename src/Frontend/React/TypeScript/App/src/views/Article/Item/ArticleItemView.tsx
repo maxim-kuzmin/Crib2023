@@ -24,14 +24,10 @@ function ArticleItemView ({
 
   hooks.Views.Article.Item.useStoreClearActionOutput();
 
-  const resultOfLoadAction: ArticleItemStoreLoadActionResult = useMemo(
-    () => {
-      const result: ArticleItemStoreLoadActionResult = {
-        id: articleId
-      };
-
-      return result;
-    },
+  const resultOfLoadAction = useMemo<ArticleItemStoreLoadActionResult>(
+    () => ({
+      id: articleId
+    }),
     [articleId]
   );
 

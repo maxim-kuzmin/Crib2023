@@ -25,18 +25,14 @@ export function createOperationHandlerHooks ({
 
     const { language } = translator;
 
-    return useMemo(
-      () => {
-        const result: OperationHandlerResource = {
-          getCode: () => tCode,
-          getOperation: () => tOperation,
-          getStart: () => tStart,
-          getSuccess: () => tSuccess,
-          language
-        }
-
-        return result;
-      },
+    return useMemo<OperationHandlerResource>(
+      () => ({
+        getCode: () => tCode,
+        getOperation: () => tOperation,
+        getStart: () => tStart,
+        getSuccess: () => tSuccess,
+        language
+      }),
       [
         tCode,
         tOperation,

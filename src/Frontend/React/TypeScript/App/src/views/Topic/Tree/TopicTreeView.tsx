@@ -76,15 +76,11 @@ function TopicTreeView ({
 
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
-  const resultOfLoadAction: TopicTreeStoreLoadActionResult = useMemo(
-    () => {
-      const result: TopicTreeStoreLoadActionResult = {
-        ...topicInput,
-        expandedNodeId: topicId
-      };
-
-      return result;
-    },
+  const resultOfLoadAction = useMemo<TopicTreeStoreLoadActionResult>(
+    () => ({
+      ...topicInput,
+      expandedNodeId: topicId
+    }),
     [topicId]
   );
 

@@ -27,23 +27,20 @@ export function createTableControlHooks ({
 
     const { language } = translator;
 
-    return useMemo(() => {
-        const result: TableControlResource = {
-          getPaginationPartForFrom: () => tPaginationPartForFrom,
-          getPaginationPartForJumpTo: () => tPaginationPartForJumpTo,
-          getPaginationPartForNext3Pages: () => tPaginationPartForNext3Pages,
-          getPaginationPartForNext5Pages: () => tPaginationPartForNext5Pages,
-          getPaginationPartForNextPage: () => tPaginationPartForNextPage,
-          getPaginationPartForPageTo: () => tPaginationPartForPageTo,
-          getPaginationPartForPerPage: () => tPaginationPartForPerPage,
-          getPaginationPartForPrev3Pages: () => tPaginationPartForPrev3Pages,
-          getPaginationPartForPrev5Pages: () => tPaginationPartForPrev5Pages,
-          getPaginationPartForPrevPage: () => tPaginationPartForPrevPage,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<TableControlResource>(
+      () => ({
+        getPaginationPartForFrom: () => tPaginationPartForFrom,
+        getPaginationPartForJumpTo: () => tPaginationPartForJumpTo,
+        getPaginationPartForNext3Pages: () => tPaginationPartForNext3Pages,
+        getPaginationPartForNext5Pages: () => tPaginationPartForNext5Pages,
+        getPaginationPartForNextPage: () => tPaginationPartForNextPage,
+        getPaginationPartForPageTo: () => tPaginationPartForPageTo,
+        getPaginationPartForPerPage: () => tPaginationPartForPerPage,
+        getPaginationPartForPrev3Pages: () => tPaginationPartForPrev3Pages,
+        getPaginationPartForPrev5Pages: () => tPaginationPartForPrev5Pages,
+        getPaginationPartForPrevPage: () => tPaginationPartForPrevPage,
+        language
+      }),
       [
         tPaginationPartForFrom,
         tPaginationPartForJumpTo,

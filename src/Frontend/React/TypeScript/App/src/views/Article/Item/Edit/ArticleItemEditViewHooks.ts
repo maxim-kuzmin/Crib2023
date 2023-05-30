@@ -32,24 +32,21 @@ export function createArticleItemEditViewHooks ({
 
     const { language } = translator;
 
-    return useMemo(() => {
-        const result: ArticleItemEditViewResource = {
-          getActionForBackToList: () => tActionForBackToList,
-          getActionForDisplay: () => tActionForDisplay,
-          getActionForReset: () => tActionForReset,
-          getActionForSave: () => tActionForSave,
-          getLabelForBody: () => tLabelForBody,
-          getLabelForId: () => tLabelForId,
-          getLabelForTitle: () => tLabelForTitle,
-          getLabelForTopic: () => tLabelForTopic,
-          getTitleForEdit: () => tTitleForEdit,
-          getTitleForNew: () => tTitleForNew,
-          getValidationMessageForTitleRequired: () => tValidationMessageForTitleRequired,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<ArticleItemEditViewResource>(
+      () => ({
+        getActionForBackToList: () => tActionForBackToList,
+        getActionForDisplay: () => tActionForDisplay,
+        getActionForReset: () => tActionForReset,
+        getActionForSave: () => tActionForSave,
+        getLabelForBody: () => tLabelForBody,
+        getLabelForId: () => tLabelForId,
+        getLabelForTitle: () => tLabelForTitle,
+        getLabelForTopic: () => tLabelForTopic,
+        getTitleForEdit: () => tTitleForEdit,
+        getTitleForNew: () => tTitleForNew,
+        getValidationMessageForTitleRequired: () => tValidationMessageForTitleRequired,
+        language
+      }),
       [
         tTitleForEdit,
         tTitleForNew,

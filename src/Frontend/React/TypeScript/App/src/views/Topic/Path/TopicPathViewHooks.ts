@@ -22,14 +22,11 @@ export function createTopicPathViewHooks ({
 
     const { language } = translator;
 
-    return useMemo(() => {
-        const result: TopicPathViewResource = {
-          getTitleForRoot: () => tTitleForRoot,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<TopicPathViewResource>(
+      () => ({
+        getTitleForRoot: () => tTitleForRoot,
+        language
+      }),
       [
         tTitleForRoot,
         language

@@ -42,22 +42,19 @@ export function createArticleTableViewHooks ({
 
     const { language } = translator;
 
-    return useMemo(() => {
-        const result: ArticleTableViewResource = {
-          getTitle: () => tTitle,
-          getLabelForActions: () => tLabelForActions,
-          getActionForDelete: () => tActionForDelete,
-          getActionForDisplay: () => tActionForDisplay,
-          getActionForEdit: () => tActionForEdit,
-          getLabelForId: () => tLabelForId,
-          getActionForNew: () => tActionForNew,
-          getLabelForPath: () => tLabelForPath,
-          getLabelForTitle: () => tLabelForTitle,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<ArticleTableViewResource>(
+      () => ({
+        getTitle: () => tTitle,
+        getLabelForActions: () => tLabelForActions,
+        getActionForDelete: () => tActionForDelete,
+        getActionForDisplay: () => tActionForDisplay,
+        getActionForEdit: () => tActionForEdit,
+        getLabelForId: () => tLabelForId,
+        getActionForNew: () => tActionForNew,
+        getLabelForPath: () => tLabelForPath,
+        getLabelForTitle: () => tLabelForTitle,
+        language
+      }),
       [
         tTitle,
         tLabelForActions,

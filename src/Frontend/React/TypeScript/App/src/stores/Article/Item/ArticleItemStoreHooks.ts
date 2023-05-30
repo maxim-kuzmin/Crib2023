@@ -35,17 +35,13 @@ export function createArticleItemStoreHooks ({
 
     const { language } = translator;
 
-    return useMemo(
-      () => {
-        const result: ArticleItemStoreResource = {
-          getOperationNameForDelete: () => tOperationNameForDelete,
-          getOperationNameForGet: () => tOperationNameForGet,
-          getOperationNameForSave: () => tOperationNameForSave,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<ArticleItemStoreResource>(
+      () => ({
+        getOperationNameForDelete: () => tOperationNameForDelete,
+        getOperationNameForGet: () => tOperationNameForGet,
+        getOperationNameForSave: () => tOperationNameForSave,
+        language
+      }),
       [
         tOperationNameForDelete,
         tOperationNameForGet,

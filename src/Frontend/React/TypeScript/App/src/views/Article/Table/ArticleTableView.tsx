@@ -91,16 +91,12 @@ function ArticleTableView ({
     }
   }
 
-  const controlPagination: TableControlPagination = useMemo(
-    () => {
-      const result: TableControlPagination = {
-        pageNumber,
-        pageSize,
-        totalCount
-      };
-
-      return result;
-    },
+  const controlPagination = useMemo<TableControlPagination>(
+    () => ({
+      pageNumber,
+      pageSize,
+      totalCount
+    }),
     [
       pageNumber,
       pageSize,

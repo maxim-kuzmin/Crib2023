@@ -32,15 +32,11 @@ export function createArticleListStoreHooks ({
 
     const { language } = translator;
 
-    return useMemo(
-      () => {
-        const result: ArticleListStoreResource = {
-          getOperationNameForGet: () => tOperationNameForGet,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<ArticleListStoreResource>(
+      () => ({
+        getOperationNameForGet: () => tOperationNameForGet,
+        language
+      }),
       [
         tOperationNameForGet,
         language

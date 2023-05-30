@@ -35,17 +35,13 @@ export function createTopicItemStoreHooks ({
 
     const { language } = translator;
 
-    return useMemo(
-      () => {
-        const result: TopicItemStoreResource = {
-          getOperationNameForDelete: () => tOperationNameForDelete,
-          getOperationNameForGet: () => tOperationNameForGet,
-          getOperationNameForSave: () => tOperationNameForSave,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<TopicItemStoreResource>(
+      () => ({
+        getOperationNameForDelete: () => tOperationNameForDelete,
+        getOperationNameForGet: () => tOperationNameForGet,
+        getOperationNameForSave: () => tOperationNameForSave,
+        language
+      }),
       [
         tOperationNameForDelete,
         tOperationNameForGet,

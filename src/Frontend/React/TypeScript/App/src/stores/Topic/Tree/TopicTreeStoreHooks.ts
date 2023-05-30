@@ -32,16 +32,12 @@ export function createTopicTreeStoreHooks ({
 
     const { language } = translator;
 
-    return useMemo(
-      () => {
-        const result: TopicTreeStoreResource = {
-          getOperationNameForGet: () => tOperationNameForGet,
-          getOperationNameForGetChildren: () => tOperationNameForGetChildren,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<TopicTreeStoreResource>(
+      () => ({
+        getOperationNameForGet: () => tOperationNameForGet,
+        getOperationNameForGetChildren: () => tOperationNameForGetChildren,
+        language
+      }),
       [
         tOperationNameForGet,
         tOperationNameForGetChildren,

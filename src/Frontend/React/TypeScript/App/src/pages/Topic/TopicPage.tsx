@@ -37,15 +37,11 @@ function TopicPage (): React.ReactElement | null {
 
   const { pageNumber, pageSize } = topicPageSearch;
 
-  const resultOfLoadActionForTreeItem: TopicItemStoreLoadActionResult = useMemo(
-    () => {
-      const result: TopicItemStoreLoadActionResult = {
-        id: topicId,
-        axis: TreeGetOperationAxisForItem.Self
-      };
-
-      return result;
-    },
+  const resultOfLoadActionForTreeItem = useMemo<TopicItemStoreLoadActionResult>(
+    () => ({
+      id: topicId,
+      axis: TreeGetOperationAxisForItem.Self
+    }),
     [topicId]
   );
 

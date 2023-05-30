@@ -46,14 +46,10 @@ function ArticleItemEditView ({
 
   const isUpdating = articleId > 0;
 
-  const resultOfLoadAction: ArticleItemStoreLoadActionResult = useMemo(
-    () => {
-      const result: ArticleItemStoreLoadActionResult = {
-        id: articleId
-      };
-
-      return result;
-    },
+  const resultOfLoadAction = useMemo<ArticleItemStoreLoadActionResult>(
+    () => ({
+      id: articleId
+    }),
     [articleId]
   );
 

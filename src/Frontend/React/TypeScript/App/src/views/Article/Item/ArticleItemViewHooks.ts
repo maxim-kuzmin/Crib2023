@@ -47,17 +47,14 @@ export function createArticleItemViewHooks ({
 
     const { language } = translator;
 
-    return useMemo(() => {
-        const result: ArticleItemViewResource = {
-          getActionForBackToList: () => tActionForBackToList,
-          getActionForEdit: () => tActionForEdit,
-          getLabelForId: () => tLabelForId,
-          getTitle: () => tTitle,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<ArticleItemViewResource>(
+      () => ({
+        getActionForBackToList: () => tActionForBackToList,
+        getActionForEdit: () => tActionForEdit,
+        getLabelForId: () => tLabelForId,
+        getTitle: () => tTitle,
+        language
+      }),
       [
         tTitle,
         tActionForBackToList,

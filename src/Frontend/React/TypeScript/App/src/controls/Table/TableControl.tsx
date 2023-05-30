@@ -94,33 +94,29 @@ function TableControl ({
   const tPaginationPartForPrev3Pages = resourceOfTableControl.getPaginationPartForPrev3Pages();
   const tPaginationPartForNext3Pages = resourceOfTableControl.getPaginationPartForNext3Pages();
 
-  const paginationConfig: TablePaginationConfig = useMemo(
-    () => {
-      const result: TablePaginationConfig = {
-        defaultPageSize,
-        showTotal: (total, range) => `${range[0]}-${range[1]} ${tPaginationPartForFrom} ${total}`,
-        pageSizeOptions: [10, 20, 50, 100, 1000000],
-        position: ['bottomLeft', 'topLeft'],
-        showQuickJumper: true,
-        showSizeChanger: true,
-        size: 'small',
-        hideOnSinglePage: false,
-        locale: {
-          items_per_page: tPaginationPartForPerPage,
-          jump_to: tPaginationPartForJumpTo,
-          // jump_to_confirm?: string;
-          page: tPaginationPartForPageTo,
-          prev_page: tPaginationPartForPrevPage,
-          next_page: tPaginationPartForNextPage,
-          prev_5: tPaginationPartForPrev5Pages,
-          next_5: tPaginationPartForNext5Pages,
-          prev_3: tPaginationPartForPrev3Pages,
-          next_3: tPaginationPartForNext3Pages
-        },
-      };
-
-      return result;
-    },
+  const paginationConfig = useMemo<TablePaginationConfig>(
+    () => ({
+      defaultPageSize,
+      showTotal: (total, range) => `${range[0]}-${range[1]} ${tPaginationPartForFrom} ${total}`,
+      pageSizeOptions: [10, 20, 50, 100, 1000000],
+      position: ['bottomLeft', 'topLeft'],
+      showQuickJumper: true,
+      showSizeChanger: true,
+      size: 'small',
+      hideOnSinglePage: false,
+      locale: {
+        items_per_page: tPaginationPartForPerPage,
+        jump_to: tPaginationPartForJumpTo,
+        // jump_to_confirm?: string;
+        page: tPaginationPartForPageTo,
+        prev_page: tPaginationPartForPrevPage,
+        next_page: tPaginationPartForNextPage,
+        prev_5: tPaginationPartForPrev5Pages,
+        next_5: tPaginationPartForNext5Pages,
+        prev_3: tPaginationPartForPrev3Pages,
+        next_3: tPaginationPartForNext3Pages
+      },
+    }),
     [
       defaultPageSize,
       tPaginationPartForFrom,

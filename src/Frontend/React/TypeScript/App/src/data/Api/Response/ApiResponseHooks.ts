@@ -25,18 +25,14 @@ export function createApiResponseHooks ({
 
     const { language } = translator;
 
-    return useMemo(
-      () => {
-        const result: ApiResponseResource = {
-          getErrorMessageForDefault: () => tErrorMessageForDefault,
-          getErrorMessageForHttp400: () => tErrorMessageForHttp400,
-          getErrorMessageForHttp404: () => tErrorMessageForHttp404,
-          getErrorMessageForHttp500: () => tErrorMessageForHttp500,
-          language
-        };
-
-        return result;
-      },
+    return useMemo<ApiResponseResource>(
+      () => ({
+        getErrorMessageForDefault: () => tErrorMessageForDefault,
+        getErrorMessageForHttp400: () => tErrorMessageForHttp400,
+        getErrorMessageForHttp404: () => tErrorMessageForHttp404,
+        getErrorMessageForHttp500: () => tErrorMessageForHttp500,
+        language
+      }),
       [
         tErrorMessageForDefault,
         tErrorMessageForHttp400,

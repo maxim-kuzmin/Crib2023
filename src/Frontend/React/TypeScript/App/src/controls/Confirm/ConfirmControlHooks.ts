@@ -23,20 +23,16 @@ export function createConfirmControlHooks ({
 
     const { language } = translator;
 
-    return useMemo(
-      () => {
-        const result: ConfirmControlResource = {
-          getCancelButtonText: () => tCancelButtonText,
-          getDeleteConfirmContent: () => tDeleteConfirmContent,
-          getDeleteConfirmTitle: () => tDeleteConfirmTitle,
-          getLeaveFormConfirmContent: () => tFormConfirmContent,
-          getLeaveFormConfirmTitle: () => tLeaveFormConfirmTitle,
-          getOkButtonText: () => tOkButtonText,
-          language
-        }
-
-        return result;
-      },
+    return useMemo<ConfirmControlResource>(
+      () => ({
+        getCancelButtonText: () => tCancelButtonText,
+        getDeleteConfirmContent: () => tDeleteConfirmContent,
+        getDeleteConfirmTitle: () => tDeleteConfirmTitle,
+        getLeaveFormConfirmContent: () => tFormConfirmContent,
+        getLeaveFormConfirmTitle: () => tLeaveFormConfirmTitle,
+        getOkButtonText: () => tOkButtonText,
+        language
+      }),
       [
         tCancelButtonText,
         tDeleteConfirmContent,
