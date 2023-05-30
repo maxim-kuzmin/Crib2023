@@ -18,18 +18,22 @@ interface Options {
   readonly pathOfTopicPathViewResource: string;
 }
 
-export function createTopicViewHooks ({
-  hooksOfTopicItemStore,
-  hooksOfTopicTreeStore,
-  pathOfTopicPathViewResource,
-}: Options): TopicViewHooks {
-  const hooksOfItem = createTopicItemViewHooks({ hooksOfTopicItemStore });
-  const hooksOfPath = createTopicPathViewHooks({ pathOfTopicPathViewResource });
-  const hooksOfTree = createTopicTreeViewHooks({ hooksOfTopicTreeStore });
+class Implementation implements TopicViewHooks {
+  readonly Item: TopicItemViewHooks;
+  readonly Path: TopicPathViewHooks;
+  readonly Tree: TopicTreeViewHooks;
 
-  return {
-    Item: hooksOfItem,
-    Path: hooksOfPath,
-    Tree: hooksOfTree,
-  };
+  constructor ({
+    hooksOfTopicItemStore,
+    hooksOfTopicTreeStore,
+    pathOfTopicPathViewResource,
+  }: Options) {
+    this.Item = createTopicItemViewHooks({ hooksOfTopicItemStore });
+    this.Path = createTopicPathViewHooks({ pathOfTopicPathViewResource });
+    this.Tree = createTopicTreeViewHooks({ hooksOfTopicTreeStore });
+  }
+}
+
+export function createTopicViewHooks (options: Options): TopicViewHooks {
+  return new Implementation(options);
 }

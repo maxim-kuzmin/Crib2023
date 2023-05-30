@@ -16,22 +16,30 @@ interface Options {
   readonly pathOfArticleTableViewResource: string;
 }
 
-export function createArticleViewHooks ({
-  hooksOfArticleItemStore,
-  hooksOfArticleListStore,
-  pathOfArticleItemViewResource,
-  pathOfArticleItemEditViewResource,
-  pathOfArticleTableViewResource,
-}: Options): ArticleViewHooks {
-  const hooksOfItem = createArticleItemViewHooks({
+class Implementation implements ArticleViewHooks {
+  readonly Item: ArticleItemViewHooks;
+  readonly Table: ArticleTableViewHooks;
+
+  constructor ({
     hooksOfArticleItemStore,
+    hooksOfArticleListStore,
     pathOfArticleItemViewResource,
     pathOfArticleItemEditViewResource,
-  });
-  const hooksOfTable = createArticleTableViewHooks({ hooksOfArticleListStore, pathOfArticleTableViewResource });
+    pathOfArticleTableViewResource,
+  }: Options) {
+    this.Item = createArticleItemViewHooks({
+      hooksOfArticleItemStore,
+      pathOfArticleItemViewResource,
+      pathOfArticleItemEditViewResource,
+    });
 
-  return {
-    Item: hooksOfItem,
-    Table: hooksOfTable,
-  };
+    this.Table = createArticleTableViewHooks({
+      hooksOfArticleListStore,
+      pathOfArticleTableViewResource,
+    });
+  }
+}
+
+export function createArticleViewHooks (options: Options): ArticleViewHooks {
+  return new Implementation(options);
 }

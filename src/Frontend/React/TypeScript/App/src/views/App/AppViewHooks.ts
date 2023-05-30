@@ -10,12 +10,15 @@ interface Options {
   readonly hooksOfAppNotificationStore: AppNotificationStoreHooks;
 }
 
-export function createAppViewHooks ({
-  hooksOfAppNotificationStore
-}: Options): AppViewHooks {
-  const hooksOfNotification = createAppNotificationViewHooks({ hooksOfAppNotificationStore });
+class Implementation implements AppViewHooks {
+  readonly Notification: AppNotificationViewHooks;
 
-  return {
-    Notification: hooksOfNotification
-  };
+  constructor ({
+    hooksOfAppNotificationStore
+  }: Options) {
+    this.Notification = createAppNotificationViewHooks({ hooksOfAppNotificationStore });
+  }
+}
+export function createAppViewHooks (options: Options): AppViewHooks {
+  return new Implementation(options);
 }
