@@ -48,9 +48,9 @@ function reducer (
       };
 
       if (actionResult?.error) {
-        state.statusOfLoadAction = OperationStatus.Rejected;
+        state.statusOfDeleteAction = OperationStatus.Rejected;
       } else {
-        state.statusOfLoadAction = OperationStatus.Fulfilled;
+        state.statusOfDeleteAction = OperationStatus.Fulfilled;
         state.resultOfSetAction = null;
       }
     } break;
