@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
-import { createArticleDomainItemSaveOperationRequest } from '../../../../../../domains';
+import { type ApiOperationResponse } from '../../../../../../data';
+import {
+  createArticleDomainItemSaveOperationRequest,
+  createArticleDomainItemGetOperationResponse,
+} from '../../../../../../domains';
 import {
   type ArticleItemStoreSaveActionData,
   type ArticleItemStoreSaveActionDispatch,
   type ArticleItemStoreSaveActionPayload,
   type ArticleItemStoreSaveActionResult,
+  type ArticleItemStoreSaveCompletedActionResult,
   type ArticleItemStoreSliceName,
   createArticleItemStoreSaveActionData,
   createArticleItemStoreSaveActionPayload,
@@ -73,18 +78,28 @@ export function useStoreSaveActionDispatch (
 
       const { actionResult } = payload;
 
-      const response = actionResult
-        ? await requestHandler.handle(
-            createArticleDomainItemSaveOperationRequest(
-              actionResult,
-              {
-                operationName: resourceOfArticleItemStore.getOperationNameForSave(),
-                resourceOfApiResponse
-              }
-            ),
-            abortSignal
-          )
-        : null;
+      let response: ArticleItemStoreSaveCompletedActionResult = null;
+
+      try {
+        response = actionResult
+          ? await requestHandler.handle(
+              createArticleDomainItemSaveOperationRequest(
+                actionResult,
+                {
+                  operationName: resourceOfArticleItemStore.getOperationNameForSave(),
+                  resourceOfApiResponse
+                }
+              ),
+              abortSignal
+            )
+          : null;
+      } catch (error: unknown) {
+        const errorResponse = error as ApiOperationResponse;
+
+        if (errorResponse) {
+          response = createArticleDomainItemGetOperationResponse(errorResponse);
+        }
+      }
 
       if (abortSignal?.aborted) {
         return;

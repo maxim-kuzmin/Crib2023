@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
-import { createArticleDomainListGetOperationRequest } from '../../../../../../domains';
+import { type ApiOperationResponse } from '../../../../../../data';
+import {
+  createArticleDomainListGetOperationRequest,
+  createArticleDomainListGetOperationResponse,
+} from '../../../../../../domains';
 import {
   type ArticleListStoreLoadActionData,
   type ArticleListStoreLoadActionDispatch,
   type ArticleListStoreLoadActionPayload,
   type ArticleListStoreLoadActionResult,
+  type ArticleListStoreLoadCompletedActionResult,
   type ArticleListStoreSliceName,
   createArticleListStoreLoadActionData,
   createArticleListStoreLoadActionPayload,
@@ -73,18 +78,28 @@ export function useStoreLoadActionDispatch (
 
       const { actionResult } = payload;
 
-      const response = actionResult
-        ? await requestHandler.handle(
+      let response: ArticleListStoreLoadCompletedActionResult = null;
+
+      try {
+        response = actionResult
+          ? await requestHandler.handle(
             createArticleDomainListGetOperationRequest(
-              actionResult,
-              {
-                operationName: resourceOfArticleListStore.getOperationNameForGet(),
-                resourceOfApiResponse
-              }
-            ),
-            abortSignal
-          )
-        : null;
+                actionResult,
+                {
+                  operationName: resourceOfArticleListStore.getOperationNameForGet(),
+                  resourceOfApiResponse
+                }
+              ),
+              abortSignal
+            )
+          : null;
+      } catch (error: unknown) {
+        const errorResponse = error as ApiOperationResponse;
+
+        if (errorResponse) {
+          response = createArticleDomainListGetOperationResponse(errorResponse);
+        }
+      }
 
       if (abortSignal?.aborted) {
         return;

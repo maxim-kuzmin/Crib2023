@@ -7,6 +7,7 @@ import {
   type TopicItemStoreDeleteActionDispatch,
   type TopicItemStoreDeleteActionPayload,
   type TopicItemStoreDeleteActionResult,
+  type TopicItemStoreDeleteCompletedActionResult,
   type TopicItemStoreSliceName,
   createTopicItemStoreDeleteActionData,
   createTopicItemStoreDeleteActionPayload,
@@ -16,6 +17,7 @@ import { useTopicItemStoreDispatch } from '../../../TopicItemStoreHooks';
 import {
   useStoreDeleteCompletedActionDispatch
 } from '../DeleteCompleted/TopicItemStoreDeleteCompletedActionDispatchHook';
+import { type ApiOperationResponse } from '../../../../../../data';
 
 interface Options extends StoreActionOptions {
   readonly resultOfDeleteAction?: TopicItemStoreDeleteActionResult;
@@ -73,18 +75,28 @@ export function useStoreDeleteActionDispatch (
 
       const { actionResult } = payload;
 
-      const response = actionResult
-        ? await requestHandler.handle(
+      let response: TopicItemStoreDeleteCompletedActionResult = null;
+
+      try {
+        response = actionResult
+          ? await requestHandler.handle(
             createTopicDomainItemDeleteOperationRequest(
-              actionResult,
-              {
-                operationName: resourceOfTopicItemStore.getOperationNameForDelete(),
-                resourceOfApiResponse
-              }
-            ),
-            abortSignal
-          )
-        : null;
+                actionResult,
+                {
+                  operationName: resourceOfTopicItemStore.getOperationNameForDelete(),
+                  resourceOfApiResponse
+                }
+              ),
+              abortSignal
+            )
+          : null;
+      } catch (error: unknown) {
+        const errorResponse = error as ApiOperationResponse;
+
+        if (errorResponse) {
+          response = errorResponse;
+        }
+      }
 
       if (abortSignal?.aborted) {
         return;

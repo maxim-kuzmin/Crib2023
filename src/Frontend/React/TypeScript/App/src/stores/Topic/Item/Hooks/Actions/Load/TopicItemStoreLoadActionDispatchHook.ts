@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useAppInstance } from '../../../../../../app';
 import { type StoreActionOptions, StoreDispatchType } from '../../../../../../common';
-import { createTopicDomainItemGetOperationRequest } from '../../../../../../domains';
+import { type ApiOperationResponse } from '../../../../../../data';
+import {
+  createTopicDomainItemGetOperationRequest,
+  createTopicDomainItemGetOperationResponse,
+} from '../../../../../../domains';
 import {
   type TopicItemStoreLoadActionData,
   type TopicItemStoreLoadActionDispatch,
   type TopicItemStoreLoadActionPayload,
   type TopicItemStoreLoadActionResult,
+  type TopicItemStoreLoadCompletedActionResult,
   type TopicItemStoreSliceName,
   createTopicItemStoreLoadActionData,
   createTopicItemStoreLoadActionPayload,
@@ -73,18 +78,28 @@ export function useStoreLoadActionDispatch (
 
       const { actionResult } = payload;
 
-      const response = actionResult
-        ? await requestHandler.handle(
+      let response: TopicItemStoreLoadCompletedActionResult = null;
+
+      try {
+        response = actionResult
+          ? await requestHandler.handle(
             createTopicDomainItemGetOperationRequest(
-              actionResult,
-              {
-                operationName: resourceOfTopicItemStore.getOperationNameForGet(),
-                resourceOfApiResponse
-              }
-            ),
-            abortSignal
-          )
-        : null;
+                actionResult,
+                {
+                  operationName: resourceOfTopicItemStore.getOperationNameForGet(),
+                  resourceOfApiResponse
+                }
+              ),
+              abortSignal
+            )
+          : null;
+      } catch (error: unknown) {
+        const errorResponse = error as ApiOperationResponse;
+
+        if (errorResponse) {
+          response = createTopicDomainItemGetOperationResponse(errorResponse);
+        }
+      }
 
       if (abortSignal?.aborted) {
         return;
