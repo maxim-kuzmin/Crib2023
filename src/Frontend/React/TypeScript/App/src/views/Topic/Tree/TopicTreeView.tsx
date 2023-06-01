@@ -74,6 +74,8 @@ function TopicTreeView ({
     statusOfLoadAction: topicItemStatus
   } = hooks.Views.Topic.Item.useStoreState();
 
+  hooks.Views.Topic.Tree.useStoreClearActionOutput();
+
   const topicId = topicItemResponse?.data?.item.data.id ?? 0;
 
   const resultOfLoadAction = useMemo<TopicTreeStoreLoadActionResult>(

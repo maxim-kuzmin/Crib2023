@@ -46,6 +46,8 @@ function ArticleTableView ({
 
   const resourceOfArticleTableView = hooks.Views.Article.Table.useResource();
 
+  hooks.Views.Article.Table.useStoreClearActionOutput();
+
   const resultOfLoadAction: ArticleListStoreLoadActionResult = useMemo(
     () => {
       const result: ArticleListStoreLoadActionResult = {
