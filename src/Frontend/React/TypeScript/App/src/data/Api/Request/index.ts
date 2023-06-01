@@ -1,4 +1,3 @@
-export { type ApiRequest, createApiRequest } from './ApiRequest';
 export { type ApiRequestCreationOptions } from './ApiRequestCreationOptions';
 export { type ApiRequestWithInput, createApiRequestWithInput } from './ApiRequestWithInput';
 export { type ApiRequestHandler } from './ApiRequestHandler';

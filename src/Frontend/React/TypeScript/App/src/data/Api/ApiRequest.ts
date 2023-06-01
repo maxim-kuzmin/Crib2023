@@ -1,5 +1,5 @@
-import { type ApiResponseResource } from '../Response';
-import { type ApiRequestCreationOptions } from './ApiRequestCreationOptions';
+import { type ApiResponseResource } from './Response';
+import { type ApiRequestCreationOptions } from './Request/ApiRequestCreationOptions';
 
 export interface ApiRequest {
   operationCode: string;

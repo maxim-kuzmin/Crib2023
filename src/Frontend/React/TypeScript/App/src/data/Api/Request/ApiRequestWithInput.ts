@@ -1,4 +1,4 @@
-import { createApiRequest, type ApiRequest } from './ApiRequest';
+import { createApiRequest, type ApiRequest } from '../ApiRequest';
 import { type ApiRequestCreationOptions } from './ApiRequestCreationOptions';
 
 export interface ApiRequestWithInput<TInput> extends ApiRequest {

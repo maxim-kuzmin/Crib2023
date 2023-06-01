@@ -1,6 +1,6 @@
 import { type OperationHandler, type OperationInput } from '../../../common';
 import { type ApiOperationResponse, type ApiOperationResponseWithData } from '../Operation';
-import { type ApiRequest } from './ApiRequest';
+import { type ApiRequest } from '../ApiRequest';
 import { type ApiRequestWithInput } from './ApiRequestWithInput';
 
 export interface ApiRequestHandler {
@@ -182,6 +182,8 @@ class Implementation implements ApiRequestHandler {
     } catch (error: unknown) {
       if (!abortSignal?.aborted) {
         this.operationHandler.handleError(error);
+
+        throw error;
       }
     }
 

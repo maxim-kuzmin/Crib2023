@@ -230,26 +230,34 @@ class Implementation implements ApiClient {
         });
       }
 
-      if (status === 400) {
+      if (typeof value !== 'string') {
+        if (status === 400) {
           responseWithDetails = value;
 
           if (responseWithDetails) {
             responseDataWithDetails = responseWithDetails.data;
           }
-      } else if (status === 500) {
-          responseWithMessages = value;
+        } else if (status === 500) {
+            responseWithMessages = value;
 
-          if (responseWithMessages) {
-            responseDataWithMessages = responseWithMessages.data;
-          }
+            if (responseWithMessages) {
+              responseDataWithMessages = responseWithMessages.data;
+            }
+        }
+
+        errorOfApiResponse = createApiResponseError({
+          resourceOfApiResponse,
+          responseStatus: status,
+          responseDataWithDetails,
+          responseDataWithMessages
+        });
+      } else {
+        errorOfApiResponse = createApiResponseError({
+          errorMessage: value,
+          responseStatus: status,
+          resourceOfApiResponse
+        });
       }
-
-      errorOfApiResponse = createApiResponseError({
-        resourceOfApiResponse,
-        responseStatus: status,
-        responseDataWithDetails,
-        responseDataWithMessages
-      });
     } catch (error: unknown) {
       errorOfApiResponse = createApiResponseError({
         errorMessage: (error instanceof Error) ? error.message : '',
@@ -303,26 +311,34 @@ class Implementation implements ApiClient {
         });
       }
 
-      if (status === 400) {
-        responseWithDetails = value;
+      if (typeof value !== 'string') {
+        if (status === 400) {
+          responseWithDetails = value;
 
-        if (responseWithDetails) {
-          responseDataWithDetails = responseWithDetails.data;
-        }
-      } else if (status === 500) {
-          responseWithMessages = value;
-
-          if (responseWithMessages) {
-            responseDataWithMessages = responseWithMessages.data;
+          if (responseWithDetails) {
+            responseDataWithDetails = responseWithDetails.data;
           }
-      }
+        } else if (status === 500) {
+            responseWithMessages = value;
 
-      errorOfApiResponse = createApiResponseError({
-        resourceOfApiResponse,
-        responseStatus: status,
-        responseDataWithDetails,
-        responseDataWithMessages
-      });
+            if (responseWithMessages) {
+              responseDataWithMessages = responseWithMessages.data;
+            }
+        }
+
+        errorOfApiResponse = createApiResponseError({
+          resourceOfApiResponse,
+          responseStatus: status,
+          responseDataWithDetails,
+          responseDataWithMessages
+        });
+      } else {
+        errorOfApiResponse = createApiResponseError({
+          errorMessage: value,
+          responseStatus: status,
+          resourceOfApiResponse
+        });
+      }
     } catch (error: unknown) {
       errorOfApiResponse = createApiResponseError({
         errorMessage: (error instanceof Error) ? error.message : '',
