@@ -6,17 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Backend/Gateways/WebAPI/App/App.csproj", "Backend/Gateways/WebAPI/App/"]
-COPY ["Backend/Gateways/WebAPI/Domains.CatalogArticle/Domains.CatalogArticle.csproj", "Backend/Gateways/WebAPI/Domains.CatalogArticle/"]
-COPY ["Backend/Gateways/WebAPI/Domain/Domain.csproj", "Backend/Gateways/WebAPI/Domain/"]
-COPY ["Backend/Gateways/WebAPI/Domains.CatalogTopic/Domains.CatalogTopic.csproj", "Backend/Gateways/WebAPI/Domains.CatalogTopic/"]
-RUN dotnet restore "Backend/Gateways/WebAPI/App/App.csproj"
+COPY ["Backend/Gateways/WebAPI/App/Backend.Gateways.WebAPI.App.csproj", "Backend/Gateways/WebAPI/App/"]
+COPY ["Backend/Gateways/WebAPI/Domain/Backend.Gateways.WebAPI.Domain.csproj", "Backend/Gateways/WebAPI/Domain/"]
+COPY ["Backend/Gateways/WebAPI/Domains.CatalogArticle/Backend.Gateways.WebAPI.Domains.CatalogArticle.csproj", "Backend/Gateways/WebAPI/Domains.CatalogArticle/"]
+COPY ["Backend/Gateways/WebAPI/Domains.CatalogTopic/Backend.Gateways.WebAPI.Domains.CatalogTopic.csproj", "Backend/Gateways/WebAPI/Domains.CatalogTopic/"]
+RUN dotnet restore "Backend/Gateways/WebAPI/App/Backend.Gateways.WebAPI.App.csproj"
 COPY . .
 WORKDIR "/src/Backend/Gateways/WebAPI/App"
-RUN dotnet build "App.csproj" -c Release -o /app/build
+RUN dotnet build "Backend.Gateways.WebAPI.App.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "App.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Backend.Gateways.WebAPI.App.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
